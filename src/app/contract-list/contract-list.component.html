@@ -1,0 +1,44 @@
+<div class="mat-elevation-z8 main">
+    <mat-expansion-panel expanded='true'>
+        <mat-expansion-panel-header>
+            <mat-panel-title>検索条件</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-div">
+        <table class="search-tbl">
+            <tr>
+            <th>物件番号</th>
+            <td>
+                <input type="text">
+            </td>
+            <th>契約番号</th>
+            <td>
+                <input type="text">
+            </td>
+            </tr>
+            <tr>
+            <th>契約日（仕入）</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="finishDate" class="width150">
+                    <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #finishDate></mat-datepicker>
+                </div>
+            </td>
+            <th>支払日</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="payDate" class="width150">
+                    <mat-datepicker-toggle matSuffix [for]="payDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #payDate></mat-datepicker>
+                </div>
+            </td>
+            </tr>       
+        </table>      
+        <div style="margin: 10px 0px 10px 0px;">
+            <button mat-raised-button (click)="searchContract()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;&nbsp;
+            <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>
+        </div>
+        </div>    
+        
+    </mat-expansion-panel>
+</div>        

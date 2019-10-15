@@ -1,1 +1,129 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.width80{
+    min-width: 80px !important;
+    width: 80px !important;
+}
+.width100{
+    width: 100px;
+}
+.width150{
+    width: 150px !important;
+}
+.width158{
+    width: 158px !important;
+}
+.width200{
+    width: 200px;
+}
+.width400{
+    width: 400px;
+}
+.width600{
+    width: 600px;
+}
+.picker-div{
+    display: inline-flex;
+    margin-top:2px;
+    height: 26px;
+}
+.picker-icon{
+    margin-left: -32px;
+    margin-top: -8px;
+}
+
+.error-span{
+    color:red;
+    font-weight: bold;
+}
+
+/*---------search table-----------*/
+.search-div{
+    width: 100%;
+    margin:-10px;
+    overflow: auto;    
+}
+
+.search-tbl{
+    width: 100%;   
+    border-spacing: 0px;
+    border-collapse: collapse;    
+}
+.search-tbl > tr{
+    height: 30px;    
+}
+
+.search-tbl > tr > th{
+    width:140px !important;
+    background-color: #D9E1F2;
+    text-align: left;
+    padding: 2px;
+    padding-left:5px;
+    font-size: 0.8em;
+    border: solid 1px rgba(0,0,0,.12);    
+}
+.search-tbl > tr > td{
+    padding: 2px;
+    border: solid 1px rgba(0,0,0,.12);    
+}
+.search-tbl > tr > td > input[type="text"]{
+    min-width: 150px;
+    height: 21px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+    margin-left: 3px;
+}
+/*----------/search table---------*/
+
+/*-----------detail table----------*/
+.page-title{
+    width: 103%;
+    margin:-20px;
+    height:40px;    
+}
+.page-title > h1{
+    font-size: 0.8em;
+}
+
+.detail-div{
+    width: 98%;
+    margin:5px;
+    margin-top:25px;
+    /*height: 98%;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.detail-tbl{
+    width: 100%;   
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+.detail-tbl > tr{
+    height: 30px;    
+}
+
+.detail-tbl > tr > th{
+    width:140px !important;
+    background-color: #D9E1F2;
+    text-align: left;
+    padding: 2px;
+    padding-left:5px;
+    font-size: 0.8em;
+    border: solid 1px rgba(0,0,0,.12);    
+}
+.detail-tbl > tr > th.min{
+    width: 20px !important;
+}
+.detail-tbl > tr > th.min2{
+    width: 113px !important;
+}
+.detail-tbl > tr > td{
+    padding: 2px;
+    border: solid 1px rgba(0,0,0,.12);    
+}
+/*--------------/detail table-------------*/

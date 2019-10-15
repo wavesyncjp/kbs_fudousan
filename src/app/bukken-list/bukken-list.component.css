@@ -1,0 +1,62 @@
+mat-expansion-panel-header{
+    height: 45px !important;
+}
+.main{
+    width: 98%;
+    margin: 10px;    
+}
+.data{
+    max-height: calc(100% - 200px);
+    overflow: auto;
+}
+mat-form-field{
+    margin-right: 10px;
+}
+table {
+    width: 100%;
+}
+th.mat-column-detail, td.mat-column-detail {
+    width: 100px;
+}
+th.mat-column-bukkenId, td.mat-column-bukkenId {
+    width: 100px;
+}
+
+.mat-header-row{
+    height: 40px;    
+    background-color: cadetblue;
+}
+.mat-header-row > th{    
+    color: white;
+}
+
+.mat-row{
+    height: 40px;
+}
+.mat-row > td > button{
+    height: 30px;
+}
+.mat-column-detail{
+    text-align: right;
+}
+.mat-column-bukkenId{
+    width: 80px;
+}
+.mat-column-bukkenCode{
+    width: 200px;
+}
+
+mat-paginator{
+    width: 100%;
+}
+
+.highlighted {
+  background-color: antiquewhite;
+}
+
+.search-btn {
+  margin-right: 12px;
+}
+.mat-raised-button{
+    margin-right: 10px;
+}

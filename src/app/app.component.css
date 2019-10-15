@@ -1,0 +1,55 @@
+ .app-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .app-toolbar{
+    height:40px;
+  }
+  .app-toolbar > h1,
+  .app-toolbar > button{
+    font-size: 0.8em;
+  }
+
+  .app-is-mobile .app-toolbar {
+    position: fixed;
+    z-index: 2;
+  }
+  
+  h1.app-app-name {
+    margin-left: 8px;
+  }
+  
+  .app-sidenav-container {    
+    flex: 1;
+  }
+
+  .app-sidenav-container > mat-sidenav{
+    background-color: cadetblue;
+  }
+  
+  .app-is-mobile .app-sidenav-container {
+    flex: 1 0 auto;
+  }
+  
+  mat-nav-list > button{
+      min-width: 180px;
+      min-height: 45px;
+      margin: 10px 5px 10px 5px;
+  }
+
+  mat-nav-list > button:hover{
+    background-color: bisque;
+}
+
+.logout-btn{
+  position: absolute;
+  font-size: 0.6em !important;
+  height: 35px;
+  top: 2px;
+  right: 10px;
+}

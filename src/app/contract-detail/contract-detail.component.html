@@ -1,0 +1,75 @@
+<mat-toolbar color="primary" class="page-title">
+    <h1 class="example-app-name">契約詳細</h1>
+</mat-toolbar>
+<div class="detail-div">
+    <table class="detail-tbl">  
+        <tr>
+            <th>情報収集日</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="picker" class="width150">
+                    <mat-datepicker-toggle matSuffix [for]="picker" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </td>
+            <th>情報担当者</th>
+            <td>
+                <select class="width158">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                </select>
+            </td>
+            <th>情報提供者</th>
+            <td>
+                <input type="text">
+            </td>
+        </tr>
+        <tr>
+            <th>着手日</th>
+            <td colspan="5">
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="startDate" class="width150">
+                    <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                </div>
+            </td>      
+        </tr>
+        <tr>
+            <th>終了日</th>
+            <td >
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="finishDate" class="width150">
+                    <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #finishDate></mat-datepicker>
+                </div>
+            </td>
+            <th>結果</th>
+            <td colspan="3">
+                <select class="width158">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                </select>
+            </td>      
+        </tr>
+        <tr>
+            <th>備考1</th>
+            <td colspan="5">
+                <input type="text" class="width600">
+            </td>      
+        </tr>
+        <tr>
+            <th>備考2</th>
+            <td colspan="5">
+                <input type="text" class="width600">
+            </td>      
+        </tr>
+    </table>
+</div>    
+<mat-dialog-actions align="end" style="margin-top: 20px">
+    <button mat-raised-button mat-dialog-close [mat-dialog-close]="true" cdkFocusInitial>キャンセル</button>
+    <button mat-raised-button>登録</button>
+</mat-dialog-actions>

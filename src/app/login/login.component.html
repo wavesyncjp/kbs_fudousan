@@ -1,0 +1,19 @@
+<mat-card class="login-card">
+    <mat-card-content>               
+        <span class="error-span" *ngIf="user.msg">{{user.msg}}</span>
+        <p>
+            <mat-form-field class="login-input">            
+                <input type="text" matInput placeholder="ログインID" [(ngModel)]="user.loginId">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="login-input">
+            <input type="password" matInput placeholder="パスワード" [(ngModel)]="user.password">
+            </mat-form-field>
+        </p>        
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions class="login-btn">
+        <button mat-raised-button color="primary" (click)="login()">Login</button>
+    </mat-card-actions>
+</mat-card>

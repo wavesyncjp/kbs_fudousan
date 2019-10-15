@@ -1,0 +1,194 @@
+<div class="detail-div">
+<div class="register-div">
+    <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+    <button mat-raised-button color="primary" class="button">登録</button>
+</div>
+<table class="detail-tbl">  
+    <tr>
+        <th>物件番号</th>
+        <td>
+            <input type="text" [ngModel]="data.bukkenName">
+        </td>
+    </tr>
+    <tr>
+        <th>物件名</th>
+        <td>
+            <input type="text" [ngModel]="data.zipcode" class="width400">
+        </td>
+    </tr>
+</table>
+<br>
+<span class="block-title">情報ステータス</span>
+<table class="detail-tbl">  
+    <tr>
+        <th>情報収集日</th>
+        <td>
+            <div class="picker-div">
+                <input type="text" [matDatepicker]="picker" class="width150">
+                <mat-datepicker-toggle matSuffix [for]="picker" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+        </td>
+        <th>情報担当者</th>
+        <td>
+            <select class="width158">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+        </td>
+        <th>情報提供者</th>
+        <td>
+            <input type="text">
+        </td>
+    </tr>
+    <tr>
+        <th>着手日</th>
+        <td colspan="5">
+            <div class="picker-div">
+                <input type="text" [matDatepicker]="startDate" class="width150">
+                <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+            </div>
+        </td>      
+    </tr>
+    <tr>
+        <th>終了日</th>
+        <td >
+            <div class="picker-div">
+                <input type="text" [matDatepicker]="finishDate" class="width150">
+                <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #finishDate></mat-datepicker>
+            </div>
+        </td>
+        <th>結果</th>
+        <td colspan="3">
+            <select class="width158">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+        </td>      
+    </tr>
+    <tr>
+        <th>備考1</th>
+        <td colspan="5">
+            <input type="text" class="width600">
+        </td>      
+    </tr>
+    <tr>
+        <th>備考2</th>
+        <td colspan="5">
+            <input type="text" class="width600">
+        </td>      
+    </tr>
+</table>
+<br>
+<span class="block-title">物件概要</span>
+<table class="detail-tbl">  
+    <tr>
+        <th>不可分</th>
+        <td>
+            <mat-radio-group>
+                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
+                <mat-radio-button value="2">有</mat-radio-button>
+            </mat-radio-group>
+        </td>
+        <th>不可分子</th>
+        <td><input type="text" class="width150"></td>
+        <th>不可分母</th>
+        <td><input type="text" class="width150"></td>
+        <th>地目</th>
+        <td>
+            <select class="width150">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+        </td>
+    </tr>
+</table>
+<table class="detail-tbl" *ngFor="let desc of data.descriptions">  
+    <tr>
+        <th rowspan="7" class="min">所在地</th>
+        <th class="min2">郵便番号</th>
+        <td><input type="text"></td>
+        <th>地積</th>
+        <td><input type="text" class="width80">&nbsp;㎡</td>
+        <th>上物</th>
+        <td><mat-radio-group>
+                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
+                <mat-radio-button value="2">有</mat-radio-button>
+            </mat-radio-group>
+        </td> 
+    </tr>
+    <tr>
+        <th class="min2">都道府県</th>
+        <td><input type="text"></td>
+        <th>坪数</th>
+        <td><input type="text" class="width80">&nbsp;坪</td>
+        <th>建物種別</th>
+        <td>
+            <select class="width158">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+        </td> 
+    </tr>
+    <tr>
+        <th class="min2">所在地1</th>
+        <td><input type="text"></td>
+        <th>容積率</th>
+        <td><input type="text" class="width80">&nbsp;%</td>
+        <th>床面積</th>
+        <td><input type="text" class="width80">&nbsp;㎡</td> 
+    </tr>
+    <tr>
+        <th class="min2">所在地2</th>
+        <td><input type="text"></td>
+        <th>建蔽率</th>
+        <td><input type="text" class="width80">&nbsp;%</td>
+        <th>構造</th>
+        <td>
+            <select class="width158">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+        </td> 
+    </tr>
+    <tr>
+        <th class="min2">地番1(丁目)</th>
+        <td><input type="text"></td>
+        <th>所有者名(土地)</th>
+        <td><input type="text"></td>
+        <th>所有者名(建物)</th>
+        <td><input type="text"></td> 
+    </tr>
+    <tr>
+        <th class="min2">地番2(番地)</th>
+        <td><input type="text"></td>
+        <th>所有者住所(土地)</th>
+        <td><input type="text"></td>
+        <th>所有者住所(建物)</th>
+        <td><input type="text"></td> 
+    </tr>
+    <tr>
+        <th class="min2">家屋番号</th>
+        <td><input type="text"></td>
+        <th>根)抵当権(土地)</th>
+        <td><input type="text"></td>
+        <th>根)抵当権(建物)</th>
+        <td><input type="text"></td> 
+    </tr>
+</table>
+<button mat-mini-fab color="warn" (click)="addDescription()">+</button>
+
+</div>
+
