@@ -1,0 +1,4 @@
+<select class="width158" [(ngModel)]="ngModel">
+    <option value=""></option>
+    <option *ngFor="let code of codes" value="{{code.codeDetail}}" >{{code.name}}</option>    
+</select>

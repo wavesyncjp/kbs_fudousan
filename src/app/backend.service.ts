@@ -2,14 +2,14 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient} from '@angular/common/http';
-import { Bukken, User } from './models/bukken';
+import { Bukken, User, Code } from './models/bukken';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
-  // private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
-  private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
+  private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
+  // private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   private loginUser: User;
 
   constructor(private http: HttpClient) { }
@@ -80,6 +80,16 @@ export class BackendService {
   }
 
   /**
+   * システムコード取得
+   */
+  getCodes(codes: []): Promise<Code[]> {
+    const getCodeApi = 'getcode.php';
+    const body = {code: codes};
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${getCodeApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
    * 帳票出力
    */
   export(): void {
@@ -96,6 +106,21 @@ export class BackendService {
 
     })).subscribe(res => {
     });
+  }
+
+  /**
+   * ファイルアップロード
+   * @param bukkenId ：物件ID
+   * @param file ：ファイル
+   */
+  uploadFile(bukkenId: number, file: File): Promise<object> {
+    const uploadApi = 'file_upload.php';
+
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('bukkenId', bukkenId.toString());
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+
   }
 
 }

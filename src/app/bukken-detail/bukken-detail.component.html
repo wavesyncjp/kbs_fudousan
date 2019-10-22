@@ -1,8 +1,11 @@
 <div class="detail-div">
 <div class="register-div">
     <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-    <button mat-raised-button color="primary" class="button">登録</button>
+    <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
 </div>
+<ul *ngIf="errors.length > 0">
+    <li *ngFor="let msg of errors">{{msg}}</li>
+</ul>
 <table class="detail-tbl">  
     <tr>
         <th>物件番号</th>
@@ -31,16 +34,15 @@
         </td>
         <th>情報担当者</th>
         <td>
-            <select class="width158">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
+            <mat-select multiple class="width158">
+                <mat-option *ngFor="let code of getCode('001')" [value]="code.codeDetail">{{code.name}}</mat-option>
+            </mat-select>
         </td>
         <th>情報提供者</th>
         <td>
-            <input type="text">
+            <mat-select multiple class="width158">
+                <mat-option *ngFor="let code of getCode('004')" [value]="code.codeDetail">{{code.name}}</mat-option>
+            </mat-select>
         </td>
     </tr>
     <tr>
@@ -64,12 +66,7 @@
         </td>
         <th>結果</th>
         <td colspan="3">
-            <select class="width158">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
+            <app-select-component [codes]="getCode('001')" [(ngModel)]="data.zipcode"></app-select-component>
         </td>      
     </tr>
     <tr>
@@ -102,12 +99,7 @@
         <td><input type="text" class="width150"></td>
         <th>地目</th>
         <td>
-            <select class="width150">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
+            <app-select-component [codes]="getCode('002')" [(ngModel)]="data.zipcode"></app-select-component>
         </td>
     </tr>
 </table>
@@ -132,12 +124,7 @@
         <td><input type="text" class="width80">&nbsp;坪</td>
         <th>建物種別</th>
         <td>
-            <select class="width158">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
+            <app-select-component [codes]="getCode('003')" [(ngModel)]="data.zipcode"></app-select-component>
         </td> 
     </tr>
     <tr>
@@ -155,12 +142,7 @@
         <td><input type="text" class="width80">&nbsp;%</td>
         <th>構造</th>
         <td>
-            <select class="width158">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
+            <app-select-component [codes]="getCode('004')" [(ngModel)]="data.zipcode"></app-select-component>
         </td> 
     </tr>
     <tr>
@@ -177,7 +159,7 @@
         <th>所有者住所(土地)</th>
         <td><input type="text"></td>
         <th>所有者住所(建物)</th>
-        <td><input type="text"></td> 
+        <td><input type="text"></td>
     </tr>
     <tr>
         <th class="min2">家屋番号</th>
@@ -188,7 +170,21 @@
         <td><input type="text"></td> 
     </tr>
 </table>
+
+<table class="detail-tbl">
+    <tr>
+        <th>地図添付</th>
+        <td>
+            <app-file bukkenId="data.bukkenId"></app-file>                            
+            <button mat-stroked-button style="float: right;margin-top:5px;">
+                <mat-icon>arrow_drop_down_circle</mat-icon>
+                契約情報
+            </button>            
+        </td>        
+    </tr>
+</table>
+
 <button mat-mini-fab color="warn" (click)="addDescription()">+</button>
 
 </div>
-
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>

@@ -9,13 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule, MatExpansionModule, MatCardModule, MatToolbarModule, MatSidenavModule, MatListModule,
          MatTableModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatDialogModule,
-         MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule
+         MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSnackBarModule
        } from '@angular/material';
 import { BukkenListComponent } from './bukken-list/bukken-list.component';
 import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
+import { SelectComponentComponent } from './uicomponent/select-component/select-component.component';
+import { FileComponentComponent } from './uicomponent/file-component/file-component.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ContractDetailComponent } from './contract-detail/contract-detail.compo
     BukkenListComponent,
     BukkenDetailComponent,
     ContractListComponent,
-    ContractDetailComponent
+    ContractDetailComponent,
+    SelectComponentComponent,
+    FileComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,9 @@ import { ContractDetailComponent } from './contract-detail/contract-detail.compo
     NgxSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

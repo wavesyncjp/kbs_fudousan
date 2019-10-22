@@ -26,3 +26,17 @@ export class BukkenDescription {
 export class Contract {
     contractId: string;
 }
+
+export class Code {
+    code: string;
+    codeDetail: string;
+    name: string;
+    displayOrder: number;
+}
+
+export enum SYSTEM_CODE {
+    CODE_001 = '001',
+    CODE_002 = '002',
+    CODE_003 = '003',
+    CODE_004 = '004',
+}
