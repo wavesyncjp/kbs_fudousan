@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
-import { Bukken, BukkenDescription } from '../models/bukken';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Checklib } from '../utils/checklib';
+import { Templandinfo } from '../models/templandinfo';
+import { Locationinfo } from '../models/locationinfo';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -18,7 +19,7 @@ import { Checklib } from '../utils/checklib';
   ],
 })
 export class BukkenDetailComponent extends BaseComponent {
-  public data: Bukken;
+  public data: Templandinfo;
   public sysCodes = {};
   public errors: string[] = [];
 
@@ -50,12 +51,12 @@ export class BukkenDetailComponent extends BaseComponent {
     });
 
     if (!this.data) {
-      this.data = new Bukken();
-      this.data.zipcode = '99';
+      this.data = new Templandinfo();
+      this.data.bukkenNo = '99';
     }
-    if (!this.data.descriptions || this.data.descriptions.length === 0) {
-      this.data.descriptions = [];
-      this.data.descriptions.push(new BukkenDescription());
+    if (!this.data.locations || this.data.locations.length === 0) {
+      this.data.locations = [];
+      this.data.locations.push(new Locationinfo());
     }
   }
 
@@ -71,8 +72,14 @@ export class BukkenDetailComponent extends BaseComponent {
     // this.dialogRef.close();
   }
 
-  addDescription(): void {
-    this.data.descriptions.push(new BukkenDescription());
+  addLocation(): void {
+    this.data.locations.push(new Locationinfo());
+  }
+
+  removeLocation(): void {
+    if (this.data.locations.length > 1) {
+      this.data.locations.pop();
+    }
   }
 
   /**

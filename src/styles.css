@@ -9,7 +9,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 80px !important;
 }
 .width100{
-    width: 100px;
+    width: 100px !important;
+}
+.width130{
+    width: 130px !important;
 }
 .width150{
     width: 150px !important;
@@ -25,6 +28,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .width600{
     width: 600px;
+}
+.width1000{
+    width: 1000px;
 }
 .picker-div{
     display: inline-flex;
