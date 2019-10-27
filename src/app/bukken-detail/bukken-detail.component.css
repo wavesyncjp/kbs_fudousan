@@ -23,12 +23,13 @@ mat-form-field > input {
 
 .block-title{
     font-size: 0.9em;
-    background-color: cadetblue;
+    background-color: rgb(141, 141, 141);
     color: white;
     /* font-weight: bold; */
     width: 142px !important;
     padding: 2px;
     height: 30px;
+    margin-bottom: 3px;
     display: inline-flex;
     align-items: center;
     border: solid 1px rgba(0,0,0,.12);
@@ -41,6 +42,15 @@ mat-form-field > input {
 
 .register-div{
     float: right;
-    margin: 2px -5px 10px 10px;
+    margin: 2px 0px 10px 10px;
 }
-
+.register-div > button{
+    margin-left:10px;
+    width:80px;
+}
+.contract-block{
+    margin-top: 7px;
+    border:saddlebrown solid 1px;
+    padding-top:3px;
+    padding-bottom: 3px;
+}

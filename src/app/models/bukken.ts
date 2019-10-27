@@ -8,26 +8,24 @@ export class User {
     msg: string;
 }
 
-export class Bukken {
-    bukkenId: string;
-    bukkenCode: string;
-    bukkenName: string;
-    zipcode: string;
-    descriptions: BukkenDescription[];
+export class Department {
+    depCode: string;
+    depName: string;
 }
 
-export class BukkenDescription {
-    zipcode: string;
-    pref: string;
-    address1: string;
-    address2: string;
-}
-
-export class Contract {
-    contractId: string;
+export class Employee {
+    employeeCode: string;
+    employeeName: string;
+    depCode: string;
 }
 
 export class Code {
+    public constructor(init?: any) {
+        if (init) {
+            this.codeDetail = init.code;
+            this.name = init.name;
+        }
+    }
     code: string;
     codeDetail: string;
     name: string;

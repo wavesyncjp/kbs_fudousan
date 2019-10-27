@@ -18,6 +18,7 @@ import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
 import { SelectComponentComponent } from './uicomponent/select-component/select-component.component';
 import { FileComponentComponent } from './uicomponent/file-component/file-component.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FileComponentComponent } from './uicomponent/file-component/file-compon
     ContractListComponent,
     ContractDetailComponent,
     SelectComponentComponent,
-    FileComponentComponent
+    FileComponentComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,6 @@ import { FileComponentComponent } from './uicomponent/file-component/file-compon
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [BukkenDetailComponent, ContractDetailComponent],
+  entryComponents: [BukkenDetailComponent, ContractDetailComponent, ConfirmDialogComponent],
 })
 export class AppModule { }

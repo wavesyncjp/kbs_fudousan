@@ -6,7 +6,7 @@
     <div class="search-div">
       <table class="search-tbl">
         <tr>
-          <th>物件名</th>
+          <th>物件番号</th>
           <td>
             <input type="text">
           </td>
@@ -16,11 +16,11 @@
           </td>
         </tr>
         <tr>
-          <th>物件名</th>
+          <th>着手日</th>
           <td>
             <input type="text">
           </td>
-          <th>物件名</th>
+          <th>終了日</th>
           <td>
             <input type="text">
           </td>
@@ -40,16 +40,11 @@
 <div class="mat-elevation-z8 main data">
 
   <table mat-table [dataSource]="dataSource" matSort>
-    <!-- bukkenId Column -->
-    <ng-container matColumnDef="bukkenId">
-      <th mat-header-cell *matHeaderCellDef> ID. </th>
-      <td mat-cell *matCellDef="let element" > {{element.bukkenId}} </td>
-    </ng-container>
 
      <!-- bukkenId Column -->
-     <ng-container matColumnDef="bukkenCode">
-        <th mat-header-cell *matHeaderCellDef> 物件コード </th>
-        <td mat-cell *matCellDef="let element" > {{element.bukkenCode}} </td>
+     <ng-container matColumnDef="bukkenNo">
+        <th mat-header-cell *matHeaderCellDef> 物件番号 </th>
+        <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
       </ng-container>
   
     <!-- bukkenName Column -->
@@ -58,13 +53,31 @@
       <td mat-cell *matCellDef="let element"> {{element.bukkenName}} </td>
     </ng-container>
   
-    <!-- zipcode Column -->
-    <ng-container matColumnDef="zipcode">
-      <th mat-header-cell *matHeaderCellDef> 郵便番号 </th>
-      <td mat-cell *matCellDef="let element"> {{element.zipcode}} </td>
+    <!-- 着手日 Column -->
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef> 着手日 </th>
+      <td mat-cell *matCellDef="let element"> {{element.startDate | date:'yyyy/MM/dd'}} </td>
     </ng-container>
 
-    <!-- zipcode Column -->
+    <!-- 終了日 Column -->
+    <ng-container matColumnDef="finishDate">
+      <th mat-header-cell *matHeaderCellDef> 終了日 </th>
+      <td mat-cell *matCellDef="let element"> {{element.finishDate | date:'yyyy/MM/dd'}} </td>
+    </ng-container>
+
+     <!-- 不可分 Column -->
+     <ng-container matColumnDef="indivisibleFlg">
+      <th mat-header-cell *matHeaderCellDef> 不可分 </th>
+      <td mat-cell *matCellDef="let element"> {{element.indivisibleFlg}} </td>
+    </ng-container>
+
+     <!-- 地目 Column -->
+     <ng-container matColumnDef="landCategory">
+      <th mat-header-cell *matHeaderCellDef> 地目 </th>
+      <td mat-cell *matCellDef="let element"> {{element.landCategory}} </td>
+    </ng-container>
+
+    <!-- 詳細 Column -->
     <ng-container matColumnDef="detail">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row"> 

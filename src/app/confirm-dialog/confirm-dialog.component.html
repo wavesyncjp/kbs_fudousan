@@ -1,0 +1,16 @@
+<div class="dialog-div">
+    <div class="dialog-title">
+        <span>{{data.title}}</span>
+    </div>
+    <div class="detail-div">
+        <div class="dialog-content">
+            <img src="assets/img/confirm-icon.png">
+            <span>{{data.message}}</span>
+        </div>        
+    </div>
+    <mat-divider style="width: 100%;"></mat-divider>
+    <mat-dialog-actions align="end">        
+        <button mat-raised-button (click)="cancel()">キャンセル</button>
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>
+</div>

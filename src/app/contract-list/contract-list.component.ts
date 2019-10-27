@@ -3,10 +3,10 @@ import { BackendService } from '../backend.service';
 import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ContractDetailComponent } from '../contract-detail/contract-detail.component';
-import { Contract } from '../models/bukken';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
+import { Stockcontractinfo } from '../models/stockcontractinfo';
 
 @Component({
   selector: 'app-contract-list',
@@ -39,7 +39,7 @@ export class ContractListComponent  extends BaseComponent {
     const dialogRef = this.dialog.open(ContractDetailComponent, {
       width: '80%',
       height: '80%',
-      data: new Contract()
+      data: new Stockcontractinfo()
     });
   }
 

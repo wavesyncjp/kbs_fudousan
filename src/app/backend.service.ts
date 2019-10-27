@@ -2,7 +2,8 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient} from '@angular/common/http';
-import { Bukken, User, Code } from './models/bukken';
+import { User, Code, Department, Employee } from './models/bukken';
+import { Templandinfo } from './models/templandinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -70,12 +71,51 @@ export class BackendService {
   }
 
   /**
-   * 物件検索
+   * 土地情報検索
    */
-  searchBukken(): Promise<Bukken[]> {
-    const searchBukkenApi = 'bukken_search.php';
+  searchLand(): Promise<Templandinfo[]> {
+    const searchLandApi = 'landsearch.php';
     const body = {};
-    const req = this.http.post<Bukken[]>(`${this.BaseUrl}/${searchBukkenApi}`, body);
+    const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${searchLandApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 土地情報取得
+   * @param id 土地Id
+   */
+  getLand(id: number): Promise<Templandinfo> {
+    const getLandApi = 'landget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${getLandApi}`, body);
+    return req.toPromise();
+  }
+
+  saveLand(info: Templandinfo): Promise<Templandinfo> {
+    const saveLandApi = 'landsave.php';
+    const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${saveLandApi}`, info);
+    return req.toPromise();
+  }
+
+  /**
+   * 部署取得
+   */
+  getDeps(depCode: string): Promise<Department[]> {
+    const getDepApi = 'getdep.php';
+    const body = {code: depCode};
+    const req = this.http.post<Department[]>(`${this.BaseUrl}/${getDepApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 社員取得
+   */
+  getEmps(empCode: string): Promise<Employee[]> {
+    const getDepApi = 'getemployee.php';
+    const body = {code: empCode};
+    const req = this.http.post<Employee[]>(`${this.BaseUrl}/${getDepApi}`, body);
     return req.toPromise();
   }
 

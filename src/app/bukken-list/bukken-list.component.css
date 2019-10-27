@@ -39,11 +39,23 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
 .mat-column-detail{
     text-align: right;
 }
-.mat-column-bukkenId{
+.mat-column-bukkenNo{
+    width: 150px;
+}
+.mat-column-startDate{
+    width: 120px;
+}
+
+.mat-column-finishDate{
+    width: 120px;
+}
+
+.mat-column-indivisibleFlg{
     width: 80px;
 }
-.mat-column-bukkenCode{
-    width: 200px;
+
+.mat-column-landCategory{
+    width: 150px;
 }
 
 mat-paginator{

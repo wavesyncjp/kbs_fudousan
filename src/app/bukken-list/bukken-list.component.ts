@@ -1,17 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
-import { Bukken } from '../models/bukken';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import {BukkenDetailComponent} from '../bukken-detail/bukken-detail.component';
 import { MatPaginatorIntlJa } from '../adapters/adapters';
 import { Router } from '@angular/router';
 import { stringify } from '@angular/compiler/src/util';
 import { BaseComponent } from '../BaseComponent';
+import { Templandinfo } from '../models/templandinfo';
 
 @Component({
   selector: 'app-bukken-list',
@@ -23,8 +22,8 @@ import { BaseComponent } from '../BaseComponent';
 })
 export class BukkenListComponent extends BaseComponent {
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenId', 'bukkenCode', 'bukkenName', 'zipcode', 'detail'];
-  dataSource = new MatTableDataSource<Bukken>();
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'startDate', 'finishDate', 'indivisibleFlg', 'landCategory', 'detail'];
+  dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -54,7 +53,7 @@ export class BukkenListComponent extends BaseComponent {
    */
   searchBukken() {
     this.spinner.show();
-    this.service.searchBukken().then(res => {
+    this.service.searchLand().then(res => {
       this.dataSource.data = res;
       setTimeout(() => {
         this.spinner.hide();
@@ -67,8 +66,8 @@ export class BukkenListComponent extends BaseComponent {
    * 物件詳細
    * @param row: 物件データ
    */
-  showDetail(row: Bukken) {
-    this.router.navigate(['/bkdetail'], {queryParams: {bukkenId: row.bukkenId}});
+  showDetail(row: Templandinfo) {
+    this.router.navigate(['/bkdetail'], {queryParams: {pid: row.pid}});
   }
 
   /**

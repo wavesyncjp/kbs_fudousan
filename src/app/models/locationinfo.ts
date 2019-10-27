@@ -25,11 +25,7 @@ export class Locationinfo {
     builOwner: string;
     builOwnerAdress: string;
     builMortgage: string;
-    createUserId: number;
-    createDate: Date;
-    updateUserId: number;
-    updateDate: Date;
-    deleteUserId: number;
-    deleteDate: Date;
     contract: Stockcontractinfo;
+
+    hasContract: boolean;
 }
