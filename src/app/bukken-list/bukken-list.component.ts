@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { stringify } from '@angular/compiler/src/util';
 import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
+import { Code } from '../models/bukken';
 
 @Component({
   selector: 'app-bukken-list',
@@ -21,8 +22,10 @@ import { Templandinfo } from '../models/templandinfo';
   ]
 })
 export class BukkenListComponent extends BaseComponent {
+  public deps = [];
+  public sysCodes = {};
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'startDate', 'finishDate', 'indivisibleFlg', 'landCategory', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -42,6 +45,25 @@ export class BukkenListComponent extends BaseComponent {
     this.service.changeTitle('土地情報一覧');
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    const funcs = [];
+    funcs.push(this.service.getCodes(['001']));
+    funcs.push(this.service.getDeps(null));
+
+    Promise.all(funcs).then(values => {
+
+      const codes = values[0] as Code[];
+      if (codes !== null && codes.length > 0) {
+        const uniqeCodes = [...new Set(codes.map(code => code.code))];
+        uniqeCodes.forEach(code => {
+          const lst = codes.filter(c => c.code === code);
+          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          this.sysCodes[code] = lst;
+        });
+      }
+
+      this.deps = values[1];
+    });
   }
 
   highlight(row) {
@@ -54,12 +76,42 @@ export class BukkenListComponent extends BaseComponent {
   searchBukken() {
     this.spinner.show();
     this.service.searchLand().then(res => {
+      if (res !== null && res.length > 0) {
+        res.forEach(obj => {
+          if (obj.department !== null && obj.department !== '') {
+            obj.department = this.deps.filter((c) => c.depCode === obj.department).map(c => c.depName)[0];
+          }
+          if (obj.result !== null && obj.result !== '') {
+            const lst = obj.result.split(',');
+            obj.result = this.getCode('001').filter((c) => lst.includes(c.codeDetail)).map(c => c.name).join(',');
+          }
+        });
+      }
       this.dataSource.data = res;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
 
     });
+  }
+
+  /**
+   * システムコード取得
+   * @param code ：コード
+   */
+  getCode(code: string) {
+    return this.sysCodes[code];
+  }
+
+  /**
+   * 部署変換
+   */
+  getDeps() {
+    if (this.deps) {
+      return this.deps.map(dep => new Code({code: dep.depCode, name: dep.depName}));
+    } else {
+      return [];
+    }
   }
 
   /**

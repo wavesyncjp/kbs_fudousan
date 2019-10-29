@@ -122,7 +122,7 @@ export class BackendService {
   /**
    * システムコード取得
    */
-  getCodes(codes: []): Promise<Code[]> {
+  getCodes(codes: string[]): Promise<Code[]> {
     const getCodeApi = 'getcode.php';
     const body = {code: codes};
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${getCodeApi}`, body);

@@ -14,17 +14,32 @@
           <td>
             <input type="text">
           </td>
+          <th>所在地</th>
+          <td>
+            <input type="text">
+          </td>
         </tr>
         <tr>
-          <th>着手日</th>
+          
+          <th>情報収集日</th>
           <td>
-            <input type="text">
-          </td>
-          <th>終了日</th>
+            <div class="picker-div">
+                <input type="text" [matDatepicker]="pickDate"  class="width150">
+                <mat-datepicker-toggle matSuffix [for]="pickDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #pickDate></mat-datepicker>
+            </div>
+          </td>        
+          <th>担当部署</th>
+          　<td>
+              <app-select-component [codes]="getDeps()"></app-select-component>
+            </td>
+           <th>結果</th>
           <td>
-            <input type="text">
+            <mat-select multiple class="width158 multi-select">
+                <mat-option *ngFor="let code of getCode('001')" [value]="code.codeDetail">{{code.name}}</mat-option>
+            </mat-select>
           </td>
-        </tr>       
+      </tr>        
       </table>      
       <div style="margin: 10px 0px 10px 0px;">
         <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
@@ -52,29 +67,29 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
       <td mat-cell *matCellDef="let element"> {{element.bukkenName}} </td>
     </ng-container>
+
+    <!--所在地-->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 所在地 </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+    </ng-container>
   
-    <!-- 着手日 Column -->
-    <ng-container matColumnDef="startDate">
-      <th mat-header-cell *matHeaderCellDef> 着手日 </th>
-      <td mat-cell *matCellDef="let element"> {{element.startDate | date:'yyyy/MM/dd'}} </td>
+    <!-- 情報収集日 Column -->
+    <ng-container matColumnDef="pickDate">
+      <th mat-header-cell *matHeaderCellDef> 情報収集日 </th>
+      <td mat-cell *matCellDef="let element"> {{element.pickDate | date:'yyyy/MM/dd'}} </td>
     </ng-container>
 
-    <!-- 終了日 Column -->
-    <ng-container matColumnDef="finishDate">
-      <th mat-header-cell *matHeaderCellDef> 終了日 </th>
-      <td mat-cell *matCellDef="let element"> {{element.finishDate | date:'yyyy/MM/dd'}} </td>
-    </ng-container>
-
-     <!-- 不可分 Column -->
-     <ng-container matColumnDef="indivisibleFlg">
-      <th mat-header-cell *matHeaderCellDef> 不可分 </th>
-      <td mat-cell *matCellDef="let element"> {{element.indivisibleFlg}} </td>
+     <!-- 担当部署 Column -->
+     <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef> 担当部署 </th>
+      <td mat-cell *matCellDef="let element"> {{element.department}} </td>
     </ng-container>
 
      <!-- 地目 Column -->
-     <ng-container matColumnDef="landCategory">
-      <th mat-header-cell *matHeaderCellDef> 地目 </th>
-      <td mat-cell *matCellDef="let element"> {{element.landCategory}} </td>
+     <ng-container matColumnDef="result">
+      <th mat-header-cell *matHeaderCellDef> 結果 </th>
+      <td mat-cell *matCellDef="let element"> {{element.result}} </td>
     </ng-container>
 
     <!-- 詳細 Column -->

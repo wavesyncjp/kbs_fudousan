@@ -72,3 +72,12 @@ mat-paginator{
 .mat-raised-button{
     margin-right: 10px;
 }
+
+.multi-select{
+    min-width: 100px;
+    height: 21px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+    margin-left: 3px;
+    height: 25px;
+}
