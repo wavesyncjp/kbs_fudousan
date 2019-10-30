@@ -24,9 +24,6 @@ import { Code } from '../models/bukken';
 })
 export class BukkenDetailComponent extends BaseComponent {
   public data: Templandinfo;
-  public sysCodes = {};
-  public deps = [];
-  public emps = [];
   public errors: string[] = [];
   public pid: number;
 
@@ -97,25 +94,6 @@ export class BukkenDetailComponent extends BaseComponent {
       }, 1000);
 
     });
-  }
-
-  /**
-   * システムコード取得
-   * @param code ：コード
-   */
-  getCode(code: string) {
-    return this.sysCodes[code];
-  }
-
-  /**
-   * 部署変換
-   */
-  getDeps() {
-    if (this.deps) {
-      return this.deps.map(dep => new Code({code: dep.depCode, name: dep.depName}));
-    } else {
-      return [];
-    }
   }
 
   onNoClick(): void {

@@ -22,8 +22,6 @@ import { Code } from '../models/bukken';
   ]
 })
 export class BukkenListComponent extends BaseComponent {
-  public deps = [];
-  public sysCodes = {};
   selectedRowIndex = -1;
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
@@ -93,25 +91,6 @@ export class BukkenListComponent extends BaseComponent {
       }, 500);
 
     });
-  }
-
-  /**
-   * システムコード取得
-   * @param code ：コード
-   */
-  getCode(code: string) {
-    return this.sysCodes[code];
-  }
-
-  /**
-   * 部署変換
-   */
-  getDeps() {
-    if (this.deps) {
-      return this.deps.map(dep => new Code({code: dep.depCode, name: dep.depName}));
-    } else {
-      return [];
-    }
   }
 
   /**
