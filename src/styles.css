@@ -34,7 +34,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .width2000R{
     width: 2000px;
-    background-color: rgb(185, 181, 181);
+    background-color: rgb(141, 141, 141);
 }
 .picker-div{
     display: inline-flex;

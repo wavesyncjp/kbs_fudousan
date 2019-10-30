@@ -51,8 +51,8 @@ mat-form-field > input {
 .contract-block{
     margin-top: 40px;
     background-color: rgb(236, 233, 233);
-    border-top:rgb(173, 173, 173) solid 2px;
-    border-bottom:rgb(173, 173, 173) solid 2px;
+    border-top:rgb(141, 141, 141) solid 2px;
+    border-bottom:rgb(141, 141, 141) solid 2px;
     padding-top:3px;
     padding-bottom: 3px;
 }
