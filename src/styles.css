@@ -29,6 +29,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .width600{
     width: 600px;
 }
+.width85Per{
+    width: 85%;
+}
+.width85PerR{
+    width: 85%;
+    background-color: rgb(141, 141, 141);
+}
 .width2000{
     width: 2000px;
 }
