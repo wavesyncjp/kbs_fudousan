@@ -122,10 +122,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 0.8em;
     border: solid 1px rgba(0,0,0,.12);    
 }
-.detail-tbl > tr > th.min{
+.detail-tbl >.min{
+    font-size: 0.8em;
     width: 20px !important;
     background-color: rgb(84, 148, 137);
     color: white;
+    width: 142px !important;
+    padding: 2px;
+    height: 30px;
+    margin-bottom: 3px;
+    display: inline-flex;
+    align-items: center;
 }
 .detail-tbl > tr > th.min2{
     width: 113px !important;

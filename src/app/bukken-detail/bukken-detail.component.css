@@ -49,8 +49,10 @@ mat-form-field > input {
     width:80px;
 }
 .contract-block{
-    margin-top: 7px;
-    border:saddlebrown solid 1px;
+    margin-top: 40px;
+    background-color: whitesmoke;
+    border-top:rgb(173, 173, 173) solid 2px;
+    border-bottom:rgb(173, 173, 173) solid 2px;
     padding-top:3px;
     padding-bottom: 3px;
 }
