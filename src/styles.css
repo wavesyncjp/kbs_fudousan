@@ -29,8 +29,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .width600{
     width: 600px;
 }
-.width1000{
-    width: 1000px;
+.width2000{
+    width: 2000px;
+}
+.width2000R{
+    width: 2000px;
+    background-color: rgb(185, 181, 181);
 }
 .picker-div{
     display: inline-flex;

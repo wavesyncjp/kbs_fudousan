@@ -76,13 +76,13 @@
             <tr>
                 <th>備考1</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.remark1" class="width600">
+                    <input type="text" [(ngModel)]="data.remark1" class="width2000">
                 </td>      
             </tr>
             <tr>
                 <th>備考2</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.remark2" class="width600">
+                    <input type="text" [(ngModel)]="data.remark2" class="width2000">
                 </td>      
             </tr>
         </table>
@@ -187,7 +187,7 @@
             <tr>
                 <th>所在地</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.remark1" class="width600">
+                    <input type="text" [readOnly]="data.remark1" class="width2000R" >
                 </td>      
             </tr>
         </table>
@@ -211,7 +211,7 @@
         <table class="detail-tbl-aria">  
             <tr>
                 <th class="min2">契約担当者</th>
-                <td><input type="text" [(ngModel)]="location.contract.aContractStaff" class="width130"></td>
+                <td><input type="text" [(ngModel)]="location.contract.aContractStaff" class="width400"></td>
                 <th class="min2">不可分成立日</th>
                 <td>
                     <input type="text" [matDatepicker]="aIndivisibleDate" [(ngModel)]="location.contract.aIndivisibleDate" class="width100">
