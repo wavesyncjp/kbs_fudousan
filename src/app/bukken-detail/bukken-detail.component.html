@@ -194,7 +194,7 @@
         
         <table class="detail-tbl">
             
-            <button mat-stroked-button style="float: right;margin:5px;" (click)="switchContract(location)">
+            <button mat-stroked-button style="float: right;margin:5px;" (click)="switchContract(location)" class="contractButton">
                 <mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
                 <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>
                 契約情報

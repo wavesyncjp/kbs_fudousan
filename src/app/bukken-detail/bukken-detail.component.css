@@ -56,3 +56,6 @@ mat-form-field > input {
     padding-top:3px;
     padding-bottom: 3px;
 }
+.detail-tbl > .contractButton{
+    background-color:white;
+}
