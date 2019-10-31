@@ -31,13 +31,22 @@
           </td>        
           <th>担当部署</th>
           　<td>
+            <!--
               <app-select-component [codes]="getDeps()"></app-select-component>
+            -->              
+                <mat-checkbox *ngFor="let dep of deps">{{dep.depName}}&nbsp;&nbsp;&nbsp;</mat-checkbox>                              
             </td>
            <th>結果</th>
           <td>
+            <!--
             <mat-select multiple class="width158 multi-select">
                 <mat-option *ngFor="let code of getCode('001')" [value]="code.codeDetail">{{code.name}}</mat-option>
             </mat-select>
+            -->
+
+            <section>
+              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="code.codeDetail === '01'" >{{code.name}}&nbsp;&nbsp;&nbsp;</mat-checkbox>              
+            </section>
           </td>
       </tr>        
       </table>      

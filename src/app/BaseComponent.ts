@@ -35,7 +35,7 @@ export class BaseComponent implements OnInit {
      */
     getDeps() {
         if (this.deps) {
-        return this.deps.map(dep => new Code({code: dep.depCode, name: dep.depName}));
+            return this.deps.map(dep => new Code({code: dep.depCode, name: dep.depName}));
         } else {
         return [];
         }
