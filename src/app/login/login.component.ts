@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.user.msg = res.msg;
       } else {
         this.service.setUser(res);
-        this.router.navigate(['/bukkens']);
+        this.router.navigate(['/top']);
       }
     });
   }

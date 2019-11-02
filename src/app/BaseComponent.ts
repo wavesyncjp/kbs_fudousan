@@ -8,6 +8,9 @@ export class BaseComponent implements OnInit {
     public deps = [];
     public emps = [];
 
+    public errorMsgs: string[] = [];
+    public errors = {};
+
     constructor(public router: Router,
                 public service: BackendService) {
 

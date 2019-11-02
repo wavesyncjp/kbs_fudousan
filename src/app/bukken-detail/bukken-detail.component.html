@@ -3,8 +3,8 @@
             <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
             <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
         </div>
-        <ul *ngIf="errors.length > 0">
-            <li *ngFor="let msg of errors">{{msg}}</li>
+        <ul *ngIf="errorMsgs.length > 0" class="error-span">
+            <li *ngFor="let msg of errorMsgs">{{msg}}</li>
         </ul>
         <table class="detail-tbl">  
             <tr>
@@ -16,7 +16,7 @@
             <tr>
                 <th>物件名</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.bukkenName" class="width400">
+                    <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
                 </td>
             </tr>
         </table>

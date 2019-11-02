@@ -24,7 +24,6 @@ import { Code } from '../models/bukken';
 })
 export class BukkenDetailComponent extends BaseComponent {
   public data: Templandinfo;
-  public errors: string[] = [];
   public pid: number;
 
   constructor(public router: Router,
@@ -161,12 +160,15 @@ export class BukkenDetailComponent extends BaseComponent {
    * バリデーション
    */
   validate(): boolean {
-    this.errors = [];
+    this.errorMsgs = [];
+    this.errors = {};
 
     if (Checklib.isBlank(this.data.bukkenName)) {
-      this.errors.push('物件名は必須です。');
+      this.errorMsgs.push('物件名は必須です。');
+      const prop = 'bukkenName';
+      this.errors[prop] = true;
     }
-    if (this.errors.length > 0) {
+    if (this.errorMsgs.length > 0) {
       return false;
     }
     return true;

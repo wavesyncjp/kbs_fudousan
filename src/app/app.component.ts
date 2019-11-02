@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   title = '不動産管理システム';
   isLogin = false;
+  isTop = false;
   mobileQuery: MediaQueryList;
 
   private mobileQueryListener: () => void;
@@ -36,6 +37,13 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isLogin = isLogin;
       if (this.isLogin) {
         this.snav.close();
+      }
+    });
+
+    this.service.changeTopPageEvent.subscribe(isTop => {
+      this.isTop = isTop;
+      if (this.isTop) {
+        this.snav.open();
       }
     });
   }

@@ -20,6 +20,8 @@ export class BackendService {
 
   @Output() changeLoginPageEvent: EventEmitter<boolean> = new EventEmitter();
 
+  @Output() changeTopPageEvent: EventEmitter<boolean> = new EventEmitter();
+
   /**
    * ログインページ
    * @param isLogin ：ログインページ
@@ -27,6 +29,15 @@ export class BackendService {
   isLoginPage(isLogin: boolean) {
     this.changeLoginPageEvent.emit(isLogin);
   }
+
+  /**
+   * ログインページ
+   * @param isLogin ：ログインページ
+   */
+  isTopPage(isTop: boolean) {
+    this.changeTopPageEvent.emit(isTop);
+  }
+
   /**
    * ページタイトル変更（ページ遷移）
    * @param title ページタイトル

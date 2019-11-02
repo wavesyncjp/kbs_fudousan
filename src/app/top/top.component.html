@@ -1,0 +1,45 @@
+<div class="chart-content">
+    <div class="chart-top">
+        <label>年月</label>
+        <input type="text" [matDatepicker]="monthView" class="width150">
+        <mat-datepicker-toggle matSuffix [for]="monthView" class="picker-icon"></mat-datepicker-toggle>
+        <mat-datepicker #monthView ></mat-datepicker>
+        <button mat-raised-button color="basic" class="button" style="margin-bottom: 10px;width: 70px;" >検索</button>
+
+
+        <mat-divider></mat-divider>
+    </div>
+    <div class="chart">
+        <ngx-charts-bar-vertical
+            [scheme]="postChart.colorScheme"
+            [results]="postChart.chartData"
+            [gradient]="postChart.gradient"
+            [xAxis]="postChart.showXAxis"
+            [yAxis]="postChart.showYAxis"
+            [legend]="postChart.showLegend"
+            [showXAxisLabel]="postChart.showXAxisLabel"
+            [showYAxisLabel]="postChart.showYAxisLabel"
+            [xAxisLabel]="postChart.xAxisLabel"
+            [yAxisLabel]="postChart.yAxisLabel"
+            [barPadding]="postChart.barPadding"
+            (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    
+    <div class="chart">
+        <ngx-charts-bar-vertical
+            [scheme]="empChart.colorScheme"
+            [results]="empChart.chartData"
+            [gradient]="empChart.gradient"
+            [xAxis]="empChart.showXAxis"
+            [yAxis]="empChart.showYAxis"
+            [legend]="empChart.showLegend"
+            [showXAxisLabel]="empChart.showXAxisLabel"
+            [showYAxisLabel]="empChart.showYAxisLabel"
+            [xAxisLabel]="empChart.xAxisLabel"
+            [yAxisLabel]="empChart.yAxisLabel"
+            [barPadding]="empChart.barPadding"
+            (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+</div>

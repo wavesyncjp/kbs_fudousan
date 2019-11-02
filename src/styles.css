@@ -55,7 +55,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .error-span{
     color:red;
-    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.error{
+    border-color: red !important;
 }
 
 /*---------search table-----------*/

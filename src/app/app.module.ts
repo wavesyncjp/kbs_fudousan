@@ -19,6 +19,8 @@ import { ContractDetailComponent } from './contract-detail/contract-detail.compo
 import { SelectComponentComponent } from './uicomponent/select-component/select-component.component';
 import { FileComponentComponent } from './uicomponent/file-component/file-component.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { TopComponent } from './top/top.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,15 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     ContractDetailComponent,
     SelectComponentComponent,
     FileComponentComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxChartsModule,
     FormsModule,
     MatToolbarModule,
     MatSidenavModule,
