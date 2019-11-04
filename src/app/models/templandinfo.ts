@@ -4,13 +4,13 @@ export class Templandinfo {
     pid: number;
     bukkenNo = '';
     bukkenName = '';
-    pickDate: Date;
+    pickDate = '';
     department = '';
     staff = '';
     infoStaff = '';
     infoOffer = '';
-    startDate: Date;
-    finishDate: Date;
+    startDate = '';
+    finishDate = '';
     result = '';
     remark1 = '';
     remark2 = '';
@@ -22,9 +22,9 @@ export class Templandinfo {
     mapFilePath = '';
     locations: Locationinfo[];
 
-    pickDateMap: Date;
-    startDateMap: Date;
-    finishDateMap: Date;
+    pickDateMap: Date = null;
+    startDateMap: Date = null;
+    finishDateMap: Date = null;
     infoStaffMap: string[] = [];
     infoOfferMap: string[] = [];
 
@@ -55,5 +55,8 @@ export class Templandinfo {
     public convertForSave() {
         this.infoStaff = this.infoStaffMap.join(',');
         this.infoOffer = this.infoOfferMap.join(',');
+        this.pickDate = this.pickDateMap.toLocaleString();
+        this.startDate = this.startDateMap.toLocaleString();
+        this.finishDate = this.finishDateMap.toLocaleString();
     }
 }

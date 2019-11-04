@@ -149,6 +149,7 @@ export class BukkenDetailComponent extends BaseComponent {
         // 土地情報登録
         this.data.convertForSave();
         this.service.saveLand(this.data).then(ret => {
+          console.log(ret);
           this.router.navigate(['/bukkens']);
         });
       }
