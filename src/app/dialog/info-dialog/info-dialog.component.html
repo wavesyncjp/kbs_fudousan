@@ -1,0 +1,15 @@
+<div class="dialog-div">
+    <div>        
+        <label>日付：{{data.infoDate}}</label>
+    </div>    
+    <div class="detail-div">                        
+        <div>件名：{{data.infoSubject}}</div>
+        <div>詳細：{{data.infoDetail}}</div>
+        <div>添付ファイル：{{data.attachFileName}}</div>
+        <div>登録日時：{{data.createDate}}</div> 
+    </div>
+    <mat-divider style="width: 100%;"></mat-divider>
+    <mat-dialog-actions align="end">        
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>
+</div>

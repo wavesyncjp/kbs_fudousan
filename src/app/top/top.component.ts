@@ -2,13 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../BaseComponent';
 import { Router } from '@angular/router';
 import { BackendService } from '../backend.service';
+import { Information } from '../models/information';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { InfoDialogComponent } from '../dialog/info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-top',
   templateUrl: './top.component.html',
   styleUrls: ['./top.component.css']
 })
+
 export class TopComponent  extends BaseComponent {
+
+  displayedColumns: string[] = ['infoDate', 'infoSubject', 'attachFileName'];
+  dataSource = new MatTableDataSource<Information>();
 
   // view: any[] = ['50%', '100%'];
 
@@ -48,6 +55,7 @@ export class TopComponent  extends BaseComponent {
   };
 
   constructor(public router: Router,
+              public dialog: MatDialog,
               public service: BackendService) {
       super(router, service);
   }
@@ -68,6 +76,12 @@ export class TopComponent  extends BaseComponent {
       this.buildDepChart();
     });
 
+    const ELEMENT_DATA: Information[] = [
+      new Information({infoDate: '2019/11/05', infoSubject: '停電のお知らせ'}),
+      new Information({infoDate: '2019/10/01', infoSubject: '操作マニュアルのアップ', attachFileName: '20191101.pdf'}),
+      new Information({infoDate: '2019/09/15', infoSubject: 'システムメンテナンスのお知らせ'}),
+    ];
+    this.dataSource.data = ELEMENT_DATA;
   }
 
   buildDepChart() {
@@ -94,4 +108,11 @@ export class TopComponent  extends BaseComponent {
     this.router.navigate(['/bukkens']);
   }
 
+  openDialog(element: Information) {
+    const dialogRef = this.dialog.open(InfoDialogComponent, {
+      width: '60%',
+      height: '500px',
+      data: element
+    });
+  }
 }

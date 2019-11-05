@@ -3,8 +3,61 @@
     height: 100%;
     display: grid;
     align-items:center;
-    grid-template-rows: 60px auto;
+    grid-template-rows: 150px 60px auto;
     grid-template-columns: 50% 50%;   
+}
+
+.bulletin-board{
+    width:97%;
+    height:97%;
+    border: solid 1px black;
+    border-radius: 4px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 20px;
+    margin-top:50px;
+    margin-bottom: 40px;
+    background-color: #FAFAFA;
+}
+.bulletin-board > label {
+    display: inline-block;
+    position: absolute;
+    top: 2px;    
+    left: 40px;
+    background-color: #FAFAFA;
+    font-weight: bold;
+}
+
+.bulletin-board .main-data {
+    margin: 10px;
+    width:98%;
+    height:130px;
+    box-shadow: none;
+    background-color:#FAFAFA;
+}
+.bulletin-board .main-data .mat-table{
+    width:100%;
+    background-color: #FAFAFA;
+}
+.mat-row{
+    height:40px;
+}
+.mat-cell{
+    border:none;
+}
+.mat-column-infoDate{
+    width: 15%;
+}
+.mat-column-infoSubject{
+    width: 35%;
+}
+.mat-column-attachFileName{
+    width: 50%;
+}
+.action-link{
+    color:cornflowerblue;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .chart-top {

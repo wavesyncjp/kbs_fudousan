@@ -1,0 +1,11 @@
+.mat-dialog-container{
+    overflow: hidden !important;
+}
+.detail-div {
+    width: 99%;
+    height: 99%;
+    margin: 5px;    
+    overflow: hidden;    
+    display: grid;
+    grid-template-rows: 40px 200px 40px 40px;
+}
