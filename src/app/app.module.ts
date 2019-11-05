@@ -22,6 +22,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TopComponent } from './top/top.component';
 import { InfoDialogComponent } from './dialog/info-dialog/info-dialog.component';
+import { InfoListComponent } from './info-list/info-list.component';
+import { InfoDetailComponent } from './info-detail/info-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { InfoDialogComponent } from './dialog/info-dialog/info-dialog.component'
     FileComponentComponent,
     ConfirmDialogComponent,
     TopComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    InfoListComponent,
+    InfoDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +72,7 @@ import { InfoDialogComponent } from './dialog/info-dialog/info-dialog.component'
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [BukkenDetailComponent, ContractDetailComponent, ConfirmDialogComponent, InfoDialogComponent],
+  entryComponents: [BukkenDetailComponent, ContractDetailComponent,
+    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent],
 })
 export class AppModule { }

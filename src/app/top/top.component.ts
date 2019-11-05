@@ -115,4 +115,9 @@ export class TopComponent  extends BaseComponent {
       data: element
     });
   }
+
+  navigate(url: string) {
+    this.router.navigate([`/${url}`]);
+  }
+
 }

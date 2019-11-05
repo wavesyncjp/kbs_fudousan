@@ -1,0 +1,33 @@
+<div class="dialog-div">  
+        
+    <table class="detail-tbl">
+        <tr>
+            <th>日付：</th>
+            <td>
+                <input type="text" [matDatepicker]="finishDate" class="width150">
+                <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #finishDate></mat-datepicker>
+            </td>
+        </tr>
+        <tr>
+            <th>件名：</th>
+            <td><input type="text" class="width600"></td>
+        </tr>
+        <tr class="h230">
+            <th>詳細：</th> 
+            <td>
+                <textarea class="width600" rows="18"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>添付ファイル：</th>
+            <td>
+                <app-file bukkenId="data.bukkenId"></app-file>
+            </td>
+        </tr>        
+    </table>
+    <mat-dialog-actions align="end">        
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>
+</div>
+    

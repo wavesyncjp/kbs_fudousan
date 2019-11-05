@@ -22,10 +22,26 @@
 .bulletin-board > label {
     display: inline-block;
     position: absolute;
-    top: 2px;    
+    top: -2px;    
     left: 40px;
     background-color: #FAFAFA;
     font-weight: bold;
+}
+.bulletin-board .more {
+    display: inline-block;
+    position: absolute;
+    right: 30px;    
+    top: 120px;
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+}
+
+.bulletin-board .more > a {
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .bulletin-board .main-data {

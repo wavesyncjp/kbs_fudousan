@@ -1,14 +1,27 @@
-<div class="dialog-div">
-    <div>        
-        <label>日付：{{data.infoDate}}</label>
-    </div>    
-    <div class="detail-div">                        
-        <div>件名：{{data.infoSubject}}</div>
-        <div>詳細：{{data.infoDetail}}</div>
-        <div>添付ファイル：{{data.attachFileName}}</div>
-        <div>登録日時：{{data.createDate}}</div> 
-    </div>
-    <mat-divider style="width: 100%;"></mat-divider>
+<div class="dialog-div">  
+        
+    <table class="detail-tbl">
+        <tr>
+            <th>日付：</th>
+            <td>{{data.infoDate}}</td>
+        </tr>
+        <tr>
+            <th>件名：</th>
+            <td>{{data.infoSubject}}</td>
+        </tr>
+        <tr class="h230">
+            <th>詳細：</th> 
+            <td>{{data.infoDetail}}</td>
+        </tr>
+        <tr>
+            <th>添付ファイル：</th>
+            <td>{{data.attachFileName}}</td>
+        </tr>
+        <tr>
+            <th>登録日時：</th>
+            <td>{{data.createDate}}</td>
+        </tr>
+    </table>
     <mat-dialog-actions align="end">        
         <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
     </mat-dialog-actions>

@@ -43,6 +43,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 2000px;
     background-color: rgb(141, 141, 141);
 }
+.h200 {
+    height: 200px !important;
+}
+.h230 {
+    height: 230px !important;
+}
+.h300 {
+    height: 300px !important;
+}
+.h400 {
+    height: 400px !important;
+}
 .picker-div{
     display: inline-flex;
     margin-top:2px;
