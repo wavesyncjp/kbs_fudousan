@@ -109,10 +109,11 @@
             <tr>
                 <th>地図添付</th>
                 <td colspan="7">
-                    <app-file bukkenId="{{data.pid}}" (uploaded)="mapUploaded($event)"></app-file>                            
-                 
+                    <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
+                    <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                                        
+
                     <div *ngFor="let map of data.mapFiles" class="attach-div">                                        
-                        <a href="">{{map.mapFileName}}</a>
+                        <a [attr.href]="map.mapFilePath + map.mapFileName">{{map.mapFileName}}</a>
                         <button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button>                        
                     </div>
                     
@@ -121,10 +122,11 @@
             <tr>
                 <th>ファイル添付</th>
                 <td colspan="7">
-                    <app-file bukkenId="{{data.pid}}" hasComment="true" (uploaded)="mapUploaded($event)"></app-file>     
-                    
+                    <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
+
+                    <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                         
                     <div *ngFor="let map of data.attachFiles" class="attach-div">                                        
-                        <a href="">{{map.attachFileName}}</a>
+                        <a [attr.href]="map.attachFilePath + map.attachFileName">{{map.attachFileName}}</a>
                         <input type="text" class="width400" [(ngModel)]="map.attachFileRemark">
                         <button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button>                        
                     </div>
