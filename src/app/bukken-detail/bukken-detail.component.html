@@ -113,7 +113,7 @@
                     <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                                        
 
                     <div *ngFor="let map of data.mapFiles" class="attach-div">                                        
-                        <a [attr.href]="map.mapFilePath + map.mapFileName">{{map.mapFileName}}</a>
+                        <a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a>
                         <button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button>                        
                     </div>
                     
@@ -126,7 +126,7 @@
 
                     <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                         
                     <div *ngFor="let map of data.attachFiles" class="attach-div">                                        
-                        <a [attr.href]="map.attachFilePath + map.attachFileName">{{map.attachFileName}}</a>
+                        <a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a>
                         <input type="text" class="width400" [(ngModel)]="map.attachFileRemark">
                         <button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button>                        
                     </div>
