@@ -59,3 +59,22 @@ mat-form-field > input {
 .detail-tbl > .contractButton{
     background-color:white;
 }
+
+.attach-div{
+    margin: 5px;    
+    margin-left: 15px;
+}
+
+.attach-div > a {
+    display: inline-block;
+    min-width: 300px;
+}
+
+.attach-btn{
+    background-color: red;
+    margin-left: 20px;
+    color: white;
+    height: 34px;
+    width: 80px;
+    font-size: 0.8em;
+}

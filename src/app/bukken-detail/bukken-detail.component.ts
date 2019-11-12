@@ -12,6 +12,7 @@ import { Stockcontractinfo } from '../models/stockcontractinfo';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Code } from '../models/bukken';
+import { MapAttach, AttachFile } from '../models/mapattach';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -181,6 +182,64 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   switchContract(loc: Locationinfo) {
     loc.hasContract = !loc.hasContract;
+  }
+
+  // 地図アップロード
+  mapUploaded(event) {
+    // ファイル添付
+    if (event.attachFileName !== undefined) {
+      if (this.data.attachFiles === null) {
+        this.data.attachFiles = [];
+      }
+      const attachFile: AttachFile = JSON.parse(JSON.stringify(event));
+      this.data.attachFiles.push(attachFile);
+    }
+    // 地図添付
+    // tslint:disable-next-line:one-line
+    else {
+      if (this.data.mapFiles === null) {
+        this.data.mapFiles = [];
+      }
+      const mapFile: MapAttach = JSON.parse(JSON.stringify(event));
+      this.data.mapFiles.push(mapFile);
+
+    }
+  }
+
+  /**
+   * 地図削除
+   * @param map :　削除したい地図
+   */
+  deleteMapFile(map: MapAttach) {
+
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteFile(map.pid, false).then(res => {
+          this.data.mapFiles.splice(this.data.mapFiles.indexOf(map), 1);
+        });
+      }
+    });
+  }
+
+  /**
+   * ファイル添付削除
+   * @param map :　削除したいファイル添付
+   */
+  deleteAttachFile(map: AttachFile) {
+
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteFile(map.pid, true).then(res => {
+          this.data.attachFiles.splice(this.data.attachFiles.indexOf(map), 1);
+        });
+      }
+    });
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User, Code, Department, Employee } from './models/bukken';
 import { Templandinfo } from './models/templandinfo';
 
@@ -9,8 +9,8 @@ import { Templandinfo } from './models/templandinfo';
   providedIn: 'root'
 })
 export class BackendService {
-  // private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
-  private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
+  private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
+  // private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   private loginUser: User;
 
   constructor(private http: HttpClient) { }
@@ -164,14 +164,29 @@ export class BackendService {
    * @param bukkenId ：物件ID
    * @param file ：ファイル
    */
-  uploadFile(bukkenId: number, file: File): Promise<object> {
+  uploadFile(bukkenId: number, file: File, hasComment = false, comment = ''): Promise<object> {
+
     const uploadApi = 'file_upload.php';
 
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('bukkenId', bukkenId.toString());
+    if (hasComment) {
+      formData.append('comment', comment);
+      formData.append('isAttach', '1');
+    }
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
 
+  }
+
+  /**
+   * システムコード取得
+   */
+  deleteFile(id: number, attach: boolean): Promise<object> {
+    const deleteFileApi = 'deletefile.php';
+    const body = {pid: id, isAttach: attach};
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
   }
 
 }

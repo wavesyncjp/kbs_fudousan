@@ -1,4 +1,5 @@
 import { Locationinfo } from './locationinfo';
+import { MapAttach, AttachFile } from './mapattach';
 
 export class Templandinfo {
     pid: number;
@@ -18,8 +19,8 @@ export class Templandinfo {
     indivisibleNumerator: number;
     indivisibleDenominator: number;
     landCategory = '';
-    mapFileName = '';
-    mapFilePath = '';
+    mapFiles: MapAttach[];
+    attachFiles: AttachFile[];
     locations: Locationinfo[];
 
     pickDateMap: Date = null;

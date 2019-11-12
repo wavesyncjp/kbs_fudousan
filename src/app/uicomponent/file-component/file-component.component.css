@@ -2,3 +2,11 @@
     display: inline-block;
     margin: 8px;
   }
+.file-comment {
+  border: solid 1px cornflowerblue;
+  border-radius: 2px;
+  width:400px;
+  height:25px;
+  margin-left:20px;
+  margin-right: 20px;
+}

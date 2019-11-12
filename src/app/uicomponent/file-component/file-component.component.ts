@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { BackendService } from 'src/app/backend.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { Dialog } from 'src/app/models/dialog';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-file',
@@ -12,12 +14,21 @@ export class FileComponentComponent implements OnInit {
   @Input()
   bukkenId: number;
 
+  @Input()
+  comment = '';
+
+  @Input()
+  hasComment = false;
+
+  @Output() uploaded: EventEmitter<any> = new EventEmitter();
+
   @ViewChild('fileInput', {static: true})
   fileInput;
 
   file: File | null = null;
 
   constructor(public service: BackendService,
+              public dialog: MatDialog,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -33,10 +44,24 @@ export class FileComponentComponent implements OnInit {
   }
 
   upload(): void {
-    this.service.uploadFile(this.bukkenId, this.file).then(res => {
-      this.snackBar.open('ファイルアップロード完了', null, {
-        duration: 2000,
-      });
+
+    const dlg = new Dialog({title: '確認', message: 'ファイルアップロードしますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
+          this.snackBar.open('ファイルアップロード完了', null, {
+            duration: 2000,
+          });
+          this.file = null;
+          this.uploaded.emit(res);
+        });
+      }
     });
   }
 

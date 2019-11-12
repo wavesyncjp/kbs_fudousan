@@ -109,10 +109,29 @@
             <tr>
                 <th>地図添付</th>
                 <td colspan="7">
-                    <app-file bukkenId="data.bukkenId"></app-file>                            
+                    <app-file bukkenId="{{data.pid}}" (uploaded)="mapUploaded($event)"></app-file>                            
+                 
+                    <div *ngFor="let map of data.mapFiles" class="attach-div">                                        
+                        <a href="">{{map.mapFileName}}</a>
+                        <button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button>                        
+                    </div>
                     
                 </td>
-            </tr>
+            </tr> 
+            <tr>
+                <th>ファイル添付</th>
+                <td colspan="7">
+                    <app-file bukkenId="{{data.pid}}" hasComment="true" (uploaded)="mapUploaded($event)"></app-file>     
+                    
+                    <div *ngFor="let map of data.attachFiles" class="attach-div">                                        
+                        <a href="">{{map.attachFileName}}</a>
+                        <input type="text" class="width400" [(ngModel)]="map.attachFileRemark">
+                        <button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button>                        
+                    </div>
+                    
+                </td>
+            </tr> 
+
         </table>
         
         <!--block-->
