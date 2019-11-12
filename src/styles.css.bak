@@ -161,22 +161,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: inline-flex;
     align-items: center;
 }
-.detail-tbl > div > span.min{
-    font-size: 0.8em;
-    width: 20px !important;
-    background-color: rgb(84, 148, 137);
-    color: white;
-    width: 142px !important;
-    padding: 2px;
-    height: 30px;
-    margin-bottom: 3px;
-    display: inline-flex;
-    align-items: center;
-    float: left;
-}
-.detail-tbl > div > button.min22{
-    float: right;
-}
 .detail-tbl > tr > th.min2{
     width: 113px !important;
 }

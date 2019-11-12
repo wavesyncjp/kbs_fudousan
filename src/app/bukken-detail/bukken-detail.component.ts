@@ -85,7 +85,6 @@ export class BukkenDetailComponent extends BaseComponent {
 
         const loc = new Locationinfo();
         loc.contract = new Stockcontractinfo();
-
         this.data.locations.push(loc);
       }
 
@@ -174,14 +173,6 @@ export class BukkenDetailComponent extends BaseComponent {
       return false;
     }
     return true;
-  }
-
-  /**
-   * 契約トグル
-   * @param loc：位置情報
-   */
-  switchContract(loc: Locationinfo) {
-    loc.hasContract = !loc.hasContract;
   }
 
   // 地図アップロード
