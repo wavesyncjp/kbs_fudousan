@@ -74,25 +74,27 @@ export class BukkenDetailComponent extends BaseComponent {
       // 物件あり場合
       if ( values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
-        this.data.convert();
       } else {
         this.data = new Templandinfo();
       }
-
-      // 物件位置情報
-      if (!this.data.locations || this.data.locations.length === 0) {
-        this.data.locations = [];
-
-        const loc = new Locationinfo();
-        loc.contract = new Stockcontractinfo();
-        this.data.locations.push(loc);
-      }
+      this.convertForDisplay();
 
       setTimeout(() => {
         this.spinner.hide();
-      }, 1000);
+      }, 200);
 
     });
+  }
+  convertForDisplay() {
+    this.data.convert();
+    // 物件位置情報
+    if (!this.data.locations || this.data.locations.length === 0) {
+      this.data.locations = [];
+
+      const loc = new Locationinfo();
+      loc.contract = new Stockcontractinfo();
+      this.data.locations.push(loc);
+    }
   }
 
   onNoClick(): void {
@@ -149,8 +151,9 @@ export class BukkenDetailComponent extends BaseComponent {
         // 土地情報登録
         this.data.convertForSave();
         this.service.saveLand(this.data).then(ret => {
-          console.log(ret);
-          this.router.navigate(['/bukkens']);
+          this.data = new Templandinfo(ret);
+          this.convertForDisplay();
+          this.router.navigate(['/bkdetail'], {queryParams: {pid: ret.pid}});
         });
       }
     });

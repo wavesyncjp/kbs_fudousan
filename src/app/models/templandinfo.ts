@@ -56,8 +56,8 @@ export class Templandinfo {
     public convertForSave() {
         this.infoStaff = this.infoStaffMap.join(',');
         this.infoOffer = this.infoOfferMap.join(',');
-        this.pickDate = this.pickDateMap.toLocaleString();
-        this.startDate = this.startDateMap.toLocaleString();
-        this.finishDate = this.finishDateMap.toLocaleString();
+        this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
+        this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;
+        this.finishDate = this.finishDateMap != null ? this.finishDateMap.toLocaleString() : null;
     }
 }

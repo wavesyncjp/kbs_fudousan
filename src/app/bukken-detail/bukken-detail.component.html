@@ -10,7 +10,7 @@
             <tr>
                 <th>物件番号</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.bukkenNo">
+                    <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0">
                 </td>
             </tr>
             <tr>
