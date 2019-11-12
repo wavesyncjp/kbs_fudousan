@@ -116,7 +116,7 @@
                         <button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button>                        
                     </div>
                     
-                </td>
+                </td>  
             </tr> 
             <tr>
                 <th>ファイル添付</th>
@@ -139,8 +139,8 @@
         </div>        
 
         <!--Tab group-->
-        <mat-tab-group  class="contract-block" style="margin-top: 50px;">
-            <mat-tab *ngFor="let location of data.locations" label="所在地">
+        <mat-tab-group  class="contract-block" style="margin-top: 50px; padding-top:1px;">
+            <mat-tab *ngFor="let location of data.locations" label="所在地" >
                 <!--block-->
                 <div>                                        
                 <table class="detail-tbl">  
