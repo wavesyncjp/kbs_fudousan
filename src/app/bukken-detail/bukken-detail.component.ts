@@ -26,6 +26,7 @@ import { MapAttach, AttachFile } from '../models/mapattach';
 export class BukkenDetailComponent extends BaseComponent {
   public data: Templandinfo;
   public pid: number;
+  removeLoc: Locationinfo[] = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -107,7 +108,11 @@ export class BukkenDetailComponent extends BaseComponent {
     this.data.locations.push(loc);
   }
 
-  removeLocation(): void {
+  /**
+   * 所在地削除
+   * @param pos : 削除位置
+   */
+  removeLocation(pos: number): void {
     const dlg = new Dialog({title: '確認', message: '所在地情報情報を削除しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
@@ -117,9 +122,11 @@ export class BukkenDetailComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        if (this.data.locations.length > 1) {
-          this.data.locations.pop();
+        const loc = this.data.locations[pos];
+        if (loc.pid > 0) {
+          this.removeLoc.push(loc);
         }
+        this.data.locations.splice(pos, 1);
       }
     });
   }
@@ -149,11 +156,19 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         // 土地情報登録
-        this.data.convertForSave();
-        this.service.saveLand(this.data).then(ret => {
-          this.data = new Templandinfo(ret);
+        this.data.convertForSave(this.service.loginUser.userId);
+
+        // 削除された所在地も送る
+
+        const funcs = [];
+        funcs.push(this.service.saveLand(this.data));
+        if (this.removeLoc.length > 0) {
+          funcs.push(this.service.deleteLoc(this.removeLoc.map(lc => lc.pid)));
+        }
+        Promise.all(funcs).then(values => {
+          this.data = new Templandinfo(values[0]);
           this.convertForDisplay();
-          this.router.navigate(['/bkdetail'], {queryParams: {pid: ret.pid}});
+          this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
         });
       }
     });

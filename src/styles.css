@@ -74,6 +74,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-color: red !important;
 }
 
+.number {
+    text-align: right;
+}
+
 /*---------search table-----------*/
 .search-div{
     width: 100%;

@@ -9,9 +9,9 @@ import { Templandinfo } from './models/templandinfo';
   providedIn: 'root'
 })
 export class BackendService {
-  // private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
-  private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
-  private loginUser: User;
+  private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
+  // private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
+  public loginUser: User;
 
   constructor(private http: HttpClient) { }
 
@@ -104,9 +104,23 @@ export class BackendService {
     return req.toPromise();
   }
 
+  /**
+   * 土地情報登録
+   * @param info ：土地情報
+   */
   saveLand(info: Templandinfo): Promise<Templandinfo> {
     const saveLandApi = 'landsave.php';
     const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${saveLandApi}`, info);
+    return req.toPromise();
+  }
+
+  deleteLoc(locIds: number[]): Promise<object> {
+    const deleteLocApi = 'locdelete.php';
+    const body = {
+      pid: locIds,
+      userId: this.loginUser.userId
+    };
+    const req = this.http.post<object>(`${this.BaseUrl}/${deleteLocApi}`, body);
     return req.toPromise();
   }
 

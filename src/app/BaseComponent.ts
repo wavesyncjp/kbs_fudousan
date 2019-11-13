@@ -43,4 +43,10 @@ export class BaseComponent implements OnInit {
         return [];
         }
     }
+
+    numericOnly(event): boolean {
+        const patt = /^([0-9])$/;
+        const result = patt.test(event.key);
+        return result;
+    }
 }
