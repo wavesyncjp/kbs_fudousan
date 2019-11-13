@@ -237,3 +237,5 @@ export class BukkenDetailComponent extends BaseComponent {
   }
 
 }
+
+

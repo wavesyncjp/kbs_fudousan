@@ -131,7 +131,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow-y: auto;
 }
 
-.detail-tbl,.detail-tbl-aria,.detail-tbl-build{
+.detail-tbl,.detail-tbl-aria,.detail-tbl-build,.inDetail-tbl{
     width: 100%;   
     border-spacing: 0px;
     border-collapse: collapse;
@@ -164,7 +164,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 0.8em;
     border: solid 1px rgba(0,0,0,.12);    
 }
-.detail-tbl >span.min{
+span.min{
     font-size: 0.8em;
     width: 20px !important;
     background-color: rgb(84, 148, 137);
@@ -176,20 +176,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-bottom: 3px;
     display: inline-flex;
     align-items: center;
-}
-/*.detail-tbl > div > span.min{
-    font-size: 0.8em;
-    width: 20px !important;
-    background-color: rgb(84, 148, 137);
-    color: white;
-    width: 142px !important;
-    padding: 2px;
-    height: 30px;
-    margin-bottom: 3px;
-    display: inline-flex;
-    align-items: center;
     float: left;
-}*/
+}
+.removeLocation
+{
+    position : absolute;
+    right: 20px;
+}
+
 .detail-tbl > div > button.min22{
     float: right;
 }

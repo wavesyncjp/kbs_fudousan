@@ -55,6 +55,15 @@ mat-form-field > input {
     border-bottom:rgb(141, 141, 141) solid 2px;
     padding-top:3px;
 }
+.removeLocation{
+    background-color: rgb(91, 91, 95);
+    color: white;
+    height: 34px;
+    width: 80px;
+    font-size: 0.8em;
+    position : absolute;
+    right: 5px;
+}
 .detail-tbl > .contractButton{
     background-color:white;
 }
