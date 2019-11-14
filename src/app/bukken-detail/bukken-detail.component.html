@@ -20,8 +20,9 @@
                 </td>
             </tr>
         </table>
+    <table class ="block-status">
         <br>
-        <span class="block-title">情報ステータス</span>
+        <span class="block-title-status">情報ステータス</span>
         <table class="detail-tbl">  
             <tr>
                 <th>物件担当部署</th>
@@ -35,7 +36,7 @@
                     </mat-select>
                 </td>
                 <th>情報提供者</th>
-                <td>
+                <td colspan="3">
                     <mat-select multiple class="width158" [(ngModel)]="data.infoOfferMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
@@ -51,17 +52,15 @@
                     </div>
                 </td>
                 <th>着手日</th>
-                <td colspan="3">
+                <td>
                     <div class="picker-div">
                         <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width150">
                         <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
                         <mat-datepicker #startDate></mat-datepicker>
                     </div>
                 </td>      
-            </tr>
-            <tr>
                 <th>終了日</th>
-                <td >
+                <td>
                     <div class="picker-div">
                         <input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width150">
                         <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
@@ -69,25 +68,25 @@
                     </div>
                 </td>
                 <th>結果</th>
-                <td colspan="3">
+                <td>
                     <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result"></app-select-component>
                 </td>      
             </tr>
             <tr>
                 <th>備考1</th>
-                <td colspan="5">
+                <td colspan="7">
                     <input type="text" [(ngModel)]="data.remark1" class="width85Per">
                 </td>      
             </tr>
             <tr>
                 <th>備考2</th>
-                <td colspan="5">
+                <td colspan="7">
                     <input type="text" [(ngModel)]="data.remark2" class="width85Per">
                 </td>      
             </tr>
         </table>
         <br>
-        <span class="block-title">物件概要</span>
+        <span class="block-title-etc">物件概要</span>
         <table class="detail-tbl">  
             <tr>
                 <th>不可分</th>
@@ -135,6 +134,7 @@
             </tr> 
 
         </table>		    
+    </table>
 
         <div class="button-div">
             <button mat-raised-button color="warn" (click)="addLocation()" style="float: right;margin:5px;">追加</button>
@@ -238,7 +238,7 @@
                 <div><!--契約ブロック-->
 
                 <!--/土地情報契約-->
-                <span class="block-title">土地情報契約</span>
+                <span class="block-title-aria">土地情報契約</span>
                 <table class="detail-tbl-aria">  
                     <tr>
                         <th class="min2">契約担当者</th>
@@ -389,7 +389,7 @@
                 <!--/土地情報契約-->
 
                 <!--/建物情報契約-->
-                <span class="block-title">建物情報契約</span>
+                <span class="block-title-build">建物情報契約</span>
                 <table class="detail-tbl-build">  
                     <tr>
                         <th class="min2">契約担当者</th>

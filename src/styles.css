@@ -138,9 +138,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .detail-tbl > tr{
-    height: 30px;    
+    height: 30px;
+    background-color: white;    
 }
 .mat-tab-labels{
+    margin-top: 10px;
     height: 40px !important;
 }
  .mat-tab-label{
@@ -157,7 +159,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .detail-tbl > tr > th{
     width:140px !important;
-    background-color: rgb(212, 212, 212);
+    background-color: whitesmoke;
     text-align: left;
     padding: 2px;
     padding-left:5px;
@@ -166,17 +168,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 span.min{
     font-size: 0.8em;
-    width: 20px !important;
-    background-color: rgb(84, 148, 137);
-    color: white;
-    width: 145px !important;
-    padding: 2px;
+    border-left:solid 5px  rgb(141, 141, 141);;
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    width: 135px !important;
+    padding: 2px 0px 2px 10px;
     height: 30px;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin: 3px 0px 3px 3px;
     display: inline-flex;
     align-items: center;
-    float: left;
 }
 .removeLocation
 {
@@ -196,6 +197,7 @@ span.min{
 }
 .detail-tbl-aria{
     margin-bottom: 20px;
+    border-bottom: solid 2px rgb(141, 141, 141);
 }
 .detail-tbl-aria > tr{
     height: 30px;    
@@ -203,7 +205,7 @@ span.min{
 
 .detail-tbl-aria > tr > th{
     width:140px !important;
-    background-color: rgb(239, 255, 183);
+    background-color: whitesmoke;
     text-align: left;
     padding: 2px;
     padding-left:5px;
@@ -227,7 +229,7 @@ span.min{
 
 .detail-tbl-build > tr > th{
     width:140px !important;
-    background-color: rgb(203, 238, 203);
+    background-color: whitesmoke;
     text-align: left;
     padding: 2px;
     padding-left:5px;
