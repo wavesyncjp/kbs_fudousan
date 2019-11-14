@@ -6,6 +6,7 @@ import { ContractListComponent } from './contract-list/contract-list.component';
 import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
 import { TopComponent } from './top/top.component';
 import { InfoListComponent } from './info-list/info-list.component';
+import { ContractDetailComponent } from './contract-detail/contract-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'bukkens', component: BukkenListComponent},
   { path: 'bkdetail', component: BukkenDetailComponent},
   { path: 'contracts', component: ContractListComponent},
+  { path: 'ctdetail', component: ContractDetailComponent},
   { path: 'infos', component: InfoListComponent}
 ];
 

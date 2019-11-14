@@ -8,7 +8,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 import { MatPaginatorIntlJa } from '../adapters/adapters';
 import { Router } from '@angular/router';
-import { stringify } from '@angular/compiler/src/util';
 import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
 import { Code } from '../models/bukken';

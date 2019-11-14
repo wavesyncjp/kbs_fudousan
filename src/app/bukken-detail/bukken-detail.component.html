@@ -154,7 +154,7 @@
                         <th class="min2">郵便番号</th>
                         <td><input type="text" [(ngModel)]="location.zipcode"></td>
                         <th>地積</th>
-                        <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="numericOnly($event)">&nbsp;㎡</td>
+                        <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
                         <th>上物</th>
                         <td><mat-radio-group [(ngModel)]="location.improveFlg">
                                 <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
@@ -166,7 +166,7 @@
                         <th class="min2">都道府県</th>
                         <td><input type="text" [(ngModel)]="location.prefecture"></td>
                         <th>坪数</th>
-                        <td><input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="numericOnly($event)">&nbsp;坪</td>
+                        <td><input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)">&nbsp;坪</td>
                         <th>建物種別</th>
                         <td>
                             <app-select-component [codes]="getCode('003')" [(ngModel)]="location.buildingType"></app-select-component>
@@ -176,15 +176,15 @@
                         <th class="min2">所在地1</th>
                         <td><input type="text" [(ngModel)]="location.address1"></td>
                         <th>容積率</th>
-                        <td><input type="text" [(ngModel)]="location.floorAreaRate" class="width80 number" (keypress)="numericOnly($event)">&nbsp;%</td>
+                        <td><input type="text" [(ngModel)]="location.floorAreaRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
                         <th>床面積</th>
-                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="numericOnly($event)">&nbsp;㎡</td> 
+                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td> 
                     </tr>
                     <tr>
                         <th class="min2">所在地2</th>
                         <td><input type="text" [(ngModel)]="location.address2"></td>
                         <th>建蔽率</th>
-                        <td><input type="text" [(ngModel)]="location.coverageRate" class="width80 number" (keypress)="numericOnly($event)">&nbsp;%</td>
+                        <td><input type="text" [(ngModel)]="location.coverageRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
                         <th>構造</th>
                         <td>
                             <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component>
@@ -224,7 +224,7 @@
 
                 <table class="detail-tbl">
                     
-                    <button mat-stroked-button style="float: right;margin:5px;" (click)="switchContract(location)" class="contractButton">
+                    <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">
                         <!--削除項目-->
                         <!--<mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
                         <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>-->

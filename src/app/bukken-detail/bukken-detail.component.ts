@@ -251,6 +251,14 @@ export class BukkenDetailComponent extends BaseComponent {
     });
   }
 
+  /**
+   * 契約画面遷移
+   * @param loc: 所在地
+   */
+  navigateContract(loc: Locationinfo) {
+    this.router.navigate(['/ctdetail']);
+  }
+
 }
 
 
