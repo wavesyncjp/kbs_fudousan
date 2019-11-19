@@ -31,13 +31,13 @@
                 </td>
                 <th>情報担当者</th>
                 <td>
-                    <mat-select multiple class="width158" [(ngModel)]="data.infoStaffMap">
+                    <mat-select multiple class="width400" [(ngModel)]="data.infoStaffMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
                 </td>
                 <th>情報提供者</th>
                 <td colspan="3">
-                    <mat-select multiple class="width158" [(ngModel)]="data.infoOfferMap">
+                    <mat-select multiple class="width400" [(ngModel)]="data.infoOfferMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
                 </td>
@@ -137,21 +137,21 @@
     </table>
 
         <div class="button-div">
-            <button mat-raised-button color="warn" (click)="addLocation()" style="float: right;margin:5px;">追加</button>
+            <button mat-raised-button color="warn"  class="addLocation"  (click)="addLocation()" >追加</button>
         </div>        
 
         <!--Tab group-->
         <mat-tab-group  class="contract-block" style="margin-top: 50px; padding-top:1px;">
-            <mat-tab *ngFor="let location of data.locations" label="所在地" >
+            <mat-tab *ngFor="let location of data.locations" label="タブ" >
                 <!--block-->
                 <div>                                        
-                <table class="detail-tbl">  
+                <table class="detail-tbl-min">  
                 <table>
                     <span class="min">所在地</span>
                     <button mat-raised-button class="removeLocation" (click)="removeLocation()" >削除</button>
                 </table>
                     <tr>
-                        <th class="min2">郵便番号</th>
+                        <th>郵便番号</th>
                         <td><input type="text" [(ngModel)]="location.zipcode"></td>
                         <th>地積</th>
                         <td><input type="text" [(ngModel)]="location.area" class="width80">&nbsp;㎡</td>
@@ -163,7 +163,7 @@
                         </td> 
                     </tr>
                     <tr>
-                        <th class="min2">都道府県</th>
+                        <th>都道府県</th>
                         <td><input type="text" [(ngModel)]="location.prefecture"></td>
                         <th>坪数</th>
                         <td><input type="text" [(ngModel)]="location.tsubo" class="width80">&nbsp;坪</td>
@@ -173,7 +173,7 @@
                         </td> 
                     </tr>
                     <tr>
-                        <th class="min2">所在地1</th>
+                        <th>所在地1</th>
                         <td><input type="text" [(ngModel)]="location.address1"></td>
                         <th>容積率</th>
                         <td><input type="text" [(ngModel)]="location.floorAreaRate" class="width80">&nbsp;%</td>
@@ -181,7 +181,7 @@
                         <td><input type="text" [(ngModel)]="location.floorSpace" class="width80">&nbsp;㎡</td> 
                     </tr>
                     <tr>
-                        <th class="min2">所在地2</th>
+                        <th>所在地2</th>
                         <td><input type="text" [(ngModel)]="location.address2"></td>
                         <th>建蔽率</th>
                         <td><input type="text" [(ngModel)]="location.coverageRate" class="width80">&nbsp;%</td>
@@ -191,7 +191,7 @@
                         </td> 
                     </tr>
                     <tr>
-                        <th class="min2">地番1(丁目)</th>
+                        <th>地番1(丁目)</th>
                         <td><input type="text" [(ngModel)]="location.blockNumber1"></td>
                         <th>所有者名(土地)</th>
                         <td><input type="text" [(ngModel)]="location.landOwner"></td>
@@ -199,7 +199,7 @@
                         <td><input type="text" [(ngModel)]="location.builOwner"></td> 
                     </tr>
                     <tr>
-                        <th class="min2">地番2(番地)</th>
+                        <th>地番2(番地)</th>
                         <td><input type="text" [(ngModel)]="location.blockNumber2"></td>
                         <th>所有者住所(土地)</th>
                         <td><input type="text" [(ngModel)]="location.landOwnerAdress"></td>
@@ -207,7 +207,7 @@
                         <td><input type="text" [(ngModel)]="location.builOwnerAdress"></td>
                     </tr>
                     <tr>
-                        <th class="min2">家屋番号</th>
+                        <th>家屋番号</th>
                         <td><input type="text" [(ngModel)]="location.buildingNumber"></td>
                         <th>根)抵当権(土地)</th>
                         <td><input type="text" [(ngModel)]="location.landMortgage"></td>
