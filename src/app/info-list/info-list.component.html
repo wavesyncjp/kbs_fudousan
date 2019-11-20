@@ -14,6 +14,12 @@
                             <mat-datepicker #finishDate></mat-datepicker>
                         </div>
                     </td>
+                   
+                    <th>掲載終了</th>
+                    <td>
+                        <mat-checkbox *ngFor="let code of getCode('005')" [checked]="code.codeDetail === '0'" >{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
+                    </td>
+                
                 </tr>    
                 <tr>
                     <th>件名</th>
