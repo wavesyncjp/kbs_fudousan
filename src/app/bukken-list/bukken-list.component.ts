@@ -21,6 +21,8 @@ import { Code } from '../models/bukken';
   ]
 })
 export class BukkenListComponent extends BaseComponent {
+
+  public cond: any;
   selectedRowIndex = -1;
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
@@ -42,6 +44,15 @@ export class BukkenListComponent extends BaseComponent {
     this.service.changeTitle('土地情報一覧');
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.cond = {
+      bukkenNo: '',
+      bukkenName: '',
+      address: '',
+      pickDateMap: null,
+      department: [],
+      result: ['01']
+    };
 
     const funcs = [];
     funcs.push(this.service.getCodes(['001']));

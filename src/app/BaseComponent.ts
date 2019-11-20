@@ -56,4 +56,19 @@ export class BaseComponent implements OnInit {
         const result = patt.test(event.key);
         return result;
     }
+
+    inList(list: string[], val = '') {
+        return list.includes(val);
+    }
+    changeCheck(list: string[], val = '', $event) {
+        if ($event.checked) {
+            if (!list.includes(val)) {
+                list.push(val);
+            }
+        } else {
+            if (list.includes(val)) {
+                list.splice(list.indexOf(val), 1);
+            }
+        }
+    }
 }
