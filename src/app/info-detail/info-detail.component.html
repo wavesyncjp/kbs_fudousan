@@ -8,16 +8,26 @@
                 <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #finishDate></mat-datepicker>
             </td>
+            
         </tr>
         <tr>
             <th>件名：</th>
             <td><input type="text" class="width600"></td>
         </tr>
-        <tr class="h230">
+        <tr>
             <th>詳細：</th> 
             <td>
-                <textarea class="width600" rows="18"></textarea>
+            <mat-radio-group [(ngModel)]="data.detailFlg">
+                <mat-radio-button *ngFor="let code of getCode('006')" [value]="code.codeDetail" [checked]="code.codeDetail == '0'">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
+            </mat-radio-group>
+        
             </td>
+            </tr>
+        <tr class="h230">
+            <th>
+                
+            </th>
+            <td><textarea class="width600" rows="18" [disabled]="data.detailFlg == '0'"></textarea></td>
         </tr>
         <tr>
             <th>添付ファイル：</th>

@@ -20,8 +20,9 @@
                 </td>
             </tr>
         </table>
+    <table class ="block-status">
         <br>
-        <span class="block-title">情報ステータス</span>
+        <span class="block-title-status">情報ステータス</span>
         <table class="detail-tbl">  
             <tr>
                 <th>物件担当部署</th>
@@ -29,14 +30,14 @@
                     <app-select-component [codes]="getDeps()" [(ngModel)]="data.department"></app-select-component>
                 </td>
                 <th>情報担当者</th>
-                <td>
-                    <mat-select multiple class="width158" [(ngModel)]="data.infoStaffMap">
+                <td colspan="2">
+                    <mat-select multiple class="width400" [(ngModel)]="data.infoStaffMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
                 </td>
                 <th>情報提供者</th>
-                <td>
-                    <mat-select multiple class="width158" [(ngModel)]="data.infoOfferMap">
+                <td colspan="2">
+                    <mat-select multiple class="width400" [(ngModel)]="data.infoOfferMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
                 </td>
@@ -51,17 +52,15 @@
                     </div>
                 </td>
                 <th>着手日</th>
-                <td colspan="3">
+                <td>
                     <div class="picker-div">
                         <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width150">
                         <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
                         <mat-datepicker #startDate></mat-datepicker>
                     </div>
                 </td>      
-            </tr>
-            <tr>
                 <th>終了日</th>
-                <td >
+                <td>
                     <div class="picker-div">
                         <input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width150">
                         <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
@@ -69,33 +68,30 @@
                     </div>
                 </td>
                 <th>結果</th>
-                <td colspan="3">
+                <td>
                     <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result"></app-select-component>
                 </td>      
             </tr>
             <tr>
                 <th>備考1</th>
-                <td colspan="5">
+                <td colspan="8">
                     <input type="text" [(ngModel)]="data.remark1" class="width85Per">
                 </td>      
             </tr>
             <tr>
                 <th>備考2</th>
-                <td colspan="5">
+                <td colspan="8">
                     <input type="text" [(ngModel)]="data.remark2" class="width85Per">
                 </td>      
             </tr>
         </table>
         <br>
-        <span class="block-title">物件概要</span>
+        <span class="block-title-etc">物件概要</span>
         <table class="detail-tbl">  
             <tr>
                 <th>不可分</th>
                 <td>
-                    <mat-radio-group [(ngModel)]="data.indivisibleFlg">
-                        <mat-radio-button value="1" [checked]="data.indivisibleFlg == 1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                        <mat-radio-button value="2" [checked]="data.indivisibleFlg == 2">有</mat-radio-button>
-                    </mat-radio-group>
+                    <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                 </td>
                 <th>不可分子</th>
                 <td><input type="text" [(ngModel)]="data.indivisibleNumerator" class="width150"></td>
@@ -135,9 +131,10 @@
             </tr> 
 
         </table>		    
+    </table>
 
         <div class="button-div">
-            <button mat-raised-button color="warn" (click)="addLocation()" style="float: right;margin:5px;">追加</button>
+            <button mat-raised-button color="warn"  class="addLocation"  (click)="addLocation()" >追加</button>
         </div>        
 
         <!--Tab group-->
@@ -145,25 +142,23 @@
             <mat-tab *ngFor="let location of data.locations; index as pos" label="所在地" >
                 <!--block-->
                 <div>                                        
-                <table class="detail-tbl">  
+                <table class="detail-tbl-min">  
                 <table>
                     <span class="min">所在地</span>
                     <button mat-raised-button *ngIf="data.locations.length > 1" class="removeLocation" (click)="removeLocation(pos)" >削除</button>
                 </table>
                     <tr>
-                        <th class="min2">郵便番号</th>
+                        <th>郵便番号</th>
                         <td><input type="text" [(ngModel)]="location.zipcode"></td>
                         <th>地積</th>
                         <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
                         <th>上物</th>
-                        <td><mat-radio-group [(ngModel)]="location.improveFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
+                        <td>
+                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                         </td> 
                     </tr>
                     <tr>
-                        <th class="min2">都道府県</th>
+                        <th>都道府県</th>
                         <td><input type="text" [(ngModel)]="location.prefecture"></td>
                         <th>坪数</th>
                         <td><input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)">&nbsp;坪</td>
@@ -173,7 +168,7 @@
                         </td> 
                     </tr>
                     <tr>
-                        <th class="min2">所在地1</th>
+                        <th>所在地1</th>
                         <td><input type="text" [(ngModel)]="location.address1"></td>
                         <th>容積率</th>
                         <td><input type="text" [(ngModel)]="location.floorAreaRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
@@ -181,7 +176,7 @@
                         <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td> 
                     </tr>
                     <tr>
-                        <th class="min2">所在地2</th>
+                        <th>所在地2</th>
                         <td><input type="text" [(ngModel)]="location.address2"></td>
                         <th>建蔽率</th>
                         <td><input type="text" [(ngModel)]="location.coverageRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
@@ -191,7 +186,7 @@
                         </td> 
                     </tr>
                     <tr>
-                        <th class="min2">地番1(丁目)</th>
+                        <th>地番1(丁目)</th>
                         <td><input type="text" [(ngModel)]="location.blockNumber1"></td>
                         <th>所有者名(土地)</th>
                         <td><input type="text" [(ngModel)]="location.landOwner"></td>
@@ -199,7 +194,7 @@
                         <td><input type="text" [(ngModel)]="location.builOwner"></td> 
                     </tr>
                     <tr>
-                        <th class="min2">地番2(番地)</th>
+                        <th>地番2(番地)</th>
                         <td><input type="text" [(ngModel)]="location.blockNumber2"></td>
                         <th>所有者住所(土地)</th>
                         <td><input type="text" [(ngModel)]="location.landOwnerAdress"></td>
@@ -207,7 +202,7 @@
                         <td><input type="text" [(ngModel)]="location.builOwnerAdress"></td>
                     </tr>
                     <tr>
-                        <th class="min2">家屋番号</th>
+                        <th>家屋番号</th>
                         <td><input type="text" [(ngModel)]="location.buildingNumber"></td>
                         <th>根)抵当権(土地)</th>
                         <td><input type="text" [(ngModel)]="location.landMortgage"></td>
@@ -238,10 +233,10 @@
                 <div><!--契約ブロック-->
 
                 <!--/土地情報契約-->
-                <span class="block-title">土地情報契約</span>
+                <span class="block-title-aria">土地情報契約</span>
                 <table class="detail-tbl-aria">  
                     <tr>
-                        <th class="min2">契約担当者</th>
+                        <th class="min">契約担当者</th>
                         <td><input type="text" [(ngModel)]="location.contract.aContractStaff" class="width150"></td>
                         
                         <!--削除項目-->
@@ -262,6 +257,7 @@
 
                     </tr>
                     <tr>
+
                         <th class="min2">内金①</th>
                         <td><input type="text" [(ngModel)]="location.contract.aDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金②</th>
@@ -272,7 +268,7 @@
                         <td colspan="3"><input type="text" [(ngModel)]="location.contract.aDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
                     </tr>
                     <tr>
-                        <th class="min2">支払日</th>
+                        <th class="min">支払日</th>
                         <td><input type="text" [matDatepicker]="aPayDate1" [(ngModel)]="location.contract.aPayDate1" class="width100">
                             <mat-datepicker-toggle matSuffix [for]="aPayDate1"  class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #aPayDate1></mat-datepicker></td>
@@ -290,12 +286,9 @@
                             <mat-datepicker #aPayDate4></mat-datepicker></td> 
                     </tr>
                     <tr>
-                        <th class="min2">即決和解</th>
+                        <th class="min">即決和解</th>
                         <td colspan="9">
-                            <mat-radio-group [(ngModel)]="location.contract.aPromptDecideFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
+                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                         </td>
                     </tr>
                     <tr>
@@ -338,11 +331,9 @@
                             <mat-datepicker-toggle matSuffix [for]="aResultSchFinishDate" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #aResultSchFinishDate></mat-datepicker></td>-->
 
-                        <th class="min2">等価交換</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.aExchangeFlg">
-                            <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                            <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
+                        <th class="min">等価交換</th>
+                        <td>
+                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                         </td>
                         <!--削除項目-->
                         <!--<th>合意解除</th>
@@ -352,10 +343,8 @@
                             </mat-radio-group>
                         </td>-->
                         <th>テナント立退</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.aEvictionFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
+                        <td>
+                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                         </td>
                         <!--削除項目-->
                         <!--<th>紙</th>
@@ -389,11 +378,11 @@
                 <!--/土地情報契約-->
 
                 <!--/建物情報契約-->
-                <span class="block-title">建物情報契約</span>
+                <span class="block-title-build">建物情報契約</span>
                 <table class="detail-tbl-build">  
                     <tr>
-                        <th class="min2">契約担当者</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bContractStaff" class="width130"></td>
+                        <th class="min">契約担当者</th>
+                        <td><input type="text" [(ngModel)]="location.contract.bContractStaff" class="width150"></td>
                         <!--削除項目-->
                         <!--<th class="min2">不可分成立日</th>
                         <td>
@@ -412,6 +401,7 @@
 
                     </tr>
                     <tr>
+
                         <th class="min2">内金①</th>
                         <td><input type="text" [(ngModel)]="location.contract.bDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金②</th>
@@ -422,7 +412,7 @@
                         <td colspan="3"><input type="text" [(ngModel)]="location.contract.bDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
                     </tr>
                     <tr>
-                        <th class="min2">支払日</th>
+                        <th class="min">支払日</th>
                         <td><input type="text" [matDatepicker]="bPayDate1" [(ngModel)]="location.contract.bPayDate1" class="width100">
                             <mat-datepicker-toggle matSuffix [for]="bPayDate1"  class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #bPayDate1></mat-datepicker></td>
@@ -440,12 +430,9 @@
                             <mat-datepicker #bPayDate4></mat-datepicker></td> 
                     </tr>
                     <tr>
-                        <th class="min2">即決和解</th>
+                        <th class="min">即決和解</th>
                         <td colspan="9">
-                            <mat-radio-group [(ngModel)]="location.contract.bPromptDecideFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
+                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                         </td>
                     </tr>
                     <tr>
@@ -488,11 +475,9 @@
                             <mat-datepicker-toggle matSuffix [for]="bResultSchFinishDate" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #bResultSchFinishDate></mat-datepicker></td>-->
 
-                        <th class="min2">等価交換</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.bExchangeFlg">
-                            <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                            <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
+                        <th class="min">等価交換</th>
+                        <td>
+                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                         </td>
                         <!--削除項目-->
                         <!--<th>合意解除</th>
@@ -502,10 +487,8 @@
                             </mat-radio-group>
                         </td>-->
                         <th>テナント立退</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.bEvictionFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
+                        <td>
+                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                         </td>
                         <!--削除項目-->
                         <!--<th>紙</th>
