@@ -75,7 +75,7 @@ export class BukkenListComponent extends BaseComponent {
   }
 
   highlight(row) {
-    this.selectedRowIndex = row.bukkenId;
+    this.selectedRowIndex = row.pid;
   }
 
   /**

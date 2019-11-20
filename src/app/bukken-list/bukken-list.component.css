@@ -22,20 +22,6 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
     width: 100px;
 }
 
-.mat-header-row{
-    height: 40px;    
-    background-color: cadetblue;
-}
-.mat-header-row > th{    
-    color: white;
-}
-
-.mat-row{
-    height: 40px;
-}
-.mat-row > td > button{
-    height: 30px;
-}
 .mat-column-detail{
     text-align: right;
 }
@@ -60,10 +46,6 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
 
 mat-paginator{
     width: 100%;
-}
-
-.highlighted {
-  background-color: antiquewhite;
 }
 
 .search-btn {

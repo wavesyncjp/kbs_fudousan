@@ -24,4 +24,11 @@ export class ContractDetailComponent extends BaseComponent {
     this.service.changeTitle('契約情報詳細');
     this.contract = new Stockcontractinfo();
   }
+
+  /**
+   * 一覧へ戻る
+   */
+  backToList() {
+    this.router.navigate(['/bukkens']);
+  }
 }

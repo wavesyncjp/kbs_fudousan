@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { InfoDetailComponent } from '../info-detail/info-detail.component';
 import { BackendService } from '../backend.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
 import { Information } from '../models/information';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Dialog } from '../models/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-info-list',
@@ -13,10 +16,14 @@ import { Information } from '../models/information';
   styleUrls: ['./info-list.component.css']
 })
 export class InfoListComponent extends BaseComponent {
+  selectedRowIndex = -1;
+  displayedColumns: string[] = ['infoDate', 'infoSubject', 'detailFlg', 'infoDetail', 'attachFileName', 'finishFlg', 'delete', 'detail'];
+  dataSource = new MatTableDataSource<Information>();
 
   constructor(public router: Router,
               public dialog: MatDialog,
-              public service: BackendService) {
+              public service: BackendService,
+              private spinner: NgxSpinnerService) {
     super(router, service);
   }
 
@@ -41,14 +48,55 @@ export class InfoListComponent extends BaseComponent {
       }
     });
   }
+
+  /**
+   * 検索
+   */
+  searchInfo() {
+    this.spinner.show();
+
+    const ELEMENT_DATA: Information[] = [
+      new Information({pid: 1, infoDate: '2019/11/20', infoSubject: '休み', detailFlg: 1}),
+      new Information({pid: 2, infoDate: '2019/11/18', infoSubject: '忘年会', detailFlg: 1, attachFileName: '地図.pdf'}),
+      new Information({pid: 3, infoDate: '2019/11/05', infoSubject: '停電のお知らせ', detailFlg: 1, finishFlg: 1}),
+      new Information({pid: 4, infoDate: '2019/10/01', infoSubject: '操作マニュアルのアップ', attachFileName: '20191101.pdf', detailFlg: 1}),
+      new Information({pid: 5, infoDate: '2019/09/15', infoSubject: 'システムメンテナンスのお知らせ', detailFlg: 0, finishFlg: 1}),
+    ];
+
+    this.dataSource.data = ELEMENT_DATA;
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+  }
+
   createNew() {
     const dialogRef = this.dialog.open(InfoDetailComponent, {
       width: '60%',
-      height: '500px',
+      height: '580px',
       data: new Information()
     });
   }
+
+  deleteRow(row: Information) {
+    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+  }
+
+  showDetail(row: Information) {
+    const dialogRef = this.dialog.open(InfoDetailComponent, {
+      width: '60%',
+      height: '580px',
+      data: row
+    });
+  }
+
+  highlight(row) {
+    this.selectedRowIndex = row.pid;
+  }
+
 }
-
-  
-

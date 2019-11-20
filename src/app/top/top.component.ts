@@ -77,9 +77,11 @@ export class TopComponent  extends BaseComponent {
     });
 
     const ELEMENT_DATA: Information[] = [
-      new Information({infoDate: '2019/11/05', infoSubject: '停電のお知らせ'}),
-      new Information({infoDate: '2019/10/01', infoSubject: '操作マニュアルのアップ', attachFileName: '20191101.pdf'}),
-      new Information({infoDate: '2019/09/15', infoSubject: 'システムメンテナンスのお知らせ'}),
+      new Information({infoDate: '2019/11/20', infoSubject: '休み', detailFlg: 1}),
+      new Information({infoDate: '2019/11/18', infoSubject: '忘年会', detailFlg: 1, attachFileName: '地図.pdf'}),
+      new Information({infoDate: '2019/11/05', infoSubject: '停電のお知らせ', detailFlg: 1}),
+      new Information({infoDate: '2019/10/01', infoSubject: '操作マニュアルのアップ', attachFileName: '20191101.pdf', detailFlg: 1}),
+      new Information({infoDate: '2019/09/15', infoSubject: 'システムメンテナンスのお知らせ', detailFlg: 0}),
     ];
     this.dataSource.data = ELEMENT_DATA;
   }

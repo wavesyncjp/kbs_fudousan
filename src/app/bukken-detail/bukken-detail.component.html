@@ -6,7 +6,7 @@
         <ul *ngIf="errorMsgs.length > 0" class="error-span">
             <li *ngFor="let msg of errorMsgs">{{msg}}</li>
         </ul>
-        <table class="detail-tbl">  
+        <table class="detail-tbl"  style="margin:10px;width:99%">  
             <tr>
                 <th>物件番号</th>
                 <td>
@@ -30,14 +30,14 @@
                     <app-select-component [codes]="getDeps()" [(ngModel)]="data.department"></app-select-component>
                 </td>
                 <th>情報担当者</th>
-                <td colspan="2">
-                    <mat-select multiple class="width400" [(ngModel)]="data.infoStaffMap">
+                <td colspan="3">
+                    <mat-select multiple class="width300" [(ngModel)]="data.infoStaffMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
                 </td>
                 <th>情報提供者</th>
-                <td colspan="2">
-                    <mat-select multiple class="width400" [(ngModel)]="data.infoOfferMap">
+                <td colspan="3"> 
+                    <mat-select multiple class="width300" [(ngModel)]="data.infoOfferMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
                 </td>
@@ -60,7 +60,7 @@
                     </div>
                 </td>      
                 <th>終了日</th>
-                <td>
+                <td colspan="3">
                     <div class="picker-div">
                         <input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width150">
                         <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
@@ -74,13 +74,13 @@
             </tr>
             <tr>
                 <th>備考1</th>
-                <td colspan="8">
+                <td colspan="9">
                     <input type="text" [(ngModel)]="data.remark1" class="width85Per">
                 </td>      
             </tr>
             <tr>
                 <th>備考2</th>
-                <td colspan="8">
+                <td colspan="9">
                     <input type="text" [(ngModel)]="data.remark2" class="width85Per">
                 </td>      
             </tr>
@@ -134,11 +134,11 @@
     </table>
 
         <div class="button-div">
-            <button mat-raised-button color="warn"  class="addLocation"  (click)="addLocation()" >追加</button>
+            <button mat-raised-button color="warn"  class="addLocation"  (click)="addLocation()" >所有地追加</button>
         </div>        
-
+  
         <!--Tab group-->
-        <mat-tab-group  class="contract-block" style="margin-top: 50px; padding-top:1px;">
+        <mat-tab-group  class="contract-block" style="margin-top: 0px; padding-top:1px;">
             <mat-tab *ngFor="let location of data.locations; index as pos" label="所在地" >
                 <!--block-->
                 <div>                                        
@@ -529,12 +529,9 @@
         </mat-tab-group>
         <!--/Tab group-->
 
-        
-        <!--削除項目-->
-		<!--
-        <div class="button-div">
-            <button mat-raised-button color="warn" (click)="addLocation()">追加</button>    
+        <div class="register-div">
+            <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+            <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
         </div>
-        
-        </div>
-        <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>-->
+
+</div>

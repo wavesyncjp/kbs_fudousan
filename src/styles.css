@@ -4,6 +4,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+input {
+    margin-left:3px;
+}
+
 .width80{
     min-width: 80px !important;
     width: 80px !important;
@@ -22,6 +26,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .width200{
     width: 200px;
+}
+.width300{
+    width: 300px !important;
 }
 .width400{
     width: 400px;
@@ -78,7 +85,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     text-align: right;
 }
 
+.mat-checkbox {
+    margin-left:3px;
+}
+
 /*---------search table-----------*/
+.mat-header-row{
+    height: 40px;    
+    background-color: cadetblue;
+}
+.mat-header-row > th{    
+    color: white;
+}
+
+.mat-row{
+    height: 40px;
+}
+.mat-row > td > button{
+    height: 30px;
+}
+
 .search-div{
     width: 100%;
     margin:-10px;
@@ -96,18 +122,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .search-tbl > tr > th{
     width:140px !important;
-    background-color: white;
+    background-color: #D9E1F2;
     text-align: left;
     padding: 2px;
     padding-left:5px;
     font-size: 0.8em;
-    border-bottom: solid 2px rgba(0,0,0,.12);
-    border-left: solid 2px rgba(0,0,0,.12);      
+    border: solid 1px rgba(0,0,0,.12);
+    /*border-left: solid 2px rgba(0,0,0,.12);*/
 }
 .search-tbl > tr > td{
     padding: 2px; 
-    border-bottom: solid 2px rgba(0,0,0,.12);
-    border-left: solid 2px rgba(0,0,0,.12);   
+    border: solid 1px rgba(0,0,0,.12);
+    /*border-left: solid 2px rgba(0,0,0,.12);  */
 }
 .search-tbl > tr > td > input[type="text"]{
     min-width: 150px;
@@ -115,6 +141,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border: solid 1px cornflowerblue;
     border-radius: 2px;
     margin-left: 3px;
+}
+.highlighted {
+    background-color: antiquewhite;
 }
 /*----------/search table---------*/
 
@@ -171,10 +200,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding: 2px;
     padding-left:5px;
     font-size: 0.8em;
-    border-bottom: solid 2px rgb(131, 121, 121);
-    border-right: solid 1px rgb(131, 121, 121);  
-    border-left: solid 2px white; 
+    border: solid 1px rgb(131, 121, 121);
+    /*border-right: solid 1px rgb(131, 121, 121);  
+    border-left: solid 2px white; */
 }
+
 .detail-tbl-min> tr > th{
     width:140px !important;
     background-color: rgba(211, 215, 255, 0.541);
@@ -187,8 +217,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .detail-tbl-min> tr >td{
     padding: 2px;
-    border-bottom: solid 1px rgba(0,0,0,.12); 
-    border-left: solid 1px rgba(0,0,0,.12);
+    border: solid 1px rgba(0,0,0,.12); 
+    /*border-left: solid 1px rgba(0,0,0,.12);*/
 }
 
 
@@ -205,12 +235,6 @@ span.min{
     display: inline-flex;
     align-items: center;
 }
-.button-div
-{
-    position : absolute;
-    right: 20px;
-    margin-bottom:5px;
-}
 .removeLocation
 {
     position : absolute;
@@ -222,8 +246,8 @@ span.min{
 }
 .detail-tbl > tr > td{
     padding: 2px;
-    border-bottom: solid 1px rgba(0,0,0,.12); 
-    border-left: solid 1px rgba(0,0,0,.12);    
+    border: solid 1px rgba(0,0,0,.12); 
+    /*border-left: solid 1px rgba(0,0,0,.12);    */
 }
 .detail-tbl-aria{
     margin-bottom: 20px;
@@ -251,8 +275,8 @@ span.min{
 
 .detail-tbl-aria > tr > td{
     padding: 1px;
-    border-bottom: solid 1px rgba(0,0,0,.12);
-    border-left: solid 1px rgba(0,0,0,.12); 
+    border: solid 1px rgba(0,0,0,.12);
+    /*border-left: solid 1px rgba(0,0,0,.12); */
 }
 
 .detail-tbl-build > tr{
@@ -275,22 +299,23 @@ span.min{
 
 .detail-tbl-build > tr > td{
     padding: 2px;
-    border-bottom: solid 1px rgba(0,0,0,.12); 
-    border-left: solid 1px rgba(0,0,0,.12);   
+    border: solid 1px rgba(0,0,0,.12); 
+    /*border-left: solid 1px rgba(0,0,0,.12);   */
 }
 /*--------------/detail table-------------*/
 
 /*-------------登録ボタンブロック-------------*/
 .register-div{
+    text-align: right;
     float: right;
-    margin: 2px 0px 10px 10px;
+    padding-right: 5px;
+    margin: 10px 0px 10px 10px;
 }
 .register-div > button{
     margin-left:10px;
     width:80px;
 }
 /*-------------/登録ボタンブロック-------------*/
-
 /*--------------dialog--------------------*/
 .dialog-div{
     display: grid;

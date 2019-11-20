@@ -2,7 +2,8 @@ export class Information {
 pid: number;
 infoDate = '';
 infoSubject = '';
-detailFlg = '';
+detailFlg = 1;
+finishFlg = 0;
 infoDetail = '';
 attachFileName = '';
 attachFilePath = '';

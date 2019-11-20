@@ -2,7 +2,7 @@
         
     <table class="detail-tbl">
         <tr>
-            <th>日付：</th>
+            <th>日付</th>
             <td>
                 <input type="text" [matDatepicker]="finishDate" class="width150">
                 <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
@@ -11,11 +11,11 @@
             
         </tr>
         <tr>
-            <th>件名：</th>
-            <td><input type="text" class="width600"></td>
+            <th>件名</th>
+            <td><input type="text" class="width600" [(ngModel)]="data.infoSubject"></td>
         </tr>
         <tr>
-            <th>詳細：</th> 
+            <th>詳細</th> 
             <td>
             <mat-radio-group [(ngModel)]="data.detailFlg">
                 <mat-radio-button *ngFor="let code of getCode('006')" [value]="code.codeDetail" [checked]="code.codeDetail == '0'">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
@@ -30,9 +30,15 @@
             <td><textarea class="width600" rows="18" [disabled]="data.detailFlg == '0'"></textarea></td>
         </tr>
         <tr>
-            <th>添付ファイル：</th>
+            <th>添付ファイル</th>
             <td>
-                <app-file bukkenId="data.bukkenId"></app-file>
+                <app-file bukkenId="data.attachmentFile"></app-file>
+            </td>
+        </tr> 
+        <tr>
+            <th>掲載終了</th>
+            <td>
+                <mat-checkbox [checked]="data.finishFlg == 1"></mat-checkbox>
             </td>
         </tr>        
     </table>

@@ -25,6 +25,17 @@ mat-form-field{
 mat-form-field > input {       
     margin-top: -20px !important;
 }
+.button-div
+{
+    position: relative;
+    right: 20px;
+    margin-bottom:5px;
+}
+.button-div > button {
+    position: absolute;
+    right: 0px;
+    width: 110px;
+}
 
 .block-title-status{
     font-size: 0.9em;
@@ -111,7 +122,8 @@ mat-form-field > input {
     width: 80px;
     font-size: 0.8em;
     position : absolute;
-    right: 15px;
+    right: 20px;
+    top: 5px;
 }
 .detail-tbl > .contractButton{
     background-color:white;

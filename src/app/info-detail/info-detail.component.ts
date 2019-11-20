@@ -20,11 +20,12 @@ export class InfoDetailComponent extends BaseComponent {
               @Inject(MAT_DIALOG_DATA) public data: Information) {
     super(router, service);
   }
-   
+
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     if (this.data == null) {
       this.data = new Information();
-
+      this.data.detailFlg = 0;
     }
     const funcs = [];
     funcs.push(this.service.getCodes(['006']));
@@ -42,8 +43,6 @@ export class InfoDetailComponent extends BaseComponent {
         });
       }
     });
-
-    this.data.detailFlg = "0";
   }
 
   ok() {
