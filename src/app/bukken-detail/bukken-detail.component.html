@@ -139,19 +139,19 @@
 
         <!--Tab group-->
         <mat-tab-group  class="contract-block" style="margin-top: 50px; padding-top:1px;">
-            <mat-tab *ngFor="let location of data.locations" label="タブ" >
+            <mat-tab *ngFor="let location of data.locations; index as pos" label="所在地" >
                 <!--block-->
                 <div>                                        
                 <table class="detail-tbl-min">  
                 <table>
                     <span class="min">所在地</span>
-                    <button mat-raised-button class="removeLocation" (click)="removeLocation()" >削除</button>
+                    <button mat-raised-button *ngIf="data.locations.length > 1" class="removeLocation" (click)="removeLocation(pos)" >削除</button>
                 </table>
                     <tr>
                         <th>郵便番号</th>
                         <td><input type="text" [(ngModel)]="location.zipcode"></td>
                         <th>地積</th>
-                        <td><input type="text" [(ngModel)]="location.area" class="width80">&nbsp;㎡</td>
+                        <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
                         <th>上物</th>
                         <td>
                             <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
@@ -161,7 +161,7 @@
                         <th>都道府県</th>
                         <td><input type="text" [(ngModel)]="location.prefecture"></td>
                         <th>坪数</th>
-                        <td><input type="text" [(ngModel)]="location.tsubo" class="width80">&nbsp;坪</td>
+                        <td><input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)">&nbsp;坪</td>
                         <th>建物種別</th>
                         <td>
                             <app-select-component [codes]="getCode('003')" [(ngModel)]="location.buildingType"></app-select-component>
@@ -171,15 +171,15 @@
                         <th>所在地1</th>
                         <td><input type="text" [(ngModel)]="location.address1"></td>
                         <th>容積率</th>
-                        <td><input type="text" [(ngModel)]="location.floorAreaRate" class="width80">&nbsp;%</td>
+                        <td><input type="text" [(ngModel)]="location.floorAreaRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
                         <th>床面積</th>
-                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80">&nbsp;㎡</td> 
+                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td> 
                     </tr>
                     <tr>
                         <th>所在地2</th>
                         <td><input type="text" [(ngModel)]="location.address2"></td>
                         <th>建蔽率</th>
-                        <td><input type="text" [(ngModel)]="location.coverageRate" class="width80">&nbsp;%</td>
+                        <td><input type="text" [(ngModel)]="location.coverageRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
                         <th>構造</th>
                         <td>
                             <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component>
@@ -219,7 +219,7 @@
 
                 <table class="detail-tbl">
                     
-                    <button mat-stroked-button style="float: right;margin:5px;" (click)="switchContract(location)" class="contractButton">
+                    <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">
                         <!--削除項目-->
                         <!--<mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
                         <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>-->
@@ -253,18 +253,19 @@
                             <mat-datepicker-toggle matSuffix [for]="aContractDate" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #aContractDate></mat-datepicker></td>
                         <th>売買代金</th>
-                        <td  colspan="3"><input type="text" [(ngModel)]="location.contract.aTradingPrice" class="width100">&nbsp;円</td>
+                        <td  colspan="3"><input type="text" [(ngModel)]="location.contract.aTradingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
 
                     </tr>
                     <tr>
-                        <th class="min">内金①</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aDeposit1" class="width100">&nbsp;円</td>
+
+                        <th class="min2">内金①</th>
+                        <td><input type="text" [(ngModel)]="location.contract.aDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金②</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aDeposit2" class="width100">&nbsp;円</td>
+                        <td><input type="text" [(ngModel)]="location.contract.aDeposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金③</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aDeposit3" class="width100">&nbsp;円</td>
+                        <td><input type="text" [(ngModel)]="location.contract.aDeposit3" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金④</th>
-                        <td colspan="3"><input type="text" [(ngModel)]="location.contract.aDeposit4" class="width100">&nbsp;円</td> 
+                        <td colspan="3"><input type="text" [(ngModel)]="location.contract.aDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
                     </tr>
                     <tr>
                         <th class="min">支払日</th>
@@ -396,18 +397,19 @@
                             <mat-datepicker-toggle matSuffix [for]="bContractDate" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #bContractDate></mat-datepicker></td>
                         <th>売買代金</th>
-                        <td  colspan="3"><input type="text" [(ngModel)]="location.contract.bTradingPrice" class="width100">&nbsp;円</td>
+                        <td  colspan="3"><input type="text" [(ngModel)]="location.contract.bTradingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
 
                     </tr>
                     <tr>
-                        <th class="min">内金①</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bDeposit1" class="width100">&nbsp;円</td>
+
+                        <th class="min2">内金①</th>
+                        <td><input type="text" [(ngModel)]="location.contract.bDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金②</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bDeposit2" class="width100">&nbsp;円</td>
+                        <td><input type="text" [(ngModel)]="location.contract.bDeposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金③</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bDeposit3" class="width100">&nbsp;円</td>
+                        <td><input type="text" [(ngModel)]="location.contract.bDeposit3" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
                         <th>内金④</th>
-                        <td colspan="3"><input type="text" [(ngModel)]="location.contract.bDeposit4" class="width100">&nbsp;円</td> 
+                        <td colspan="3"><input type="text" [(ngModel)]="location.contract.bDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
                     </tr>
                     <tr>
                         <th class="min">支払日</th>

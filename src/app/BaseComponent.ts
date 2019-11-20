@@ -43,4 +43,17 @@ export class BaseComponent implements OnInit {
         return [];
         }
     }
+
+    numericOnly(event): boolean {
+        const patt = /^([0-9])$/;
+        const result = patt.test(event.key);
+        return result;
+    }
+
+    floatOnly(event): boolean {
+        // const patt = /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/;
+        const patt = /^([0-9.])$/;
+        const result = patt.test(event.key);
+        return result;
+    }
 }

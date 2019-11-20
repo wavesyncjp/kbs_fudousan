@@ -29,6 +29,9 @@ export class Templandinfo {
     infoStaffMap: string[] = [];
     infoOfferMap: string[] = [];
 
+    createUserId: number;
+    updateUserId: number;
+
     public constructor(init?: Partial<Templandinfo>) {
         if (init) {
             Object.assign(this, init);
@@ -53,11 +56,18 @@ export class Templandinfo {
         }
     }
 
-    public convertForSave() {
+    public convertForSave(userId: number) {
         this.infoStaff = this.infoStaffMap.join(',');
         this.infoOffer = this.infoOfferMap.join(',');
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
         this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;
         this.finishDate = this.finishDateMap != null ? this.finishDateMap.toLocaleString() : null;
+
+        if (this.pid > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
+
     }
 }

@@ -74,6 +74,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-color: red !important;
 }
 
+.number {
+    text-align: right;
+}
+
 /*---------search table-----------*/
 .search-div{
     width: 100%;
@@ -276,6 +280,17 @@ span.min{
 }
 /*--------------/detail table-------------*/
 
+/*-------------登録ボタンブロック-------------*/
+.register-div{
+    float: right;
+    margin: 2px 0px 10px 10px;
+}
+.register-div > button{
+    margin-left:10px;
+    width:80px;
+}
+/*-------------/登録ボタンブロック-------------*/
+
 /*--------------dialog--------------------*/
 .dialog-div{
     display: grid;
@@ -306,3 +321,18 @@ span.min{
     grid-template-columns: 40px auto;
 }
 /*--------------/dialog--------------------*/
+
+/**/
+.block-title{
+    font-size: 0.9em;
+    background-color: rgb(141, 141, 141);
+    color: white;
+    /* font-weight: bold; */
+    width: 142px !important;
+    padding: 2px;
+    height: 30px;
+    margin-bottom: 3px;
+    display: inline-flex;
+    align-items: center;
+    border: solid 1px rgba(0,0,0,.12);
+}
