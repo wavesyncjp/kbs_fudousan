@@ -3,6 +3,7 @@ import { InfoDetailComponent } from '../info-detail/info-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
+import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
 import { Information } from '../models/information';
 
@@ -23,8 +24,23 @@ export class InfoListComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('インフォメーション');
-  }
+    const funcs = [];
+    funcs.push(this.service.getCodes(['005']));
 
+    Promise.all(funcs).then(values => {
+
+      // コード
+      const codes = values[0] as Code[];
+      if (codes !== null && codes.length > 0) {
+        const uniqeCodes = [...new Set(codes.map(code => code.code))];
+        uniqeCodes.forEach(code => {
+          const lst = codes.filter(c => c.code === code);
+          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          this.sysCodes[code] = lst;
+        });
+      }
+    });
+  }
   createNew() {
     const dialogRef = this.dialog.open(InfoDetailComponent, {
       width: '60%',
@@ -33,3 +49,6 @@ export class InfoListComponent extends BaseComponent {
     });
   }
 }
+
+  
+

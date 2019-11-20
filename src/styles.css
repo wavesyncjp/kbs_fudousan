@@ -133,7 +133,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow-y: auto;
 }
 
-.detail-tbl,.detail-tbl-aria,.detail-tbl-build,.inDetail-tbl{
+.detail-tbl,.detail-tbl-aria,.detail-tbl-build,.inDetail-tbl,.detail-tbl-min{
     width: 100%;   
     border-spacing: 0px;
     border-collapse: collapse;
@@ -150,39 +150,47 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  .mat-tab-label{
     /*width: 120px;
     height: 40px;*/
-    background-color:  rgb(245, 201, 176);
+    background-color:  rgb(247, 168, 0);
     min-width: 145px !important;
     /*min-height: 20px !important;*/
     border-radius: 10px 10px 0 0;
-    color: rgb(0, 0, 0);
+    color:white;
     font-weight: bold;
     border-right: rgb(141, 141, 141) solid 2px;
 }
 
 .detail-tbl > tr > th{
     width:140px !important;
-    background-color: rgba(216, 210, 210, 0.616);
+    background-color: whitesmoke;
     text-align: left;
+    height: 22px !important;
     padding: 2px;
     padding-left:5px;
     font-size: 0.8em;
-    border-bottom: solid 1px rgba(0,0,0,.12);   
-    border-left: solid 1px rgba(0,0,0,.12);   
+    border-bottom: solid 2px rgb(131, 121, 121);
+    border-right: solid 1px rgb(131, 121, 121);  
+    border-left: solid 2px white; 
 }
 .detail-tbl-min> tr > th{
     width:140px !important;
-    background-color: rgba(216, 210, 210, 0.616);
+    background-color: rgba(211, 215, 255, 0.541);
     text-align: left;
     padding: 2px;
     padding-left:5px;
     font-size: 0.8em;
-    border-bottom: solid 1px rgba(0,0,0,.12);   
-    border-left: solid 1px rgba(0,0,0,.12);   
+    border-top: solid 2px white;   
+    border-left: solid 2px white; 
 }
+.detail-tbl-min> tr >td{
+    padding: 2px;
+    border-bottom: solid 1px rgba(0,0,0,.12); 
+    border-left: solid 1px rgba(0,0,0,.12);
+}
+
 
 span.min{
     font-size: 0.8em;
-    border-left:solid 5px  rgb(141, 141, 141);;
+    border-left:solid 5px rgb(132, 140, 211);
     color:black;
     font-weight: bold;
     text-align: center;
@@ -215,8 +223,7 @@ span.min{
 }
 .detail-tbl-aria{
     margin-bottom: 20px;
-    border-bottom: solid 1px rgb(141, 141, 141);
-    border-left: solid 1px rgba(0,0,0,.12);
+    
 }
 .detail-tbl-aria > tr{
     height: 30px;    
@@ -224,13 +231,14 @@ span.min{
 
 .detail-tbl-aria > tr > th{
     width:140px !important;
-    background-color: rgba(186, 192, 245, 0.685);
+    background-color: rgba(244, 250, 164, 0.548);
     text-align: left;
+    height: 22px !important;
     padding: 2px;
     padding-left:5px;
     font-size: 0.8em;
-    /*border-bottom: solid 1px rgba(0,0,0,.12);
-    border-left: solid 1px rgba(0,0,0,.12);   */ 
+    border-top: solid 2px white;   
+    border-left: solid 2px white; 
 }
 
 .detail-tbl-aria > tr > th.min{
@@ -238,9 +246,9 @@ span.min{
 }
 
 .detail-tbl-aria > tr > td{
-    padding: 2px;
+    padding: 1px;
     border-bottom: solid 1px rgba(0,0,0,.12);
-    border-left: solid 1px rgba(0,0,0,.12);   
+    border-left: solid 1px rgba(0,0,0,.12); 
 }
 
 .detail-tbl-build > tr{
@@ -254,8 +262,8 @@ span.min{
     padding: 2px;
     padding-left:5px;
     font-size: 0.8em;
-    border-bottom: solid 1px rgba(0,0,0,.12);
-    border-left: solid 1px rgba(0,0,0,.12);    
+    border-top: solid 2px white;   
+    border-left: solid 2px white;    
 }
 .detail-tbl-build > tr > th.min{
     width: 20px !important;
