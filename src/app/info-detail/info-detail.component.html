@@ -1,24 +1,27 @@
 <div class="dialog-div">  
-        
+    <!--11/25追記-->
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>         
     <table class="detail-tbl">
         <tr>
             <th>日付</th>
             <td>
-                <input type="text" [matDatepicker]="finishDate" class="width150">
-                <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #finishDate></mat-datepicker>
+                <input type="text" [matDatepicker]="infoDate" [ngClass]="{'width150': true, 'error': errors['infoDate']}" [(ngModel)]="data.infoDateMap">
+                <mat-datepicker-toggle matSuffix [for]="infoDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #infoDate></mat-datepicker>
             </td>
             
-        </tr>
+        </tr>                
         <tr>
             <th>件名</th>
-            <td><input type="text" class="width600" [(ngModel)]="data.infoSubject"></td>
+            <td><input type="text"  [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" ></td>
         </tr>
         <tr>
             <th>詳細</th> 
             <td>
             <mat-radio-group [(ngModel)]="data.detailFlg">
-                <mat-radio-button *ngFor="let code of getCode('006')" [value]="code.codeDetail" [checked]="code.codeDetail == '0'">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
+                <mat-radio-button *ngFor="let code of getCode('006')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
             </mat-radio-group>
         
             </td>
@@ -27,7 +30,9 @@
             <th>
                 
             </th>
-            <td><textarea class="width600" rows="18" [disabled]="data.detailFlg == '0'"></textarea></td>
+            <td>
+                <textarea [ngClass]="{'width600': true, 'error': errors['infoDate']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail"></textarea>
+            </td>
         </tr>
         <tr>
             <th>添付ファイル</th>
@@ -43,6 +48,7 @@
         </tr>        
     </table>
     <mat-dialog-actions align="end">        
+        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
         <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
     </mat-dialog-actions>
 </div>

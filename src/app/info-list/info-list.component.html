@@ -9,7 +9,7 @@
                     <th>日付</th>
                     <td>
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="finishDate" class="width150">
+                            <input type="text" [matDatepicker]="finishDate" class="width150" [(ngModel)]="cond.infoDate">
                             <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #finishDate></mat-datepicker>
                         </div>
@@ -17,14 +17,14 @@
                    
                     <th>掲載終了</th>
                     <td>
-                        <mat-checkbox *ngFor="let code of getCode('005')" [checked]="code.codeDetail === '0'" >{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
+                        <mat-checkbox *ngFor="let code of getCode('005')" [checked]="inList(cond.finishFlg, code.codeDetail)" (change)="changeCheck(cond.finishFlg, code.codeDetail ,$event)" >{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
                     </td>
                 
                 </tr>    
                 <tr>
                     <th>件名</th>
                     <td colspan="3">
-                        <input type="text" class="width400">
+                        <input type="text" class="width400" [(ngModel)]="cond.infoSubject">
                     </td>
                 </tr>   
             </table>      
@@ -57,7 +57,7 @@
         
             <ng-container matColumnDef="infoDetail">
             <th mat-header-cell *matHeaderCellDef> 詳細 </th>
-            <td mat-cell *matCellDef="let element"> {{element.infoDetail}} </td>
+            <td mat-cell *matCellDef="let element" class="infoDetail_width"> {{element.infoDetail}} </td>
             </ng-container>
 
             <ng-container matColumnDef="attachFileName">

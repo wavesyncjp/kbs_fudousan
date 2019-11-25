@@ -37,3 +37,15 @@ table {
     width: 98%;
     margin: 10px;
 }
+.infoDetail_width{
+    display: block;
+    width: 250px;
+    height:35px;
+    /*max-width: 100px;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 13px;
+
+}
+

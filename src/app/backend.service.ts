@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User, Code, Department, Employee } from './models/bukken';
 import { Templandinfo } from './models/templandinfo';
+import { Information } from './models/information';
 
 @Injectable({
   providedIn: 'root'
@@ -200,6 +201,36 @@ export class BackendService {
     const deleteFileApi = 'deletefile.php';
     const body = {pid: id, isAttach: attach};
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
+  }
+
+
+  /**
+   *  インフォメーション情報検索
+   */
+  searchInfo(cond: any): Promise<Information[]> {
+    const searchApi = 'infosearch.php';
+    const req = this.http.post<Information[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * インフォメーション情報登録
+   * @param info ：インフォメーション情報
+   */
+  saveInfo(info: Information): Promise<Information> {
+    const saveApi = 'infosave.php';
+    const req = this.http.post<Information>(`${this.BaseUrl}/${saveApi}`, info);
+    return req.toPromise();
+  }
+
+  /**
+   * インフォメーション情報削除
+   * @param id : 削除したいId
+   */
+  deleteInfo(id: number): Promise<void> {
+    const deleteApi = 'infodelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
     return req.toPromise();
   }
 
