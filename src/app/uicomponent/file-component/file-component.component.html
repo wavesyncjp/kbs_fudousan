@@ -9,4 +9,4 @@
   <p class="file-name">{{ file?.name }}</p>
 </ng-template>
 <input type="text" class="file-comment" *ngIf="hasComment" [(ngModel)]="comment">
-<button mat-raised-button (click)="upload()">アップロード</button>
+<button mat-raised-button (click)="upload()" *ngIf="!notButton">アップロード</button>

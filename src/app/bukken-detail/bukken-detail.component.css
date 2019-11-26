@@ -136,7 +136,8 @@ mat-form-field > input {
 
 .attach-div > a {
     display: inline-block;
-    min-width: 300px;
+   /* min-width: 300px;*/
+    min-width: 35%;
 }
 
 .attach-btn{

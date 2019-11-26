@@ -20,6 +20,9 @@ export class FileComponentComponent implements OnInit {
   @Input()
   hasComment = false;
 
+  @Input()
+  notButton = false;
+
   @Output() uploaded: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('fileInput', {static: true})

@@ -29,14 +29,14 @@
                 <td>
                     <app-select-component [codes]="getDeps()" [(ngModel)]="data.department"></app-select-component>
                 </td>
-                <th>情報担当者</th>
-                <td colspan="3">
+                <th>物件担当者</th>
+                <td>
                     <mat-select multiple class="width300" [(ngModel)]="data.infoStaffMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
                 </td>
                 <th>情報提供者</th>
-                <td colspan="3"> 
+                <td> 
                     <mat-select multiple class="width300" [(ngModel)]="data.infoOfferMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
                     </mat-select>
@@ -60,7 +60,7 @@
                     </div>
                 </td>      
                 <th>終了日</th>
-                <td colspan="3">
+                <td>
                     <div class="picker-div">
                         <input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width150">
                         <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
@@ -97,11 +97,20 @@
                 <td><input type="text" [(ngModel)]="data.indivisibleNumerator" class="width150"></td>
                 <th>不可分母</th>
                 <td><input type="text" [(ngModel)]="data.indivisibleDenominator" class="width150"></td>
-                <th>地目</th>
-                <td>
-                    <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
-                </td>
             </tr>
+            <!--11/26修正-->
+            <tr>
+                    <th>地目</th>
+                    <td>
+                        <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
+                    </td>
+                    <th>容積率</th>
+                    <td><input type="text" [(ngModel)]="data.floorAreaRatio" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
+                    <th>建蔽率</th>
+                    <td><input type="text" [(ngModel)]="data.coverageRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
+            </tr>
+            <!--11/26修正-->
+    
             <tr>
                 <th>地図添付</th>
                 <td colspan="7">
@@ -123,7 +132,7 @@
                     <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                         
                     <div *ngFor="let map of data.attachFiles" class="attach-div">                                        
                         <a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a>
-                        <input type="text" class="width400" [(ngModel)]="map.attachFileRemark">
+                        <input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;">
                         <button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button>                        
                     </div>
                     
@@ -132,402 +141,84 @@
 
         </table>		    
     </table>
-
+<!--11/26修正-->
         <div class="button-div">
             <button mat-raised-button color="warn"  class="addLocation"  (click)="addLocation()" >所有地追加</button>
         </div>        
   
+       
         <!--Tab group-->
-        <mat-tab-group  class="contract-block" style="margin-top: 0px; padding-top:1px;">
-            <mat-tab *ngFor="let location of data.locations; index as pos" label="所在地" >
+       
                 <!--block-->
-                <div>                                        
+                <span class="min">所在地</span>
+                <div *ngFor="let location of data.locations; index as pos">                                        
                 <table class="detail-tbl-min">  
                 <table>
-                    <span class="min">所在地</span>
-                    <button mat-raised-button *ngIf="data.locations.length > 1" class="removeLocation" (click)="removeLocation(pos)" >削除</button>
+                    <button mat-raised-button *ngIf="data.locations.length > 1" (click)="removeLocation(pos)" >削除</button>
                 </table>
-                    <tr>
-                        <th>郵便番号</th>
-                        <td><input type="text" [(ngModel)]="location.zipcode"></td>
+                <tr>
+                    <th>
+                        <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component>
+                    </th>
+                    <td>
+                        <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">
+                                    <!--削除項目-->
+                                    <!--<mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
+                                    <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>-->
+                            契約書情報
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                        <th>所在地</th>
+                        <td colspan = "3">
+                            <input type="text" [(ngModel)]="location.address" class="width600">
+                        </td>
+            
+                        <th>地番</th>
+                        <td><input type="text" [(ngModel)]="location.blockNumber"></td>
+
+                        <th>家屋番号</th>
+                        <td><input type="text" [(ngModel)]="location.buildingNumber"></td>
+                </tr>
+                <tr>
+                    <th>所有者名</th>
+                    <td colspan = "3"><input type="text" [(ngModel)]="location.owner" class = "width300"></td>
+
+                    <th>所有者住所</th>
+                    <td colspan = "3"><input type="text" [(ngModel)]="location.ownerAdress" class = "width600"></td>
+                </tr>
+
+                <tr>
                         <th>地積</th>
                         <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
-                        <th>上物</th>
-                        <td>
-                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
-                        </td> 
-                    </tr>
-                    <tr>
-                        <th>都道府県</th>
-                        <td><input type="text" [(ngModel)]="location.prefecture"></td>
                         <th>坪数</th>
                         <td><input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)">&nbsp;坪</td>
-                        <th>建物種別</th>
-                        <td>
-                            <app-select-component [codes]="getCode('003')" [(ngModel)]="location.buildingType"></app-select-component>
-                        </td> 
-                    </tr>
-                    <tr>
-                        <th>所在地1</th>
-                        <td><input type="text" [(ngModel)]="location.address1"></td>
-                        <th>容積率</th>
-                        <td><input type="text" [(ngModel)]="location.floorAreaRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
                         <th>床面積</th>
-                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td> 
-                    </tr>
-                    <tr>
-                        <th>所在地2</th>
-                        <td><input type="text" [(ngModel)]="location.address2"></td>
-                        <th>建蔽率</th>
-                        <td><input type="text" [(ngModel)]="location.coverageRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
+                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
                         <th>構造</th>
                         <td>
                             <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component>
-                        </td> 
-                    </tr>
-                    <tr>
-                        <th>地番1(丁目)</th>
-                        <td><input type="text" [(ngModel)]="location.blockNumber1"></td>
-                        <th>所有者名(土地)</th>
-                        <td><input type="text" [(ngModel)]="location.landOwner"></td>
-                        <th>所有者名(建物)</th>
-                        <td><input type="text" [(ngModel)]="location.builOwner"></td> 
-                    </tr>
-                    <tr>
-                        <th>地番2(番地)</th>
-                        <td><input type="text" [(ngModel)]="location.blockNumber2"></td>
-                        <th>所有者住所(土地)</th>
-                        <td><input type="text" [(ngModel)]="location.landOwnerAdress"></td>
-                        <th>所有者住所(建物)</th>
-                        <td><input type="text" [(ngModel)]="location.builOwnerAdress"></td>
-                    </tr>
-                    <tr>
-                        <th>家屋番号</th>
-                        <td><input type="text" [(ngModel)]="location.buildingNumber"></td>
-                        <th>根)抵当権(土地)</th>
-                        <td><input type="text" [(ngModel)]="location.landMortgage"></td>
-                        <th>根)抵当権(建物)</th>
-                        <td><input type="text" [(ngModel)]="location.builMortgage"></td> 
-                    </tr>
-                    <tr>
-                        <th>所在地</th>
-                        <td colspan="5">
-                            <input type="text" value="{{location.prefecture}}{{location.address1}}{{location.address2}}{{location.blockNumber1}}{{location.blockNumber2}}{{location.buildingNumber}}" class="width85PerR" >
-                        </td>      
-                    </tr>
+                        </td>
+                        <th>権利形態</th>
+                        <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component></td>
+                </tr>
+                <tr>
+                    <th>入居者情報</th>
+                    <td>
+                        <input type="text" [(ngModel)]="data.remark1" class="width85Per">
+                    </td>
+                </tr>
+                <tr>
+                    <th>備考</th>
+                    <td colspan="13">
+                        <input type="text" [(ngModel)]="data.remark1" class="width85Per">
+                    </td>
+                </tr>
                 </table>
-
-                <table class="detail-tbl">
-                    
-                    <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">
-                        <!--削除項目-->
-                        <!--<mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
-                        <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>-->
-                        契約書情報
-                    </button>            
-                    <!--保留-->
-                    <!--<button mat-raised-button color="primary" *ngIf="data.locations.length > 1" style="float: right;margin:5px;" (click)="removeLocation()">削除</button>
-                    -->
-                </table>
-
-                <div><!--契約ブロック-->
-
-                <!--/土地情報契約-->
-                <span class="block-title-aria">土地情報契約</span>
-                <table class="detail-tbl-aria">  
-                    <tr>
-                        <th class="min">契約担当者</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aContractStaff" class="width150"></td>
-                        
-                        <!--削除項目-->
-                        <!--<th class="min2">不可分成立日</th>
-                        <td>
-                            <input type="text" [matDatepicker]="aIndivisibleDate" [(ngModel)]="location.contract.aIndivisibleDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aIndivisibleDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aIndivisibleDate></mat-datepicker>
-                        </td>-->
-
-
-                        <th>契約日</th>
-                        <td><input type="text" [matDatepicker]="aContractDate" [(ngModel)]="location.contract.aContractDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aContractDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aContractDate></mat-datepicker></td>
-                        <th>売買代金</th>
-                        <td  colspan="3"><input type="text" [(ngModel)]="location.contract.aTradingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-
-                    </tr>
-                    <tr>
-
-                        <th class="min2">内金①</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-                        <th>内金②</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aDeposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-                        <th>内金③</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aDeposit3" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-                        <th>内金④</th>
-                        <td colspan="3"><input type="text" [(ngModel)]="location.contract.aDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
-                    </tr>
-                    <tr>
-                        <th class="min">支払日</th>
-                        <td><input type="text" [matDatepicker]="aPayDate1" [(ngModel)]="location.contract.aPayDate1" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aPayDate1"  class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aPayDate1></mat-datepicker></td>
-                        <th>支払日</th>
-                        <td><input type="text" [matDatepicker]="aPayDate2" [(ngModel)]="location.contract.aPayDate2" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aPayDate2" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aPayDate2></mat-datepicker></td>
-                        <th>支払日</th>
-                        <td><input type="text" [matDatepicker]="aPayDate3" [(ngModel)]="location.contract.aPayDate3" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aPayDate3" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aPayDate3></mat-datepicker></td>
-                        <th>支払日</th>
-                        <td colspan="3"><input type="text" [matDatepicker]="aPayDate4" [(ngModel)]="location.contract.aPayDate4" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aPayDate4" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aPayDate4></mat-datepicker></td> 
-                    </tr>
-                    <tr>
-                        <th class="min">即決和解</th>
-                        <td colspan="9">
-                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--削除項目-->
-                        <!--<th class="min2">即決和解申請期日</th>
-                        <td><input type="text" [matDatepicker]="aPromptDecideApplyDeadline" [(ngModel)]="location.contract.aPromptDecideApplyDeadline" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aPromptDecideApplyDeadline" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aPromptDecideApplyDeadline></mat-datepicker></td>-->
-                        <th>即決和解申請日</th>
-                        <td><input type="text" [matDatepicker]="aPromptDecideApplyDate" [(ngModel)]="location.contract.aPromptDecideApplyDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aPromptDecideApplyDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aPromptDecideApplyDate></mat-datepicker></td>
-                        <!--削除項目-->
-                        <!--<th>即決和解費用</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aPromptDecideCost" class="width130">&nbsp;円</td>-->
-                        <!--削除項目--
-                        <th>即決日</th>
-                        <td colspan="3"><input type="text" [matDatepicker]="aPromptDecideDate" [(ngModel)]="location.contract.aPromptDecideDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aPromptDecideDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aPromptDecideDate></mat-datepicker></td>-->
-
-                        <!--削除項目-->
-                        <!--<th class="min2">和解成立後</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aSettlementAfter" class="width130"></td>-->
-                        <th>明渡期限</th>
-                        <td><input type="text" [(ngModel)]="location.contract.aVacateDeadline" class="width130"></td>
-                        <!--削除項目-->
-                        <!--<th>明渡日</th>
-                        <td><input type="text" [matDatepicker]="aVacateDate" [(ngModel)]="location.contract.aVacateDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aVacateDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aVacateDate></mat-datepicker></td>-->
-                        <!--削除項目-->
-                        <!--<th>明渡(留保金支払)日</th>
-                        <td><input type="text" [matDatepicker]="aVacateKeepPayDate" [(ngModel)]="location.contract.aVacateKeepPayDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aVacateKeepPayDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aVacateKeepPayDate></mat-datepicker></td>-->
-                        <!--削除項目-->
-                        <!--<th>成果簿予定完成日</th>
-                        <td><input type="text" [matDatepicker]="aResultSchFinishDate" [(ngModel)]="location.contract.aResultSchFinishDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="aResultSchFinishDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #aResultSchFinishDate></mat-datepicker></td>-->
-
-                        <th class="min">等価交換</th>
-                        <td>
-                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
-                        </td>
-                        <!--削除項目-->
-                        <!--<th>合意解除</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.aCancelFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
-                        </td>-->
-                        <th>テナント立退</th>
-                        <td>
-                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
-                        </td>
-                        <!--削除項目-->
-                        <!--<th>紙</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.aPaperFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
-                        </td>-->
-                        <!--削除項目-->
-                        <!--<th>覚書</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.aMemoFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
-                        </td>-->
-                    </tr>
-                    <!--削除項目-->
-                    <!--<tr>
-                            <th>業務委託・仲介等</th>
-                            <td colspan="9">
-                                <input type="text" [(ngModel)]="location.contract.aSubcontracting" class="width85Per">
-                            </td>      
-                        </tr>
-                        <tr>
-                            <th>契約備考</th>
-                            <td colspan="9">
-                                <input type="text" [(ngModel)]="location.contract.aContractRemark" class="width85Per">
-                            </td>      
-                        </tr>-->
-                </table>
-                <!--/土地情報契約-->
-
-                <!--/建物情報契約-->
-                <span class="block-title-build">建物情報契約</span>
-                <table class="detail-tbl-build">  
-                    <tr>
-                        <th class="min">契約担当者</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bContractStaff" class="width150"></td>
-                        <!--削除項目-->
-                        <!--<th class="min2">不可分成立日</th>
-                        <td>
-                            <input type="text" [matDatepicker]="bIndivisibleDate" [(ngModel)]="location.contract.bIndivisibleDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bIndivisibleDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bIndivisibleDate></mat-datepicker>
-                        </td>-->
-
-
-                        <th>契約日</th>
-                        <td><input type="text" [matDatepicker]="bContractDate" [(ngModel)]="location.contract.bContractDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bContractDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bContractDate></mat-datepicker></td>
-                        <th>売買代金</th>
-                        <td  colspan="3"><input type="text" [(ngModel)]="location.contract.bTradingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-
-                    </tr>
-                    <tr>
-
-                        <th class="min2">内金①</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-                        <th>内金②</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bDeposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-                        <th>内金③</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bDeposit3" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-                        <th>内金④</th>
-                        <td colspan="3"><input type="text" [(ngModel)]="location.contract.bDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
-                    </tr>
-                    <tr>
-                        <th class="min">支払日</th>
-                        <td><input type="text" [matDatepicker]="bPayDate1" [(ngModel)]="location.contract.bPayDate1" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bPayDate1"  class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bPayDate1></mat-datepicker></td>
-                        <th>支払日</th>
-                        <td><input type="text" [matDatepicker]="bPayDate2" [(ngModel)]="location.contract.bPayDate2" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bPayDate2" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bPayDate2></mat-datepicker></td>
-                        <th>支払日</th>
-                        <td><input type="text" [matDatepicker]="bPayDate3" [(ngModel)]="location.contract.bPayDate3" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bPayDate3" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bPayDate3></mat-datepicker></td>
-                        <th>支払日</th>
-                        <td colspan="3"><input type="text" [matDatepicker]="bPayDate4" [(ngModel)]="location.contract.bPayDate4" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bPayDate4" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bPayDate4></mat-datepicker></td> 
-                    </tr>
-                    <tr>
-                        <th class="min">即決和解</th>
-                        <td colspan="9">
-                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--削除項目-->
-                        <!--<th class="min2">即決和解申請期日</th>
-                        <td><input type="text" [matDatepicker]="bPromptDecideApplyDeadline" [(ngModel)]="location.contract.bPromptDecideApplyDeadline" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bPromptDecideApplyDeadline" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bPromptDecideApplyDeadline></mat-datepicker></td>-->
-                        <th>即決和解申請日</th>
-                        <td><input type="text" [matDatepicker]="bPromptDecideApplyDate" [(ngModel)]="location.contract.bPromptDecideApplyDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bPromptDecideApplyDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bPromptDecideApplyDate></mat-datepicker></td>
-                        <!--削除項目-->
-                        <!--<th>即決和解費用</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bPromptDecideCost" class="width130">&nbsp;円</td>-->
-                        <!--削除項目-->
-                        <!--<th>即決日</th>
-                        <td colspan="3"><input type="text" [matDatepicker]="bPromptDecideDate" [(ngModel)]="location.contract.bPromptDecideDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bPromptDecideDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bPromptDecideDate></mat-datepicker></td>-->
-
-                        <!--削除項目-->
-                        <!--<th class="min2">和解成立後</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bSettlementAfter" class="width130"></td>-->
-                        <th>明渡期限</th>
-                        <td><input type="text" [(ngModel)]="location.contract.bVacateDeadline" class="width130"></td>
-                        <!--削除項目-->
-                        <!--<th>明渡日</th>
-                        <td><input type="text" [matDatepicker]="bVacateDate" [(ngModel)]="location.contract.bVacateDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bVacateDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bVacateDate></mat-datepicker></td>-->
-                        <!--削除項目-->
-                        <!--<th>明渡(留保金支払)日</th>
-                        <td><input type="text" [matDatepicker]="bVacateKeepPayDate" [(ngModel)]="location.contract.bVacateKeepPayDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bVacateKeepPayDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bVacateKeepPayDate></mat-datepicker></td>-->
-                        <!--削除項目-->
-                        <!--<th>成果簿予定完成日</th>
-                        <td><input type="text" [matDatepicker]="bResultSchFinishDate" [(ngModel)]="location.contract.bResultSchFinishDate" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="bResultSchFinishDate" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #bResultSchFinishDate></mat-datepicker></td>-->
-
-                        <th class="min">等価交換</th>
-                        <td>
-                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
-                        </td>
-                        <!--削除項目-->
-                        <!--<th>合意解除</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.bCancelFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
-                        </td>-->
-                        <th>テナント立退</th>
-                        <td>
-                            <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
-                        </td>
-                        <!--削除項目-->
-                        <!--<th>紙</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.bPaperFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
-                        </td>-->
-                        <!--削除項目-->
-                        <!--<th>覚書</th>
-                        <td><mat-radio-group [(ngModel)]="location.contract.bMemoFlg">
-                                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">有</mat-radio-button>
-                            </mat-radio-group>
-                        </td>-->
-                    </tr>
-                    <!--削除項目-->
-                    <!--<tr>
-                            <th>業務委託・仲介等</th>
-                            <td colspan="9">
-                                <input type="text" [(ngModel)]="location.contract.bSubcontracting" class="width85Per">
-                            </td>      
-                        </tr>
-                        <tr>
-                            <th>契約備考</th>
-                            <td colspan="9">
-                                <input type="text" [(ngModel)]="location.contract.bContractRemark" class="width85Per">
-                            </td>      
-                        </tr>-->
-                </table>
-                <!--/建物情報契約-->
-
-                </div><!--/契約ブロック-->
-
                 </div>
-                <!--/block-->
-            </mat-tab>
-        </mat-tab-group>
-        <!--/Tab group-->
+            
+    <!--11/26修正-->
 
         <div class="register-div">
             <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>

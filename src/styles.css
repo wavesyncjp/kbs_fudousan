@@ -33,6 +33,10 @@ input {
 .width400{
     width: 400px;
 }
+.fuzzyWidth400{
+    width: 400px;
+    background-color: rgb(255, 249, 197);
+}
 .width600{
     width: 600px;
 }
