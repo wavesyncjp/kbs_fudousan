@@ -4,9 +4,9 @@
   ファイルを選択
 </button>
 
-<p class="file-name" *ngIf="!file; else fileName">ファイルが選択されていません</p>
+<p class="file-name" *ngIf="!file; else fileName"><!--ファイルが選択されていません--></p>
 <ng-template #fileName>
   <p class="file-name">{{ file?.name }}</p>
 </ng-template>
 <input type="text" class="file-comment" *ngIf="hasComment" [(ngModel)]="comment">
-<button mat-raised-button (click)="upload()">アップロード</button>
+<button mat-raised-button (click)="upload()" *ngIf="!notButton">アップロード</button>

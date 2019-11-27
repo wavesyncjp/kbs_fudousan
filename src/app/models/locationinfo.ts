@@ -6,10 +6,8 @@ export class Locationinfo {
     registPosition: number;
     zipcode: string;
     prefecture: string;
-    address1: string;
-    address2: string;
-    blockNumber1: string;
-    blockNumber2: string;
+    address: string; /*11/26変更*/
+    blockNumber: string; /*11/26変更*/
     buildingNumber: string;
     area: number;
     tsubo: number;
@@ -19,13 +17,14 @@ export class Locationinfo {
     floorSpace: number;
     structure: string;
     coverageRate: number;
-    landOwner: string;
-    landOwnerAdress: string;
+    owner: string; /*11/26変更*/
+    ownerAdress: string; /*11/26変更*/
     landMortgage: string;
-    builOwner: string;
-    builOwnerAdress: string;
     builMortgage: string;
     contract: Stockcontractinfo;
+    rightsForm: string; /*11/26追加*/
+    liveInfo: string;　/*11/26追加*/
+
 
     hasContract: boolean;
 }

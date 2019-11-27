@@ -24,7 +24,8 @@
                 <tr>
                     <th>件名</th>
                     <td colspan="3">
-                        <input type="text" class="width400" [(ngModel)]="cond.infoSubject">
+                        <!--fuzzyWide 曖昧検索-->
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject">
                     </td>
                 </tr>   
             </table>      
