@@ -32,9 +32,19 @@ mat-form-field > input {
     margin-bottom:5px;
 }
 .button-div > button {
+    background-color: rgb(238, 173, 113);
+    color: white;
     position: absolute;
     right: 0px;
     width: 110px;
+}
+.buttonDelete{
+    background-color: red;
+    color: white;
+    position: absolute;
+    right: 30px;
+    width: 110px;
+    margin-top:10px;
 }
 
 .block-title-status{
@@ -126,7 +136,9 @@ mat-form-field > input {
     top: 5px;
 }
 .detail-tbl > .contractButton{
+    display: block;
     background-color:white;
+    text-align: center;
 }
 
 .attach-div{
@@ -137,7 +149,7 @@ mat-form-field > input {
 .attach-div > a {
     display: inline-block;
    /* min-width: 300px;*/
-    min-width: 35%;
+    min-width: 25%;
 }
 
 .attach-btn{

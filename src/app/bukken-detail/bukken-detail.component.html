@@ -23,7 +23,7 @@
     <table class ="block-status">
         <br>
         <span class="block-title-status">情報ステータス</span>
-        <table class="detail-tbl">  
+        <table class="detail-tbl-status">  
             <tr>
                 <th>物件担当部署</th>
                 <td>
@@ -87,7 +87,7 @@
         </table>
         <br>
         <span class="block-title-etc">物件概要</span>
-        <table class="detail-tbl">  
+        <table class="detail-tbl-etc">  
             <tr>
                 <th>不可分</th>
                 <td>
@@ -113,20 +113,20 @@
     
             <tr>
                 <th>地図添付</th>
-                <td colspan="7">
+                <td colspan="5">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
                     <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                                        
-
+               
                     <div *ngFor="let map of data.mapFiles" class="attach-div">                                        
                         <a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a>
                         <button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button>                        
                     </div>
                     
-                </td>  
+                </td> 
             </tr> 
             <tr>
                 <th>ファイル添付</th>
-                <td colspan="7">
+                <td colspan="5">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
 
                     <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                         
@@ -143,7 +143,7 @@
     </table>
 <!--11/26修正-->
         <div class="button-div">
-            <button mat-raised-button color="warn"  class="addLocation"  (click)="addLocation()" >所有地追加</button>
+            <button mat-raised-button  class="addLocation"  (click)="addLocation()" >所有地追加</button>
         </div>        
   
        
@@ -153,9 +153,7 @@
                 <span class="min">所在地</span>
                 <div *ngFor="let location of data.locations; index as pos">                                        
                 <table class="detail-tbl-min">  
-                <table>
-                    <button mat-raised-button *ngIf="data.locations.length > 1" (click)="removeLocation(pos)" >削除</button>
-                </table>
+                
                 <tr>
                     <th>
                         <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component>
@@ -172,7 +170,7 @@
                 <tr>
                         <th>所在地</th>
                         <td colspan = "3">
-                            <input type="text" [(ngModel)]="location.address" class="width600">
+                            <input type="text" [(ngModel)]="location.address" class="width400">
                         </td>
             
                         <th>地番</th>
@@ -186,7 +184,7 @@
                     <td colspan = "3"><input type="text" [(ngModel)]="location.owner" class = "width300"></td>
 
                     <th>所有者住所</th>
-                    <td colspan = "3"><input type="text" [(ngModel)]="location.ownerAdress" class = "width600"></td>
+                    <td colspan = "3"><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
                 </tr>
 
                 <tr>
@@ -205,7 +203,7 @@
                 </tr>
                 <tr>
                     <th>入居者情報</th>
-                    <td>
+                    <td colspan="13">
                         <input type="text" [(ngModel)]="data.remark1" class="width85Per">
                     </td>
                 </tr>
@@ -215,6 +213,9 @@
                         <input type="text" [(ngModel)]="data.remark1" class="width85Per">
                     </td>
                 </tr>
+                <table>
+                    <button mat-raised-button color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)"  class="buttonDelete">削除</button>
+                </table>
                 </table>
                 </div>
             
