@@ -32,10 +32,11 @@ mat-form-field > input {
     margin-bottom:5px;
 }
 .button-div > button {
-    background-color: rgb(238, 173, 113);
+    background-color: rgb(238, 187, 45);
     color: white;
     position: absolute;
     right: 0px;
+    top:10px;
     width: 110px;
 }
 .buttonDelete{
@@ -135,10 +136,16 @@ mat-form-field > input {
     right: 20px;
     top: 5px;
 }
-.detail-tbl > .contractButton{
+.button-div>.contractButton{
     display: block;
-    background-color:white;
+    color: rgb(255, 255, 255);
+    background-color:rgb(139, 111, 49);
     text-align: center;
+    position: absolute;
+    left: 200px;
+    top:10px;
+    
+    
 }
 
 .attach-div{
