@@ -21,10 +21,6 @@ export class Locationinfo {
     ownerAdress: string; /*11/26変更*/
     landMortgage: string;
     builMortgage: string;
-    contract: Stockcontractinfo;
     rightsForm: string; /*11/26追加*/
     liveInfo: string;　/*11/26追加*/
-
-
-    hasContract: boolean;
 }

@@ -3,10 +3,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { MatPaginatorIntlJa } from '../adapters/adapters';
+import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
@@ -17,14 +17,16 @@ import { Code } from '../models/bukken';
   templateUrl: './bukken-list.component.html',
   styleUrls: ['./bukken-list.component.css'],
   providers: [
-    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa }
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
+    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+    {provide: DateAdapter, useClass: JPDateAdapter}
   ]
 })
 export class BukkenListComponent extends BaseComponent {
 
   public cond: any;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'pickDate', 'department', 'result', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'remark1', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -49,7 +51,7 @@ export class BukkenListComponent extends BaseComponent {
       bukkenNo: '',
       bukkenName: '',
       address: '',
-      pickDateMap: null,
+      pickDate: null,
       department: [],
       result: ['01']
     };
@@ -83,7 +85,7 @@ export class BukkenListComponent extends BaseComponent {
    */
   searchBukken() {
     this.spinner.show();
-    this.service.searchLand().then(res => {
+    this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         res.forEach(obj => {
           if (obj.department !== null && obj.department !== '') {

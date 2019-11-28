@@ -93,7 +93,6 @@ export class BukkenDetailComponent extends BaseComponent {
       this.data.locations = [];
 
       const loc = new Locationinfo();
-      loc.contract = new Stockcontractinfo();
       this.data.locations.push(loc);
     }
   }
@@ -104,7 +103,6 @@ export class BukkenDetailComponent extends BaseComponent {
 
   addLocation(): void {
     const loc = new Locationinfo();
-    loc.contract = new Stockcontractinfo();
     this.data.locations.push(loc);
   }
 

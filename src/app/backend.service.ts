@@ -85,9 +85,8 @@ export class BackendService {
   /**
    * 土地情報検索
    */
-  searchLand(): Promise<Templandinfo[]> {
+  searchLand(body: any): Promise<Templandinfo[]> {
     const searchLandApi = 'landsearch.php';
-    const body = {};
     const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${searchLandApi}`, body);
     return req.toPromise();
   }
