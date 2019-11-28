@@ -113,7 +113,7 @@
     
             <tr>
                 <th>地図添付</th>
-                <td colspan="5">
+                <td colspan="5" style = "border-top: solid 1px rgba(197, 191, 191, 0.822);">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
                     <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                                        
                
@@ -126,7 +126,7 @@
             </tr> 
             <tr>
                 <th>ファイル添付</th>
-                <td colspan="5">
+                <td colspan="5" style = "border-top: solid 1px rgba(197, 191, 191, 0.822); border-bottom: solid 1px rgba(197, 191, 191, 0.822);">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
 
                     <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                         
@@ -144,28 +144,30 @@
 <!--11/26修正-->
         <div class="button-div">
             <button mat-raised-button  class="addLocation"  (click)="addLocation()" >所有地追加</button>
+        </div>
+        <div class="button-div"> 
+                <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">
+                        <!--削除項目-->
+                        <!--<mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
+                        <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>-->
+                    契約書情報
+                 </button>    
         </div>        
   
        
         <!--Tab group-->
        
                 <!--block-->
-                <span class="min">所在地</span>
-                <div *ngFor="let location of data.locations; index as pos">                                        
-                <table class="detail-tbl-min">  
                 
+        <div *ngFor="let location of data.locations; index as pos">                                  
+            <table class="detail-tbl-min">
+                    <!--<span style = "width: 99%; border-bottom: solid 2px rgb(226, 217, 217); margin:10px 0px 20px 13px;"></span>-->
+                    <span class="min">所在地</span>    
                 <tr>
                     <th>
-                        <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component>
+                        <app-select-component [codes]="getCode('007')" [(ngModel)]="location.locationType"></app-select-component>
                     </th>
-                    <td>
-                        <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">
-                                    <!--削除項目-->
-                                    <!--<mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
-                                    <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>-->
-                            契約書情報
-                        </button>
-                    </td>
+                    <td><input type="text" class="width150" [attr.disabled]="data.pid < 0"></td>
                 </tr>
                 <tr>
                         <th>所在地</th>
@@ -174,10 +176,10 @@
                         </td>
             
                         <th>地番</th>
-                        <td><input type="text" [(ngModel)]="location.blockNumber"></td>
+                        <td><input type="text" [(ngModel)]="location.blockNumber" [disabled]="location.locationType == '02'"></td>
 
                         <th>家屋番号</th>
-                        <td><input type="text" [(ngModel)]="location.buildingNumber"></td>
+                        <td><input type="text" [(ngModel)]="location.buildingNumber" [disabled]="location.locationType == '01'"></td>
                 </tr>
                 <tr>
                     <th>所有者名</th>
@@ -189,22 +191,22 @@
 
                 <tr>
                         <th>地積</th>
-                        <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+                        <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="floatOnly($event)" [disabled]="location.locationType == '02'">&nbsp;㎡</td>
                         <th>坪数</th>
-                        <td><input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)">&nbsp;坪</td>
+                        <td><input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="data.pid < 0">&nbsp;坪</td>
                         <th>床面積</th>
-                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)" [disabled]="location.locationType == '01'">&nbsp;㎡</td>
                         <th>構造</th>
                         <td>
-                            <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component>
+                            <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure" [attr.disabled]="location.locationType == '01'"></app-select-component>
                         </td>
                         <th>権利形態</th>
-                        <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure"></app-select-component></td>
+                        <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.rightsForm" [disabled]="location.locationType == '01'"></app-select-component></td>
                 </tr>
                 <tr>
                     <th>入居者情報</th>
                     <td colspan="13">
-                        <input type="text" [(ngModel)]="data.remark1" class="width85Per">
+                        <input type="text" [(ngModel)]="data.remark1" class="width85Per" [disabled]="location.locationType == '01'">
                     </td>
                 </tr>
                 <tr>
@@ -216,12 +218,13 @@
                 <table>
                     <button mat-raised-button color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)"  class="buttonDelete">削除</button>
                 </table>
-                </table>
-                </div>
+            </table>
+            
+        </div>
             
     <!--11/26修正-->
 
-        <div class="register-div">
+        <div class="register-div-bottom">
             <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
             <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
         </div>
