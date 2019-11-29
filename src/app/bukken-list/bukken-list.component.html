@@ -24,7 +24,7 @@
           <th>情報収集日</th>
           <td>
             <div class="picker-div">
-                <input type="text" [matDatepicker]="pickDate"  class="width150">
+                <input type="text" [matDatepicker]="pickDate" [(ngModel)]="cond.pickDateMap" class="width150">
                 <mat-datepicker-toggle matSuffix [for]="pickDate" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #pickDate></mat-datepicker>
             </div>

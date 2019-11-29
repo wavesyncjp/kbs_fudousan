@@ -51,7 +51,8 @@ export class BukkenListComponent extends BaseComponent {
       bukkenNo: '',
       bukkenName: '',
       address: '',
-      pickDate: null,
+      pickDateMap: new Date(),
+      pickDate: '',
       department: [],
       result: ['01']
     };
@@ -73,6 +74,9 @@ export class BukkenListComponent extends BaseComponent {
       }
 
       this.deps = values[1];
+
+      this.cond.pickDateMap = null;
+
     });
   }
 
@@ -85,6 +89,12 @@ export class BukkenListComponent extends BaseComponent {
    */
   searchBukken() {
     this.spinner.show();
+
+    // const val = new Date();
+    // val.toLocaleDateString();
+    this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
+    console.log(this.cond);
+
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         res.forEach(obj => {
