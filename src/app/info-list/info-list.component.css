@@ -11,7 +11,7 @@ table {
     width: 120px;
 }
 .mat-column-infoDetail{
-    width: 30%;
+    /*width: 30%;*/
 }
 .mat-column-attachFileName{
     width: 200px;
@@ -37,15 +37,14 @@ table {
     width: 98%;
     margin: 10px;
 }
-.infoDetail_width{
-    display: block;
-    width: 250px;
+.infoDetail_width{    
+    /*width: 250px;*/
     height:35px;
     /*max-width: 100px;*/
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-bottom: 13px;
+    /*padding-bottom: 13px;*/
 
 }
 

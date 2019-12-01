@@ -40,7 +40,8 @@ export class InfoListComponent extends BaseComponent {
 
     this.cond = {
       infoSubject: '',
-      infoDate: null,
+      infoDateMap: new Date(),
+      infoDate: '',
       finishFlg: ['0']
     };
 
@@ -59,6 +60,9 @@ export class InfoListComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+
+      this.cond.infoDateMap = null;
+
     });
   }
 
@@ -67,7 +71,7 @@ export class InfoListComponent extends BaseComponent {
    */
   searchInfo() {
     this.spinner.show();
-
+    this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
     this.service.searchInfo(this.cond).then(res => {
       this.dataSource.data = res;
 
@@ -80,10 +84,17 @@ export class InfoListComponent extends BaseComponent {
   }
 
   createNew() {
+    const row = new Information();
     const dialogRef = this.dialog.open(InfoDetailComponent, {
       width: '60%',
       height: '580px',
-      data: new Information()
+      data: row
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.searchInfo();
+      }
     });
   }
 
@@ -111,6 +122,14 @@ export class InfoListComponent extends BaseComponent {
       height: '580px',
       data: row
     });
+
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.searchInfo();
+      }
+    });
+
   }
 
   highlight(row) {

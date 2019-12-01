@@ -6,7 +6,7 @@
 
             <table mat-table [dataSource]="dataSource">            
                 <ng-container matColumnDef="infoDate">
-                    <td mat-cell *matCellDef="let element" > {{element.infoDate}} </td>
+                    <td mat-cell *matCellDef="let element" > {{element.infoDate | date:'yyyy/MM/dd'}} </td>
                 </ng-container>
             
                 <ng-container matColumnDef="infoSubject">
@@ -17,14 +17,14 @@
                 </ng-container>
                             
                 <ng-container matColumnDef="attachFileName">  
-                    <td mat-cell *matCellDef="let element"><a class="action-link">{{element.attachFileName}}</a></td>
+                    <td mat-cell *matCellDef="let element"><a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
                 </ng-container>
                                                 
                 
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>                
-        <div class="more"><a (click)="navigate('infos')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
+        <div class="more" *ngIf="hasInfo"><a (click)="navigate('infos')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
     </div>
     <div class="chart-top">
         <label>年月</label>

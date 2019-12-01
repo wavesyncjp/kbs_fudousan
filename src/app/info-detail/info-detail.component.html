@@ -31,19 +31,21 @@
                 
             </th>
             <td>
-                <textarea [ngClass]="{'width600': true, 'error': errors['infoDate']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail"></textarea>
+                <textarea [ngClass]="{'width600': true, 'error': errors['infoDetail']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail"></textarea>
             </td>
         </tr>
         <tr>
             <th>添付ファイル</th>
             <td>
-                <app-file bukkenId="data.attachmentFile" notButton ="true"></app-file>
+                <a *ngIf="hasFile()" [attr.href]="data.attachFilePath + data.attachFileName"  target="_blank" class="action-link">{{data.attachFileName}}</a>
+                <br *ngIf="hasFile()">
+                <app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file>
             </td>
         </tr> 
         <tr>
             <th>掲載終了</th>
             <td>
-                <mat-checkbox [checked]="data.finishFlg == 1"></mat-checkbox>
+                <mat-checkbox [checked]="data.finishFlg == 1" #cbxFinishFlg></mat-checkbox>
             </td>
         </tr>        
     </table>

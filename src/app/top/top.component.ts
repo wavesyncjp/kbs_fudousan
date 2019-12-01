@@ -5,6 +5,7 @@ import { BackendService } from '../backend.service';
 import { Information } from '../models/information';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../dialog/info-dialog/info-dialog.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-top',
@@ -16,6 +17,7 @@ export class TopComponent  extends BaseComponent {
 
   displayedColumns: string[] = ['infoDate', 'infoSubject', 'attachFileName'];
   dataSource = new MatTableDataSource<Information>();
+  hasInfo = false;
 
   // view: any[] = ['50%', '100%'];
 
@@ -56,7 +58,8 @@ export class TopComponent  extends BaseComponent {
 
   constructor(public router: Router,
               public dialog: MatDialog,
-              public service: BackendService) {
+              public service: BackendService,
+              private spinner: NgxSpinnerService) {
       super(router, service);
   }
 
@@ -76,14 +79,20 @@ export class TopComponent  extends BaseComponent {
       this.buildDepChart();
     });
 
-    const ELEMENT_DATA: Information[] = [
-      new Information({infoDate: '2019/11/20', infoSubject: '休み', detailFlg: '1'}),
-      new Information({infoDate: '2019/11/18', infoSubject: '忘年会', detailFlg: '1', attachFileName: '地図.pdf'}),
-      new Information({infoDate: '2019/11/05', infoSubject: '停電のお知らせ', detailFlg: '1'}),
-      new Information({infoDate: '2019/10/01', infoSubject: '操作マニュアルのアップ', attachFileName: '20191101.pdf', detailFlg: '1'}),
-      new Information({infoDate: '2019/09/15', infoSubject: 'システムメンテナンスのお知らせ', detailFlg: '0'}),
-    ];
-    this.dataSource.data = ELEMENT_DATA;
+    this.spinner.show();
+    this.service.searchInfo({count: 5, finishFlg: ['0'], today: '1'}).then(res => {
+      this.dataSource.data = res;
+
+      if (res !== undefined && res.length > 0) {
+        this.hasInfo = true;
+      }
+
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500);
+
+    });
+
   }
 
   buildDepChart() {

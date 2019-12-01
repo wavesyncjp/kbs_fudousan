@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog } from '@angular/material';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox } from '@angular/material';
 import { Information } from '../models/information';
 import { BackendService } from '../backend.service';
 import { Code } from '../models/bukken';
@@ -9,6 +9,7 @@ import { Checklib } from '../utils/checklib';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { FileComponentComponent } from '../uicomponent/file-component/file-component.component';
 
 @Component({
   selector: 'app-info-detail',
@@ -20,6 +21,12 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   ],
 })
 export class InfoDetailComponent extends BaseComponent {
+
+  @ViewChild('fUpload', {static: true})
+  fUpload: FileComponentComponent;
+
+  @ViewChild('cbxFinishFlg', {static: true})
+  cbxFinishFlg: MatCheckbox;
 
   constructor(
               public router: Router,
@@ -56,6 +63,10 @@ export class InfoDetailComponent extends BaseComponent {
       }
 
     });
+  }
+
+  hasFile() {
+    return this.data.attachFileName != null && this.data.attachFileName !== '';
   }
 
   /**11/25 追記
@@ -104,8 +115,17 @@ export class InfoDetailComponent extends BaseComponent {
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
         this.data.convertForSave(this.service.loginUser.userId);
+        if (this.cbxFinishFlg.checked) {
+          this.data.finishFlg = '1';
+        } else {
+          this.data.finishFlg = '0';
+        }
         this.service.saveInfo(this.data).then(res => {
-          this.dialogRef.close();
+          if (this.fUpload != null && !this.fUpload.hasFile()) {
+            this.dialogRef.close(true);
+          } else {
+            this.fUpload.uploadInfoFile(res.pid);
+          }
         });
       }
     });
@@ -113,6 +133,14 @@ export class InfoDetailComponent extends BaseComponent {
 
   cancel() {
     this.dialogRef.close();
+  }
+
+  /**
+   * ファイルアップロード
+   * @param event ：アップロード完了
+   */
+  uploaded(event) {
+    this.dialogRef.close(true);
   }
 }
 

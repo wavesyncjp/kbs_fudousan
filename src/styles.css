@@ -95,6 +95,14 @@ input {
     margin-left:3px;
 }
 
+.break-line {
+    white-space: pre-wrap !important;
+}
+
+.vertical-top {
+    vertical-align: top;
+}
+
 /*---------search table-----------*/
 .mat-header-row{
     height: 40px;    

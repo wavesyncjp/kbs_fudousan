@@ -194,6 +194,20 @@ export class BackendService {
   }
 
   /**
+   * インフォメーションファイルアップロード
+   * @param infoPid ：インフォメーションPid
+   * @param file ：ファイル
+   */
+  uploadInfoFile(infoPid: number, file: File) {
+    const uploadApi = 'infofile_upload.php';
+
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('infoId', infoPid.toString());
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+
+  /**
    * システムコード取得
    */
   deleteFile(id: number, attach: boolean): Promise<object> {

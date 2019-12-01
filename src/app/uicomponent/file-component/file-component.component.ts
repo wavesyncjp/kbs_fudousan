@@ -59,13 +59,27 @@ export class FileComponentComponent implements OnInit {
       if (dlg.choose) {
         this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
           this.snackBar.open('ファイルアップロード完了', null, {
-            duration: 2000,
+            duration: 1000,
           });
           this.file = null;
           this.uploaded.emit(res);
         });
       }
     });
+  }
+
+  public uploadInfoFile(infoPid: number) {
+    this.service.uploadInfoFile(infoPid, this.file).then(res => {
+      this.snackBar.open('ファイルアップロード完了', null, {
+        duration: 1000,
+      });
+      this.file = null;
+      this.uploaded.emit(res);
+    });
+  }
+
+  public hasFile() {
+    return (this.file != null);
   }
 
 }

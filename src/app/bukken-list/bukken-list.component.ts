@@ -93,8 +93,6 @@ export class BukkenListComponent extends BaseComponent {
     // const val = new Date();
     // val.toLocaleDateString();
     this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
-    console.log(this.cond);
-
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         res.forEach(obj => {
