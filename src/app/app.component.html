@@ -1,6 +1,6 @@
 <div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
-    <mat-toolbar color="primary" class="app-toolbar">
-        <button mat-icon-button (click)="snav.toggle()" *ngIf="!isLogin"><mat-icon>menu</mat-icon></button>
+    <mat-toolbar class="app-toolbar">
+        <button mat-icon-button (click)="snav.toggle()" *ngIf="!isLogin" class = "menu"><mat-icon>menu</mat-icon></button>
         <h1 class="app-app-name">{{title}}</h1>        
         <button *ngIf="!isLogin" mat-raised-button mat-raised-button color="basic" class="logout-btn" (click)="logout()">Logout</button>        
 
@@ -13,7 +13,8 @@
             <button mat-raised-button mat-stroked-button (click)="navigate('top')">ダッシュボード</button><br>
             <button mat-raised-button mat-stroked-button (click)="navigate('bukkens')">土地情報</button><br>
             <button mat-raised-button mat-stroked-button (click)="navigate('contracts')">仕入契約</button><br>
-            <button mat-raised-button mat-stroked-button (click)="navigate('infos')">インフォメーション</button>
+            <button mat-raised-button mat-stroked-button (click)="navigate('infos')">インフォメーション</button><br>
+            <button mat-raised-button mat-stroked-button (click)="navigate('deps')">部署マスタ</button>
         </mat-nav-list>
         </mat-sidenav>
 

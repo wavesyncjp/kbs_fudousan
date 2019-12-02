@@ -1,0 +1,57 @@
+<div class="dialog-div">  
+    <!--11/25追記-->
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>         
+    <table class="detail-tbl-info">
+        <tr>
+            <th>部署コード</th>
+            <td>
+                <input type="text" [matDatepicker]="infoDate" [ngClass]="{'width150': true, 'error': errors['infoDate']}" [(ngModel)]="data.infoDateMap">
+                <mat-datepicker-toggle matSuffix [for]="infoDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #infoDate></mat-datepicker>
+            </td>
+            
+        </tr>                
+        <tr>
+            <th>部署名</th>
+            <td><input type="text"  [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" ></td>
+        </tr>
+        <tr>
+            <th>詳細</th> 
+            <td>
+            <mat-radio-group [(ngModel)]="data.detailFlg">
+                <mat-radio-button *ngFor="let code of getCode('006')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
+            </mat-radio-group>
+        
+            </td>
+            </tr>
+        <tr class="h230">
+            <th>
+                
+            </th>
+            <td>
+                <textarea [ngClass]="{'width600': true, 'error': errors['infoDetail']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>添付ファイル</th>
+            <td>
+                <a *ngIf="hasFile()" [attr.href]="data.attachFilePath + data.attachFileName"  target="_blank" class="action-link">{{data.attachFileName}}</a>
+                <br *ngIf="hasFile()">
+                <app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file>
+            </td>
+        </tr> 
+        <tr>
+            <th>掲載終了</th>
+            <td>
+                <mat-checkbox [checked]="data.finishFlg == 1" #cbxFinishFlg></mat-checkbox>
+            </td>
+        </tr>        
+    </table>
+    <mat-dialog-actions align="end">        
+        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>
+</div>
+    

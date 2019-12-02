@@ -7,7 +7,7 @@ import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
 import { TopComponent } from './top/top.component';
 import { InfoListComponent } from './info-list/info-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
-
+import { DepListComponent } from './dep-list/dep-list.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'bkdetail', component: BukkenDetailComponent},
   { path: 'contracts', component: ContractListComponent},
   { path: 'ctdetail', component: ContractDetailComponent},
-  { path: 'infos', component: InfoListComponent}
+  { path: 'infos', component: InfoListComponent},
+  { path: 'deps', component: DepListComponent}
 ];
 
 @NgModule({
