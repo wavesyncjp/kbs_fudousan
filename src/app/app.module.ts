@@ -25,6 +25,8 @@ import { TopComponent } from './top/top.component';
 import { InfoDialogComponent } from './dialog/info-dialog/info-dialog.component';
 import { InfoListComponent } from './info-list/info-list.component';
 import { InfoDetailComponent } from './info-detail/info-detail.component';
+import { DepListComponent } from './dep-list/dep-list.component';
+import { DepDetailComponent } from './dep-detail/dep-detail.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { InfoDetailComponent } from './info-detail/info-detail.component';
     TopComponent,
     InfoDialogComponent,
     InfoListComponent,
-    InfoDetailComponent
+    InfoDetailComponent,
+    DepListComponent,
+    DepDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +79,6 @@ import { InfoDetailComponent } from './info-detail/info-detail.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
-    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent],
+    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent,DepDetailComponent],
 })
 export class AppModule { }

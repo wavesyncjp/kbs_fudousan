@@ -8,15 +8,16 @@
         <tr>
           <th>物件番号</th>
           <td>
-            <input type="text" [(ngModel)]="cond.bukkenNo">
+            <input type="text" [(ngModel)]="cond.bukkenNo" class="width100">
           </td>
+          
           <th>物件名</th>
           <td>
-            <input type="text" class="width400" [(ngModel)]="cond.bukkenName">
+            <input type="text" class="width200" [(ngModel)]="cond.bukkenName">
           </td>
           <th>所在地</th>
           <td>
-            <input type="text" class="width400" [(ngModel)]="cond.address">
+            <input type="text" class="width300" [(ngModel)]="cond.address">
           </td>
         </tr>
         <tr>
@@ -24,19 +25,19 @@
           <th>情報収集日</th>
           <td>
             <div class="picker-div">
-                <input type="text" [matDatepicker]="pickDate" [(ngModel)]="cond.pickDateMap" class="width150">
+                <input type="text" [matDatepicker]="pickDate" [(ngModel)]="cond.pickDateMap" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="pickDate" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #pickDate></mat-datepicker>
             </div>
           </td>        
           <th>担当部署</th>
           　<td>           
-                <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;&nbsp;&nbsp;</mat-checkbox>                              
+                <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>                              
             </td>
            <th>結果</th>
           <td>
             <section>
-              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;&nbsp;&nbsp;</mat-checkbox>              
+              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;&nbsp;</mat-checkbox>              
             </section>
           </td>
       </tr>        

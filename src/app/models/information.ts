@@ -11,6 +11,8 @@ export class Information {
     updateUserId: number;
 
     infoDateMap: Date = null;
+  department: any;
+  result: string;
 
     public constructor(init?: Partial<Information>) {
         Object.assign(this, init);

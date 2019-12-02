@@ -9,10 +9,15 @@
   }
   .app-toolbar{
     height:40px;
+    background-color: rgb(58, 133, 116);
   }
   .app-toolbar > h1,
   .app-toolbar > button{
     font-size: 0.8em;
+  }
+  .app-toolbar > button.menu{
+    font-size: 0.8em;
+    color: white;
   }
 
   .app-is-mobile .app-toolbar {
@@ -22,6 +27,8 @@
   
   h1.app-app-name {
     margin-left: 8px;
+    color: white;
+    font-weight: 500;
   }
   
   .app-sidenav-container {    
@@ -29,7 +36,7 @@
   }
 
   .app-sidenav-container > mat-sidenav{
-    background-color: cadetblue;
+    background-color: rgb(243, 245, 165);
   }
   
   .app-is-mobile .app-sidenav-container {
@@ -37,9 +44,11 @@
   }
   
   mat-nav-list > button{
-      min-width: 180px;
-      min-height: 45px;
+      min-width: 120px;
+      min-height: 35px;
       margin: 10px 5px 10px 5px;
+      font-size: 0.6em;
+      font-weight: bold;
   }
 
   mat-nav-list > button:hover{
@@ -52,4 +61,5 @@
   height: 35px;
   top: 2px;
   right: 10px;
+
 }
