@@ -6,17 +6,14 @@
     <table class="detail-tbl-info">
         <tr>
             <th>部署コード</th>
-            <td>
-                <input type="text" [matDatepicker]="infoDate" [ngClass]="{'width150': true, 'error': errors['infoDate']}" [(ngModel)]="data.infoDateMap">
-                <mat-datepicker-toggle matSuffix [for]="infoDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #infoDate></mat-datepicker>
-            </td>
+            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width300': true, 'error': errors['depCode']}" ></td>
             
         </tr>                
         <tr>
             <th>部署名</th>
-            <td><input type="text"  [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" ></td>
+            <td><input type="text"  [(ngModel)]="data.depName" [ngClass]="{'width600': true, 'error': errors['depName']}" ></td>
         </tr>
+        <!--
         <tr>
             <th>詳細</th> 
             <td>
@@ -34,7 +31,8 @@
                 <textarea [ngClass]="{'width600': true, 'error': errors['infoDetail']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail"></textarea>
             </td>
         </tr>
-        <tr>
+        -->
+       <!--<tr>
             <th>添付ファイル</th>
             <td>
                 <a *ngIf="hasFile()" [attr.href]="data.attachFilePath + data.attachFileName"  target="_blank" class="action-link">{{data.attachFileName}}</a>
@@ -47,7 +45,7 @@
             <td>
                 <mat-checkbox [checked]="data.finishFlg == 1" #cbxFinishFlg></mat-checkbox>
             </td>
-        </tr>        
+        </tr>-->  
     </table>
     <mat-dialog-actions align="end">        
         <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>

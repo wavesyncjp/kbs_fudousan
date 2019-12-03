@@ -9,7 +9,7 @@
                     <th>部署コード</th>
                     <td>
                         <!--20191202　inList は　BaseComponent.ts参照　-->
-                        <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>
+                        <input type="text" class="width200" [(ngModel)]="cond.depCode">
                     </td>
                 <!--
                     <th>掲載終了</th>
@@ -23,7 +23,7 @@
                     <th>部署名</th>
                     <td colspan="3">
                         <!--fuzzyWide 曖昧検索-->
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.depName">
                     </td>
                 </tr>   
             </table>      
@@ -39,26 +39,44 @@
     <div class="mat-elevation-z8 main data">
         <table mat-table [dataSource]="dataSource">
         
-            <ng-container matColumnDef="infoDate">
+            <!--<ng-container matColumnDef="infoDate">
                 <th mat-header-cell *matHeaderCellDef> 日付 </th>
                 <td mat-cell *matCellDef="let element" > {{element.infoDate | date:'yyyy/MM/dd'}} </td>
+            </ng-container>-->
+
+            <ng-container matColumnDef="depCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 部署コード </th>
+            <td mat-cell *matCellDef="let element"> {{element.depCode}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="infoSubject">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> 件名 </th>
-            <td mat-cell *matCellDef="let element"> {{element.infoSubject}} </td>
+            <ng-container matColumnDef="depName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 部署名 </th>
+            <td mat-cell *matCellDef="let element"> {{element.depName}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="detailFlg">
+
+            <ng-container matColumnDef="createDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 登録日 </th>
+                <td mat-cell *matCellDef="let element"> {{element.createDate | date:'yyyy/MM/dd hh:mm:ss'}} </td>
+                </ng-container>
+
+            <ng-container matColumnDef="updateDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 更新日 </th>
+                <td mat-cell *matCellDef="let element"> {{element.updateDate | date:'yyyy/MM/dd hh:mm:ss'}} </td>
+            </ng-container>
+
+        <!--<ng-container matColumnDef="detailFlg">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 詳細有無 </th>
             <td mat-cell *matCellDef="let element"> {{element.detailFlg == 1 ? '有' : '無'}} </td>
             </ng-container>
+        -->
         
-            <ng-container matColumnDef="infoDetail">
+        <!--<ng-container matColumnDef="infoDetail">
             <th mat-header-cell *matHeaderCellDef> 詳細 </th>
             <td mat-cell *matCellDef="let element" class="infoDetail_width break-line"> {{element.infoDetail | slice:0:20}} </td>
             </ng-container>
-
+        -->
+        <!--
             <ng-container matColumnDef="attachFileName">
             <th mat-header-cell *matHeaderCellDef> 添付ファイル </th>
             <td mat-cell *matCellDef="let element"> <a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
@@ -68,7 +86,7 @@
             <th mat-header-cell *matHeaderCellDef> 掲載終了 </th>
             <td mat-cell *matCellDef="let element"> {{element.finishFlg == 1 ? '完了' : '有効'}} </td>
             </ng-container>
-            
+            -->
             <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row"> 

@@ -229,6 +229,7 @@ export class BackendService {
     return req.toPromise();
   }
 
+  
   /**
    * インフォメーション情報登録
    * @param info ：インフォメーション情報
@@ -248,5 +249,16 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
     return req.toPromise();
   }
-
+    // 20191203 S_Add
+  /**
+   * 部署取得
+   */
+  searchDeps(cond: any): Promise<Department[]> {
+    const searchApi = 'depsearch.php';
+    const req = this.http.post<Department[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+    
+  }
+  
+  // 20191203 E_Ad
 }

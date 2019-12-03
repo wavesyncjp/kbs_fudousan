@@ -287,7 +287,7 @@ span.min{
 }
 
 .detail-tbl-min > tr > th{
-    width:100px !important;
+    width:140px !important;
     background-color: rgba(194, 205, 240, 0.692);
     text-align: left;
     height: 22px !important;

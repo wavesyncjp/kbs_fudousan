@@ -1,6 +1,6 @@
 select{
     height: 25px !important;
-    min-width: 150px;
+    min-width: 100px;
     height: 21px;
     border: solid 1px cornflowerblue;
     border-radius: 2px;
