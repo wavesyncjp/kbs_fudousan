@@ -1,17 +1,40 @@
 .login-card{
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 40%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 300px;
+    height:200px;
     justify-content: center;
     align-content: center;
+    padding: 20px;
+    padding-top: 20px;
+    border-right: solid 1px lightgray;
+    border-top: solid 1px lightgray;
+    background-color: linen;
+    border-radius: 6px;
 }
 
 .login-input{
-    width: 80% !important;
+    width: 95% !important;
+    height: 30px;
+    border-radius: 2px;
+    border: solid 1px lightgray;
+    padding: 3px;
+    padding-left:7px;
+    margin-bottom: 20px;
 }
 .login-btn{
     width: 100%;
     text-align: right;
+    height:40px;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.login-btn button{
+    margin:0px;
+    width:80px;
+    margin-top: 10px;    
 }

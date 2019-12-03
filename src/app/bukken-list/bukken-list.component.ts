@@ -7,7 +7,7 @@ import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
 import { Code } from '../models/bukken';
@@ -25,6 +25,7 @@ import { Code } from '../models/bukken';
 export class BukkenListComponent extends BaseComponent {
 
   public cond: any;
+  search = '0';
   selectedRowIndex = -1;
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'remark1', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
@@ -33,10 +34,15 @@ export class BukkenListComponent extends BaseComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
+              private route: ActivatedRoute,
               public service: BackendService,
               public dialog: MatDialog,
               private spinner: NgxSpinnerService) {
                 super(router, service);
+
+                this.route.queryParams.subscribe(params => {
+                  this.search = params.search;
+                });
   }
 
 
@@ -47,15 +53,19 @@ export class BukkenListComponent extends BaseComponent {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
+    // 初回検索
     this.cond = {
-      bukkenNo: '',
-      bukkenName: '',
-      address: '',
-      pickDateMap: new Date(),
-      pickDate: '',
-      department: [],
-      result: ['01']
-    };
+        bukkenNo: '',
+        bukkenName: '',
+        address: '',
+        pickDateMap: new Date(),
+        pickDate: '',
+        department: [],
+        result: ['01']
+     };
+    if (this.search === '1') {
+      this.cond = this.service.searchCondition;
+    }
 
     const funcs = [];
     funcs.push(this.service.getCodes(['001']));
@@ -76,6 +86,10 @@ export class BukkenListComponent extends BaseComponent {
       this.deps = values[1];
 
       this.cond.pickDateMap = null;
+
+      if (this.search === '1') {
+        this.searchBukken();
+      }
 
     });
   }
@@ -118,6 +132,7 @@ export class BukkenListComponent extends BaseComponent {
    * @param row: 物件データ
    */
   showDetail(row: Templandinfo) {
+    this.service.searchCondition = this.cond;
     this.router.navigate(['/bkdetail'], {queryParams: {pid: row.pid}});
   }
 
@@ -125,6 +140,7 @@ export class BukkenListComponent extends BaseComponent {
    * 土地新規登録
    */
   createNew() {
+    this.service.searchCondition = this.cond;
     this.router.navigate(['/bkdetail']);
   }
 

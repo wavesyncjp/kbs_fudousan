@@ -106,9 +106,9 @@
                         <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
                     </td>
                     <th>容積率</th>
-                    <td><input type="text" [(ngModel)]="data.floorAreaRatio" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
+                    <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
                     <th>建蔽率</th>
-                    <td><input type="text" [(ngModel)]="data.coverageRate" class="width80 number" (keypress)="floatOnly($event)">&nbsp;%</td>
+                    <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width80': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
             </tr>
             <!--11/26修正-->
     
@@ -166,14 +166,14 @@
                     <span class="min">所在地</span>    
                 <tr>
                     <th>
-                        <app-select-component [codes]="getCode('007')" [(ngModel)]="location.locationType" class="width130"></app-select-component>
+                        <app-select-component [codes]="getCode('007')" [(ngModel)]="location.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType(location)"></app-select-component>
                     </th>
                     <td><input type="text" class="width150" [attr.disabled]="data.pid < 0"></td>
                 </tr>
                 <tr>
                         <th>所在地</th>
                         <td>
-                            <input type="text" [(ngModel)]="location.address" class="width400">
+                            <input type="text" [(ngModel)]="location.address" [ngClass]="{'width400': true, 'error': errors['address' + pos]}">
                         </td>
             
                         <th>地番</th>
@@ -184,7 +184,7 @@
                 </tr>
                 <tr>
                     <th>所有者名</th>
-                    <td><input type="text" [(ngModel)]="location.owner" class = "width300"></td>
+                    <td><input type="text" [(ngModel)]="location.owner" [ngClass]="{'width300': true, 'error': errors['owner' + pos]}"></td>
 
                     <th>所有者住所</th>
                     <td><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
@@ -192,11 +192,11 @@
 
                 <tr>
                         <th>地積</th>
-                        <td><input type="text" [(ngModel)]="location.area" class="width80 number" (keypress)="floatOnly($event)" [disabled]="location.locationType == '02'">&nbsp;㎡
+                        <td><input type="text" [(ngModel)]="location.area" [ngClass]="{'width80': true, 'number': true, 'error': errors['area' + pos]}" (keypress)="floatOnly($event)" (keyup)="changeArea($event, location)" [disabled]="location.locationType == '02'">&nbsp;㎡
                     <!--<th>坪数</th>-->   
-                        <input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="data.pid < 0">&nbsp;坪</td>
+                        <input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;坪</td>
                         <th>床面積</th>
-                        <td><input type="text" [(ngModel)]="location.floorSpace" class="width80 number" (keypress)="floatOnly($event)" [disabled]="location.locationType == '01'">&nbsp;㎡</td>
+                        <td><input type="text" [(ngModel)]="location.floorSpace" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorSpace' + pos]}" (keypress)="floatOnly($event)" [disabled]="location.locationType == '01'">&nbsp;㎡</td>
                </tr>
                 <tr>
                         <th>構造</th>
@@ -209,7 +209,7 @@
                 <tr>
                     <th>入居者情報</th>
                     <td colspan="5">
-                        <input type="text" [(ngModel)]="data.remark1" class="width85Per" [disabled]="location.locationType == '01'">
+                        <input type="text" [(ngModel)]="location.liveInfo" class="width85Per" [disabled]="location.locationType == '01'">
                     </td>
                 </tr>
                 <tr>

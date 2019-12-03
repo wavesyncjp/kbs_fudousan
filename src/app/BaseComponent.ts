@@ -2,6 +2,7 @@ import { OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
 import { Code } from './models/bukken';
+import { isNumber } from 'util';
 
 export class BaseComponent implements OnInit {
     public sysCodes = {};
@@ -34,6 +35,15 @@ export class BaseComponent implements OnInit {
     }
 
     /**
+     * コード名称
+     * @param code ：コード
+     * @param codeDetail ：コード詳細
+     */
+    getCodeTitle(code: string, codeDetail: string) {
+        return this.sysCodes[code].filter(c => c.codeDetail === codeDetail).map(c => c.name)[0];
+    }
+
+    /**
      * 部署変換
      */
     getDeps() {
@@ -51,10 +61,40 @@ export class BaseComponent implements OnInit {
     }
 
     floatOnly(event): boolean {
-        // const patt = /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/;
         const patt = /^([0-9.])$/;
         const result = patt.test(event.key);
         return result;
+    }
+
+    isNumberStr(str: string) {
+        if (str != null && str !== '') {
+            return !isNaN(Number(str));
+        }
+        return true;
+    }
+
+    /**
+     * 空白チェック
+     * @param str : チェック文字列
+     * @param propName ：項目名
+     * @param msg ：エラーメッセージ
+     */
+    checkBlank(str, propName, msg) {
+        const isInValid = (!str || /^\s*$/.test(str));
+        if (isInValid) {
+            this.errorMsgs.push(msg);
+            this.errors[propName] = true;
+        }
+    }
+
+    checkNumber(str, propName, msg) {
+        if (str != null && str !== '') {
+            const isValid =  !isNaN(Number(str));
+            if (!isValid) {
+                this.errorMsgs.push(msg);
+                this.errors[propName] = true;
+            }
+        }
     }
 
     inList(list: string[], val = '') {

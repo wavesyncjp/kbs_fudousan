@@ -1,4 +1,4 @@
-<select class="width158" [(ngModel)]="value">
+<select [ngClass]="{'width158': true, 'error': isError}" [(ngModel)]="value" (change)="change($event)">
     <option value=""></option>
     <option *ngFor="let code of codes" value="{{code.codeDetail}}" >{{code.name}}</option>    
 </select>

@@ -17,11 +17,11 @@ export class Locationinfo {
     floorSpace: number;
     structure: string;
     coverageRate: number;
-    owner: string; 
+    owner: string;
     ownerAdress: string;
     landMortgage: string;
     builMortgage: string;
     rightsForm: string;
-    liveInfo: string;　
+    liveInfo: string;
     locationType: string;
 }

@@ -46,7 +46,7 @@ export class InfoListComponent extends BaseComponent {
     };
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['005']));
+    funcs.push(this.service.getCodes(['005', '006']));
 
     Promise.all(funcs).then(values => {
 
