@@ -20,7 +20,7 @@
         <tr>
             <th>詳細</th> 
             <td>
-            <mat-radio-group [(ngModel)]="data.detailFlg">
+            <mat-radio-group [(ngModel)]="data.detailFlg" (change)="changeFlg($event)">
                 <mat-radio-button *ngFor="let code of getCode('006')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
             </mat-radio-group>
         

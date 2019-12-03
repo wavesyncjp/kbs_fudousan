@@ -14,6 +14,8 @@ export class BackendService {
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   public loginUser: User;
 
+  public searchCondition: any;
+
   constructor(private http: HttpClient) { }
 
   // tslint:disable-next-line:no-output-native

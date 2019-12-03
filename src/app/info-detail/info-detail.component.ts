@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox, MatRadioChange } from '@angular/material';
 import { Information } from '../models/information';
 import { BackendService } from '../backend.service';
 import { Code } from '../models/bukken';
@@ -69,6 +69,12 @@ export class InfoDetailComponent extends BaseComponent {
     return this.data.attachFileName != null && this.data.attachFileName !== '';
   }
 
+  changeFlg(event: MatRadioChange) {
+    if (event.value === '0') {
+      this.data.infoDetail = '';
+    }
+  }
+
   /**11/25 追記
    * バリデーション
    */
@@ -77,24 +83,14 @@ export class InfoDetailComponent extends BaseComponent {
     this.errors = {};
 
     // 日付
-    if (this.data.infoDateMap == null) {
-      this.errorMsgs.push('日付は必須です。');
-      const prop = 'infoDate';
-      this.errors[prop] = true;
-    }
+    this.checkBlank(this.data.infoDateMap, 'infoDate', '日付は必須です。');
 
     // 件名
-    if (Checklib.isBlank(this.data.infoSubject)) {
-      this.errorMsgs.push('件名は必須です。');
-      const prop = 'infoSubject';
-      this.errors[prop] = true;
-    }
+    this.checkBlank(this.data.infoSubject, 'infoSubject', '件名は必須です。');
 
     // 明細
-    if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
-      this.errorMsgs.push('詳細は必須です。');
-      const prop = 'infoDetail';
-      this.errors[prop] = true;
+    if (this.data.detailFlg === '1') {
+      this.checkBlank(this.data.infoDetail, 'infoDetail', '詳細は必須です。');
     }
 
     if (this.errorMsgs.length > 0) {

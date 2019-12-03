@@ -19,6 +19,8 @@ export class Templandinfo {
     indivisibleNumerator: number;
     indivisibleDenominator: number;
     landCategory = '';
+    floorAreaRatio: number = null;
+    coverageRate: number = null;
     mapFiles: MapAttach[];
     attachFiles: AttachFile[];
     locations: Locationinfo[];

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, EventEmitter, Output } from '@angular/core';
 import { Code } from 'src/app/models/bukken';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -18,6 +18,11 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
 
   @Input()
   codes: Code[];
+
+  @Output() changed: EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  isError: false;
 
   // tslint:disable-next-line:variable-name
   _value: string;
@@ -53,5 +58,9 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
   }
 
   setDisabledState(isDisabled: boolean): void {}
+
+  change(event) {
+    this.changed.emit();
+  }
 
 }

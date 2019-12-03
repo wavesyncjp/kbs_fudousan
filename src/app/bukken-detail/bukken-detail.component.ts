@@ -133,7 +133,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/bukkens']);
+    this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
   }
 
   /**
@@ -180,11 +180,19 @@ export class BukkenDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    if (Checklib.isBlank(this.data.bukkenName)) {
-      this.errorMsgs.push('物件名は必須です。');
-      const prop = 'bukkenName';
-      this.errors[prop] = true;
-    }
+    this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
+    this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
+    this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
+
+    // 所有地
+    this.data.locations.forEach((element, index) => {
+      this.checkBlank(element.locationType, `locationType${index}`, '所在地種別は必須です。');
+      this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
+      this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
+      this.checkNumber(element.area, `area${index}`, '地積は不正です。');
+      this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
+    });
+
     if (this.errorMsgs.length > 0) {
       return false;
     }
@@ -255,6 +263,26 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   navigateContract(loc: Locationinfo) {
     this.router.navigate(['/ctdetail']);
+  }
+
+  changeArea(event, loc) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      loc.tsubo = Number(val) * 0.3025;
+    }
+  }
+
+  changeType(loc: Locationinfo) {
+    // 土地
+    if (loc.locationType === '01') {
+      loc.buildingNumber = '';
+      loc.floorSpace = null;
+      loc.liveInfo = '';
+    } else if (loc.locationType === '02') {
+      loc.blockNumber = '';
+      loc.area = null;
+      loc.tsubo = null;
+    }
   }
 
 }
