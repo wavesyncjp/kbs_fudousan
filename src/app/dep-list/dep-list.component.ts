@@ -5,7 +5,7 @@ import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@an
 import { BaseComponent } from '../BaseComponent';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
-import { Information } from '../models/information';
+import { Department } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -23,8 +23,9 @@ import { JPDateAdapter } from '../adapters/adapters';
 export class DepListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['infoDate', 'infoSubject', 'detailFlg', 'infoDetail', 'attachFileName', 'finishFlg', 'delete', 'detail'];
-  dataSource = new MatTableDataSource<Information>();
+  /**/
+  displayedColumns: string[] = ['depCode', 'depName','createDate','updateDate','delete', 'detail'];
+  dataSource = new MatTableDataSource<Department>();
 
   constructor(public router: Router,
               public dialog: MatDialog,
@@ -36,13 +37,10 @@ export class DepListComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('インフォメーション');
+    this.service.changeTitle('部署マスタ');
 
     this.cond = {
-      infoSubject: '',
       infoDateMap: new Date(),
-      infoDate: '',
-      finishFlg: ['0'],
       //20191202 condにdepartmentセット(this)
       department: [] 
     };
@@ -80,8 +78,9 @@ export class DepListComponent extends BaseComponent {
    */
   searchInfo() {
     this.spinner.show();
-    this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
-    this.service.searchInfo(this.cond).then(res => {
+    /*this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
+    （toLocaleDateString=国、地域の時間をあった言語にて表示する）*/
+    this.service.searchDeps(this.cond).then(res => {
       this.dataSource.data = res;
 
       setTimeout(() => {
@@ -94,7 +93,7 @@ export class DepListComponent extends BaseComponent {
   
 
   createNew() {
-    const row = new Information();
+    const row = new Department();
     const dialogRef = this.dialog.open(DepDetailComponent, {
       width: '60%',
       height: '580px',
@@ -108,7 +107,7 @@ export class DepListComponent extends BaseComponent {
     });
   }
 
-  deleteRow(row: Information) {
+  deleteRow(row: Department) {/*
     const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
@@ -118,15 +117,15 @@ export class DepListComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deleteInfo(row.pid).then(res => {
+        this.service.deleteInfo(row.depCode).then(res => {
           this.searchInfo();
         });
       }
-    });
+    });*/
 
   }
 
-  showDetail(row: Information) {
+  showDetail(row: Department) {
     const dialogRef = this.dialog.open(DepDetailComponent, {
       width: '60%',
       height: '580px',

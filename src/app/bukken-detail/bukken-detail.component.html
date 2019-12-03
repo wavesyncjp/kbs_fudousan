@@ -166,7 +166,7 @@
                     <span class="min">所在地</span>    
                 <tr>
                     <th>
-                        <app-select-component [codes]="getCode('007')" [(ngModel)]="location.locationType"></app-select-component>
+                        <app-select-component [codes]="getCode('007')" [(ngModel)]="location.locationType" class="width130"></app-select-component>
                     </th>
                     <td><input type="text" class="width150" [attr.disabled]="data.pid < 0"></td>
                 </tr>

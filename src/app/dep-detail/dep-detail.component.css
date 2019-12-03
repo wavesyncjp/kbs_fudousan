@@ -1,5 +1,5 @@
 .dialog-div{
-    height: 100%;
+    height: 50%;
     display: grid;
     grid-template-rows: auto auto 40px;    
     margin: -15px;

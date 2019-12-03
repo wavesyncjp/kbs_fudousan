@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox } from '@angular/material';
-import { Information } from '../models/information';
+import { Department } from '../models/bukken';
 import { BackendService } from '../backend.service';
 import { Code } from '../models/bukken';
 import { BaseComponent } from '../BaseComponent';
@@ -33,7 +33,7 @@ export class DepDetailComponent extends BaseComponent {
               public service: BackendService,
               public dialogRef: MatDialogRef<DepDetailComponent>,
               public dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) public data: Information) {
+              @Inject(MAT_DIALOG_DATA) public data: Department) {
     super(router, service);
   }
 
@@ -54,20 +54,20 @@ export class DepDetailComponent extends BaseComponent {
         });
       }
 
-      if (this.data == null || !(this.data.pid > 0)) {
-        this.data = new Information();
-        this.data.detailFlg = '1';
+      /*if (this.data == null || !(this.data.depName > 0)) {
+        this.data = new Department();
+        this.data.depCode = '1';
       } else {
-        this.data = new Information(this.data);
+        this.data = new Department(this.data);
         this.data.convert();
-      }
+      }*/
 
     });
   }
 
-  hasFile() {
+  /*hasFile() {
     return this.data.attachFileName != null && this.data.attachFileName !== '';
-  }
+  }*/
 
   /**11/25 追記
    * バリデーション
@@ -76,26 +76,28 @@ export class DepDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    // 日付
-    if (this.data.infoDateMap == null) {
-      this.errorMsgs.push('日付は必須です。');
-      const prop = 'infoDate';
+    // 部署コード
+    if (this.data.depCode == null) {
+      this.errorMsgs.push('部署コードは必須です。');
+      const prop = 'depCode';
       this.errors[prop] = true;
     }
 
-    // 件名
-    if (Checklib.isBlank(this.data.infoSubject)) {
-      this.errorMsgs.push('件名は必須です。');
-      const prop = 'infoSubject';
+    // 部署名
+    if (Checklib.isBlank(this.data.depName)) {
+      this.errorMsgs.push('部署名は必須です。');
+      const prop = 'depName';
       this.errors[prop] = true;
     }
 
-    // 明細
+    // 詳細
+    /*
     if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
       this.errorMsgs.push('詳細は必須です。');
       const prop = 'infoDetail';
       this.errors[prop] = true;
     }
+    */
 
     if (this.errorMsgs.length > 0) {
       return false;
@@ -112,7 +114,7 @@ export class DepDetailComponent extends BaseComponent {
     const dlgObj = new Dialog({title: '確認', message: '登録しますが、よろしいですか？'});
     const dlg = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlgObj});
 
-    dlg.afterClosed().subscribe(result => {
+  /*  dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
         this.data.convertForSave(this.service.loginUser.userId);
         if (this.cbxFinishFlg.checked) {
@@ -128,7 +130,7 @@ export class DepDetailComponent extends BaseComponent {
           }
         });
       }
-    });
+    });*/
   }
 
   cancel() {
