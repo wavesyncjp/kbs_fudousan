@@ -164,8 +164,9 @@
                     <td colspan="6">
                         <span class="min">
                             <label>所在地</label>
-                            <button mat-mini-fab color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)" class="iconDelete">
-                                <mat-icon>close</mat-icon>
+                            <button mat-flat-button color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)" class="iconbtn">
+                                削除
+                                <!--<mat-icon>close</mat-icon>-->
                             </button>
                         </span>                        
                     </td>
