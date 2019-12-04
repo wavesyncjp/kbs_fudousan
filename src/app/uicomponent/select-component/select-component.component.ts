@@ -19,6 +19,9 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
   @Input()
   codes: Code[];
 
+  @Input()
+  exclass: false;
+
   @Output() changed: EventEmitter<any> = new EventEmitter();
 
   @Input()
@@ -63,4 +66,16 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
     this.changed.emit();
   }
 
+  getClass() {
+    const css = [];
+    if (!this.exclass) {
+      css.push('width158');
+    } else {
+      css.push('width140');
+    }
+    if (this.isError) {
+      css.push('error');
+    }
+    return css.join(' ');
+  }
 }

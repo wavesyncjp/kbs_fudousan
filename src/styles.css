@@ -19,6 +19,9 @@ input {
 .width130{
     width: 130px !important;
 }
+.width140{
+    width: 140px !important;
+}
 .width150{
     width: 150px !important;
 }
@@ -54,6 +57,9 @@ input {
 .width2000R{
     width: 2000px;
     background-color: rgb(141, 141, 141);
+}
+.min-width160 { 
+    min-width: 160px !important;
 }
 .h200 {
     height: 200px !important;
@@ -257,7 +263,7 @@ span.min{
     width: 135px !important;
     padding: 2px 0px 2px 10px;
     height: 30px;
-    margin: 3px 0px 3px 3px;
+    margin: 3px 0px 3px 0px;
     display: inline-flex;
     align-items: center;
 }

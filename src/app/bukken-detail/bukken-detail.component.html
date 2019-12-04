@@ -101,14 +101,14 @@
             </tr>
             <!--11/26修正-->
             <tr>
-                    <th>地目</th>
-                    <td>
-                        <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
-                    </td>
-                    <th>容積率</th>
-                    <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
-                    <th>建蔽率</th>
-                    <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width80': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
+                <th>地目</th>
+                <td>
+                    <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
+                </td>
+                <th>容積率</th>
+                <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
+                <th>建蔽率</th>
+                <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width80': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
             </tr>
             <!--11/26修正-->
     
@@ -118,10 +118,13 @@
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
                     <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                                        
                
-                    <div *ngFor="let map of data.mapFiles" class="attach-div">                                        
-                        <a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a>
-                        <button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button>                        
-                    </div>
+                    <table style="margin-left: 5px;">
+                        <tr *ngFor="let map of data.mapFiles">
+                            <td class="min-width160"><a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a></td>
+                            <td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button></td>
+                        </tr>
+                    </table>
+                    
                     
                 </td> 
             </tr> 
@@ -129,13 +132,15 @@
                 <th>ファイル添付</th>
                 <td colspan="5" style = "border-top: solid 1px rgba(197, 191, 191, 0.822); border-bottom: solid 1px rgba(197, 191, 191, 0.822);">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
+                    <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>  
 
-                    <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                         
-                    <div *ngFor="let map of data.attachFiles" class="attach-div">                                        
-                        <a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a>
-                        <input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;">
-                        <button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button>                        
-                    </div>
+                    <table style="margin-left: 5px;">
+                        <tr *ngFor="let map of data.attachFiles">
+                            <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
+                            <td><input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;"></td>
+                            <td><button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button></td>
+                        </tr>
+                    </table>
                     
                 </td>
             </tr> 
@@ -144,67 +149,58 @@
     </table>
 <!--11/26修正-->
         <div class="button-div">
-            <button mat-raised-button  class="addLocation"  (click)="addLocation()" >所有地追加</button>
+            <button mat-raised-button class="addLocation" (click)="addLocation()" >所有地追加</button>
+            <button mat-stroked-button class="contractButton" (click)="navigateContract(location)">契約書情報</button>
         </div>
         <div class="button-div"> 
-                <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">
-                        <!--削除項目-->
-                        <!--<mat-icon *ngIf="!location.hasContract">arrow_drop_down</mat-icon>
-                        <mat-icon *ngIf="location.hasContract">arrow_drop_up</mat-icon>-->
-                    契約書情報
-                 </button>    
-        </div>        
-  
-       
+            <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">契約書情報</button>    
+        </div>             
         <!--Tab group-->
-       
-                <!--block-->
+        <!--block-->
                 
-        <div *ngFor="let location of data.locations; index as pos">                                  
+        <div *ngFor="let location of data.locations; index as pos">                 
             <table class="detail-tbl-min">
-                    <!--<span style = "width: 99%; border-bottom: solid 2px rgb(226, 217, 217); margin:10px 0px 20px 13px;"></span>-->
-                    <span class="min">所在地</span>    
                 <tr>
-                    <th>
-                        <app-select-component [codes]="getCode('007')" [(ngModel)]="location.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType(location)"></app-select-component>
-                    </th>
-                    <td><input type="text" class="width150" [attr.disabled]="data.pid < 0"></td>
+                    <td colspan="6">
+                        <span class="min">
+                            <label>所在地</label>
+                            <button mat-mini-fab color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)" class="iconDelete">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </span>                        
+                    </td>
                 </tr>
                 <tr>
-                        <th>所在地</th>
-                        <td>
-                            <input type="text" [(ngModel)]="location.address" [ngClass]="{'width400': true, 'error': errors['address' + pos]}">
-                        </td>
-            
-                        <th>地番</th>
-                        <td><input type="text" [(ngModel)]="location.blockNumber" [disabled]="location.locationType == '02'" class="width100">&nbsp;&nbsp;&nbsp;&nbsp;
-
-                        <span class="min-th">家屋番号</span>
-                        <span class="min-th"><input type="text" [(ngModel)]="location.buildingNumber" [disabled]="location.locationType == '01'" class="width100"></span></td>
+                    <th><app-select-component [exclass]="true" [codes]="getCode('007')" [(ngModel)]="location.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType(location)"></app-select-component></th>
+                    <td colspan="5"><input type="text" class="width150" [attr.disabled]="data.pid < 0"></td>
+                </tr>
+                <tr>
+                    <th>所在地</th>
+                    <td style="width: 450px;"><input type="text" [(ngModel)]="location.address" [ngClass]="{'width400': true, 'error': errors['address' + pos]}"></td>            
+                    <th>地番</th>
+                    <td><input type="text" [(ngModel)]="location.blockNumber" [disabled]="location.locationType == '02'" class="width100"></td>
+                    <th>家屋番号</th>
+                    <td><input type="text" [(ngModel)]="location.buildingNumber" [disabled]="location.locationType == '01'" class="width100"></td>                        
                 </tr>
                 <tr>
                     <th>所有者名</th>
                     <td><input type="text" [(ngModel)]="location.owner" [ngClass]="{'width300': true, 'error': errors['owner' + pos]}"></td>
-
                     <th>所有者住所</th>
-                    <td><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
+                    <td colspan="3"><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
                 </tr>
 
                 <tr>
-                        <th>地積</th>
-                        <td><input type="text" [(ngModel)]="location.area" [ngClass]="{'width80': true, 'number': true, 'error': errors['area' + pos]}" (keypress)="floatOnly($event)" (keyup)="changeArea($event, location)" [disabled]="location.locationType == '02'">&nbsp;㎡
-                    <!--<th>坪数</th>-->   
-                        <input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;坪</td>
-                        <th>床面積</th>
-                        <td><input type="text" [(ngModel)]="location.floorSpace" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorSpace' + pos]}" (keypress)="floatOnly($event)" [disabled]="location.locationType == '01'">&nbsp;㎡</td>
+                    <th>地積</th>
+                    <td><input type="text" [(ngModel)]="location.area" [ngClass]="{'width80': true, 'number': true, 'error': errors['area' + pos]}" (keypress)="floatOnly($event)" (keyup)="changeArea($event, location)" [disabled]="location.locationType == '02'">&nbsp;㎡                    
+                    <input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;坪</td>
+                    <th>床面積</th>
+                    <td colspan="3"><input type="text" [(ngModel)]="location.floorSpace" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorSpace' + pos]}" (keypress)="floatOnly($event)" [disabled]="location.locationType == '01'">&nbsp;㎡</td>
                </tr>
                 <tr>
-                        <th>構造</th>
-                        <td>
-                            <app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure" [attr.disabled]="location.locationType == '01'"></app-select-component>
-                        </td>
-                        <th>権利形態</th>
-                        <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.rightsForm" [disabled]="location.locationType == '01'"></app-select-component></td>
+                    <th>構造</th>
+                    <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure" [attr.disabled]="location.locationType == '01'"></app-select-component></td>
+                    <th>権利形態</th>
+                    <td colspan="3"><app-select-component [codes]="getCode('004')" [(ngModel)]="location.rightsForm" [disabled]="location.locationType == '01'"></app-select-component></td>
                 </tr>
                 <tr>
                     <th>入居者情報</th>
@@ -218,9 +214,11 @@
                         <input type="text" [(ngModel)]="location.ownerRemark" class="width85Per">
                     </td>
                 </tr>
+                <!--
                 <table>
                     <button mat-raised-button color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)"  class="buttonDelete">削除</button>
                 </table>
+                -->
             </table>
             
         </div>
