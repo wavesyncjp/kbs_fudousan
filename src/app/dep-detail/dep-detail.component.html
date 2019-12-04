@@ -11,8 +11,21 @@
         </tr>                
         <tr>
             <th>部署名</th>
-            <td><input type="text"  [(ngModel)]="data.depName" [ngClass]="{'width600': true, 'error': errors['depName']}" ></td>
+            <td colspan="3"><input type="text"  [(ngModel)]="data.depName" [ngClass]="{'width600': true, 'error': errors['depName']}" ></td>
         </tr>
+        <tr>
+            <th>登録日</th>
+            <td><input type="text"  [(ngModel)]="data.createData" class="width300"></td>
+            <th>登録者</th>
+            <td><input type="text"  [(ngModel)]="data.userName" class="width300"></td>
+        </tr>
+        <tr>
+            <th>更新日</th>
+            <td><input type="text"  [(ngModel)]="data.depName" class="width300"></td>
+            <th>更新者</th>
+            <td><input type="text"  [(ngModel)]="data.updateData"  class="width300"></td>
+        </tr>
+
         <!--
         <tr>
             <th>詳細</th> 
