@@ -10,9 +10,10 @@ import { Templandinfo } from '../models/templandinfo';
 import { Locationinfo } from '../models/locationinfo';
 import { Stockcontractinfo } from '../models/stockcontractinfo';
 import { Dialog } from '../models/dialog';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Code } from '../models/bukken';
 import { MapAttach, AttachFile } from '../models/mapattach';
+import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -38,6 +39,7 @@ export class BukkenDetailComponent extends BaseComponent {
     this.route.queryParams.subscribe(params => {
       this.pid = params.pid;
     });
+    this.data = new Templandinfo();
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -75,8 +77,6 @@ export class BukkenDetailComponent extends BaseComponent {
       // 物件あり場合
       if ( values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
-      } else {
-        this.data = new Templandinfo();
       }
       this.convertForDisplay();
 
@@ -164,9 +164,18 @@ export class BukkenDetailComponent extends BaseComponent {
           funcs.push(this.service.deleteLoc(this.removeLoc.map(lc => lc.pid)));
         }
         Promise.all(funcs).then(values => {
-          this.data = new Templandinfo(values[0]);
-          this.convertForDisplay();
-          this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
+
+          const finishDlg = new Dialog({title: '完了', message: '土地情報を登録しました。'});
+          const dlgVal = this.dialog.open(FinishDialogComponent, {
+            width: '500px',
+            height: '250px',
+            data: finishDlg
+          });
+          dlgVal.afterClosed().subscribe(res => {
+            this.data = new Templandinfo(values[0]);
+            this.convertForDisplay();
+            this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
+          });
         });
       }
     });

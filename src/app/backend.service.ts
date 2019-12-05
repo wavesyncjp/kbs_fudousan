@@ -229,7 +229,6 @@ export class BackendService {
     return req.toPromise();
   }
 
-  
   /**
    * インフォメーション情報登録
    * @param info ：インフォメーション情報
@@ -257,8 +256,6 @@ export class BackendService {
     const searchApi = 'depsearch.php';
     const req = this.http.post<Department[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
-    
   }
-  
   // 20191203 E_Ad
 }

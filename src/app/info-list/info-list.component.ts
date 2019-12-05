@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { Information } from '../models/information';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { JPDateAdapter } from '../adapters/adapters';
 
 @Component({

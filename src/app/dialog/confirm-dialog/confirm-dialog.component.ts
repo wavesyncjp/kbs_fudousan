@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Dialog } from '../models/dialog';
+import { Dialog } from '../../models/dialog';
 
 @Component({
   selector: 'app-confirm-dialog',

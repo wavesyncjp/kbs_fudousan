@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { Checklib } from '../utils/checklib';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Dialog } from '../models/dialog';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FileComponentComponent } from '../uicomponent/file-component/file-component.component';
 
 @Component({

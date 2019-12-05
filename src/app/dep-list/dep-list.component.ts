@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { Department } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { JPDateAdapter } from '../adapters/adapters';
 
 @Component({
@@ -24,7 +24,7 @@ export class DepListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   /**/
-  displayedColumns: string[] = ['depCode', 'depName','createDate','updateDate','delete', 'detail'];
+  displayedColumns: string[] = ['depCode', 'depName', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Department>();
 
   constructor(public router: Router,
@@ -41,15 +41,15 @@ export class DepListComponent extends BaseComponent {
 
     this.cond = {
       infoDateMap: new Date(),
-      //20191202 condにdepartmentセット(this)
-      department: [] 
+      // 20191202 condにdepartmentセット(this)
+      department: []
     };
 
     const funcs = [];
     /*funcs.push(this.service.getCodes(['005']));*/
 
 
-    //20191202 funcsにgetdeps全件データを取得(null)//
+    // 20191202 funcsにgetdeps全件データを取得(null)//
     funcs.push(this.service.getDeps(null));
 
     Promise.all(funcs).then(values => {
@@ -65,7 +65,7 @@ export class DepListComponent extends BaseComponent {
         });
       }*/
 
-      //20191202 valuesに取得値をセット
+      // 20191202 valuesに取得値をセット
       this.deps = values[0];
 
       this.cond.infoDateMap = null;
@@ -90,7 +90,6 @@ export class DepListComponent extends BaseComponent {
     });
 
   }
-  
 
   createNew() {
     const row = new Department();
@@ -140,7 +139,6 @@ export class DepListComponent extends BaseComponent {
     });
 
   }
-  
 
   highlight(row) {
     this.selectedRowIndex = row.pid;

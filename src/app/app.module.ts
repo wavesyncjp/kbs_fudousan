@@ -19,7 +19,7 @@ import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
 import { SelectComponentComponent } from './uicomponent/select-component/select-component.component';
 import { FileComponentComponent } from './uicomponent/file-component/file-component.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TopComponent } from './top/top.component';
 import { InfoDialogComponent } from './dialog/info-dialog/info-dialog.component';
@@ -27,6 +27,7 @@ import { InfoListComponent } from './info-list/info-list.component';
 import { InfoDetailComponent } from './info-detail/info-detail.component';
 import { DepListComponent } from './dep-list/dep-list.component';
 import { DepDetailComponent } from './dep-detail/dep-detail.component';
+import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DepDetailComponent } from './dep-detail/dep-detail.component';
     InfoListComponent,
     InfoDetailComponent,
     DepListComponent,
-    DepDetailComponent
+    DepDetailComponent,
+    FinishDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,6 @@ import { DepDetailComponent } from './dep-detail/dep-detail.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
-    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent,DepDetailComponent],
+    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, FinishDialogComponent],
 })
 export class AppModule { }

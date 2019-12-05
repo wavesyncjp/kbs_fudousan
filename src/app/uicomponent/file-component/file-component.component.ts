@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angu
 import { BackendService } from 'src/app/backend.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Dialog } from 'src/app/models/dialog';
-import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-file',
