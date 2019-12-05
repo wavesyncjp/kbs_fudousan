@@ -378,7 +378,7 @@ span.td{
 }
 /*-------------/登録ボタンブロック-------------*/
 /*--------------dialog--------------------*/
-.dialog-div{
+.dialog-div,.dialog-div-dep,.dialog-div-info{
     display: grid;
     grid-template-rows: 50px auto 2px 40px;
     height: 105%;

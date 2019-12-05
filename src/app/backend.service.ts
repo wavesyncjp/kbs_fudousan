@@ -252,10 +252,33 @@ export class BackendService {
   /**
    * 部署取得
    */
-  searchDeps(cond: any): Promise<Department[]> {
+  searchDep(cond: any): Promise<Department[]> {
     const searchApi = 'depsearch.php';
     const req = this.http.post<Department[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
   }
   // 20191203 E_Ad
+
+  // 20191204 S_Add
+  /**
+   * 部署情報登録
+   * @param dep ：部署情報
+   */
+  saveDep(dep: Department): Promise<Department> {
+    const saveApi = 'depsave.php';
+    const req = this.http.post<Department>(`${this.BaseUrl}/${saveApi}`, dep);
+    return req.toPromise();
+  }
+
+  /**
+   * 部署情報削除
+   * @param depCode : 削除したいdepCode
+   */
+  deleteDep(depCode: string): Promise<void> {
+    const deleteApi = 'depdelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {depCode: depCode, deleteUserId: this.loginUser.userId});
+    return req.toPromise();
+  }
+  // 20191204 E_Add
+  
 }
