@@ -9,6 +9,9 @@ export class User {
 }
 
 export class Department {
+  convertForSave(userId: number) {
+    throw new Error("Method not implemented.");
+  }
     depCode: string;
     depName: string;
 }

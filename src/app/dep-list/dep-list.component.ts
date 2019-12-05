@@ -76,11 +76,11 @@ export class DepListComponent extends BaseComponent {
   /**
    * 検索
    */
-  searchInfo() {
+  searchDep() {
     this.spinner.show();
     /*this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
     （toLocaleDateString=国、地域の時間をあった言語にて表示する）*/
-    this.service.searchDeps(this.cond).then(res => {
+    this.service.searchDep(this.cond).then(res => {
       this.dataSource.data = res;
 
       setTimeout(() => {
@@ -102,12 +102,12 @@ export class DepListComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.searchInfo();
+        this.searchDep();
       }
     });
   }
 
-  deleteRow(row: Department) {/*
+  deleteRow(row: Department) {
     const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
@@ -117,11 +117,11 @@ export class DepListComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deleteInfo(row.depCode).then(res => {
-          this.searchInfo();
+        this.service.deleteDep(row.depCode).then(res => {
+          this.searchDep();
         });
       }
-    });*/
+    });
 
   }
 
@@ -135,7 +135,7 @@ export class DepListComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.searchInfo();
+        this.searchDep();
       }
     });
 
