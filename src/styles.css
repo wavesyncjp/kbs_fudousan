@@ -7,7 +7,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 input {
     margin-left:3px;
 }
-
+.width40{
+    width: 40px !important;
+}
 .width80{
     min-width: 80px !important;
     width: 80px !important;

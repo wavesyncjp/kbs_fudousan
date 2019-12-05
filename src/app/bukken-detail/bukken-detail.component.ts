@@ -271,7 +271,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param loc: 所在地
    */
   navigateContract(loc: Locationinfo) {
-    this.router.navigate(['/ctdetail']);
+    this.router.navigate(['/ctdetail'], {queryParams: {pid: this.data.pid}});
   }
 
   changeArea(event, loc) {

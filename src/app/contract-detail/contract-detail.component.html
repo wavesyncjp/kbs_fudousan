@@ -1,319 +1,217 @@
-<div class="detail-div">
+<div  class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
     <br>
     <!--/土地情報契約-->
-    <span class="block-title">土地情報契約</span>
-    <table class="detail-tbl-aria">  
+    <table class="detail-tbl">  
         <tr>
-            <th class="min2">契約担当者</th>
-            <td><input type="text" [(ngModel)]="contract.aContractStaff" class="width150"></td>
-            
-            <th class="min2">不可分成立日</th>
-            <td>
-                <input type="text" [matDatepicker]="aIndivisibleDate" [(ngModel)]="contract.aIndivisibleDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aIndivisibleDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aIndivisibleDate></mat-datepicker>
-            </td>
-
-
-            <th>契約日</th>
-            <td><input type="text" [matDatepicker]="aContractDate" [(ngModel)]="contract.aContractDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aContractDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aContractDate></mat-datepicker></td>
-            <th>売買代金</th>
-            <td>
-                <input type="text" [(ngModel)]="contract.aTradingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
-            </td>
-
+            <td colspan="8"><span class="min">契約区分</span></td>
         </tr>
         <tr>
-            <th class="min2">内金①</th>
-            <td><input type="text" [(ngModel)]="contract.aDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-            <th>内金②</th>
-            <td><input type="text" [(ngModel)]="contract.aDeposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-            <th>内金③</th>
-            <td><input type="text" [(ngModel)]="contract.aDeposit3" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-            <th>内金④</th>
-            <td colspan="3"><input type="text" [(ngModel)]="contract.aDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
-        </tr>
-        <tr>
-            <th class="min2">支払日</th>
-            <td><input type="text" [matDatepicker]="aPayDate1" [(ngModel)]="contract.aPayDate1" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aPayDate1"  class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aPayDate1></mat-datepicker></td>
-            <th>支払日</th>
-            <td><input type="text" [matDatepicker]="aPayDate2" [(ngModel)]="contract.aPayDate2" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aPayDate2" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aPayDate2></mat-datepicker></td>
-            <th>支払日</th>
-            <td><input type="text" [matDatepicker]="aPayDate3" [(ngModel)]="contract.aPayDate3" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aPayDate3" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aPayDate3></mat-datepicker></td>
-            <th>支払日</th>
-            <td colspan="3"><input type="text" [matDatepicker]="aPayDate4" [(ngModel)]="contract.aPayDate4" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aPayDate4" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aPayDate4></mat-datepicker></td> 
-        </tr>
-        <tr>
-            <th class="min2">即決和解</th>
-            <td>
-                <mat-radio-group [(ngModel)]="contract.aPromptDecideFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
+            <th>物件番号</th>
+            <td><input type="text" class="width150"></td>            
+            <th>契約番号</th>
+            <td colspan="5">
+                <input type="text" class="width150">
             </td>
-            <th class="min2">即決和解申請期日</th>
+        </tr>        
+        <tr>
+            <th>即決和解</th>
             <td>
-                <input type="text" [matDatepicker]="aPromptDecideApplyDeadline" [(ngModel)]="contract.aPromptDecideApplyDeadline" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aPromptDecideApplyDeadline" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aPromptDecideApplyDeadline></mat-datepicker>
-            </td>
-            <th>即決和解申請日</th>
-            <td>
-                <input type="text" [matDatepicker]="aPromptDecideApplyDate" [(ngModel)]="contract.aPromptDecideApplyDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aPromptDecideApplyDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aPromptDecideApplyDate></mat-datepicker></td>
-            <th>即決和解費用</th>
-            <td><input type="text" [(ngModel)]="contract.aPromptDecideCost" class="width130">&nbsp;円</td>   
+                <input type="text" class="width150">
+            </td>            
+            <td colspan="6">
+                <mat-checkbox *ngFor="let code of getCode('006')">{{code.name}}&nbsp;&nbsp;</mat-checkbox>
+            </td>   
         </tr>
         <tr>             
-            <th>即決日</th>
-            <td>
-                <input type="text" [matDatepicker]="aPromptDecideDate" [(ngModel)]="contract.aPromptDecideDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aPromptDecideDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aPromptDecideDate></mat-datepicker>
-            </td>       
-            <th class="min2">和解成立後</th>
-            <td><input type="text" [(ngModel)]="contract.aSettlementAfter" class="width130"></td>
-            <th>明渡期限</th>
-            <td><input type="text" [(ngModel)]="contract.aVacateDeadline" class="width130"></td>
-            <th>明渡日</th>
-            <td>
-                <input type="text" [matDatepicker]="aVacateDate" [(ngModel)]="contract.aVacateDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aVacateDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aVacateDate></mat-datepicker>
-            </td>
-        </tr>
-        <tr>
-            <th>明渡(留保金支払)日</th>
-            <td>
-                <input type="text" [matDatepicker]="aVacateKeepPayDate" [(ngModel)]="contract.aVacateKeepPayDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aVacateKeepPayDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aVacateKeepPayDate></mat-datepicker>
-            </td>
-            <th>成果簿予定完成日</th>
-            <td><input type="text" [matDatepicker]="aResultSchFinishDate" [(ngModel)]="contract.aResultSchFinishDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aResultSchFinishDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aResultSchFinishDate></mat-datepicker></td>
-
-            <th class="min2">等価交換</th>
-            <td><mat-radio-group [(ngModel)]="contract.aExchangeFlg">
-                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-            <th>合意解除</th>
-            <td>
-                <mat-radio-group [(ngModel)]="contract.aCancelFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-        </tr>
-        <tr>
-            <th>テナント立退</th>
-            <td><mat-radio-group [(ngModel)]="contract.aEvictionFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-            <th>紙</th>
-            <td>
-                <mat-radio-group [(ngModel)]="contract.aPaperFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-            <th>覚書</th>
-            <td colspan="3">
-                <mat-radio-group [(ngModel)]="contract.aMemoFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-        </tr>
-        <tr>
-            <th>業務委託・仲介等</th>
-            <td colspan="7">
-                <input type="text" [(ngModel)]="contract.aSubcontracting" class="width85Per">
-            </td>      
-        </tr>
-        <tr>
-            <th>契約備考</th>
-            <td colspan="7">
-                <input type="text" [(ngModel)]="contract.aContractRemark" class="width85Per">
-            </td>      
-        </tr>
+            <th>不可分</th>
+            <td><app-select-component [codes]="getCode('006')"></app-select-component></td>       
+            <th>三為</th>
+            <td><app-select-component [codes]="getCode('006')"></app-select-component></td>
+            <th>等価交換</th>
+            <td><app-select-component [codes]="getCode('006')"></app-select-component></td>
+            <th>売買</th>
+            <td><app-select-component [codes]="getCode('006')"></app-select-component></td>
+        </tr>       
     </table>
     <!--/土地情報契約-->
 
     <!--/建物情報契約-->
-    <span class="block-title">建物情報契約</span>
-    <table class="detail-tbl-build">  
+    <table class="detail-tbl">  
         <tr>
-            <th class="min2">契約担当者</th>
-            <td><input type="text" [(ngModel)]="contract.bContractStaff" class="width130"></td>
-            <th class="min2">不可分成立日</th>
+            <td><span class="min">契約区分</span></td>
+        </tr>
+        <tr>
             <td>
-                <input type="text" [matDatepicker]="bIndivisibleDate" [(ngModel)]="contract.bIndivisibleDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bIndivisibleDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bIndivisibleDate></mat-datepicker>
+                <div class="contact-div">
+                    <table>
+                        <thead class="list-header">
+                            <th>売主選択</th>
+                            <th>不可分選択</th>
+                            <th>区分</th>
+                            <th>所在</th>
+                            <th>地番</th>
+                            <th>家屋番号</th>
+                            <th>所有者<br>（売主・登記名義人）</th>
+                            <th>所有者住所<br>（売主住所）</th>
+                            <th>契約者名</th>
+                            <th>地目</th>
+                            <th>地積</th>
+                            <th>地積のうち借地契約面積</th>
+                            <th>種類</th>
+                            <th>構造</th>
+                            <th>階建</th>
+                            <th>床面積</th>
+                        </thead>
+                        <tbody class="list-body">
+                            <tr *ngFor="let item of data.locations; index as pos">
+                                <td><mat-checkbox color="primary"></mat-checkbox></td>
+                                <td><mat-checkbox color="primary"></mat-checkbox></td>
+                                <td>{{getCodeTitle('007', item.locationType)}}</td>
+                                <td class="width200">{{item.address}}</td>
+                                <td>{{item.blockNumber}}</td>
+                                <td>{{item.buildingNumber}}</td>
+                                <td>{{item.owner}}</td>
+                                <td>{{item.ownerAdress}}</td>
+                                <td><input type="text" class="width150"></td>
+                                <td></td>
+                                <td>{{item.area}}</td>
+                                <td><input type="text" class="width80">&nbsp;㎡</td>
+                                <td><app-select-component [codes]="getCode('004')" [exclass]="true"></app-select-component></td>
+                                <td><app-select-component [codes]="getCode('004')" [exclass]="true"></app-select-component></td>
+                                <td><input type="text" class="width40">&nbsp;階建</td>
+                                <td><input type="text" class="width80"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </td>
+        </tr>
+    </table>        
 
-
-            <th>契約日</th>
-            <td><input type="text" [matDatepicker]="bContractDate" [(ngModel)]="contract.bContractDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bContractDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bContractDate></mat-datepicker></td>
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="8">
+                <span class="min"><label>契約内容</label></span>                        
+            </td>
+        </tr>
+        <tr>
             <th>売買代金</th>
-            <td><input type="text" [(ngModel)]="contract.bTradingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-
+            <td colspan="7">
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+            </td>
         </tr>
         <tr>
-            <th class="min2">内金①</th>
-            <td><input type="text" [(ngModel)]="contract.bDeposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>売買代金（土地）</th>
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>売買代金（建物）</th>
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>売買代金（借地権）</th>
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>実測精算単価</th>
+            <td><input type="text" lass="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
+        </tr>
+        <tr>
+            <th>内金①</th>
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
             <th>内金②</th>
-            <td><input type="text" [(ngModel)]="contract.bDeposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-            <th>内金③</th>
-            <td><input type="text" [(ngModel)]="contract.bDeposit3" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
-            <th>内金④</th>
-            <td><input type="text" [(ngModel)]="contract.bDeposit4" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>手付金</th>
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>売買残代金</th>
+            <td><input type="text" lass="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
         </tr>
         <tr>
-            <th class="min2">支払日</th>
-            <td><input type="text" [matDatepicker]="bPayDate1" [(ngModel)]="contract.bPayDate1" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bPayDate1"  class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bPayDate1></mat-datepicker></td>
-            <th>支払日</th>
-            <td><input type="text" [matDatepicker]="bPayDate2" [(ngModel)]="contract.bPayDate2" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bPayDate2" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bPayDate2></mat-datepicker></td>
-            <th>支払日</th>
-            <td><input type="text" [matDatepicker]="bPayDate3" [(ngModel)]="contract.bPayDate3" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bPayDate3" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bPayDate3></mat-datepicker></td>
-            <th>支払日</th>
-            <td><input type="text" [matDatepicker]="bPayDate4" [(ngModel)]="contract.bPayDate4" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bPayDate4" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bPayDate4></mat-datepicker></td> 
+            <th>優先分譲面積<br>（専有面積）</th>
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>優先分譲戸数（階）</th>
+            <td><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>優先分譲予定価格</th>
+            <td colspan="3"><input type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>            
         </tr>
-        <tr>
-            <th class="min2">即決和解</th>
-            <td colspan="7">
-                <mat-radio-group [(ngModel)]="contract.bPromptDecideFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-        </tr>
-        <tr>
-            <th class="min2">即決和解申請期日</th>
-            <td>
-                <input type="text" [matDatepicker]="bPromptDecideApplyDeadline" [(ngModel)]="contract.bPromptDecideApplyDeadline" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bPromptDecideApplyDeadline" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bPromptDecideApplyDeadline></mat-datepicker>
-            </td>
-            <th>即決和解申請日</th>
-            <td>
-                <input type="text" [matDatepicker]="bPromptDecideApplyDate" [(ngModel)]="contract.bPromptDecideApplyDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bPromptDecideApplyDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bPromptDecideApplyDate></mat-datepicker>
-            </td>
-            <th>即決和解費用</th>
-            <td><input type="text" [(ngModel)]="contract.bPromptDecideCost" class="width130">&nbsp;円</td>
-            <th>即決日</th>
-            <td>
-                <input type="text" [matDatepicker]="bPromptDecideDate" [(ngModel)]="contract.bPromptDecideDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bPromptDecideDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bPromptDecideDate></mat-datepicker>
-            </td>
-        </tr>
-        <tr>
-            <th class="min2">和解成立後</th>
-            <td><input type="text" [(ngModel)]="contract.bSettlementAfter" class="width130"></td>
-            <th>明渡期限</th>
-            <td><input type="text" [(ngModel)]="contract.bVacateDeadline" class="width130"></td>
-            <th>明渡日</th>
-            <td>
-                <input type="text" [matDatepicker]="bVacateDate" [(ngModel)]="contract.bVacateDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bVacateDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bVacateDate></mat-datepicker>
-            </td>
-            <th>明渡(留保金支払)日</th>
-            <td>
-                <input type="text" [matDatepicker]="bVacateKeepPayDate" [(ngModel)]="contract.bVacateKeepPayDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bVacateKeepPayDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bVacateKeepPayDate></mat-datepicker>
-            </td>
-        </tr>
-        <tr>
-            <th>成果簿予定完成日</th>
-            <td>
-                <input type="text" [matDatepicker]="bResultSchFinishDate" [(ngModel)]="contract.bResultSchFinishDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="bResultSchFinishDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #bResultSchFinishDate></mat-datepicker>
-            </td>
+       <tr>
+           <th>明渡期日</th>
+           <td>
+                <input type="text" [matDatepicker]="aVacateDate" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="aVacateDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #aVacateDate></mat-datepicker>
+           </td>
+           <th>契約日</th>
+           <td colspan="5">
+                <input type="text" [matDatepicker]="aContractDate" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="aContractDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #aContractDate></mat-datepicker>
+           </td>
+       </tr>
+       <tr>
+            <th>計画地の公図</th>
+            <td colspan="7" style="border-top: solid 1px rgba(197, 191, 191, 0.822);">
+                <label style="color:red">※土地情報登録してからファイルアップロードできます</label>                                           
+            </td> 
+       </tr>
+    </table>        
 
-            <th class="min2">等価交換</th>
-            <td><mat-radio-group [(ngModel)]="contract.bExchangeFlg">
-                <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="8">
+                <span class="min"><label>本件マンションの<br>計画概要</label></span>                        
             </td>
-            <th>合意解除</th>
-            <td><mat-radio-group [(ngModel)]="contract.bCancelFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
+        </tr>
+        <tr>
+            <th>敷地面積</th>
+            <td><input type="text" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+            <th>有効敷地面積</th>
+            <td><input type="text" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+            <th>構造</th>
+            <td><input type="text" class="width150"></td>
+            <th>規模</th>
+            <td><input type="text" lass="width200"></td> 
+        </tr>
+    </table> 
+    
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="8">
+                <span class="min"><label>事業スケジュール</label></span>                        
             </td>
-            <th>テナント立退</th>
+        </tr>
+        <tr>
+            <th>建築確認取得</th>
             <td>
-                <mat-radio-group [(ngModel)]="contract.bEvictionFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
+                <input type="text" [matDatepicker]="date1" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="date1" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #date1></mat-datepicker>
             </td>
+            <th>計画建物着工</th>
+            <td>
+                <input type="text" [matDatepicker]="date2" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="date2" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #date2></mat-datepicker>
+            </td>
+            <th>優先分譲契約締結</th>
+            <td>
+                <input type="text" [matDatepicker]="date3" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="date3" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #date3></mat-datepicker>
+            </td>
+            <th>計画建物竣工</th>
+            <td>
+                <input type="text" [matDatepicker]="date4" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="date4" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #date4></mat-datepicker>
+            </td> 
         </tr>
         <tr>
-            <th>紙</th>
-            <td><mat-radio-group [(ngModel)]="contract.bPaperFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-            <th>覚書</th>
-            <td colspan="5"><mat-radio-group [(ngModel)]="contract.bMemoFlg">
-                    <mat-radio-button value="1">無&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
-                    <mat-radio-button value="2">有</mat-radio-button>
-                </mat-radio-group>
-            </td>
-        </tr>
-        <tr>
-            <th>業務委託・仲介等</th>
+            <th>計画建物竣工</th>
             <td colspan="7">
-                <input type="text" [(ngModel)]="contract.bSubcontracting" class="width85Per">
-            </td>      
+                <input type="text" class="width150">
+            </td>
         </tr>
-        <tr>
-            <th>契約備考</th>
-            <td colspan="7">
-                <input type="text" [(ngModel)]="contract.bContractRemark" class="width85Per">
-            </td>      
-        </tr>
-    </table>
+    </table> 
+
     <!--/建物情報契約-->
     <br>
     <mat-divider></mat-divider>

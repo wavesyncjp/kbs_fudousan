@@ -6,3 +6,25 @@
 .page-title > h1{
     font-size: 0.8em;
 }
+
+.contact-div {
+    width: 98vw;
+    height: 100%;
+    overflow-x: auto;
+}
+
+.list-header {
+    background-color: cadetblue;
+}
+.list-header > th {
+    height: 40px;
+    min-width: 120px;    
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+}
+
+.list-body > tr > td {
+    text-align: center;
+    font-size: 12px;
+}
