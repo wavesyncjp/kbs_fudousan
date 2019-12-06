@@ -9,11 +9,27 @@ export class User {
 }
 
 export class Department {
-  convertForSave(userId: number) {
+  /*convertForSave(userId: number) {
     throw new Error("Method not implemented.");
-  }
+  }*/
     depCode: string;
     depName: string;
+    createUserId: number;
+    updateUserId: number;
+
+    // 20191205 S_Add
+    public constructor(init?: Partial<Department>) {
+        Object.assign(this, init);
+    }
+
+    public convertForSave(userId: number) {
+        if (this.createUserId > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
+    }
+    // 20191205 E_Add
 }
 
 export class Employee {
