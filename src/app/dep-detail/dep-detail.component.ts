@@ -54,13 +54,13 @@ export class DepDetailComponent extends BaseComponent {
         });
       }
 
-      /*if (this.data == null || !(this.data.depName > 0)) {
+      if (this.data == null || !(this.data.depCode.length > 0)) {
         this.data = new Department();
-        this.data.depCode = '1';
+        //this.data.depCode = '1';
       } else {
         this.data = new Department(this.data);
-        this.data.convert();
-      }*/
+        //this.data.convert();
+      }
 
     });
   }
@@ -114,23 +114,28 @@ export class DepDetailComponent extends BaseComponent {
     const dlgObj = new Dialog({title: '確認', message: '登録しますが、よろしいですか？'});
     const dlg = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlgObj});
 
-  /*  dlg.afterClosed().subscribe(result => {
+    dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
         this.data.convertForSave(this.service.loginUser.userId);
+        /*
         if (this.cbxFinishFlg.checked) {
           this.data.finishFlg = '1';
         } else {
           this.data.finishFlg = '0';
         }
-        this.service.saveInfo(this.data).then(res => {
+        */
+        this.service.saveDep(this.data);  //.then(res => {
+          /*
           if (this.fUpload != null && !this.fUpload.hasFile()) {
             this.dialogRef.close(true);
           } else {
             this.fUpload.uploadInfoFile(res.pid);
           }
         });
+        */
+        this.dialogRef.close(true);
       }
-    });*/
+    });
   }
 
   cancel() {
