@@ -6,7 +6,7 @@
     <table class="detail-tbl">
         <tr>
             <th>部署コード</th>
-            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width100': true, 'error': errors['depCode']}" [attr.disabled]="data.depCode.length > 0"></td>
+            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width100': true, 'error': errors['depCode']}" ></td>
         </tr>
         <tr>
             <th>部署名</th>
@@ -14,19 +14,19 @@
         </tr>
         <tr>
             <th>登録日</th>
-            <td><input type="text"  [(ngModel)]="data.createDate" class="width150" [attr.disabled]="true"></td>
+            <td><input type="text"  [(ngModel)]="data.createDate" class="width150" disabled ="true"></td>
         </tr>
         <tr>
             <th>登録ユーザーID</th>
-            <td><input type="text"  [(ngModel)]="data.createUserId" class="width150" [attr.disabled]="true"></td>
+            <td><input type="text"  [(ngModel)]="data.createUserId" class="width150" disabled ="true"></td>
         </tr>
         <tr>
             <th>更新日</th>
-            <td><input type="text"  [(ngModel)]="data.updateDate" class="width150" [attr.disabled]="true"></td>
+            <td><input type="text"  [(ngModel)]="data.updateDate" class="width150" disabled ="true"></td>
         </tr>
         <tr>
             <th>更新ユーザーID</th>
-            <td><input type="text"  [(ngModel)]="data.updateUserId"  class="width150" [attr.disabled]="true"></td>
+            <td><input type="text"  [(ngModel)]="data.updateUserId"  class="width150" disabled ="true"></td>
         </tr>
 
         <!--
