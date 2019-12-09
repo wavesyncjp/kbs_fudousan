@@ -10,6 +10,9 @@ import { Information } from './models/information';
   providedIn: 'root'
 })
 export class BackendService {
+  saveUser(data: User) {
+    throw new Error("Method not implemented.");
+  }
   // private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   public loginUser: User;
@@ -277,6 +280,43 @@ export class BackendService {
   deleteDep(depCode: string): Promise<void> {
     const deleteApi = 'depdelete.php';
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {depCode: depCode, deleteUserId: this.loginUser.userId});
+    return req.toPromise();
+  }
+  // 20191204 E_Add
+
+  // 20191209 S_Add
+  /**
+   * 社員情報登録
+   * @param user ：社員情報
+   */
+  /*saveUser(user: User): Promise<User> {
+    const saveApi = 'usersave.php';
+    const req = this.http.post<User>(`${this.BaseUrl}/${saveApi}`, user);
+    return req.toPromise();
+  }*/
+
+  /**
+   * 社員情報削除
+   * @param userId : 削除したいuserId
+   */
+  deleteUser(userId: number): Promise<void> {
+    const deleteApi = 'userdelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {userId: userId, deleteUserId: this.loginUser.userId});
+    return req.toPromise();
+  }
+  /**
+   * 社員取得
+   */
+  searchUser(cond: any): Promise<User[]> {
+    const searchApi = 'usersearch.php';
+    const req = this.http.post<User[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+  
+  getUsers(users: string[]): Promise<User[]> {
+    const getUserApi = 'getuser.php';
+    const body = {user: users};User
+    const req = this.http.post<User[]>(`${this.BaseUrl}/${getUserApi}`, body);
     return req.toPromise();
   }
   // 20191204 E_Add

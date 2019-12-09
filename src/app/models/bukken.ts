@@ -1,4 +1,7 @@
 export class User {
+  convertForSave(userId: number) {
+    throw new Error("Method not implemented.");
+  }
     userId: number;
     loginId: string;
     password: string;
@@ -6,7 +9,11 @@ export class User {
     token: string;
     result: boolean;
     msg: string;
-}
+
+    // 20191209 S_Add
+    public constructor(init?: Partial<User>) {
+        Object.assign(this, init);
+}}
 
 export class Department {
   /*convertForSave(userId: number) {

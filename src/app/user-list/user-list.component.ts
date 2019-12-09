@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { DepDetailComponent } from '../dep-detail/dep-detail.component';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
-import { Department } from '../models/bukken';
+import { User } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { JPDateAdapter } from '../adapters/adapters';
 
 @Component({
-  selector: 'app-dep-list',
-  templateUrl: './dep-list.component.html',
-  styleUrls: ['./dep-list.component.css'],
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
 })
-export class DepListComponent extends BaseComponent {
+export class UserListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   /**/
-  displayedColumns: string[] = ['depCode', 'depName', 'createDate', 'updateDate', 'delete', 'detail'];
-  dataSource = new MatTableDataSource<Department>();
+  displayedColumns: string[] = ['', '', ];
+  dataSource = new MatTableDataSource<User>();
 
   constructor(public router: Router,
               public dialog: MatDialog,
@@ -37,20 +37,20 @@ export class DepListComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('部署マスタ');
+    this.service.changeTitle('社員マスタ');
 
     this.cond = {
       infoDateMap: new Date(),
-      // 20191202 condにdepartmentセット(this)
-      department: []
+      // 20191202 condにuserセット(this)
+      user: []
     };
 
     const funcs = [];
     /*funcs.push(this.service.getCodes(['005']));*/
 
 
-    // 20191202 funcsにgetdeps全件データを取得(null)//
-    funcs.push(this.service.getDeps(null));
+    // 20191202 funcsにgetusers全件データを取得(null)//
+    funcs.push(this.service.getUsers(null));
 
     Promise.all(funcs).then(values => {
 
@@ -66,7 +66,7 @@ export class DepListComponent extends BaseComponent {
       }*/
 
       // 20191202 valuesに取得値をセット
-      this.deps = values[0];
+      this.users = values[0];
 
       this.cond.infoDateMap = null;
 
@@ -76,11 +76,11 @@ export class DepListComponent extends BaseComponent {
   /**
    * 検索
    */
-  searchDep() {
+  searchUser() {
     this.spinner.show();
     /*this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
     （toLocaleDateString=国、地域の時間をあった言語にて表示する）*/
-    this.service.searchDep(this.cond).then(res => {
+    this.service.searchUser(this.cond).then(res => {
       this.dataSource.data = res;
 
       setTimeout(() => {
@@ -92,8 +92,8 @@ export class DepListComponent extends BaseComponent {
   }
 
   createNew() {
-    const row = new Department();
-    const dialogRef = this.dialog.open(DepDetailComponent, {
+    const row = new User();
+    const dialogRef = this.dialog.open(UserListComponent, {
       width: '30%',
       height: '430px',
       data: row
@@ -101,12 +101,12 @@ export class DepListComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.searchDep();
+        this.searchUser();
       }
     });
   }
 
-  deleteRow(row: Department) {
+  deleteRow(row: User) {
     const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
@@ -116,16 +116,16 @@ export class DepListComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deleteDep(row.depCode).then(res => {
-          this.searchDep();
+        this.service.deleteUser(row.userId).then(res => {
+          this.searchUser();
         });
       }
     });
 
   }
 
-  showDetail(row: Department) {
-    const dialogRef = this.dialog.open(DepDetailComponent, {
+  showDetail(row: User) {
+    const dialogRef = this.dialog.open(UserListComponent, {
       width: '60%',
       height: '580px',
       data: row
@@ -134,7 +134,7 @@ export class DepListComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.searchDep();
+        this.searchUser();
       }
     });
 
