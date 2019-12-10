@@ -98,7 +98,7 @@ export class DepDetailComponent extends BaseComponent {
       this.errors[prop] = true;
     }
     */
-
+ 
     if (this.errorMsgs.length > 0) {
       return false;
     }

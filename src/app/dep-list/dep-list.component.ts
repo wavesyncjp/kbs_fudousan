@@ -126,8 +126,8 @@ export class DepListComponent extends BaseComponent {
 
   showDetail(row: Department) {
     const dialogRef = this.dialog.open(DepDetailComponent, {
-      width: '60%',
-      height: '580px',
+      width: '30%',
+      height: '430px',
       data: row
     });
 
