@@ -8,6 +8,7 @@ export class BaseComponent implements OnInit {
     public sysCodes = {};
     public deps = [];
     public emps = [];
+    public users = [];
 
     public errorMsgs: string[] = [];
     public errors = {};
@@ -49,6 +50,14 @@ export class BaseComponent implements OnInit {
     getDeps() {
         if (this.deps) {
             return this.deps.map(dep => new Code({code: dep.depCode, name: dep.depName}));
+        } else {
+        return [];
+        }
+    }
+
+    getUsers() {
+        if (this.users) {
+            return this.users.map(user => new Code({code: user.userId, name: user.userName}));
         } else {
         return [];
         }

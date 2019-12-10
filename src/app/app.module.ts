@@ -27,6 +27,8 @@ import { InfoListComponent } from './info-list/info-list.component';
 import { InfoDetailComponent } from './info-detail/info-detail.component';
 import { DepListComponent } from './dep-list/dep-list.component';
 import { DepDetailComponent } from './dep-detail/dep-detail.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.component';
 
 @NgModule({
@@ -46,6 +48,8 @@ import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.comp
     InfoDetailComponent,
     DepListComponent,
     DepDetailComponent,
+    UserListComponent,
+    UserDetailComponent,
     FinishDialogComponent
   ],
   imports: [
@@ -81,6 +85,6 @@ import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.comp
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
-    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, FinishDialogComponent],
+    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, UserDetailComponent,FinishDialogComponent],
 })
 export class AppModule { }
