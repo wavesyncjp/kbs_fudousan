@@ -6,7 +6,7 @@
     <table class="detail-tbl">
         <tr>
             <th>部署コード</th>
-            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width100': true, 'error': errors['depCode']}" ></td>
+            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width100': true, 'error': errors['depCode']}" [attr.disabled]="data.createUserId > 0 ? '' : null" ></td>
         </tr>
         <tr>
             <th>部署名</th>
