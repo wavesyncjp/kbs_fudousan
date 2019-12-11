@@ -54,14 +54,6 @@ export class UserDetailComponent extends BaseComponent {
         });
       }
 
-      if (this.data == null || !(this.data.userId > 0 )) {
-        this.data = new User();
-        //this.data.userId = '1';
-      } else {
-        this.data = new User(this.data);
-        //this.data.convert();
-      }
-
     });
   }
 
@@ -116,7 +108,7 @@ export class UserDetailComponent extends BaseComponent {
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
-        this.data.convertForSave(this.service.loginUser.userId);
+        // this.data.convertForSave(this.service.loginUser.userId);
         /*
         if (this.cbxFinishFlg.checked) {
           this.data.finishFlg = '1';
