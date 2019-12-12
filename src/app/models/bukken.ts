@@ -9,7 +9,8 @@ export class User {
     token: string;
     result: boolean;
     msg: string;
-    /*
+    
+    depCode:string;
     createUserId: number;
     updateUserId: number;
 
@@ -23,7 +24,7 @@ export class User {
     } else {
         this.createUserId = userId;
     }
-}*/}
+}}
 
 export class Department {
   /*convertForSave(userId: number) {
