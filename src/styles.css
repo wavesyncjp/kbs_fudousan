@@ -7,6 +7,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 input {
     margin-left:3px;
 }
+input[type="text"] {
+    height: 21px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+}
 .width40{
     width: 40px !important;
 }
