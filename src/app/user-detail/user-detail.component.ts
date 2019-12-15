@@ -41,6 +41,7 @@ export class UserDetailComponent extends BaseComponent {
   ngOnInit() {
     const funcs = [];
     funcs.push(this.service.getCodes(['006']));
+    funcs.push(this.service.getDeps(null));
     Promise.all(funcs).then(values => {
 
       // コード
@@ -53,8 +54,10 @@ export class UserDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+      this.deps = values[1];
 
     });
+    
   }
 
   /*hasFile() {
@@ -68,28 +71,28 @@ export class UserDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    // 部署コード
+    // 社員コード
     if (this.data.userId == null) {
-      this.errorMsgs.push('部署コードは必須です。');
+      this.errorMsgs.push('ユーザーIDは必須です。');
       const prop = 'userId';
       this.errors[prop] = true;
     }
 
-    // 部署名
+    // 社員名
     if (Checklib.isBlank(this.data.userName)) {
-      this.errorMsgs.push('部署名は必須です。');
+      this.errorMsgs.push('ユーザー名称は必須です。');
       const prop = 'userName';
       this.errors[prop] = true;
     }
 
-    // 詳細
-    /*
-    if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
-      this.errorMsgs.push('詳細は必須です。');
-      const prop = 'infoDetail';
+    
+    
+   /* // 部署名
+    if (Checklib.isBlank(this.data.depName)) {
+      this.errorMsgs.push('部署名は必須です。');
+      const prop = 'depName';
       this.errors[prop] = true;
-    }
-    */
+    }*/
 
     if (this.errorMsgs.length > 0) {
       return false;

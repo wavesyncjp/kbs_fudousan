@@ -10,9 +10,7 @@ import { Information } from './models/information';
   providedIn: 'root'
 })
 export class BackendService {
-  saveUser(data: User) {
-    throw new Error("Method not implemented.");
-  }
+  
   // private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   public loginUser: User;
@@ -289,11 +287,11 @@ export class BackendService {
    * 社員情報登録
    * @param user ：社員情報
    */
-  /*saveUser(user: User): Promise<User> {
+  saveUser(user: User): Promise<User> {
     const saveApi = 'usersave.php';
     const req = this.http.post<User>(`${this.BaseUrl}/${saveApi}`, user);
     return req.toPromise();
-  }*/
+  }
 
   /**
    * 社員情報削除
@@ -313,12 +311,7 @@ export class BackendService {
     return req.toPromise();
   }
   
-  getUsers(users: string[]): Promise<User[]> {
-    const getUserApi = 'getuser.php';
-    const body = {user: users};User
-    const req = this.http.post<User[]>(`${this.BaseUrl}/${getUserApi}`, body);
-    return req.toPromise();
-  }
+
   // 20191204 E_Add
   
 }

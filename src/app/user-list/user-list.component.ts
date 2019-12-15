@@ -24,7 +24,7 @@ export class UserListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   /**/
-  displayedColumns: string[] = ['userId', 'userName','depName','depCode','createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['userId', 'userName','employeeCode','depName','loginId','password','createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<User>();
 
   constructor(public router: Router,
@@ -49,8 +49,7 @@ export class UserListComponent extends BaseComponent {
     /*funcs.push(this.service.getCodes(['005']));*/
 
 
-    // 20191202 funcsにgetusers全件データを取得(null)//
-    funcs.push(this.service.getUsers(null));
+    
 
     Promise.all(funcs).then(values => {
 
@@ -94,7 +93,7 @@ export class UserListComponent extends BaseComponent {
   createNew() {
     const row = new User();
     const dialogRef = this.dialog.open(UserDetailComponent, {
-      width: '30%',
+      width: '60%',
       height: '500px',
       data: row
     });
@@ -126,7 +125,7 @@ export class UserListComponent extends BaseComponent {
 
   showDetail(row: User) {
     const dialogRef = this.dialog.open(UserDetailComponent, {
-      width: '30%',
+      width: '60%',
       height: '500px',
       data: row
     });

@@ -5,34 +5,38 @@
     </ul>         
     <table class="detail-tbl">
         <tr>
-            <th>社員コード</th>
+            <th>ユーザーID</th>
             <td><input type="text"  [(ngModel)]="data.userId" [ngClass]="{'width100': true, 'error': errors['userId']}" ></td>
-        </tr>
-        <tr>
-            <th>社員名</th>
+    
+            <th>ユーザー名称</th>
             <td><input type="text"  [(ngModel)]="data.userName" [ngClass]="{'width200': true, 'error': errors['userName']}" ></td>
         </tr>
+       
         <tr>
-            <th>部署コード</th>
-            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width100': true, 'error': errors['depCode']}" ></td>
+            <th>社員コード</th>
+            <td><input type="text"  [(ngModel)]="data.employeeCode" [ngClass]="{'width100': true, 'error': errors['employeeCode']}" ></td>
+
+            <th>部署名</th>
+            <td><app-select-component [codes]="getDeps()" [(ngModel)]="data.depCord" [ngClass]="{'width200': true, 'error': errors['depName']}"></app-select-component></td>
         </tr>
         <tr>
-            <th>部署名</th>
-            <td><input type="text"  [(ngModel)]="data.depName" [ngClass]="{'width200': true, 'error': errors['depName']}" ></td>
+            <th>ログインID</th>
+            <td><input type="text"  [(ngModel)]="data.loginId" [ngClass]="{'width100': true, 'error': errors['loginId']}" ></td>
+
+            <th>パスワード</th>
+            <td><input type="text"  [(ngModel)]="data.password" [ngClass]="{'width100': true, 'error': errors['password']}" ></td>
         </tr>
         <tr>
             <th>登録日</th>
             <td><input type="text"  [(ngModel)]="data.createDate" class="width150" disabled ="true"></td>
-        </tr>
-        <tr>
+        
             <th>登録ユーザーID</th>
             <td><input type="text"  [(ngModel)]="data.createUserId" class="width150" disabled ="true"></td>
         </tr>
         <tr>
             <th>更新日</th>
             <td><input type="text"  [(ngModel)]="data.updateDate" class="width150" disabled ="true"></td>
-        </tr>
-        <tr>
+       
             <th>更新ユーザーID</th>
             <td><input type="text"  [(ngModel)]="data.updateUserId"  class="width150" disabled ="true"></td>
         </tr>

@@ -94,8 +94,8 @@ export class DepListComponent extends BaseComponent {
   createNew() {
     const row = new Department();
     const dialogRef = this.dialog.open(DepDetailComponent, {
-      width: '550px',
-      height: '410px',
+      width: '750px',
+      height: '350px',
       data: row
     });
     // 再検索
@@ -126,8 +126,8 @@ export class DepListComponent extends BaseComponent {
 
   showDetail(row: Department) {
     const dialogRef = this.dialog.open(DepDetailComponent, {
-      width: '550px',
-      height: '410px',
+      width: '750px',
+      height: '350px',
       data: row
     });
 
