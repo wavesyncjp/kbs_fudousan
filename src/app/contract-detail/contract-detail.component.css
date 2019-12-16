@@ -1,18 +1,18 @@
-.page-title{
-    width: 103%;
-    margin:-20px;
-    height:40px;    
+.detail-div {
+    margin: 0px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
 }
-.page-title > h1{
-    font-size: 0.8em;
-}
-
 .contact-div {
     width: 98vw;
     height: 100%;
     overflow-x: auto;
 }
-
+.contact-div > table{
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
 .list-header {
     background-color: cadetblue;
 }
@@ -22,9 +22,15 @@
     font-size: 12px;
     font-weight: 500;
     color:white;
+    border: solid 1px gainsboro;    
+}
+
+.list-body > tr {
+    height: 34px;
 }
 
 .list-body > tr > td {
     text-align: center;
     font-size: 12px;
+    border: solid 1px gainsboro;    
 }

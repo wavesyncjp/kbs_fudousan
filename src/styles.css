@@ -12,6 +12,12 @@ input[type="text"] {
     border: solid 1px cornflowerblue;
     border-radius: 2px;
 }
+
+textarea {
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+}
+
 .width40{
     width: 40px !important;
 }
@@ -34,6 +40,9 @@ input[type="text"] {
 }
 .width158{
     width: 158px !important;
+}
+.width152{
+    width: 152px !important;
 }
 .width200{
     width: 200px;
@@ -106,6 +115,10 @@ input[type="text"] {
 
 .mat-checkbox {
     margin-left:3px;
+}
+
+.text-left {
+    text-align: left !important;
 }
 
 .break-line {

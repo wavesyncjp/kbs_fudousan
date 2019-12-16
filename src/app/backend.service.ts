@@ -5,12 +5,13 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User, Code, Department, Employee } from './models/bukken';
 import { Templandinfo } from './models/templandinfo';
 import { Information } from './models/information';
+import { Contractinfo } from './models/contractinfo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
-  
+
   // private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   public loginUser: User;
@@ -124,6 +125,28 @@ export class BackendService {
       userId: this.loginUser.userId
     };
     const req = this.http.post<object>(`${this.BaseUrl}/${deleteLocApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 契約情報取得
+   */
+  getContract(id: number): Promise<Contractinfo> {
+    const getApi = 'contractget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Contractinfo>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 土地情報登録
+   * @param info ：土地情報
+   */
+  saveContract(info: Contractinfo): Promise<Contractinfo> {
+    const saveApi = 'contractsave.php';
+    const req = this.http.post<Contractinfo>(`${this.BaseUrl}/${saveApi}`, info);
     return req.toPromise();
   }
 
@@ -310,8 +333,6 @@ export class BackendService {
     const req = this.http.post<User[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
   }
-  
 
   // 20191204 E_Add
-  
 }

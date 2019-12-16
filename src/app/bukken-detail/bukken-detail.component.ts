@@ -5,10 +5,8 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Checklib } from '../utils/checklib';
 import { Templandinfo } from '../models/templandinfo';
 import { Locationinfo } from '../models/locationinfo';
-import { Stockcontractinfo } from '../models/stockcontractinfo';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Code } from '../models/bukken';
@@ -271,7 +269,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param loc: 所在地
    */
   navigateContract(loc: Locationinfo) {
-    this.router.navigate(['/ctdetail'], {queryParams: {pid: this.data.pid}});
+    this.router.navigate(['/ctdetail'], {queryParams: {bukkenid: this.data.pid}});
   }
 
   changeArea(event, loc) {
