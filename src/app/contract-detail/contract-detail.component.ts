@@ -7,23 +7,29 @@ import { Code } from '../models/bukken';
 import { Templandinfo } from '../models/templandinfo';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Dialog } from '../models/dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Locationinfo, ContractData } from '../models/locationinfo';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Contractdetailinfo } from '../models/contractdetailinfo';
 import { Contractdependinfo } from '../models/contractdependinfo';
 import { DatePipe } from '@angular/common';
+import { JPDateAdapter } from '../adapters/adapters';
 
 @Component({
   selector: 'app-contract-detail',
   templateUrl: './contract-detail.component.html',
-  styleUrls: ['./contract-detail.component.css']
+  styleUrls: ['./contract-detail.component.css'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+    {provide: DateAdapter, useClass: JPDateAdapter}
+  ],
 })
 export class ContractDetailComponent extends BaseComponent {
 
   public contract: Contractinfo;
   public data: Templandinfo;
+  public otherLocs: string[] = [];
   public pid: number;
   public bukkenid: number;
 
@@ -76,16 +82,27 @@ export class ContractDetailComponent extends BaseComponent {
       if ( values.length > 1) {
         if (this.pid > 0) {
           this.contract = new Contractinfo(values[1] as Contractinfo);
+          this.contract.convert();
           this.data = values[1].land;
         } else {
           this.data = new Templandinfo(values[1] as Templandinfo);
+          this.contract = new Contractinfo();
         }
         this.convertData();
-      }
 
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 200);
+        // 他契約の契約詳細
+        this.service.getContractByLand(this.data.pid).then(res => {
+
+          const ids = this.contract.details.map(data => data.locationInfoPid);
+          this.otherLocs = res.filter(pid => !ids.includes(pid as unknown as number));
+          console.log(this.otherLocs);
+
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 200);
+        });
+
+      }
 
     });
   }

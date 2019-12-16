@@ -317,6 +317,20 @@ export class BukkenDetailComponent extends BaseComponent {
     return ctData.depends.length > 0 ? ctData.depends.map(dt => dt.dependerName).join('\r\n') : '';
   }
 
+  /**
+   * 所有地を契約済みかどうか
+   * @param locationId ：所有地
+   */
+  contracted(locationId: number) {
+    if (this.contracts === undefined || this.contracts.length === 0) {
+      return false;
+    }
+    if (this.contracts.filter(ct => ct.details.filter(dt => dt.locationInfoPid === locationId).length > 0).length > 0) {
+      return true;
+    }
+    return false;
+  }
+
 }
 
 

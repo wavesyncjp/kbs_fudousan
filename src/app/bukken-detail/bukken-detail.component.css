@@ -182,6 +182,15 @@ mat-form-field > input {
     overflow-x: auto;
     margin-left: 12px;
 }
+.contracted {
+    margin-left: 30px;
+    color: red;
+    background-color: beige;
+    border: solid 1px grey;
+    border-radius: 5px;
+    padding: 3px;
+}
+
 .contact-div > table{
     border-spacing: 0px;
     border-collapse: collapse;

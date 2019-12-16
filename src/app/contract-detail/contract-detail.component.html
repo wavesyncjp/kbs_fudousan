@@ -68,7 +68,7 @@
                         </thead>
                         <tbody class="list-body">
                             <tr *ngFor="let item of data.locations; index as pos">
-                                <td><mat-checkbox color="primary" [(ngModel)]="item.isContract" (change)="change(item, true)" ></mat-checkbox></td>
+                                <td><mat-checkbox color="primary" [(ngModel)]="item.isContract" (change)="change(item, true)" *ngIf="!otherLocs.includes(item.pid.toString())" ></mat-checkbox></td>
                                 <td><mat-checkbox color="primary" [(ngModel)]="item.isDepend" (change)="change(item, false)"></mat-checkbox></td>
                                 <td>{{getCodeTitle('007', item.locationType)}}</td>
                                 <td class="width200 text-left">{{item.address}}</td>
@@ -112,7 +112,7 @@
             <th>売買代金（借地権）</th>
             <td><input type="text" [(ngModel)]="contract.tradingLeasePrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
             <th>実測精算単価</th>
-            <td><input type="text" [(ngModel)]="contract.setlementPrice" lass="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
+            <td><input type="text" [(ngModel)]="contract.setlementPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
         </tr>
         <tr>
             <th>内金①</th>
@@ -122,7 +122,7 @@
             <th>手付金</th>
             <td><input type="text" [(ngModel)]="contract.earnestPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
             <th>売買残代金</th>
-            <td><input type="text" [(ngModel)]="contract.tradingBalance" lass="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
+            <td><input type="text" [(ngModel)]="contract.tradingBalance" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
         </tr>
         <tr>
             <th>優先分譲面積<br>（専有面積）</th>

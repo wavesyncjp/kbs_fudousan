@@ -1,6 +1,7 @@
 import { Contractdetailinfo } from './contractdetailinfo';
 import { Contractdependinfo } from './contractdependinfo';
 import { DatePipe } from '@angular/common';
+import { parse } from 'date-fns';
 
 export class Contractinfo {
     pid: number;
@@ -60,22 +61,22 @@ export class Contractinfo {
 
     public convert() {
         if (this.vacationDay) {
-            this.vacationDayMap = new Date(Date.parse(this.vacationDay));
+            this.vacationDayMap = parse(this.vacationDay, 'yyyyMMdd', new Date());
         }
         if (this.contractDay) {
-            this.contractDayMap = new Date(this.contractDay);
+            this.contractDayMap = parse(this.contractDay, 'yyyyMMdd', new Date());
         }
         if (this.acquisitionConfirmDay) {
-            this.acquisitionConfirmDayMap = new Date(this.acquisitionConfirmDay);
+            this.acquisitionConfirmDayMap = parse(this.acquisitionConfirmDay, 'yyyyMMdd', new Date());
         }
         if (this.startScheduledDay !== null) {
-            this.startScheduledDayMap = new Date(this.startScheduledDay);
+            this.startScheduledDayMap = parse(this.startScheduledDay, 'yyyyMMdd', new Date());
         }
         if (this.prioritySalesAgreementDay !== null) {
-            this.prioritySalesAgreementDayMap = new Date(this.prioritySalesAgreementDay);
+            this.prioritySalesAgreementDayMap = parse(this.prioritySalesAgreementDay, 'yyyyMMdd', new Date());
         }
         if (this.finishScheduledDay !== null) {
-            this.finishScheduledDayMap = new Date(this.finishScheduledDay);
+            this.finishScheduledDayMap = parse(this.finishScheduledDay, 'yyyyMMdd', new Date());
         }
     }
 

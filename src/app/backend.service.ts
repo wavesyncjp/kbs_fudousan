@@ -153,6 +153,18 @@ export class BackendService {
   }
 
   /**
+   * 契約情報取得
+   */
+  getContractByLand(id: number): Promise<string[]> {
+    const getApi = 'contractGetByLand.php';
+    const body = {
+      tempLandInfoPid: id
+    };
+    const req = this.http.post<string[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
    * 土地情報登録
    * @param info ：土地情報
    */
