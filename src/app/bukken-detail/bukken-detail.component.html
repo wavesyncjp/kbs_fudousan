@@ -220,9 +220,32 @@
                     <button mat-raised-button color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)"  class="buttonDelete">削除</button>
                 </table>
                 -->
-            </table>
-            
+            </table>            
         </div>
+
+        <!--契約情報-->
+        <div class="contact-div" *ngIf="contracts.length > 0">
+            <span class="min">契約一覧</span>
+            <table>
+                <thead class="list-header">
+                    <th class="width150">契約番号</th>
+                    <th>契約者</th>
+                    <th>不可分</th>
+                    <th class="width80">詳細</th>                       
+                </thead>
+                <tbody class="list-body">
+                    <tr *ngFor="let ctData of contracts; index as pos">                            
+                        <td>{{data.bukkenNo + '-' + ctData.contractNumber}}</td>
+                        <td class="break-line">{{getContractorName(ctData)}}</td>
+                        <td class="break-line">{{getDependerName(ctData)}}</td>
+                        <td>
+                            <button mat-raised-button (click)="showContract(ctData)" color="warn">詳細</button>
+                        </td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--/契約情報-->
             
     <!--11/26修正-->
 

@@ -174,3 +174,37 @@ mat-form-field > input {
     width: 80px;
     font-size: 0.8em;
 }
+
+/*---------契約-------------*/
+.contact-div {
+    width: 86%;
+    height: 100%;
+    overflow-x: auto;
+    margin-left: 12px;
+}
+.contact-div > table{
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width:100%;
+}
+.list-header {
+    background-color: cadetblue;
+}
+.list-header > th {
+    height: 40px;
+    min-width: 120px;    
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+    border: solid 1px gainsboro;    
+}
+
+.list-body > tr {
+    height: 34px;
+}
+
+.list-body > tr > td {
+    text-align: center;
+    font-size: 12px;
+    border: solid 1px gainsboro;    
+}

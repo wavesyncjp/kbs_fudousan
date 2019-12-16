@@ -1,6 +1,6 @@
 <div  class="detail-div">
     <div class="register-div">
-        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button class="button" (click)="backToList()">物件へ</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
     <br>
@@ -76,14 +76,14 @@
                                 <td>{{item.buildingNumber}}</td>
                                 <td>{{item.owner}}</td>
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
-                                <td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150"></td>
+                                <td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150" [(ngModel)]="item.contractData.contractorName"></td>
                                 <td></td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
-                                <td><span *ngIf="item.isContract"><input type="text" class="width80">&nbsp;㎡</span></td>
-                                <td><app-select-component *ngIf="item.isDepend" [codes]="getCode('004')" [exclass]="true"></app-select-component></td>
-                                <td><textarea *ngIf="item.isDepend" class="width120" rows="3"></textarea></td>
-                                <td><span *ngIf="item.isDepend"><input type="text" class="width40">&nbsp;階建</span></td>
-                                <td><textarea *ngIf="item.isDepend" class="width120" rows="3"></textarea></td>
+                                <td><span *ngIf="item.isContract"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractData.contractArea">&nbsp;㎡</span></td>
+                                <td><app-select-component *ngIf="item.isDepend" [codes]="getCode('004')" [exclass]="true" [(ngModel)]="item.contractData.dependType"></app-select-component></td>
+                                <td><textarea *ngIf="item.isDepend" class="width120" rows="3" [(ngModel)]="item.contractData.dependStructure"></textarea></td>
+                                <td><span *ngIf="item.isDepend"><input type="text" class="width40" [(ngModel)]="item.contractData.dependFloor">&nbsp;階建</span></td>
+                                <td><textarea *ngIf="item.isDepend" class="width120" rows="3" [(ngModel)]="item.contractData.dependFloorArea"></textarea></td>
                             </tr>
                         </tbody>
                     </table>
@@ -135,15 +135,15 @@
        <tr>
            <th>明渡期日</th>
            <td>
-                <input type="text" [matDatepicker]="aVacateDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aVacateDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aVacateDate></mat-datepicker>
+                <input type="text" [matDatepicker]="vacationDay" class="width100" [(ngModel)]="contract.vacationDayMap">
+                <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #vacationDay></mat-datepicker>
            </td>
            <th>契約日</th>
            <td colspan="5">
-                <input type="text" [matDatepicker]="aContractDate" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="aContractDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aContractDate></mat-datepicker>
+                <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="contract.contractDayMap">
+                <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractDay></mat-datepicker>
            </td>
        </tr>
        <tr>
@@ -157,18 +157,18 @@
     <table class="detail-tbl-min">
         <tr>
             <td colspan="8">
-                <span class="min"><label>本件マンションの<br>計画概要</label></span>                        
+                <span class="min" style="width: 155px !important;">本件マンションの計画概要</span>                        
             </td>
         </tr>
         <tr>
             <th>敷地面積</th>
-            <td><input type="text" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+            <td><input type="text" [(ngModel)]="contract.siteArea" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
             <th>有効敷地面積</th>
-            <td><input type="text" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+            <td><input type="text" [(ngModel)]="contract.siteAvailableArea" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
             <th>構造</th>
-            <td><input type="text" class="width150"></td>
+            <td><input type="text" [(ngModel)]="contract.structure" class="width150"></td>
             <th>規模</th>
-            <td><input type="text" lass="width200"></td> 
+            <td><input type="text" [(ngModel)]="contract.scale" lass="width200"></td> 
         </tr>
     </table> 
     
@@ -181,33 +181,33 @@
         <tr>
             <th>建築確認取得</th>
             <td>
-                <input type="text" [matDatepicker]="date1" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="date1" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #date1></mat-datepicker>
+                <input type="text" [matDatepicker]="acquisitionConfirmDay" class="width100" [(ngModel)]="contract.acquisitionConfirmDayMap">
+                <mat-datepicker-toggle matSuffix [for]="acquisitionConfirmDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #acquisitionConfirmDay></mat-datepicker>
             </td>
             <th>計画建物着工</th>
             <td>
-                <input type="text" [matDatepicker]="date2" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="date2" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #date2></mat-datepicker>
+                <input type="text" [matDatepicker]="startScheduledDay" class="width100" [(ngModel)]="contract.startScheduledDayMap">
+                <mat-datepicker-toggle matSuffix [for]="startScheduledDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startScheduledDay></mat-datepicker>
             </td>
             <th>優先分譲契約締結</th>
             <td>
-                <input type="text" [matDatepicker]="date3" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="date3" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #date3></mat-datepicker>
+                <input type="text" [matDatepicker]="prioritySalesAgreementDay" class="width100" [(ngModel)]="contract.prioritySalesAgreementDayMap">
+                <mat-datepicker-toggle matSuffix [for]="prioritySalesAgreementDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #prioritySalesAgreementDay></mat-datepicker>
             </td>
             <th>計画建物竣工</th>
             <td>
-                <input type="text" [matDatepicker]="date4" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="date4" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #date4></mat-datepicker>
+                <input type="text" [matDatepicker]="finishScheduledDay" class="width100" [(ngModel)]="contract.finishScheduledDayMap">
+                <mat-datepicker-toggle matSuffix [for]="finishScheduledDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #finishScheduledDay></mat-datepicker>
             </td> 
         </tr>
         <tr>
             <th>計画建物竣工</th>
             <td colspan="7">
-                <input type="text" class="width150">
+                <input type="text" [(ngModel)]="contract.finishScheduledNote" class="width150">
             </td>
         </tr>
     </table> 
@@ -216,7 +216,7 @@
     <br>
     <mat-divider></mat-divider>
     <div class="register-div" style="margin-top:10px">
-        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button class="button" (click)="backToList()">物件へ</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
 

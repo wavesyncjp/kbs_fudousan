@@ -30,6 +30,7 @@ import { DepDetailComponent } from './dep-detail/dep-detail.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -82,9 +83,9 @@ import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.comp
     MatCheckboxModule,
     MatTabsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
-    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, UserDetailComponent,FinishDialogComponent],
+    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, UserDetailComponent, FinishDialogComponent],
 })
 export class AppModule { }

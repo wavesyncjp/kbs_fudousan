@@ -12,6 +12,7 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { Code } from '../models/bukken';
 import { MapAttach, AttachFile } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
+import { Contractinfo } from '../models/contractinfo';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -26,6 +27,7 @@ export class BukkenDetailComponent extends BaseComponent {
   public data: Templandinfo;
   public pid: number;
   removeLoc: Locationinfo[] = [];
+  contracts: Contractinfo[] = []; // 契約情報
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -52,6 +54,7 @@ export class BukkenDetailComponent extends BaseComponent {
     funcs.push(this.service.getEmps(null));
     if (this.pid > 0) {
       funcs.push(this.service.getLand(this.pid));
+      funcs.push(this.service.getLandContract(this.pid));
     }
     Promise.all(funcs).then(values => {
 
@@ -76,6 +79,12 @@ export class BukkenDetailComponent extends BaseComponent {
       if ( values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
       }
+
+      // 土地の契約情報
+      if (values.length > 4) {
+        this.contracts = values[4];
+      }
+
       this.convertForDisplay();
 
       setTimeout(() => {
@@ -290,6 +299,22 @@ export class BukkenDetailComponent extends BaseComponent {
       loc.area = null;
       loc.tsubo = null;
     }
+  }
+
+  /**
+   * 契約詳細
+   * @param data : 契約情報
+   */
+  showContract(ctData: Contractinfo) {
+    this.router.navigate(['/ctdetail'], {queryParams: {pid: ctData.pid}});
+  }
+
+  getContractorName(ctData: Contractinfo) {
+    return ctData.details.length > 0 ? ctData.details.map(dt => dt.contractorName).join('\r\n') : '';
+  }
+
+  getDependerName(ctData: Contractinfo) {
+    return ctData.depends.length > 0 ? ctData.depends.map(dt => dt.dependerName).join('\r\n') : '';
   }
 
 }

@@ -30,24 +30,44 @@ export class Locationinfo {
     isDepend: boolean;
     contractData: ContractData = new ContractData();
 
+    public constructor(init?: Partial<Locationinfo>) {
+        if (init) {
+            Object.assign(this, init);
+        }
+    }
+
     copyContracDetail(detail: Contractdetailinfo) {
+        this.isContract = true;
         this.contractData.contractorName = detail.contractorName;
         this.contractData.contractArea = detail.contractArea;
     }
+    copyContracDetailForSave(detail: Contractdetailinfo) {
+        detail.locationInfoPid = this.pid;
+        detail.contractorName = this.contractData.contractorName;
+        detail.contractArea = this.contractData.contractArea;
+    }
 
     copyContracDepend(depend: Contractdependinfo) {
-        this.contractData.dependerName = depend.dependerName;
+        this.isDepend = true;
+        this.contractData.contractorName = depend.dependerName;
         this.contractData.dependType = depend.dependType;
         this.contractData.dependStructure = depend.dependStructure;
         this.contractData.dependFloor = depend.dependFloor;
         this.contractData.dependFloorArea = depend.dependFloorArea;
+    }
+    copyContracDependForSave(depend: Contractdependinfo) {
+        depend.locationInfoPid = this.pid;
+        depend.dependerName = this.contractData.contractorName;
+        depend.dependType = this.contractData.dependType;
+        depend.dependStructure = this.contractData.dependStructure;
+        depend.dependFloor = this.contractData.dependFloor;
+        depend.dependFloorArea = this.contractData.dependFloorArea;
     }
 }
 
 export class ContractData {
     contractorName: string;
     contractArea: number;
-    dependerName: string;
     dependType: string;
     dependStructure: string;
     dependFloor: number;

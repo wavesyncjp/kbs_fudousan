@@ -9,7 +9,11 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { Dialog } from '../models/dialog';
 import { MatDialog } from '@angular/material';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
-import { Locationinfo } from '../models/locationinfo';
+import { Locationinfo, ContractData } from '../models/locationinfo';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Contractdetailinfo } from '../models/contractdetailinfo';
+import { Contractdependinfo } from '../models/contractdependinfo';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contract-detail',
@@ -26,7 +30,9 @@ export class ContractDetailComponent extends BaseComponent {
   constructor(public router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog,
-              public service: BackendService) {
+              public service: BackendService,
+              private spinner: NgxSpinnerService,
+              public datepipe: DatePipe) {
       super(router, service);
       this.route.queryParams.subscribe(params => {
         this.pid = params.pid;
@@ -41,6 +47,7 @@ export class ContractDetailComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('契約情報詳細');
+    this.spinner.show();
     this.contract = new Contractinfo();
 
     const funcs = [];
@@ -73,11 +80,51 @@ export class ContractDetailComponent extends BaseComponent {
         } else {
           this.data = new Templandinfo(values[1] as Templandinfo);
         }
+        this.convertData();
+      }
+
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 200);
+
+    });
+  }
+
+  /**
+   * 契約情報＋所有地マージ
+   */
+  convertData() {
+
+    const locs = [];
+    this.data.locations.forEach(loc => {
+      const newLoc = new Locationinfo(loc as Locationinfo);
+      newLoc.contractData = new ContractData();
+      locs.push(newLoc);
+    });
+    this.data.locations = locs;
+
+    this.data.locations.forEach(loc => {
+      // 契約詳細情報
+      if (this.contract.details !== undefined && this.contract.details.length > 0) {
+        const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid);
+        if (lst.length > 0) {
+          loc.copyContracDetail(lst[0]);
+        }
+      }
+      // 契約不可分
+      if (this.contract.depends !== undefined && this.contract.depends.length > 0) {
+        const lst = this.contract.depends.filter(dt => dt.locationInfoPid === loc.pid);
+        if (lst.length > 0) {
+          loc.copyContracDepend(lst[0]);
+        }
       }
 
     });
   }
 
+  /**
+   * 登録
+   */
   save() {
     if (!this.validate()) {
       return;
@@ -88,7 +135,8 @@ export class ContractDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         this.contract.tempLandInfoPid = this.data.pid;
-        this.contract.convertForSave(this.service.loginUser.userId);
+        this.convertForSave(); // 契約詳細⊕不可分データ準備
+        this.contract.convertForSave(this.service.loginUser.userId, this.datepipe);
         this.service.saveContract(this.contract).then(res => {
 
           const finishDlg = new Dialog({title: '完了', message: '契約情報を登録しました。'});
@@ -106,6 +154,69 @@ export class ContractDetailComponent extends BaseComponent {
       }
     });
 
+  }
+
+  /**
+   * 登録の為の変換
+   */
+  convertForSave() {
+    this.data.locations.forEach(loc => {
+      const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
+      const dependList = this.contract.depends.filter(depend => depend.locationInfoPid === loc.pid);
+
+      if (!(loc.isContract || loc.isDepend)) {
+        // 契約削除
+        if (detailList.length > 0) {
+          detailList[0].deleteUserId = this.service.loginUser.userId;
+        }
+
+        // 不可分削除
+        if (dependList.length > 0) {
+          dependList[0].deleteUserId = this.service.loginUser.userId;
+        }
+      }
+      // 契約選択
+      // tslint:disable-next-line:one-line
+      else if (loc.isContract) {
+        // 契約更新
+        if (detailList.length > 0) {
+          loc.copyContracDetailForSave(detailList[0]);
+        }
+        // 新規登録
+        // tslint:disable-next-line:one-line
+        else {
+          const data = new Contractdetailinfo();
+          loc.copyContracDetailForSave(data);
+          this.contract.details.push(data);
+        }
+
+        // 不可分削除
+        if (dependList.length > 0) {
+          dependList[0].deleteUserId = this.service.loginUser.userId;
+        }
+      }
+      // 不可分選択
+      // tslint:disable-next-line:one-line
+      else {
+        // 契約削除
+        if (detailList.length > 0) {
+          detailList[0].deleteUserId = this.service.loginUser.userId;
+        }
+
+        // 不可分更新
+        if (dependList.length > 0) {
+          loc.copyContracDependForSave(dependList[0]);
+        }
+        // 不可分新規登録
+        // tslint:disable-next-line:one-line
+        else {
+          const data = new Contractdependinfo();
+          loc.copyContracDependForSave(data);
+          this.contract.depends.push(data);
+        }
+      }
+
+    });
   }
 
   change(item: Locationinfo, isContract) {
@@ -133,6 +244,6 @@ export class ContractDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/bukkens']);
+    this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
   }
 }
