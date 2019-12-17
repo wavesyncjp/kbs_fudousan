@@ -64,6 +64,14 @@ export class BaseComponent implements OnInit {
         }
     }
 
+    getEmps() {
+        if (this.emps) {
+            return this.emps.map(user => new Code({code: user.employeeCode, name: user.userName}));
+        } else {
+        return [];
+        }
+    }
+
     numericOnly(event): boolean {
         const patt = /^([0-9])$/;
         const result = patt.test(event.key);

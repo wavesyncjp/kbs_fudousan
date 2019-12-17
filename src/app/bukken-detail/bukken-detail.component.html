@@ -32,7 +32,7 @@
                 <th>物件担当者</th>
                 <td>
                     <mat-select multiple class="width300" [(ngModel)]="data.infoStaffMap">
-                        <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
+                        <mat-option *ngFor="let emp of emps" [value]="emp.userName">{{emp.userName}}</mat-option>
                     </mat-select>
                 </td>
             </tr>
@@ -48,7 +48,7 @@
                 <th>情報提供者</th>
                 <td> 
                     <mat-select multiple class="width300" [(ngModel)]="data.infoOfferMap">
-                        <mat-option *ngFor="let emp of emps" [value]="emp.employeeCode">{{emp.employeeName}}</mat-option>
+                        <mat-option *ngFor="let emp of emps" [value]="emp.userName">{{emp.userName}}</mat-option>
                     </mat-select>
                 </td>
             <tr>
@@ -115,7 +115,7 @@
             <tr>
                 <th>地図添付</th>
                 <td colspan="5" style = "border-top: solid 1px rgba(197, 191, 191, 0.822);">
-                    <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
+                    <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
                     <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>                                        
                
                     <table style="margin-left: 5px;">
@@ -131,7 +131,7 @@
             <tr>
                 <th>ファイル添付</th>
                 <td colspan="5" style = "border-top: solid 1px rgba(197, 191, 191, 0.822); border-bottom: solid 1px rgba(197, 191, 191, 0.822);">
-                    <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報登録してからファイルアップロードできます</label>
+                    <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
                     <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)"></app-file>  
 
                     <table style="margin-left: 5px;">

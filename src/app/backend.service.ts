@@ -187,12 +187,13 @@ export class BackendService {
   /**
    * 社員取得
    */
-  getEmps(empCode: string): Promise<Employee[]> {
+  getEmps(empCode: string): Promise<User[]> {
     const getDepApi = 'getemployee.php';
-    const body = {code: empCode};
-    const req = this.http.post<Employee[]>(`${this.BaseUrl}/${getDepApi}`, body);
+    const body = {code: User};
+    const req = this.http.post<User[]>(`${this.BaseUrl}/${getDepApi}`, body);
     return req.toPromise();
   }
+  
 
   /**
    * システムコード取得
@@ -359,4 +360,6 @@ export class BackendService {
   }
 
   // 20191204 E_Add
+  
+  
 }
