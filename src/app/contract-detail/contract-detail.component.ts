@@ -166,6 +166,7 @@ export class ContractDetailComponent extends BaseComponent {
           });
           dlgVal.afterClosed().subscribe(val => {
             this.contract = new Contractinfo(res);
+            this.contract.convert();
             this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contract.pid}});
           });
 

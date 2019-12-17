@@ -35,3 +35,10 @@
     font-size: 12px;
     border: solid 1px gainsboro;    
 }
+
+.bukken-button {
+    /*float: left;*/
+    background: #00B050;
+    color: white;
+    width: 120px;
+}
