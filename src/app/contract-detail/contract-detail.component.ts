@@ -15,6 +15,7 @@ import { Contractdetailinfo } from '../models/contractdetailinfo';
 import { Contractdependinfo } from '../models/contractdependinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
+import { ContractFile } from '../models/mapattach';
 
 @Component({
   selector: 'app-contract-detail',
@@ -266,4 +267,35 @@ export class ContractDetailComponent extends BaseComponent {
   backToList() {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
   }
+
+  /**
+   * ファイルアップロード
+   * @param event ：ファイル
+   */
+  uploaded(event) {
+    if (this.contract.contractFiles === null) {
+      this.contract.contractFiles = [];
+    }
+    const contractFile: ContractFile = JSON.parse(JSON.stringify(event));
+    this.contract.contractFiles.push(contractFile);
+  }
+
+  /**
+   * 地図削除
+   * @param map :　削除したい地図
+   */
+  deleteFile(map: ContractFile) {
+
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteContractFile(map.pid).then(res => {
+          this.contract.contractFiles.splice(this.contract.contractFiles.indexOf(map), 1);
+        });
+      }
+    });
+  }
+
 }

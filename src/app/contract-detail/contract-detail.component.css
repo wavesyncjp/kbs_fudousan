@@ -42,3 +42,12 @@
     color: white;
     width: 120px;
 }
+
+.attach-btn{
+    background-color: red;
+    margin-left: 20px;
+    color: white;
+    height: 34px;
+    width: 80px;
+    font-size: 0.8em;
+}

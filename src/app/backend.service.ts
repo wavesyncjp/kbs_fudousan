@@ -245,6 +245,22 @@ export class BackendService {
   }
 
   /**
+   * 契約ファイルアップロード
+   * @param contractInfoId ：契約ID
+   * @param file ；ファイル
+   */
+  uploadContractFile(contractInfoId: number, file: File): Promise<object> {
+
+    const uploadApi = 'contractFileUpload.php';
+
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('contractInfoId', contractInfoId.toString());
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+
+  }
+
+  /**
    * インフォメーションファイルアップロード
    * @param infoPid ：インフォメーションPid
    * @param file ：ファイル
@@ -264,6 +280,17 @@ export class BackendService {
   deleteFile(id: number, attach: boolean): Promise<object> {
     const deleteFileApi = 'deletefile.php';
     const body = {pid: id, isAttach: attach};
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 契約ファイル削除
+   * @param id : 契約ID
+   */
+  deleteContractFile(id: number): Promise<object> {
+    const deleteFileApi = 'deleteContractFile.php';
+    const body = {pid: id};
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }

@@ -15,6 +15,9 @@ export class FileComponentComponent implements OnInit {
   bukkenId: number;
 
   @Input()
+  contractInfoId: number;
+
+  @Input()
   comment = '';
 
   @Input()
@@ -57,13 +60,29 @@ export class FileComponentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
-          this.snackBar.open('ファイルアップロード完了', null, {
-            duration: 1000,
+
+        // 物件アップロード
+        if (this.bukkenId !== undefined && this.bukkenId > 0) {
+          this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
+            this.snackBar.open('ファイルアップロード完了', null, {
+              duration: 1000,
+            });
+            this.file = null;
+            this.uploaded.emit(res);
           });
-          this.file = null;
-          this.uploaded.emit(res);
-        });
+        }
+        // 契約ファイルアップロード
+        // tslint:disable-next-line:one-line
+        else if (this.contractInfoId !== undefined && this.contractInfoId > 0 ) {
+          this.service.uploadContractFile(this.contractInfoId, this.file).then(res => {
+            this.snackBar.open('ファイルアップロード完了', null, {
+              duration: 1000,
+            });
+            this.file = null;
+            this.uploaded.emit(res);
+          });
+        }
+
       }
     });
   }

@@ -2,6 +2,7 @@ import { Contractdetailinfo } from './contractdetailinfo';
 import { Contractdependinfo } from './contractdependinfo';
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
+import { ContractFile } from './mapattach';
 
 export class Contractinfo {
     pid: number;
@@ -49,6 +50,7 @@ export class Contractinfo {
 
     details: Contractdetailinfo[] = [];
     depends: Contractdependinfo[] = [];
+    contractFiles: ContractFile[];
 
     createUserId: number;
     updateUserId: number;

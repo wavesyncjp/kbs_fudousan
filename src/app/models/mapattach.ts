@@ -12,3 +12,10 @@ export class AttachFile {
     attachFilePath = '';
     attachFileRemark = '';
 }
+
+export class ContractFile {
+    pid: number;
+    contractInfoPid: number;
+    attachFileName = '';
+    attachFilePath = '';
+}
