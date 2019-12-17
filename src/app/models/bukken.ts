@@ -13,6 +13,7 @@ export class User {
     depCode:string;
     createUserId: number;
     updateUserId: number;
+    employeeCode: string;
 
     // 20191209 S_Add
     public constructor(init?: Partial<User>) {

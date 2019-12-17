@@ -58,6 +58,7 @@ export class ContractDetailComponent extends BaseComponent {
 
     const funcs = [];
     funcs.push(this.service.getCodes(['004', '006', '007', '008', '009']));
+    funcs.push(this.service.getEmps(null));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
     }
@@ -77,15 +78,16 @@ export class ContractDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+      this.emps = values[1];
 
       // 物件あり場合
       if ( values.length > 1) {
         if (this.pid > 0) {
-          this.contract = new Contractinfo(values[1] as Contractinfo);
+          this.contract = new Contractinfo(values[2] as Contractinfo);
           this.contract.convert();
-          this.data = values[1].land;
+          this.data = values[2].land;
         } else {
-          this.data = new Templandinfo(values[1] as Templandinfo);
+          this.data = new Templandinfo(values[2] as Templandinfo);
           this.contract = new Contractinfo();
         }
         this.convertData();
