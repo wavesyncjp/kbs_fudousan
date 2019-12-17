@@ -253,7 +253,7 @@
                         <td class="break-line">{{getOwnerName(ctData)}}</td>
                         <td class="break-line">{{getContractorName(ctData)}}</td>
                         <td class="break-line">{{getDependerName(ctData)}}</td>
-                        <td>{{ctData.tradingPrice}}</td>
+                        <td class="text-right">{{formatIntNumber(ctData.tradingPrice, '円')}}</td>
                         <td>{{formatDay(ctData.contractDay, 'yyyy/MM/dd')}}</td>
                         <td><button mat-raised-button (click)="showContract(ctData)" color="warn">詳細</button></td>                        
                     </tr>

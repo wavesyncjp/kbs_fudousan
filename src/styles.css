@@ -121,6 +121,11 @@ textarea {
     text-align: left !important;
 }
 
+.text-right {
+    text-align: right !important;
+    padding-right:5px !important;
+}
+
 .break-line {
     white-space: pre-wrap !important;
 }

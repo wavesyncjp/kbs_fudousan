@@ -137,7 +137,12 @@ export class BaseComponent implements OnInit {
         const parseVal = parse(val, 'yyyyMMdd', new Date());
         return parseVal.toLocaleDateString();
     }
-    formatIntNumber(val: number) {
-
+    formatIntNumber(val: number, unit: string = null) {
+        if (val === undefined || val == null) {
+            return '';
+        }
+        const parts = val.toString().split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return parts.join('.') + (unit != null ? ' ' + unit : '');
     }
 }
