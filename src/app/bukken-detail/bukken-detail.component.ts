@@ -309,6 +309,32 @@ export class BukkenDetailComponent extends BaseComponent {
     this.router.navigate(['/ctdetail'], {queryParams: {pid: ctData.pid}});
   }
 
+  getLocationType(ctData: Contractinfo) {
+    return ctData.details.map(dt => {
+      return this.getCodeTitle('007', this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].locationType);
+    }).join('\n\r');
+  }
+  getAddress(ctData: Contractinfo) {
+    return ctData.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].address;
+    }).join('\n\r');
+  }
+  getBlockNumber(ctData: Contractinfo) {
+    return ctData.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].blockNumber;
+    }).join('\n\r');
+  }
+  getBuildingNumber(ctData: Contractinfo) {
+    return ctData.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].buildingNumber;
+    }).join('\n\r');
+  }
+  getOwnerName(ctData: Contractinfo) {
+    return ctData.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].owner;
+    }).join('\n\r');
+  }
+
   getContractorName(ctData: Contractinfo) {
     return ctData.details.length > 0 ? ctData.details.map(dt => dt.contractorName).join('\r\n') : '';
   }

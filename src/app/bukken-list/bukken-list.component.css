@@ -44,6 +44,10 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
     width: 150px;
 }
 
+.mat-column-remark1{
+    white-space: pre-wrap !important;
+}
+
 mat-paginator{
     width: 100%;
 }

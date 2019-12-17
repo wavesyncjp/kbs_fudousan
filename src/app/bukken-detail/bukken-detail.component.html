@@ -231,19 +231,31 @@
             <span class="min">契約一覧</span>
             <table>
                 <thead class="list-header">
-                    <th class="width150">契約番号</th>
+                    <th>契約番号</th>
+                    <th class="width80">区分</th>
+                    <th>所在</th>
+                    <th class="width80">地番</th>
+                    <th class="width80">家屋番号</th>
+                    <th>所有者<br>（売主・登記名義人）</th>
                     <th>契約者</th>
                     <th>不可分</th>
+                    <th>売買代金</th>
+                    <th class="width100">契約日</th>
                     <th class="width80">詳細</th>                       
                 </thead>
                 <tbody class="list-body">
                     <tr *ngFor="let ctData of contracts; index as pos">                            
                         <td>{{data.bukkenNo + '-' + ctData.contractNumber}}</td>
+                        <td class="break-line">{{getLocationType(ctData)}}</td>
+                        <td class="text-left break-line">{{getAddress(ctData)}}</td>
+                        <td class="break-line">{{getBlockNumber(ctData)}}</td>
+                        <td class="break-line">{{getBuildingNumber(ctData)}}</td>
+                        <td class="break-line">{{getOwnerName(ctData)}}</td>
                         <td class="break-line">{{getContractorName(ctData)}}</td>
                         <td class="break-line">{{getDependerName(ctData)}}</td>
-                        <td>
-                            <button mat-raised-button (click)="showContract(ctData)" color="warn">詳細</button>
-                        </td>                        
+                        <td>{{ctData.tradingPrice}}</td>
+                        <td>{{formatDay(ctData.contractDay, 'yyyy/MM/dd')}}</td>
+                        <td><button mat-raised-button (click)="showContract(ctData)" color="warn">詳細</button></td>                        
                     </tr>
                 </tbody>
             </table>

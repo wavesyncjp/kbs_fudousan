@@ -26,6 +26,7 @@ export class BukkenListComponent extends BaseComponent {
 
   public cond: any;
   search = '0';
+  searched = false;
   selectedRowIndex = -1;
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'remark1', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
@@ -120,6 +121,7 @@ export class BukkenListComponent extends BaseComponent {
         });
       }
       this.dataSource.data = res;
+      this.searched = true;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);

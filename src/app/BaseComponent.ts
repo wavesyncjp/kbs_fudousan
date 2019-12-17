@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
 import { Code } from './models/bukken';
 import { isNumber } from 'util';
+import { parse } from 'date-fns';
 
 export class BaseComponent implements OnInit {
     public sysCodes = {};
@@ -119,5 +120,16 @@ export class BaseComponent implements OnInit {
                 list.splice(list.indexOf(val), 1);
             }
         }
+    }
+
+    formatDay(val: string, format: string) {
+        if (val === undefined || val === '' || val == null) {
+            return '';
+        }
+        const parseVal = parse(val, 'yyyyMMdd', new Date());
+        return parseVal.toLocaleDateString();
+    }
+    formatIntNumber(val: number) {
+
     }
 }

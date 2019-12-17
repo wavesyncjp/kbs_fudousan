@@ -45,7 +45,7 @@
       <div style="margin: 10px 0px 10px 0px;">
         <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
         <button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>
-        <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>
+        <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn">&nbsp;新規登録&nbsp;</button>
       </div>
     </div>    
     
@@ -72,7 +72,7 @@
     <!--所在地-->
     <ng-container matColumnDef="remark1">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 所在地 </th>
-      <td mat-cell *matCellDef="let element"> {{element.remark1}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.remark1.split(',').join('\n\r')}} </td>
     </ng-container>
   
     <!-- 情報収集日 Column -->
