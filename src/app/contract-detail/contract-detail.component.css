@@ -5,9 +5,10 @@
     flex-direction: column;
 }
 .contact-div {
-    width: 98vw;
+    width: 89vw;
     height: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
 }
 .contact-div > table{
     border-spacing: 0px;
