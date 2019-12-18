@@ -154,6 +154,9 @@ export class ContractDetailComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
+
+        this.spinner.show();
+
         this.contract.tempLandInfoPid = this.data.pid;
         this.convertForSave(); // 契約詳細⊕不可分データ準備
         this.contract.convertForSave(this.service.loginUser.userId, this.datepipe);
@@ -166,6 +169,7 @@ export class ContractDetailComponent extends BaseComponent {
             data: finishDlg
           });
           dlgVal.afterClosed().subscribe(val => {
+            this.spinner.hide();
             this.contract = new Contractinfo(res);
             this.contract.convert();
             this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contract.pid}});
