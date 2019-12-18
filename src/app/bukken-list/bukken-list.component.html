@@ -46,6 +46,14 @@
         <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
         <button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>
         <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn">&nbsp;新規登録&nbsp;</button>
+
+        <!--<button mat-raised-button (click)="switchTab()" #tabGroup *ngIf="searched" color="primary">&nbsp;{{viewStr}}&nbsp;</button>-->
+
+        <mat-radio-group (change)="switchTab($event)" *ngIf="searched" style="float: right;">
+          <mat-radio-button [value]="1" [checked]="true">一覧表示&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
+          <mat-radio-button [value]="2">MAP表示&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
+        </mat-radio-group>
+
       </div>
     </div>    
     
@@ -53,56 +61,66 @@
   
 </div>
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
-<div class="mat-elevation-z8 main data">
 
-  <table mat-table [dataSource]="dataSource" matSort>
+<mat-tab-group class="bukken-tab">
+  <mat-tab label="一覧">
+    <div class="mat-elevation-z8 main data">
 
-     <!-- bukkenId Column -->
-     <ng-container matColumnDef="bukkenNo">
-        <th mat-header-cell *matHeaderCellDef> 物件番号 </th>
-        <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
-      </ng-container>
-  
-    <!-- bukkenName Column -->
-    <ng-container matColumnDef="bukkenName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
-      <td mat-cell *matCellDef="let element"> {{element.bukkenName}} </td>
-    </ng-container>
+      <table mat-table [dataSource]="dataSource" matSort>
+    
+         <!-- bukkenId Column -->
+         <ng-container matColumnDef="bukkenNo">
+            <th mat-header-cell *matHeaderCellDef> 物件番号 </th>
+            <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
+          </ng-container>
+      
+        <!-- bukkenName Column -->
+        <ng-container matColumnDef="bukkenName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
+          <td mat-cell *matCellDef="let element"> {{element.bukkenName}} </td>
+        </ng-container>
+    
+        <!--所在地-->
+        <ng-container matColumnDef="remark1">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 所在地 </th>
+          <td mat-cell *matCellDef="let element"> {{element.remark1.split(',')[0]}} </td>
+        </ng-container>
+      
+        <!-- 情報収集日 Column -->
+        <ng-container matColumnDef="pickDate">
+          <th mat-header-cell *matHeaderCellDef> 情報収集日 </th>
+          <td mat-cell *matCellDef="let element"> {{element.pickDate | date:'yyyy/MM/dd'}} </td>
+        </ng-container>
+    
+         <!-- 担当部署 Column -->
+         <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef> 担当部署 </th>
+          <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+        </ng-container>
+    
+         <!-- 地目 Column -->
+         <ng-container matColumnDef="result">
+          <th mat-header-cell *matHeaderCellDef> 結果 </th>
+          <td mat-cell *matCellDef="let element"> {{element.result}} </td>
+        </ng-container>
+    
+        <!-- 詳細 Column -->
+        <ng-container matColumnDef="detail">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row"> 
+              <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+    </div>
+  </mat-tab>
 
-    <!--所在地-->
-    <ng-container matColumnDef="remark1">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 所在地 </th>
-      <td mat-cell *matCellDef="let element"> {{element.remark1.split(',')[0]}} </td>
-    </ng-container>
-  
-    <!-- 情報収集日 Column -->
-    <ng-container matColumnDef="pickDate">
-      <th mat-header-cell *matHeaderCellDef> 情報収集日 </th>
-      <td mat-cell *matCellDef="let element"> {{element.pickDate | date:'yyyy/MM/dd'}} </td>
-    </ng-container>
+  <mat-tab label="マップ">
+    <div #mapContainer id="map"></div>
+  </mat-tab>  
+</mat-tab-group>
 
-     <!-- 担当部署 Column -->
-     <ng-container matColumnDef="department">
-      <th mat-header-cell *matHeaderCellDef> 担当部署 </th>
-      <td mat-cell *matCellDef="let element"> {{element.department}} </td>
-    </ng-container>
-
-     <!-- 地目 Column -->
-     <ng-container matColumnDef="result">
-      <th mat-header-cell *matHeaderCellDef> 結果 </th>
-      <td mat-cell *matCellDef="let element"> {{element.result}} </td>
-    </ng-container>
-
-    <!-- 詳細 Column -->
-    <ng-container matColumnDef="detail">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let row"> 
-          <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
-</div>

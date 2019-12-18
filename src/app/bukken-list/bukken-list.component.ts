@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+declare var google: any;
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatTabGroup, MatRadioChange } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
@@ -20,7 +21,8 @@ import { Code } from '../models/bukken';
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {provide: DateAdapter, useClass: JPDateAdapter}
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class BukkenListComponent extends BaseComponent {
 
@@ -33,6 +35,14 @@ export class BukkenListComponent extends BaseComponent {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
+
+  // マップ
+  @ViewChild('mapContainer', {static: true}) gmap: ElementRef;
+  mapObj: any;
+  infowindow: any;
+  markers = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -93,6 +103,8 @@ export class BukkenListComponent extends BaseComponent {
       }
 
     });
+
+    this.mapInitializer();
   }
 
   highlight(row) {
@@ -104,6 +116,12 @@ export class BukkenListComponent extends BaseComponent {
    */
   searchBukken() {
     this.spinner.show();
+
+    this.markers.forEach(marker => {
+      marker.setMap(null);
+      marker = null;
+    });
+    this.markers = [];
 
     // const val = new Date();
     // val.toLocaleDateString();
@@ -122,6 +140,7 @@ export class BukkenListComponent extends BaseComponent {
       }
       this.dataSource.data = res;
       this.searched = true;
+      this.showMapMarker();
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
@@ -138,6 +157,11 @@ export class BukkenListComponent extends BaseComponent {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: row.pid}});
   }
 
+  showDetail2(id: number) {
+    this.service.searchCondition = this.cond;
+    this.router.navigate(['/bkdetail'], {queryParams: {pid: id}});
+  }
+
   /**
    * 土地新規登録
    */
@@ -146,8 +170,72 @@ export class BukkenListComponent extends BaseComponent {
     this.router.navigate(['/bkdetail']);
   }
 
+  switchTab(event: MatRadioChange) {
+    if (event.value === 1) {
+      this.tabGroup.selectedIndex = 0;
+    } else {
+      this.tabGroup.selectedIndex = 1;
+    }
+  }
+
+  /**
+   * 出力
+   */
   export() {
     this.service.export();
   }
+
+  // マップスタート
+  mapInitializer() {
+    const mapOptions = {
+      center: {lat: 35.6812, lng: 139.7671},
+      zoom: 12,
+    };
+    this.mapObj = new google.maps.Map(this.gmap.nativeElement, mapOptions);
+  }
+
+  showMapMarker() {
+     this.dataSource.data.forEach(bk => {
+      const addr = bk.remark1.split(',')[0];
+      const geocoder = new google.maps.Geocoder();
+      const that = this;
+      // tslint:disable-next-line:only-arrow-functions
+      geocoder.geocode({address : addr}, function(results: any, status: any) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          const latVal = results[0].geometry.location.lat(); // 緯度を取得
+          const lngVal = results[0].geometry.location.lng(); // 経度を取得
+          const mark = {
+              lat: latVal, // 緯度
+              lng: lngVal // 経度
+          };
+          that.setMarker(mark, bk);
+        }
+
+      });
+
+     });
+   }
+   setMarker(latlng: any, bk: Templandinfo) {
+    const marker = new google.maps.Marker({
+      position: latlng,
+      map: this.mapObj
+    });
+
+    marker.addListener('click', function() {
+      const infowindow = new google.maps.InfoWindow({
+        content: `<div class="map-equip">
+                    <table>
+                      <tr><th class="label">物件コード</th><th>${bk.bukkenNo}</th></tr>
+                      <tr><th class="label">物件名</th><th>${bk.bukkenName}</th></tr>
+                      <tr><th class="label">所在地</th><th>${bk.remark1.split(',')[0]}</th></tr>
+                    </table>
+                  </div>`
+      });
+      infowindow.open(this.mapObj, marker);
+    });
+    this.markers.push(marker);
+  }
+
+  // マップエンド
 
 }
