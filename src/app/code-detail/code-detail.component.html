@@ -5,21 +5,21 @@
     </ul>         
     <table class="detail-tbl">
         <tr>
-            <th>ユーザーID</th>
-            <td><input type="text"  [(ngModel)]="data.userId" [ngClass]="{'width100': true, 'error': errors['userId']}" disabled ="true"></td>
+            <th>コード</th>
+            <td><input type="text"  [(ngModel)]="data.code" [ngClass]="{'width100': true, 'error': errors['code']}" ></td>
     
-            <th>ユーザー名称</th>
-            <td><input type="text"  [(ngModel)]="data.userName" [ngClass]="{'width200': true, 'error': errors['userName']}" ></td>
+            <th>子コード</th>
+            <td><input type="text"  [(ngModel)]="data.codeDetail" [ngClass]="{'width200': true, 'error': errors['codeDetail']}" ></td>
         </tr>
        
         <tr>
-            <th>社員コード</th>
-            <td><input type="text"  [(ngModel)]="data.employeeCode" [ngClass]="{'width100': true, 'error': errors['employeeCode']}" ></td>
+            <th>名称</th>
+            <td><input type="text"  [(ngModel)]="data.name" [ngClass]="{'width100': true, 'error': errors['name']}" ></td>
 
-            <th>部署名</th>
-            <td><app-select-component [codes]="getDeps()" [(ngModel)]="data.depCode" [ngClass]="{'width200': true, 'error': errors['depName']}"></app-select-component></td>
+            <th>表示順序</th>
+            <td><input type="text"  [(ngModel)]="data.displayOrder" [ngClass]="{'width100': true, 'error': errors['displayOrder']}" ></td>
         </tr>
-        <tr>
+        <!--<tr>
             <th>ログインID</th>
             <td><input type="text"  [(ngModel)]="data.loginId" [ngClass]="{'width100': true, 'error': errors['loginId']}" ></td>
 
@@ -39,7 +39,7 @@
        
             <th>更新ユーザーID</th>
             <td><input type="text"  [(ngModel)]="data.updateUserId"  class="width150" disabled ="true"></td>
-        </tr>
+        </tr>-->
 
         <!--
         <tr>

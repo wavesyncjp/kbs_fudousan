@@ -387,6 +387,37 @@ export class BackendService {
   }
 
   // 20191204 E_Add
+
+   // 20191218 S_Add
+  /**
+   * Code取得
+   */
+  searchCode(cond: any): Promise<Code[]> {
+    const searchApi = 'depsearch.php';
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
   
+
   
+  /**
+   * Code情報登録
+   * @param code ：Code情報
+   */
+  saveCode(code: Code): Promise<Code> {
+    const saveApi = 'codesave.php';
+    const req = this.http.post<Code>(`${this.BaseUrl}/${saveApi}`, code);
+    return req.toPromise();
+  }
+
+  /**
+   * code情報削除
+   * @param code : 削除したいCode
+   */
+  deleteCode(code: string): Promise<void> {
+    const deleteApi = 'codedelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {code: code, deleteUserId: this.loginUser.userId});
+    return req.toPromise();
+  }
 }
+  // 20191204 E_Add

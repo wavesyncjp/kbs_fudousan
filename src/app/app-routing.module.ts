@@ -9,6 +9,7 @@ import { InfoListComponent } from './info-list/info-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
 import { DepListComponent } from './dep-list/dep-list.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { CodeListComponent } from './code-list/code-list.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'infos', component: InfoListComponent},
   { path: 'deps', component: DepListComponent},
   { path: 'users', component: UserListComponent},
+  { path: 'codes', component: CodeListComponent},
 ];
 
 @NgModule({

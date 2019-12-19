@@ -29,6 +29,8 @@ import { DepListComponent } from './dep-list/dep-list.component';
 import { DepDetailComponent } from './dep-detail/dep-detail.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { CodeListComponent } from './code-list/code-list.component';
+import { CodeDetailComponent } from './code-detail/code-detail.component';
 import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.component';
 import { DatePipe } from '@angular/common';
 
@@ -51,6 +53,8 @@ import { DatePipe } from '@angular/common';
     DepDetailComponent,
     UserListComponent,
     UserDetailComponent,
+    CodeListComponent,
+    CodeDetailComponent,
     FinishDialogComponent
   ],
   imports: [
@@ -86,6 +90,6 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
-    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, UserDetailComponent, FinishDialogComponent],
+    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, UserDetailComponent,CodeDetailComponent, FinishDialogComponent],
 })
 export class AppModule { }
