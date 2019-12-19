@@ -10,6 +10,7 @@ export class BaseComponent implements OnInit {
     public deps = [];
     public emps = [];
     public users = [];
+    public codes = [];
 
     public errorMsgs: string[] = [];
     public errors = {};
@@ -32,9 +33,22 @@ export class BaseComponent implements OnInit {
     /**
      * システムコード取得
      */
+    /*20191218 修正前
     getCode(code: string) {
         return this.sysCodes[code];
     }
+　　*/
+/*
+*20191218 S_Add*/
+    getCode(code: string) {
+        if (this.codes) {
+            return this.codes.map(code => new Code({code: code.code, name: code.name}));
+        }else{
+        return [];
+        }
+    } 
+    /*
+     *20191218 E_Add*/
 
     /**
      * コード名称
