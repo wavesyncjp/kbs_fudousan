@@ -33,14 +33,13 @@ export class BaseComponent implements OnInit {
     /**
      * システムコード取得
      */
-    /*20191218 修正前
     getCode(code: string) {
         return this.sysCodes[code];
     }
-　　*/
+　　
 /*
 *20191218 S_Add*/
-    getCode(code: string) {
+    getCodeForMaintain(code: string) {
         if (this.codes) {
             return this.codes.map(code => new Code({code: code.code, name: code.name}));
         }else{
@@ -143,7 +142,6 @@ export class BaseComponent implements OnInit {
             }
         }
     }
-
     formatDay(val: string, format: string) {
         if (val === undefined || val === '' || val == null) {
             return '';

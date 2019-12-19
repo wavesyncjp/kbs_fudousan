@@ -30,7 +30,7 @@ export class BukkenListComponent extends BaseComponent {
   search = '0';
   searched = false;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'remark1', 'pickDate', 'department', 'result', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -189,7 +189,7 @@ export class BukkenListComponent extends BaseComponent {
   mapInitializer() {
     const mapOptions = {
       center: {lat: 35.6812, lng: 139.7671},
-      zoom: 12,
+      zoom: 13,
     };
     this.mapObj = new google.maps.Map(this.gmap.nativeElement, mapOptions);
   }
@@ -222,12 +222,29 @@ export class BukkenListComponent extends BaseComponent {
     });
 
     marker.addListener('click', function() {
+
+      let dayStr = '';
+      if (!(bk.pickDate === undefined || bk.pickDate === '' || bk.pickDate == null)) {
+        const parseVal = new Date(bk.pickDate);
+        dayStr = parseVal.toLocaleDateString();
+      }
+
+      const linkStr = [];
+      bk.mapFiles.forEach(file => {
+        linkStr.push(`<a href="${file.mapFilePath + file.mapFileName}" target="_blank">${file.mapFileName}</a>`);
+      });
+
       const infowindow = new google.maps.InfoWindow({
         content: `<div class="map-equip">
                     <table>
                       <tr><th class="label">物件コード</th><th>${bk.bukkenNo}</th></tr>
                       <tr><th class="label">物件名</th><th>${bk.bukkenName}</th></tr>
                       <tr><th class="label">所在地</th><th>${bk.remark1.split(',')[0]}</th></tr>
+                      <tr><th class="label">地番</th><th>${bk.remark2.split(',')[0]}</th></tr>
+                      <tr><th class="label">地図情報</th><th>${linkStr.join('   ')}</th></tr>
+                      <tr><th><br></th><th></th></tr>
+                      <tr><th class="label">情報収集日</th><th>${dayStr}</th></tr>
+                      <tr><th class="label">担当部署</th><th>${bk.department}</th></tr>
                     </table>
                   </div>`
       });

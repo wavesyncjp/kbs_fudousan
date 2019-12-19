@@ -28,7 +28,10 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
     text-align: right;
 }
 .mat-column-bukkenNo{
-    width: 150px;
+    width: 100px;
+}
+.mat-column-remark2{
+    width: 100px;
 }
 .mat-column-startDate{
     width: 120px;
@@ -76,15 +79,22 @@ mat-paginator{
 }
 
 .map-equip {
-    width: 300px;
-    height: 100px;
+    width: 500px;
+    height: 200px;
     text-align: left;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.map-equip > table > tbody > tr > th {
+    font-weight: normal;
 }
 
 .map-equip .label {
     width: 80px;
     text-align: left;
 }
+
 .bukken-tab {
     margin-left: 10px;
     margin-right: 10px;

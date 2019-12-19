@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
@@ -28,6 +28,8 @@ import { ContractFile } from '../models/mapattach';
 })
 export class ContractDetailComponent extends BaseComponent {
 
+  @ViewChild('topElement', {static: true}) topElement: ElementRef;
+
   public contract: Contractinfo;
   public data: Templandinfo;
   public otherLocs: string[] = [];
@@ -54,6 +56,11 @@ export class ContractDetailComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('契約情報詳細');
+
+    const elementList = document.querySelectorAll('.detail-div');
+    const element = elementList[0] as HTMLElement;
+    element.scrollIntoView();
+
     this.spinner.show();
     this.contract = new Contractinfo();
 
@@ -106,7 +113,6 @@ export class ContractDetailComponent extends BaseComponent {
         });
 
       }
-
     });
   }
 
