@@ -40,7 +40,7 @@ export class UserDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     const funcs = [];
-    funcs.push(this.service.getCodes(['006']));
+    funcs.push(this.service.getCodes(['010']));
     funcs.push(this.service.getDeps(null));
     Promise.all(funcs).then(values => {
 
@@ -54,10 +54,18 @@ export class UserDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+
       this.deps = values[1];
 
+      if (this.data == null || !(this.data.userId > 0)) {
+        this.data = new User();
+        //this.data.depCode = '1';
+      } else {
+        this.data = new User(this.data);
+        //this.data.convert();
+      }
+
     });
-    
   }
 
   /*hasFile() {
@@ -71,29 +79,29 @@ export class UserDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    // 社員コード
+    // ユーザーID
     if (this.data.userId == null) {
       this.errorMsgs.push('ユーザーIDは必須です。');
       const prop = 'userId';
       this.errors[prop] = true;
     }
 
-    // 社員名
+    // ユーザー名
     if (Checklib.isBlank(this.data.userName)) {
-      this.errorMsgs.push('ユーザー名称は必須です。');
+      this.errorMsgs.push('部署名は必須です。');
       const prop = 'userName';
       this.errors[prop] = true;
     }
 
-    
-    
-   /* // 部署名
-    if (Checklib.isBlank(this.data.depName)) {
-      this.errorMsgs.push('部署名は必須です。');
-      const prop = 'depName';
+    // 詳細
+    /*
+    if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
+      this.errorMsgs.push('詳細は必須です。');
+      const prop = 'infoDetail';
       this.errors[prop] = true;
-    }*/
-
+    }
+    */
+ 
     if (this.errorMsgs.length > 0) {
       return false;
     }
@@ -111,7 +119,7 @@ export class UserDetailComponent extends BaseComponent {
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
-        // this.data.convertForSave(this.service.loginUser.userId);
+        this.data.convertForSave(this.service.loginUser.userId);
         /*
         if (this.cbxFinishFlg.checked) {
           this.data.finishFlg = '1';

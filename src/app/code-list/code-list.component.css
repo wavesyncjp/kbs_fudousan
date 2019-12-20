@@ -10,9 +10,11 @@ table {
 .mat-column-detailFlg{
     width: 120px;
 }
+/*
 .mat-column-infoDetail{
-    /*width: 30%;*/
+    /*width: 30%;
 }
+*/
 .mat-column-attachFileName{
     width: 200px;
 }

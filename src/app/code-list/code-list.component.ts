@@ -5,7 +5,7 @@ import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@an
 import { BaseComponent } from '../BaseComponent';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
-import { User } from '../models/bukken';
+//import { Code } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
@@ -24,7 +24,7 @@ export class CodeListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   /**/
-  displayedColumns: string[] = ['code','codeDetail','name','displayOrder'];
+  displayedColumns: string[] = ['code','nameHeader','codeDetail','name','displayOrder', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Code>();
 
   constructor(public router: Router,
@@ -41,18 +41,20 @@ export class CodeListComponent extends BaseComponent {
 
     this.cond = {
       infoDateMap: new Date(),
-      // 20191202 condにcodeセット(this)
-      code: []
+      // 20191202 condにdepartmentセット(this)
+      //code: []
     };
 
     const funcs = [];
     /*funcs.push(this.service.getCodes(['005']));*/
 
 
-    
+    // 20191202 funcsにgetdeps全件データを取得(null)//
+//    funcs.push(this.service.getDeps(null));
+    funcs.push(this.service.getCodeNameMsts(null));
 
     Promise.all(funcs).then(values => {
-
+      
       // コード
      /* const codes = values[0] as Code[];
       if (codes !== null && codes.length > 0) {
@@ -65,7 +67,7 @@ export class CodeListComponent extends BaseComponent {
       }*/
 
       // 20191202 valuesに取得値をセット
-      this.codes = values[0];
+      this.sysCodeNameMsts = values[0];
 
       this.cond.infoDateMap = null;
 
@@ -93,8 +95,8 @@ export class CodeListComponent extends BaseComponent {
   createNew() {
     const row = new Code();
     const dialogRef = this.dialog.open(CodeDetailComponent, {
-      width: '60%',
-      height: '500px',
+      width: '750px',
+      height: '350px',
       data: row
     });
     // 再検索
@@ -115,7 +117,7 @@ export class CodeListComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deleteCode(row.code).then(res => {
+        this.service.deleteCode(row.code, row.codeDetail).then(res => {
           this.searchCode();
         });
       }
@@ -125,8 +127,8 @@ export class CodeListComponent extends BaseComponent {
 
   showDetail(row: Code) {
     const dialogRef = this.dialog.open(CodeDetailComponent, {
-      width: '60%',
-      height: '500px',
+      width: '750px',
+      height: '350px',
       data: row
     });
 

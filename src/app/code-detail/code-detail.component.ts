@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox } from '@angular/material';
-import { User } from '../models/bukken';
-import { BackendService } from '../backend.service';
 import { Code } from '../models/bukken';
+import { BackendService } from '../backend.service';
+//import { Code } from '../models/bukken';
 import { BaseComponent } from '../BaseComponent';
 import { Router } from '@angular/router';
 import { Checklib } from '../utils/checklib';
@@ -40,8 +40,8 @@ export class CodeDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     const funcs = [];
-    funcs.push(this.service.getCodes(['006']));
-    funcs.push(this.service.getCodes(null));
+//    funcs.push(this.service.getCodes(['006']));
+    funcs.push(this.service.getCodeNameMsts(null));
     Promise.all(funcs).then(values => {
 
       // コード
@@ -54,10 +54,18 @@ export class CodeDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
-      this.deps = values[1];
+
+      this.sysCodeNameMsts = values[0];
+
+      if (this.data == null || !(this.data.codeDetail.length > 0)) {
+        this.data = new Code();
+        //this.data.depCode = '1';
+      } else {
+        this.data = new Code(this.data);
+        //this.data.convert();
+      }
 
     });
-    
   }
 
   /*hasFile() {
@@ -71,29 +79,35 @@ export class CodeDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    // 社員コード
-    if (this.data.code == null) {
-      this.errorMsgs.push('ユーザーIDは必須です。');
+    if (this.data.codeDetail == null) {
+      this.errorMsgs.push('コード名は必須です。');
       const prop = 'code';
       this.errors[prop] = true;
     }
 
-    // 社員名
+    // コード
+    if (this.data.codeDetail == null) {
+      this.errorMsgs.push('子コードは必須です。');
+      const prop = 'codeDetail';
+      this.errors[prop] = true;
+    }
+
+    // コード名
     if (Checklib.isBlank(this.data.name)) {
-      this.errorMsgs.push('ユーザー名称は必須です。');
+      this.errorMsgs.push('子コード名は必須です。');
       const prop = 'name';
       this.errors[prop] = true;
     }
 
-    
-    
-   /* // 部署名
-    if (Checklib.isBlank(this.data.depName)) {
-      this.errorMsgs.push('部署名は必須です。');
-      const prop = 'depName';
+    // 詳細
+    /*
+    if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
+      this.errorMsgs.push('詳細は必須です。');
+      const prop = 'infoDetail';
       this.errors[prop] = true;
-    }*/
-
+    }
+    */
+ 
     if (this.errorMsgs.length > 0) {
       return false;
     }
@@ -111,7 +125,7 @@ export class CodeDetailComponent extends BaseComponent {
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
-        // this.data.convertForSave(this.service.loginCode.codeId);
+        this.data.convertForSave(this.service.loginUser.userId);
         /*
         if (this.cbxFinishFlg.checked) {
           this.data.finishFlg = '1';

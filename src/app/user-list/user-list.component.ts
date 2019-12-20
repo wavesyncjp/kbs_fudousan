@@ -37,11 +37,11 @@ export class UserListComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('社員マスタ');
+    this.service.changeTitle('ユーザーマスタ');
 
     this.cond = {
       infoDateMap: new Date(),
-      // 20191202 condにuserセット(this)
+      // 20191202 condにdepartmentセット(this)
       user: []
     };
 
@@ -49,7 +49,8 @@ export class UserListComponent extends BaseComponent {
     /*funcs.push(this.service.getCodes(['005']));*/
 
 
-    
+    // 20191202 funcsにgetdeps全件データを取得(null)//
+//    funcs.push(this.service.getDeps(null));
 
     Promise.all(funcs).then(values => {
 
@@ -65,7 +66,7 @@ export class UserListComponent extends BaseComponent {
       }*/
 
       // 20191202 valuesに取得値をセット
-      this.users = values[0];
+//      this.deps = values[0];
 
       this.cond.infoDateMap = null;
 
@@ -93,8 +94,8 @@ export class UserListComponent extends BaseComponent {
   createNew() {
     const row = new User();
     const dialogRef = this.dialog.open(UserDetailComponent, {
-      width: '60%',
-      height: '500px',
+      width: '750px',
+      height: '350px',
       data: row
     });
     // 再検索
@@ -125,8 +126,8 @@ export class UserListComponent extends BaseComponent {
 
   showDetail(row: User) {
     const dialogRef = this.dialog.open(UserDetailComponent, {
-      width: '60%',
-      height: '500px',
+      width: '750px',
+      height: '350px',
       data: row
     });
 

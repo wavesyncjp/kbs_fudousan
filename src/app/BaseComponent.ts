@@ -10,7 +10,8 @@ export class BaseComponent implements OnInit {
     public deps = [];
     public emps = [];
     public users = [];
-    public codes = [];
+//    public codes = [];
+    public sysCodeNameMsts = [];
 
     public errorMsgs: string[] = [];
     public errors = {};
@@ -37,8 +38,20 @@ export class BaseComponent implements OnInit {
         return this.sysCodes[code];
     }
 　　
+    /**
+     * コード名称マスタ取得
+     */
+    getCodeNameMst() {
+        if (this.sysCodeNameMsts) {
+            return this.sysCodeNameMsts.map(codeNameMst => new Code({codeDetail: codeNameMst.code, name: codeNameMst.name}));
+        } else {
+        return [];
+        }
+    }
+
 /*
 *20191218 S_Add*/
+/*
     getCodeForMaintain(code: string) {
         if (this.codes) {
             return this.codes.map(code => new Code({code: code.code, name: code.name}));
@@ -63,7 +76,7 @@ export class BaseComponent implements OnInit {
      */
     getDeps() {
         if (this.deps) {
-            return this.deps.map(dep => new Code({code: dep.depCode, name: dep.depName}));
+            return this.deps.map(dep => new Code({codeDetail: dep.depCode, name: dep.depName}));
         } else {
         return [];
         }
@@ -71,7 +84,7 @@ export class BaseComponent implements OnInit {
 
     getUsers() {
         if (this.users) {
-            return this.users.map(user => new Code({code: user.userId, name: user.userName}));
+            return this.users.map(user => new Code({codeDetail: user.userId, name: user.userName}));
         } else {
         return [];
         }
@@ -79,7 +92,7 @@ export class BaseComponent implements OnInit {
 
     getEmps() {
         if (this.emps) {
-            return this.emps.map(user => new Code({code: user.employeeCode, name: user.userName}));
+            return this.emps.map(user => new Code({codeDetail: user.employeeCode, name: user.userName}));
         } else {
         return [];
         }
