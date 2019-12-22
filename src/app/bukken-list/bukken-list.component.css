@@ -106,3 +106,9 @@ mat-tab-header{
     min-height: 80vh;
     max-height: 90vh;
 }
+th.mat-sort-header-sorted {
+    color: black;
+}
+.mat-sort-header-arrow {
+    color: brown;
+}

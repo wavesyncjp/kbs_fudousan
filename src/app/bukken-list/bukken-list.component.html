@@ -70,7 +70,7 @@
     
          <!-- bukkenId Column -->
          <ng-container matColumnDef="bukkenNo">
-            <th mat-header-cell *matHeaderCellDef> 物件番号 </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
             <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
           </ng-container>
       
@@ -94,7 +94,7 @@
 
         <!--地図情報-->
         <ng-container matColumnDef="mapFiles">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> 地図情報 </th>
+          <th mat-header-cell *matHeaderCellDef> 地図情報 </th>
           <td mat-cell *matCellDef="let element"> 
               <div *ngFor="let file of element.mapFiles" style="margin-top: 5px; margin-bottom: 10px;">
                   <a [attr.href]="file.mapFilePath + file.mapFileName" target="_blank">{{file.mapFileName}}</a> <br>
@@ -104,19 +104,19 @@
       
         <!-- 情報収集日 Column -->
         <ng-container matColumnDef="pickDate">
-          <th mat-header-cell *matHeaderCellDef> 情報収集日 </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 情報収集日 </th>
           <td mat-cell *matCellDef="let element"> {{element.pickDate | date:'yyyy/MM/dd'}} </td>
         </ng-container>
     
          <!-- 担当部署 Column -->
          <ng-container matColumnDef="department">
-          <th mat-header-cell *matHeaderCellDef> 担当部署 </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 担当部署 </th>
           <td mat-cell *matCellDef="let element"> {{element.department}} </td>
         </ng-container>
     
          <!-- 地目 Column -->
          <ng-container matColumnDef="result">
-          <th mat-header-cell *matHeaderCellDef> 結果 </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 結果 </th>
           <td mat-cell *matCellDef="let element"> {{element.result}} </td>
         </ng-container>
     

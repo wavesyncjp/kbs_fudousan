@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule, MatExpansionModule, MatCardModule, MatToolbarModule, MatSidenavModule, MatListModule,
          MatTableModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatDialogModule,
          MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSnackBarModule, MatCheckboxModule,
-         MatTabsModule
+         MatTabsModule, MatSortModule
        } from '@angular/material';
 import { BukkenListComponent } from './bukken-list/bukken-list.component';
 import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
@@ -85,11 +85,13 @@ import { DatePipe } from '@angular/common';
     MatSelectModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSortModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
-    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent, UserDetailComponent,CodeDetailComponent, FinishDialogComponent],
+    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
+    UserDetailComponent, CodeDetailComponent, FinishDialogComponent],
 })
 export class AppModule { }
