@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { User, Code, Department, Employee } from './models/bukken';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User, Code, Department, Employee, CodeNameMst } from './models/bukken';
 import { Templandinfo } from './models/templandinfo';
 import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
@@ -179,7 +179,7 @@ export class BackendService {
    */
   getDeps(depCode: string): Promise<Department[]> {
     const getDepApi = 'getdep.php';
-    const body = {code: depCode};
+    const body = { depCode: depCode };
     const req = this.http.post<Department[]>(`${this.BaseUrl}/${getDepApi}`, body);
     return req.toPromise();
   }
@@ -187,30 +187,51 @@ export class BackendService {
   /**
    * 社員取得
    */
-  getEmps(empCode: string): Promise<User[]> {
+  getEmps(employeeCode: string): Promise<User[]> {
     const getDepApi = 'getemployee.php';
-    const body = {code: User};
+    const body = { employeeCode: employeeCode };
     const req = this.http.post<User[]>(`${this.BaseUrl}/${getDepApi}`, body);
     return req.toPromise();
   }
-  
 
   /**
    * システムコード取得
    */
   getCodes(codes: string[]): Promise<Code[]> {
     const getCodeApi = 'getcode.php';
-    const body = {code: codes};
+    const body = { code: codes };
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${getCodeApi}`, body);
     return req.toPromise();
   }
+
+  /**
+   * システムコード名称マスタ取得
+   */
+  getCodeNameMsts(codes: string[]): Promise<CodeNameMst[]> {
+    const getCodeApi = 'getcodenamemst.php';
+    const body = { code: codes };
+    const req = this.http.post<CodeNameMst[]>(`${this.BaseUrl}/${getCodeApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * システムコード名称取得
+   */
+    /*
+  getCodeNames(codes: string[]): Promise<Code[]> {
+    const getCodeApi = 'getcode.php';
+    const body = { code: codes };
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${getCodeApi}`, body);
+    return req.toPromise();
+  }
+  */
 
   /**
    * 帳票出力
    */
   export(): void {
     const downloadUrl = 'export_excel.php';
-    this.http.get(`${this.BaseUrl}/${downloadUrl}`, {responseType: 'blob' as 'blob'}).pipe(map((data: any) => {
+    this.http.get(`${this.BaseUrl}/${downloadUrl}`, { responseType: 'blob' as 'blob' }).pipe(map((data: any) => {
       const blob = new Blob([data], {
         type: 'application/octet-stream'
       });
@@ -279,7 +300,7 @@ export class BackendService {
    */
   deleteFile(id: number, attach: boolean): Promise<object> {
     const deleteFileApi = 'deletefile.php';
-    const body = {pid: id, isAttach: attach};
+    const body = { pid: id, isAttach: attach };
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
@@ -290,11 +311,10 @@ export class BackendService {
    */
   deleteContractFile(id: number): Promise<object> {
     const deleteFileApi = 'deleteContractFile.php';
-    const body = {pid: id};
+    const body = { pid: id };
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
-
 
   /**
    *  インフォメーション情報検索
@@ -321,10 +341,10 @@ export class BackendService {
    */
   deleteInfo(id: number): Promise<void> {
     const deleteApi = 'infodelete.php';
-    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
-    // 20191203 S_Add
+
   /**
    * 部署取得
    */
@@ -333,9 +353,7 @@ export class BackendService {
     const req = this.http.post<Department[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
   }
-  // 20191203 E_Ad
 
-  // 20191204 S_Add
   /**
    * 部署情報登録
    * @param dep ：部署情報
@@ -352,12 +370,19 @@ export class BackendService {
    */
   deleteDep(depCode: string): Promise<void> {
     const deleteApi = 'depdelete.php';
-    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {depCode: depCode, deleteUserId: this.loginUser.userId});
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { depCode: depCode, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
-  // 20191204 E_Add
 
-  // 20191209 S_Add
+  /**
+   * 社員取得
+   */
+  searchUser(cond: any): Promise<User[]> {
+    const searchApi = 'usersearch.php';
+    const req = this.http.post<User[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
   /**
    * 社員情報登録
    * @param user ：社員情報
@@ -374,35 +399,22 @@ export class BackendService {
    */
   deleteUser(userId: number): Promise<void> {
     const deleteApi = 'userdelete.php';
-    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {userId: userId, deleteUserId: this.loginUser.userId});
-    return req.toPromise();
-  }
-  /**
-   * 社員取得
-   */
-  searchUser(cond: any): Promise<User[]> {
-    const searchApi = 'usersearch.php';
-    const req = this.http.post<User[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { userId: userId, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
 
-  // 20191204 E_Add
-
-   // 20191218 S_Add
   /**
-   * Code取得
+   * コード取得
    */
   searchCode(cond: any): Promise<Code[]> {
-    const searchApi = 'depsearch.php';
+    const searchApi = 'codesearch.php';
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
   }
-  
 
-  
   /**
-   * Code情報登録
-   * @param code ：Code情報
+   * コード情報登録
+   * @param code ：コード情報
    */
   saveCode(code: Code): Promise<Code> {
     const saveApi = 'codesave.php';
@@ -411,13 +423,12 @@ export class BackendService {
   }
 
   /**
-   * code情報削除
-   * @param code : 削除したいCode
+   * コード情報削除
+   * @param code : 削除したいcode
    */
-  deleteCode(code: string): Promise<void> {
+  deleteCode(code: string, codeDetail: string): Promise<void> {
     const deleteApi = 'codedelete.php';
-    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, {code: code, deleteUserId: this.loginUser.userId});
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { code: code, codeDetail: codeDetail, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
 }
-  // 20191204 E_Add

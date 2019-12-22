@@ -20,7 +20,7 @@
                 
                 </tr>    
                 <tr>
-                    <th>ユーザー名称</th>
+                    <th>ユーザー名</th>
                     <td colspan="3">
                         <!--fuzzyWide 曖昧検索-->
                         <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.userName">
@@ -45,57 +45,79 @@
             </ng-container>-->
 
             <ng-container matColumnDef="userId">
-            　　<th mat-header-cell *matHeaderCellDef mat-sort-header> ユーザーID</th>
-            　　<td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ユーザーID </th>
+            <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
             </ng-container>
 
             <ng-container matColumnDef="userName">
-            　　<th mat-header-cell *matHeaderCellDef mat-sort-header> ユーザー名称 </th>
-            　　<td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ユーザー名 </th>
+            <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="employeeCode">
-                　　<th mat-header-cell *matHeaderCellDef mat-sort-header>　社員コード </th>
-                　　<td mat-cell *matCellDef="let element"> {{element.employeeCode}} </td>
-                </ng-container>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 社員コード </th>
+            <td mat-cell *matCellDef="let element"> {{element.employeeCode}} </td>
+            </ng-container>
 
             <ng-container matColumnDef="depName">
-                　　<th mat-header-cell *matHeaderCellDef mat-sort-header> 部署名 </th>
-                　　<td mat-cell *matCellDef="let element"> {{element.depName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 部署名 </th>
+            <td mat-cell *matCellDef="let element"> {{element.depName}} </td>
             </ng-container>
-            
+
             <ng-container matColumnDef="loginId">
-                    　　<th mat-header-cell *matHeaderCellDef mat-sort-header>ログインID </th>
-                    　　<td mat-cell *matCellDef="let element"> {{element.loginId}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ログインID </th>
+            <td mat-cell *matCellDef="let element"> {{element.loginId}} </td>
             </ng-container>
 
             <ng-container matColumnDef="password">
-                　　<th mat-header-cell *matHeaderCellDef mat-sort-header> パスワード </th>
-                　　<td mat-cell *matCellDef="let element"> {{element.password}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> パスワード </th>
+            <td mat-cell *matCellDef="let element"> {{element.password}} </td>
             </ng-container>
 
             <ng-container matColumnDef="createDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> 登録日 </th>
                 <td mat-cell *matCellDef="let element"> {{element.createDate | date:'yyyy/MM/dd HH:mm:ss'}} </td>
-            </ng-container>
+                </ng-container>
 
             <ng-container matColumnDef="updateDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> 更新日 </th>
                 <td mat-cell *matCellDef="let element"> {{element.updateDate | date:'yyyy/MM/dd HH:mm:ss'}} </td>
             </ng-container>
-            
+
+        <!--<ng-container matColumnDef="detailFlg">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 詳細有無 </th>
+            <td mat-cell *matCellDef="let element"> {{element.detailFlg == 1 ? '有' : '無'}} </td>
+            </ng-container>
+        -->
+        
+        <!--<ng-container matColumnDef="infoDetail">
+            <th mat-header-cell *matHeaderCellDef> 詳細 </th>
+            <td mat-cell *matCellDef="let element" class="infoDetail_width break-line"> {{element.infoDetail | slice:0:20}} </td>
+            </ng-container>
+        -->
+        <!--
+            <ng-container matColumnDef="attachFileName">
+            <th mat-header-cell *matHeaderCellDef> 添付ファイル </th>
+            <td mat-cell *matCellDef="let element"> <a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
+            </ng-container>
+
+            <ng-container matColumnDef="finishFlg">
+            <th mat-header-cell *matHeaderCellDef> 掲載終了 </th>
+            <td mat-cell *matCellDef="let element"> {{element.finishFlg == 1 ? '完了' : '有効'}} </td>
+            </ng-container>
+            -->
             <ng-container matColumnDef="delete">
-            　　<th mat-header-cell *matHeaderCellDef></th>
-            　　<td mat-cell *matCellDef="let row"> 
-                　　<button mat-raised-button (click)="deleteRow(row)" class="delete_btn">削除</button>
-            　　</td>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-raised-button (click)="deleteRow(row)" class="delete_btn">削除</button>
+            </td>
             </ng-container>
             
             <ng-container matColumnDef="detail">
-            　　<th mat-header-cell *matHeaderCellDef></th>
-            　　<td mat-cell *matCellDef="let row"> 
-                　　<button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
-            　　</td>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
+            </td>
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
