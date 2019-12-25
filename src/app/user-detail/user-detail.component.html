@@ -6,7 +6,7 @@
     <table class="detail-tbl">
         <tr>
             <th>ユーザーID</th>
-            <td><input type="text"  [(ngModel)]="data.userId" [ngClass]="{'width150': true, 'error': errors['userId']}" [attr.disabled]="data.createUserId > 0 ? '' : null" ></td>
+            <td><input type="text"  [(ngModel)]="data.userId" [ngClass]="{'width150': true}" disabled="true" ></td>
         
             <th>ユーザー名</th>
             <td><input type="text"  [(ngModel)]="data.userName" [ngClass]="{'width300': true, 'error': errors['userName']}" ></td>

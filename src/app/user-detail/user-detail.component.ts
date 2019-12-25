@@ -78,14 +78,14 @@ export class UserDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
-
+    /*20191225 S_DEL
     // ユーザーID
     if (this.data.userId == null) {
       this.errorMsgs.push('ユーザーIDは必須です。');
       const prop = 'userId';
       this.errors[prop] = true;
     }
-
+    20191225 E_DEL*/
     // ユーザー名
     if (Checklib.isBlank(this.data.userName)) {
       this.errorMsgs.push('部署名は必須です。');

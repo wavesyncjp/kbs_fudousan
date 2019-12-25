@@ -39,7 +39,7 @@
     </div>        
     <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
     <div class="mat-elevation-z8 main data">
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="dataSource" matSort>
         
             <ng-container matColumnDef="infoDate">
                 <th mat-header-cell *matHeaderCellDef> 日付 </th>
