@@ -6,6 +6,7 @@ import { User, Code, Department, Employee, CodeNameMst } from './models/bukken';
 import { Templandinfo } from './models/templandinfo';
 import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
+import { Converter } from './utils/converter';
 
 @Injectable({
   providedIn: 'root'
@@ -230,19 +231,47 @@ export class BackendService {
    * 帳票出力
    */
   export(): void {
-    const downloadUrl = 'export_excel.php';
-    this.http.get(`${this.BaseUrl}/${downloadUrl}`, { responseType: 'blob' as 'blob' }).pipe(map((data: any) => {
+    const downloadUrl = 'contractexport.php';
+    this.http.post(`${this.BaseUrl}/${downloadUrl}`, {}, { responseType: 'blob' as 'blob' }).pipe(map((data: any) => {
       const blob = new Blob([data], {
         type: 'application/octet-stream'
       });
+
+      const convert = new Converter();
+
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'samplePDFFile.xlsx';
+      link.download = convert.formatDay(new Date(), 'yyyyMMddHHmmss') + '.xlsx';
       link.click();
       window.URL.revokeObjectURL(link.href);
 
     })).subscribe(res => {
     });
+  }
+
+  /**
+   * 契約書出力
+   * @param contractPid 契約Pid
+   */
+  exportContract(contractPid: number): Promise<Blob> {
+    const downloadUrl = 'contractexport.php';
+    // tslint:disable-next-line:max-line-length
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: contractPid}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+
+  writeToFile(data: any) {
+    const blob = new Blob([data], {
+      type: 'application/octet-stream'
+    });
+
+    const convert = new Converter();
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = convert.formatDay(new Date(), 'yyyyMMddHHmmss') + '.xlsx';
+    link.click();
+    window.URL.revokeObjectURL(link.href);
   }
 
   /**

@@ -1,8 +1,8 @@
-import { OnInit, AfterViewInit } from '@angular/core';
+import { OnInit, AfterViewInit, LOCALE_ID, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
 import { Code } from './models/bukken';
-import { isNumber } from 'util';
+import { formatDate } from '@angular/common';
 import { parse } from 'date-fns';
 
 export class BaseComponent implements OnInit {
@@ -15,6 +15,8 @@ export class BaseComponent implements OnInit {
 
     public errorMsgs: string[] = [];
     public errors = {};
+
+    private locale = 'en-US';
 
     constructor(public router: Router,
                 public service: BackendService) {
@@ -37,7 +39,7 @@ export class BaseComponent implements OnInit {
     getCode(code: string) {
         return this.sysCodes[code];
     }
-　　
+
     /**
      * コード名称マスタ取得
      */
@@ -58,7 +60,7 @@ export class BaseComponent implements OnInit {
         }else{
         return [];
         }
-    } 
+    }
     /*
      *20191218 E_Add*/
 
@@ -160,7 +162,7 @@ export class BaseComponent implements OnInit {
             return '';
         }
         const parseVal = parse(val, 'yyyyMMdd', new Date());
-        return parseVal.toLocaleDateString();
+        return formatDate(parseVal, format, this.locale);
     }
     formatIntNumber(val: number, unit: string = null) {
         if (val === undefined || val == null) {
