@@ -27,6 +27,9 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
   @Input()
   isError: false;
 
+  @Input()
+  isDisabled: false;
+
   // tslint:disable-next-line:variable-name
   _value: string;
   private onTouchedCallback: () => void = () => {};
