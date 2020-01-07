@@ -108,6 +108,16 @@ export class BackendService {
     const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${getLandApi}`, body);
     return req.toPromise();
   }
+
+  /**
+   * 契約情報検索
+   */
+  searchContract(body: any): Promise<Templandinfo[]> {
+    const api = 'landcontactsearch.php';
+    const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${api}`, body);
+    return req.toPromise();
+  }
+
   /**
    * 土地の契約情報取得
    * @param id 土地Id

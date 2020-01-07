@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BackendService } from '../backend.service';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ContractDetailComponent } from '../contract-detail/contract-detail.component';
-import { JPDateAdapter } from '../adapters/adapters';
+import { JPDateAdapter, MatPaginatorIntlJa } from '../adapters/adapters';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { Contractinfo } from '../models/contractinfo';
+import { Templandinfo } from '../models/templandinfo';
 
 @Component({
   selector: 'app-contract-list',
@@ -14,10 +15,27 @@ import { Contractinfo } from '../models/contractinfo';
   styleUrls: ['./contract-list.component.css'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    {provide: DateAdapter, useClass: JPDateAdapter},
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
   ],
 })
 export class ContractListComponent  extends BaseComponent {
+
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'buildingNumber',
+                                'contractNo', 'buildingType', 'contractOwner', 'detail'];
+  dataSource = new MatTableDataSource<Templandinfo>();
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  cond = {
+    bukkenNo: '',
+    contractNumber: '',
+    vacationDayMap: null,
+    vacationDay: '',
+    contractDay: '',
+    contractDayMap: null
+ };
 
   constructor(public router: Router,
               public service: BackendService,
@@ -30,17 +48,29 @@ export class ContractListComponent  extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('仕入契約一覧');
+    this.dataSource.paginator = this.paginator;
   }
 
   searchContract() {
-  }
-
-  createNew() {
-    const dialogRef = this.dialog.open(ContractDetailComponent, {
-      width: '80%',
-      height: '80%',
-      data: new Contractinfo()
+    this.spinner.show();
+    this.cond.vacationDay = this.cond.vacationDayMap != null ? this.cond.vacationDayMap.toLocaleDateString() : null;
+    this.cond.contractDay = this.cond.contractDayMap != null ? this.cond.contractDayMap.toLocaleDateString() : null;
+    this.service.searchContract(this.cond).then(res => {
+      this.dataSource.data = res;
+      this.spinner.hide();
     });
   }
 
+  showContract(ct: Contractinfo) {
+    this.router.navigate(['/ctdetail'], {queryParams: {pid: ct.pid}});
+  }
+
+  getLocationType(locationId: number, locs: any) {
+    for (const ele of locs) {
+      if (ele.pid === locationId) {
+        return (ele.locationType === '01' ? '土地' : '建物');
+      }
+    }
+    return '';
+  }
 }
