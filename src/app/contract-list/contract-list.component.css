@@ -27,6 +27,7 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
     width: 100px;
 }
 
+.mat-column-remark2,
 .mat-column-contractNo,
 .mat-column-buildingType,
 .mat-column-contractOwner {

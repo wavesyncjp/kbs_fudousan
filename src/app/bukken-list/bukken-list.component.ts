@@ -62,7 +62,7 @@ export class BukkenListComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('土地情報一覧');
     this.dataSource.paginator = this.paginator;
-
+    this.spinner.show();
     // 初回検索
     this.cond = {
         bukkenNo: '',
@@ -96,7 +96,7 @@ export class BukkenListComponent extends BaseComponent {
       this.deps = values[1];
 
       this.cond.pickDateMap = null;
-
+      this.spinner.hide();
       if (this.search === '1') {
         this.searchBukken();
       }
