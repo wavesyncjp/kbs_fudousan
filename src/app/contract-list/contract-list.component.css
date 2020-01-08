@@ -23,19 +23,32 @@ th.mat-column-detail, td.mat-column-detail {
 th.mat-column-bukkenId, td.mat-column-bukkenId {
     width: 100px;
 }
-
-.mat-column-detail{
-    text-align: right;
-}
 .mat-column-bukkenNo{
     width: 100px;
+}
+
+.mat-column-contractNo,
+.mat-column-buildingType,
+.mat-column-contractOwner {
+    width:150px;
+}
+th.mat-header-cell {
+    /*text-align: center !important;*/
+}
+td.mat-cell:last-of-type {
+    padding-right: 0px;
 }
 .ct-list {
     height: 42px;
     display: flex;
-    align-items: center;    
+    align-items: center;   
+    /*background-color: ivory;*/     
+}
+
+.ct-list button {
+    margin-left: 15px;
 }
 
 .ct-notlast {
-    border-bottom:grey solid 1px;
+    /*border-bottom:grey solid 1px;*/
 }

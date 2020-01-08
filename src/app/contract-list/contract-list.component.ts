@@ -21,7 +21,7 @@ import { Templandinfo } from '../models/templandinfo';
 })
 export class ContractListComponent  extends BaseComponent {
 
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'buildingNumber',
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'remark1', 'remark2',
                                 'contractNo', 'buildingType', 'contractOwner', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
@@ -30,6 +30,7 @@ export class ContractListComponent  extends BaseComponent {
 
   cond = {
     bukkenNo: '',
+    bukkenName: '',
     contractNumber: '',
     vacationDayMap: null,
     vacationDay: '',
@@ -57,6 +58,7 @@ export class ContractListComponent  extends BaseComponent {
     this.cond.contractDay = this.cond.contractDayMap != null ? this.cond.contractDayMap.toLocaleDateString() : null;
     this.service.searchContract(this.cond).then(res => {
       this.dataSource.data = res;
+      this.dataSource.sort = this.sort;
       this.spinner.hide();
     });
   }
