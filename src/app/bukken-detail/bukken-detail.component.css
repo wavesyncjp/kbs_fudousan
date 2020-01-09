@@ -56,7 +56,6 @@ mat-form-field > input {
     font-size: 0.9em;
     border-left:solid 5px  rgb(175, 173, 173);
     color:black;
-    /* font-weight: bold; */
     width: 142px !important;
     padding: 2px 0px 2px 10px;
     height: 30px;
@@ -70,7 +69,6 @@ mat-form-field > input {
     font-size: 0.9em;
     border-left:solid 5px  rgb(175, 173, 173);
     color:black;
-    /* font-weight: bold; */
     width: 142px !important;
     padding: 2px 0px 2px 10px;
     height: 30px;
@@ -85,38 +83,7 @@ mat-form-field > input {
     flex-direction: column;
     margin: 10px 10px 20px 10px ;
     background-color: white;
-    /*border:rgb(141, 141, 141) solid 1px;*/
     padding-top:10px;
-}
-
-.block-title-aria{
-    font-size: 0.9em;
-    border-left:solid 5px  rgb(241, 236, 157);
-    color:black;
-    /* font-weight: bold; */
-    /*width: 135px !important;*/
-    padding: 2px 0px 2px 10px;
-    height: 30px;
-    margin: 0px 0px 3px 3px;
-    display: inline-flex;
-    align-items: center;
-    font-weight: bold;
-    text-align: center;
-}
-
-.block-title-build{
-    font-size: 0.9em;
-    border-left:solid 5px  rgb(220, 233, 161);
-    color:black;
-    /* font-weight: bold; */
-    /*width: 135px !important;*/
-    padding: 2px 0px 2px 10px;
-    height: 30px;
-    margin: 0px 0px 3px 3px;
-    display: inline-flex;
-    align-items: center;
-    font-weight: bold;
-    text-align: center;
 }
 
 .button-div button,
@@ -124,12 +91,6 @@ mat-form-field > input {
   margin: 10px 10px 10px 0px;
 }
 
-.contract-block{
-    margin: 40px 10px 20px 10px ;
-    background-color: white;
-    /*border:rgb(141, 141, 141) solid 1px;*/
-    padding-top:10px;
-}
 .removeLocation{
     background-color: rgb(91, 91, 95);
     color: whitesmoke;
@@ -148,22 +109,6 @@ mat-form-field > input {
     color: rgb(255, 255, 255);
     background-color:rgb(139, 111, 49);
     text-align: center;
-    /*
-    position: absolute;
-    left: 200px;
-    top:10px;   
-    */
-}
-
-.attach-div{
-    margin: 5px;    
-    margin-left: 15px;
-}
-
-.attach-div > a {
-    display: inline-block;
-   /* min-width: 300px;*/
-    min-width: 25%;
 }
 
 .attach-btn{

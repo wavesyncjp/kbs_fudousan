@@ -104,9 +104,6 @@ export class BukkenDetailComponent extends BaseComponent {
     }
   }
 
-  onNoClick(): void {
-    // this.dialogRef.close();
-  }
 
   addLocation(): void {
     const loc = new Locationinfo();
@@ -226,7 +223,6 @@ export class BukkenDetailComponent extends BaseComponent {
       this.data.attachFiles.push(attachFile);
     }
     // 地図添付
-    // tslint:disable-next-line:one-line
     else {
       if (this.data.mapFiles === null) {
         this.data.mapFiles = [];

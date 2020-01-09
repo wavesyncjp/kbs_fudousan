@@ -1,5 +1,4 @@
 <div class="dialog-div">  
-    <!--11/25追記-->
     <ul *ngIf="errorMsgs.length > 0" class="error-span" style="margin-top: -5px;">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>         
@@ -25,40 +24,6 @@
             <th>更新ユーザーID</th>
             <td><input type="text"  [(ngModel)]="data.updateUserId"  class="width150" disabled ="true"></td>
         </tr>
-
-        <!--
-        <tr>
-            <th>詳細</th> 
-            <td>
-            <mat-radio-group [(ngModel)]="data.detailFlg">
-                <mat-radio-button *ngFor="let code of getCode('006')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
-            </mat-radio-group>
-        
-            </td>
-            </tr>
-        <tr class="h230">
-            <th>
-                
-            </th>
-            <td>
-                <textarea [ngClass]="{'width600': true, 'error': errors['infoDetail']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail"></textarea>
-            </td>
-        </tr>
-        -->
-       <!--<tr>
-            <th>添付ファイル</th>
-            <td>
-                <a *ngIf="hasFile()" [attr.href]="data.attachFilePath + data.attachFileName"  target="_blank" class="action-link">{{data.attachFileName}}</a>
-                <br *ngIf="hasFile()">
-                <app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file>
-            </td>
-        </tr> 
-        <tr>
-            <th>掲載終了</th>
-            <td>
-                <mat-checkbox [checked]="data.finishFlg == 1" #cbxFinishFlg></mat-checkbox>
-            </td>
-        </tr>-->  
     </table>
     <mat-dialog-actions align="end">        
         <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>

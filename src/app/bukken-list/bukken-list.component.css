@@ -17,41 +17,6 @@ mat-form-field{
 table {
     width: 100%;
 }
-th.mat-column-detail, td.mat-column-detail {
-    width: 100px;
-}
-th.mat-column-bukkenId, td.mat-column-bukkenId {
-    width: 100px;
-}
-
-.mat-column-detail{
-    text-align: right;
-}
-.mat-column-bukkenNo{
-    width: 100px;
-}
-.mat-column-remark2{
-    width: 100px;
-}
-.mat-column-startDate{
-    width: 120px;
-}
-
-.mat-column-finishDate{
-    width: 120px;
-}
-
-.mat-column-indivisibleFlg{
-    width: 80px;
-}
-
-.mat-column-landCategory{
-    width: 150px;
-}
-
-.mat-column-remark1{
-    white-space: pre-wrap !important;
-}
 
 mat-paginator{
     width: 100%;
@@ -64,14 +29,6 @@ mat-paginator{
     margin-right: 10px;
 }
 
-.multi-select{
-    min-width: 100px;
-    height: 21px;
-    border: solid 1px cornflowerblue;
-    border-radius: 2px;
-    margin-left: 3px;
-    height: 25px;
-}
 /*----------Map------------*/
 #map {
     min-height: 75vh;
