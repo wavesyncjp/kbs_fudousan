@@ -167,7 +167,6 @@
                             <label>所在地</label>
                             <button mat-flat-button color="blue" *ngIf="data.locations.length > 1 && !contracted(location.pid)" (click)="removeLocation(pos)" class="iconbtn">
                                 削除
-                                <!--<mat-icon>close</mat-icon>-->
                             </button>
 
                             <label class="contracted" *ngIf="contracted(location.pid)">契約済み</label>
@@ -219,11 +218,6 @@
                         <input type="text" [(ngModel)]="location.ownerRemark" class="width85Per">
                     </td>
                 </tr>
-                <!--
-                <table>
-                    <button mat-raised-button color="blue" *ngIf="data.locations.length > 1" (click)="removeLocation(pos)"  class="buttonDelete">削除</button>
-                </table>
-                -->
             </table>            
         </div>
 

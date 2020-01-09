@@ -23,7 +23,7 @@ import { JPDateAdapter } from '../adapters/adapters';
 export class DepListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  /**/
+
   displayedColumns: string[] = ['depCode', 'depName', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Department>();
 
@@ -34,14 +34,12 @@ export class DepListComponent extends BaseComponent {
     super(router, service);
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('部署マスタ');
 
     this.cond = {
       infoDateMap: new Date(),
-      // 20191202 condにdepartmentセット(this)
       department: []
     };
 
@@ -53,17 +51,6 @@ export class DepListComponent extends BaseComponent {
     funcs.push(this.service.getDeps(null));
 
     Promise.all(funcs).then(values => {
-
-      // コード
-     /* const codes = values[0] as Code[];
-      if (codes !== null && codes.length > 0) {
-        const uniqeCodes = [...new Set(codes.map(code => code.code))];
-        uniqeCodes.forEach(code => {
-          const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
-          this.sysCodes[code] = lst;
-        });
-      }*/
 
       // 20191202 valuesに取得値をセット
       this.deps = values[0];
@@ -78,8 +65,6 @@ export class DepListComponent extends BaseComponent {
    */
   searchDep() {
     this.spinner.show();
-    /*this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
-    （toLocaleDateString=国、地域の時間をあった言語にて表示する）*/
     this.service.searchDep(this.cond).then(res => {
       this.dataSource.data = res;
 

@@ -47,8 +47,6 @@
         <button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>
         <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn">&nbsp;新規登録&nbsp;</button>
 
-        <!--<button mat-raised-button (click)="switchTab()" #tabGroup *ngIf="searched" color="primary">&nbsp;{{viewStr}}&nbsp;</button>-->
-
         <mat-radio-group (change)="switchTab($event)" *ngIf="searched" style="float: right;">
           <mat-radio-button [value]="1" [checked]="true">一覧表示&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
           <mat-radio-button [value]="2">MAP表示&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 

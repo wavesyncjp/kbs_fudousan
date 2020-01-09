@@ -37,7 +37,6 @@ export class DepDetailComponent extends BaseComponent {
     super(router, service);
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     const funcs = [];
     funcs.push(this.service.getCodes(['006']));
@@ -56,18 +55,13 @@ export class DepDetailComponent extends BaseComponent {
 
       if (this.data == null || !(this.data.depCode.length > 0)) {
         this.data = new Department();
-        //this.data.depCode = '1';
       } else {
         this.data = new Department(this.data);
-        //this.data.convert();
       }
 
     });
   }
 
-  /*hasFile() {
-    return this.data.attachFileName != null && this.data.attachFileName !== '';
-  }*/
 
   /**11/25 追記
    * バリデーション
@@ -90,14 +84,6 @@ export class DepDetailComponent extends BaseComponent {
       this.errors[prop] = true;
     }
 
-    // 詳細
-    /*
-    if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
-      this.errorMsgs.push('詳細は必須です。');
-      const prop = 'infoDetail';
-      this.errors[prop] = true;
-    }
-    */
  
     if (this.errorMsgs.length > 0) {
       return false;
@@ -117,22 +103,8 @@ export class DepDetailComponent extends BaseComponent {
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
         this.data.convertForSave(this.service.loginUser.userId);
-        /*
-        if (this.cbxFinishFlg.checked) {
-          this.data.finishFlg = '1';
-        } else {
-          this.data.finishFlg = '0';
-        }
-        */
-        this.service.saveDep(this.data);  //.then(res => {
-          /*
-          if (this.fUpload != null && !this.fUpload.hasFile()) {
-            this.dialogRef.close(true);
-          } else {
-            this.fUpload.uploadInfoFile(res.pid);
-          }
-        });
-        */
+       
+        this.service.saveDep(this.data);  
         this.dialogRef.close(true);
       }
     });

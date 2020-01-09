@@ -55,9 +55,6 @@ export class BukkenListComponent extends BaseComponent {
                   this.search = params.search;
                 });
   }
-
-
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('土地情報一覧');
@@ -122,8 +119,7 @@ export class BukkenListComponent extends BaseComponent {
     });
     this.markers = [];
 
-    // const val = new Date();
-    // val.toLocaleDateString();
+   
     this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
@@ -199,7 +195,6 @@ export class BukkenListComponent extends BaseComponent {
       const addr = bk.remark1.split(',')[0];
       const geocoder = new google.maps.Geocoder();
       const that = this;
-      // tslint:disable-next-line:only-arrow-functions
       geocoder.geocode({address : addr}, function(results: any, status: any) {
         if (status === google.maps.GeocoderStatus.OK) {
           const latVal = results[0].geometry.location.lat(); // 緯度を取得
