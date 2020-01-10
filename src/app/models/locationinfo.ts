@@ -25,6 +25,7 @@ export class Locationinfo {
     rightsForm: string;
     liveInfo: string;
     locationType: string;
+    residence:string;
 
     isContract: boolean;
     isDepend: boolean;

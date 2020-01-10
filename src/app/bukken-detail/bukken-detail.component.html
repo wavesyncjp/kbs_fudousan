@@ -20,6 +20,12 @@
                     <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
                 </td>
             </tr>
+            <tr>
+                <th>住居表示</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
+                </td>
+            </tr>
         </table>
     <table class ="block-status">
         <br>
@@ -102,10 +108,6 @@
             </tr>
             <!--11/26修正-->
             <tr>
-                <th>地目</th>
-                <td>
-                    <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
-                </td>
                 <th>容積率</th>
                 <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
                 <th>建蔽率</th>
@@ -190,7 +192,9 @@
                     <th>所有者名</th>
                     <td><input type="text" [(ngModel)]="location.owner" [ngClass]="{'width300': true, 'error': errors['owner' + pos]}"></td>
                     <th>所有者住所</th>
-                    <td colspan="3"><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
+                    <td><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
+                    <th>持ち分</th>
+                    <td><input type="text" [(ngModel)]="location.equity" class = "width152"></td>
                 </tr>
 
                 <tr>
@@ -204,7 +208,11 @@
                     <th>構造</th>
                     <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure" [isDisabled]="location.locationType == '01'"></app-select-component></td>
                     <th>権利形態</th>
-                    <td colspan="3"><app-select-component [codes]="getCode('004')" [(ngModel)]="location.rightsForm" [isDisabled]="location.locationType == '01'"></app-select-component></td>
+                    <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.rightsForm" [isDisabled]="location.locationType == '01'"></app-select-component></td>
+                    <th>地目</th>
+                    <td>
+                    <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
+                    </td>
                 </tr>
                 <tr>
                     <th>入居者情報</th>
