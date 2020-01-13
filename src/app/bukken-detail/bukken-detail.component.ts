@@ -202,6 +202,7 @@ export class BukkenDetailComponent extends BaseComponent {
       this.checkBlank(element.locationType, `locationType${index}`, '所在地種別は必須です。');
       this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
       this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
+      this.checkBlank(element.residence, `residence${index}`, '住居表示は必須です。');
       this.checkNumber(element.area, `area${index}`, '地積は不正です。');
       this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
     });
