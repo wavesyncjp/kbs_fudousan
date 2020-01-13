@@ -13,6 +13,7 @@ import { Code } from '../models/bukken';
 import { MapAttach, AttachFile } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Contractinfo } from '../models/contractinfo';
+import { SharerInfo } from '../models/sharer-info';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -102,9 +103,11 @@ export class BukkenDetailComponent extends BaseComponent {
       const loc = new Locationinfo();
       this.data.locations.push(loc);
     }
-  }
+  }  
 
-
+  /**
+   * 所有地追加
+   */
   addLocation(): void {
     const loc = new Locationinfo();
     this.data.locations.push(loc);
@@ -134,6 +137,38 @@ export class BukkenDetailComponent extends BaseComponent {
   }
 
   /**
+   * 所有者追加
+   * @param loc ：所有地
+   */
+  addSharer(loc: Locationinfo) {
+    if (loc.sharers == null) {
+      loc.sharers = [];
+    }
+    if (loc.sharers.length === 0) {
+      loc.sharers.push(new SharerInfo());
+      loc.sharers.push(new SharerInfo());
+    }
+    else {
+      loc.sharers.push(new SharerInfo());
+    }
+  }
+
+  /**
+   * 所有者削除
+   * @param loc ：所有地
+   */
+  deleteSharer(loc: Locationinfo, sharerPos: number) {
+    const sharer = loc.sharers[sharerPos];
+    if (sharer.pid > 0) {
+      if (loc.delSharers == null) {
+        loc.delSharers = [];
+      }
+      loc.delSharers.push(sharer.pid);
+    }
+    loc.sharers.splice(sharerPos, 1);
+  }
+
+  /**
    * 一覧へ戻る
    */
   backToList() {
@@ -158,6 +193,7 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         // 土地情報登録
+        this.convertSharer();
         this.data.convertForSave(this.service.loginUser.userId);
 
         // 削除された所在地も送る
@@ -194,6 +230,7 @@ export class BukkenDetailComponent extends BaseComponent {
     this.errors = {};
 
     this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
+    this.checkBlank(this.data.residence, 'residence', '住居表示は必須です。');
     this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
     this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
 
@@ -202,7 +239,6 @@ export class BukkenDetailComponent extends BaseComponent {
       this.checkBlank(element.locationType, `locationType${index}`, '所在地種別は必須です。');
       this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
       this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
-      this.checkBlank(element.residence, `residence${index}`, '住居表示は必須です。');
       this.checkNumber(element.area, `area${index}`, '地積は不正です。');
       this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
     });
@@ -211,6 +247,26 @@ export class BukkenDetailComponent extends BaseComponent {
       return false;
     }
     return true;
+  }
+
+  /**
+   * 共有者情報
+   */
+  convertSharer() {
+    this.data.locations.forEach(loc => {
+      if (loc.sharers == null) {
+        loc.sharers = [];
+      }
+      if(loc.sharers.length === 0) {
+        loc.sharers.push(new SharerInfo());
+      }
+      // 共通
+      const firstSharer = loc.sharers[0];
+      firstSharer.sharer = loc.owner;
+      firstSharer.sharerAdress = loc.ownerAdress;
+      firstSharer.shareRatio = loc.equity;
+
+    });
   }
 
   // 地図アップロード
@@ -224,6 +280,7 @@ export class BukkenDetailComponent extends BaseComponent {
       this.data.attachFiles.push(attachFile);
     }
     // 地図添付
+    // tslint:disable-next-line:one-line
     else {
       if (this.data.mapFiles === null) {
         this.data.mapFiles = [];

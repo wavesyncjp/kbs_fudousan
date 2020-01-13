@@ -12,6 +12,11 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKHnJZlBBNAoOVl36PtaUaLONTGxRU7ko" type="text/javascript"></script>
+  <script type="text/javascript">  
+    function openDetailFromMap(pid) { 
+      window.angularComponentReference.zone.run(() => { window.angularComponentReference.openDetailFromMap(pid); });  
+    }  
+</script>
 </head>
 <body>
   <app-root></app-root>

@@ -62,8 +62,9 @@
                             <th>地番</th>
                             <th>家屋番号</th>
                             <th>所有者<br>（売主・登記名義人）</th>
+                            <th>登記名義人</th>
                             <th style="display: block;border:none" class="width300">所有者住所<br>（売主住所）</th>
-                            <th>契約者名</th>
+                            <!--<th>契約者名</th>-->
                             <th>地目</th>
                             <th>地積</th>
                             <th>地積のうち借地契約面積</th>
@@ -81,15 +82,19 @@
                                 <td>{{item.blockNumber}}</td>
                                 <td>{{item.buildingNumber}}</td>
                                 <td>{{item.owner}}</td>
+                                <td>
+                                    <label *ngIf="!(item.sharers.length > 1)">{{item.owner}}</label>
+                                    <a class="sharerBtn" href="#" *ngIf="item.sharers.length > 1">表示</a> 
+                                </td>
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
-                                <td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150" [(ngModel)]="item.contractData.contractorName"></td>
+                                <!--<td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150" [(ngModel)]="item.contractData.contractorName"></td>-->
                                 <td></td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
-                                <td><span *ngIf="item.isContract"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractData.contractArea">&nbsp;㎡</span></td>
-                                <td><app-select-component *ngIf="item.isDepend" [codes]="getCode('004')" [exclass]="true" [(ngModel)]="item.contractData.dependType"></app-select-component></td>
-                                <td><textarea *ngIf="item.isDepend" class="width120" rows="3" [(ngModel)]="item.contractData.dependStructure"></textarea></td>
-                                <td><span *ngIf="item.isDepend"><input type="text" class="width40" [(ngModel)]="item.contractData.dependFloor">&nbsp;階建</span></td>
-                                <td><textarea *ngIf="item.isDepend" class="width120" rows="3" [(ngModel)]="item.contractData.dependFloorArea"></textarea></td>
+                                <td><span *ngIf="isLand(item)"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractData.contractArea">&nbsp;㎡</span></td>
+                                <td><app-select-component *ngIf="isBuild(item)" [codes]="getCode('004')" [exclass]="true" [(ngModel)]="item.contractData.dependType"></app-select-component></td>
+                                <td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependStructure"></textarea></td>
+                                <td><span *ngIf="isBuild(item)"><input type="text" class="width40" [(ngModel)]="item.contractData.dependFloor">&nbsp;階建</span></td>
+                                <td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependFloorArea"></textarea></td>
                             </tr>
                         </tbody>
                     </table>

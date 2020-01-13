@@ -74,6 +74,15 @@ export class BaseComponent implements OnInit {
     }
 
     /**
+     * コード明細取得
+     * @param code ：コード
+     * @param title ：名称
+     */
+    getCodeDetail(code: string, title: string) {
+        return this.sysCodes[code].filter(c => c.name === title).map(c => c.codeDetail)[0];
+    }
+
+    /**
      * 部署変換
      */
     getDeps() {

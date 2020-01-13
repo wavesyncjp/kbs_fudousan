@@ -329,6 +329,10 @@ span.min{
     /*border-left: solid 2px white;*/ 
 }
 
+.detail-tbl-min > tr > th.sharer{
+    background-color: rgba(226, 239, 218, 1);
+}
+
 .detail-tbl-min > tr > th.min{
     width: 20px !important;
 }

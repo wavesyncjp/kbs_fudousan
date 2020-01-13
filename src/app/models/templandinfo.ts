@@ -5,6 +5,7 @@ export class Templandinfo {
     pid: number;
     bukkenNo = '';
     bukkenName = '';
+    residence = '';
     pickDate = '';
     department = '';
     staff = '';

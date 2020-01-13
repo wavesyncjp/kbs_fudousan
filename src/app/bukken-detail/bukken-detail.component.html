@@ -189,13 +189,27 @@
                     <td><input type="text" [(ngModel)]="location.buildingNumber" [disabled]="location.locationType == '01'" class="width100"></td>                        
                 </tr>
                 <tr>
-                    <th>所有者名</th>
+                    <th class="sharer">所有者名
+                        <button *ngIf="!contracted(location.pid)" mat-raised-button class="addSharer" (click)="addSharer(location)" >追加</button>
+                    </th>
                     <td><input type="text" [(ngModel)]="location.owner" [ngClass]="{'width300': true, 'error': errors['owner' + pos]}"></td>
-                    <th>所有者住所</th>
+                    <th class="sharer">所有者住所</th>
                     <td><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
-                    <th>持ち分</th>
+                    <th class="sharer">持ち分</th>
                     <td><input type="text" [(ngModel)]="location.equity" class = "width152"></td>
                 </tr>
+                <!--共有者情報-->                
+                <tr *ngFor="let sharer of location.sharers | slice:1; index as sharerPos">
+                    <th class="sharer">所有者名
+                        <button *ngIf="!contracted(location.pid)" mat-raised-button class="deleteSharer" (click)="deleteSharer(location, sharerPos)" >削除</button>
+                    </th>
+                    <td><input type="text" [(ngModel)]="sharer.sharer" class="width300"></td>
+                    <th class="sharer">所有者住所</th>
+                    <td><input type="text" [(ngModel)]="sharer.sharerAdress" class = "width400"></td>
+                    <th class="sharer">持ち分</th>
+                    <td><input type="text" [(ngModel)]="sharer.shareRatio" class = "width152"></td>
+                </tr>
+                <!--/共有者情報-->
 
                 <tr>
                     <th>地積</th>

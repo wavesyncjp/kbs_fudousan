@@ -1,5 +1,6 @@
 import { Contractdependinfo } from './contractdependinfo';
 import { Contractdetailinfo } from './contractdetailinfo';
+import { SharerInfo } from './sharer-info';
 
 export class Locationinfo {
     pid: number;
@@ -20,16 +21,19 @@ export class Locationinfo {
     coverageRate: number;
     owner: string;
     ownerAdress: string;
+    equity: string;
     landMortgage: string;
     builMortgage: string;
     rightsForm: string;
     liveInfo: string;
     locationType: string;
-    residence:string;
+    residence: string;
 
     isContract: boolean;
     isDepend: boolean;
     contractData: ContractData = new ContractData();
+    sharers: SharerInfo[];
+    delSharers: number[];
 
     public constructor(init?: Partial<Locationinfo>) {
         if (init) {

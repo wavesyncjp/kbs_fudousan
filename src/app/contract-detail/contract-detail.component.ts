@@ -327,4 +327,12 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
 
+  isLand(loc: Locationinfo) {
+    return (loc.isContract || loc.isDepend) && loc.locationType === '01';
+  }
+
+  isBuild(loc: Locationinfo) {
+    return (loc.isContract || loc.isDepend) && loc.locationType === '02';
+  }
+
 }

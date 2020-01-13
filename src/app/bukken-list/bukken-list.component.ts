@@ -1,5 +1,5 @@
 declare var google: any;
-import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -26,7 +26,16 @@ import { Code } from '../models/bukken';
 })
 export class BukkenListComponent extends BaseComponent {
 
-  public cond: any;
+  public cond = {
+    bukkenNo: '',
+    bukkenName: '',
+    address: '',
+    pickDateMap: new Date(),
+    pickDate: '',
+    department: [],
+    result: ['01'],
+    mode: 1
+ };
   search = '0';
   searched = false;
   selectedRowIndex = -1;
@@ -44,7 +53,8 @@ export class BukkenListComponent extends BaseComponent {
   infowindow: any;
   markers = [];
 
-  constructor(public router: Router,
+  constructor(private ngZone: NgZone,
+              public router: Router,
               private route: ActivatedRoute,
               public service: BackendService,
               public dialog: MatDialog,
@@ -55,21 +65,16 @@ export class BukkenListComponent extends BaseComponent {
                   this.search = params.search;
                 });
   }
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
+    // tslint:disable-next-line:no-string-literal
+    window['angularComponentReference'] = { component: this, zone: this.ngZone, openDetailFromMap: (pid) => this.showDetail2(pid), };
+
     this.service.changeTitle('土地情報一覧');
     this.dataSource.paginator = this.paginator;
     this.spinner.show();
-    // 初回検索
-    this.cond = {
-        bukkenNo: '',
-        bukkenName: '',
-        address: '',
-        pickDateMap: new Date(),
-        pickDate: '',
-        department: [],
-        result: ['01']
-     };
+
     if (this.search === '1') {
       this.cond = this.service.searchCondition;
     }
@@ -119,7 +124,6 @@ export class BukkenListComponent extends BaseComponent {
     });
     this.markers = [];
 
-   
     this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
@@ -133,10 +137,15 @@ export class BukkenListComponent extends BaseComponent {
           }
         });
       }
+      this.service.searchCondition = this.cond;
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
       this.searched = true;
       this.showMapMarker();
+      // モード
+      if (this.cond.mode === 2 && this.tabGroup.selectedIndex === 0) {
+        this.tabGroup.selectedIndex = 1;
+      }
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
@@ -149,12 +158,10 @@ export class BukkenListComponent extends BaseComponent {
    * @param row: 物件データ
    */
   showDetail(row: Templandinfo) {
-    this.service.searchCondition = this.cond;
     this.router.navigate(['/bkdetail'], {queryParams: {pid: row.pid}});
   }
 
   showDetail2(id: number) {
-    this.service.searchCondition = this.cond;
     this.router.navigate(['/bkdetail'], {queryParams: {pid: id}});
   }
 
@@ -162,7 +169,6 @@ export class BukkenListComponent extends BaseComponent {
    * 土地新規登録
    */
   createNew() {
-    this.service.searchCondition = this.cond;
     this.router.navigate(['/bkdetail']);
   }
 
@@ -172,6 +178,8 @@ export class BukkenListComponent extends BaseComponent {
     } else {
       this.tabGroup.selectedIndex = 1;
     }
+    this.cond.mode = event.value;
+    this.service.searchCondition = this.cond;
   }
 
   /**
@@ -192,7 +200,7 @@ export class BukkenListComponent extends BaseComponent {
 
   showMapMarker() {
      this.dataSource.data.forEach(bk => {
-      const addr = bk.remark1.split(',')[0];
+      const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
       const geocoder = new google.maps.Geocoder();
       const that = this;
       geocoder.geocode({address : addr}, function(results: any, status: any) {
@@ -210,10 +218,23 @@ export class BukkenListComponent extends BaseComponent {
 
      });
    }
+
+   /**
+    * ピン追加
+    * @param latlng ：緯度経度
+    * @param bk ：物件情報
+    */
    setMarker(latlng: any, bk: Templandinfo) {
+
+    const result = this.getCodeDetail('001', bk.result);
+    const pin = (result === '01' ? 'pin-blue2.png' : result === '02' ? 'pin-green.png' : 'pin-pink.png');
     const marker = new google.maps.Marker({
       position: latlng,
-      map: this.mapObj
+      map: this.mapObj,
+      icon: {
+        url: 'assets/img/' + pin,
+        scaledSize: new google.maps.Size(40, 40)
+      }
     });
 
     marker.addListener('click', function() {
@@ -234,12 +255,14 @@ export class BukkenListComponent extends BaseComponent {
                     <table>
                       <tr><th class="label">物件コード</th><th>${bk.bukkenNo}</th></tr>
                       <tr><th class="label">物件名</th><th>${bk.bukkenName}</th></tr>
+                      <tr><th class="label">住居表示</th><th>${bk.residence}</th></tr>
                       <tr><th class="label">所在地</th><th>${bk.remark1.split(',')[0]}</th></tr>
                       <tr><th class="label">地番</th><th>${bk.remark2.split(',')[0]}</th></tr>
                       <tr><th class="label">地図情報</th><th>${linkStr.join('   ')}</th></tr>
                       <tr><th><br></th><th></th></tr>
                       <tr><th class="label">情報収集日</th><th>${dayStr}</th></tr>
                       <tr><th class="label">担当部署</th><th>${bk.department}</th></tr>
+                      <tr><th class="label"></th><th><a href="javascript:openDetailFromMap(${bk.pid})">詳細</a></th></tr>
                     </table>
                   </div>`
       });

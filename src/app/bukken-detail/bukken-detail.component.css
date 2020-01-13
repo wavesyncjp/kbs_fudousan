@@ -111,6 +111,18 @@ mat-form-field > input {
     text-align: center;
 }
 
+.addSharer {
+    background-color: rgb(238, 187, 45);
+    color: white;
+    height: 35px;   
+    margin: 2px 10px; 
+}
+.deleteSharer {
+    background-color: rgb(163, 158, 142);
+    color: black;
+    height: 35px;    
+    margin: 2px 10px;
+}
 .attach-btn{
     background-color: red;
     margin-left: 20px;
