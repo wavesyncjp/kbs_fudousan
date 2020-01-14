@@ -78,6 +78,8 @@
                 <th>結果</th>
                 <td>
                     <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result"></app-select-component>
+                    <!-- <mat-checkbox *ngFor="let code of getCode('005')" [checked]="inList(cond.finishFlg, code.codeDetail)" 
+                         (change)="changeCheck(cond.finishFlg, code.codeDetail ,$event)"-->
                 </td>      
             </tr>
             <tr>
@@ -222,7 +224,7 @@
                     <th>構造</th>
                     <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.structure" [isDisabled]="location.locationType == '01'"></app-select-component></td>
                     <th>権利形態</th>
-                    <td><app-select-component [codes]="getCode('004')" [(ngModel)]="location.rightsForm" [isDisabled]="location.locationType == '01'"></app-select-component></td>
+                    <td><app-select-component [codes]="getCode('011')" [(ngModel)]="location.rightsForm" [isDisabled]="location.locationType == '01'"></app-select-component></td>
                     <th>地目</th>
                     <td>
                     <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
