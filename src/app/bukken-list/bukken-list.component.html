@@ -42,7 +42,7 @@
            <th>結果</th>
           <td>
             <section>
-              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;&nbsp;</mat-checkbox>              
+              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>              
             </section>
           </td>
       </tr>        
