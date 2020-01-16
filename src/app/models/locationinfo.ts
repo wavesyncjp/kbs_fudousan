@@ -28,6 +28,7 @@ export class Locationinfo {
     liveInfo: string;
     locationType: string;
     residence: string;
+    
 
     isContract: boolean;
     isDepend: boolean;
