@@ -470,4 +470,18 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { code: code, codeDetail: codeDetail, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
+
+  /**
+   * 所有者出力
+   * @param sharers ：所有者
+   */
+  saveChooseSharer(sharerList: any) {
+    const api = 'shareroutputsave.php';
+    const body = {
+      userId: this.loginUser.userId,
+      sharers: sharerList
+    };
+    const req = this.http.post<Code>(`${this.BaseUrl}/${api}`, body);
+    return req.toPromise();
+  }
 }

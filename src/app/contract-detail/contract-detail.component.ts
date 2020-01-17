@@ -16,6 +16,7 @@ import { Contractdependinfo } from '../models/contractdependinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { ContractFile } from '../models/mapattach';
+import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 
 @Component({
   selector: 'app-contract-detail',
@@ -333,6 +334,14 @@ export class ContractDetailComponent extends BaseComponent {
 
   isBuild(loc: Locationinfo) {
     return (loc.isContract || loc.isDepend) && loc.locationType === '02';
+  }
+
+  showSharer(loc: Locationinfo) {
+    const dialogRef = this.dialog.open(SharerDialogComponent, {
+      width: '600px',
+      height: '400px',
+      data: loc
+    });
   }
 
 }

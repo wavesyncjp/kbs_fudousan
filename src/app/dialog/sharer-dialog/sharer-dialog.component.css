@@ -1,0 +1,26 @@
+.dialog-div {
+    height:100%;
+}
+
+.sharer-title {
+    height: 40px;
+    background-color: rgb(58, 133, 116);
+    color: white;    
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.detail-tbl tr th {
+    background-color: antiquewhite;    
+    text-align: center;
+}
+
+.detail-tbl tr th,
+.detail-tbl tr td {
+    border: solid 1px gainsboro;    
+}
+.choose {
+    text-align: center;
+    width: 60px !important;
+}
