@@ -25,6 +25,7 @@ export class Templandinfo {
     mapFiles: MapAttach[];
     attachFiles: AttachFile[];
     locations: Locationinfo[];
+    buysellFlg='0';
 
     pickDateMap: Date = null;
     startDateMap: Date = null;

@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MAT_DATE_FORMATS } from '@angular/material';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MAT_DATE_FORMATS, MatCheckbox } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -25,6 +25,8 @@ import { SharerInfo } from '../models/sharer-info';
   ],
 })
 export class BukkenDetailComponent extends BaseComponent {
+  @ViewChild('cbxBuysellFlg', {static: true})
+  cbxBuysellFlg: MatCheckbox;
   public data: Templandinfo;
   public pid: number;
   removeLoc: Locationinfo[] = [];
@@ -195,6 +197,11 @@ export class BukkenDetailComponent extends BaseComponent {
         // 土地情報登録
         this.convertSharer();
         this.data.convertForSave(this.service.loginUser.userId);
+        if (this.cbxBuysellFlg.checked) {
+          this.data.buysellFlg = '1';
+        } else {
+          this.data.buysellFlg = '0';
+        }
 
         // 削除された所在地も送る
 
@@ -265,6 +272,7 @@ export class BukkenDetailComponent extends BaseComponent {
       firstSharer.sharer = loc.owner;
       firstSharer.sharerAdress = loc.ownerAdress;
       firstSharer.shareRatio = loc.equity;
+      //firstSharer.shareRatio = loc.buysellFlg;
 
     });
   }
@@ -410,6 +418,8 @@ export class BukkenDetailComponent extends BaseComponent {
     }
     return false;
   }
+
+
 
 }
 
