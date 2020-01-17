@@ -28,7 +28,7 @@ export class SharerDialogComponent extends BaseComponent {
     this.service.changeTitle('登記名義人選択');
   }
   changeFlg(event, sharer) {
-    sharer.outPutFlg = (sharer.outPutFlg === 1 ? 0 : 1);
+    sharer.outPutFlg = (event.checked ? 1 : 0);
   }
   cancel() {
     this.dialogRef.close();
