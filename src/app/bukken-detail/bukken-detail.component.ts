@@ -197,11 +197,13 @@ export class BukkenDetailComponent extends BaseComponent {
         // 土地情報登録
         this.convertSharer();
         this.data.convertForSave(this.service.loginUser.userId);
+        /*
         if (this.cbxBuysellFlg.checked) {
           this.data.buysellFlg = '1';
         } else {
           this.data.buysellFlg = '0';
         }
+        */
 
         // 削除された所在地も送る
 
@@ -272,7 +274,7 @@ export class BukkenDetailComponent extends BaseComponent {
       firstSharer.sharer = loc.owner;
       firstSharer.sharerAdress = loc.ownerAdress;
       firstSharer.shareRatio = loc.equity;
-      //firstSharer.shareRatio = loc.buysellFlg;
+      firstSharer.buysellFlg = loc.buysellFlg;
 
     });
   }
@@ -418,7 +420,12 @@ export class BukkenDetailComponent extends BaseComponent {
     }
     return false;
   }
-
+  /**
+   * チェックボックス変更
+   */
+  flgChange(event, flg: any) {
+   flg.buysellFlg = (event.checked ? 1 : 0);
+  }
 
 
 }
