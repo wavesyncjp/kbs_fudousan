@@ -196,10 +196,10 @@
                     </th>
                     <td><input type="text" [(ngModel)]="location.owner" [ngClass]="{'width300': true, 'error': errors['owner' + pos]}">
                     <!--20200116_S_Add-->
-                    &nbsp;売買対象&nbsp;<mat-checkbox [checked]="location.buysellFlg == 1" #cbxBuysellFlg></mat-checkbox></td>
+                    &nbsp;売買対象&nbsp;<mat-checkbox [checked]="location.buysellFlg == 1" (change)="flgChange($event, location)"></mat-checkbox></td>
                     <!--20200116_E_Add-->
                     <th class="sharer">所有者住所</th>
-                    <td><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
+                    <td><input type="text" [(ngModel)]="location.ownerAdress" class = "width200"></td>
                     <th class="sharer">持ち分</th>
                     <td><input type="text" [(ngModel)]="location.equity" class = "width152"></td>
                 </tr>
@@ -208,9 +208,12 @@
                     <th class="sharer">所有者名
                         <button *ngIf="!contracted(location.pid)" mat-raised-button class="deleteSharer" (click)="deleteSharer(location, sharerPos)" >削除</button>
                     </th>
-                    <td><input type="text" [(ngModel)]="sharer.sharer" class="width300"></td>
+                    <td><input type="text" [(ngModel)]="sharer.sharer" class="width300">
+                    <!--20200116_S_Add-->
+                    &nbsp;売買対象&nbsp;<mat-checkbox [checked]="sharer.buysellFlg == 1"  (change)="flgChange($event, sharer)"></mat-checkbox></td>
+                    <!--20200116_E_Add-->
                     <th class="sharer">所有者住所</th>
-                    <td><input type="text" [(ngModel)]="sharer.sharerAdress" class = "width400"></td>
+                    <td><input type="text" [(ngModel)]="sharer.sharerAdress" class = "width200"></td>
                     <th class="sharer">持ち分</th>
                     <td><input type="text" [(ngModel)]="sharer.shareRatio" class = "width152"></td>
                 </tr>
@@ -220,18 +223,27 @@
                     <th>地積</th>
                     <td><input type="text" [(ngModel)]="location.area" [ngClass]="{'width80': true, 'number': true, 'error': errors['area' + pos]}" (keypress)="floatOnly($event)" (keyup)="changeArea($event, location)" [disabled]="location.locationType == '02'">&nbsp;㎡                    
                     <input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;坪</td>
-                    <th>床面積</th>
-                    <td colspan="3"><input type="text" [(ngModel)]="location.floorSpace" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorSpace' + pos]}" (keypress)="floatOnly($event)" >&nbsp;㎡</td>
-               </tr>
-                <tr>
-                    <th>構造</th>
-                    <td><input type="text" [(ngModel)]="location.structure" class="width100"></td>
                     <th>権利形態</th>
                     <td><app-select-component [codes]="getCode('011')" [(ngModel)]="location.rightsForm"></app-select-component></td>
                     <th>地目</th>
                     <td>
-                    <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
+                        <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
                     </td>
+               </tr>
+                <tr>
+                    <th>種類</th>
+                    <td><app-select-component [codes]="getCode('003')" [exclass]="true" [(ngModel)]="location.dependType"></app-select-component></td>
+                    <!--20200117_ここを修正
+                    <mat-select multiple class="width300" [(ngModel)]="location.dependType">
+                        <mat-option *ngFor="let emp of emps" [value]="emp.userName">{{emp.userName}}</mat-option>
+                    </mat-select>
+                    20200117_ここを修正-->
+                    <th>構造</th>
+                    <td><input type="text" [(ngModel)]="location.structure" class="width100"  [disabled]="location.locationType == '01'"></td>
+                    <th>階建</th>
+                    <td><input type="text" class="width40" [(ngModel)]="location.dependFloor" [disabled]="location.locationType == '01'">&nbsp;階建</td>
+                    <th>床面積</th>
+                    <td><input type="text" [(ngModel)]="location.floorSpace" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorSpace' + pos]}" (keypress)="floatOnly($event)" >&nbsp;㎡</td>
                 </tr>
                 <tr>
                     <th>入居者情報</th>

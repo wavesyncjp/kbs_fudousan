@@ -7,6 +7,8 @@ export class SharerInfo {
     sharerAdress: string;
     shareRatio: string;
     outPutFlg: string;
+    buysellFlg='0';
+
    
 
 }

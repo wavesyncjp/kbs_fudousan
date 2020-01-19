@@ -28,6 +28,8 @@ export class Locationinfo {
     liveInfo: string;
     locationType: string;
     residence: string;
+    buysellFlg='0';
+
     
 
     isContract: boolean;

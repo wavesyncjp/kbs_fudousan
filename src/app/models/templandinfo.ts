@@ -1,5 +1,6 @@
 import { Locationinfo } from './locationinfo';
 import { MapAttach, AttachFile } from './mapattach';
+import { SharerInfo } from './sharer-info';
 
 export class Templandinfo {
     pid: number;
@@ -25,7 +26,7 @@ export class Templandinfo {
     mapFiles: MapAttach[];
     attachFiles: AttachFile[];
     locations: Locationinfo[];
-    buysellFlg='0';
+
 
     pickDateMap: Date = null;
     startDateMap: Date = null;
