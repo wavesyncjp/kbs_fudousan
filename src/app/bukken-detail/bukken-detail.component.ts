@@ -108,6 +108,15 @@ export class BukkenDetailComponent extends BaseComponent {
       const loc = new Locationinfo();
       this.data.locations.push(loc);
     }
+    else {
+      const locs = [];
+      this.data.locations.forEach(loc => {
+        const frontLoc = new Locationinfo(loc);
+        frontLoc.convert();
+        locs.push(frontLoc);
+      });
+      this.data.locations = locs;
+    }
   }  
 
   /**
