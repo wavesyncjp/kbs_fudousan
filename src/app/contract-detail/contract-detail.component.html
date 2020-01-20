@@ -92,14 +92,17 @@
                                     <button class="sharerBtn" *ngIf="item.sharers.length > 1" (click)="showSharer(item)" >表示</button> 
                                 </td>
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
-                                <!--<td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150" [(ngModel)]="item.contractData.contractorName"></td>-->
-                                <td></td>
+                                <td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150" [(ngModel)]="item.contractData.contractorName"></td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
                                 <td><span *ngIf="isLand(item)"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractData.contractArea">&nbsp;㎡</span></td>
-                                <td><app-select-component *ngIf="isBuild(item)" [codes]="getCode('004')" [exclass]="true" [(ngModel)]="item.contractData.dependType"></app-select-component></td>
-                                <td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependStructure"></textarea></td>
-                                <td><span *ngIf="isBuild(item)"><input type="text" class="width40" [(ngModel)]="item.contractData.dependFloor">&nbsp;階建</span></td>
-                                <td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependFloorArea"></textarea></td>
+                                <td>{{item.dependType}}</td>
+                                <!--<td><app-select-component *ngIf="isBuild(item)" [codes]="getCode('004')" [exclass]="true" [(ngModel)]="item.contractData.dependType"></app-select-component></td>-->
+                                <td>{{item.structure}}</td>
+                                <!--<td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependStructure"></textarea></td>-->
+                                <td>{{item.dependFloor}}&nbsp;階建</td>
+                                <!--<td><span *ngIf="isBuild(item)"><input type="text" class="width40" [(ngModel)]="item.contractData.dependFloor">&nbsp;階建</span></td>-->
+                                <td>{{item.floorSpace}}&nbsp;㎡</td>
+                                <!--<td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependFloorArea"></textarea></td>-->
                             </tr>
                         </tbody>
                     </table>
@@ -136,23 +139,23 @@
             <th>内金①</th>
             <td><input type="text" [(ngModel)]="contract.deposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
             <td>
-                <input type="text" [matDatepicker]="deposit1" class="width100" [(ngModel)]="contract.deposit1">
-                <mat-datepicker-toggle matSuffix [for]="deposit1" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #deposit1></mat-datepicker>
+                <input type="text" [matDatepicker]="deposit1Day" class="width100" [(ngModel)]="contract.deposit1Day">
+                <mat-datepicker-toggle matSuffix [for]="deposit1Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deposit1Day></mat-datepicker>
             </td>
             <th>内金②</th>
             <td><input type="text" [(ngModel)]="contract.deposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
             <td>
-                <input type="text" [matDatepicker]="deposit2" class="width100" [(ngModel)]="contract.deposit2">
-                <mat-datepicker-toggle matSuffix [for]="deposit2" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #deposit2></mat-datepicker>
+                <input type="text" [matDatepicker]="deposit2Day" class="width100" [(ngModel)]="contract.deposit2Day">
+                <mat-datepicker-toggle matSuffix [for]="deposit2Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deposit2Day></mat-datepicker>
             </td>
             <th>手付金</th>
             <td><input type="text" [(ngModel)]="contract.earnestPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
             <td>
-                <input type="text" [matDatepicker]="earnestPrice" class="width100" [(ngModel)]="contract.earnestPrice">
-                <mat-datepicker-toggle matSuffix [for]="earnestPrice" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #earnestPrice></mat-datepicker>
+                <input type="text" [matDatepicker]="earnestPriceDay" class="width100" [(ngModel)]="contract.earnestPriceDay">
+                <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #earnestPriceDay></mat-datepicker>
             </td>
             <th>売買残代金</th>
             <td><input type="text" [(ngModel)]="contract.tradingBalance" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 

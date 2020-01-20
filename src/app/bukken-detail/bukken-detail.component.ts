@@ -43,6 +43,7 @@ export class BukkenDetailComponent extends BaseComponent {
       this.pid = params.pid;
     });
     this.data = new Templandinfo();
+    this.data.result = '01';
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -81,6 +82,8 @@ export class BukkenDetailComponent extends BaseComponent {
       // 物件あり場合
       if ( values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
+      //}else{
+        //this.data.result = '01';
       }
 
       // 土地の契約情報
@@ -197,6 +200,11 @@ export class BukkenDetailComponent extends BaseComponent {
         // 土地情報登録
         this.convertSharer();
         this.data.convertForSave(this.service.loginUser.userId);
+        
+        this.data.locations.forEach(loc => {
+          loc.convertForSave();
+        });
+
         /*
         if (this.cbxBuysellFlg.checked) {
           this.data.buysellFlg = '1';

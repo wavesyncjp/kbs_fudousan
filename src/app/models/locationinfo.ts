@@ -29,6 +29,7 @@ export class Locationinfo {
     locationType: string;
     residence: string;
     buysellFlg='0';
+    dependType: string;
 
     
 
@@ -37,6 +38,10 @@ export class Locationinfo {
     contractData: ContractData = new ContractData();
     sharers: SharerInfo[];
     delSharers: number[];
+    dependTypeMap: string[] = [];
+
+    
+
 
     public constructor(init?: Partial<Locationinfo>) {
         if (init) {
@@ -70,6 +75,18 @@ export class Locationinfo {
         depend.dependStructure = this.contractData.dependStructure;
         depend.dependFloor = this.contractData.dependFloor;
         depend.dependFloorArea = this.contractData.dependFloorArea;
+    }
+
+    public convert() {
+        if (this.dependType !== null) {
+            this.dependTypeMap = this.dependType.split(',');
+        }
+    }
+    public convertForSave() {
+        this.dependType = this.dependTypeMap.join(',');
+
+    
+
     }
 }
 

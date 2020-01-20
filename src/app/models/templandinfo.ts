@@ -36,6 +36,8 @@ export class Templandinfo {
 
     createUserId: number;
     updateUserId: number;
+    
+    
 
     public constructor(init?: Partial<Templandinfo>) {
         if (init) {
