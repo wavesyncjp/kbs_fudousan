@@ -39,6 +39,7 @@ export class Contractinfo {
     prioritySalesAgreementDay: string;
     finishScheduledDay: string;
     finishScheduledNote: string;
+    dependType: string;
 
     vacationDayMap: Date = null;
     contractDayMap: Date = null;
