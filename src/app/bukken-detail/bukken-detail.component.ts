@@ -375,13 +375,21 @@ export class BukkenDetailComponent extends BaseComponent {
       loc.buildingNumber = '';
       loc.floorSpace = null;
       loc.liveInfo = '';
+      loc.dependTypeMap = null;
+      loc.dependFloor = null;
+      loc.liveInfo = null;
+      loc.oneBuilding = null;
     } else if (loc.locationType === '02') {
       loc.blockNumber = '';
       loc.area = null;
       loc.tsubo = null;
+      loc.oneBuilding = null;
+    }  else if (loc.locationType === '03') {
+    }
+      else if (loc.locationType === '04') {
+      loc.oneBuilding = null;
     }
   }
-
   /**
    * 契約詳細
    * @param data : 契約情報
