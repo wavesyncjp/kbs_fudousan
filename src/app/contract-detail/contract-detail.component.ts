@@ -66,7 +66,7 @@ export class ContractDetailComponent extends BaseComponent {
     this.contract = new Contractinfo();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '004', '006', '007', '008', '009','012']));
+    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '012']));
     funcs.push(this.service.getEmps(null));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));

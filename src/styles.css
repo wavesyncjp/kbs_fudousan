@@ -50,6 +50,9 @@ textarea {
 .width300{
     width: 300px !important;
 }
+.width250{
+    width: 250px !important;
+}
 .width400{
     width: 400px;
 }
@@ -525,3 +528,7 @@ span.minDl{
     /*border-left: solid 2px white;*/ 
 }
 /*20191217ADD削除の可能性高い*/
+
+.disabled {
+    background: #EBEBE4;
+}

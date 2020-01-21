@@ -16,7 +16,7 @@ export class Locationinfo {
     floorAreaRate: number;
     improveFlg: number;
     buildingType: string;
-    floorSpace: number;
+    floorSpace: string;
     structure: string;
     coverageRate: number;
     owner: string;
@@ -33,17 +33,15 @@ export class Locationinfo {
     dependFloor: string;
     oneBuilding: string;
 
-    
-
+    isContracted: boolean;
     isContract: boolean;
     isDepend: boolean;
     contractData: ContractData = new ContractData();
     sharers: SharerInfo[];
     delSharers: number[];
     dependTypeMap: string[] = [];
-
-    
-
+    createUserId: number;
+    updateUserId: number;
 
     public constructor(init?: Partial<Locationinfo>) {
         if (init) {
@@ -84,11 +82,13 @@ export class Locationinfo {
             this.dependTypeMap = this.dependType.split(',');
         }
     }
-    public convertForSave() {
+    public convertForSave(userId: number) {
         this.dependType = this.dependTypeMap.join(',');
-
-    
-
+        if (this.pid > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
     }
 }
 

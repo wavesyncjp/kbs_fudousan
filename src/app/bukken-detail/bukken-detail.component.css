@@ -87,7 +87,8 @@ mat-form-field > input {
 }
 
 .button-div button,
-.button-div-row a {
+.button-div-row a,
+.button-div-left button {
   margin: 10px 10px 10px 0px;
 }
 
@@ -110,19 +111,21 @@ mat-form-field > input {
     background-color:rgb(139, 111, 49);
     text-align: center;
 }
-
-.addSharer {
-    background-color: rgb(238, 187, 45);
+.button-div-left {
+    display: flex;
+    margin-left: 10px;
+}
+.button-div-left > .addLocation {
+    background-color:#FFC000;
     color: white;
-    height: 35px;   
-    margin: 2px 10px; 
 }
-.deleteSharer {
-    background-color: rgb(163, 158, 142);
-    color: black;
-    height: 35px;    
-    margin: 2px 10px;
+.button-div-left > .contractButton{
+    display: block;
+    color: rgb(255, 255, 255);
+    background-color:#C55A11;
+    text-align: center;
 }
+
 .attach-btn{
     background-color: red;
     margin-left: 20px;
@@ -138,14 +141,6 @@ mat-form-field > input {
     height: 100%;
     overflow-x: auto;
     margin-left: 12px;
-}
-.contracted {
-    margin-left: 30px;
-    color: red;
-    background-color: beige;
-    border: solid 1px grey;
-    border-radius: 5px;
-    padding: 3px;
 }
 
 .contact-div > table{

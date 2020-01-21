@@ -14,6 +14,7 @@ import { MapAttach, AttachFile } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Contractinfo } from '../models/contractinfo';
 import { SharerInfo } from '../models/sharer-info';
+import { LocationDetailComponent } from '../location-detail/location-detail.component';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -82,8 +83,6 @@ export class BukkenDetailComponent extends BaseComponent {
       // 物件あり場合
       if ( values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
-      //}else{
-        //this.data.result = '01';
       }
 
       // 土地の契約情報
@@ -102,84 +101,74 @@ export class BukkenDetailComponent extends BaseComponent {
   convertForDisplay() {
     this.data.convert();
     // 物件位置情報
-    if (!this.data.locations || this.data.locations.length === 0) {
-      this.data.locations = [];
-
-      const loc = new Locationinfo();
-      this.data.locations.push(loc);
-    }
-    else {
+    if (this.data.locations && this.data.locations.length > 0) {
       const locs = [];
       this.data.locations.forEach(loc => {
-        const frontLoc = new Locationinfo(loc);
-        frontLoc.convert();
-        locs.push(frontLoc);
+        const locFront = new Locationinfo(loc);
+        locFront.isContracted = this.contracted(loc.pid);
+        locs.push(locFront);
       });
       this.data.locations = locs;
     }
-  }  
+  }
 
   /**
    * 所有地追加
    */
   addLocation(): void {
     const loc = new Locationinfo();
-    this.data.locations.push(loc);
-  }
-
-  /**
-   * 所在地削除
-   * @param pos : 削除位置
-   */
-  removeLocation(pos: number): void {
-    const dlg = new Dialog({title: '確認', message: '所在地情報情報を削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '500px',
-      height: '250px',
-      data: dlg
+    loc.tempLandInfoPid = this.data.pid;
+    loc.sharers = [];
+    const dialogRef = this.dialog.open(LocationDetailComponent, {
+      width: '98%',
+      height: '480px',
+      data: loc
     });
-
+    // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        const loc = this.data.locations[pos];
-        if (loc.pid > 0) {
-          this.removeLoc.push(loc);
-        }
-        this.data.locations.splice(pos, 1);
+      if (result) {
+        this.data.locations.push(loc);
+      }
+    });
+
+  }
+
+  /**
+   * 所有地詳細
+   * @param loc : 所有地
+   */
+  showLocation(loc: Locationinfo) {
+    const dialogRef = this.dialog.open(LocationDetailComponent, {
+      width: '98%',
+      height: '480px',
+      data: loc
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
       }
     });
   }
 
   /**
-   * 所有者追加
+   * 所有地コピー
    * @param loc ：所有地
    */
-  addSharer(loc: Locationinfo) {
-    if (loc.sharers == null) {
-      loc.sharers = [];
-    }
-    if (loc.sharers.length === 0) {
-      loc.sharers.push(new SharerInfo());
-      loc.sharers.push(new SharerInfo());
-    }
-    else {
-      loc.sharers.push(new SharerInfo());
-    }
-  }
-
-  /**
-   * 所有者削除
-   * @param loc ：所有地
-   */
-  deleteSharer(loc: Locationinfo, sharerPos: number) {
-    const sharer = loc.sharers[sharerPos];
-    if (sharer.pid > 0) {
-      if (loc.delSharers == null) {
-        loc.delSharers = [];
+  copyLocation(loc: Locationinfo) {
+    const newLoc = new Locationinfo(loc);
+    newLoc.pid = null;
+    newLoc.isContracted = false;
+    const dialogRef = this.dialog.open(LocationDetailComponent, {
+      width: '98%',
+      height: '480px',
+      data: newLoc
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.data.locations.push(newLoc);
       }
-      loc.delSharers.push(sharer.pid);
-    }
-    loc.sharers.splice(sharerPos, 1);
+    });
   }
 
   /**
@@ -207,28 +196,9 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         // 土地情報登録
-        this.convertSharer();
         this.data.convertForSave(this.service.loginUser.userId);
-        
-        this.data.locations.forEach(loc => {
-          loc.convertForSave();
-        });
-
-        /*
-        if (this.cbxBuysellFlg.checked) {
-          this.data.buysellFlg = '1';
-        } else {
-          this.data.buysellFlg = '0';
-        }
-        */
-
-        // 削除された所在地も送る
-
         const funcs = [];
         funcs.push(this.service.saveLand(this.data));
-        if (this.removeLoc.length > 0) {
-          funcs.push(this.service.deleteLoc(this.removeLoc.map(lc => lc.pid)));
-        }
         Promise.all(funcs).then(values => {
 
           const finishDlg = new Dialog({title: '完了', message: '土地情報を登録しました。'});
@@ -273,27 +243,6 @@ export class BukkenDetailComponent extends BaseComponent {
       return false;
     }
     return true;
-  }
-
-  /**
-   * 共有者情報
-   */
-  convertSharer() {
-    this.data.locations.forEach(loc => {
-      if (loc.sharers == null) {
-        loc.sharers = [];
-      }
-      if(loc.sharers.length === 0) {
-        loc.sharers.push(new SharerInfo());
-      }
-      // 共通
-      const firstSharer = loc.sharers[0];
-      firstSharer.sharer = loc.owner;
-      firstSharer.sharerAdress = loc.ownerAdress;
-      firstSharer.shareRatio = loc.equity;
-      firstSharer.buysellFlg = loc.buysellFlg;
-
-    });
   }
 
   // 地図アップロード
@@ -361,35 +310,7 @@ export class BukkenDetailComponent extends BaseComponent {
   navigateContract(loc: Locationinfo) {
     this.router.navigate(['/ctdetail'], {queryParams: {bukkenid: this.data.pid}});
   }
-
-  changeArea(event, loc) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      loc.tsubo = Number(val) * 0.3025;
-    }
-  }
-
-  changeType(loc: Locationinfo) {
-    // 土地
-    if (loc.locationType === '01') {
-      loc.buildingNumber = '';
-      loc.floorSpace = null;
-      loc.liveInfo = '';
-      loc.dependTypeMap = null;
-      loc.dependFloor = null;
-      loc.liveInfo = null;
-      loc.oneBuilding = null;
-    } else if (loc.locationType === '02') {
-      loc.blockNumber = '';
-      loc.area = null;
-      loc.tsubo = null;
-      loc.oneBuilding = null;
-    }  else if (loc.locationType === '03') {
-    }
-      else if (loc.locationType === '04') {
-      loc.oneBuilding = null;
-    }
-  }
+  
   /**
    * 契約詳細
    * @param data : 契約情報
@@ -445,13 +366,6 @@ export class BukkenDetailComponent extends BaseComponent {
     }
     return false;
   }
-  /**
-   * チェックボックス変更
-   */
-  flgChange(event, flg: any) {
-   flg.buysellFlg = (event.checked ? 1 : 0);
-  }
-
 
 }
 

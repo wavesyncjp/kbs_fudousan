@@ -153,121 +153,57 @@
         </table>		    
     </table>
 <!--11/26修正-->
-        <div class="button-div">
-            <button mat-raised-button class="addLocation" (click)="addLocation()" >所有地追加</button>
-            <button mat-stroked-button class="contractButton" (click)="navigateContract(location)">契約書情報</button>
-        </div>
-        <div class="button-div"> 
-            <button mat-stroked-button style="float: right;margin:5px;" (click)="navigateContract(location)" class="contractButton">契約書情報</button>    
-        </div>             
-        <!--Tab group-->
-        <!--block-->
-                
-        <div *ngFor="let location of data.locations; index as pos">                 
-            <table class="detail-tbl-min">
-                <tr>
-                    <td colspan="6">
-                        <span class="min">
-                            <label>所在地</label>
-                            <button mat-flat-button color="blue" *ngIf="data.locations.length > 1 && !contracted(location.pid)" (click)="removeLocation(pos)" class="iconbtn">
-                                削除
-                            </button>
+    <div class="button-div-left">
+        <button mat-raised-button class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
+        <button mat-stroked-button class="contractButton" (click)="navigateContract(location)">契約情報　登録</button>
+    </div>
+    <!--Tab group-->
+    <!--block-->                        
+<!--所有地-->
+        <div class="contact-div" *ngIf="data.locations.length > 0" style="width: 100%;">
+            <span class="min">謄本情報　一覧</span>
+            <table>
+                <thead class="list-header">
+                    <th>契約番号</th>
+                    <th>契約ステータス</th>
 
-                            <label class="contracted" *ngIf="contracted(location.pid)">契約済み</label>
-
-                        </span>                        
-                    </td>
-                </tr>
-                <tr>
-                    <th><app-select-component [exclass]="true" [codes]="getCode('007')" [(ngModel)]="location.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType(location)"></app-select-component></th>
-                    <td><input type="text" class="width150" [attr.disabled]="data.pid < 0"></td>
-                    <th>一棟の種類</th>
-                    <td colspan="3">
-                    <mat-select multiple [(ngModel)]="oneBuilding" [disabled]="location.locationType == '01' ||location.locationType == '02' || location.locationType == '04'" class="width300">
-                        <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
-                    </mat-select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>所在地</th>
-                    <td style="width: 450px;"><input type="text" [(ngModel)]="location.address" [ngClass]="{'width400': true, 'error': errors['address' + pos]}"></td>            
-                    <th>地番</th>
-                    <td><input type="text" [(ngModel)]="location.blockNumber" [disabled]="location.locationType == '02'" class="width100"></td>
-                    <th>家屋番号</th>
-                    <td><input type="text" [(ngModel)]="location.buildingNumber" [disabled]="location.locationType == '01'" class="width100"></td>                        
-                </tr>
-                <tr>
-                    <th class="sharer">所有者名
-                        <button *ngIf="!contracted(location.pid)" mat-raised-button class="addSharer" (click)="addSharer(location)" >追加</button>
-                    </th>
-                    <td>&nbsp;売買対象&nbsp;&nbsp;<mat-checkbox [checked]="location.buysellFlg == 1" (change)="flgChange($event, location)"></mat-checkbox>
-                    <!--20200116_S_Add-->
-                    <br><input type="text" [(ngModel)]="location.owner" [ngClass]="{'width400': true, 'error': errors['owner' + pos]}"></td>
-                    <!--20200116_E_Add-->
-                    <th class="sharer">所有者住所</th>
-                    <td><input type="text" [(ngModel)]="location.ownerAdress" class = "width400"></td>
-                    <th class="sharer">持ち分</th>
-                    <td><input type="text" [(ngModel)]="location.equity" class = "width152"></td>
-                </tr>
-                <!--共有者情報-->                
-                <tr *ngFor="let sharer of location.sharers | slice:1; index as sharerPos">
-                    <th class="sharer">所有者名
-                        <button *ngIf="!contracted(location.pid)" mat-raised-button class="deleteSharer" (click)="deleteSharer(location, sharerPos)" >削除</button>
-                    </th>
-                    <td>&nbsp;売買対象&nbsp;&nbsp;<mat-checkbox [checked]="sharer.buysellFlg == 1"  (change)="flgChange($event, sharer)"></mat-checkbox>
-                    <!--20200116_S_Add-->
-                    <br><input type="text" [(ngModel)]="sharer.sharer" class="width400"></td>
-                    <!--20200116_E_Add-->
-                    <th class="sharer">所有者住所</th>
-                    <td><input type="text" [(ngModel)]="sharer.sharerAdress" class = "width400"></td>
-                    <th class="sharer">持ち分</th>
-                    <td><input type="text" [(ngModel)]="sharer.shareRatio" class = "width152"></td>
-                </tr>
-                <!--/共有者情報-->
-
-                <tr>
-                    <th>地積</th>
-                    <td><input type="text" [(ngModel)]="location.area" [ngClass]="{'width80': true, 'number': true, 'error': errors['area' + pos]}" (keypress)="floatOnly($event)" (keyup)="changeArea($event, location)" [disabled]="location.locationType == '02'">&nbsp;㎡                    
-                    <input type="text" [(ngModel)]="location.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;坪</td>
+                    <th class="width80">区分</th>
+                    <th>所在</th>
+                    <th class="width80">地番</th>
+                    <th class="width80">家屋番号</th>
+                    <th class="width80">面積・床面積</th>
+                    <th>所有者（代表）</th>
+                    <th>所有者住所（代表）</th>
                     <th>権利形態</th>
-                    <td><app-select-component [codes]="getCode('011')" [(ngModel)]="location.rightsForm"></app-select-component></td>
-                    <th>地目</th>
-                    <td>
-                        <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
-                    </td>
-               </tr>
-                <tr>
-                    <th>種類</th>
-                    <td colspan="5">
-                    <mat-select multiple [(ngModel)]="location.dependTypeMap" [disabled]="location.locationType == '01'"  class="width300">
-                        <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
-                    </mat-select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>構造</th>
-                    <td><textArea [(ngModel)]="location.structure" class="width300"  [disabled]="location.locationType == '01'"></textArea></td>
-                    <th>階建</th>
-                    <td><input type="text" class="width100" [(ngModel)]="location.dependFloor" [disabled]="location.locationType == '01'">&nbsp;階建</td>
-                    <th>床面積</th>
-                    <td><textArea [(ngModel)]="location.floorSpace" [ngClass]="{'width200': true, 'number': true, 'error': errors['floorSpace' + pos]}" (keypress)="floatOnly($event)" ></textArea>&nbsp;㎡</td>
-                </tr>
-                <tr>
-                    <th>入居者情報</th>
-                    <td colspan="5">
-                        <input type="text" [(ngModel)]="location.liveInfo" class="width85Per" [disabled]="location.locationType == '01'">
-                    </td>
-                </tr>
-                <tr>
-                    <th>備考</th>
-                    <td colspan="5">
-                        <input type="text" [(ngModel)]="location.ownerRemark" class="width85Per">
-                    </td>
-                </tr>
-            </table>            
+                    <th>契約者</th>
+                    <th class="width100">決済日</th>
+                    <th class="width80">謄本詳細</th>
+                    <th class="width80">コピー</th>                       
+                </thead>
+                <tbody class="list-body">
+                    <tr *ngFor="let loc of data.locations; index as pos">                            
+                        <td></td>
+                        <td></td>
+                        <td class="break-line">{{getCodeTitle('007', loc.locationType)}}</td>
+                        <td class="text-left">{{loc.address}}</td>
+                        <td class="text-left">{{loc.blockNumber}}</td>
+                        <td class="text-left">{{loc.buildingNumber}}</td>
+                        <td>{{loc.locationType === '01' ? (loc.area != null ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
+                        <td>{{loc.owner}}</td>
+                        <td>{{loc.ownerAdress}}</td>
+                        <td>{{getCodeTitle('011', loc.rightsForm)}}</td>
+                        <td></td>
+                        <td></td>
+                        <td><button mat-raised-button (click)="showLocation(loc)" color="warn">詳細</button></td>
+                        <td><button mat-raised-button (click)="copyLocation(loc)" color="primary">コピー</button></td>                        
+                    </tr>
+                </tbody>
+            </table>
         </div>
+<!--/所有地-->
 
-        <!--契約情報-->
+<!--契約情報-->
+<!--
         <div class="contact-div" *ngIf="contracts.length > 0">
             <span class="min">契約一覧</span>
             <table>
@@ -301,6 +237,7 @@
                 </tbody>
             </table>
         </div>
+    -->
         <!--/契約情報-->
             
     <!--11/26修正-->

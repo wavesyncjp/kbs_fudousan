@@ -34,6 +34,7 @@ import { CodeDetailComponent } from './code-detail/code-detail.component';
 import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.component';
 import { DatePipe } from '@angular/common';
 import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.component';
+import { LocationDetailComponent } from './location-detail/location-detail.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.comp
     CodeListComponent,
     CodeDetailComponent,
     FinishDialogComponent,
-    SharerDialogComponent
+    SharerDialogComponent,
+    LocationDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +96,6 @@ import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.comp
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
-    UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent],
+    UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent],
 })
 export class AppModule { }

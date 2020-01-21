@@ -7,6 +7,7 @@ import { Templandinfo } from './models/templandinfo';
 import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
 import { Converter } from './utils/converter';
+import { Locationinfo } from './models/locationinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -482,6 +483,16 @@ export class BackendService {
       sharers: sharerList
     };
     const req = this.http.post<Code>(`${this.BaseUrl}/${api}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 所有地保存
+   * @param loc　：所有地
+   */
+  saveLocation(locSave: Locationinfo) {
+    const api = 'locationsave.php';
+    const req = this.http.post<Code>(`${this.BaseUrl}/${api}`, locSave);
     return req.toPromise();
   }
 }

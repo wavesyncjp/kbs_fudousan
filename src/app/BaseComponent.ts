@@ -70,6 +70,9 @@ export class BaseComponent implements OnInit {
      * @param codeDetail ：コード詳細
      */
     getCodeTitle(code: string, codeDetail: string) {
+        if (codeDetail == null || codeDetail === '') {
+            return '';
+        }
         return this.sysCodes[code].filter(c => c.codeDetail === codeDetail).map(c => c.name)[0];
     }
 
@@ -80,6 +83,20 @@ export class BaseComponent implements OnInit {
      */
     getCodeDetail(code: string, title: string) {
         return this.sysCodes[code].filter(c => c.name === title).map(c => c.codeDetail)[0];
+    }
+
+    /**
+     * 複数コードのタイトル
+     * @param code ：コード
+     * @param codeDetail ：コード詳細
+     */
+    getCodeTitles(code: string, details: string) {
+        const lst = details.split(',');
+        const ret = this.sysCodes[code].filter(c => lst.indexOf(c.codeDetail) >= 0).map(c => c.name);
+        if (ret != null && ret.length > 0) {
+            return ret.join(',');
+        }
+        return '';
     }
 
     /**
