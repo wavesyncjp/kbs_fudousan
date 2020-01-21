@@ -95,7 +95,7 @@
                                 <td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150" [(ngModel)]="item.contractData.contractorName"></td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
                                 <td><span *ngIf="isLand(item)"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractData.contractArea">&nbsp;㎡</span></td>
-                                <td>{{item.dependType}}</td>
+                                <td>{{item.dependTypeMap}}</td>
                                 <!--<td><app-select-component *ngIf="isBuild(item)" [codes]="getCode('004')" [exclass]="true" [(ngModel)]="item.contractData.dependType"></app-select-component></td>-->
                                 <td>{{item.structure}}</td>
                                 <!--<td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependStructure"></textarea></td>-->

@@ -30,6 +30,8 @@ export class Locationinfo {
     residence: string;
     buysellFlg='0';
     dependType: string;
+    dependFloor: string;
+    oneBuilding: string;
 
     
 
