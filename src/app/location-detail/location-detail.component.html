@@ -8,17 +8,17 @@
             <td colspan="6">
                 <span class="min">
                     <label>謄本情報　登録</label>
-                    <!--<label class="contracted" *ngIf="location.isContracted">契約済み</label>-->
+                    <!--<label class="contracted" *ngIf="data.isContracted">契約済み</label>-->
 
                 </span>                        
             </td>
         </tr>
         <tr>
-            <th><app-select-component [exclass]="true" [codes]="getCode('007')" [(ngModel)]="data.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType()"></app-select-component></th>
+            <th><app-select-component [exclass]="true" [codes]="getCode('007')" [(ngModel)]="data.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType($event)"></app-select-component></th>
             <td></td>
             <th>一棟の建物</th>
             <td colspan="3">
-            <mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' ||data.locationType == '02' || data.locationType == '04'" class="width300">
+            <mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '04'" [ngClass]="{'width300': true, 'disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '04')}">
                 <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
             </mat-select>
             </td>
@@ -74,21 +74,21 @@
         <tr>
             <th>種類</th>
             <td>
-            <mat-select multiple [(ngModel)]="location.dependTypeMap" [disabled]="location.locationType == '01'"  [ngClass]="{'width300': true, 'disabled': location.locationType == '01'}">
+            <mat-select multiple [(ngModel)]="data.dependTypeMap" [disabled]="data.locationType == '01'"  [ngClass]="{'width300': true, 'disabled': data.locationType == '01'}">
                 <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
             </mat-select>
             </td>
             <th>階建</th>
             <td colspan="3">
-                <input type="text" class="width100" [(ngModel)]="location.dependFloor" [disabled]="location.locationType == '01'">&nbsp;階建
+                <input type="text" class="width100" [(ngModel)]="data.dependFloor" [disabled]="data.locationType == '01'">&nbsp;階建
             </td>
         </tr>
         <tr>            
             <th>構造</th>
-            <td><textarea [(ngModel)]="location.structure"  class="area" [disabled]="location.locationType == '01'"></textarea></td>
+            <td><textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'"></textarea></td>
     
             <th>床面積</th>
-            <td><textarea [(ngModel)]="location.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace' + pos]}"></textarea></td>
+            <td colspan="3"><textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace' + pos]}"></textarea></td>
         </tr>
         <tr>
             <th>入居者情報</th>

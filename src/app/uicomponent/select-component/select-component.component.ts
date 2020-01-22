@@ -65,8 +65,9 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
 
   setDisabledState(isDisabled: boolean): void {}
 
-  change(event) {
-    this.changed.emit();
+  change(event, oldValue: string) {
+    // tslint:disable-next-line:object-literal-shorthand
+    this.changed.emit(event);
   }
 
   getClass() {
