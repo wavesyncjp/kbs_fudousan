@@ -152,6 +152,7 @@ export class LocationDetailComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
+        this.convertSharer();
         this.data.convertForSave(this.service.loginUser.userId);
         // 削除された所在地も送る
 

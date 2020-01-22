@@ -33,9 +33,9 @@
         </tr>
         <tr>
             <th class="sharer">所有者名
-                <button *ngIf="!data.isContracted" mat-raised-button class="addSharer" (click)="addSharer(location)" >追加</button>
+                <button *ngIf="!data.isContracted" mat-raised-button class="addSharer" (click)="addSharer()" >追加</button>
             </th>
-            <td>&nbsp;売買対象&nbsp;&nbsp;<mat-checkbox [checked]="data.buysellFlg == 1" (change)="flgChange($event, location)"></mat-checkbox>
+            <td>&nbsp;売買対象&nbsp;&nbsp;<mat-checkbox [checked]="data.buysellFlg == 1" (change)="flgChange($event, data)"></mat-checkbox>
             <!--20200116_S_Add-->
             <br><input type="text" [(ngModel)]="data.owner" [ngClass]="{'width300': true, 'error': errors['owner' + pos]}"></td>
             <!--20200116_E_Add-->
