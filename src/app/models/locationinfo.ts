@@ -32,6 +32,8 @@ export class Locationinfo {
     dependType: string;
     dependFloor: string;
     oneBuilding: string;
+    bukkenName = '';
+    floorAreaRatio: number = null;
 
     isContracted: boolean;
     isContract: boolean;
@@ -42,6 +44,7 @@ export class Locationinfo {
     dependTypeMap: string[] = [];
     createUserId: number;
     updateUserId: number;
+    locations: Locationinfo[];
 
     public constructor(init?: Partial<Locationinfo>) {
         if (init) {

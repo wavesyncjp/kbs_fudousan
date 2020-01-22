@@ -112,22 +112,23 @@ export class LocationDetailComponent extends BaseComponent {
 
   changeType() {
     // 土地
-    if (this.data.locationType === '01') {
-      this.data.buildingNumber = '';
-      this.data.floorSpace = null;
-      this.data.liveInfo = '';
-      this.data.dependTypeMap = null;
-      this.data.dependFloor = null;
-      this.data.liveInfo = null;
-      this.data.oneBuilding = null;
-    } else if (this.data.locationType === '02') {
-      this.data.blockNumber = '';
-      this.data.area = null;
-      this.data.tsubo = null;
-      this.data.oneBuilding = null;
-    }  else if (this.data.locationType === '03') {
-    } else if (this.data.locationType === '04') {
-      this.data.oneBuilding = null;
+    if (this.location.locationType === '01') {
+      this.location.buildingNumber = '';
+      this.location.floorSpace = null;
+      this.location.liveInfo = '';
+      this.location.dependTypeMap = null;
+      this.location.dependFloor = null;
+      this.location.liveInfo = null;
+      this.location.oneBuilding = null;
+      this.location.structure= null;
+    } else if (this.location.locationType === '02') {
+      this.location.blockNumber = '';
+      this.location.area = null;
+      this.location.tsubo = null;
+      this.location.oneBuilding = null;
+    }  else if (this.location.locationType === '03') {
+    } else if (this.location.locationType === '04') {
+      this.location.oneBuilding = null;
     }
   }
 
@@ -178,6 +179,21 @@ export class LocationDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
+/*20200123_check_S
+    this.checkBlank(this.location.bukkenName, 'bukkenName', '物件名は必須です。');
+    this.checkBlank(this.location.residence, 'residence', '住居表示は必須です。');
+    this.checkNumber(this.location.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
+    this.checkNumber(this.location.coverageRate, 'coverageRate', '建蔽率は不正です。');
+
+    // 所有地
+    this.location.locations.forEach((element, index) => {
+      this.checkBlank(element.locationType, `locationType${index}`, '所在地種別は必須です。');
+      this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
+      this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
+      this.checkNumber(element.area, `area${index}`, '地積は不正です。');
+      this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
+    });
+    20200123_check_E*/
     if (this.errorMsgs.length > 0) {
       return false;
     }
@@ -188,5 +204,4 @@ export class LocationDetailComponent extends BaseComponent {
     this.spinner.hide();
     this.dialogRef.close(false);
   }
-
 }
