@@ -120,6 +120,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.location.dependFloor = null;
       this.location.liveInfo = null;
       this.location.oneBuilding = null;
+      this.location.structure= null;
     } else if (this.location.locationType === '02') {
       this.location.blockNumber = '';
       this.location.area = null;
@@ -180,6 +181,21 @@ export class LocationDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
+/*20200123_check_S
+    this.checkBlank(this.location.bukkenName, 'bukkenName', '物件名は必須です。');
+    this.checkBlank(this.location.residence, 'residence', '住居表示は必須です。');
+    this.checkNumber(this.location.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
+    this.checkNumber(this.location.coverageRate, 'coverageRate', '建蔽率は不正です。');
+
+    // 所有地
+    this.location.locations.forEach((element, index) => {
+      this.checkBlank(element.locationType, `locationType${index}`, '所在地種別は必須です。');
+      this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
+      this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
+      this.checkNumber(element.area, `area${index}`, '地積は不正です。');
+      this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
+    });
+    20200123_check_E*/
     if (this.errorMsgs.length > 0) {
       return false;
     }
@@ -190,5 +206,4 @@ export class LocationDetailComponent extends BaseComponent {
     this.spinner.hide();
     this.dialogRef.close(false);
   }
-
 }

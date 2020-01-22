@@ -7,8 +7,8 @@
         <tr>
             <td colspan="6">
                 <span class="min">
-                    <label>所在地</label>
-                    <label class="contracted" *ngIf="location.isContracted">契約済み</label>
+                    <label>謄本情報　登録</label>
+                    <!--<label class="contracted" *ngIf="location.isContracted">契約済み</label>-->
 
                 </span>                        
             </td>
@@ -16,7 +16,7 @@
         <tr>
             <th><app-select-component [exclass]="true" [codes]="getCode('007')" [(ngModel)]="location.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType()"></app-select-component></th>
             <td></td>
-            <th>一棟の種類</th>
+            <th>一棟の建物</th>
             <td colspan="3">
             <mat-select multiple [(ngModel)]="oneBuilding" [disabled]="location.locationType == '01' ||location.locationType == '02' || location.locationType == '04'" class="width300">
                 <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
@@ -73,19 +73,22 @@
         </tr>
         <tr>
             <th>種類</th>
-            <td colspan="5">
+            <td>
             <mat-select multiple [(ngModel)]="location.dependTypeMap" [disabled]="location.locationType == '01'"  [ngClass]="{'width300': true, 'disabled': location.locationType == '01'}">
                 <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
             </mat-select>
             </td>
+            <th>階建</th>
+            <td colspan="3">
+                <input type="text" class="width100" [(ngModel)]="location.dependFloor" [disabled]="location.locationType == '01'">&nbsp;階建
+            </td>
         </tr>
         <tr>
             <th>構造</th>
-            <td><textarea [(ngModel)]="location.structure" class="width300"  [disabled]="location.locationType == '01'"></textarea></td>
-            <th>階建</th>
-            <td><input type="text" class="width100" [(ngModel)]="location.dependFloor" [disabled]="location.locationType == '01'">&nbsp;階建</td>
+            <td><textarea [(ngModel)]="location.structure"  class="area" [disabled]="location.locationType == '01'"></textarea></td>
+    
             <th>床面積</th>
-            <td><textarea [(ngModel)]="location.floorSpace" [ngClass]="{'width200': true, 'number': true, 'error': errors['floorSpace' + pos]}"  ></textarea></td>
+            <td><textarea [(ngModel)]="location.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace' + pos]}"></textarea></td>
         </tr>
         <tr>
             <th>入居者情報</th>

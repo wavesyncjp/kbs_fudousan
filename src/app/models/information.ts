@@ -9,6 +9,7 @@ export class Information {
     attachFilePath = '';
     createUserId: number;
     updateUserId: number;
+    
 
     infoDateMap: Date = null;
   department: any;
