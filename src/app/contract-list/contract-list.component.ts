@@ -68,6 +68,9 @@ export class ContractListComponent  extends BaseComponent {
   }
 
   getLocationType(locationId: number, locs: any) {
+    if (locationId === 0) {
+      return '';
+    }
     for (const ele of locs) {
       if (ele.pid === locationId) {
         return (ele.locationType === '01' ? '土地' : '建物');
