@@ -154,8 +154,8 @@
     </table>
 <!--11/26修正-->
     <div class="button-div-left">
-        <button mat-raised-button class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
-        <button mat-stroked-button class="contractButton" (click)="navigateContract(location)">契約情報　登録</button>
+        <button mat-raised-button *ngIf="this.data.pid > 0" class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
+        <button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract(location)">契約情報　登録</button>
     </div>
     <!--Tab group-->
     <!--block-->                        

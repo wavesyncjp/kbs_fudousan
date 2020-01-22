@@ -91,6 +91,9 @@ export class BaseComponent implements OnInit {
      * @param codeDetail ：コード詳細
      */
     getCodeTitles(code: string, details: string) {
+        if (details == null || details === '') {
+            return '';
+        }
         const lst = details.split(',');
         const ret = this.sysCodes[code].filter(c => lst.indexOf(c.codeDetail) >= 0).map(c => c.name);
         if (ret != null && ret.length > 0) {

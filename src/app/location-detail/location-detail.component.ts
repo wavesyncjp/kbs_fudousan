@@ -25,7 +25,7 @@ export class LocationDetailComponent extends BaseComponent {
               private spinner: NgxSpinnerService,
               public dialogRef: MatDialogRef<Locationinfo>,
               public dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) public location: Locationinfo) {
+              @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
       super(router, service);
   }
 
@@ -58,14 +58,14 @@ export class LocationDetailComponent extends BaseComponent {
    * @param loc ：所有地
    */
   addSharer() {
-    if (this.location.sharers == null) {
-      this.location.sharers = [];
+    if (this.data.sharers == null) {
+      this.data.sharers = [];
     }
-    if (this.location.sharers.length === 0) {
-      this.location.sharers.push(new SharerInfo());
-      this.location.sharers.push(new SharerInfo());
+    if (this.data.sharers.length === 0) {
+      this.data.sharers.push(new SharerInfo());
+      this.data.sharers.push(new SharerInfo());
     } else {
-      this.location.sharers.push(new SharerInfo());
+      this.data.sharers.push(new SharerInfo());
     }
   }
 
@@ -74,38 +74,38 @@ export class LocationDetailComponent extends BaseComponent {
    * @param loc ：所有地
    */
   deleteSharer(sharerPos: number) {
-    const sharer = this.location.sharers[sharerPos];
+    const sharer = this.data.sharers[sharerPos];
     if (sharer.pid > 0) {
-      if (this.location.delSharers == null) {
-        this.location.delSharers = [];
+      if (this.data.delSharers == null) {
+        this.data.delSharers = [];
       }
-      this.location.delSharers.push(sharer.pid);
+      this.data.delSharers.push(sharer.pid);
     }
-    this.location.sharers.splice(sharerPos, 1);
+    this.data.sharers.splice(sharerPos, 1);
   }
 
   /**
    * 共有者情報
    */
   convertSharer() {
-      if (this.location.sharers == null) {
-        this.location.sharers = [];
+      if (this.data.sharers == null) {
+        this.data.sharers = [];
       }
-      if (this.location.sharers.length === 0) {
-        this.location.sharers.push(new SharerInfo());
+      if (this.data.sharers.length === 0) {
+        this.data.sharers.push(new SharerInfo());
       }
       // 共通
-      const firstSharer = this.location.sharers[0];
-      firstSharer.sharer = this.location.owner;
-      firstSharer.sharerAdress = this.location.ownerAdress;
-      firstSharer.shareRatio = this.location.equity;
-      firstSharer.buysellFlg = this.location.buysellFlg;
+      const firstSharer = this.data.sharers[0];
+      firstSharer.sharer = this.data.owner;
+      firstSharer.sharerAdress = this.data.ownerAdress;
+      firstSharer.shareRatio = this.data.equity;
+      firstSharer.buysellFlg = this.data.buysellFlg;
   }
 
   changeArea(event) {
     const val = event.target.value;
     if (this.isNumberStr(val)) {
-      this.location.tsubo = Number(val) * 0.3025;
+      this.data.tsubo = Number(val) * 0.3025;
     }
   }
 
@@ -153,13 +153,11 @@ export class LocationDetailComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.location.convertForSave(this.service.loginUser.userId);
+        this.convertSharer();
+        this.data.convertForSave(this.service.loginUser.userId);
         // 削除された所在地も送る
 
-        const funcs = [];
-        funcs.push(this.service.saveLocation(this.location));
-        Promise.all(funcs).then(values => {
-
+        this.service.saveLocation(this.data).then(values => {
           const finishDlg = new Dialog({title: '完了', message: '謄本情報を登録しました。'});
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',

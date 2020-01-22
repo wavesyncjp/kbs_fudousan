@@ -109,6 +109,8 @@ export class BukkenDetailComponent extends BaseComponent {
         locs.push(locFront);
       });
       this.data.locations = locs;
+    } else {
+      this.data.locations = [];
     }
   }
 

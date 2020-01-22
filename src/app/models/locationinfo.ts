@@ -86,7 +86,9 @@ export class Locationinfo {
         }
     }
     public convertForSave(userId: number) {
-        this.dependType = this.dependTypeMap.join(',');
+        if (this.dependTypeMap != null && this.dependTypeMap.length > 0) {
+            this.dependType = this.dependTypeMap.join(',');
+        }
         if (this.pid > 0) {
             this.updateUserId = userId;
         } else {
