@@ -30,3 +30,14 @@ mat-select {
     width: 300px;
     height: 70px;
 }
+.attach-btn{
+    background-color: red;
+    margin-left: 20px;
+    color: white;
+    height: 34px;
+    width: 80px;
+    font-size: 1.0em;
+}
+.buysell{
+    font-size: 0.6em;
+}

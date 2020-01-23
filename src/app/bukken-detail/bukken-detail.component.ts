@@ -123,7 +123,7 @@ export class BukkenDetailComponent extends BaseComponent {
     loc.sharers = [];
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
-      height: '480px',
+      height: '600px',
       data: loc
     });
     // 再検索
@@ -229,17 +229,17 @@ export class BukkenDetailComponent extends BaseComponent {
 
     this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
     this.checkBlank(this.data.residence, 'residence', '住居表示は必須です。');
-    this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
-    this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
+  　//this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
+    //this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
 
-    // 所有地
+    /*// 所有地
     this.data.locations.forEach((element, index) => {
       this.checkBlank(element.locationType, `locationType${index}`, '所在地種別は必須です。');
       this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
       this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
       this.checkNumber(element.area, `area${index}`, '地積は不正です。');
       this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
-    });
+    });*/
 
     if (this.errorMsgs.length > 0) {
       return false;

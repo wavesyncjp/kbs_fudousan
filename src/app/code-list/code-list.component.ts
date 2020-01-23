@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { CodeDetailComponent } from '../code-detail/code-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
+import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
 //import { Code } from '../models/bukken';
@@ -20,12 +21,14 @@ import { JPDateAdapter } from '../adapters/adapters';
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
 })
+
 export class CodeListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   /**/
   displayedColumns: string[] = ['code','nameHeader','codeDetail','name','displayOrder', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Code>();
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
               public dialog: MatDialog,
@@ -83,7 +86,7 @@ export class CodeListComponent extends BaseComponent {
     （toLocaleDateString=国、地域の時間をあった言語にて表示する）*/
     this.service.searchCode(this.cond).then(res => {
       this.dataSource.data = res;
-
+      this.dataSource.sort = this.sort;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
