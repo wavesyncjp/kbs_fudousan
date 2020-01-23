@@ -26,6 +26,7 @@ export class LocationDetailComponent extends BaseComponent {
               private spinner: NgxSpinnerService,
               public dialogRef: MatDialogRef<Locationinfo>,
               public dialog: MatDialog,
+              /*public sharer: SharerInfo,*/
               @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
       super(router, service);
   }
@@ -106,7 +107,7 @@ export class LocationDetailComponent extends BaseComponent {
   changeArea(event) {
     const val = event.target.value;
     if (this.isNumberStr(val)) {
-      this.data.tsubo = Number(val) * 0.3025;
+      this.data.tsubo = Math.floor(Number(val) * 0.3025 *100)/100;
     }
   }
 
@@ -147,9 +148,19 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.area = null;
       this.data.tsubo = null;
       this.data.oneBuilding = null;
-    }  else if (this.data.locationType === '03') {
-    } else if (this.data.locationType === '04') {
+    } else if (this.data.locationType === '03') {
       this.data.oneBuilding = null;
+      this.data.buysellFlg = '';
+      this.data.owner = null;
+      this.data.ownerAdress = null;
+      this.data.equity = null;
+
+     /* this.sharer.buysellFlg = '';
+      this.sharer.sharer = null;
+      this.sharer.sharerAdress = null;
+      this.sharer.shareRatio = null;*/
+    } else if (this.data.locationType === '04') {
+      
     }
     this.oldLocationType = this.data.locationType;
   }
@@ -197,28 +208,45 @@ export class LocationDetailComponent extends BaseComponent {
     });
   }
 
+    /**
+   * 謄本情報 削除
+   * 削除したい謄本情報*/
+
+  /*20200123 →トゥンさんこちらお願いします*/ 
+  
+  deleteLoc(row) {
+    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+
+    /*dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteInfo(row.pid).then(res => {
+          this.searchInfo();
+        });
+      }
+    });*/
+
+  }
+
   /**
    * バリデーション
    */
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
-    this.checkBlank(this.data.locationType, 'locationType', '区分は必須です。');
-/*20200123_check_S
-    this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
-    this.checkBlank(this.data.residence, 'residence', '住居表示は必須です。');
-    this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
-    this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
-
+    this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     // 所有地
     this.data.locations.forEach((element, index) => {
-      this.checkBlank(element.locationType, `locationType${index}`, '所在地種別は必須です。');
       this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
       this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
       this.checkNumber(element.area, `area${index}`, '地積は不正です。');
       this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
     });
-    20200123_check_E*/
+    
     if (this.errorMsgs.length > 0) {
       return false;
     }
