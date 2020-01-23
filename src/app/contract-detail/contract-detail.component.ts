@@ -9,14 +9,14 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { Dialog } from '../models/dialog';
 import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
-import { Locationinfo, ContractData } from '../models/locationinfo';
+import { Locationinfo } from '../models/locationinfo';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Contractdetailinfo } from '../models/contractdetailinfo';
-import { Contractdependinfo } from '../models/contractdependinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { ContractFile } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
+import { ContractSellerInfo } from '../models/contractsellerinfo';
 
 @Component({
   selector: 'app-contract-detail',
@@ -36,6 +36,7 @@ export class ContractDetailComponent extends BaseComponent {
   public otherLocs: string[] = [];
   public pid: number;
   public bukkenid: number;
+  delSellers = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -66,7 +67,7 @@ export class ContractDetailComponent extends BaseComponent {
     this.contract = new Contractinfo();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '012']));
+    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
     funcs.push(this.service.getEmps(null));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
@@ -94,10 +95,16 @@ export class ContractDetailComponent extends BaseComponent {
         if (this.pid > 0) {
           this.contract = new Contractinfo(values[2] as Contractinfo);
           this.contract.convert();
+          if (this.contract.sellers == null || this.contract.sellers.length === 0) {
+            this.contract.sellers = [];
+            this.contract.sellers.push(new ContractSellerInfo());
+          }
           this.data = values[2].land;
         } else {
           this.data = new Templandinfo(values[2] as Templandinfo);
           this.contract = new Contractinfo();
+          this.contract.sellers = [];
+          this.contract.sellers.push(new ContractSellerInfo());
         }
         this.convertData();
 
@@ -106,7 +113,6 @@ export class ContractDetailComponent extends BaseComponent {
 
           const ids = this.contract.details.map(data => data.locationInfoPid);
           this.otherLocs = res.filter(pid => !ids.includes(pid as unknown as number));
-          console.log(this.otherLocs);
 
           setTimeout(() => {
             this.spinner.hide();
@@ -125,28 +131,15 @@ export class ContractDetailComponent extends BaseComponent {
     const locs = [];
     this.data.locations.forEach(loc => {
       const newLoc = new Locationinfo(loc as Locationinfo);
-      newLoc.contractData = new ContractData();
+      const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid);
+      if (lst.length > 0) {
+        newLoc.contractDetail = lst[0];
+      } else {
+        newLoc.contractDetail = new Contractdetailinfo();
+      }
       locs.push(newLoc);
     });
     this.data.locations = locs;
-
-    this.data.locations.forEach(loc => {
-      // 契約詳細情報
-      if (this.contract.details !== undefined && this.contract.details.length > 0) {
-        const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid);
-        if (lst.length > 0) {
-          loc.copyContracDetail(lst[0]);
-        }
-      }
-      // 契約不可分
-      if (this.contract.depends !== undefined && this.contract.depends.length > 0) {
-        const lst = this.contract.depends.filter(dt => dt.locationInfoPid === loc.pid);
-        if (lst.length > 0) {
-          loc.copyContracDepend(lst[0]);
-        }
-      }
-
-    });
   }
 
   /**
@@ -192,70 +185,53 @@ export class ContractDetailComponent extends BaseComponent {
    * 登録の為の変換
    */
   convertForSave() {
+    const addList = [];
+    const types = ['01', '02', '03'];
     this.data.locations.forEach(loc => {
       const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
-      const dependList = this.contract.depends.filter(depend => depend.locationInfoPid === loc.pid);
 
-      if (!(loc.isContract || loc.isDepend)) {
-        // 契約削除
-        if (detailList.length > 0) {
+      // 削除
+      if (detailList.length > 0) {
+        if (types.indexOf(loc.contractDetail.contractDataType) < 0) {
           detailList[0].deleteUserId = this.service.loginUser.userId;
+        } else {
+          detailList[0] = loc.contractDetail;
         }
-
-        // 不可分削除
-        if (dependList.length > 0) {
-          dependList[0].deleteUserId = this.service.loginUser.userId;
-        }
-      }
-      // 契約選択
-      // tslint:disable-next-line:one-line
-      else if (loc.isContract) {
-        // 契約更新
-        if (detailList.length > 0) {
-          loc.copyContracDetailForSave(detailList[0]);
-        }
-        // 新規登録
-        // tslint:disable-next-line:one-line
-        else {
-          const data = new Contractdetailinfo();
-          loc.copyContracDetailForSave(data);
-          this.contract.details.push(data);
-        }
-
-        // 不可分削除
-        if (dependList.length > 0) {
-          dependList[0].deleteUserId = this.service.loginUser.userId;
+      } else {
+        if (types.indexOf(loc.contractDetail.contractDataType) >= 0) {
+          loc.contractDetail.locationInfoPid = loc.pid;
+          addList.push(loc.contractDetail);
         }
       }
-      // 不可分選択
-      // tslint:disable-next-line:one-line
-      else {
-        // 契約削除
-        if (detailList.length > 0) {
-          detailList[0].deleteUserId = this.service.loginUser.userId;
-        }
-
-        // 不可分更新
-        if (dependList.length > 0) {
-          loc.copyContracDependForSave(dependList[0]);
-        }
-        // 不可分新規登録
-        // tslint:disable-next-line:one-line
-        else {
-          const data = new Contractdependinfo();
-          loc.copyContracDependForSave(data);
-          this.contract.depends.push(data);
-        }
-      }
-
     });
+
+    addList.forEach(data => {
+      this.contract.details.push(data);
+    });
+
+    // 契約者
+    if (this.delSellers.length > 0) {
+      this.delSellers.forEach(del => {
+        del.deleteUserId = this.service.loginUser.userId;
+        this.contract.sellers.push(del);
+      });
+    }
   }
 
-  change(item: Locationinfo, isContract) {
-    if (isContract) {
-      item.isDepend = false;
+  /**
+   * チェック
+   * @param event チェックイベント
+   * @param item ：所有地
+   * @param flg ：チェックフラグ
+   */
+  change(event, item: Locationinfo, flg) {
+    if (event.checked) {
+      item.contractDetail.contractDataType = flg;
     } else {
-      item.isContract = false;
+      item.contractDetail.contractDataType = '';
+    }
+    if (item.contractDetail.contractDataType !== '03') {
+      item.contractDetail.contractArea = null;
     }
   }
 
@@ -327,15 +303,6 @@ export class ContractDetailComponent extends BaseComponent {
       }
     });
   }
-
-  isLand(loc: Locationinfo) {
-    return (loc.isContract || loc.isDepend) && loc.locationType === '01';
-  }
-
-  isBuild(loc: Locationinfo) {
-    return (loc.isContract || loc.isDepend) && loc.locationType === '02';
-  }
-
   showSharer(loc: Locationinfo) {
     const dialogRef = this.dialog.open(SharerDialogComponent, {
       width: '600px',
@@ -344,4 +311,28 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
 
+  hasSharer(loc: Locationinfo) {
+    return loc.sharers.length > 0 && loc.sharers.filter(s => s.buysellFlg === '1').length > 0;
+  }
+
+  /**
+   * 契約者追加
+   */
+  addContractSeller() {
+    if (this.contract.sellers == null) {
+      this.contract.sellers = [];
+    }
+    this.contract.sellers.push(new ContractSellerInfo());
+  }
+
+  deleteContractSeller(sharerPos: number) {
+    const seller = this.contract.sellers[sharerPos];
+    if (seller.pid > 0) {
+      if (this.delSellers == null) {
+        this.delSellers = [];
+      }
+      this.delSellers.push(seller);
+    }
+    this.contract.sellers.splice(sharerPos, 1);
+  }
 }

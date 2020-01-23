@@ -105,7 +105,6 @@ export class BukkenDetailComponent extends BaseComponent {
       const locs = [];
       this.data.locations.forEach(loc => {
         const locFront = new Locationinfo(loc);
-        locFront.isContracted = this.contracted(loc.pid);
         locs.push(locFront);
       });
       this.data.locations = locs;
@@ -123,7 +122,7 @@ export class BukkenDetailComponent extends BaseComponent {
     loc.sharers = [];
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
-      height: '600px',
+      height: '550px',
       data: loc
     });
     // 再検索
@@ -142,7 +141,7 @@ export class BukkenDetailComponent extends BaseComponent {
   showLocation(loc: Locationinfo) {
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
-      height: '480px',
+      height: '550px',
       data: loc
     });
     // 再検索
@@ -159,10 +158,9 @@ export class BukkenDetailComponent extends BaseComponent {
   copyLocation(loc: Locationinfo) {
     const newLoc = new Locationinfo(loc);
     newLoc.pid = null;
-    newLoc.isContracted = false;
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
-      height: '480px',
+      height: '550px',
       data: newLoc
     });
     // 再検索
@@ -229,8 +227,8 @@ export class BukkenDetailComponent extends BaseComponent {
 
     this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
     this.checkBlank(this.data.residence, 'residence', '住居表示は必須です。');
-  　//this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
-    //this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
+  　// this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
+    // this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
 
     if (this.errorMsgs.length > 0) {
       return false;
@@ -303,7 +301,7 @@ export class BukkenDetailComponent extends BaseComponent {
   navigateContract(loc: Locationinfo) {
     this.router.navigate(['/ctdetail'], {queryParams: {bukkenid: this.data.pid}});
   }
-  
+
   /**
    * 契約詳細
    * @param data : 契約情報
@@ -336,14 +334,6 @@ export class BukkenDetailComponent extends BaseComponent {
     return ctData.details.map(dt => {
       return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].owner;
     }).join('\n\r');
-  }
-
-  getContractorName(ctData: Contractinfo) {
-    return ctData.details.length > 0 ? ctData.details.map(dt => dt.contractorName).join('\r\n') : '';
-  }
-
-  getDependerName(ctData: Contractinfo) {
-    return ctData.depends.length > 0 ? ctData.depends.map(dt => dt.dependerName).join('\r\n') : '';
   }
 
   /**

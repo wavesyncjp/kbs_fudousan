@@ -1,4 +1,3 @@
-import { Contractdependinfo } from './contractdependinfo';
 import { Contractdetailinfo } from './contractdetailinfo';
 import { SharerInfo } from './sharer-info';
 
@@ -28,17 +27,14 @@ export class Locationinfo {
     liveInfo: string;
     locationType: string;
     residence: string;
-    buysellFlg='0';
+    buysellFlg = '0';
     dependType: string;
     dependFloor: string;
     oneBuilding: string;
     bukkenName = '';
     floorAreaRatio: number = null;
 
-    isContracted: boolean;
-    isContract: boolean;
-    isDepend: boolean;
-    contractData: ContractData = new ContractData();
+    contractDetail: Contractdetailinfo;
     sharers: SharerInfo[];
     delSharers: number[];
     dependTypeMap: string[] = [];
@@ -50,34 +46,6 @@ export class Locationinfo {
         if (init) {
             Object.assign(this, init);
         }
-    }
-
-    copyContracDetail(detail: Contractdetailinfo) {
-        this.isContract = true;
-        this.contractData.contractorName = detail.contractorName;
-        this.contractData.contractArea = detail.contractArea;
-    }
-    copyContracDetailForSave(detail: Contractdetailinfo) {
-        detail.locationInfoPid = this.pid;
-        detail.contractorName = this.contractData.contractorName;
-        detail.contractArea = this.contractData.contractArea;
-    }
-
-    copyContracDepend(depend: Contractdependinfo) {
-        this.isDepend = true;
-        this.contractData.contractorName = depend.dependerName;
-        this.contractData.dependType = depend.dependType;
-        this.contractData.dependStructure = depend.dependStructure;
-        this.contractData.dependFloor = depend.dependFloor;
-        this.contractData.dependFloorArea = depend.dependFloorArea;
-    }
-    copyContracDependForSave(depend: Contractdependinfo) {
-        depend.locationInfoPid = this.pid;
-        depend.dependerName = this.contractData.contractorName;
-        depend.dependType = this.contractData.dependType;
-        depend.dependStructure = this.contractData.dependStructure;
-        depend.dependFloor = this.contractData.dependFloor;
-        depend.dependFloorArea = this.contractData.dependFloorArea;
     }
 
     public convert() {
@@ -97,11 +65,3 @@ export class Locationinfo {
     }
 }
 
-export class ContractData {
-    contractorName: string;
-    contractArea: number;
-    dependType: string;
-    dependStructure: string;
-    dependFloor: number;
-    dependFloorArea: string;
-}

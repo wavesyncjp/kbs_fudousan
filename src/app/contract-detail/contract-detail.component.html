@@ -62,7 +62,9 @@
                         <thead class="list-header">
                             <th>売主選択</th>
                             <th>不可分選択</th>
+                            <th>底地選択</th>
                             <th>区分</th>
+                            <th>権利形態</th>
                             <th><span style="display: inline-block;width: 200px;">所在</span></th>
                             <th>地番</th>
                             <th>家屋番号</th>
@@ -80,9 +82,11 @@
                         </thead>
                         <tbody class="list-body">
                             <tr *ngFor="let item of data.locations; index as pos">
-                                <td><mat-checkbox color="primary" [(ngModel)]="item.isContract" (change)="change(item, true)" *ngIf="!otherLocs.includes(item.pid.toString())" ></mat-checkbox></td>
-                                <td><mat-checkbox color="primary" [(ngModel)]="item.isDepend" (change)="change(item, false)"></mat-checkbox></td>
+                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="!otherLocs.includes(item.pid.toString()) && hasSharer(item)" ></mat-checkbox></td>
+                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '02'" (change)="change($event, item, '02')"></mat-checkbox></td>
+                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" ></mat-checkbox></td>                                
                                 <td>{{getCodeTitle('007', item.locationType)}}</td>
+                                <td>{{getCodeTitle('011', item.rightsForm)}}</td>
                                 <td class="width200 text-left">{{item.address}}</td>
                                 <td>{{item.blockNumber}}</td>
                                 <td>{{item.buildingNumber}}</td>
@@ -92,17 +96,13 @@
                                     <button class="sharerBtn" *ngIf="item.sharers.length > 1" (click)="showSharer(item)" >表示</button> 
                                 </td>
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
-                                <td><input type="text" *ngIf="item.isContract || item.isDepend" class="width150" [(ngModel)]="item.contractData.contractorName"></td>
+                                <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
-                                <td><span *ngIf="isLand(item)"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractData.contractArea">&nbsp;㎡</span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractArea">&nbsp;㎡</span></td>
                                 <td>{{getCodeTitles('003',item.dependType)}}</td>
-                                <!--<td><app-select-component *ngIf="isBuild(item)" [codes]="getCode('004')" [exclass]="true" [(ngModel)]="item.contractData.dependType"></app-select-component></td>-->
                                 <td>{{item.structure}}</td>
-                                <!--<td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependStructure"></textarea></td>-->
                                 <td>{{item.dependFloor}}</td>
-                                <!--<td><span *ngIf="isBuild(item)"><input type="text" class="width40" [(ngModel)]="item.contractData.dependFloor">&nbsp;階建</span></td>-->
-                                <td>{{item.floorSpace}}</td>
-                                <!--<td><textarea *ngIf="isBuild(item)" class="width120" rows="3" [(ngModel)]="item.contractData.dependFloorArea"></textarea></td>-->
+                                <td>{{item.floorSpace}}</td>                                
                             </tr>
                         </tbody>
                     </table>
@@ -117,6 +117,22 @@
                 <span class="min"><label>契約内容</label></span>                        
             </td>
         </tr>
+        <tr *ngFor="let seller of contract.sellers | slice:0:1">
+            <th class="sharer" style="white-space: nowrap;">契約者名
+                <button mat-raised-button class="addSharer" (click)="addContractSeller()">追加</button>
+            </th>
+            <td colspan="9">
+                <input type="text" [(ngModel)]="seller.contractorName" class="width300">
+            </td>
+        </tr>  
+        <tr *ngFor="let seller of contract.sellers | slice:1; index as sharerPos">
+            <th class="sharer">契約者名
+                <button mat-raised-button class="deleteSharer" (click)="deleteContractSeller(sharerPos)">削除</button>
+            </th>
+            <td colspan="9">
+                <input type="text" [(ngModel)]="seller.contractorName" class="width300">
+            </td>
+        </tr> 
         <tr>
             <th>売買代金</th>
             <td colspan="9">

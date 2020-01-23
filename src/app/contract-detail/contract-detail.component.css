@@ -70,3 +70,14 @@
     padding-top: 4px;
 
 }
+
+.addSharer {
+    background-color: rgb(238, 187, 45);
+    color: white;
+    height: 34px;
+}
+.deleteSharer {
+    background-color: rgb(163, 158, 142);
+    color: black;
+    height: 34px;        
+}

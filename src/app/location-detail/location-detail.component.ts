@@ -107,7 +107,7 @@ export class LocationDetailComponent extends BaseComponent {
   changeArea(event) {
     const val = event.target.value;
     if (this.isNumberStr(val)) {
-      this.data.tsubo = Math.floor(Number(val) * 0.3025 *100)/100;
+      this.data.tsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
     }
   }
 
@@ -160,7 +160,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.sharer.sharerAdress = null;
       this.sharer.shareRatio = null;*/
     } else if (this.data.locationType === '04') {
-      
+
     }
     this.oldLocationType = this.data.locationType;
   }
@@ -208,12 +208,10 @@ export class LocationDetailComponent extends BaseComponent {
     });
   }
 
-    /**
-   * 謄本情報 削除
-   * 削除したい謄本情報*/
-
-  /*20200123 →トゥンさんこちらお願いします*/ 
-  
+  /**
+   * 所有地削除
+   * @param row ：削除したい所有地
+   */
   deleteLoc(row) {
     const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -240,13 +238,11 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     // 所有地
-    this.data.locations.forEach((element, index) => {
-      this.checkBlank(element.address, `address${index}`, '所在地は必須です。');
-      this.checkBlank(element.owner, `owner${index}`, '所有者名は必須です。');
-      this.checkNumber(element.area, `area${index}`, '地積は不正です。');
-      this.checkNumber(element.floorSpace, `floorSpace${index}`, '床面積は不正です。');
-    });
-    
+    this.checkBlank(this.data.address, `address`, '所在地は必須です。');
+    this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');
+    this.checkNumber(this.data.area, `area`, '地積は不正です。');
+    this.checkNumber(this.data.floorSpace, `floorSpace`, '床面積は不正です。');
+
     if (this.errorMsgs.length > 0) {
       return false;
     }

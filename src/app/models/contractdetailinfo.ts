@@ -2,7 +2,7 @@ export class Contractdetailinfo {
     pid: number;
     contractInfoPid: number;
     locationInfoPid: number;
-    contractorName: string;
+    contractDataType: string;
     contractArea: number;
 
     deleteUserId: number;
