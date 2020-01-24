@@ -8,6 +8,7 @@ import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
 import { Converter } from './utils/converter';
 import { Locationinfo } from './models/locationinfo';
+import { Contractdetailinfo } from './models/contractdetailinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -476,11 +477,12 @@ export class BackendService {
    * 所有者出力
    * @param sharers ：所有者
    */
-  saveChooseSharer(sharerList: any) {
+  saveChooseSharer(sharerList: any, ctDetail: Contractdetailinfo) {
     const api = 'shareroutputsave.php';
     const body = {
       userId: this.loginUser.userId,
-      sharers: sharerList
+      sharers: sharerList,
+      contractDetail: ctDetail
     };
     const req = this.http.post<Code>(`${this.BaseUrl}/${api}`, body);
     return req.toPromise();

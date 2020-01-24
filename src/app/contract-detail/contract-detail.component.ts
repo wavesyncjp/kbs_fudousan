@@ -33,7 +33,6 @@ export class ContractDetailComponent extends BaseComponent {
 
   public contract: Contractinfo;
   public data: Templandinfo;
-  public otherLocs: string[] = [];
   public pid: number;
   public bukkenid: number;
   delSellers = [];
@@ -107,19 +106,10 @@ export class ContractDetailComponent extends BaseComponent {
           this.contract.sellers.push(new ContractSellerInfo());
         }
         this.convertData();
-
-        // 他契約の契約詳細
-        this.service.getContractByLand(this.data.pid).then(res => {
-
-          const ids = this.contract.details.map(data => data.locationInfoPid);
-          this.otherLocs = res.filter(pid => !ids.includes(pid as unknown as number));
-
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 200);
-        });
-
       }
+
+      this.spinner.hide();
+
     });
   }
 
@@ -171,6 +161,7 @@ export class ContractDetailComponent extends BaseComponent {
           dlgVal.afterClosed().subscribe(val => {
             this.spinner.hide();
             this.contract = new Contractinfo(res);
+            this.convertData();
             this.contract.convert();
             this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contract.pid}});
           });
@@ -216,6 +207,17 @@ export class ContractDetailComponent extends BaseComponent {
         this.contract.sellers.push(del);
       });
     }
+
+    // 所有地 (仕入契約登記人情報登録のため)
+    this.data.locations.forEach(loc => {
+      if (loc.sharers.length > 0) {
+        const val = {
+          locationInfoPid: loc.pid,
+          sharerInfoPid: loc.sharers.map(sr => sr.pid)
+        };
+        this.contract.locations.push(val);
+      }
+    });
   }
 
   /**
@@ -252,6 +254,13 @@ export class ContractDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
+    this.router.navigate(['/contracts'], {queryParams: {search: '1'}});
+  }
+
+  /**
+   * 物件情報遷移
+   */
+  toBukken() {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
   }
 

@@ -52,6 +52,7 @@ export class Contractinfo {
     details: Contractdetailinfo[] = [];
     contractFiles: ContractFile[];
     sellers: ContractSellerInfo[];
+    locations = []; // 所有地（保存しない）
 
     createUserId: number;
     updateUserId: number;
@@ -72,13 +73,13 @@ export class Contractinfo {
         if (this.acquisitionConfirmDay) {
             this.acquisitionConfirmDayMap = parse(this.acquisitionConfirmDay, 'yyyyMMdd', new Date());
         }
-        if (this.startScheduledDay !== null) {
+        if (this.startScheduledDay) {
             this.startScheduledDayMap = parse(this.startScheduledDay, 'yyyyMMdd', new Date());
         }
-        if (this.prioritySalesAgreementDay !== null) {
+        if (this.prioritySalesAgreementDay) {
             this.prioritySalesAgreementDayMap = parse(this.prioritySalesAgreementDay, 'yyyyMMdd', new Date());
         }
-        if (this.finishScheduledDay !== null) {
+        if (this.finishScheduledDay) {
             this.finishScheduledDayMap = parse(this.finishScheduledDay, 'yyyyMMdd', new Date());
         }
     }

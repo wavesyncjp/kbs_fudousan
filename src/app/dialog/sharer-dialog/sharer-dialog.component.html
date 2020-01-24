@@ -8,7 +8,7 @@
         </tr>
         <tr *ngFor="let item of data.sharers">
             <td class="choose">
-                <mat-checkbox [checked]="item.outPutFlg == 1" (change)="changeFlg($event, item)"></mat-checkbox>
+                <mat-checkbox *ngIf="item.buysellFlg == 1" [checked]="item.outPutFlg == 1" (change)="changeFlg($event, item)"></mat-checkbox>
             </td>
             <td>{{item.sharer}}</td>
             <td>{{item.shareRatio}}</td>

@@ -1,7 +1,8 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div  class="detail-div">
     <div class="register-div">
-        <button mat-raised-button class="button bukken-button" (click)="backToList()">土地情報</button>
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button class="button bukken-button" (click)="toBukken()">土地情報</button>
         <button mat-raised-button class="button export-button" (click)="export()">契約書出力</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
@@ -82,7 +83,7 @@
                         </thead>
                         <tbody class="list-body">
                             <tr *ngFor="let item of data.locations; index as pos">
-                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="!otherLocs.includes(item.pid.toString()) && hasSharer(item)" ></mat-checkbox></td>
+                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="hasSharer(item)" ></mat-checkbox></td>
                                 <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '02'" (change)="change($event, item, '02')"></mat-checkbox></td>
                                 <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" ></mat-checkbox></td>                                
                                 <td>{{getCodeTitle('007', item.locationType)}}</td>
@@ -419,7 +420,8 @@
     <br>
     <mat-divider></mat-divider>
     <div class="register-div" style="margin-top:10px">
-        <button mat-raised-button class="button bukken-button" (click)="backToList()">土地情報</button>
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button class="button bukken-button" (click)="toBukken()">土地情報</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
 

@@ -39,7 +39,7 @@ export class SharerDialogComponent extends BaseComponent {
 
     dialogConfirm.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.saveChooseSharer(this.data.sharers).then(res => {
+        this.service.saveChooseSharer(this.data.sharers, this.data.contractDetail).then(res => {
           this.dialogRef.close();
         });
       }

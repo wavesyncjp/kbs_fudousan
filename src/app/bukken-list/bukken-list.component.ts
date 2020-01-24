@@ -29,7 +29,7 @@ export class BukkenListComponent extends BaseComponent {
   public cond = {
     bukkenNo: '',
     bukkenName: '',
-    residence:'',
+    residence: '',
     address: '',
     pickDateMap: new Date(),
     pickDate: '',
@@ -40,7 +40,7 @@ export class BukkenListComponent extends BaseComponent {
   search = '0';
   searched = false;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName','residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'department', 'result', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

@@ -4,7 +4,7 @@ import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableData
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ContractDetailComponent } from '../contract-detail/contract-detail.component';
 import { JPDateAdapter, MatPaginatorIntlJa } from '../adapters/adapters';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { Contractinfo } from '../models/contractinfo';
 import { Templandinfo } from '../models/templandinfo';
@@ -37,12 +37,17 @@ export class ContractListComponent  extends BaseComponent {
     contractDay: '',
     contractDayMap: null
  };
+ search = '0';
 
   constructor(public router: Router,
+              private route: ActivatedRoute,
               public service: BackendService,
               public dialog: MatDialog,
               private spinner: NgxSpinnerService) {
                 super(router, service);
+                this.route.queryParams.subscribe(params => {
+                  this.search = params.search;
+                });
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -50,6 +55,10 @@ export class ContractListComponent  extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('仕入契約一覧');
     this.dataSource.paginator = this.paginator;
+    if (this.search === '1') {
+      this.cond = this.service.searchCondition;
+      this.searchContract();
+    }
   }
 
   searchContract() {
@@ -60,6 +69,7 @@ export class ContractListComponent  extends BaseComponent {
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
       this.spinner.hide();
+      this.service.searchCondition = this.cond;
     });
   }
 
