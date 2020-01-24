@@ -497,4 +497,17 @@ export class BackendService {
     const req = this.http.post<Code>(`${this.BaseUrl}/${api}`, locSave);
     return req.toPromise();
   }
+
+   /**
+   * 所在地情報取得
+   */
+  
+  searchLocation(cond: any): Promise<Locationinfo[]> {
+    const searchApi = 'locsearch.php';
+    const req = this.http.post<Locationinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
 }
+
+

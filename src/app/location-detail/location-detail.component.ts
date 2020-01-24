@@ -20,6 +20,7 @@ export class LocationDetailComponent extends BaseComponent {
 
   pid: number;
   oldLocationType = '';
+  public cond: any;
 
   constructor(public router: Router,
               public service: BackendService,
@@ -40,6 +41,7 @@ export class LocationDetailComponent extends BaseComponent {
 
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '007', '011']));
+
     Promise.all(funcs).then(values => {
       // コード
       const codes = values[0] as Code[];
@@ -53,6 +55,7 @@ export class LocationDetailComponent extends BaseComponent {
       }
       this.spinner.hide();
     });
+     if(this.data.pid == undefined) this.data.locationType = '01';
   }
 
   /**
@@ -161,6 +164,17 @@ export class LocationDetailComponent extends BaseComponent {
       this.sharer.shareRatio = null;*/
     } else if (this.data.locationType === '04') {
 
+      this.cond = {
+        tempLandInfoPid: this.data.tempLandInfoPid,
+        locationType: '03'
+      };
+      const funcs = [];
+      funcs.push(this.service.searchLocation(this.cond));
+      Promise.all(funcs).then(values => {
+        // 住所
+        this.locAdresses = values[0];
+        //this.spinner.hide();
+      });
     }
     this.oldLocationType = this.data.locationType;
   }
@@ -238,7 +252,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     // 所有地
-    this.checkBlank(this.data.address, `address`, '所在地は必須です。');
+    //this.checkBlank(this.data.address, `address`, '所在地は必須です。');
     this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');
     this.checkNumber(this.data.area, `area`, '地積は不正です。');
     this.checkNumber(this.data.floorSpace, `floorSpace`, '床面積は不正です。');

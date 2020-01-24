@@ -245,6 +245,7 @@ export class BukkenDetailComponent extends BaseComponent {
       }
       const attachFile: AttachFile = JSON.parse(JSON.stringify(event));
       this.data.attachFiles.push(attachFile);
+
     }
     // 地図添付
     // tslint:disable-next-line:one-line
