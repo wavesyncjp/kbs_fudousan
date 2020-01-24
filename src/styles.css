@@ -532,3 +532,7 @@ span.minDl{
 .disabled {
     background: #EBEBE4;
 }
+
+.select-disabled select {
+    background: #EBEBE4;
+}

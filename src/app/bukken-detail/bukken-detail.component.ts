@@ -92,9 +92,7 @@ export class BukkenDetailComponent extends BaseComponent {
 
       this.convertForDisplay();
 
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 200);
+      this.spinner.hide();
 
     });
   }
@@ -127,8 +125,8 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.data.locations.push(loc);
+      if (result && result.isSave) {
+        this.data.locations.push(result.data);
       }
     });
 
@@ -138,7 +136,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * 所有地詳細
    * @param loc : 所有地
    */
-  showLocation(loc: Locationinfo) {
+  showLocation(loc: Locationinfo, pos: number) {
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
       height: '550px',
@@ -146,7 +144,13 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result != null) {
+        // 更新
+        if (result.isSave) {
+          loc = result.data;
+        } else if (result.isDelete) {
+          this.data.locations.splice(pos, 1);
+        }
       }
     });
   }

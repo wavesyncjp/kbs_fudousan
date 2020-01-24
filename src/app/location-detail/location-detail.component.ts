@@ -21,6 +21,7 @@ export class LocationDetailComponent extends BaseComponent {
   pid: number;
   oldLocationType = '';
   public cond: any;
+  public locAdresses =[];
 
   constructor(public router: Router,
               public service: BackendService,
@@ -173,10 +174,22 @@ export class LocationDetailComponent extends BaseComponent {
       Promise.all(funcs).then(values => {
         // 住所
         this.locAdresses = values[0];
-        //this.spinner.hide();
+        // this.spinner.hide();
       });
     }
     this.oldLocationType = this.data.locationType;
+  }
+
+  /**
+   * 20200124 S_Add
+   * 一棟の建物　住所取得
+   */
+  getLocAdress() {
+    if (this.locAdresses) {
+      return this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+    } else {
+      return [];
+    }
   }
 
   /**
@@ -214,8 +227,9 @@ export class LocationDetailComponent extends BaseComponent {
             data: finishDlg
           });
           dlgVal.afterClosed().subscribe(res => {
+            this.data = new Locationinfo(values);
             this.spinner.hide();
-            this.dialogRef.close(true);
+            this.dialogRef.close({data: this.data, isSave: true});
           });
         });
       }
@@ -226,21 +240,32 @@ export class LocationDetailComponent extends BaseComponent {
    * 所有地削除
    * @param row ：削除したい所有地
    */
-  deleteLoc(row) {
-    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+  deleteLoc() {
+    const dlg = new Dialog({title: '確認', message: '謄本情報を削除してよろしいですか？'});
+    const dlgRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
       data: dlg
     });
 
-    /*dialogRef.afterClosed().subscribe(result => {
+    dlgRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deleteInfo(row.pid).then(res => {
-          this.searchInfo();
+        this.spinner.show();
+        this.service.deleteLocation(this.data).then(res => {
+
+          // 既に契約されている
+          this.spinner.hide();
+          if (res.status === 'NG') {
+            this.dialog.open(FinishDialogComponent, {
+              width: '500px',　height: '250px',
+              data: new Dialog({title: 'エラー', message: '謄本情報を既に契約されています。'})
+            });
+          } else {
+            this.dialogRef.close({data: this.data, isDelete: true});
+          }
         });
       }
-    });*/
+    });
 
   }
 
@@ -252,10 +277,9 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     // 所有地
-    //this.checkBlank(this.data.address, `address`, '所在地は必須です。');
+    // this.checkBlank(this.data.address, `address`, '所在地は必須です。');
     this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');
     this.checkNumber(this.data.area, `area`, '地積は不正です。');
-    this.checkNumber(this.data.floorSpace, `floorSpace`, '床面積は不正です。');
 
     if (this.errorMsgs.length > 0) {
       return false;

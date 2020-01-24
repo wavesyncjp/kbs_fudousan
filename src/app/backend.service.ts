@@ -143,16 +143,6 @@ export class BackendService {
     return req.toPromise();
   }
 
-  deleteLoc(locIds: number[]): Promise<object> {
-    const deleteLocApi = 'locdelete.php';
-    const body = {
-      pid: locIds,
-      userId: this.loginUser.userId
-    };
-    const req = this.http.post<object>(`${this.BaseUrl}/${deleteLocApi}`, body);
-    return req.toPromise();
-  }
-
   /**
    * 契約情報取得
    */
@@ -494,14 +484,24 @@ export class BackendService {
    */
   saveLocation(locSave: Locationinfo) {
     const api = 'locationsave.php';
-    const req = this.http.post<Code>(`${this.BaseUrl}/${api}`, locSave);
+    const req = this.http.post(`${this.BaseUrl}/${api}`, locSave);
     return req.toPromise();
   }
 
-   /**
-   * 所在地情報取得
+  /**
+   * 所有地削除
+   * @param data ：所有地
    */
-  
+  deleteLocation(data: Locationinfo) {
+    const api = 'locdelete.php';
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    return req.toPromise();
+  }
+
+  /**
+   * 所在地情報取得
+   * @param cond 所在地情報取得
+   */
   searchLocation(cond: any): Promise<Locationinfo[]> {
     const searchApi = 'locsearch.php';
     const req = this.http.post<Locationinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
