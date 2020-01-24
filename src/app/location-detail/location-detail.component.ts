@@ -252,7 +252,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     // 所有地
-    this.checkBlank(this.data.address, `address`, '所在地は必須です。');
+    //this.checkBlank(this.data.address, `address`, '所在地は必須です。');
     this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');
     this.checkNumber(this.data.area, `area`, '地積は不正です。');
     this.checkNumber(this.data.floorSpace, `floorSpace`, '床面積は不正です。');
