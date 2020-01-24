@@ -69,7 +69,9 @@ export class FileComponentComponent implements OnInit {
             });
             this.file = null;
             this.uploaded.emit(res);
+            
           });
+          if(this.hasComment) this.comment = '';
         }
         // 契約ファイルアップロード
         // tslint:disable-next-line:one-line

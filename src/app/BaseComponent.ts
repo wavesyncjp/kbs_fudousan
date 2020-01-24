@@ -10,6 +10,7 @@ export class BaseComponent implements OnInit {
     public deps = [];
     public emps = [];
     public users = [];
+    public locAdresses =[];
 //    public codes = [];
     public sysCodeNameMsts = [];
 
@@ -124,6 +125,17 @@ export class BaseComponent implements OnInit {
     getEmps() {
         if (this.emps) {
             return this.emps.map(user => new Code({codeDetail: user.employeeCode, name: user.userName}));
+        } else {
+        return [];
+        }
+    }
+    
+    /**20200124 S_Add
+     * 一棟の建物　住所取得
+     */
+    getLocAdress() {
+        if (this.locAdresses) {
+            return this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + locAdress.blockNumber}));
         } else {
         return [];
         }
