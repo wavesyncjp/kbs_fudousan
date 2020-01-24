@@ -55,8 +55,7 @@ export class LocationDetailComponent extends BaseComponent {
       }
       this.spinner.hide();
     });
-    this.data = new Locationinfo();
-    this.data.locationType = '01';
+     if(this.data.pid == undefined) this.data.locationType = '01';
   }
 
   /**
