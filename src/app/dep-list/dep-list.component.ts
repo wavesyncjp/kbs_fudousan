@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild } from '@angular/core';
 import { DepDetailComponent } from '../dep-detail/dep-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
-import { Code } from '../models/bukken';
+import { MatSort } from '@angular/material/sort';
+//import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
 import { Department } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -26,6 +27,7 @@ export class DepListComponent extends BaseComponent {
 
   displayedColumns: string[] = ['depCode', 'depName', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Department>();
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
               public dialog: MatDialog,
