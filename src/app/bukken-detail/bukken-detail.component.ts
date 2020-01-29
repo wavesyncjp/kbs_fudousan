@@ -377,21 +377,24 @@ export class BukkenDetailComponent extends BaseComponent {
       const ret = this.contracts.filter(ct => {
         return ct.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01').length > 0;
       });
+      const outputCount = loc.sharers.filter(s => {
+        return s.outPutFlg === '1';
+      }).length;
 
       // 契約あり
-      if (ret.length > 0 ) {
+      if (ret.length > 0 && outputCount > 0) {
 
         // 契約日あり
         const contractDayCount = ret.filter(ct => {
           return ct.contractDay != null && ct.contractDay !== '';
         }).length;
 
-        const printOutCount = loc.sharers.filter(s => {
+        const buysellCount = loc.sharers.filter(s => {
           return s.buysellFlg === '1';
         }).length;
 
         // 所有者一人
-        if (loc.sharers.length === 1 || loc.sharers.length === printOutCount) {
+        if (outputCount === 1 || outputCount === buysellCount) {
           if (contractDayCount === 0) {
             return this.getCodeTitle('013', '01');
           } else if (ret.length !== contractDayCount) {
