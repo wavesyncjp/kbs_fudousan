@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
+import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
 import { User } from '../models/bukken';
@@ -26,6 +27,7 @@ export class UserListComponent extends BaseComponent {
   /**/
   displayedColumns: string[] = ['userId', 'userName','employeeCode','depName','loginId','password','createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<User>();
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
               public dialog: MatDialog,

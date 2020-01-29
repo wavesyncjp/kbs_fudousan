@@ -57,6 +57,9 @@ export class LocationDetailComponent extends BaseComponent {
       this.spinner.hide();
     });
      if(this.data.pid == undefined) this.data.locationType = '01';
+     else{
+       if(this.data.pid !== undefined)this.data.oneBuilding;
+     }
   }
 
   /**
@@ -276,11 +279,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
-    // 所有地
-    // this.checkBlank(this.data.address, `address`, '所在地は必須です。');
     this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');
-    this.checkNumber(this.data.area, `area`, '地積は不正です。');
-
     if (this.errorMsgs.length > 0) {
       return false;
     }
