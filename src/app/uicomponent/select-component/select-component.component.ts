@@ -76,9 +76,9 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
   getClass() {
     const css = [];
     if (!this.exclass) {
-      css.push('width152');
-    } else {
       css.push('width140');
+    } else {
+      css.push('width300');
     }
     if (this.isError) {
       css.push('error');

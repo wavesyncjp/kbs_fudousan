@@ -162,7 +162,7 @@
             <span class="min">謄本情報　一覧</span>
             <table>
                 <thead class="list-header">
-                    <th>契約番号</th>
+                    
                     <th>契約ステータス</th>
 
                     <th class="width80">区分</th>
@@ -173,18 +173,15 @@
                     <th>所有者（代表）</th>
                     <th>所有者住所（代表）</th>
                     <th>権利形態</th>
-                    <th>契約者</th>
-                    <th class="width100">決済日</th>
+                    <th>備考</th>
+                    <!--<th>契約者</th>-->
+                    <!--<th class="width100">決済日</th>-->
+                    <th>契約番号</th>
                     <th class="width80">謄本詳細</th>
                     <th class="width80">コピー</th>                       
                 </thead>
                 <tbody class="list-body">
                     <tr *ngFor="let loc of data.locations; index as pos">                            
-                        <td>
-                            <div class="contract-div">
-                                <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{ShowContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
-                            </div>
-                        </td>
                         <td>
                             {{showStatus(loc)}}                  
                         </td>
@@ -197,7 +194,12 @@
                         <td>{{loc.ownerAdress}}</td>
                         <td>{{getCodeTitle('011', loc.rightsForm)}}</td>
                         <td></td>
-                        <td></td>
+                        <!--<td></td>-->
+                        <td>
+                            <div class="contract-div">
+                                <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{data.bukkenNo + "-" + item.contractNumber}}</a>
+                            </div>
+                        </td>
                         <td><button mat-raised-button (click)="showLocation(loc, pos)" color="warn">詳細</button></td>
                         <td><button mat-raised-button (click)="copyLocation(loc)" color="primary">コピー</button></td>                        
                     </tr>
@@ -207,41 +209,39 @@
 <!--/所有地-->
 
 <!--契約情報-->
-<!--
-        <div class="contact-div" *ngIf="contracts.length > 0">
+
+        <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
             <span class="min">契約一覧</span>
             <table>
                 <thead class="list-header">
-                    <th>契約番号</th>
-                    <th class="width80">区分</th>
+                    <th class="width150">契約番号</th>
+                    <th class="width100">契約日</th>
+                    <th>契約者</th>
                     <th>所在</th>
                     <th class="width80">地番</th>
                     <th class="width80">家屋番号</th>
-                    <th>所有者<br>（売主・登記名義人）</th>
-                    <th>契約者</th>
-                    <th>不可分</th>
+                    <th>所有者</th>
                     <th>売買代金</th>
-                    <th class="width100">契約日</th>
+                    <th class="width100">決済日</th>
                     <th class="width80">詳細</th>                       
                 </thead>
                 <tbody class="list-body">
-                    <tr *ngFor="let ctData of contracts; index as pos">                            
-                        <td>{{data.bukkenNo + '-' + ctData.contractNumber}}</td>
-                        <td class="break-line">{{getLocationType(ctData)}}</td>
-                        <td class="text-left break-line">{{getAddress(ctData)}}</td>
-                        <td class="break-line">{{getBlockNumber(ctData)}}</td>
-                        <td class="break-line">{{getBuildingNumber(ctData)}}</td>
-                        <td class="break-line">{{getOwnerName(ctData)}}</td>
-                        <td class="break-line">{{getContractorName(ctData)}}</td>
-                        <td class="break-line">{{getDependerName(ctData)}}</td>
-                        <td class="text-right">{{formatIntNumber(ctData.tradingPrice, '円')}}</td>
-                        <td>{{formatDay(ctData.contractDay, 'yyyy/MM/dd')}}</td>
-                        <td><button mat-raised-button (click)="showContract(ctData)" color="warn">詳細</button></td>                        
+                    <tr>                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button mat-raised-button (click)="showLocation()" color="warn">詳細</button></td>               
                     </tr>
                 </tbody>
             </table>
         </div>
-    -->
+    
         <!--/契約情報-->
             
     <!--11/26修正-->

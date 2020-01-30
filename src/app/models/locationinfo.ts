@@ -30,7 +30,6 @@ export class Locationinfo {
     buysellFlg = '0';
     dependType: string;
     dependFloor: string;
-    oneBuilding: string;
     bukkenName = '';
     floorAreaRatio: number = null;
 

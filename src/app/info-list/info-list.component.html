@@ -42,17 +42,17 @@
         <table mat-table [dataSource]="dataSource" matSort>
         
             <ng-container matColumnDef="infoDate">
-                <th mat-header-cell *matHeaderCellDef> 日付 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 日付 </th>
                 <td mat-cell *matCellDef="let element" > {{element.infoDate | date:'yyyy/MM/dd'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="infoSubject">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> 件名 </th>
+            <th mat-header-cell *matHeaderCellDef> 件名 </th>
             <td mat-cell *matCellDef="let element"> {{element.infoSubject}} </td>
             </ng-container>
 
             <ng-container matColumnDef="detailFlg">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> 詳細有無 </th>
+            <th mat-header-cell *matHeaderCellDef > 詳細有無 </th>
             <td mat-cell *matCellDef="let element"> {{element.detailFlg == 1 ? '有' : '無'}} </td>
             </ng-container>
         

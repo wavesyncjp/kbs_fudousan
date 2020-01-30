@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { InfoDetailComponent } from '../info-detail/info-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
+import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
 import { Information } from '../models/information';
@@ -25,7 +26,7 @@ export class InfoListComponent extends BaseComponent {
   selectedRowIndex = -1;
   displayedColumns: string[] = ['infoDate', 'infoSubject', 'detailFlg', 'infoDetail', 'attachFileName', 'finishFlg', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Information>();
-
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(public router: Router,
               public dialog: MatDialog,
               public service: BackendService,
@@ -74,7 +75,7 @@ export class InfoListComponent extends BaseComponent {
     this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
     this.service.searchInfo(this.cond).then(res => {
       this.dataSource.data = res;
-
+      this.dataSource.sort = this.sort;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
