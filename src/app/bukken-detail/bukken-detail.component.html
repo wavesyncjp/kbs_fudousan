@@ -182,7 +182,7 @@
                     <tr *ngFor="let loc of data.locations; index as pos">                            
                         <td>
                             <div class="contract-div">
-                                <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{data.bukkenNo + "-" + item.contractNumber}}</a>
+                                <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{ShowContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
                             </div>
                         </td>
                         <td>

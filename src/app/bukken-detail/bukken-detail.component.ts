@@ -370,12 +370,30 @@ export class BukkenDetailComponent extends BaseComponent {
     return ret;
   }
 
+  ShowContractNo(loc: Locationinfo, contractNo: string) {
+    const buysellCount = loc.sharers.filter(s => {
+      return s.buysellFlg === '1';
+    }).length;
+    if (buysellCount === 0) {
+      return '';
+    }
+    return contractNo;
+  }
+
   /**
    * 所有地の契約ステータス
    * @param loc ：所有地
    */
   showStatus(loc: Locationinfo) {
     const status = ''; // this.getCodeTitle('013', '01');
+
+    const buysellCount = loc.sharers.filter(s => {
+      return s.buysellFlg === '1';
+    }).length;
+    if (buysellCount === 0) {
+      return status;
+    }
+
     if (loc.sharers != null && loc.sharers.length > 0) {
 
       // 契約
@@ -387,19 +405,15 @@ export class BukkenDetailComponent extends BaseComponent {
       }).length;
 
       // 契約あり
-      if (ret.length > 0 && outputCount > 0) {
+      if (ret.length > 0) {
 
         // 契約日あり
         const contractDayCount = ret.filter(ct => {
           return ct.contractDay != null && ct.contractDay !== '';
         }).length;
 
-        const buysellCount = loc.sharers.filter(s => {
-          return s.buysellFlg === '1';
-        }).length;
-
         // 所有者一人
-        if (outputCount === 1 || outputCount === buysellCount) {
+        if (outputCount === buysellCount) {
           if (contractDayCount === 0) {
             return this.getCodeTitle('013', '01');
           } else if (ret.length !== contractDayCount) {
