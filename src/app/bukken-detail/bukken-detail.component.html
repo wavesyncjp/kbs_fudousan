@@ -181,7 +181,14 @@
                     <th class="width80">コピー</th>                       
                 </thead>
                 <tbody class="list-body">
-                    <tr *ngFor="let loc of data.locations; index as pos">                            
+                    <tr *ngFor="let loc of data.locations; index as pos">    
+                        <!--
+                        <td>
+                            <div class="contract-div">
+                                <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{ShowContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
+                            </div>
+                        </td>
+                        -->                        
                         <td>
                             {{showStatus(loc)}}                  
                         </td>
