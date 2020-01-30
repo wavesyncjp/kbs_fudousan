@@ -84,7 +84,7 @@ export class UserListComponent extends BaseComponent {
     （toLocaleDateString=国、地域の時間をあった言語にて表示する）*/
     this.service.searchUser(this.cond).then(res => {
       this.dataSource.data = res;
-
+      this.dataSource.sort = this.sort;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);

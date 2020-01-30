@@ -69,6 +69,7 @@ export class DepListComponent extends BaseComponent {
     this.spinner.show();
     this.service.searchDep(this.cond).then(res => {
       this.dataSource.data = res;
+      this.dataSource.sort = this.sort;
 
       setTimeout(() => {
         this.spinner.hide();
