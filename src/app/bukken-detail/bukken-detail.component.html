@@ -163,20 +163,20 @@
             <table>
                 <thead class="list-header">
                     
-                    <th>契約ステータス</th>
+                    <th class="width80">契約<br>ステータス</th>
 
-                    <th class="width80">区分</th>
+                    <th class="width100">区分</th>
                     <th>所在</th>
-                    <th class="width80">地番</th>
+                    <th>地番</th>
                     <th class="width80">家屋番号</th>
-                    <th class="width80">面積・床面積</th>
+                    <th>面積・床面積</th>
                     <th>所有者（代表）</th>
                     <th>所有者住所（代表）</th>
-                    <th>権利形態</th>
+                    <th class="width80">権利形態</th>
                     <th>備考</th>
                     <!--<th>契約者</th>-->
                     <!--<th class="width100">決済日</th>-->
-                    <th>契約番号</th>
+                    <th class="width100">契約番号</th>
                     <th class="width80">謄本詳細</th>
                     <th class="width80">コピー</th>                       
                 </thead>
@@ -189,9 +189,9 @@
                         <td class="text-left">{{loc.address}}</td>
                         <td class="text-left">{{loc.blockNumber}}</td>
                         <td class="text-left">{{loc.buildingNumber}}</td>
-                        <td>{{loc.locationType === '01' ? (loc.area != null ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
-                        <td>{{loc.owner}}</td>
-                        <td>{{loc.ownerAdress}}</td>
+                        <td class="text-left">{{loc.locationType === '01' ? (loc.area != null ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
+                        <td class="text-left">{{loc.owner}}</td>
+                        <td class="text-left">{{loc.ownerAdress}}</td>
                         <td>{{getCodeTitle('011', loc.rightsForm)}}</td>
                         <td></td>
                         <!--<td></td>-->
