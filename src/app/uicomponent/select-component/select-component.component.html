@@ -1,5 +1,4 @@
 <select [ngClass]="getClass()" [(ngModel)]="value" (change)="change($event)" [attr.disabled]="isDisabled ? '': null">
-    <option value=""></option>
-    <!--<option value="" ngIf="noBlank"></option>-->
+    <option value="" *ngIf="!noBlank"></option>
     <option *ngFor="let code of codes" value="{{code.codeDetail}}" >{{code.name}}</option>    
 </select>

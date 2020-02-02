@@ -30,8 +30,8 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
   @Input()
   isDisabled: false;
 
-  /*@Input()
-  noBlank: true;*/
+  @Input()
+  noBlank: false;
 
   // tslint:disable-next-line:variable-name
   _value: string;

@@ -14,7 +14,7 @@
             </td>
         </tr>
         <tr>
-            <th><app-select-component  [codes]="getCode('007')" [(ngModel)]="data.locationType" [isError]="errors['locationType' + pos]" (changed)="changeType($event)"></app-select-component></th>
+            <th><app-select-component  [codes]="getCode('007')" [(ngModel)]="data.locationType" [isError]="errors['locationType' + pos]" [noBlank]="true" (changed)="changeType($event)"></app-select-component></th>
             <td></td>
             <th>一棟の建物</th>
             <td colspan="3">
