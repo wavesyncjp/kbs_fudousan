@@ -387,6 +387,7 @@ export class BukkenDetailComponent extends BaseComponent {
   showStatus(loc: Locationinfo) {
     const status = ''; // this.getCodeTitle('013', '01');
 
+    // ①
     const buysellCount = loc.sharers.filter(s => {
       return s.buysellFlg === '1';
     }).length;
@@ -396,13 +397,13 @@ export class BukkenDetailComponent extends BaseComponent {
 
     if (loc.sharers != null && loc.sharers.length > 0) {
 
+      // ②仕入契約登記人情報
+      const outputCount = this.countContractRegistrant(loc.pid);
+
       // 契約
       const ret = this.contracts.filter(ct => {
         return ct.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01').length > 0;
       });
-      const outputCount = loc.sharers.filter(s => {
-        return s.outPutFlg === '1';
-      }).length;
 
       // 契約あり
       if (ret.length > 0) {
@@ -433,6 +434,24 @@ export class BukkenDetailComponent extends BaseComponent {
     }
     return status;
   }
+
+  /**
+   * 仕入契約登記人情報
+   * @param locPid ：所有地
+   */
+  countContractRegistrant(locPid: number) {
+    let count = 0;
+    this.contracts.forEach(ct => {
+      ct.details.forEach(dt => {
+        if (dt.locationInfoPid === locPid && dt.contractDataType === '01') {
+          count += dt.registrants.length;
+        }
+      });
+    });
+
+    return count;
+  }
+
 }
 
 
