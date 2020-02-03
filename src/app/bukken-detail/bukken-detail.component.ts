@@ -427,7 +427,7 @@ export class BukkenDetailComponent extends BaseComponent {
           if (contractDayCount === 0) {
             return this.getCodeTitle('013', '01');
           } else {
-            return this.getCodeTitle('013', '09');
+            return this.getCodeTitle('013', '05');
           }
         }
       }
