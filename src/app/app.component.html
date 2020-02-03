@@ -1,6 +1,6 @@
 <div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
     <mat-toolbar class="app-toolbar">
-        <button mat-icon-button (click)="snav.toggle()" *ngIf="!isLogin" class = "menu"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button *ngIf="!isLogin" (click)="snav.toggle()" class="menu"><mat-icon>menu</mat-icon></button>
         <h1 class="app-app-name">{{title}}</h1>        
         <button *ngIf="!isLogin" mat-raised-button mat-raised-button color="basic" class="logout-btn" (click)="logout()">Logout</button>        
 

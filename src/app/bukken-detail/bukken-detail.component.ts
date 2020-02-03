@@ -303,7 +303,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * 契約画面遷移
    * @param loc: 所在地
    */
-  navigateContract(loc: Locationinfo) {
+  navigateContract() {
     this.router.navigate(['/ctdetail'], {queryParams: {bukkenid: this.data.pid}});
   }
 

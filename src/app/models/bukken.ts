@@ -11,6 +11,8 @@ export class User {
     msg: string;
     createUserId: number;
     updateUserId: number;
+    createDate: Date;
+    updateDate: Date;
  
     public constructor(init?: Partial<Department>) {
         Object.assign(this, init);
@@ -31,6 +33,8 @@ export class Department {
     depName: string;
     createUserId: number;
     updateUserId: number;
+    updateDate: Date;
+    createDate: Date;
 
     public constructor(init?: Partial<Department>) {
         Object.assign(this, init);
@@ -61,7 +65,8 @@ export class Code {
     displayOrder: number;
     createUserId: number;
     updateUserId: number;
-
+    createDate: Date;
+    updateDate: Date;
     /*
     public constructor(init?: any) {
         if (init) {

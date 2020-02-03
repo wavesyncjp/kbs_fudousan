@@ -32,6 +32,9 @@ export class Locationinfo {
     dependFloor: string;
     bukkenName = '';
     floorAreaRatio: number = null;
+    landCategory: string;
+    ownerRemark: string;
+    oneBuilding: string;
 
     contractDetail: Contractdetailinfo;
     sharers: SharerInfo[];

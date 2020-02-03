@@ -8,6 +8,7 @@ export class Contractinfo {
     pid: number;
     tempLandInfoPid: number;
     contractNumber = '';
+    contractType: string;
     promptDecideFlg: number;
     promptDecideContent: string;
     indivisibleFlg: number;
@@ -20,8 +21,11 @@ export class Contractinfo {
     tradingLeasePrice: number;
     setlementPrice: number;
     deposit1: number;
+    deposit1Day: string;
     deposit2: number;
+    deposit2Day: string;
     earnestPrice: number;
+    earnestPriceDay: string;
     tradingBalance: number;
     prioritySalesArea: number;
     prioritySalesFloor: number;

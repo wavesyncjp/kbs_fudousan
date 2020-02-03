@@ -291,7 +291,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
-    if (this.data.locationType!== '03') {
+    if (this.data.locationType !== '03') {
     this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
     if (this.errorMsgs.length > 0) {
       return false;

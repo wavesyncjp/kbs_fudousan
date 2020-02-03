@@ -153,7 +153,7 @@
 <!--11/26修正-->
     <div class="button-div-left">
         <button mat-raised-button *ngIf="this.data.pid > 0" class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
-        <button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract(location)">契約情報　登録</button>
+        <button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract()">契約情報　登録</button>
     </div>
     <!--Tab group-->
     <!--block-->                        
@@ -236,7 +236,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button mat-raised-button (click)="showLocation()" color="warn">詳細</button></td>               
+                        <td><button mat-raised-button (click)="showLocation(null, null)" color="warn">詳細</button></td>               
                     </tr>
                 </tbody>
             </table>
