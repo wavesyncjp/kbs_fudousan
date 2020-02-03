@@ -25,7 +25,7 @@ export class SharerDialogComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('登記名義人選択');
+    // this.service.changeTitle('登記名義人選択');
   }
   changeFlg(event, sharer) {
     sharer.outPutFlg = (event.checked ? 1 : 0);

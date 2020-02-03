@@ -1,21 +1,24 @@
 <div class="dialog-div">  
     <span class="sharer-title">登記名義人選択</span>    
-    <table class="detail-tbl">
-        <tr>
-            <th class="choose">契約書出力</th>
-            <th>登記名義人</th>
-            <th>持ち分</th>
-        </tr>
-        <tr *ngFor="let item of data.sharers">
-            <td class="choose">
-                <mat-checkbox *ngIf="item.buysellFlg == 1" [checked]="item.outPutFlg == 1" (change)="changeFlg($event, item)"></mat-checkbox>
-            </td>
-            <td>{{item.sharer}}</td>
-            <td>{{item.shareRatio}}</td>
-        </tr>
-    </table>
-    <mat-dialog-actions align="end">                
-        <button mat-raised-button class="width80" color="primary" (click)="ok()">登録</button>
+    <div style="position: relative;">
+        <table class="detail-tbl">
+            <tr>
+                <th class="choose">契約書出力</th>
+                <th>登記名義人</th>
+                <th>持ち分</th>
+            </tr>
+            <tr *ngFor="let item of data.sharers">
+                <td class="choose">
+                    <mat-checkbox *ngIf="item.buysellFlg == 1" [checked]="item.outPutFlg == 1" (change)="changeFlg($event, item)"></mat-checkbox>
+                </td>
+                <td>{{item.sharer}}</td>
+                <td>{{item.shareRatio}}</td>
+            </tr>
+        </table>    
+        <div class="regist-title">売主・不可分選択を登録してから登記名義人が登録できます。</div> 
+    </div>    
+    <mat-dialog-actions align="center">                       
+        <button mat-raised-button class="width80" color="primary" (click)="ok()" [disabled]="data.contractDetail == null || !(data.contractDetail.pid > 0)">登録</button>
         <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
     </mat-dialog-actions>
 </div>
