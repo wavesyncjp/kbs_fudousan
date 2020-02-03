@@ -210,7 +210,7 @@
 
 <!--契約情報-->
 
-        <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
+        <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
             <span class="min">契約一覧</span>
             <table>
                 <thead class="list-header">
@@ -221,20 +221,20 @@
                     <th class="width80">地番</th>
                     <th class="width80">家屋番号</th>
                     <th>所有者</th>
-                    <th>売買代金</th>
+                    <th class="width100">売買代金</th>
                     <th class="width100">決済日</th>
                     <th class="width80">詳細</th>                       
                 </thead>
                 <tbody class="list-body">
-                    <tr>                        
+                    <tr *ngFor="let contract of contracts">                        
+                        <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
+                        <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
+                        <td style="white-space: pre;">{{displaySeller(contract)}}</td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="text-right">{{formatIntNumber(contract.tradingPrice, '円')}}</td>
                         <td></td>
                         <td><button mat-raised-button (click)="showLocation(null, null)" color="warn">詳細</button></td>               
                     </tr>

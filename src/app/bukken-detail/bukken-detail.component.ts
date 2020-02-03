@@ -452,6 +452,13 @@ export class BukkenDetailComponent extends BaseComponent {
     return count;
   }
 
+  /**
+   * 契約者名表示
+   * @param contract 契約者
+   */
+  displaySeller(contract: Contractinfo) {
+    return contract.sellers.filter(ct => ct.contractorName != null && ct.contractorName !== '').map(ct => ct.contractorName).join('\n\r');
+  }
 }
 
 
