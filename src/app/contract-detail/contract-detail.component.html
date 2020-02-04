@@ -6,6 +6,9 @@
         <button mat-raised-button class="button export-button" (click)="export()">契約書出力</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
     <br>
     <!--/土地情報契約-->
     <table class="detail-tbl-min">  
@@ -83,9 +86,9 @@
                         </thead>
                         <tbody class="list-body">
                             <tr *ngFor="let item of data.locations; index as pos">
-                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="hasSharer(item)" ></mat-checkbox></td>
+                                <td [ngClass]="{'tderror': errors['contractDataType_01_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="hasSharer(item)" ></mat-checkbox></td>
                                 <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '02'" (change)="change($event, item, '02')"></mat-checkbox></td>
-                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" ></mat-checkbox></td>                                
+                                <td [ngClass]="{'tderror': errors['contractDataType_03_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" ></mat-checkbox></td>                                
                                 <td>{{getCodeTitle('007', item.locationType)}}</td>
                                 <td>{{getCodeTitle('011', item.rightsForm)}}</td>
                                 <td class="width200 text-left">{{item.address}}</td>

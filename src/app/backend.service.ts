@@ -15,7 +15,7 @@ import { Contractdetailinfo } from './models/contractdetailinfo';
 })
 export class BackendService {
 
-  // private readonly BaseUrl = 'http://localhost/koshiba_bds/Backend/api';
+  // private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   public loginUser: User;
 

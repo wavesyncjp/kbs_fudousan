@@ -244,6 +244,23 @@ export class ContractDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
+    this.data.locations.forEach((loc, pos) => {
+      if(loc.sharers == null || loc.sharers.length == 1) {
+        return;
+      }
+      if((loc.contractDetail.contractDataType === '01' || loc.contractDetail.contractDataType === '03') 
+        && (loc.contractDetail.registrants == null || loc.contractDetail.registrants.length == 0)) {
+          if(loc.contractDetail.contractDataType === '01') {
+            this.errorMsgs.push('売主選択のデータで登記人が選択されていません。');
+            this.errors['contractDataType_01_' + pos] = true;
+          }
+          else {
+            this.errorMsgs.push('底地選択のデータで登記人が選択されていません。');
+            this.errors['contractDataType_03_' + pos] = true;
+          }          
+      }
+    });
+
     if (this.errorMsgs.length > 0) {
       return false;
     }

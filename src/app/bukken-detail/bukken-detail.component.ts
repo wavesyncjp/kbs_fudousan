@@ -358,12 +358,7 @@ export class BukkenDetailComponent extends BaseComponent {
   /**
    * 所有地ー契約取得
    */
-  getLandContract(loc: Locationinfo) {
-    if (loc.sharers == null && loc.sharers.filter(s => {
-      return s.outPutFlg === '1';
-    }).length === 0) {
-      return [];
-    }
+  getLandContract(loc: Locationinfo) {    
     const ret = this.contracts.filter(ct => {
       return ct.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01').length > 0;
     });

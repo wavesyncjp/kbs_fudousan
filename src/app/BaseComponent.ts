@@ -173,7 +173,7 @@ export class BaseComponent implements OnInit {
     }
 
     inList(list: string[], val = '') {
-        return list.includes(val);
+        return list != null && list.includes(val);
     }
     changeCheck(list: string[], val = '', $event) {
         if ($event.checked) {
