@@ -435,16 +435,17 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param locPid ：所有地
    */
   countContractRegistrant(locPid: number) {
-    let count = 0;
+    let sellers = [];
     this.contracts.forEach(ct => {
       ct.details.forEach(dt => {
         if (dt.locationInfoPid === locPid && dt.contractDataType === '01') {
-          count += dt.registrants.length;
+          const ids = dt.registrants.filter(re => { return sellers.indexOf(re.sharerInfoPid) < 0; }).map(re => re.sharerInfoPid);
+          sellers = sellers.concat(ids);
         }
       });
     });
 
-    return count;
+    return sellers.length;
   }
 
   /**
