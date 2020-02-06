@@ -380,7 +380,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param loc ：所有地
    */
   showStatus(loc: Locationinfo) {
-    const status = ''; // this.getCodeTitle('013', '01');
+    let status = ''; // this.getCodeTitle('013', '01');
 
     // ①
     const buysellCount = loc.sharers.filter(s => {
@@ -399,6 +399,8 @@ export class BukkenDetailComponent extends BaseComponent {
       const ret = this.contracts.filter(ct => {
         return ct.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01').length > 0;
       });
+
+      status = this.getCodeTitle('013', '01');
 
       // 契約あり
       if (ret.length > 0) {
