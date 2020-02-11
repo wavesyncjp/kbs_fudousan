@@ -36,7 +36,7 @@ export class LocationDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('謄本情報詳細');
+    this.service.changeTitle('物件情報詳細');
     this.spinner.show();
     this.oldLocationType = this.data.locationType;
 

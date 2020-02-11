@@ -21,7 +21,7 @@
             <!--<mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}">
                 <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
             </mat-select>-->
-            <app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.oneBuilding" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>
+            <app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.ridgePid" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>
             </td>
         </tr>
         <tr> 

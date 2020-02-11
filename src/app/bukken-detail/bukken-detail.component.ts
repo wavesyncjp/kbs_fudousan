@@ -50,7 +50,7 @@ export class BukkenDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('土地情報詳細');
+    this.service.changeTitle('物件情報詳細');
     this.spinner.show();
 
     const funcs = [];

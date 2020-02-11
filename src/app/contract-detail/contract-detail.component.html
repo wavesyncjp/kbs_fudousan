@@ -2,7 +2,7 @@
 <div  class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button class="button bukken-button" (click)="toBukken()">土地情報</button>
+        <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
         <button mat-raised-button class="button export-button" (click)="export()">契約書出力</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
@@ -78,7 +78,8 @@
                             <!--<th>契約者名</th>-->
                             <th>地目</th>
                             <th>地積</th>
-                            <th>地積のうち借地契約面積</th>
+                            <th>地積のうち<br>借地契約面積</th>
+                            <th>地積のうち有効面積</th>
                             <th>種類</th>
                             <th>構造</th>
                             <th>階建</th>
@@ -103,6 +104,7 @@
                                 <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
                                 <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractArea">&nbsp;㎡</span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.aaa">&nbsp;㎡</span></td>
                                 <td>{{getCodeTitles('003',item.dependType)}}</td>
                                 <td>{{item.structure}}</td>
                                 <td>{{item.dependFloor}}</td>
@@ -424,7 +426,7 @@
     <mat-divider></mat-divider>
     <div class="register-div" style="margin-top:10px">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button class="button bukken-button" (click)="toBukken()">土地情報</button>
+        <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
 

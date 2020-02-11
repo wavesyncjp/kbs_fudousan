@@ -72,7 +72,7 @@ export class BukkenListComponent extends BaseComponent {
     // tslint:disable-next-line:no-string-literal
     window['angularComponentReference'] = { component: this, zone: this.ngZone, openDetailFromMap: (pid) => this.showDetail2(pid), };
 
-    this.service.changeTitle('土地情報一覧');
+    this.service.changeTitle('物件情報一覧');
     this.dataSource.paginator = this.paginator;
     this.spinner.show();
 
