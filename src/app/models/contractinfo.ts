@@ -44,6 +44,13 @@ export class Contractinfo {
     finishScheduledDay: string;
     finishScheduledNote: string;
     dependType: string;
+    decisionPrice:number;
+    decisionDay: string;
+    settlementDay: string;
+    settlementAfter: string;
+    remarks: string;
+
+
 
     vacationDayMap: Date = null;
     contractDayMap: Date = null;
@@ -51,6 +58,11 @@ export class Contractinfo {
     startScheduledDayMap: Date = null;
     prioritySalesAgreementDayMap: Date = null;
     finishScheduledDayMap: Date = null;
+    decisionDayMap: Date = null;
+    settlementDayMap: Date = null;
+    deposit1DayMap: Date = null;
+    deposit2DayMap: Date = null;
+    earnestPriceDayMap: Date = null;
 
 
     details: Contractdetailinfo[] = [];
@@ -86,6 +98,21 @@ export class Contractinfo {
         if (this.finishScheduledDay) {
             this.finishScheduledDayMap = parse(this.finishScheduledDay, 'yyyyMMdd', new Date());
         }
+        if (this.decisionDay) {
+            this.decisionDayMap = parse(this.decisionDay, 'yyyyMMdd', new Date());
+        }
+        if (this.settlementDay) {
+            this.settlementDayMap = parse(this.settlementDay, 'yyyyMMdd', new Date());
+        }
+        if (this.deposit1Day) {
+            this.deposit1DayMap = parse(this.deposit1Day, 'yyyyMMdd', new Date());
+        }
+        if (this.deposit2Day) {
+            this.deposit2DayMap = parse(this.deposit2Day, 'yyyyMMdd', new Date());
+        }
+        if (this.earnestPriceDay) {
+            this.earnestPriceDayMap = parse(this.earnestPriceDay, 'yyyyMMdd', new Date());
+        }
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -103,5 +130,11 @@ export class Contractinfo {
         // tslint:disable-next-line:max-line-length
         this.prioritySalesAgreementDay = this.prioritySalesAgreementDayMap != null ? datePipe.transform(this.prioritySalesAgreementDayMap, 'yyyyMMdd') : null;
         this.finishScheduledDay = this.finishScheduledDayMap != null ? datePipe.transform(this.finishScheduledDayMap, 'yyyyMMdd') : null;
+        //20200212
+        this.decisionDay = this.decisionDayMap != null ? datePipe.transform(this.decisionDayMap, 'yyyyMMdd') : null;
+        this.settlementDay = this.settlementDayMap != null ? datePipe.transform(this.settlementDayMap, 'yyyyMMdd') : null;
+        this.deposit1Day = this.deposit1DayMap != null ? datePipe.transform(this.deposit1DayMap, 'yyyyMMdd') : null;
+        this.deposit2Day = this.deposit2DayMap != null ? datePipe.transform(this.deposit2DayMap, 'yyyyMMdd') : null;
+        this.earnestPriceDay = this.earnestPriceDayMap != null ? datePipe.transform(this.earnestPriceDayMap, 'yyyyMMdd') : null;
     }
 }

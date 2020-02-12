@@ -39,7 +39,7 @@ export class UserListComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('ユーザーマスタ');
+    this.service.changeTitle('社員マスタ');
 
     this.cond = {
       infoDateMap: new Date(),
