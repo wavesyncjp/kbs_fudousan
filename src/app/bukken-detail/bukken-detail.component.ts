@@ -161,6 +161,7 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   copyLocation(loc: Locationinfo) {
     const newLoc = new Locationinfo(loc);
+    newLoc.sharers.forEach(sh => {sh.locationInfoPid = null});
     newLoc.pid = null;
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',

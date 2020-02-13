@@ -19,15 +19,15 @@ import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.com
 import { ContractSellerInfo } from '../models/contractsellerinfo';
 
 @Component({
-  selector: 'app-contract-detail',
-  templateUrl: './contract-detail.component.html',
-  styleUrls: ['./contract-detail.component.css'],
+  selector: 'app-plan-detail',
+  templateUrl: './plan-detail.component.html',
+  styleUrls: ['./plan-detail.component.css'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
 })
-export class ContractDetailComponent extends BaseComponent {
+export class PlanDetailComponent extends BaseComponent {
 
   @ViewChild('topElement', {static: true}) topElement: ElementRef;
 
@@ -56,7 +56,7 @@ export class ContractDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('契約情報詳細');
+    this.service.changeTitle('事業収支詳細');
 
     const elementList = document.querySelectorAll('.detail-div');
     const element = elementList[0] as HTMLElement;
@@ -90,6 +90,7 @@ export class ContractDetailComponent extends BaseComponent {
       this.emps = values[1];
 
       // 物件あり場合
+      /*
       if ( values.length > 1) {
         if (this.pid > 0) {
           this.contract = new Contractinfo(values[2] as Contractinfo);
@@ -107,6 +108,7 @@ export class ContractDetailComponent extends BaseComponent {
         }
         this.convertData();
       }
+      */
 
       this.spinner.hide();
 
@@ -234,9 +236,6 @@ export class ContractDetailComponent extends BaseComponent {
     }
     if (item.contractDetail.contractDataType !== '03') {
       item.contractDetail.contractArea = null;
-    }
-    if (item.contractDetail.contractDataType !== '03') {
-      item.contractDetail.contractHave = null;
     }
   }
 

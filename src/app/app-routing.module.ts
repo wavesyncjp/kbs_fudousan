@@ -10,6 +10,10 @@ import { ContractDetailComponent } from './contract-detail/contract-detail.compo
 import { DepListComponent } from './dep-list/dep-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CodeListComponent } from './code-list/code-list.component';
+// 20200213 test S_Add
+import { PlanDetailComponent } from './plan-detail/plan-detail.component';
+import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
+// 20200213 test E_Add
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
@@ -22,6 +26,10 @@ const routes: Routes = [
   { path: 'deps', component: DepListComponent},
   { path: 'users', component: UserListComponent},
   { path: 'codes', component: CodeListComponent},
+  // 20200213 test S_Add
+  { path: 'plans', component: PlanDetailComponent},
+  { path: 'pays', component: PayContractDetailComponent},
+  // 20200213 test E_Add
 ];
 
 @NgModule({

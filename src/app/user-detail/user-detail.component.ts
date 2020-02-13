@@ -88,7 +88,7 @@ export class UserDetailComponent extends BaseComponent {
     20191225 E_DEL*/
     // ユーザー名
     if (Checklib.isBlank(this.data.userName)) {
-      this.errorMsgs.push('部署名は必須です。');
+      this.errorMsgs.push('ユーザー名は必須です。');
       const prop = 'userName';
       this.errors[prop] = true;
     }

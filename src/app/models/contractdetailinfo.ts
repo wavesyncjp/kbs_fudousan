@@ -6,6 +6,7 @@ export class Contractdetailinfo {
     locationInfoPid: number;
     contractDataType: string;
     contractArea: number;
+    contractHave: number;
 
     registrants: Contractregistrant[];
 
