@@ -24,7 +24,7 @@
             </td>
             <th>契約担当者</th>
             <td colspan="3">
-                <app-select-component [codes]="getEmps()" [(ngModel)]="contract.scale"></app-select-component>
+                <app-select-component [codes]="getEmps()" [(ngModel)]="contract.contractStaff"></app-select-component>
             </td> 
         </tr>        
         <tr>
@@ -37,7 +37,10 @@
                 <app-select-component [codes]="getCode('012')" [(ngModel)]="contract.contractType"></app-select-component>
             </td>
             <td colspan="4">
-                <mat-checkbox *ngFor="let code of getCode('008')">{{code.name}}&nbsp;&nbsp;</mat-checkbox>
+                <mat-radio-group [(ngModel)]="contract.promptDecideContent">
+                    <mat-radio-button *ngFor="let code of getCode('008')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;</mat-radio-button>  
+                  </mat-radio-group>
+                <!--<mat-checkbox *ngFor="let code of getCode('008')" [ngModel]="contract.promptDecideContent"  (change)="change($event, item, '01')">{{code.name}}&nbsp;&nbsp;</mat-checkbox>-->
             </td>  
             
         </tr>

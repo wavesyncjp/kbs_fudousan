@@ -15,15 +15,15 @@
                         </div>
                     </td>
                    
-                    <th>掲載終了</th>
-                    <td>
-                        <mat-checkbox *ngFor="let code of getCode('005')" [checked]="inList(cond.finishFlg, code.codeDetail)" (change)="changeCheck(cond.finishFlg, code.codeDetail ,$event)" >{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
+                    <th style="float: left;">掲載終了</th>
+                    <td style="float: left;">
+                        <mat-checkbox *ngFor="let code of getCode('005')" [checked]="inList(cond.finishFlg, code.codeDetail)" (change)="changeCheck(cond.finishFlg, code.codeDetail ,$event)">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
                     </td>
                 
                 </tr>    
                 <tr>
                     <th>件名</th>
-                    <td colspan="3">
+                    <td>
                         <!--fuzzyWide 曖昧検索-->
                         <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject">
                     </td>

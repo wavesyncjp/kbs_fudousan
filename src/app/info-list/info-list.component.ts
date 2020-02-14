@@ -62,7 +62,7 @@ export class InfoListComponent extends BaseComponent {
         });
       }
 
-      this.cond.infoDateMap = null;
+      //this.cond.infoDateMap = null;
 
     });
   }

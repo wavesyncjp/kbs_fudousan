@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { MatRadioChange } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
@@ -111,8 +112,13 @@ export class ContractDetailComponent extends BaseComponent {
       this.spinner.hide();
 
     });
+    
   }
-
+  changeFlg(event: MatRadioChange) {
+    if (event.value === '0') {
+      this.contract.promptDecideContent = '';
+    }
+  }
   /**
    * 契約情報＋所有地マージ
    */
