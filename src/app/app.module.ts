@@ -35,6 +35,10 @@ import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.comp
 import { DatePipe } from '@angular/common';
 import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.component';
 import { LocationDetailComponent } from './location-detail/location-detail.component';
+// 20200213 test S_Add
+import { PlanDetailComponent } from './plan-detail/plan-detail.component';
+import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
+// 20200213 test E_Add
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { LocationDetailComponent } from './location-detail/location-detail.compo
     CodeDetailComponent,
     FinishDialogComponent,
     SharerDialogComponent,
-    LocationDetailComponent
+    LocationDetailComponent,
+    // 20200213 test S_Add
+    PlanDetailComponent,
+    PayContractDetailComponent,
+    // 20200213 test E_Add
   ],
   imports: [
     BrowserModule,
@@ -96,6 +104,8 @@ import { LocationDetailComponent } from './location-detail/location-detail.compo
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
-    UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent],
+    UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent
+    , PlanDetailComponent, PayContractDetailComponent// 20200213 test Add
+  ],
 })
 export class AppModule { }
