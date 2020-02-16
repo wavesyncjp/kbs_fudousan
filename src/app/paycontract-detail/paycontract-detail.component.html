@@ -5,51 +5,78 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <br>
-    <!--/土地情報契約-->
+    <!--/支払情報ヘッダー-->
     <table class="detail-tbl-min">  
         <tr>
-            <td colspan="8"><span class="min">契約区分</span></td>
+            <td colspan="9"><span class="min">契約区分</span></td>
         </tr>
         <tr>
-            <th>物件番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNo"></td>            
-            <th>契約番号</th>
-            <td>
-                <input type="text" class="width150" [attr.disabled]="true" value="{{data.bukkenNo + '-' + contract.contractNumber}}">
-            </td>
-            <th>契約担当者</th>
-            <td colspan="3">
-                <app-select-component [codes]="getEmps()" [(ngModel)]="contract.scale"></app-select-component>
-            </td> 
-        </tr>        
+            <th rowspan="3">物件コード</th>
+            <td><input type="text" class="width150"[ngModel]="data.bukkenNo"></td> 
+            <th rowspan="3" colspan="">取引先</th>
+            <td colspan="2"><label>取引先</label><input type="text" class="width400" [ngModel]="data.bukkenNo"></td>        
+        </tr> 
         <tr>
-            <th>即決和解</th>
+            <td>
+                <button>物件検索</button>
+            </td>
+            <td colspan="2">
+                <label>支店　</label><input type="text" class="width400" value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+            </td> 
+        </tr>   
+        <tr>
+            <td>
+                <input type="text" class="width150" [attr.disabled]="false" value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+            </td>
+            <td colspan="2">
+                <label>口座　</label><input type="text" class="width400" value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+            </td>   
+        </tr>       
+        <tr>
+            <th>契約担当部署</th>
             <td>
                 <app-select-component [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component>
             </td>
-            <th>契約種別</th>
+            <th>契約担当者</th>
             <td>
                 <app-select-component [codes]="getCode('012')" [(ngModel)]="contract.contractType"></app-select-component>
             </td>
-            <td colspan="4">
-                <mat-checkbox *ngFor="let code of getCode('008')">{{code.name}}&nbsp;&nbsp;</mat-checkbox>
-            </td>  
-            
         </tr>
-        <tr>             
-            <th>不可分</th>
-            <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.indivisibleFlg"></app-select-component></td>       
-            <th>三為</th>
-            <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.thirdPartyFlg"></app-select-component></td>
-            <th>等価交換</th>
-            <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.equiExchangeFlg"></app-select-component></td>
-            <th>売買</th>
-            <td><app-select-component [codes]="getCode('009')" [(ngModel)]="contract.tradingType"></app-select-component></td>
-        </tr>       
+        <tr>
+            <th>契約金額(税別)</th>
+            <td>
+                <input type="text" class="width150"  value="{{data.bukkenNo + '-' + contract.contractNumber}}">円
+            </td>
+            <th>契約予定日</th>
+            <td>
+                <input type="text" class="width150"  value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+            </td>
+        </tr>
+        <tr>
+            <th>消費税</th>
+            <td>
+                <input type="text" class="width150"  value="{{data.bukkenNo + '-' + contract.contractNumber}}">円
+            </td>
+            <th>契約確定日</th>
+            <td>
+                <input type="text" class="width150"  value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+            </td>
+        </tr>
+        <tr>
+            <th>契約金額(税込)</th>
+            <td>
+                <input type="text" class="width150"  value="{{data.bukkenNo + '-' + contract.contractNumber}}">円
+            </td>
+            <th>備考</th>
+            <td>
+                <input type="text" class="width400"  value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+            </td>
+        </tr>
+        
     </table>
-    <!--/土地情報契約-->
+    <!--/支払情報ヘッダー-->
 
-    <!--/建物情報契約-->
+    <!--/支払情報明細-->
     
     <table class="detail-tbl-min">
         <tr>
@@ -246,7 +273,7 @@
         </tr>
     </table> 
 
-    <!--/建物情報契約-->
+    <!--/支払情報明細-->-->
     
 
 </div>    
