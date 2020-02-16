@@ -1,87 +1,23 @@
-.detail-div {
-    margin: 0px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-}
-.contact-div {
+.planhead {
     width: 89vw;
     height: 100%;
     overflow-x: auto;
     overflow-y: hidden;
 }
-.contact-div > table{
+.planhead > table.aaa{
     border-spacing: 0px;
     border-collapse: collapse;
 }
-.list-header {
-    background-color: cadetblue;
+
+.aaa > tr > td {
+    width: 100px;
+    border: 2px solid black;
 }
-.list-header > th {
+.aaa > td {
     height: 40px;
     min-width: 120px;    
     font-size: 12px;
     font-weight: 500;
-    color:white;
-    border: solid 1px gainsboro;    
-}
-
-.list-body > tr {
-    height: 34px;
-}
-
-.list-body > tr > td {
-    text-align: center;
-    font-size: 12px;
-    border: solid 1px gainsboro;    
-}
-
-.bukken-button {
-    /*float: left;*/
-    background: #00B050;
-    color: white;
-    width: 120px;
-}
-
-.export-button {
-    /*float: left;*/
-    background: dimgray;
-    color: white;
-    width: 120px;
-}
-
-.attach-btn{
-    background-color: red;
-    margin-left: 20px;
-    color: white;
-    height: 34px;
-    width: 80px;
-    font-size: 0.8em;
-}
-
-.sharerBtn {
-    background: coral;
-    width: 60px;
-    height: 28px;
-    border: solid 1px antiquewhite;
-    border-radius: 3px;
-    color: white;
-    text-decoration: none;    
-    padding-top: 4px;
-
-}
-
-.addSharer {
-    background-color: rgb(238, 187, 45);
-    color: white;
-    height: 34px;
-}
-.deleteSharer {
-    background-color: rgb(163, 158, 142);
-    color: black;
-    height: 34px;        
-}
-
-.tderror {
-    background-color: red;
+    /*color:white;
+    border: solid 1px gainsboro;*/   
 }

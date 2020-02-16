@@ -49,6 +49,7 @@ export class Contractinfo {
     settlementDay: string;
     settlementAfter: string;
     remarks: string;
+    contractStaff: string;
 
 
 
