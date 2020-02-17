@@ -39,7 +39,7 @@
                 <th>物件担当者</th>
                 <td>
                     <mat-select multiple class="width300" [(ngModel)]="data.infoStaffMap">
-                        <mat-option *ngFor="let emp of emps" [value]="emp.userName">{{emp.userName}}</mat-option>
+                        <mat-option *ngFor="let emp of emps" [value]="emp.userId">{{emp.userName}}</mat-option>
                     </mat-select>
                 </td>
             </tr>
@@ -55,7 +55,7 @@
                 <th>情報提供者</th>
                 <td> 
                     <mat-select multiple class="width300" [(ngModel)]="data.infoOfferMap">
-                        <mat-option *ngFor="let emp of emps" [value]="emp.userName">{{emp.userName}}</mat-option>
+                        <mat-option *ngFor="let emp of emps" [value]="emp.userId">{{emp.userName}}</mat-option>
                     </mat-select>
                 </td>
             <tr>
