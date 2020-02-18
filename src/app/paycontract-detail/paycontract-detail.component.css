@@ -85,3 +85,23 @@
 .tderror {
     background-color: red;
 }
+
+/* tableのレイアウト */
+.sample_01{
+    width: 100%;
+    border-collapse: collapse;
+    }
+    .sample_01 th{
+    width: 25%;
+    padding: 6px;
+    text-align: left;
+    vertical-align: top;
+    color: #333;
+    background-color: #eee;
+    border: 1px solid #b9b9b9;
+    }
+    .sample_01 td{
+    padding: 6px;
+    background-color: #fff;
+    border: 1px solid #b9b9b9;
+    }
