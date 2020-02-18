@@ -10,6 +10,7 @@ import { ContractDetailComponent } from './contract-detail/contract-detail.compo
 import { DepListComponent } from './dep-list/dep-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CodeListComponent } from './code-list/code-list.component';
+import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.component';
 // 20200213 test S_Add
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'deps', component: DepListComponent},
   { path: 'users', component: UserListComponent},
   { path: 'codes', component: CodeListComponent},
+  { path: 'paymentTypes', component: PaymentTypeListComponent},
   // 20200213 test S_Add
   { path: 'plans', component: PlanDetailComponent},
   { path: 'pays', component: PayContractDetailComponent},
