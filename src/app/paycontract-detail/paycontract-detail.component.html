@@ -75,7 +75,7 @@
         </tr>
     </table>
     <div style="margin: 10px 0px 10px 0px;">
-        <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>
+        <button mat-raised-button color="warn">&nbsp;新規登録&nbsp;</button>
     </div>
     <!--/支払情報ヘッダー-->
 
@@ -91,12 +91,12 @@
         <tr>
             <th>支払金額(税別)</th>
             <td>
-                <input type="text" [(ngModel)]="cond.contractNumber">
+                <input type="text" [(ngModel)]="contract.contractNumber">
             </td>
             <th>消費税</th>
             <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="vacationDay" class="width150" [(ngModel)]="cond.vacationDayMap">
+                    <input type="text" [matDatepicker]="vacationDay" class="width150" [(ngModel)]="contract.vacationDayMap">
                     <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #vacationDay></mat-datepicker>
                 </div>
@@ -104,7 +104,7 @@
             <th>支払金額(税込)</th>
             <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="contractDay" class="width150" [(ngModel)]="cond.contractDayMap">
+                    <input type="text" [matDatepicker]="contractDay" class="width150" [(ngModel)]="contract.contractDayMap">
                     <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #contractDay></mat-datepicker>
                 </div>
@@ -113,12 +113,12 @@
         <tr>
             <th>〆日</th>
             <td>
-                <input type="text" [(ngModel)]="cond.contractNumber">
+                <input type="text" [(ngModel)]="contract.contractNumber">
             </td>
             <th>支払予定日</th>
             <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="vacationDay" class="width150" [(ngModel)]="cond.vacationDayMap">
+                    <input type="text" [matDatepicker]="vacationDay" class="width150" [(ngModel)]="contract.vacationDayMap">
                     <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #vacationDay></mat-datepicker>
                 </div>
@@ -126,7 +126,7 @@
             <th>支払確定日</th>
             <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="contractDay" class="width150" [(ngModel)]="cond.contractDayMap">
+                    <input type="text" [matDatepicker]="contractDay" class="width150" [(ngModel)]="contract.contractDayMap">
                     <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #contractDay></mat-datepicker>
                 </div>
@@ -135,11 +135,11 @@
         <tr>
             <th>支払方法</th>
             <td>
-                <input type="text" [(ngModel)]="cond.bukkenNo">
+                <input type="text" [(ngModel)]="data.bukkenNo">
             </td>
             <th>備考</th>
             <td colspan="2">
-                <input type="text" class="width400" [(ngModel)]="cond.bukkenName">
+                <input type="text" class="width400" [(ngModel)]="data.bukkenName">
             </td>                    
         </tr>
     </table> 
@@ -162,19 +162,19 @@
         </tr>
         <tr>
             <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-            <td><input type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-            <td><input type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-            <td><input type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-            <td><input type="text" [(ngModel)]="cond.contractNumber"></td>
-            <td><input type="text" [(ngModel)]="cond.contractNumber"></td>
-            <td><input type="text" [(ngModel)]="cond.contractNumber"></td>
+            <td><input type="text" [(ngModel)]="contract.contractNumber"><label>円</label></td>
+            <td><input type="text" [(ngModel)]="contract.contractNumber"><label>円</label></td>
+            <td><input type="text" [(ngModel)]="contract.contractNumber"><label>円</label></td>
+            <td><input type="text" [(ngModel)]="contract.contractNumber"></td>
+            <td><input type="text" [(ngModel)]="contract.contractNumber"></td>
+            <td><input type="text" [(ngModel)]="contract.contractNumber"></td>
             <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-            <td><input type="text" [(ngModel)]="cond.contractNumber"></td>
+            <td><input type="text" [(ngModel)]="contract.contractNumber"></td>
         </tr>
         </tbody>
     </table>
     <div style="margin: 10px 0px 10px 0px; text-align: right;">
-        <button mat-raised-button (click)="createNew()" color="warn">&nbsp;支払情報追加&nbsp;</button>
+        <button mat-raised-button color="warn">&nbsp;支払情報追加&nbsp;</button>
     </div>
     <!--/グリッド-->
     
