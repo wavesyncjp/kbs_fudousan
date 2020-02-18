@@ -35,6 +35,8 @@ import { FinishDialogComponent } from './dialog/finish-dialog/finish-dialog.comp
 import { DatePipe } from '@angular/common';
 import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.component';
 import { LocationDetailComponent } from './location-detail/location-detail.component';
+import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.component';
+import { PaymentTypeDetailComponent } from './paymentType-detail/paymentType-detail.component';
 // 20200213 test S_Add
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
@@ -64,6 +66,8 @@ import { PayContractDetailComponent } from './paycontract-detail/paycontract-det
     FinishDialogComponent,
     SharerDialogComponent,
     LocationDetailComponent,
+    PaymentTypeListComponent,
+    PaymentTypeDetailComponent,
     // 20200213 test S_Add
     PlanDetailComponent,
     PayContractDetailComponent,
@@ -104,7 +108,8 @@ import { PayContractDetailComponent } from './paycontract-detail/paycontract-det
   bootstrap: [AppComponent],
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
-    UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent
+    UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
+    PaymentTypeDetailComponent
     , PlanDetailComponent, PayContractDetailComponent// 20200213 test Add
   ],
 })

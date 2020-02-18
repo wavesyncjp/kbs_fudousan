@@ -100,3 +100,31 @@ export enum SYSTEM_CODE {
     CODE_003 = '003',
     CODE_004 = '004',
 }
+
+export class PaymentType {
+
+    paymentCode: string;
+    paymentName: string;
+    landFlg: string;
+    buildingFlg: string;
+    sellingFlg: string;
+    otherFlg: string;
+    addFlg: string;
+    taxFlg: string;
+    createUserId: number;
+    updateUserId: number;
+    updateDate: Date;
+    createDate: Date;
+
+    public constructor(init?: Partial<PaymentType>) {
+        Object.assign(this, init);
+    }
+
+    public convertForSave(userId: number) {
+        if (this.createUserId > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
+    }
+}

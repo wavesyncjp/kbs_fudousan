@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+}
+.delete_btn{
+    background-color: rgb(91, 91, 95);
+    color: whitesmoke;
+    height: 30px;
+    width: 60px;
+    /*font-size: 0.8em;*/
+    margin-right: 20px;
+}
+.main {
+    width: 98%;
+    margin: 10px;
+}
+.fuzzyWidth200{
+    width:200px;
+    background-color: rgb(255, 249, 197);
+}

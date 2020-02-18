@@ -1,0 +1,54 @@
+<div class="dialog-div">  
+    <ul *ngIf="errorMsgs.length > 0" class="error-span" style="margin-top: -5px;">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>         
+    <table class="detail-tbl">
+        <tr>
+            <th>支払コード</th>
+            <td><input type="text"  [(ngModel)]="data.paymentCode" [ngClass]="{'width150': true, 'error': errors['paymentCode']}" [attr.disabled]="data.createUserId > 0 ? '' : null" ></td>
+        
+            <th>支払名称</th>
+            <td><input type="text"  [(ngModel)]="data.paymentName" [ngClass]="{'width300': true, 'error': errors['paymentName']}" ></td>
+        </tr>
+        <tr>
+            <th>土地対象</th>
+            <td><app-select-component [codes]="getCode('014')" [(ngModel)]="data.landFlg"></app-select-component></td>
+
+            <th>建物対象</th>
+            <td><app-select-component [codes]="getCode('014')" [(ngModel)]="data.buildingFlg"></app-select-component></td>
+        </tr>
+        <tr>
+            <th>販管費対象</th>
+            <td><app-select-component [codes]="getCode('014')" [(ngModel)]="data.sellingFlg"></app-select-component></td>
+
+            <th>その他対象</th>
+            <td><app-select-component [codes]="getCode('014')" [(ngModel)]="data.otherFlg"></app-select-component></td>
+        </tr>
+        <tr>
+            <th>追加対象</th>
+            <td><app-select-component [codes]="getCode('014')" [(ngModel)]="data.addFlg"></app-select-component></td>
+
+            <th>課税対象</th>
+            <td><app-select-component [codes]="getCode('014')" [(ngModel)]="data.taxFlg"></app-select-component></td>
+        </tr>
+        <tr>
+            <th>登録日</th>
+            <td><input type="text"  [(ngModel)]="data.createDate" class="width150" disabled ="true"></td>
+        
+            <th>登録ユーザーID</th>
+            <td><input type="text"  [(ngModel)]="data.createUserId" class="width150" disabled ="true"></td>
+        </tr>
+        <tr>
+            <th>更新日</th>
+            <td><input type="text"  [(ngModel)]="data.updateDate" class="width150" disabled ="true"></td>
+        
+            <th>更新ユーザーID</th>
+            <td><input type="text"  [(ngModel)]="data.updateUserId"  class="width150" disabled ="true"></td>
+        </tr>
+    </table>
+    <mat-dialog-actions align="end">        
+        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>
+</div>
+    

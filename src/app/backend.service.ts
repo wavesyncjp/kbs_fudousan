@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User, Code, Department, Employee, CodeNameMst } from './models/bukken';
+import { User, Code, Department, Employee, CodeNameMst, PaymentType } from './models/bukken';
 import { Templandinfo } from './models/templandinfo';
 import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
@@ -508,6 +508,34 @@ export class BackendService {
     return req.toPromise();
   }
 
+  /**
+   * 支払種別取得
+   */
+  searchPaymentType(cond: any): Promise<PaymentType[]> {
+    const searchApi = 'paymenttypesearch.php';
+    const req = this.http.post<PaymentType[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 支払種別登録
+   * @param paymentType ：支払種別
+   */
+  savePaymentType(paymentType: PaymentType): Promise<PaymentType> {
+    const saveApi = 'paymenttypesave.php';
+    const req = this.http.post<PaymentType>(`${this.BaseUrl}/${saveApi}`, paymentType);
+    return req.toPromise();
+  }
+
+  /**
+   * 支払種別削除
+   * @param paymentCode : 支払コード
+   */
+  deletePaymentType(paymentCode: string): Promise<void> {
+    const deleteApi = 'paymenttypedelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { paymentCode: paymentCode, deleteUserId: this.loginUser.userId });
+    return req.toPromise();
+  }
 }
 
 
