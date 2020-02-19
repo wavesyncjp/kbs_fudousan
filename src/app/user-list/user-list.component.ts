@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
@@ -10,13 +11,14 @@ import { User } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { JPDateAdapter } from '../adapters/adapters';
+import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
   providers: [
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
@@ -27,6 +29,7 @@ export class UserListComponent extends BaseComponent {
   /**/
   displayedColumns: string[] = ['userId', 'userName','employeeCode','depName','loginId','password','createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<User>();
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
@@ -40,7 +43,7 @@ export class UserListComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('社員マスタ');
-
+    this.dataSource.paginator = this.paginator;
     this.cond = {
       infoDateMap: new Date(),
       // 20191202 condにdepartmentセット(this)

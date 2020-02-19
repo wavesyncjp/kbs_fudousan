@@ -34,7 +34,7 @@ export class Locationinfo {
     floorAreaRatio: number = null;
     landCategory: string;
     ownerRemark: string;
-    oneBuilding: string;
+    ridgePid: string;
 
     contractDetail: Contractdetailinfo;
     sharers: SharerInfo[];

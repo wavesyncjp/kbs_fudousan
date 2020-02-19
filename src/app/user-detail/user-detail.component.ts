@@ -78,30 +78,9 @@ export class UserDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
-    /*20191225 S_DEL
-    // ユーザーID
-    if (this.data.userId == null) {
-      this.errorMsgs.push('ユーザーIDは必須です。');
-      const prop = 'userId';
-      this.errors[prop] = true;
-    }
-    20191225 E_DEL*/
-    // ユーザー名
-    if (Checklib.isBlank(this.data.userName)) {
-      this.errorMsgs.push('ユーザー名は必須です。');
-      const prop = 'userName';
-      this.errors[prop] = true;
-    }
 
-    // 詳細
-    /*
-    if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
-      this.errorMsgs.push('詳細は必須です。');
-      const prop = 'infoDetail';
-      this.errors[prop] = true;
-    }
-    */
- 
+    this.checkBlank(this.data.userName, 'userName', 'ユーザー名は必須です。');
+    
     if (this.errorMsgs.length > 0) {
       return false;
     }

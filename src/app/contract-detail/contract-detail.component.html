@@ -67,11 +67,11 @@
                 <div class="contact-div">
                     <table>
                         <thead class="list-header">
-                            <th>売主選択</th>
-                            <th>不可分選択</th>
-                            <th>底地選択</th>
+                            <th class="c_width80">売主選択</th>
+                            <th class="c_width80">不可分選択</th>
+                            <th class="c_width80">底地選択</th>
                             <th>区分</th>
-                            <th>権利形態</th>
+                            <th class="c_width80">権利形態</th>
                             <th><span style="display: inline-block;width: 200px;">所在</span></th>
                             <th>地番</th>
                             <th>家屋番号</th>
@@ -79,13 +79,13 @@
                             <th>登記名義人</th>
                             <th style="display: block;border:none" class="width300">所有者住所<br>（売主住所）</th>
                             <!--<th>契約者名</th>-->
-                            <th>地目</th>
+                            <th class="c_width80">地目</th>
                             <th>地積</th>
-                            <th>地積のうち<br>借地契約面積</th>
-                            <th>地積のうち有効面積</th>
+                            <th class="c_width250">地積のうち借地契約面積</th>
+                            <th class="c_width250">地積のうち有効面積</th>
                             <th>種類</th>
                             <th>構造</th>
-                            <th>階建</th>
+                            <th class="c_width40">階建</th>
                             <th>床面積</th>
                         </thead>
                         <tbody class="list-body">
@@ -106,12 +106,12 @@
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
                                 <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
-                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractArea">&nbsp;㎡</span></td>
-                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractHave">&nbsp;㎡</span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractArea"></span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="c_width250" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractHave"></span></td>
                                 <td>{{getCodeTitles('003',item.dependType)}}</td>
-                                <td>{{item.structure}}</td>
+                                <td style="white-space: pre;">{{item.structure}}</td>
                                 <td>{{item.dependFloor}}</td>
-                                <td>{{item.floorSpace}}</td>                                
+                                <td style="white-space: pre;">{{item.floorSpace}}</td>                                
                             </tr>
                         </tbody>
                     </table>
@@ -130,17 +130,26 @@
             <th class="sharer" style="white-space: nowrap;">契約者名
                 <button mat-raised-button class="addSharer" (click)="addContractSeller()">追加</button>
             </th>
-            <td colspan="9">
+            <td colspan="3">
                 <input type="text" [(ngModel)]="seller.contractorName" class="width300">
             </td>
+                <th class="sharer">契約者住所</th>
+                <td colspan="3">
+                    <input type="text" [(ngModel)]="seller.contractorAdress" class="width300">
+                </td>
+            
         </tr>  
         <tr *ngFor="let seller of contract.sellers | slice:1; index as sharerPos">
             <th class="sharer">契約者名
                 <button mat-raised-button class="deleteSharer" (click)="deleteContractSeller(sharerPos)">削除</button>
             </th>
-            <td colspan="9">
+            <td colspan="3">
                 <input type="text" [(ngModel)]="seller.contractorName" class="width300">
             </td>
+            <th class="sharer">契約者住所</th>
+                <td colspan="3">
+                    <input type="text" [(ngModel)]="seller.contractorAdress" class="width300">
+                </td>
         </tr> 
         <tr>
             <th>売買代金</th>
@@ -381,6 +390,8 @@
             <td><input type="text" [(ngModel)]="contract.structure" class="width150"></td>
             <th>規模</th>
             <td><input type="text" [(ngModel)]="contract.scale" lass="width200"></td> 
+            <th>延床面積</th>
+            <td><input type="text" [(ngModel)]="contract.totalFloorArea" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
         </tr>
     </table> 
     
@@ -415,12 +426,12 @@
                 <mat-datepicker-toggle matSuffix [for]="finishScheduledDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #finishScheduledDay></mat-datepicker>
             </td> 
-        </tr>
-        <tr>
-            <th>計画建物竣工</th>
-            <td colspan="7">
-                <input type="text" [(ngModel)]="contract.finishScheduledNote" class="width150">
-            </td>
+            <th>取得物件引渡</th>
+            <td>
+                <input type="text" [matDatepicker]="deliveryDay" class="width100" [(ngModel)]="contract.deliveryDayMap">
+                <mat-datepicker-toggle matSuffix [for]="deliveryDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deliveryDay></mat-datepicker>
+            </td> 
         </tr>
     </table> 
 

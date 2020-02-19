@@ -35,6 +35,7 @@ export class Contractinfo {
     attachFilePath: string;
     attachFileName: string;
     siteArea: number;
+    totalFloorArea: number;
     siteAvailableArea: number;
     structure: string;
     scale: string;
@@ -42,7 +43,7 @@ export class Contractinfo {
     startScheduledDay: string;
     prioritySalesAgreementDay: string;
     finishScheduledDay: string;
-    finishScheduledNote: string;
+    deliveryDay: string;
     dependType: string;
     decisionPrice:number;
     decisionDay: string;
@@ -59,6 +60,7 @@ export class Contractinfo {
     startScheduledDayMap: Date = null;
     prioritySalesAgreementDayMap: Date = null;
     finishScheduledDayMap: Date = null;
+    deliveryDayMap: Date = null;
     decisionDayMap: Date = null;
     settlementDayMap: Date = null;
     deposit1DayMap: Date = null;
@@ -99,6 +101,9 @@ export class Contractinfo {
         if (this.finishScheduledDay) {
             this.finishScheduledDayMap = parse(this.finishScheduledDay, 'yyyyMMdd', new Date());
         }
+        if (this.deliveryDay) {
+            this.deliveryDayMap = parse(this.deliveryDay, 'yyyyMMdd', new Date());
+        }
         if (this.decisionDay) {
             this.decisionDayMap = parse(this.decisionDay, 'yyyyMMdd', new Date());
         }
@@ -131,6 +136,7 @@ export class Contractinfo {
         // tslint:disable-next-line:max-line-length
         this.prioritySalesAgreementDay = this.prioritySalesAgreementDayMap != null ? datePipe.transform(this.prioritySalesAgreementDayMap, 'yyyyMMdd') : null;
         this.finishScheduledDay = this.finishScheduledDayMap != null ? datePipe.transform(this.finishScheduledDayMap, 'yyyyMMdd') : null;
+        this.deliveryDay = this.deliveryDayMap != null ? datePipe.transform(this.deliveryDayMap, 'yyyyMMdd') : null;
         //20200212
         this.decisionDay = this.decisionDayMap != null ? datePipe.transform(this.decisionDayMap, 'yyyyMMdd') : null;
         this.settlementDay = this.settlementDayMap != null ? datePipe.transform(this.settlementDayMap, 'yyyyMMdd') : null;

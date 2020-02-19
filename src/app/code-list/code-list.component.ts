@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { CodeDetailComponent } from '../code-detail/code-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
@@ -10,13 +11,14 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { JPDateAdapter } from '../adapters/adapters';
+import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 
 @Component({
   selector: 'app-code-list',
   templateUrl: './code-list.component.html',
   styleUrls: ['./code-list.component.css'],
   providers: [
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
@@ -29,7 +31,7 @@ export class CodeListComponent extends BaseComponent {
   displayedColumns: string[] = ['code','nameHeader','codeDetail','name','displayOrder', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Code>();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(public router: Router,
               public dialog: MatDialog,
               public service: BackendService,
@@ -41,7 +43,7 @@ export class CodeListComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('コードマスタ');
-
+    this.dataSource.paginator = this.paginator;
     this.cond = {
       infoDateMap: new Date(),
       // 20191202 condにdepartmentセット(this)

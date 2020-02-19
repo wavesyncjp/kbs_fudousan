@@ -70,21 +70,9 @@ export class DepDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    // 部署コード
-    if (this.data.depCode == null) {
-      this.errorMsgs.push('部署コードは必須です。');
-      const prop = 'depCode';
-      this.errors[prop] = true;
-    }
+    this.checkBlank(this.data.depCode, 'depCode', '部署コードは必須です。');
+    this.checkBlank(this.data.depName, 'depName', '部署名は必須です。');
 
-    // 部署名
-    if (Checklib.isBlank(this.data.depName)) {
-      this.errorMsgs.push('部署名は必須です。');
-      const prop = 'depName';
-      this.errors[prop] = true;
-    }
-
- 
     if (this.errorMsgs.length > 0) {
       return false;
     }
