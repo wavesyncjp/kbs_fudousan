@@ -40,31 +40,31 @@
             </ng-container>
 
             <ng-container matColumnDef="landFlg">
-                <th mat-header-cell *matHeaderCellDef> 土地対象 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 土地対象 </th>
                 <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.landFlg)}} </td>
             </ng-container>
 
             <ng-container matColumnDef="buildingFlg">
-                <th mat-header-cell *matHeaderCellDef> 建物対象 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 建物対象 </th>
                 <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.buildingFlg)}} </td>
             </ng-container>
 
             <ng-container matColumnDef="sellingFlg">
-                <th mat-header-cell *matHeaderCellDef> 販管費対象 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 販管費対象 </th>
                 <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.sellingFlg)}} </td>
             </ng-container>
             <ng-container matColumnDef="otherFlg">
-                <th mat-header-cell *matHeaderCellDef> その他対象 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> その他対象 </th>
                 <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.otherFlg)}} </td>
             </ng-container>
 
             <ng-container matColumnDef="addFlg">
-                <th mat-header-cell *matHeaderCellDef> 追加対象 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 追加対象 </th>
                 <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.addFlg)}} </td>
             </ng-container>
 
             <ng-container matColumnDef="taxFlg">
-                <th mat-header-cell *matHeaderCellDef> 課税対象 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 課税対象 </th>
                 <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.taxFlg)}} </td>
             </ng-container>
             
@@ -94,5 +94,6 @@
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
-        </table>        
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
     </div>

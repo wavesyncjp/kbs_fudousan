@@ -85,3 +85,17 @@
 .tderror {
     background-color: red;
 }
+.c_width40{
+    min-width: 40px !important;
+    width: 40px !important;
+}
+
+.c_width80{
+    min-width: 80px !important;
+    width: 80px !important;
+}
+
+.c_width250{
+    min-width: 250px !important;
+    width: 250px !important;
+}

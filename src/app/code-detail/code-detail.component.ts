@@ -79,35 +79,10 @@ export class CodeDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    if (this.data.codeDetail == null) {
-      this.errorMsgs.push('コード名は必須です。');
-      const prop = 'code';
-      this.errors[prop] = true;
-    }
+    this.checkBlank(this.data.code, 'code', 'コード名は必須です。');
+    this.checkBlank(this.data.codeDetail, 'codeDetail', '子コードは必須です。');
+    this.checkBlank(this.data.name, 'name', '子コード名は必須です。');
 
-    // コード
-    if (this.data.codeDetail == null) {
-      this.errorMsgs.push('子コードは必須です。');
-      const prop = 'codeDetail';
-      this.errors[prop] = true;
-    }
-
-    // コード名
-    if (Checklib.isBlank(this.data.name)) {
-      this.errorMsgs.push('子コード名は必須です。');
-      const prop = 'name';
-      this.errors[prop] = true;
-    }
-
-    // 詳細
-    /*
-    if (this.data.detailFlg === '1' && Checklib.isBlank(this.data.infoDetail)) {
-      this.errorMsgs.push('詳細は必須です。');
-      const prop = 'infoDetail';
-      this.errors[prop] = true;
-    }
-    */
- 
     if (this.errorMsgs.length > 0) {
       return false;
     }

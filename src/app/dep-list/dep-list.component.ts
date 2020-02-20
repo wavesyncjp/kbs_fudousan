@@ -2,6 +2,7 @@ import { Component,OnInit,ViewChild } from '@angular/core';
 import { DepDetailComponent } from '../dep-detail/dep-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 //import { Code } from '../models/bukken';
@@ -10,13 +11,14 @@ import { Department } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { JPDateAdapter } from '../adapters/adapters';
+import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 
 @Component({
   selector: 'app-dep-list',
   templateUrl: './dep-list.component.html',
   styleUrls: ['./dep-list.component.css'],
   providers: [
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
@@ -28,7 +30,7 @@ export class DepListComponent extends BaseComponent {
   displayedColumns: string[] = ['depCode', 'depName', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Department>();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(public router: Router,
               public dialog: MatDialog,
               public service: BackendService,
@@ -39,7 +41,7 @@ export class DepListComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('部署マスタ');
-
+    this.dataSource.paginator = this.paginator;
     this.cond = {
       infoDateMap: new Date(),
       department: []

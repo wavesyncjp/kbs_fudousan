@@ -68,20 +68,9 @@ export class PaymentTypeDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    // 支払コード
-    if (this.data.paymentCode == null) {
-      this.errorMsgs.push('支払コードは必須です。');
-      const prop = 'paymentCode';
-      this.errors[prop] = true;
-    }
-
-    // 支払名称
-    if (this.data.paymentName == null) {
-      this.errorMsgs.push('支払名称は必須です。');
-      const prop = 'paymentName';
-      this.errors[prop] = true;
-    }
-
+    this.checkBlank(this.data.paymentCode, 'paymentCode', '支払コードは必須です。');
+    this.checkBlank(this.data.paymentName, 'paymentName', '支払名称は必須です。');
+    
     if (this.errorMsgs.length > 0) {
       return false;
     }

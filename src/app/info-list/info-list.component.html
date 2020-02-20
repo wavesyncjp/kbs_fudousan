@@ -14,20 +14,18 @@
                             <mat-datepicker #finishDate></mat-datepicker>
                         </div>
                     </td>
+                    <th>件名</th>
+                    <td>
+                        <!--fuzzyWide 曖昧検索-->
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject">
+                    </td>
                    
                     <th style="float: left;">掲載終了</th>
                     <td style="float: left;">
                         <mat-checkbox *ngFor="let code of getCode('005')" [checked]="inList(cond.finishFlg, code.codeDetail)" (change)="changeCheck(cond.finishFlg, code.codeDetail ,$event)">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
                     </td>
                 
-                </tr>    
-                <tr>
-                    <th>件名</th>
-                    <td>
-                        <!--fuzzyWide 曖昧検索-->
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject">
-                    </td>
-                </tr>   
+                </tr>      
             </table>      
             <div style="margin: 10px 0px 10px 0px;">
                 <button mat-raised-button (click)="searchInfo()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;&nbsp;
@@ -87,5 +85,6 @@
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
-        </table>        
+        </table> 
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>       
     </div>

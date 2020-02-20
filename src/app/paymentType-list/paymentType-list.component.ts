@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { PaymentTypeDetailComponent } from '../paymentType-detail/paymentType-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 import { Code, PaymentType } from '../models/bukken';
@@ -9,15 +10,16 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { JPDateAdapter } from '../adapters/adapters';
+import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 
 @Component({
   selector: 'app-paymentType-list',
   templateUrl: './paymentType-list.component.html',
   styleUrls: ['./paymentType-list.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
 
@@ -26,6 +28,7 @@ export class PaymentTypeListComponent extends BaseComponent {
   selectedRowIndex = -1;
   displayedColumns: string[] = ['paymentCode', 'paymentName', 'landFlg', 'buildingFlg', 'sellingFlg', 'otherFlg', 'addFlg', 'taxFlg', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<PaymentType>();
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
@@ -39,6 +42,7 @@ export class PaymentTypeListComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('支払種別マスタ');
+    this.dataSource.paginator = this.paginator;
     this.cond = {};
 
     const funcs = [];
@@ -107,8 +111,8 @@ export class PaymentTypeListComponent extends BaseComponent {
 
   showDetail(row: PaymentType) {
     const dialogRef = this.dialog.open(PaymentTypeDetailComponent, {
-      width: '750px',
-      height: '350px',
+      width: '840px',
+      height: '420px',
       data: row
     });
 
