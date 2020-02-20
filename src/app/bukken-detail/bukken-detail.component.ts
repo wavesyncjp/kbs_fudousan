@@ -100,15 +100,34 @@ export class BukkenDetailComponent extends BaseComponent {
     this.data.convert();
     // 物件位置情報
     if (this.data.locations && this.data.locations.length > 0) {
-      const locs = [];
+      const locs: Locationinfo[] = [];
       this.data.locations.forEach(loc => {
         const locFront = new Locationinfo(loc);
         locs.push(locFront);
       });
+      this.sortLocation(locs);
       this.data.locations = locs;
     } else {
       this.data.locations = [];
     }
+  }
+
+  sortLocation(locs : Locationinfo[]) {
+    locs.sort((a,b) => {
+      let id1 = a.pid;
+      let id2 = b.pid;
+
+      if(a.locationType === '04' && a.ridgePid !== null && a.ridgePid !== '0' && a.ridgePid !== ''){
+        id1 = Number(a.ridgePid);
+      }
+      if(b.locationType === '04' && b.ridgePid !== null && b.ridgePid !== '0' && b.ridgePid !== ''){
+        id2 = Number(b.ridgePid);
+      }
+      if(id1 === id2) {
+        return a.locationType.localeCompare(b.locationType);
+      }
+      return id1 - id2;
+    });
   }
 
   /**
@@ -125,8 +144,9 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result.isSave) {
+      if (result && result.isSave) {        
         this.data.locations.push(result.data);
+        this.sortLocation(this.data.locations);
       }
     });
 
