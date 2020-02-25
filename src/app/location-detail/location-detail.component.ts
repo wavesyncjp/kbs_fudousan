@@ -22,7 +22,7 @@ export class LocationDetailComponent extends BaseComponent {
   oldLocationType = '';
   public cond: any;
   public locAdresses =[];
-
+ 
   constructor(public router: Router,
               public service: BackendService,
               private spinner: NgxSpinnerService,
@@ -106,6 +106,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.delSharers.push(sharer.pid);
     }
     this.data.sharers.splice(sharerPos, 1);
+    
   }
 
   /**
@@ -142,14 +143,13 @@ export class LocationDetailComponent extends BaseComponent {
         height: '250px',
         data: dlg
       });
-
       dlgRef.afterClosed().subscribe(result => {
         if (dlg.choose) {
           this.applyChangeType();
         } else {
           this.data.locationType = this.oldLocationType;
         }
-      });
+      });      
     } else {
       this.applyChangeType();
     }
@@ -172,12 +172,12 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.buysellFlg = '';
       this.data.owner = null;
       this.data.ownerAdress = null;
-      this.data.equity = null;
-
-     /* this.sharer.buysellFlg = '';
-      this.sharer.sharer = null;
-      this.sharer.sharerAdress = null;
-      this.sharer.shareRatio = null;*/
+      this.data.equity = null; 
+      var index: number = 0;
+      this.data.sharers.forEach(sharer => {
+        this.deleteSharer(index);
+        index++;
+      }); 
     } else if (this.data.locationType === '04') {
 
       this.cond = {

@@ -80,19 +80,19 @@
         <!-- bukkenName Column -->
         <ng-container matColumnDef="bukkenName">
           <th mat-header-cell *matHeaderCellDef> 物件名 </th>
-          <td mat-cell *matCellDef="let element"> {{element.bukkenName}} </td>
+          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
         </ng-container>
 
          <!-- 住居表示 -->
          <ng-container matColumnDef="residence">
           <th mat-header-cell *matHeaderCellDef> 住居表示 </th>
-          <td mat-cell *matCellDef="let element"> {{element.residence}} </td>
+          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.residence}} </td>
         </ng-container>
         
         <!--所在地-->
         <ng-container matColumnDef="remark1">
           <th mat-header-cell *matHeaderCellDef> 所在地 </th>
-          <td mat-cell *matCellDef="let element"> {{element.remark1.split(',')[0]}} </td>
+          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.remark1.split(',')[0]}} </td>
         </ng-container>
 
         <!--地番-->

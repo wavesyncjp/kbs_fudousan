@@ -33,9 +33,7 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
 .mat-column-contractOwner {
     width:150px;
 }
-th.mat-header-cell {
-    /*text-align: center !important;*/
-}
+
 td.mat-cell:last-of-type {
     padding-right: 0px;
 }
@@ -49,7 +47,9 @@ td.mat-cell:last-of-type {
 .ct-list button {
     margin-left: 15px;
 }
-
-.ct-notlast {
-    /*border-bottom:grey solid 1px;*/
-}
+.contractlist_width{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
