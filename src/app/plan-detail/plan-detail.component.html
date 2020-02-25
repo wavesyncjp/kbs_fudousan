@@ -1,24 +1,242 @@
-<div class="planhead">
-  <table class="aaa">
-    <tr>
-        <td colspan="2" rowspan="2">原価項目</td>
-        <td rowspan="2">原価細目</td>
-        <td rowspan="2">&nbsp;&nbsp;</td>
-        <td rowspan="2">単価等</td>
-        <td colspan="4">金額</td>
-    </tr>
-    <tr>
-        <td>土地原価</td>
-        <td>見物原価</td>
-        <td>計</td>
-        <td>消費税</td>
-    </tr>
-    <tr>
-        <td rowspan="30">開発原価</td>
-    </tr>
-        <td rowspan="2">土地費</td>
-    <tr>
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div  class="detail-div">
 
-    </tr>
-  </table>
-</div>
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <br>
+    <!--/土地情報契約-->
+    <table class="detail-tbl-min">  
+        <tr>
+            <td colspan="8"><span class="min">プラン種別</span></td>
+        </tr>
+        <tr>
+            <th>プラン番号</th>
+            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="test1"></td>            
+            <th>プラン名称</th>
+            <td>
+              <input type="text" style="width: 400px;" [(ngModel)]="test2">
+            </td>
+            <th>プランステータス</th>
+            <td>
+                <app-select-component [codes]="getEmps()" [(ngModel)]="test3"></app-select-component>
+            </td>
+            <th>作成日</th>
+            <td>
+            <input type="text" [matDatepicker]="test4" class="width100" [(ngModel)]="contract.test4">
+                <mat-datepicker-toggle matSuffix [for]="test4" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #test4></mat-datepicker>
+            </td>
+        </tr>
+        <tr>
+          <th>物件番号</th>
+          <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="test5"></td>          
+          <th>物件名称</th>
+          <td colspan="3">
+            <input type="text" style="width: 400px;" [attr.disabled]="true" [ngModel]="test6">
+          </td>
+        </tr> 
+    </table>
+    <!--/土地情報契約-->
+
+    <!--/建物情報契約-->
+          
+
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="8">
+                <span class="min"><label>契約内容</label></span>                        
+            </td>
+        </tr>
+        <tr *ngFor="let seller of contract.sellers | slice:0:1">
+            <th class="sharer" style="white-space: nowrap;">契約者名
+                <button mat-raised-button class="addSharer" (click)="addContractSeller()">追加</button>
+            </th>
+            <td colspan="9">
+                <input type="text" [(ngModel)]="seller.contractorName" class="width300">
+            </td>
+        </tr>  
+        <tr *ngFor="let seller of contract.sellers | slice:1; index as sharerPos">
+            <th class="sharer">契約者名
+                <button mat-raised-button class="deleteSharer" (click)="deleteContractSeller(sharerPos)">削除</button>
+            </th>
+            <td colspan="9">
+                <input type="text" [(ngModel)]="seller.contractorName" class="width300">
+            </td>
+        </tr> 
+        <tr>
+            <th>売買代金</th>
+            <td colspan="7">
+                <input type="text" [(ngModel)]="contract.tradingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th>売買代金（土地）</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.tradingLandPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+            </td>
+            <th>売買代金（建物）</th>
+            <td><input type="text" [(ngModel)]="contract.tradingBuildingPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>売買代金（借地権）</th>
+            <td><input type="text" [(ngModel)]="contract.tradingLeasePrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>
+            <th>実測精算単価</th>
+            <td><input type="text" [(ngModel)]="contract.setlementPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
+        </tr>
+        <tr>
+            <th>内金①</th>
+            <td><input type="text" [(ngModel)]="contract.deposit1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="deposit1Day" class="width100" [(ngModel)]="contract.deposit1DayMap">
+                <mat-datepicker-toggle matSuffix [for]="deposit1Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deposit1Day></mat-datepicker>
+            </td>
+            <th>内金②</th>
+            <td><input type="text" [(ngModel)]="contract.deposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="deposit2Day" class="width100" [(ngModel)]="contract.deposit2DayMap">
+                <mat-datepicker-toggle matSuffix [for]="deposit2Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deposit2Day></mat-datepicker>
+            </td>
+            <th>手付金</th>
+            <td><input type="text" [(ngModel)]="contract.earnestPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="earnestPriceDay" class="width100" [(ngModel)]="contract.earnestPriceDayMap">
+                <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #earnestPriceDay></mat-datepicker>
+            </td>
+            <th>売買残代金</th>
+            <td><input type="text" [(ngModel)]="contract.tradingBalance" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
+        </tr>
+        <tr>
+            <th>優先分譲面積<br>（専有面積）</th>
+            <td><input type="text" [(ngModel)]="contract.prioritySalesArea" class="width100 number" (keypress)="numericOnly($event)">&nbsp;㎡</td>
+            <th>優先分譲戸数（階）</th>
+            <td><input type="text" [(ngModel)]="contract.prioritySalesFloor" class="width100 number" (keypress)="numericOnly($event)">&nbsp;階</td>
+            <th>優先分譲予定価格</th>
+            <td colspan="3"><input [(ngModel)]="contract.prioritySalesPlanPrice" type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>            
+        </tr>
+       <tr>
+           <th>明渡期日</th>
+           <td>
+                <input type="text" [matDatepicker]="vacationDay" class="width100" [(ngModel)]="contract.vacationDayMap">
+                <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #vacationDay></mat-datepicker>
+           </td>
+           <th>契約日</th>
+           <td colspan="5">
+                <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="contract.contractDayMap">
+                <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractDay></mat-datepicker>
+           </td>
+       </tr>
+
+        <tr>
+
+        <th>決済代金</th>
+        <td>
+            <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.decisionPrice">&nbsp;円
+        </td>
+        
+        <th>決済日</th>
+        <td>
+            <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
+            <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
+            <mat-datepicker #decisionDay></mat-datepicker>
+        </td>
+        <th>即決和解申請日</th>
+        <td>
+            <input type="text" [matDatepicker]="settlementDay" class="width100" [(ngModel)]="contract.settlementDayMap">
+            <mat-datepicker-toggle matSuffix [for]="settlementDay" class="picker-icon"></mat-datepicker-toggle>
+            <mat-datepicker #settlementDay></mat-datepicker>
+        </td>
+        <th>和解成立後</th>
+        <td><input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter"></td>
+        
+       </tr>
+        <tr>
+            <th>備考</th>
+            <td colspan="7">
+                <input type="text" class="width85Per" [(ngModel)]="contract.remarks">
+            </td>
+        </tr>
+       <tr>
+            <th>計画地の公図</th>
+            <td colspan="9" style="border-top: solid 1px rgba(197, 191, 191, 0.822);">
+                <label *ngIf="!(contract.pid > 0)" style="color:red">※契約情報を登録後に添付可能となります。</label>   
+                <app-file contractInfoId="{{contract.pid}}" *ngIf="contract.pid > 0" (uploaded)="uploaded($event)"></app-file> 
+                
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let map of contract.contractFiles">
+                        <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
+                        <td><button mat-flat-button class="attach-btn" (click)="deleteFile(map)">削除</button></td>
+                    </tr>
+                   
+                </table>
+                
+            </td> 
+       </tr>
+    </table>
+    
+   
+
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="8">
+                <span class="min" style="width: 155px !important;">本件マンションの計画概要</span>                        
+            </td>
+        </tr>
+        <tr>
+            <th>敷地面積</th>
+            <td><input type="text" [(ngModel)]="contract.siteArea" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+            <th>有効敷地面積</th>
+            <td><input type="text" [(ngModel)]="contract.siteAvailableArea" class="width100 number" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+            <th>構造</th>
+            <td><input type="text" [(ngModel)]="contract.structure" class="width150"></td>
+            <th>規模</th>
+            <td><input type="text" [(ngModel)]="contract.scale" lass="width200"></td> 
+        </tr>
+    </table> 
+    
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="8">
+                <span class="min"><label>事業スケジュール</label></span>                        
+            </td>
+        </tr>
+        <tr>
+            <th>建築確認取得</th>
+            <td>
+                <input type="text" [matDatepicker]="acquisitionConfirmDay" class="width100" [(ngModel)]="contract.acquisitionConfirmDayMap">
+                <mat-datepicker-toggle matSuffix [for]="acquisitionConfirmDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #acquisitionConfirmDay></mat-datepicker>
+            </td>
+            <th>計画建物着工</th>
+            <td>
+                <input type="text" [matDatepicker]="startScheduledDay" class="width100" [(ngModel)]="contract.startScheduledDayMap">
+                <mat-datepicker-toggle matSuffix [for]="startScheduledDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startScheduledDay></mat-datepicker>
+            </td>
+            <th>優先分譲契約締結</th>
+            <td>
+                <input type="text" [matDatepicker]="prioritySalesAgreementDay" class="width100" [(ngModel)]="contract.prioritySalesAgreementDayMap">
+                <mat-datepicker-toggle matSuffix [for]="prioritySalesAgreementDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #prioritySalesAgreementDay></mat-datepicker>
+            </td>
+            <th>計画建物竣工</th>
+            <td>
+                <input type="text" [matDatepicker]="finishScheduledDay" class="width100" [(ngModel)]="contract.finishScheduledDayMap">
+                <mat-datepicker-toggle matSuffix [for]="finishScheduledDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #finishScheduledDay></mat-datepicker>
+            </td> 
+        </tr>
+        <tr>
+            <th>計画建物竣工</th>
+            <td colspan="7">
+                <input type="text" [(ngModel)]="contract.finishScheduledNote" class="width150">
+            </td>
+        </tr>
+    </table> 
+
+   
+
+</div>    
