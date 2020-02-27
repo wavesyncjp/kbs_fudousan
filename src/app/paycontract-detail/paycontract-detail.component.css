@@ -1,3 +1,7 @@
+mat-expansion-panel-header{
+    height: 45px !important;
+}
+
 .detail-div {
     margin: 0px;
     background-color: white;
@@ -86,22 +90,30 @@
     background-color: red;
 }
 
-/* tableのレイアウト */
-.sample_01{
+.contact-div {
     width: 100%;
-    border-collapse: collapse;
-    }
-    .sample_01 th{
-    width: 25%;
-    padding: 6px;
-    text-align: left;
-    vertical-align: top;
-    color: #333;
-    background-color: #eee;
-    border: 1px solid #b9b9b9;
-    }
-    .sample_01 td{
-    padding: 6px;
-    background-color: #fff;
-    border: 1px solid #b9b9b9;
-    }
+    height: 100%;
+    overflow-x: auto;
+    margin-left: 12px;
+}
+.width450{
+    width: 450px !important;
+}
+.width180{
+    width: 180px !important;
+}
+.button-div-left > .addPayInfo {
+    background-color:#FFC000;
+    color: white;
+}
+.button-div-left button {
+    margin: 10px 10px 10px 0px;
+}
+.button-div-left {
+    display: flex;
+    margin-left: 10px;
+}
+button.bkRed {
+    background-color: red;
+    color: white;
+}

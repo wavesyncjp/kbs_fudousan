@@ -14,6 +14,7 @@ import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.co
 // 20200213 test S_Add
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
+import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 // 20200213 test E_Add
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'paymentTypes', component: PaymentTypeListComponent},
   // 20200213 test S_Add
   { path: 'plans', component: PlanDetailComponent},
-  { path: 'pays', component: PayContractDetailComponent},
+  { path: 'pays', component: PayContractListComponent},
+  { path: 'paydetail', component: PayContractDetailComponent}
   // 20200213 test E_Add
 ];
 

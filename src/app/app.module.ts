@@ -39,6 +39,7 @@ import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.co
 import { PaymentTypeDetailComponent } from './paymentType-detail/paymentType-detail.component';
 // 20200213 test S_Add
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
+import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
 // 20200213 test E_Add
 
@@ -70,6 +71,7 @@ import { PayContractDetailComponent } from './paycontract-detail/paycontract-det
     PaymentTypeDetailComponent,
     // 20200213 test S_Add
     PlanDetailComponent,
+    PayContractListComponent,
     PayContractDetailComponent,
     // 20200213 test E_Add
   ],
