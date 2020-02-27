@@ -2,7 +2,8 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User, Code, Department, Employee, CodeNameMst, PaymentType , Plan} from './models/bukken';
+import { User, Code, Department, Employee, CodeNameMst, PaymentType} from './models/bukken';
+import { Planinfo } from './models/planinfo';
 import { Templandinfo } from './models/templandinfo';
 import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
@@ -540,9 +541,9 @@ export class BackendService {
   /**
    * 事業収支取得
    */
-  searchPlan(cond: any): Promise<Plan[]> {
+  searchPlan(cond: any): Promise<Planinfo[]> {
     const searchApi = 'plansearch.php';
-    const req = this.http.post<Plan[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    const req = this.http.post<Planinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
   }
 
@@ -550,9 +551,9 @@ export class BackendService {
    * 事業収支登録
    * @param plan ：事業収支
    */
-  savePlan(plan: Plan): Promise<Plan> {
+  savePlan(plan: Planinfo): Promise<Planinfo> {
     const saveApi = 'plansave.php';
-    const req = this.http.post<Plan>(`${this.BaseUrl}/${saveApi}`, plan);
+    const req = this.http.post<Planinfo>(`${this.BaseUrl}/${saveApi}`, plan);
     return req.toPromise();
   }
 

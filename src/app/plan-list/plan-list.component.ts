@@ -5,7 +5,8 @@ import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@an
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
-import { Code, Plan } from '../models/bukken';
+import { Code } from '../models/bukken';
+import { Planinfo } from '../models/planinfo';
 import { Router,ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
@@ -28,7 +29,7 @@ export class PlanListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'planName', 'createDate', 'updateDate', 'delete', 'detail'];
-  dataSource = new MatTableDataSource<Plan>();
+  dataSource = new MatTableDataSource<Planinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -82,7 +83,7 @@ export class PlanListComponent extends BaseComponent {
     this.router.navigate(['/pldetail']);
   }
 
-  deleteRow(row: Plan) {
+  deleteRow(row: Planinfo) {
     const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
@@ -92,14 +93,14 @@ export class PlanListComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deletePlan(row.paymentCode).then(res => {
+        this.service.deletePlan(row.address).then(res => {
           this.searchPlan();
         });
       }
     });
   }
 
-  showDetail(row: Plan) {
+  showDetail(row: Planinfo) {
     const dialogRef = this.dialog.open(PlanListComponent, {
       width: '840px',
       height: '420px',
