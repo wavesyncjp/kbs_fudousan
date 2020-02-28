@@ -2,7 +2,8 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User, Code, Department, Employee, CodeNameMst, PaymentType } from './models/bukken';
+import { User, Code, Department, Employee, CodeNameMst, PaymentType} from './models/bukken';
+import { Planinfo } from './models/planinfo';
 import { Templandinfo } from './models/templandinfo';
 import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
@@ -537,6 +538,38 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { paymentCode: paymentCode, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
+
+
+  /**
+   * 事業収支取得
+   */
+  searchPlan(cond: any): Promise<Planinfo[]> {
+    const searchApi = 'plansearch.php';
+    const req = this.http.post<Planinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支登録
+   * @param plan ：事業収支
+   */
+  savePlan(plan: Planinfo): Promise<Planinfo> {
+    const saveApi = 'plansave.php';
+    const req = this.http.post<Planinfo>(`${this.BaseUrl}/${saveApi}`, plan);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支削除
+   * @param planCode : 事業収支
+   */
+  deletePlan(planCode: string): Promise<void> {
+    const deleteApi = 'plandelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { planCode: planCode, deleteUserId: this.loginUser.userId });
+    return req.toPromise();
+  }
+  
+}
 
   /**
    * 支払管理取得

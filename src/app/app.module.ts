@@ -42,7 +42,9 @@ import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
 // 20200213 test E_Add
-
+// 20200226 test S_Add
+import { PlanListComponent } from './plan-list/plan-list.component';
+// 20200226 test E_Add
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +76,10 @@ import { PayContractDetailComponent } from './paycontract-detail/paycontract-det
     PayContractListComponent,
     PayContractDetailComponent,
     // 20200213 test E_Add
+    // 20200226 test S_Add
+    PlanListComponent,
+    
+    // 20200226 test E_Add
   ],
   imports: [
     BrowserModule,
