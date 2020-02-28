@@ -1,7 +1,7 @@
-import { Contractdetailinfo } from './contractdetailinfo';
+import { Paycontractdetailinfo } from './paycontractdetailinfo';
 
-describe('Contractdetailinfo', () => {
+describe('Paycontractdetailinfo', () => {
   it('should create an instance', () => {
-    expect(new Contractdetailinfo()).toBeTruthy();
+    expect(new Paycontractdetailinfo()).toBeTruthy();
   });
 });

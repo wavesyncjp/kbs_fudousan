@@ -17,6 +17,8 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { ContractFile } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 import { ContractSellerInfo } from '../models/contractsellerinfo';
+import { Paycontractinfo } from '../models/paycontractinfo';
+import { Paycontractdetailinfo } from '../models/paycontractdetailinfo';
 
 @Component({
   selector: 'app-paycontract-detail',
@@ -44,10 +46,13 @@ export class PayContractDetailComponent extends BaseComponent {
    // 20200222 E_Add
 
   public contract: Contractinfo;
+  public paycontract: Paycontractinfo;
+  public paycontractdetail: Paycontractdetailinfo;
   public data: Templandinfo;
   public pid: number;
   public bukkenid: number;
   delSellers = [];
+  delDetails = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -75,7 +80,8 @@ export class PayContractDetailComponent extends BaseComponent {
     element.scrollIntoView();
 
     this.spinner.show();
-    this.contract = new Contractinfo();
+    this.paycontract = new Paycontractinfo();
+    this.paycontractdetail = new Paycontractdetailinfo();
 
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
@@ -150,6 +156,30 @@ export class PayContractDetailComponent extends BaseComponent {
       locs.push(newLoc);
     });
     this.data.locations = locs;
+  }
+
+  /**
+   * 明細情報追加
+   */
+  addPayContractDetail() {
+    if (this.paycontract.details == null) {
+      this.paycontract.details = [];
+    }
+    this.paycontract.details.push(new Paycontractdetailinfo());
+  }
+
+  /**
+   * 明細情報削除
+   */
+  deletePayContractDetail(sharerPos: number) {
+    const detail = this.paycontract.details[sharerPos];
+    if (detail.pid > 0) {
+      if (this.delDetails == null) {
+        this.delDetails = [];
+      }
+      this.delDetails.push(detail);
+    }
+    this.paycontract.details.splice(sharerPos, 1);
   }
 
   /**

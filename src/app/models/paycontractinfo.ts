@@ -1,13 +1,14 @@
-import { Contractdetailinfo } from './paycontractdetailinfo';
+//import { Contractdetailinfo } from './paycontractdetailinfo';
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
 import { ContractFile } from './mapattach';
 import { ContractSellerInfo } from './contractsellerinfo';
+import { Paycontractdetailinfo } from './paycontractdetailinfo';
 
-export class PayContract {
+export class Paycontractinfo {
 
-    pid: string;
-    tempLandInfoPid: string;
+    pid: number;
+    tempLandInfoPid: number;
     depCode: string;
     userId: number;
     supplierName: string;
@@ -25,7 +26,9 @@ export class PayContract {
     updateDate: Date;
     createDate: Date;
 
-    public constructor(init?: Partial<PayContract>) {
+    details: Paycontractdetailinfo[];
+
+    public constructor(init?: Partial<Paycontractinfo>) {
         Object.assign(this, init);
     }
 
