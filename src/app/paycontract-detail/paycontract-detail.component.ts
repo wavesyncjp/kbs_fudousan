@@ -31,6 +31,18 @@ export class PayContractDetailComponent extends BaseComponent {
 
   @ViewChild('topElement', {static: true}) topElement: ElementRef;
 
+  // 20200222 S_Add
+  cond = {
+    bukkenNo: '',
+    bukkenName: '',
+    contractNumber: '',
+    vacationDayMap: null,
+    vacationDay: '',
+    contractDay: '',
+    contractDayMap: null
+  };
+   // 20200222 E_Add
+
   public contract: Contractinfo;
   public data: Templandinfo;
   public pid: number;
@@ -68,6 +80,7 @@ export class PayContractDetailComponent extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
     funcs.push(this.service.getEmps(null));
+    funcs.push(this.service.getDeps(null));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
     }
@@ -87,7 +100,12 @@ export class PayContractDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
-      this.emps = values[1];
+      // 20200222 S_Update
+//      this.emps = values[1];
+      this.users = values[1];
+      this.deps = values[2];
+      // 20200222 E_Update
+      
 
       /*
       // 物件あり場合
@@ -273,7 +291,7 @@ export class PayContractDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/contracts'], {queryParams: {search: '1'}});
+    this.router.navigate(['/pays'], {queryParams: {search: '1'}});
   }
 
   /**

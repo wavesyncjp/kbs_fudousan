@@ -10,6 +10,7 @@ import { Contractinfo } from './models/contractinfo';
 import { Converter } from './utils/converter';
 import { Locationinfo } from './models/locationinfo';
 import { Contractdetailinfo } from './models/contractdetailinfo';
+import { PayContract } from './models/paycontractinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -538,6 +539,7 @@ export class BackendService {
     return req.toPromise();
   }
 
+
   /**
    * 事業収支取得
    */
@@ -569,4 +571,33 @@ export class BackendService {
   
 }
 
+  /**
+   * 支払管理取得
+   */
+  searchPayContract(cond: any): Promise<PayContract[]> {
+    const searchApi = 'paycontractsearch.php';
+    const req = this.http.post<PayContract[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 支払管理登録
+   * @param PayContract ：支払種別
+   */
+  savePayContract(PayContract: PayContract): Promise<PayContract> {
+    const saveApi = 'paycontractsave.php';
+    const req = this.http.post<PayContract>(`${this.BaseUrl}/${saveApi}`, PayContract);
+    return req.toPromise();
+  }
+
+  /**
+   * 支払管理削除
+   * @param paymentCode : 支払コード
+   */
+  deletePayContracte(paymentCode: string): Promise<void> {
+    const deleteApi = 'paycontractdelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { paymentCode: paymentCode, deleteUserId: this.loginUser.userId });
+    return req.toPromise();
+  }
+}
 
