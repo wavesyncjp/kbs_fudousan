@@ -569,12 +569,11 @@ export class BackendService {
     return req.toPromise();
   }
   
-}
 
   /**
    * 支払管理取得
    */
-  searchPayContract(cond: any): Promise<PayContract[]> {
+  searchPayContract(cond: any) : Promise<PayContract[]> {
     const searchApi = 'paycontractsearch.php';
     const req = this.http.post<PayContract[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -599,5 +598,6 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { paymentCode: paymentCode, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
+
 }
 
