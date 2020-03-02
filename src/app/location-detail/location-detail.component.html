@@ -15,7 +15,10 @@
         </tr>
         <tr>
             <th><app-select-component  [codes]="getCode('007')" [(ngModel)]="data.locationType" [isError]="errors['locationType']" [noBlank]="true" (changed)="changeType($event)"></app-select-component></th>
-            <td></td>
+            <td>
+                <mat-checkbox *ngFor="let code of getCode('016')" [checked]="inList(data.notyetType, code.codeDetail)"  (change)="changeCheck(data.notyetType, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>
+            </td>
+            
             <th>一棟の建物</th>
             <td colspan="3">
             <!--<mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}">
@@ -97,6 +100,7 @@
                 <input type="text" [(ngModel)]="data.liveInfo" class="width85Per" [disabled]="data.locationType == '01'">
             </td>
         </tr>
+        
         <tr>
             <th>備考</th>
             <td colspan="5">

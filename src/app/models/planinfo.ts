@@ -7,10 +7,12 @@ export class Planinfo {
 
     pid: number;
     tempLandInfoPid: number;
-    bukkenNo: number;
-    bukkenName = '';
+    planNo: number;
     planName = '';
     planStatus: string;
+    cratedDay: string;
+    depCode: string;
+    userId: string;
     address: string;
     siteAreaBuy: number;
     siteAreaCheck: number;

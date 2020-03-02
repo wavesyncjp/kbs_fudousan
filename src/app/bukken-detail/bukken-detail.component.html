@@ -77,7 +77,7 @@
                 </td>
                 <th>結果</th>
                 <td>
-                    <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result"></app-select-component>
+                    <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result" [noBlank]="true"></app-select-component>
                 </td>      
             </tr>
             <tr>
