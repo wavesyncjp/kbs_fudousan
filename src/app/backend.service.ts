@@ -568,7 +568,7 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { planCode: planCode, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
-
+  
   /**
    * 支払管理取得
    */
@@ -597,5 +597,6 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { paymentCode: paymentCode, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
+
 }
 
