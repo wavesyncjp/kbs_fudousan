@@ -41,7 +41,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.oldLocationType = this.data.locationType;
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '003', '007', '011']));
+    funcs.push(this.service.getCodes(['002', '003', '007', '011','016']));
 
     Promise.all(funcs).then(values => {
       // コード

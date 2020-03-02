@@ -133,7 +133,7 @@ export class ContractDetailComponent extends BaseComponent {
       } else {
         newLoc.contractDetail = new Contractdetailinfo();
       }
-      locs.push(newLoc);
+        if(loc.locationType !== '03') locs.push(newLoc);
     });
     this.data.locations = locs;
   }
@@ -244,6 +244,11 @@ export class ContractDetailComponent extends BaseComponent {
     if (item.contractDetail.contractDataType !== '03') {
       item.contractDetail.contractHave = null;
     }
+
+
+    /*if (item.contractDetail.contractDataType !== '03') {
+      item.locations.locationType= '';
+    }*/
   }
 
   /**
