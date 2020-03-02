@@ -17,28 +17,28 @@
             <th rowspan="3">物件コード</th>
             <td colspan="3"><input type="text" class="width150" [ngModel]="data.bukkenNo"></td> 
             <th rowspan="3">取引先</th>
-            <td colspan="5"><label>取引先</label><input type="text" [(ngModel)]="data.remark1" class="width85Per"></td>        
+            <td colspan="5"><label>取引先</label><input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per"></td>        
         </tr> 
         <tr>
             <td colspan="3">
                 <button>物件検索</button>
             </td>
             <td colspan="5">
-                <label>支店　</label><input type="text" [(ngModel)]="data.remark2" class="width85Per">
+                <label>支店　</label><input type="text" [(ngModel)]="paycontract.branchName" class="width85Per">
             </td> 
         </tr>   
         <tr>
             <td colspan="3">
-                <input type="text" class="width300" [attr.disabled]="false" value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+                <input type="text" class="width300" [attr.disabled]="false" value="{{data.bukkenNo}}">
             </td>
             <td colspan="5">
-                <label>口座　</label><input type="text" [(ngModel)]="data.remark3" class="width85Per">
+                <label>口座　</label><input type="text" [(ngModel)]="paycontract.accountName" class="width85Per">
             </td>   
         </tr>       
         <tr>
             <th>契約担当部署</th>
             <td colspan="">
-                <app-select-component [codes]="getDeps()" [(ngModel)]="data.department"></app-select-component>
+                <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
             </td>
             <th>契約担当者</th>
             <!-- 20200222 S_Update -->
@@ -50,13 +50,13 @@
             </td>
             -->
             <td colspan="">
-                <app-select-component [codes]="getUsers()" [(ngModel)]="data.userId"></app-select-component>
+                <app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>
             </td>
             <!-- 20200222 S_Update -->
             <th>契約予定日</th>
             <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">
+                    <input type="text" [matDatepicker]="startDate" [(ngModel)]="paycontract.contractDay" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #startDate></mat-datepicker>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="picker-div">
                     <!-- 20200222 S_Update -->
                     <!--<input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">-->
-                    <input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width100">
+                    <input type="text" [matDatepicker]="finishDate" [(ngModel)]="paycontract.contractFixDay" class="width100">
                     <!-- 20200222 E_Update -->
                     <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #finishDate></mat-datepicker>
@@ -76,34 +76,31 @@
         <tr>
             <th>契約金額(税抜)</th>
             <td>
-                <input type="text" [(ngModel)]="contract.tradingLandPrice1" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <input type="text" [(ngModel)]="paycontract.contractPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
             </td>
             <th>消費税</th>
             <td>
-                <input type="text" [(ngModel)]="contract.tradingLandPrice2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <input type="text" [(ngModel)]="paycontract.contractTax" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
             </td>
             <th>契約金額(税込)</th>
             <td colspan="5">
-                <input type="text" [(ngModel)]="contract.tradingLandPrice3" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <input type="text" [(ngModel)]="paycontract.contractPriceTax" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
             </td>
         </tr>
         <tr>
             <th>備考</th>
             <td colspan="9">
-                <input type="text" [(ngModel)]="data.remark" class="width85Per">
+                <input type="text" [(ngModel)]="data.remarks" class="width85Per">
             </td>
         </tr>
     </table>
-    <div class="button-div-left">
-        <button mat-raised-button class="addPayInfo" (click)="addLocation()" >支払情報追加</button>
-    </div>
     <!--/支払情報ヘッダー-->
 
     <!--/支払情報明細-->
     <div class="contact-div" style="width: 100%;">
         <table width="100%">
             <thead class="list-header">
-                <th class="width150">支払種別</th>
+                <th class="width150" colspan="2">支払種別</th>
                 <th class="width130">支払金額(税抜)</th>
                 <th class="width130">消費税</th>
                 <th class="width130">支払金額(税込)</th>
@@ -111,45 +108,40 @@
                 <th class="width80">支払予定日</th>
                 <th class="width80">支払確定日</th>
                 <th class="width130">契約方法</th>
-                <th>備考</th> 
-                <th class="width100"></th>                    
+                <th>備考</th>                
             </thead>
             <tbody class="list-body">
                 <tr>                        
-                    <td><app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-                    <td><input class="width450" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><button mat-raised-button (click)="showContract(contract)" style="background-color: red; color: white;">削除</button></td>               
+                    <td>
+                        <button mat-raised-button (click)="addPayContractDetail()" style="background-color: #FFC000; color: white;">追加</button>
+                    </td>
+                    <td>
+                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentCode"></app-select-component>
+                    </td>
+                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPrice"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payTax"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPriceTax"><label>円</label></td>
+                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.closingDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractFixDay"></td>
+                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentMethod"></app-select-component></td>
+                    <td><input class="width450" type="text" [(ngModel)]="paycontractdetail.detailRemarks"></td>         
                 </tr>
-                <tr>                        
-                    <td><app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-                    <td><input class="width450" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><button mat-raised-button (click)="showContract(contract)" style="background-color: red; color: white;">削除</button></td>               
-                </tr>
-                <tr>                        
-                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="cond.contractNumber"><label>円</label></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="contract.promptDecideFlg"></app-select-component></td>
-                    <td><input class="width450" type="text" [(ngModel)]="cond.contractNumber"></td>
-                    <td><button mat-raised-button (click)="showContract(contract)" style="background-color: red; color: white;">削除</button></td>               
+                <tr *ngFor="let details of paycontract.details | slice:1; index as sharerPos">                      
+                    <td>
+                        <button mat-raised-button (click)="deletePayContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
+                    </td>
+                    <td>
+                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentCode"></app-select-component>
+                    </td>
+                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPrice"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payTax"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPriceTax"><label>円</label></td>
+                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.closingDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractFixDay"></td>
+                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentMethod"></app-select-component></td>
+                    <td><input class="width450" type="text" [(ngModel)]="paycontractdetail.detailRemarks"></td>
                 </tr>
             </tbody>
         </table>
