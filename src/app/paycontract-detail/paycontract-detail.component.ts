@@ -17,6 +17,8 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { ContractFile } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 import { ContractSellerInfo } from '../models/contractsellerinfo';
+import { Paycontractinfo } from '../models/paycontractinfo';
+import { Paycontractdetailinfo } from '../models/paycontractdetailinfo';
 
 @Component({
   selector: 'app-paycontract-detail',
@@ -44,10 +46,13 @@ export class PayContractDetailComponent extends BaseComponent {
    // 20200222 E_Add
 
   public contract: Contractinfo;
+  public paycontract: Paycontractinfo;
+  public paycontractdetail: Paycontractdetailinfo;
   public data: Templandinfo;
   public pid: number;
   public bukkenid: number;
   delSellers = [];
+  delDetails = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -75,18 +80,16 @@ export class PayContractDetailComponent extends BaseComponent {
     element.scrollIntoView();
 
     this.spinner.show();
-    this.contract = new Contractinfo();
+    this.paycontract = new Paycontractinfo();
+    this.paycontractdetail = new Paycontractdetailinfo();
 
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));
-    if (this.bukkenid > 0) {
+    if (this.pid > 0) {
+      funcs.push(this.service.getPayContract(this.pid));
       funcs.push(this.service.getLand(this.bukkenid));
-    }
-    // tslint:disable-next-line:one-line
-    else if (this.pid > 0) {
-      funcs.push(this.service.getContract(this.pid));
     }
 
     Promise.all(funcs).then(values => {
@@ -106,27 +109,13 @@ export class PayContractDetailComponent extends BaseComponent {
       this.deps = values[2];
       // 20200222 E_Update
       
-
-      /*
-      // 物件あり場合
-      if ( values.length > 1) {
+      // データが存在する場合
+      if ( values.length > 3) {
         if (this.pid > 0) {
-          this.contract = new Contractinfo(values[2] as Contractinfo);
-          this.contract.convert();
-          if (this.contract.sellers == null || this.contract.sellers.length === 0) {
-            this.contract.sellers = [];
-            this.contract.sellers.push(new ContractSellerInfo());
-          }
-          this.data = values[2].land;
-        } else {
-          this.data = new Templandinfo(values[2] as Templandinfo);
-          this.contract = new Contractinfo();
-          this.contract.sellers = [];
-          this.contract.sellers.push(new ContractSellerInfo());
-        }
-        this.convertData();
+          this.paycontract = new Paycontractinfo(values[3] as Paycontractinfo);
+        } 
+        this.data = values[4];
       }
-      */
 
       this.spinner.hide();
 
@@ -150,6 +139,30 @@ export class PayContractDetailComponent extends BaseComponent {
       locs.push(newLoc);
     });
     this.data.locations = locs;
+  }
+
+  /**
+   * 明細情報追加
+   */
+  addPayContractDetail() {
+    if (this.paycontract.details == null) {
+      this.paycontract.details = [];
+    }
+    this.paycontract.details.push(new Paycontractdetailinfo());
+  }
+
+  /**
+   * 明細情報削除
+   */
+  deletePayContractDetail(sharerPos: number) {
+    const detail = this.paycontract.details[sharerPos];
+    if (detail.pid > 0) {
+      if (this.delDetails == null) {
+        this.delDetails = [];
+      }
+      this.delDetails.push(detail);
+    }
+    this.paycontract.details.splice(sharerPos, 1);
   }
 
   /**

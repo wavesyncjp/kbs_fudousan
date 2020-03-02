@@ -17,6 +17,7 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { ContractFile } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 import { ContractSellerInfo } from '../models/contractsellerinfo';
+import { Planinfo } from '../models/planinfo';
 
 @Component({
   selector: 'app-plan-detail',
@@ -31,10 +32,22 @@ export class PlanDetailComponent extends BaseComponent {
 
   @ViewChild('topElement', {static: true}) topElement: ElementRef;
 
+  // 20200222 S_Add
+  cond = {
+    bukkenNo: '',
+    bukkenName: '',
+    contractNumber: '',
+    vacationDayMap: null,
+    vacationDay: '',
+    contractDay: '',
+    contractDayMap: null
+  };
+
   public contract: Contractinfo;
   public data: Templandinfo;
   public pid: number;
   public bukkenid: number;
+  public plan: Planinfo;
   delSellers = [];
 
   constructor(public router: Router,
@@ -63,10 +76,11 @@ export class PlanDetailComponent extends BaseComponent {
     element.scrollIntoView();
 
     this.spinner.show();
-    this.contract = new Contractinfo();
+    this.plan = new Planinfo();
 
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
+    funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getEmps(null));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
@@ -87,7 +101,13 @@ export class PlanDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+      // 20200222 S_Update
+      //      this.emps = values[1];
       this.emps = values[1];
+      this.users = values[2];
+      
+      // 20200222 E_Update
+      
 
       // 物件あり場合
       /*

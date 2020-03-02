@@ -10,7 +10,7 @@ import { Contractinfo } from './models/contractinfo';
 import { Converter } from './utils/converter';
 import { Locationinfo } from './models/locationinfo';
 import { Contractdetailinfo } from './models/contractdetailinfo';
-import { PayContract } from './models/paycontractinfo';
+import { Paycontractinfo } from './models/paycontractinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -569,13 +569,25 @@ export class BackendService {
     return req.toPromise();
   }
   
+  /**
+   * 支払管理一覧取得
+   */
+  searchPayContract(cond: any): Promise<Paycontractinfo[]> {
+    const searchApi = 'paycontractsearch.php';
+    const req = this.http.post<Paycontractinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
 
   /**
    * 支払管理取得
+   * @param id 支払管理情報Id
    */
-  searchPayContract(cond: any) : Promise<PayContract[]> {
-    const searchApi = 'paycontractsearch.php';
-    const req = this.http.post<PayContract[]>(`${this.BaseUrl}/${searchApi}`, cond);
+  getPayContract(id: number): Promise<Paycontractinfo> {
+    const getApi = 'paycontractget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Paycontractinfo>(`${this.BaseUrl}/${getApi}`, body);
     return req.toPromise();
   }
 
@@ -583,19 +595,19 @@ export class BackendService {
    * 支払管理登録
    * @param PayContract ：支払種別
    */
-  savePayContract(PayContract: PayContract): Promise<PayContract> {
+  savePayContract(PayContract: Paycontractinfo): Promise<Paycontractinfo> {
     const saveApi = 'paycontractsave.php';
-    const req = this.http.post<PayContract>(`${this.BaseUrl}/${saveApi}`, PayContract);
+    const req = this.http.post<Paycontractinfo>(`${this.BaseUrl}/${saveApi}`, PayContract);
     return req.toPromise();
   }
 
   /**
    * 支払管理削除
-   * @param paymentCode : 支払コード
+   * @param id 支払管理情報Id
    */
-  deletePayContracte(paymentCode: string): Promise<void> {
+  deletePayContracte(id: number): Promise<void> {
     const deleteApi = 'paycontractdelete.php';
-    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { paymentCode: paymentCode, deleteUserId: this.loginUser.userId });
+    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
     return req.toPromise();
   }
 

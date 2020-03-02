@@ -36,7 +36,7 @@ export class PlanListComponent extends BaseComponent {
   constructor(public router: Router,
               public dialog: MatDialog,
               public service: BackendService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService,) {
     super(router, service);
   }
 

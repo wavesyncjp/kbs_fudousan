@@ -6,7 +6,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
-import { PayContract } from '../models/paycontractinfo';
+import { Paycontractinfo } from '../models/paycontractinfo';
 import { Router,ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
@@ -29,7 +29,7 @@ export class PayContractListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','contractDay','contractFixDay', 'delete', 'detail'];
-  dataSource = new MatTableDataSource<PayContract>();
+  dataSource = new MatTableDataSource<Paycontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -50,19 +50,19 @@ export class PayContractListComponent extends BaseComponent {
     const funcs = [];
     /*funcs.push(this.service.getCodes(['014']));*/
 
-    Promise.all(funcs).then(values => {
+    // Promise.all(funcs).then(values => {
 
-      // コード
-      const codes = values[0] as Code[];
-      if (codes !== null && codes.length > 0) {
-        const uniqeCodes = [...new Set(codes.map(code => code.code))];
-        uniqeCodes.forEach(code => {
-          const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
-          this.sysCodes[code] = lst;
-        });
-      }
-    });
+    //   // コード
+    //   const codes = values[0] as Code[];
+    //   if (codes !== null && codes.length > 0) {
+    //     const uniqeCodes = [...new Set(codes.map(code => code.code))];
+    //     uniqeCodes.forEach(code => {
+    //       const lst = codes.filter(c => c.code === code);
+    //       lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+    //       this.sysCodes[code] = lst;
+    //     });
+    //   }
+    // });
   }
 
   /**
@@ -83,7 +83,7 @@ export class PayContractListComponent extends BaseComponent {
     this.router.navigate(['/paydetail']);
   }
 
-  deleteRow(row: PayContract) {
+  deleteRow(row: Paycontractinfo) {
     const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
@@ -100,19 +100,20 @@ export class PayContractListComponent extends BaseComponent {
     });
   }
 
-  showDetail(row: PayContract) {
-    const dialogRef = this.dialog.open(PayContractListComponent, {
-      width: '840px',
-      height: '420px',
-      data: row
-    });
+  showDetail(row: Paycontractinfo) {
+    // const dialogRef = this.dialog.open(PayContractListComponent, {
+    //   width: '840px',
+    //   height: '420px',
+    //   data: row
+    // });
 
-    // 再検索
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.searchPayContract();
-      }
-    });
+    // // 再検索
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.searchPayContract();
+    //   }
+    // });
+    this.router.navigate(['/paydetail'], {queryParams: {pid: row.pid}});
   }
 
   highlight(row) {

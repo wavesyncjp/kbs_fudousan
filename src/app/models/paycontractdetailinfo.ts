@@ -1,12 +1,18 @@
 import { Contractregistrant } from './contractregistrant';
 
-export class Contractdetailinfo {
+export class Paycontractdetailinfo {
     pid: number;
-    contractInfoPid: number;
-    locationInfoPid: number;
-    contractDataType: string;
-    contractArea: number;
-    contractHave: number;
+    tempLandInfoPid: number;
+    payContractPid: number;
+    paymentCode: string;
+    payPrice: number;
+    payTax: number;
+    payPriceTax: number;
+    closingDay: Date;
+    contractDay: Date;
+    contractFixDay: Date;
+    paymentMethod: string;
+    detailRemarks: string;
 
     registrants: Contractregistrant[];
 

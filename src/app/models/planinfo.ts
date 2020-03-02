@@ -7,7 +7,7 @@ export class Planinfo {
 
     pid: number;
     tempLandInfoPid: number;
-    planNo: number;
+    planNumber: string;
     planName = '';
     planStatus: string;
     cratedDay: string;
