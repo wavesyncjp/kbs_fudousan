@@ -83,36 +83,37 @@ export class PayContractListComponent extends BaseComponent {
     this.router.navigate(['/paydetail']);
   }
 
-  // deleteRow(row: Paycontractinfo) {
-  //   const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
-  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-  //     width: '500px',
-  //     height: '250px',
-  //     data: dlg
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (dlg.choose) {
-  //       this.service.deletePayContracte(row.pid).then(res => {
-  //         this.searchPayContract();
-  //       });
-  //     }
-  //   });
-  // }
-
-  showDetail(row: Paycontractinfo) {
-    const dialogRef = this.dialog.open(PayContractListComponent, {
-      width: '840px',
-      height: '420px',
-      data: row
+  deleteRow(row: Paycontractinfo) {
+    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
     });
 
-    // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.searchPayContract();
+      if (dlg.choose) {
+        this.service.deletePayContracte(row.pid).then(res => {
+          this.searchPayContract();
+        });
       }
     });
+  }
+
+  showDetail(row: Paycontractinfo) {
+    // const dialogRef = this.dialog.open(PayContractListComponent, {
+    //   width: '840px',
+    //   height: '420px',
+    //   data: row
+    // });
+
+    // // 再検索
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.searchPayContract();
+    //   }
+    // });
+    this.router.navigate(['/paydetail'], {queryParams: {pid: row.pid}});
   }
 
   highlight(row) {

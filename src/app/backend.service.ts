@@ -570,11 +570,24 @@ export class BackendService {
   }
   
   /**
-   * 支払管理取得
+   * 支払管理一覧取得
    */
   searchPayContract(cond: any): Promise<Paycontractinfo[]> {
     const searchApi = 'paycontractsearch.php';
     const req = this.http.post<Paycontractinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 支払管理取得
+   * @param id 支払管理情報Id
+   */
+  getPayContract(id: number): Promise<Paycontractinfo> {
+    const getApi = 'paycontractget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Paycontractinfo>(`${this.BaseUrl}/${getApi}`, body);
     return req.toPromise();
   }
 
@@ -590,11 +603,11 @@ export class BackendService {
 
   /**
    * 支払管理削除
-   * @param paymentCode : 支払コード
+   * @param id 支払管理情報Id
    */
-  deletePayContracte(paymentCode: string): Promise<void> {
+  deletePayContracte(id: number): Promise<void> {
     const deleteApi = 'paycontractdelete.php';
-    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { paymentCode: paymentCode, deleteUserId: this.loginUser.userId });
+    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
     return req.toPromise();
   }
 
