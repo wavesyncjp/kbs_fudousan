@@ -87,12 +87,9 @@ export class PayContractDetailComponent extends BaseComponent {
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));
-    if (this.bukkenid > 0) {
+    if (this.pid > 0) {
+      funcs.push(this.service.getPayContract(this.pid));
       funcs.push(this.service.getLand(this.bukkenid));
-    }
-    // tslint:disable-next-line:one-line
-    else if (this.pid > 0) {
-      funcs.push(this.service.getContract(this.pid));
     }
 
     Promise.all(funcs).then(values => {
@@ -112,27 +109,13 @@ export class PayContractDetailComponent extends BaseComponent {
       this.deps = values[2];
       // 20200222 E_Update
       
-
-      /*
-      // 物件あり場合
-      if ( values.length > 1) {
+      // データが存在する場合
+      if ( values.length > 3) {
         if (this.pid > 0) {
-          this.contract = new Contractinfo(values[2] as Contractinfo);
-          this.contract.convert();
-          if (this.contract.sellers == null || this.contract.sellers.length === 0) {
-            this.contract.sellers = [];
-            this.contract.sellers.push(new ContractSellerInfo());
-          }
-          this.data = values[2].land;
-        } else {
-          this.data = new Templandinfo(values[2] as Templandinfo);
-          this.contract = new Contractinfo();
-          this.contract.sellers = [];
-          this.contract.sellers.push(new ContractSellerInfo());
-        }
-        this.convertData();
+          this.paycontract = new Paycontractinfo(values[3] as Paycontractinfo);
+        } 
+        this.data = values[4];
       }
-      */
 
       this.spinner.hide();
 

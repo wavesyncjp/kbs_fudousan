@@ -29,7 +29,7 @@
         </tr>   
         <tr>
             <td colspan="3">
-                <input type="text" class="width300" [attr.disabled]="false" value="{{data.bukkenNo}}">
+                <input type="text" class="width150" [ngModel]="data.bukkenName">
             </td>
             <td colspan="5">
                 <label>口座　</label><input type="text" [(ngModel)]="paycontract.accountName" class="width85Per">
@@ -90,7 +90,7 @@
         <tr>
             <th>備考</th>
             <td colspan="9">
-                <input type="text" [(ngModel)]="data.remarks" class="width85Per">
+                <input type="text" [(ngModel)]="paycontract.remarks" class="width85Per">
             </td>
         </tr>
     </table>
@@ -111,37 +111,37 @@
                 <th>備考</th>                
             </thead>
             <tbody class="list-body">
-                <tr>                        
+                <tr *ngFor="let detail of paycontract.details | slice:0:1">                        
                     <td>
                         <button mat-raised-button (click)="addPayContractDetail()" style="background-color: #FFC000; color: white;">追加</button>
                     </td>
                     <td>
-                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentCode"></app-select-component>
+                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPrice"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payTax"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPriceTax"><label>円</label></td>
-                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.closingDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractFixDay"></td>
-                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentMethod"></app-select-component></td>
-                    <td><input class="width450" type="text" [(ngModel)]="paycontractdetail.detailRemarks"></td>         
+                    <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
+                    <td><input class="width80" type="text" [(ngModel)]="detail.closingDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="detail.contractDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="detail.contractFixDay"></td>
+                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
+                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>         
                 </tr>
-                <tr *ngFor="let details of paycontract.details | slice:1; index as sharerPos">                      
+                <tr *ngFor="let detail of paycontract.details | slice:1; index as sharerPos">                      
                     <td>
                         <button mat-raised-button (click)="deletePayContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
                     </td>
                     <td>
-                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentCode"></app-select-component>
+                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPrice"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payTax"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="paycontractdetail.payPriceTax"><label>円</label></td>
-                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.closingDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="paycontractdetail.contractFixDay"></td>
-                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="paycontractdetail.paymentMethod"></app-select-component></td>
-                    <td><input class="width450" type="text" [(ngModel)]="paycontractdetail.detailRemarks"></td>
+                    <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
+                    <td><input class="width100" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
+                    <td><input class="width80" type="text" [(ngModel)]="detail.closingDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="detail.contractDay"></td>
+                    <td><input class="width80" type="text" [(ngModel)]="detail.contractFixDay"></td>
+                    <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
+                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>
                 </tr>
             </tbody>
         </table>
