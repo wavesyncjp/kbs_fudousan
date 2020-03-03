@@ -41,7 +41,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.oldLocationType = this.data.locationType;
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '003', '007', '011','016']));
+    funcs.push(this.service.getCodes(['002', '003', '007', '011']));
 
     Promise.all(funcs).then(values => {
       // コード
@@ -164,10 +164,14 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.dependFloor = null;
       this.data.liveInfo = null;
       this.data.structure = null;
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
     } else if (this.data.locationType === '02') {
       this.data.blockNumber = '';
       this.data.area = null;
       this.data.tsubo = null;
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
     } else if (this.data.locationType === '03') {
       this.data.buysellFlg = '';
       this.data.owner = null;
@@ -178,8 +182,11 @@ export class LocationDetailComponent extends BaseComponent {
         this.deleteSharer(index);
         index++;
       }); 
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
     } else if (this.data.locationType === '04') {
-
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
       this.cond = {
         tempLandInfoPid: this.data.tempLandInfoPid,
         locationType: '03'
@@ -211,15 +218,26 @@ export class LocationDetailComponent extends BaseComponent {
    * チェックボックス変更
    * @param event ：イベント
    * @param flg ：フラグ
-   */
+   売買対象flgChange/相続未登記ありnotChange/建物未登記ありyetChange*/
   flgChange(event, flg: any) {
     flg.buysellFlg = (event.checked ? 1 : 0);
    }
+   notChange(event, flg: any) {
+    flg.inheritanceNotyet = (event.checked ? 1 : 0);
+   }
+   yetChange(event, flg: any) {
+    flg.buildingNotyet = (event.checked ? 1 : 0);
+   }
+
+
+   
 
   save() {
     if (!this.validate()) {
       return;
     }
+
+    
 
     const dlg = new Dialog({title: '確認', message: '謄本情報を登録しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

@@ -5,69 +5,134 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <br>
-    <!--/土地情報契約-->
-    <table class="detail-tbl-min">  
+    <!--/収支ヘッダー-->
+    <table class="detail-tbl-head-test">  
         <tr>
-            <td colspan="8"><span class="min">プラン種別</span></td>
+            <td><span class="head">プラン種別</span><app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus"></app-select-component></td>
+        </tr>
+        <tr>
+            <!--<th>プランステータス</th>
+            <td>
+                <app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus"></app-select-component>
+            </td>-->
+            <th>作成日</th>
+                <td class="first">
+                <input type="text" [matDatepicker]="cratedDay" class="width100" [(ngModel)]="plan.cratedDay">
+                <mat-datepicker-toggle matSuffix [for]="cratedDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #cratedDay></mat-datepicker>
+                </td>
+                <th>決済期</th>
+                <td>
+                    <input type="text" class="width100" [ngModel]="plan.settlement">
+          
+                    <app-select-component [codes]="getCode('017')"  class="width100"[(ngModel)]="plan.period"></app-select-component>
+                </td>    
+
         </tr>
         <tr>
             <th>プラン番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="plan.planNumber"></td>            
+            <td class="first"><input type="text" class="width150" [attr.disabled]="true" [ngModel]="plan.planNumber"></td>            
             <th>プラン名</th>
             <td>
               <input type="text" style="width: 400px;" [(ngModel)]="plan.planName">
-            </td>
-            <th>プランステータス</th>
-            <td>
-                <app-select-component [codes]="getEmps()" [(ngModel)]="plan.planStatus"></app-select-component>
-            </td>
-            
+            </td>    
         </tr>
         
         <tr>
             <th>物件番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNumber"></td>          
+            <td class="first"><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNumber"></td>          
             <th>物件名称</th>
-            <td colspan="3">
+            <td>
                 <input type="text" style="width: 400px;" [attr.disabled]="true" [ngModel]="data.bukkenName">
             </td>
         </tr>
         <tr>
             <th>担当部署</th>
-                <td>
-                    <app-select-component [codes]="getDeps()" [(ngModel)]="plan.depCode"></app-select-component>
+                <td class="first">
+                    <app-select-component [codes]="getDeps()"  [(ngModel)]="plan.depCode"></app-select-component>
                 </td>
                 <th>物件担当者</th>
                 <td>
-                    <app-select-component [codes]="getEmps()"  [(ngModel)]="plan.userId"></app-select-component>
+                    <app-select-component [codes]="getEmps()" style="width: 400px;" [(ngModel)]="plan.userId" [exclass] = "true"></app-select-component>
                 </td>
-                <th>作成日</th>
+                <!--<th>決済期</th>
                 <td>
-                <input type="text" [matDatepicker]="cratedDay" class="width100" [(ngModel)]="plan.cratedDay">
-                <mat-datepicker-toggle matSuffix [for]="cratedDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #cratedDay></mat-datepicker>
+                    <input type="text" class="width100" [ngModel]="plan.settlement">
                 </td>
+        
+                <td>
+                    <app-select-component [codes]="getCode('017')"  class="width100"[(ngModel)]="plan.period"></app-select-component>
+                </td>-->
+                
         </tr>
+    
     </table>
     <!--/土地情報契約-->
 
     <!--/建物情報契約-->
           
 
-    <table class="detail-tbl-min">
+    <table class="detail-tbl-head">
         <tr>
             <td colspan="8">
-                <span class="min"><label>土地情報</label></span>                        
+                <span class="head"><label>土地情報</label></span>                        
             </td>
+        </tr>
+        <tr>
+            <th>所有者</th>
+            <td>
+              <input type="text" style="width: 400px;" [(ngModel)]="data.owner">
+            </td>
+            <th>権利関係</th>
+            <td>
+                <app-select-component [codes]="getCode('')" [(ngModel)]="plan.rightsRelationship"></app-select-component>
+            </td>
+            <th>仕入契約予定日</th>
+                <td>
+                <input type="text" [matDatepicker]="aaa" class="width100" [(ngModel)]="plan.aaa">
+                <mat-datepicker-toggle matSuffix [for]="aaa" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #aaa></mat-datepicker>
+            </td>
+        </tr>
+        <tr>
+            <th>設計事務所</th>
+            <td>
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.designOffice">
+            </td>
+            <th>施工会社</th>
+            <td colspan="3">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.construction">
+            </td>
+        </tr>
+        <tr>
+            <th>着工</th>
+                <td>
+                <input type="text" [matDatepicker]="startDay" class="width100" [(ngModel)]="plan.startDay">
+                <mat-datepicker-toggle matSuffix [for]="startDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDay></mat-datepicker>
+            </td>
+            <th>上棟</th>
+                <td>
+                <input type="text" [matDatepicker]="upperWingDay" class="width100" [(ngModel)]="plan.upperWingDay">
+                <mat-datepicker-toggle matSuffix [for]="upperWingDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #upperWingDay></mat-datepicker>
+            </td>
+            <th>竣工</th>
+                <td>
+                <input type="text" [matDatepicker]="completionDay" class="width100" [(ngModel)]="plan.completionDay">
+                <mat-datepicker-toggle matSuffix [for]="completionDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #completionDay></mat-datepicker>
+            </td>
+
         </tr>
     </table>
     
    
 
-    <table class="detail-tbl-min">
+    <table class="detail-tbl-head">
         <tr>
             <td colspan="8">
-                <span class="min" style="width: 155px !important;">建物情報</span>                        
+                <span class="head" style="width: 155px !important;">建物情報</span>                        
             </td>
         </tr>
     </table> 
