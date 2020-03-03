@@ -63,7 +63,8 @@ export class PayContractDetailComponent extends BaseComponent {
       super(router, service);
       this.route.queryParams.subscribe(params => {
         this.pid = params.pid;
-        this.bukkenid = params.bukkenid;
+        //this.bukkenid = params.bukkenid;
+        this.bukkenid = 1;
       });
 
       this.data = new Templandinfo();
@@ -87,6 +88,7 @@ export class PayContractDetailComponent extends BaseComponent {
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));
+    funcs.push(this.service.getPaymentTypes(null));
     if (this.pid > 0) {
       funcs.push(this.service.getPayContract(this.pid));
       funcs.push(this.service.getLand(this.bukkenid));
@@ -103,18 +105,25 @@ export class PayContractDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
-      // 20200222 S_Update
-//      this.emps = values[1];
+
       this.users = values[1];
       this.deps = values[2];
-      // 20200222 E_Update
+      this.payTypes = values[3]
       
       // データが存在する場合
-      if ( values.length > 3) {
+      if ( values.length > 4) {
         if (this.pid > 0) {
-          this.paycontract = new Paycontractinfo(values[3] as Paycontractinfo);
+          this.paycontract = new Paycontractinfo(values[4] as Paycontractinfo);
+          this.paycontract.convert();
         } 
-        this.data = values[4];
+        this.data = values[5];
+        //this.data = values[4].land;
+      }
+
+      //明細情報が存在しない場合
+      if (this.paycontract.details == null || this.paycontract.details.length == 0) {
+        this.paycontract.details = [];
+        this.paycontract.details.push(new Paycontractdetailinfo());
       }
 
       this.spinner.hide();
@@ -170,9 +179,9 @@ export class PayContractDetailComponent extends BaseComponent {
    */
   save() {
     if (!this.validate()) {
-      return;
+       return;
     }
-    const dlg = new Dialog({title: '確認', message: '契約情報を登録しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: '支払管理情報を登録しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
@@ -180,10 +189,10 @@ export class PayContractDetailComponent extends BaseComponent {
 
         this.spinner.show();
 
-        this.contract.tempLandInfoPid = this.data.pid;
-        this.convertForSave(); // 契約詳細⊕不可分データ準備
-        this.contract.convertForSave(this.service.loginUser.userId, this.datepipe);
-        this.service.saveContract(this.contract).then(res => {
+        this.paycontract.tempLandInfoPid = this.data.pid;
+        //this.convertForSave(); // 契約詳細⊕不可分データ準備
+        this.paycontract.convertForSave(this.service.loginUser.userId, this.datepipe);
+        this.service.savePayContract(this.paycontract).then(res => {
 
           const finishDlg = new Dialog({title: '完了', message: '契約情報を登録しました。'});
           const dlgVal = this.dialog.open(FinishDialogComponent, {
@@ -193,10 +202,10 @@ export class PayContractDetailComponent extends BaseComponent {
           });
           dlgVal.afterClosed().subscribe(val => {
             this.spinner.hide();
-            this.contract = new Contractinfo(res);
+            this.paycontract = new Paycontractinfo(res);
             this.convertData();
-            this.contract.convert();
-            this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contract.pid}});
+            this.paycontract.convert();
+            this.router.navigate(['/paydetail'], {queryParams: {pid: this.paycontract.pid}});
           });
 
         });
@@ -212,14 +221,14 @@ export class PayContractDetailComponent extends BaseComponent {
     const addList = [];
     const types = ['01', '02', '03'];
     this.data.locations.forEach(loc => {
-      const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
+      const detailList = this.paycontract.details.filter(detail => detail.tempLandInfoPid === loc.pid);
 
       // 削除
       if (detailList.length > 0) {
         if (types.indexOf(loc.contractDetail.contractDataType) < 0) {
           detailList[0].deleteUserId = this.service.loginUser.userId;
         } else {
-          detailList[0] = loc.contractDetail;
+          //detailList[0] = loc.contractDetail;
         }
       } else {
         if (types.indexOf(loc.contractDetail.contractDataType) >= 0) {
@@ -230,27 +239,27 @@ export class PayContractDetailComponent extends BaseComponent {
     });
 
     addList.forEach(data => {
-      this.contract.details.push(data);
+      this.paycontract.details.push(data);
     });
 
     // 契約者
-    if (this.delSellers.length > 0) {
-      this.delSellers.forEach(del => {
-        del.deleteUserId = this.service.loginUser.userId;
-        this.contract.sellers.push(del);
-      });
-    }
+    // if (this.delSellers.length > 0) {
+    //   this.delSellers.forEach(del => {
+    //     del.deleteUserId = this.service.loginUser.userId;
+    //     this.contract.sellers.push(del);
+    //   });
+    // }
 
     // 所有地 (仕入契約登記人情報登録のため)
-    this.data.locations.forEach(loc => {
-      if (loc.sharers.length > 0) {
-        const val = {
-          locationInfoPid: loc.pid,
-          sharerInfoPid: loc.sharers.map(sr => sr.pid)
-        };
-        this.contract.locations.push(val);
-      }
-    });
+    // this.data.locations.forEach(loc => {
+    //   if (loc.sharers.length > 0) {
+    //     const val = {
+    //       locationInfoPid: loc.pid,
+    //       sharerInfoPid: loc.sharers.map(sr => sr.pid)
+    //     };
+    //     this.contract.locations.push(val);
+    //   }
+    // });
   }
 
   /**
@@ -277,20 +286,27 @@ export class PayContractDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    this.data.locations.forEach((loc, pos) => {
-      if(loc.sharers == null || loc.sharers.length == 1) {
-        return;
-      }
-      if((loc.contractDetail.contractDataType === '01' || loc.contractDetail.contractDataType === '03') 
-        && (loc.contractDetail.registrants == null || loc.contractDetail.registrants.length == 0)) {
-          if(loc.contractDetail.contractDataType === '01') {
-            this.errorMsgs.push('売主選択のデータで登記人が選択されていません。');
-            this.errors['contractDataType_01_' + pos] = true;
-          }
-          else {
-            this.errorMsgs.push('底地選択のデータで登記人が選択されていません。');
-            this.errors['contractDataType_03_' + pos] = true;
-          }          
+    // this.data.locations.forEach((loc, pos) => {
+    //   if(loc.sharers == null || loc.sharers.length == 1) {
+    //     return;
+    //   }
+    //   if((loc.contractDetail.contractDataType === '01' || loc.contractDetail.contractDataType === '03') 
+    //     && (loc.contractDetail.registrants == null || loc.contractDetail.registrants.length == 0)) {
+    //       if(loc.contractDetail.contractDataType === '01') {
+    //         this.errorMsgs.push('売主選択のデータで登記人が選択されていません。');
+    //         this.errors['contractDataType_01_' + pos] = true;
+    //       }
+    //       else {
+    //         this.errorMsgs.push('底地選択のデータで登記人が選択されていません。');
+    //         this.errors['contractDataType_03_' + pos] = true;
+    //       }          
+    //   }
+    // });
+
+    this.paycontract.details.forEach((detail, pos) => {
+      if( detail.paymentCode == null　|| detail.paymentCode.length == 0 ) {
+        this.errorMsgs.push('支払種別は必須入力の項目です。');
+        this.errors['detail.paymentCode_' + pos] = true;
       }
     });
 

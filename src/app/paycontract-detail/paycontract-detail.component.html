@@ -56,7 +56,7 @@
             <th>契約予定日</th>
             <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="startDate" [(ngModel)]="paycontract.contractDay" class="width100">
+                    <input type="text" [matDatepicker]="startDate" [(ngModel)]="paycontract.contractDayMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #startDate></mat-datepicker>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="picker-div">
                     <!-- 20200222 S_Update -->
                     <!--<input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">-->
-                    <input type="text" [matDatepicker]="finishDate" [(ngModel)]="paycontract.contractFixDay" class="width100">
+                    <input type="text" [matDatepicker]="finishDate" [(ngModel)]="paycontract.contractFixDayMap" class="width100">
                     <!-- 20200222 E_Update -->
                     <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #finishDate></mat-datepicker>
@@ -116,7 +116,7 @@
                         <button mat-raised-button (click)="addPayContractDetail()" style="background-color: #FFC000; color: white;">追加</button>
                     </td>
                     <td>
-                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="detail.paymentCode"></app-select-component>
+                        <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
@@ -132,7 +132,7 @@
                         <button mat-raised-button (click)="deletePayContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
                     </td>
                     <td>
-                        <app-select-component  class="width158" [codes]="getCode('006')" [(ngModel)]="detail.paymentCode"></app-select-component>
+                        <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
