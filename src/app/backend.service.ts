@@ -220,6 +220,17 @@ export class BackendService {
   }
 
   /**
+   * 支払種別取得
+   */
+  getPaymentTypes(paymentCode: string): Promise<PaymentType[]> {
+    const getDepApi = 'getpaymenttype.php';
+    const body = { paymentCode: paymentCode };
+    const req = this.http.post<PaymentType[]>(`${this.BaseUrl}/${getDepApi}`, body);
+    return req.toPromise();
+  }
+
+
+  /**
    * システムコード名称取得
    */
     /*

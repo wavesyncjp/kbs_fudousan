@@ -10,6 +10,7 @@ export class BaseComponent implements OnInit {
     public deps = [];
     public emps = [];
     public users = [];
+    public payTypes = [];
 //    public codes = [];
     public sysCodeNameMsts = [];
 
@@ -124,6 +125,17 @@ export class BaseComponent implements OnInit {
     getEmps() {
         if (this.emps) {
             return this.emps.map(user => new Code({codeDetail: user.employeeCode, name: user.userName}));
+        } else {
+        return [];
+        }
+    }
+
+    /**
+     * 支払種別
+     */
+    getPaymentTypes() {
+        if (this.payTypes) {
+            return this.payTypes.map(PaymentType => new Code({codeDetail: PaymentType.paymentCode, name: PaymentType.paymentName}));
         } else {
         return [];
         }
