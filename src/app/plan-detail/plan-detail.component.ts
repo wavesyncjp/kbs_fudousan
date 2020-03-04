@@ -136,7 +136,13 @@ export class PlanDetailComponent extends BaseComponent {
 
     });
   }
-
+  
+  changesiteAreaBuy(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      (this.plan.siteAreaBuy * 0.3025 * 100 ) / 100;
+    }
+  }
   /**
    * 契約情報＋所有地マージ
    */

@@ -49,6 +49,7 @@ export class Planinfo {
     createDate: Date;
     settlement: number;
     period : string;
+    traffic : string;
     
     public constructor(init?: Partial<Planinfo>) {
         Object.assign(this, init);
