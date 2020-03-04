@@ -47,6 +47,9 @@ export class Planinfo {
     updateUserId: number;
     updateDate: Date;
     createDate: Date;
+    settlement: number;
+    period : string;
+    traffic : string;
     
     public constructor(init?: Partial<Planinfo>) {
         Object.assign(this, init);

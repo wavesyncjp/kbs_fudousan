@@ -5,69 +5,277 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <br>
-    <!--/土地情報契約-->
-    <table class="detail-tbl-min">  
+    <!--/収支ヘッダー-->
+    <table class="detail-tbl-head">  
         <tr>
-            <td colspan="8"><span class="min">プラン種別</span></td>
+            <td><span class="head">プラン種別</span>&nbsp;&nbsp;<app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus"></app-select-component></td>
+        </tr>
+        <tr>
+            <!--<th>プランステータス</th>
+            <td>
+                <app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus"></app-select-component>
+            </td>-->
+            <th>作成日</th>
+                <td class="first">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="cratedDay" class="Twidth100" [(ngModel)]="plan.cratedDay">  
+                <mat-datepicker-toggle matSuffix [for]="cratedDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #cratedDay></mat-datepicker>
+                </div>
+                </td>
+                <th>決済期</th>
+                <td class="second">
+                    <input type="text" class="Twidth100" [ngModel]="plan.settlement">
+          
+                    <app-select-component [codes]="getCode('017')"  class="Twidth100" [(ngModel)]="plan.period"></app-select-component>
+                </td>    
+
         </tr>
         <tr>
             <th>プラン番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="plan.planNumber"></td>            
+            <td class="first"><input type="text" class="Twidth150" [attr.disabled]="true" [ngModel]="plan.planNumber"></td>            
             <th>プラン名</th>
-            <td>
-              <input type="text" style="width: 400px;" [(ngModel)]="plan.planName">
-            </td>
-            <th>プランステータス</th>
-            <td>
-                <app-select-component [codes]="getEmps()" [(ngModel)]="plan.planStatus"></app-select-component>
-            </td>
-            
+            <td class="second">
+              <input type="text" class="Twidth400" [(ngModel)]="plan.planName">
+            </td>    
         </tr>
         
         <tr>
             <th>物件番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNumber"></td>          
+            <td class="first"><input type="text" class="Twidth150" [attr.disabled]="true" [ngModel]="data.bukkenNumber"></td>          
             <th>物件名称</th>
-            <td colspan="3">
-                <input type="text" style="width: 400px;" [attr.disabled]="true" [ngModel]="data.bukkenName">
+            <td class="second">
+                <input type="text" class="Twidth400" [attr.disabled]="true" [ngModel]="data.bukkenName">
             </td>
         </tr>
         <tr>
             <th>担当部署</th>
-                <td>
-                    <app-select-component [codes]="getDeps()" [(ngModel)]="plan.depCode"></app-select-component>
+                <td class="first">
+                    <app-select-component [codes]="getDeps()"  [(ngModel)]="plan.depCode"></app-select-component>
                 </td>
                 <th>物件担当者</th>
-                <td>
-                    <app-select-component [codes]="getEmps()"  [(ngModel)]="plan.userId"></app-select-component>
+                <td class="second">
+                    <app-select-component [codes]="getEmps()" class="Twidth400px;" [(ngModel)]="plan.userId" [exclass] = "true"></app-select-component>
                 </td>
-                <th>作成日</th>
+                <!--<th>決済期</th>
                 <td>
-                <input type="text" [matDatepicker]="cratedDay" class="width100" [(ngModel)]="plan.cratedDay">
-                <mat-datepicker-toggle matSuffix [for]="cratedDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #cratedDay></mat-datepicker>
+                    <input type="text" class="width100" [ngModel]="plan.settlement">
                 </td>
+        
+                <td>
+                    <app-select-component [codes]="getCode('017')"  class="width100"[(ngModel)]="plan.period"></app-select-component>
+                </td>-->
+                
         </tr>
+    
     </table>
     <!--/土地情報契約-->
 
     <!--/建物情報契約-->
           
 
-    <table class="detail-tbl-min">
+    <table class="detail-tbl-head">
         <tr>
-            <td colspan="8">
-                <span class="min"><label>土地情報</label></span>                        
+            <td>
+                <span class="head"><label>土地情報</label></span>                        
             </td>
+        </tr>
+        <tr>
+            <th>所有者</th>
+            <td class="second">
+              <input type="text" style="width: 400px;" [(ngModel)]="data.owner">
+            </td>
+            <th>権利関係</th>
+            <td td class="third">
+                <app-select-component [codes]="getCode('保留')" [(ngModel)]="plan.rightsRelationship"></app-select-component>
+            </td>
+            <th>仕入契約予定日</th>
+                <td>
+                <div class="picker-div">  
+                <input type="text" [matDatepicker]="aaa" class="width100" [(ngModel)]="plan.aaa">
+                <mat-datepicker-toggle matSuffix [for]="aaa" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #aaa></mat-datepicker>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>設計事務所</th>
+            <td class="second">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.designOffice">
+            </td>
+            <th>施工会社</th>
+            <td class="second">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.construction">
+            </td>
+        </tr>
+        <tr>
+            <th>着工</th>
+            <td class="force">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="startDay" class="width100" [(ngModel)]="plan.startDay">
+                <mat-datepicker-toggle matSuffix [for]="startDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDay></mat-datepicker>
+                </div>
+            </td>
+            <th>上棟</th>
+                <td class="etc">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="upperWingDay" class="width100" [(ngModel)]="plan.upperWingDay">
+                <mat-datepicker-toggle matSuffix [for]="upperWingDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #upperWingDay></mat-datepicker>
+                </div>
+            </td>
+            <th>竣工</th>
+                <td>
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="completionDay" class="width100" [(ngModel)]="plan.completionDay">
+                <mat-datepicker-toggle matSuffix [for]="completionDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #completionDay></mat-datepicker>
+                </div>
+            </td>
+
         </tr>
     </table>
     
    
 
-    <table class="detail-tbl-min">
+    <table class="detail-tbl-head">
         <tr>
-            <td colspan="8">
-                <span class="min" style="width: 155px !important;">建物情報</span>                        
+            <td>
+                <span class="head" style="width: 155px !important;">建物情報</span>                        
+            </td>
+        </tr>
+        <tr>
+            <th>所在地</th>
+            <td class="second">
+              <input type="text" style="width: 400px;" [(ngModel)]="data.address">
+            </td>
+            <th>交通</th>
+            <td class="second">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.traffic">
+            </td>
+        </tr>
+        <tr>
+            <th>敷地面積(売買)</th>
+            <td class="second_tubo">
+              <input type="text" class="width100" [(ngModel)]="plan.siteAreaBuy"(keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+              <input type="text" class="width100"  [attr.disabled]="true" (keyup)="changesiteAreaBuy($event)" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
+            <th>敷地面積(確認)</th>
+            <td class="second_tubo">
+                <input type="text" class="width100" [(ngModel)]="plan.siteAreaCheck" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+              </td>
+        </tr>
+        <tr>
+        <th>建築延面積</th>
+            <td class="second_tubo">
+              <input type="text" class="width100" [(ngModel)]="plan.buildArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+              <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
+            <th class="entrance">エントランス・内廊下部分</th>
+            <td class="second_tubo">
+                <input type="text" class="width100" [(ngModel)]="plan.entrance" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+              </td>
+        </tr>
+        <tr>
+            <th>駐車場面積</th>
+            <td class="second_tubo">
+              <input type="text" class="width100" [(ngModel)]="plan.parking" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+              <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
+            <th>地下面積</th>
+            <td class="second_tubo">
+                <input type="text" class="width100" [(ngModel)]="plan.underArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+              </td>
+        </tr>
+        <tr>
+            <th>総専有面積</th>
+            <td class="second_tubo">
+              <input type="text" class="width100" [(ngModel)]="plan.totalArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+              <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
+            <th>販売専有面積</th>
+            <td class="second_tubo">
+                <input type="text" class="width100" [(ngModel)]="plan.salesArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+              </td>
+        </tr>
+        <tr>
+        <th>用途地域</th>
+            <td td class="second_tubo">
+                <app-select-component [codes]="getCode('保留2')" [(ngModel)]="plan.restrictedArea"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <th>容積率</th>
+            <td class="etc">
+              <input type="text" class="width100" [(ngModel)]="plan.floorAreaRate"(keypress)="floatOnly($event)">&nbsp;％
+            </td>
+            <th>建蔽率</th>
+            <td class="etc">
+              <input type="text" class="width100" [(ngModel)]="plan.coverageRate" (keypress)="floatOnly($event)">&nbsp;％
+            </td>
+            <th>消化容積</th>
+            <td class="etc">
+              <input type="text" class="width100" [(ngModel)]="plan.digestionVolume" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;％
+            </td>
+            <th>レンタブル比</th>
+            <td class="etc">
+              <input type="text" class="width100" [(ngModel)]="plan.lentable"(keypress)="floatOnly($event)"  [attr.disabled]="true">&nbsp;％
+            </td>
+        </tr>
+        <tr>
+            <th class="sum">総専有面積／（建築遅延面積＋エントランス・内廊下部分</th>
+            <td><input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)" >&nbsp;％</td>
+        </tr>
+        <tr>
+            <th>構造規模</th>
+            <td class="etc2">
+                <app-select-component [codes]="getCode('保留3')" [(ngModel)]="plan.structureScale"></app-select-component>
+            </td>
+            <th>地上</th>
+            <td class="etc2">
+            <input type="text" class="width100" [(ngModel)]="plan.ground">&nbsp;階
+            <th>地下</th>
+            <td class="etc2">
+            <input type="text" class="width100" [(ngModel)]="plan.underground">&nbsp;階
+            </td>
+        </tr>
+        <tr>
+                
+            <th>総戸数</th>
+            <td class="etc3">
+            <input type="text" class="width100" [(ngModel)]="plan.totalUnits">&nbsp;戸
+            <th>販売戸数</th>
+            <td class="etc2">
+            <input type="text" class="width100" [(ngModel)]="plan.buysellUnits">&nbsp;戸
+            </td>
+        </tr>
+        <tr>
+                
+            <th>敷地駐車台数</th>
+            <td class="etc3">
+            <input type="text" class="width100" [(ngModel)]="plan.parkingIndoor">&nbsp;台
+            <th>敷地外駐車台数</th>
+            <td class="etc2">
+            <input type="text" class="width100" [(ngModel)]="plan.parkingOutdoor">&nbsp;台
+            <th>駐車合計台数</th>
+            <td class="etc2">
+            <input type="text" class="width100"  [attr.disabled]="true">&nbsp;台
+            </td>
+        </tr>
+        <tr>
+                
+            <th>駐車場設置率</th>
+            <td class="etc3">
+            <input type="text" class="width100" [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;％
+            <th>内機械式</th>
+            <td class="etc2">
+            <input type="text" class="width100" [(ngModel)]="plan.mechanical">&nbsp;台
+            
             </td>
         </tr>
     </table> 

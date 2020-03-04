@@ -19,6 +19,7 @@ import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.com
 import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { Planinfo } from '../models/planinfo';
 
+
 @Component({
   selector: 'app-plan-detail',
   templateUrl: './plan-detail.component.html',
@@ -79,7 +80,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan = new Planinfo();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
+    funcs.push(this.service.getCodes(['011','016','017']));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getEmps(null));
     if (this.bukkenid > 0) {
@@ -103,8 +104,9 @@ export class PlanDetailComponent extends BaseComponent {
       }
       // 20200222 S_Update
       //      this.emps = values[1];
-      this.emps = values[1];
-      this.users = values[2];
+      this.deps = values[1];
+      this.emps = values[2];
+    
       
       // 20200222 E_Update
       
@@ -134,7 +136,13 @@ export class PlanDetailComponent extends BaseComponent {
 
     });
   }
-
+  
+  changesiteAreaBuy(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      (this.plan.siteAreaBuy * 0.3025 * 100 ) / 100;
+    }
+  }
   /**
    * 契約情報＋所有地マージ
    */

@@ -35,7 +35,8 @@ export class Locationinfo {
     landCategory: string;
     ownerRemark: string;
     ridgePid: string;
-    notyetType: string;
+    buildingNotyet = '0';
+    inheritanceNotyet = '0';
 
     contractDetail: Contractdetailinfo;
     sharers: SharerInfo[];
