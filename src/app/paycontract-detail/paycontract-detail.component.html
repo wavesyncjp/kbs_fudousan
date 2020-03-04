@@ -29,7 +29,7 @@
         </tr>   
         <tr>
             <td colspan="3">
-                <input type="text" class="width150" [ngModel]="data.bukkenName">
+                <input type="text" class="width400" [ngModel]="data.bukkenName">
             </td>
             <td colspan="5">
                 <label>口座　</label><input type="text" [(ngModel)]="paycontract.accountName" class="width85Per">
@@ -41,18 +41,9 @@
                 <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
             </td>
             <th>契約担当者</th>
-            <!-- 20200222 S_Update -->
-            <!--
-            <td colspan="">
-                <mat-select multiple class="width180" [(ngModel)]="test">
-                    <mat-option *ngFor=" " [value]="test">{{test}}</mat-option>
-                </mat-select>
-            </td>
-            -->
             <td colspan="">
                 <app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>
             </td>
-            <!-- 20200222 S_Update -->
             <th>契約予定日</th>
             <td>
                 <div class="picker-div">
@@ -64,10 +55,7 @@
             <th>契約確定日</th>
             <td colspan="3">
                 <div class="picker-div">
-                    <!-- 20200222 S_Update -->
-                    <!--<input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">-->
                     <input type="text" [matDatepicker]="finishDate" [(ngModel)]="paycontract.contractFixDayMap" class="width100">
-                    <!-- 20200222 E_Update -->
                     <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #finishDate></mat-datepicker>
                 </div>
@@ -121,9 +109,27 @@
                     <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
-                    <td><input class="width80" type="text" [(ngModel)]="detail.closingDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="detail.contractDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="detail.contractFixDay"></td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="startDate" [(ngModel)]="detail.closingDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="vacationDay" [(ngModel)]="detail.contractDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #vacationDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="earnestPriceDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #earnestPriceDay></mat-datepicker>
+                        </div>
+                    </td>
                     <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>         
                 </tr>
@@ -137,9 +143,27 @@
                     <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
                     <td><input class="width100" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
-                    <td><input class="width80" type="text" [(ngModel)]="detail.closingDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="detail.contractDay"></td>
-                    <td><input class="width80" type="text" [(ngModel)]="detail.contractFixDay"></td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="startDate" [(ngModel)]="detail.closingDay" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="vacationDay" [(ngModel)]="detail.contractDay" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #vacationDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="earnestPriceDay" [(ngModel)]="detail.contractFixDay" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #earnestPriceDay></mat-datepicker>
+                        </div>
+                    </td>
                     <td><app-select-component  class="width150" [codes]="getCode('006')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>
                 </tr>
