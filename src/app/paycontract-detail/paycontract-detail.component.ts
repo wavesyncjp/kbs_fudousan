@@ -45,7 +45,7 @@ export class PayContractDetailComponent extends BaseComponent {
   };
    // 20200222 E_Add
 
-  public contract: Contractinfo;
+  //public contract: Contractinfo;
   public paycontract: Paycontractinfo;
   public paycontractdetail: Paycontractdetailinfo;
   public data: Templandinfo;
@@ -64,7 +64,6 @@ export class PayContractDetailComponent extends BaseComponent {
       this.route.queryParams.subscribe(params => {
         this.pid = params.pid;
         //this.bukkenid = params.bukkenid;
-        this.bukkenid = 1;
       });
 
       this.data = new Templandinfo();
@@ -82,7 +81,6 @@ export class PayContractDetailComponent extends BaseComponent {
 
     this.spinner.show();
     this.paycontract = new Paycontractinfo();
-    this.paycontractdetail = new Paycontractdetailinfo();
 
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
@@ -91,7 +89,13 @@ export class PayContractDetailComponent extends BaseComponent {
     funcs.push(this.service.getPaymentTypes(null));
     if (this.pid > 0) {
       funcs.push(this.service.getPayContract(this.pid));
+    }
+    if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
+    }
+    // tslint:disable-next-line:one-line
+    else if (this.pid > 0) {
+      funcs.push(this.service.getPayContract(this.pid));
     }
 
     Promise.all(funcs).then(values => {
@@ -115,9 +119,11 @@ export class PayContractDetailComponent extends BaseComponent {
         if (this.pid > 0) {
           this.paycontract = new Paycontractinfo(values[4] as Paycontractinfo);
           this.paycontract.convert();
-        } 
-        this.data = values[5];
-        //this.data = values[4].land;
+          this.data = values[4].land;
+        } else {
+          this.data = new Templandinfo(values[2] as Templandinfo);
+          this.paycontract = new Paycontractinfo();
+        }
       }
 
       //明細情報が存在しない場合
@@ -134,21 +140,21 @@ export class PayContractDetailComponent extends BaseComponent {
   /**
    * 契約情報＋所有地マージ
    */
-  convertData() {
+  // convertData() {
 
-    const locs = [];
-    this.data.locations.forEach(loc => {
-      const newLoc = new Locationinfo(loc as Locationinfo);
-      const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid);
-      if (lst.length > 0) {
-        newLoc.contractDetail = lst[0];
-      } else {
-        newLoc.contractDetail = new Contractdetailinfo();
-      }
-      locs.push(newLoc);
-    });
-    this.data.locations = locs;
-  }
+  //   const locs = [];
+  //   this.data.locations.forEach(loc => {
+  //     const newLoc = new Locationinfo(loc as Locationinfo);
+  //     const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid);
+  //     if (lst.length > 0) {
+  //       newLoc.contractDetail = lst[0];
+  //     } else {
+  //       newLoc.contractDetail = new Contractdetailinfo();
+  //     }
+  //     locs.push(newLoc);
+  //   });
+  //   this.data.locations = locs;
+  // }
 
   /**
    * 明細情報追加
@@ -171,7 +177,7 @@ export class PayContractDetailComponent extends BaseComponent {
       }
       this.delDetails.push(detail);
     }
-    this.paycontract.details.splice(sharerPos, 1);
+    this.paycontract.details.splice(sharerPos+1, 1);
   }
 
   /**
@@ -203,7 +209,7 @@ export class PayContractDetailComponent extends BaseComponent {
           dlgVal.afterClosed().subscribe(val => {
             this.spinner.hide();
             this.paycontract = new Paycontractinfo(res);
-            this.convertData();
+            //this.convertData();
             this.paycontract.convert();
             this.router.navigate(['/paydetail'], {queryParams: {pid: this.paycontract.pid}});
           });
@@ -217,30 +223,30 @@ export class PayContractDetailComponent extends BaseComponent {
   /**
    * 登録の為の変換
    */
-  convertForSave() {
-    const addList = [];
-    const types = ['01', '02', '03'];
-    this.data.locations.forEach(loc => {
-      const detailList = this.paycontract.details.filter(detail => detail.tempLandInfoPid === loc.pid);
+  // convertForSave() {
+  //   const addList = [];
+  //   const types = ['01', '02', '03'];
+  //   this.data.locations.forEach(loc => {
+  //     const detailList = this.paycontract.details.filter(detail => detail.tempLandInfoPid === loc.pid);
 
-      // 削除
-      if (detailList.length > 0) {
-        if (types.indexOf(loc.contractDetail.contractDataType) < 0) {
-          detailList[0].deleteUserId = this.service.loginUser.userId;
-        } else {
-          //detailList[0] = loc.contractDetail;
-        }
-      } else {
-        if (types.indexOf(loc.contractDetail.contractDataType) >= 0) {
-          loc.contractDetail.locationInfoPid = loc.pid;
-          addList.push(loc.contractDetail);
-        }
-      }
-    });
+  //     // 削除
+  //     if (detailList.length > 0) {
+  //       if (types.indexOf(loc.contractDetail.contractDataType) < 0) {
+  //         detailList[0].deleteUserId = this.service.loginUser.userId;
+  //       } else {
+  //         //detailList[0] = loc.contractDetail;
+  //       }
+  //     } else {
+  //       if (types.indexOf(loc.contractDetail.contractDataType) >= 0) {
+  //         loc.contractDetail.locationInfoPid = loc.pid;
+  //         addList.push(loc.contractDetail);
+  //       }
+  //     }
+  //   });
 
-    addList.forEach(data => {
-      this.paycontract.details.push(data);
-    });
+  //   addList.forEach(data => {
+  //     this.paycontract.details.push(data);
+  //   });
 
     // 契約者
     // if (this.delSellers.length > 0) {
@@ -260,7 +266,7 @@ export class PayContractDetailComponent extends BaseComponent {
     //     this.contract.locations.push(val);
     //   }
     // });
-  }
+  // }
 
   /**
    * チェック
@@ -268,16 +274,16 @@ export class PayContractDetailComponent extends BaseComponent {
    * @param item ：所有地
    * @param flg ：チェックフラグ
    */
-  change(event, item: Locationinfo, flg) {
-    if (event.checked) {
-      item.contractDetail.contractDataType = flg;
-    } else {
-      item.contractDetail.contractDataType = '';
-    }
-    if (item.contractDetail.contractDataType !== '03') {
-      item.contractDetail.contractArea = null;
-    }
-  }
+  // change(event, item: Locationinfo, flg) {
+  //   if (event.checked) {
+  //     item.contractDetail.contractDataType = flg;
+  //   } else {
+  //     item.contractDetail.contractDataType = '';
+  //   }
+  //   if (item.contractDetail.contractDataType !== '03') {
+  //     item.contractDetail.contractArea = null;
+  //   }
+  // }
 
   /**
    * バリデーション
@@ -326,88 +332,88 @@ export class PayContractDetailComponent extends BaseComponent {
   /**
    * 物件情報遷移
    */
-  toBukken() {
-    this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
-  }
+  // toBukken() {
+  //   this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
+  // }
 
   /**
    * ファイルアップロード
    * @param event ：ファイル
    */
-  uploaded(event) {
-    if (this.contract.contractFiles === null) {
-      this.contract.contractFiles = [];
-    }
-    const contractFile: ContractFile = JSON.parse(JSON.stringify(event));
-    this.contract.contractFiles.push(contractFile);
-  }
+  // uploaded(event) {
+  //   if (this.contract.contractFiles === null) {
+  //     this.contract.contractFiles = [];
+  //   }
+  //   const contractFile: ContractFile = JSON.parse(JSON.stringify(event));
+  //   this.contract.contractFiles.push(contractFile);
+  // }
 
   /**
    * 地図削除
    * @param map :　削除したい地図
    */
-  deleteFile(map: ContractFile) {
+  // deleteFile(map: ContractFile) {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+  //   const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        this.service.deleteContractFile(map.pid).then(res => {
-          this.contract.contractFiles.splice(this.contract.contractFiles.indexOf(map), 1);
-        });
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (dlg.choose) {
+  //       this.service.deleteContractFile(map.pid).then(res => {
+  //         this.contract.contractFiles.splice(this.contract.contractFiles.indexOf(map), 1);
+  //       });
+  //     }
+  //   });
+  // }
 
   /**
    * 帳票
    */
-  export() {
+  // export() {
 
-    const dlg = new Dialog({title: '確認', message: '契約書を出力しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+  //   const dlg = new Dialog({title: '確認', message: '契約書を出力しますが、よろしいですか？'});
+  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        this.spinner.show();
-        this.service.exportContract(this.contract.pid).then(data => {
-          this.service.writeToFile(data);
-          this.spinner.hide();
-        });
-      }
-    });
-  }
-  showSharer(loc: Locationinfo) {
-    const dialogRef = this.dialog.open(SharerDialogComponent, {
-      width: '600px',
-      height: '400px',
-      data: loc
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (dlg.choose) {
+  //       this.spinner.show();
+  //       this.service.exportContract(this.contract.pid).then(data => {
+  //         this.service.writeToFile(data);
+  //         this.spinner.hide();
+  //       });
+  //     }
+  //   });
+  // }
+  // showSharer(loc: Locationinfo) {
+  //   const dialogRef = this.dialog.open(SharerDialogComponent, {
+  //     width: '600px',
+  //     height: '400px',
+  //     data: loc
+  //   });
+  // }
 
-  hasSharer(loc: Locationinfo) {
-    return loc.sharers.length > 0 && loc.sharers.filter(s => s.buysellFlg === '1').length > 0;
-  }
+  // hasSharer(loc: Locationinfo) {
+  //   return loc.sharers.length > 0 && loc.sharers.filter(s => s.buysellFlg === '1').length > 0;
+  // }
 
   /**
    * 契約者追加
    */
-  addContractSeller() {
-    if (this.contract.sellers == null) {
-      this.contract.sellers = [];
-    }
-    this.contract.sellers.push(new ContractSellerInfo());
-  }
+  // addContractSeller() {
+  //   if (this.contract.sellers == null) {
+  //     this.contract.sellers = [];
+  //   }
+  //   this.contract.sellers.push(new ContractSellerInfo());
+  // }
 
-  deleteContractSeller(sharerPos: number) {
-    const seller = this.contract.sellers[sharerPos];
-    if (seller.pid > 0) {
-      if (this.delSellers == null) {
-        this.delSellers = [];
-      }
-      this.delSellers.push(seller);
-    }
-    this.contract.sellers.splice(sharerPos, 1);
-  }
+  // deleteContractSeller(sharerPos: number) {
+  //   const seller = this.contract.sellers[sharerPos];
+  //   if (seller.pid > 0) {
+  //     if (this.delSellers == null) {
+  //       this.delSellers = [];
+  //     }
+  //     this.delSellers.push(seller);
+  //   }
+  //   this.contract.sellers.splice(sharerPos, 1);
+  // }
 }
