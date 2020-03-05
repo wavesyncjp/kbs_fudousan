@@ -11,6 +11,7 @@ export class BaseComponent implements OnInit {
     public emps = [];
     public users = [];
     public payTypes = [];
+    public lands = [];
 //    public codes = [];
     public sysCodeNameMsts = [];
 
@@ -125,6 +126,14 @@ export class BaseComponent implements OnInit {
     getEmps() {
         if (this.emps) {
             return this.emps.map(user => new Code({codeDetail: user.employeeCode, name: user.userName}));
+        } else {
+        return [];
+        }
+    }
+
+    getLands() {
+        if (this.lands) {
+            return this.lands.map(land => new Code({codeDetail: land.pid, name: land.bukkenName}));
         } else {
         return [];
         }

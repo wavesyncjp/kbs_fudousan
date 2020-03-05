@@ -1,8 +1,5 @@
-//import { Contractdetailinfo } from './paycontractdetailinfo';
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
-import { ContractFile } from './mapattach';
-import { ContractSellerInfo } from './contractsellerinfo';
 import { Paycontractdetailinfo } from './paycontractdetailinfo';
 
 export class Paycontractinfo {
@@ -46,6 +43,18 @@ export class Paycontractinfo {
         if (this.taxEffectiveDay) {
             this.taxEffectiveDayMap = parse(this.taxEffectiveDay, 'yyyyMMdd', new Date());
         }
+
+        this.details.forEach((detail) => {
+            if (detail.closingDay) {
+                detail.closingDayMap = parse(detail.closingDay, 'yyyyMMdd', new Date());
+            }
+            if (detail.contractDay) {
+                detail.contractDayMap = parse(detail.contractDay, 'yyyyMMdd', new Date());
+            }
+            if (detail.contractFixDay) {
+                detail.contractFixDayMap = parse(detail.contractFixDay, 'yyyyMMdd', new Date());
+            }
+        });
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -58,5 +67,11 @@ export class Paycontractinfo {
         this.contractDay = this.contractDayMap != null ? datePipe.transform(this.contractDayMap, 'yyyyMMdd') : null;
         this.contractFixDay = this.contractFixDayMap != null ? datePipe.transform(this.contractFixDayMap, 'yyyyMMdd') : null;
         this.taxEffectiveDay = this.taxEffectiveDayMap != null ? datePipe.transform(this.taxEffectiveDayMap, 'yyyyMMdd') : null;
+
+        this.details.forEach((detail) => {
+            detail.closingDay = detail.closingDayMap != null ? datePipe.transform(detail.closingDayMap, 'yyyyMMdd') : null;
+            detail.contractDay = detail.contractDayMap != null ? datePipe.transform(detail.contractDayMap, 'yyyyMMdd') : null;
+            detail.contractFixDay = detail.contractFixDayMap != null ? datePipe.transform(detail.contractFixDayMap, 'yyyyMMdd') : null;
+        });
     }
 }
