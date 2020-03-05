@@ -5,7 +5,6 @@ import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@an
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
-import { Code } from '../models/bukken';
 import { Paycontractinfo } from '../models/paycontractinfo';
 import { Router,ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -46,23 +45,6 @@ export class PayContractListComponent extends BaseComponent {
     this.service.changeTitle('支払管理一覧');
     this.dataSource.paginator = this.paginator;
     this.cond = {};
-
-    const funcs = [];
-    /*funcs.push(this.service.getCodes(['014']));*/
-
-    // Promise.all(funcs).then(values => {
-
-    //   // コード
-    //   const codes = values[0] as Code[];
-    //   if (codes !== null && codes.length > 0) {
-    //     const uniqeCodes = [...new Set(codes.map(code => code.code))];
-    //     uniqeCodes.forEach(code => {
-    //       const lst = codes.filter(c => c.code === code);
-    //       lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
-    //       this.sysCodes[code] = lst;
-    //     });
-    //   }
-    // });
   }
 
   /**
@@ -101,18 +83,6 @@ export class PayContractListComponent extends BaseComponent {
   }
 
   showDetail(row: Paycontractinfo) {
-    // const dialogRef = this.dialog.open(PayContractListComponent, {
-    //   width: '840px',
-    //   height: '420px',
-    //   data: row
-    // });
-
-    // // 再検索
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.searchPayContract();
-    //   }
-    // });
     this.router.navigate(['/paydetail'], {queryParams: {pid: row.pid}});
   }
 

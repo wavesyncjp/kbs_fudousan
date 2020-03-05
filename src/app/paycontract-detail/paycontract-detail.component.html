@@ -14,38 +14,33 @@
             <td colspan="10"><span class="min">契約区分</span></td>
         </tr>
         <tr>
-            <th rowspan="3">物件コード</th>
-            <td colspan="3"><input type="text" class="width150" [ngModel]="data.bukkenNo"></td> 
+            <th rowspan="">物件名称</th>
+            <!--<td colspan="3"><input type="text" class="width150" [ngModel]="data.bukkenNo"></td>-->
+            <td colspan="5"><app-select-component [codes]="getLands()" [(ngModel)]="paycontract.tempLandInfoPid" [exclass] = "true"></app-select-component></td>
             <th rowspan="3">取引先</th>
             <td colspan="5"><label>取引先</label><input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per"></td>        
         </tr> 
         <tr>
-            <td colspan="3">
-                <button>物件検索</button>
+            <th>契約担当部署</th>
+            <td colspan="5">
+                <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
             </td>
             <td colspan="5">
                 <label>支店　</label><input type="text" [(ngModel)]="paycontract.branchName" class="width85Per">
             </td> 
         </tr>   
         <tr>
-            <td colspan="3">
-                <input type="text" class="width400" [ngModel]="data.bukkenName">
+            <th>契約担当者</th>
+            <td colspan="5">
+                <app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>
             </td>
             <td colspan="5">
                 <label>口座　</label><input type="text" [(ngModel)]="paycontract.accountName" class="width85Per">
             </td>   
         </tr>       
         <tr>
-            <th>契約担当部署</th>
-            <td colspan="">
-                <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
-            </td>
-            <th>契約担当者</th>
-            <td colspan="">
-                <app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>
-            </td>
             <th>契約予定日</th>
-            <td>
+            <td colspan="2">
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="startDate" [(ngModel)]="paycontract.contractDayMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
@@ -53,25 +48,23 @@
                 </div>
             </td>
             <th>契約確定日</th>
-            <td colspan="3">
+            <td colspan="2">
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="finishDate" [(ngModel)]="paycontract.contractFixDayMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #finishDate></mat-datepicker>
                 </div>
             </td>
-        </tr>
-        <tr>
             <th>契約金額(税抜)</th>
-            <td>
+            <td colspan="2">
                 <input type="text" [(ngModel)]="paycontract.contractPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
             </td>
             <th>消費税</th>
-            <td>
+            <td colspan="2">
                 <input type="text" [(ngModel)]="paycontract.contractTax" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
             </td>
             <th>契約金額(税込)</th>
-            <td colspan="5">
+            <td colspan="2">
                 <input type="text" [(ngModel)]="paycontract.contractPriceTax" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
             </td>
         </tr>
@@ -106,9 +99,9 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="startDate" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -140,26 +133,26 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax"><label>円</label></td>
                     <td>
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="startDate" [(ngModel)]="detail.closingDay" class="width100">
+                            <input type="text" [matDatepicker]="startDate" [(ngModel)]="detail.closingDayMap" class="width100">
                             <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #startDate></mat-datepicker>
                         </div>
                     </td>
                     <td>
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="vacationDay" [(ngModel)]="detail.contractDay" class="width100">
+                            <input type="text" [matDatepicker]="vacationDay" [(ngModel)]="detail.contractDayMap" class="width100">
                             <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #vacationDay></mat-datepicker>
                         </div>
                     </td>
                     <td>
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="earnestPriceDay" [(ngModel)]="detail.contractFixDay" class="width100">
+                            <input type="text" [matDatepicker]="earnestPriceDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
                             <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #earnestPriceDay></mat-datepicker>
                         </div>

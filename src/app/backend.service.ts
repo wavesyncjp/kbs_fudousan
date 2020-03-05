@@ -114,6 +114,17 @@ export class BackendService {
   }
 
   /**
+   * 土地情報一覧取得
+   * @param id 土地Id
+   */
+  getLands(id: number): Promise<Templandinfo[]> {
+    const getLandApi = 'getland.php';
+    const body = { pid: id };
+    const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${getLandApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
    * 契約情報検索
    */
   searchContract(body: any): Promise<Templandinfo[]> {

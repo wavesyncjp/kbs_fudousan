@@ -1,5 +1,3 @@
-import { Contractregistrant } from './contractregistrant';
-
 export class Paycontractdetailinfo {
     pid: number;
     tempLandInfoPid: number;
@@ -8,13 +6,15 @@ export class Paycontractdetailinfo {
     payPrice: number;
     payTax: number;
     payPriceTax: number;
-    closingDay: Date;
-    contractDay: Date;
-    contractFixDay: Date;
+    closingDay: string;
+    contractDay: string;
+    contractFixDay: string;
     paymentMethod: string;
     detailRemarks: string;
 
-    registrants: Contractregistrant[];
+    closingDayMap: Date = null;
+    contractDayMap: Date = null;
+    contractFixDayMap: Date = null;
 
     deleteUserId: number;
 }
