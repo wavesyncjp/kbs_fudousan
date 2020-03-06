@@ -1,12 +1,36 @@
 <div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
     <mat-toolbar class="app-toolbar">
+        <!--
         <button mat-icon-button *ngIf="!isLogin" (click)="snav.toggle()" class="menu"><mat-icon>menu</mat-icon></button>
+        -->
         <h1 class="app-app-name">{{title}}</h1>        
         <button *ngIf="!isLogin" mat-raised-button mat-raised-button color="basic" class="logout-btn" (click)="logout()">Logout</button>        
 
     </mat-toolbar>
 
-    <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <div class="cp_navi" *ngIf="!isLogin">
+        <ul>
+            <li><a (click)="navigate('top')">ダッシュボード</a></li>
+            <li><a (click)="navigate('bukkens')">物件情報</a></li>
+            <li><a (click)="navigate('contracts')">仕入契約</a></li>
+            <li><a (click)="navigate('infos')">インフォメーション</a></li>
+            <li><a (click)="navigate('plans')">事業収支</a></li>
+            <li><a (click)="navigate('pays')">支払管理</a></li>
+            <li><a href="#">マスタ管理<span class="caret"></span></a>               
+                <div>
+                    <ul>       
+                        <li><a (click)="navigate('deps')">部署マスタ</a></li>
+                        <li><a (click)="navigate('users')">社員マスタ</a></li>
+                        <li><a (click)="navigate('codes')">コードマスタ</a></li>
+                        <li><a (click)="navigate('paymentTypes')">支払種別マスタ</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">        
+        <!--
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                         [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list>
@@ -23,6 +47,7 @@
 
         </mat-nav-list>
         </mat-sidenav>
+        -->
 
         <mat-sidenav-content>
                 <router-outlet></router-outlet>    

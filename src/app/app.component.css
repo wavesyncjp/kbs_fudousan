@@ -1,65 +1,144 @@
- .app-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  .app-toolbar{
-    height:40px;
-    background-color: rgb(58, 133, 116);
-  }
-  .app-toolbar > h1,
-  .app-toolbar > button{
-    font-size: 0.8em;
-  }
-  .app-toolbar > button.menu{
-    font-size: 0.8em;
-    color: white;
-  }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.app-toolbar{
+  height:40px;
+  background-color: rgb(58, 133, 116);
+}
+.app-toolbar > h1,
+.app-toolbar > button{
+  font-size: 0.8em;
+}
+.app-toolbar > button.menu{
+  font-size: 0.8em;
+  color: white;
+}
 
-  .app-is-mobile .app-toolbar {
-    position: fixed;
-    z-index: 2;
-  }
-  
-  h1.app-app-name {
-    margin-left: 8px;
-    color: white;
-    font-weight: 500;
-  }
-  
-  .app-sidenav-container {    
-    flex: 1;
-  }
+.app-is-mobile .app-toolbar {
+  position: fixed;
+  z-index: 2;
+}
 
-  .app-sidenav-container > mat-sidenav{
-    background-color: rgb(243, 245, 165);
-  }
-  
-  .app-is-mobile .app-sidenav-container {
-    flex: 1 0 auto;
-  }
-  
-  mat-nav-list > button{
-      min-width: 120px;
-      min-height: 35px;
-      margin: 10px 5px 10px 5px;
-      font-size: 0.6em;
-      font-weight: bold;
-  }
+h1.app-app-name {
+  margin-left: 8px;
+  color: white;
+  font-weight: 500;
+}
 
-  mat-nav-list > button:hover{
-    background-color: bisque;
+.app-sidenav-container {    
+  flex: 1;
+}
+
+.app-sidenav-container > mat-sidenav{
+  background-color: rgb(243, 245, 165);
+}
+
+.app-is-mobile .app-sidenav-container {
+  flex: 1 0 auto;
+}
+
+/*mat-nav-list > button{
+    min-width: 120px;
+    min-height: 35px;
+    margin: 10px 5px 10px 5px;
+    font-size: 0.6em;
+    font-weight: bold;
+}*/
+
+mat-nav-list > button:hover{
+  background-color: bisque;
 }
 
 .logout-btn{
-  position: absolute;
-  font-size: 0.6em !important;
-  height: 35px;
-  top: 2px;
-  right: 10px;
+position: absolute;
+font-size: 0.6em !important;
+height: 35px;
+top: 2px;
+right: 10px;
 
+}
+
+.cp_navi {
+background-color: #ffffff;
+border-radius: 4px;
+box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
+color: #4e4040;
+display: block;
+overflow: hidden;
+width: 100%;
+}
+.cp_navi ul {
+margin: 0;
+padding: 0;
+}
+.cp_navi ul li {
+display: inline-block;
+list-style-type: none;
+-webkit-transition: all 0.2s;
+        transition: all 0.2s;
+}
+.cp_navi > ul > li > a > .caret {
+border-top: 4px solid #aaaaaa;
+border-right: 4px solid transparent;
+border-left: 4px solid transparent;
+content: '';
+display: inline-block;
+height: 0;
+width: 0;
+vertical-align: middle;
+-webkit-transition: color 0.1s linear;
+        transition: color 0.1s linear;
+}
+.cp_navi > ul > li > a {
+color: #aaaaaa;
+display: block;
+line-height: 56px;
+padding: 0 10px;
+text-decoration: none;
+}
+.cp_navi > ul > li:hover {
+background-color: rgb(232, 236, 177);
+}
+.cp_navi > ul > li:hover > a {
+color: rgb( 255, 255, 255 );
+}
+.cp_navi > ul > li:hover > a > .caret {
+border-top-color: rgb( 255, 255, 255 );
+}
+.cp_navi > ul > li > div {
+background-color: rgb(232, 236, 177);
+border-top: 0;
+border-radius: 0 0 4px 4px;
+box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
+display: none;
+margin: 0;
+opacity: 0;
+position: absolute;
+width: 165px;
+visibility: hidden;
+-webkit-transiton: opacity 0.2s;
+       transition: opacity 0.2s;
+}
+.cp_navi > ul > li:hover > div {
+display: block;
+opacity: 1;
+visibility: visible;
+}
+.cp_navi > ul > li > div ul > li {
+display: block;
+}
+.cp_navi > ul > li > div ul > li > a {
+color: #ffffff;
+display: block;
+padding: 12px 24px;
+text-decoration: none;
+}
+.cp_navi > ul > li > div ul > li:hover > a {
+background-color: rgba( 255, 255, 255, 0.1);
 }

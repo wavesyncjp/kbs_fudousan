@@ -11,7 +11,7 @@ import { MatSidenav } from '@angular/material';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  @ViewChild('snav', {static: true}) public snav: MatSidenav;
+  //@ViewChild('snav', {static: true}) public snav: MatSidenav;
 
   title = '不動産管理システム';
   isLogin = false;
@@ -36,14 +36,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.service.changeLoginPageEvent.subscribe(isLogin => {
       this.isLogin = isLogin;
       if (this.isLogin) {
-        this.snav.close();
+        //this.snav.close();
       }
     });
 
     this.service.changeTopPageEvent.subscribe(isTop => {
       this.isTop = isTop;
       if (this.isTop) {
-        this.snav.open();
+        //this.snav.open();
       }
     });
   }
