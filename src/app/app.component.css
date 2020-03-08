@@ -96,17 +96,17 @@ vertical-align: middle;
         transition: color 0.1s linear;
 }
 .cp_navi > ul > li > a {
-color: #aaaaaa;
+color: #5f5252;
 display: block;
 line-height: 56px;
 padding: 0 10px;
 text-decoration: none;
 }
 .cp_navi > ul > li:hover {
-background-color: rgb(232, 236, 177);
+background-color: rgb(248, 253, 171);
 }
 .cp_navi > ul > li:hover > a {
-color: rgb( 255, 255, 255 );
+color: rgb(255, 254, 254);
 }
 .cp_navi > ul > li:hover > a > .caret {
 border-top-color: rgb( 255, 255, 255 );

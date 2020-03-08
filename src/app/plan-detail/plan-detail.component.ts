@@ -80,7 +80,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan = new Planinfo();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['011','016','017']));
+    funcs.push(this.service.getCodes(['011','016','017','018']));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getEmps(null));
     if (this.bukkenid > 0) {
