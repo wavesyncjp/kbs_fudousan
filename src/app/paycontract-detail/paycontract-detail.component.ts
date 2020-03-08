@@ -33,6 +33,7 @@ export class PayContractDetailComponent extends BaseComponent {
   public pid: number;
   public bukkenid: number;
   delDetails = [];
+  bukkens = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -92,7 +93,10 @@ export class PayContractDetailComponent extends BaseComponent {
       this.users = values[1];
       this.deps = values[2];
       this.payTypes = values[3];
-      this.lands = values[4]
+      this.lands = values[4];
+
+      //this.bukkens = this.lands.filter(land => land.bukkenName == "和光ハイツ");
+      this.bukkens = this.lands
       
       // データが存在する場合
       if ( values.length > 5) {
@@ -216,6 +220,15 @@ export class PayContractDetailComponent extends BaseComponent {
    */
   backToList() {
     this.router.navigate(['/pays'], {queryParams: {search: '1'}});
+  }
+
+  /**
+   * 入力の度に物件を検索する
+   */
+  inputVal : string;
+  bukkenSearch() {
+    this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.inputVal));
+    return this.bukkens;
   }
 
 }
