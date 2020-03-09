@@ -22,6 +22,7 @@ export class Paycontractinfo {
     updateUserId: number;
     updateDate: Date;
     createDate: Date;
+    tax: String;
 
     contractDayMap: Date = null;
     contractFixDayMap: Date = null;
