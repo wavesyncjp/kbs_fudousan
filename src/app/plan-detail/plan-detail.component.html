@@ -158,50 +158,52 @@
         <tr>
             <th>敷地面積(売買)</th>
             <td class="second_tubo">
-              <input type="text" class="width100" [(ngModel)]="plan.siteAreaBuy"(keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-              <input type="text" class="width100"  [attr.disabled]="true" (keyup)="changesiteAreaBuy($event)" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+              <input type="text" class="width100" [(ngModel)]="plan.siteAreaBuy" (keypress)="floatOnly($event)" (keyup)="changesiteAreaBuy($event)">&nbsp;㎡&nbsp;&nbsp;
+              <input type="text" class="width100" [(ngModel)]="plan.siteAreaBuyTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th>敷地面積(確認)</th>
             <td class="second_tubo">
-                <input type="text" class="width100" [(ngModel)]="plan.siteAreaCheck" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
-              </td>
+                <input type="text" class="width100" [(ngModel)]="plan.siteAreaCheck" (keypress)="floatOnly($event)" (keyup)="changesiteAreaCheck($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.siteAreaCheckTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
         </tr>
         <tr>
         <th>建築延面積</th>
             <td class="second_tubo">
-              <input type="text" class="width100" [(ngModel)]="plan.buildArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-              <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.buildArea" (keypress)="floatOnly($event)" (keyup)="changebuildArea($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.buildAreaTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th class="entrance">エントランス・内廊下部分</th>
-            <td class="second_tubo">
-                <input type="text" class="width100" [(ngModel)]="plan.entrance" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
-              </td>
+              <td class="second_tubo">
+                <input type="text" class="width100" [(ngModel)]="plan.entrance" (keypress)="floatOnly($event)" (keyup)="changeentrance($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.entranceTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
         </tr>
         <tr>
             <th>駐車場面積</th>
             <td class="second_tubo">
-              <input type="text" class="width100" [(ngModel)]="plan.parking" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-              <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.parking" (keypress)="floatOnly($event)" (keyup)="changeparking($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.parkingTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
             </td>
+            
             <th>地下面積</th>
-            <td class="second_tubo">
-                <input type="text" class="width100" [(ngModel)]="plan.underArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
-              </td>
+              <td class="second_tubo">
+                <input type="text" class="width100" [(ngModel)]="plan.underArea" (keypress)="floatOnly($event)" (keyup)="changeunderArea($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.underAreaTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
+            
         </tr>
         <tr>
             <th>総専有面積</th>
             <td class="second_tubo">
-              <input type="text" class="width100" [(ngModel)]="plan.totalArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-              <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.totalArea" (keypress)="floatOnly($event)" (keyup)="changetotalArea($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.totalAreaTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th>販売専有面積</th>
             <td class="second_tubo">
-                <input type="text" class="width100" [(ngModel)]="plan.salesArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
-                <input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
-              </td>
+                <input type="text" class="width100" [(ngModel)]="plan.salesArea" (keypress)="floatOnly($event)" (keyup)="changesalesArea($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="width100" [(ngModel)]="plan.salesAreaTsubo" [attr.disabled]="true"  (keypress)="floatOnly($event)">&nbsp;坪&nbsp;&nbsp;
+            </td>
         </tr>
         <tr>
         <th>用途地域</th>

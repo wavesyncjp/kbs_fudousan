@@ -140,9 +140,61 @@ export class PlanDetailComponent extends BaseComponent {
   changesiteAreaBuy(event) {
     const val = event.target.value;
     if (this.isNumberStr(val)) {
-      (this.plan.siteAreaBuy * 0.3025 * 100 ) / 100;
+      this.plan.siteAreaBuyTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
     }
   }
+
+  changesiteAreaCheck(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.plan.siteAreaCheckTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+  changebuildArea(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.plan.buildAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+  changeentrance(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.plan.entranceTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+  changeparking(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.plan.parkingTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+  changeunderArea(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.plan.underAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+  changetotalArea(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.plan.totalAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+  changesalesArea(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.plan.salesAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+
+  
   /**
    * 契約情報＋所有地マージ
    */
