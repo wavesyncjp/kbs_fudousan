@@ -14,6 +14,7 @@ export class BaseComponent implements OnInit {
     public lands = [];
 //    public codes = [];
     public sysCodeNameMsts = [];
+    public taxes = [];
 
     public errorMsgs: string[] = [];
     public errors = {};
@@ -145,6 +146,17 @@ export class BaseComponent implements OnInit {
     getPaymentTypes() {
         if (this.payTypes) {
             return this.payTypes.map(PaymentType => new Code({codeDetail: PaymentType.paymentCode, name: PaymentType.paymentName}));
+        } else {
+        return [];
+        }
+    }
+
+    /**
+     * 消費税取得
+     */
+    getTaxes() {
+        if (this.taxes) {
+            return this.taxes.map(Tax => new Code({codeDetail: Tax.pid, name: Tax.taxRate}));
         } else {
         return [];
         }

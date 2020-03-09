@@ -34,6 +34,13 @@ export class PayContractDetailComponent extends BaseComponent {
   public bukkenid: number;
   delDetails = [];
   bukkens = [];
+  bukkenMap: { [key: string]: number; } = {};
+  public bukkenName : string;
+  public payTax : number;
+  maxDate : number;
+  taxRate : number;
+  taxEffectiveDay : String;
+  effectiveDay : String;
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -64,11 +71,12 @@ export class PayContractDetailComponent extends BaseComponent {
     this.paycontract = new Paycontractinfo();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012']));
+    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012','015']));
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getPaymentTypes(null));
     funcs.push(this.service.getLands(null));   // 物件情報一覧の取得
+    funcs.push(this.service.getTaxes(null));   // 消費税一覧の取得
 
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
@@ -94,15 +102,17 @@ export class PayContractDetailComponent extends BaseComponent {
       this.deps = values[2];
       this.payTypes = values[3];
       this.lands = values[4];
+      this.taxes = values[5];
 
-      //this.bukkens = this.lands.filter(land => land.bukkenName == "和光ハイツ");
+      //入力の際に表示される物件名称を取得するための処理
       this.bukkens = this.lands
       
       // データが存在する場合
-      if ( values.length > 5) {
+      if ( values.length > 6) {
         if (this.pid > 0) {
-          this.paycontract = new Paycontractinfo(values[5] as Paycontractinfo);
+          this.paycontract = new Paycontractinfo(values[6] as Paycontractinfo);
           this.paycontract.convert();
+          this.bukkenName = values[6].land.bukkenName;
         } else {
           this.paycontract = new Paycontractinfo();
         }
@@ -113,6 +123,11 @@ export class PayContractDetailComponent extends BaseComponent {
         this.paycontract.details = [];
         this.paycontract.details.push(new Paycontractdetailinfo());
       }
+
+      //物件名称をキーにpidをmapに保持していく
+      this.lands.forEach((land) => {
+        this.bukkenMap[land.bukkenName] = land.pid
+      });
 
       this.spinner.hide();
 
@@ -193,6 +208,12 @@ export class PayContractDetailComponent extends BaseComponent {
         this.paycontract.details.push(del);
       });
     }
+
+    //入力された物件名称から物件pid
+    this.paycontract.tempLandInfoPid = this.bukkenMap[this.bukkenName]
+    if (this.paycontract.tempLandInfoPid == null || this.paycontract.tempLandInfoPid == 0){
+      this.paycontract.tempLandInfoPid = null
+    }
   }
 
   /**
@@ -201,6 +222,12 @@ export class PayContractDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
+
+    if(this.bukkenName != null && this.bukkenName.length != 0){
+      if (this.bukkenMap[this.bukkenName] == null || this.bukkenMap[this.bukkenName] == 0){
+        this.errorMsgs.push('物件名称がマスタに登録されていません。マスタへの登録を行ってください。');
+      }
+    }
 
     this.paycontract.details.forEach((detail, pos) => {
       if( detail.paymentCode == null　|| detail.paymentCode.length == 0 ) {
@@ -225,10 +252,41 @@ export class PayContractDetailComponent extends BaseComponent {
   /**
    * 入力の度に物件を検索する
    */
-  inputVal : string;
   bukkenSearch() {
-    this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.inputVal));
+    this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.bukkenName));
     return this.bukkens;
+  }
+
+  /**
+   * 税額を自動計算する
+   */
+  taxCalc(event, sharerPos: number){
+    const val = event.target.value;
+    this.paycontract.taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
+    if (this.isNumberStr(val)) {
+      this.paycontract.details.forEach((detail, pos) => {
+
+        if ( sharerPos == pos ){
+          this.taxRate = 0;
+          this.maxDate = 0;
+          //消費税マスタで支払管理の消費税適応日より小さい中での最大値を求める
+          this.taxes.forEach((tax) => {
+            //整形する
+            this.effectiveDay = tax.effectiveDay != null ? this.datepipe.transform(tax.effectiveDay, 'yyyyMMdd') : null;
+            //支払管理の消費税適応日 >=  消費税マスタの適用日
+            if (Number(this.paycontract.taxEffectiveDay) > Number(tax.effectiveDay)){
+              //maxDate < 消費税マスタの適用日
+              if(this.maxDate < Number(this.effectiveDay)){
+                this.maxDate = Number(this.effectiveDay);
+                this.taxRate = tax.taxRate;
+              }
+            }
+          });
+          detail.payTax = Math.floor(Number(val) * (this.taxRate / 100));
+          detail.payPriceTax = Number(val) + detail.payTax
+        }
+      });
+    }
   }
 
 }

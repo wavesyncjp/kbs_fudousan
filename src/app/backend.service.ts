@@ -11,6 +11,7 @@ import { Converter } from './utils/converter';
 import { Locationinfo } from './models/locationinfo';
 import { Contractdetailinfo } from './models/contractdetailinfo';
 import { Paycontractinfo } from './models/paycontractinfo';
+import { Tax } from './models/tax';
 
 @Injectable({
   providedIn: 'root'
@@ -240,6 +241,15 @@ export class BackendService {
     return req.toPromise();
   }
 
+  /**
+   * 消費税マスタ取得
+   */
+  getTaxes(id: number): Promise<Tax[]> {
+    const getTaxesApi = 'gettax.php';
+    const body = { pid: id };
+    const req = this.http.post<Tax[]>(`${this.BaseUrl}/${getTaxesApi}`, body);
+    return req.toPromise();
+  }
 
   /**
    * システムコード名称取得
