@@ -50,7 +50,17 @@ export class Planinfo {
     settlement: number;
     period : string;
     traffic : string;
-    
+
+    //DBには無いカラム"坪"計算用
+    siteAreaBuyTsubo: number;
+    siteAreaCheckTsubo: number;
+    buildAreaTsubo: number;
+    entranceTsubo: number;
+    parkingTsubo: number;
+    underAreaTsubo: number;
+    totalAreaTsubo: number;
+    salesAreaTsubo: number;
+
     public constructor(init?: Partial<Planinfo>) {
         Object.assign(this, init);
     }

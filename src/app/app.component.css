@@ -72,16 +72,31 @@ color: #4e4040;
 display: block;
 overflow: hidden;
 width: 100%;
+text-align: center;
 }
 .cp_navi ul {
 margin: 0;
 padding: 0;
+}
+
+.cp_navi li {
+  border-left: 2px solid rgba(0, 0, 0, 0.055);
+  color: #4e4040;;
+  border-right: 2px solid rgba(0, 0, 0, 0.055);
+  color: #4e4040;;
+  padding: 0px 2px 0px 2px;
+}
+.cp_navi li+ li {
+  border-left: 0;
+  border-right: 2px solid rgba(0, 0, 0, 0.055);
+  color: #4e4040;;
 }
 .cp_navi ul li {
 display: inline-block;
 list-style-type: none;
 -webkit-transition: all 0.2s;
         transition: all 0.2s;
+font-weight: bold;
 }
 .cp_navi > ul > li > a > .caret {
 border-top: 4px solid #aaaaaa;
@@ -142,3 +157,49 @@ text-decoration: none;
 .cp_navi > ul > li > div ul > li:hover > a {
 background-color: rgba( 255, 255, 255, 0.1);
 }
+
+.hidden_box {
+  margin: 15px 0;
+  padding: 0;
+  text-align: left;
+ }
+ 
+ .hidden_box label {
+  border: 1px solid rgb(105, 98, 98);
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8em;
+  margin: 20px 0px 0px 20px;
+  padding: 10px;
+  min-width: 50%;
+ }
+ 
+ .hidden_box label:hover {
+  background: #fbfcc0;
+ }
+ 
+
+ 
+ .hidden_box input {
+  display: none;
+ }
+ 
+ .hidden_box .hidden_show {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0;
+  text-align: left;
+  transition: 0.5s;
+ }
+ 
+ .hidden_box input:checked + label:after {
+  content: " ✖";	/* 開いている状態のときにラベルの後ろに続く文字 */
+ }
+ 
+ .hidden_box input:checked ~ .hidden_show {
+  height: auto;
+  opacity: 1;
+  padding: 10px 0;
+ }
