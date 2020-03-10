@@ -1,99 +1,22 @@
+/*事業収支全体_S*/
+
 .detail-div {
     margin: 0px;
     background-color: white;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
-.contact-div {
-    width: 89vw;
-    height: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-.contact-div > table{
-    border-spacing: 0px;
-    border-collapse: collapse;
-}
-.list-header {
-    background-color: cadetblue;
-}
-.list-header > th {
-    height: 40px;
-    min-width: 120px;    
-    font-size: 12px;
-    font-weight: 500;
-    color:white;
-    border: solid 1px gainsboro;    
-}
+/*事業収支全体_E*/
 
-.list-body > tr {
-    height: 34px;
-}
-
-.list-body > tr > td {
-    text-align: center;
-    font-size: 12px;
-    border: solid 1px gainsboro;    
-}
-
-.bukken-button {
-    /*float: left;*/
-    background: #00B050;
-    color: white;
-    width: 120px;
-}
-
-.export-button {
-    /*float: left;*/
-    background: dimgray;
-    color: white;
-    width: 120px;
-}
-
-.attach-btn{
-    background-color: red;
-    margin-left: 20px;
-    color: white;
-    height: 34px;
-    width: 80px;
-    font-size: 0.8em;
-}
-
-.sharerBtn {
-    background: coral;
-    width: 60px;
-    height: 28px;
-    border: solid 1px antiquewhite;
-    border-radius: 3px;
-    color: white;
-    text-decoration: none;    
-    padding-top: 4px;
-
-}
-
-.addSharer {
-    background-color: rgb(238, 187, 45);
-    color: white;
-    height: 34px;
-}
-.deleteSharer {
-    background-color: rgb(163, 158, 142);
-    color: black;
-    height: 34px;        
-}
-
-.tderror {
-    background-color: red;
-}
-
-/*20200220_S_Add*/
+/*事業収支ヘッダー_S*/
 
 
 .detail-tbl-head{
-    width: 99%;
+    width: 90%;
     border-spacing: 0px;
     border-collapse: collapse;
-    margin:10px 20px 40px 10px;
+    margin:0px 10px 40px 10px;
     
 }
 .detail-tbl-head> tr{
@@ -102,7 +25,7 @@
 
 .detail-tbl-head> tr > th{
     width:100px !important;
-    background-color: rgba(247, 227, 164, 0.692);
+    background-color: rgba(219, 216, 166, 0.692);
     text-align: left;
     height: 22px !important;
     padding: 2px;
@@ -116,7 +39,7 @@
 
 .detail-tbl-head> tr > th.entrance{
     width:170px !important;
-    background-color: rgba(247, 227, 164, 0.692);
+    background-color: rgba(219, 216, 166, 0.692);
     text-align: left;
     text-align: left;
     height: 22px !important;
@@ -131,7 +54,7 @@
 
 .detail-tbl-head> tr > th.sum{
     width:360px !important;
-    background-color: rgba(247, 227, 164, 0.692);
+    background-color: rgba(219, 216, 166, 0.692);
     text-align: left;
     text-align: left;
     height: 22px !important;
@@ -199,7 +122,7 @@
  
 
 .detail-tbl-head > tr > th.sharer{
-    background-color: rgba(226, 239, 218, 1);
+    background-color: rgba(219, 216, 166, 0.692);
 }
 
 .detail-tbl-head > tr > th.min{
@@ -216,7 +139,7 @@
 
 span.head{
     font-size: 0.8em;
-    border-left:solid 5px rgba(248, 226, 153, 0.692);
+    border-left:solid 5px rgba(219, 216, 166, 0.692);
     text-align: left;
     color:black;
     font-weight: bold;
@@ -241,4 +164,136 @@ span.head{
 .Twidth400{
     min-width:400px;
     width:400px;
+}
+/*事業収支ヘッダー_E*/
+
+/*事業収支_S*/
+
+.plan_detail{
+    width: 100%;
+}
+.detail-tbl-plan{
+    width: 48%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    margin:0px 10px 40px 10px;
+    border-top: solid 4px rgba(146, 192, 140, 0.692);
+    border-right: solid 4px rgba(146, 192, 140, 0.692);
+    float: left;
+    
+}
+span.head_plan{
+    font-size: 0.8em;
+    border-left:solid 5px rgba(146, 192, 140, 0.692);
+    text-align: left;
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    width:100px !important;;
+    padding: 2px 0px 2px 10px;
+    height: 25px;
+    margin: 3px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+}
+.detail-tbl-plan> tr > th.main{
+    width:100px !important;
+    border-bottom:solid 1.5px rgba(146, 192, 140, 0.692);
+    text-align: left;
+    height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 10px;
+}
+
+.detail-tbl-plan> span.SUM{
+    display: block;
+    width: 80%;
+    border-bottom:solid 1.5px rgba(146, 192, 140, 0.692);
+ 
+}
+
+.detail-tbl-plan> span.SUM > tr > th.main{
+    width:100px !important;
+    text-align: left;
+    height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 10px;
+}
+.detail-tbl-plan> tr > th > td.YEN{
+    height: 30px;
+    line-height:30px;
+    min-width: 160px;
+    margin-right: 10px;
+    float: left;
+} 
+
+/*配置テスト用 20200310*/
+.detail-tbl-planaa{
+    width: 48%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    margin:0px 10px 40px 10px;
+    border-top: solid 4px rgba(236, 238, 105, 0.692);
+    border-right: solid 4px rgba(236, 238, 105, 0.692);
+    float: right;
+}
+span.head_planaa{
+    font-size: 0.8em;
+    border-left:solid 5px rgba(236, 238, 105, 0.692);
+    text-align: left;
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    width:100px !important;;
+    padding: 2px 0px 2px 10px;
+    height: 25px;
+    margin: 3px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+}
+.detail-tbl-planaa> tr > th.main{
+    width:100px !important;
+    border-bottom:solid 1.5px rgba(236, 238, 105, 0.692);
+    text-align: left;
+    height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 10px;
+}
+
+.detail-tbl-planaa> span.SUM{
+    display: block;
+    width: 80%;
+    border-bottom:solid 1.5px rgba(236, 238, 105, 0.692);
+ 
+}
+
+.detail-tbl-planaa> span.SUM > tr > th.main{
+    width:100px !important;
+    text-align: left;
+    height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 10px;
+}
+.detail-tbl-planaa> tr > th > td.YEN{
+    height: 30px;
+    line-height:30px;
+    min-width: 160px;
+    margin-right: 10px;
+    float: left;
 }
