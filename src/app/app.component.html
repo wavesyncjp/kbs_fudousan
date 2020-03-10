@@ -11,7 +11,7 @@
    
     <div class="hidden_box">
         <input type="checkbox" id="labelX"/> <!-- Xを任意の数字に変更 -->
-        <label for="labelX">MENU</label>
+        <label for="labelX" *ngIf="!isLogin">MENU</label>
         <div class="hidden_show">
         <div class="cp_navi" *ngIf="!isLogin">
         <ul>
@@ -22,7 +22,7 @@
             <li><a (click)="navigate('pays')">支払管理</a></li>
             <li><a (click)="navigate('infos')">インフォメーション</a></li>
             <li><a href="#">マスタ管理<span class="caret"></span></a>               
-                <div>
+                <div style="z-index: 999;">
                     <ul>       
                         <li><a (click)="navigate('deps')">部署マスタ</a></li>
                         <li><a (click)="navigate('users')">社員マスタ</a></li>
