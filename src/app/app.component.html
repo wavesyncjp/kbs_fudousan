@@ -3,25 +3,20 @@
         <!--
         <button mat-icon-button *ngIf="!isLogin" (click)="snav.toggle()" class="menu"><mat-icon>menu</mat-icon></button>
         -->
-        <h1 class="app-app-name">{{title}}</h1>        
+        <h1 class="app-app-name">{{title}}</h1>
+        <!--        
         <button *ngIf="!isLogin" mat-raised-button mat-raised-button color="basic" class="logout-btn" (click)="logout()">Logout</button>        
-
+　　　　　-->
     </mat-toolbar>
-
-   
-    <div class="hidden_box">
-        <input type="checkbox" id="labelX"/> <!-- Xを任意の数字に変更 -->
-        <label for="labelX" *ngIf="!isLogin">MENU</label>
-        <div class="hidden_show">
         <div class="cp_navi" *ngIf="!isLogin">
         <ul>
-            <li><a (click)="navigate('top')">ダッシュボード</a></li>
-            <li><a (click)="navigate('bukkens')">物件情報</a></li>
-            <li><a (click)="navigate('contracts')">仕入契約</a></li>
-            <li><a (click)="navigate('plans')">事業収支</a></li>
-            <li><a (click)="navigate('pays')">支払管理</a></li>
-            <li><a (click)="navigate('infos')">インフォメーション</a></li>
-            <li><a href="#">マスタ管理<span class="caret"></span></a>               
+            <li><a (click)="navigate('top')">&nbsp;ダッシュボード&nbsp;</a></li>
+            <li><a (click)="navigate('bukkens')">&nbsp;物件情報&nbsp;</a></li>
+            <li><a (click)="navigate('contracts')">&nbsp;仕入契約&nbsp;</a></li>
+            <li><a (click)="navigate('plans')">&nbsp;事業収支&nbsp;</a></li>
+            <li><a (click)="navigate('pays')">&nbsp;支払管理&nbsp;</a></li>
+            <li><a (click)="navigate('infos')">&nbsp;インフォメーション&nbsp;</a></li>
+            <li><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>               
                 <div style="z-index: 999;">
                     <ul>       
                         <li><a (click)="navigate('deps')">部署マスタ</a></li>
@@ -31,10 +26,9 @@
                     </ul>
                 </div>
             </li>
+            <li class = "logout"><a (click)="logout()" *ngIf="!isLogin">&nbsp;ログアウト&nbsp;</a></li>
         </ul>
         </div>
-        </div>
-    </div>
     <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">        
         <!--
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
