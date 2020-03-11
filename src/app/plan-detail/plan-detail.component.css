@@ -152,6 +152,11 @@ span.head{
     align-items: center;
 }
 
+.par{
+   
+    min-width: 50px;
+    width: 50px;
+}
 .Twidth100{
     min-width: 100px;
     width: 100px;
@@ -180,11 +185,10 @@ span.head{
     border-top: solid 4px rgba(146, 192, 140, 0.692);
     border-right: solid 4px rgba(146, 192, 140, 0.692);
     float: left;
-    
 }
 span.head_plan{
     font-size: 0.8em;
-    border-left:solid 5px rgba(146, 192, 140, 0.692);
+    border-left:solid 5px rgba(193, 224, 188, 0.692);;
     text-align: left;
     color:black;
     font-weight: bold;
@@ -196,44 +200,100 @@ span.head_plan{
     display: inline-flex;
     align-items: center;
 }
+.detail-tbl-plan> tr > th.title{
+    width:100px !important;
+    height: 22px !important;
+    line-height:30px;
+    padding: 2px 2px 5px 5px;
+    font-size: 1.0em;
+    float: left;
+    margin:10px 10px 10px 0px;
+    border-bottom:double 3px rgba(146, 192, 140, 0.692);;
+}
+.detail-tbl-plan> tr > td.titlehead{
+    height: 30px;
+    line-height:30px;
+    min-width: 100px;
+    margin:10px 10px 10px 0px;
+    padding-left: 30px;
+    float: left;
+    
+} 
+ 
+
+
 .detail-tbl-plan> tr > th.main{
     width:100px !important;
-    border-bottom:solid 1.5px rgba(146, 192, 140, 0.692);
+    border-bottom:solid 1.5px rgba(193, 224, 188, 0.692);
     text-align: left;
-    height: 22px !important;
+    min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
     border-top: solid 2px white;   
     /*border-left: solid 2px white;*/ 
     float: left;
-    margin-right: 10px;
+    margin-right: 20px;
 }
-
+.detail-tbl-plan> tr > th.grounds{
+    width:100px !important;
+    border-bottom:dashed 1px rgba(193, 224, 188, 0.692);
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 20px;
+}
+.detail-tbl-plan> tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 30px;
+    float: left;
+    
+} 
 .detail-tbl-plan> span.SUM{
     display: block;
-    width: 80%;
-    border-bottom:solid 1.5px rgba(146, 192, 140, 0.692);
+    width: 95%;
+    border-bottom:double 3px rgba(193, 224, 188, 0.692);
+    margin-bottom: 20px;
  
 }
 
 .detail-tbl-plan> span.SUM > tr > th.main{
     width:100px !important;
     text-align: left;
-    height: 22px !important;
+    min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
     border-top: solid 2px white;   
     /*border-left: solid 2px white;*/ 
     float: left;
-    margin-right: 10px;
+    margin-right: 20px;
 }
-.detail-tbl-plan> tr > th > td.YEN{
-    height: 30px;
-    line-height:30px;
-    min-width: 160px;
-    margin-right: 10px;
+.detail-tbl-plan> span.SUM > tr > th.grounds{
+    width:100px !important;
+    border-bottom:dashed 1px rgba(193, 224, 188, 0.692);
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
     float: left;
+    margin-right: 20px;
+}
+.detail-tbl-plan> span.SUM >tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 30px;
+    float: left;
+    
 } 
+
 
 /*配置テスト用 20200310*/
 .detail-tbl-planaa{
