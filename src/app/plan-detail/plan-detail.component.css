@@ -16,7 +16,7 @@
     width: 90%;
     border-spacing: 0px;
     border-collapse: collapse;
-    margin:0px 10px 40px 10px;
+    margin:0px 10px 10px 10px;
     
 }
 .detail-tbl-head> tr{
@@ -154,8 +154,13 @@ span.head{
 
 .par{
    
-    min-width: 50px;
-    width: 50px;
+    min-width: 40px;
+    width: 40px;
+}
+
+.Twidthy70{
+    min-width: 70px;
+    width: 70px;
 }
 .Twidth100{
     min-width: 100px;
@@ -215,7 +220,7 @@ span.head_plan{
     line-height:30px;
     min-width: 100px;
     margin:10px 10px 10px 0px;
-    padding-left: 30px;
+    padding-left: 20px;
     float: left;
     
 } 
@@ -229,6 +234,18 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 20px;
+}
+.detail-tbl-plan> tr > th.other{
+    width:100px !important;
+    margin-top: 10px;
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 0px;
+    font-size: 0.7em;
     border-top: solid 2px white;   
     /*border-left: solid 2px white;*/ 
     float: left;
@@ -250,13 +267,14 @@ span.head_plan{
     min-height: 30px;
     line-height:30px;
     min-width: 105px;
-    margin-right: 30px;
+    margin-right: 10px;
     float: left;
     
 } 
+/*各合計地CSS*/
 .detail-tbl-plan> span.SUM{
     display: block;
-    width: 95%;
+    width: 98%;
     border-bottom:double 3px rgba(193, 224, 188, 0.692);
     margin-bottom: 20px;
  
@@ -289,25 +307,97 @@ span.head_plan{
     min-height: 30px;
     line-height:30px;
     min-width: 105px;
-    margin-right: 30px;
+    margin-right: 10px;
+    float: left;
+    
+} 
+/*各合計地CSS*/
+
+/* タイトル付枠*/
+.kakomi-box11 {
+    position: relative;
+    margin: 15px 0px 10px 2px;
+    padding: 10px;
+    border: 1px solid rgba(148, 151, 148, 0.692); /* 枠線の太さ・色 */
+    width: 95%;
+   }
+   .title-box11 {
+    position: absolute;
+    padding: 0 .5em;
+    left: 20px;
+    top: -15px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.692);
+    background-color: #fff; /* タイトル背景色 */
+    font-size: 0.8em;
+}
+.detail-tbl-plan > .kakomi-box11 > tr > th.main{
+    width:90px !important;
+    border-bottom:solid 1.5px rgba(193, 224, 188, 0.692);
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 15px;
+}
+.detail-tbl-plan > .kakomi-box11 > tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 10px;
+    float: left;
+} 
+/* タイトル付枠*/
+
+/*総合計*/
+.detail-tbl-plan> span.profitSUM{
+    display: block;
+    width: 98%;
+    border-bottom:solid 3px rgba(252, 255, 46, 0.692);
+    margin-bottom: 20px;
+ 
+}
+.detail-tbl-plan> span.profitSUM > tr > th.profit{
+    background-color:rgba(193, 224, 188, 0.692);
+    width:100px !important;
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 20px;
+}
+.detail-tbl-plan> span.profitSUM >tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 10px;
     float: left;
     
 } 
 
+/*総合計*/
 
-/*配置テスト用 20200310*/
-.detail-tbl-planaa{
+/*プラン_S*/
+
+
+.detail-tbl-roll{
     width: 48%;
     border-spacing: 0px;
     border-collapse: collapse;
     margin:0px 10px 40px 10px;
-    border-top: solid 4px rgba(236, 238, 105, 0.692);
-    border-right: solid 4px rgba(236, 238, 105, 0.692);
-    float: right;
+    border-top: solid 4px rgba(212, 147, 147, 0.692);
+    border-right: solid 4px rgba(212, 147, 147, 0.692);
+    float: left;
 }
-span.head_planaa{
+span.head_roll{
     font-size: 0.8em;
-    border-left:solid 5px rgba(236, 238, 105, 0.692);
+    border-left:solid 5px rgba(212, 147, 147, 0.692);
     text-align: left;
     color:black;
     font-weight: bold;
@@ -319,30 +409,156 @@ span.head_planaa{
     display: inline-flex;
     align-items: center;
 }
-.detail-tbl-planaa> tr > th.main{
+.detail-tbl-roll> tr > th.title{
     width:100px !important;
-    border-bottom:solid 1.5px rgba(236, 238, 105, 0.692);
-    text-align: left;
     height: 22px !important;
+    line-height:30px;
+    padding: 2px 2px 5px 5px;
+    font-size: 1.0em;
+    float: left;
+    margin:10px 10px 10px 0px;
+    border-bottom:double 3px rgba(212, 147, 147, 0.692);
+}
+.detail-tbl-roll> tr > td.titlehead{
+    height: 30px;
+    line-height:30px;
+    min-width: 100px;
+    margin:10px 10px 10px 0px;
+    padding-left: 20px;
+    float: left;
+    
+} 
+ 
+
+
+.detail-tbl-roll> tr > th.main{
+    width:100px !important;
+    border-bottom:solid 1.5px rgba(243, 191, 191, 0.692);
+    text-align: left;
+    min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
     border-top: solid 2px white;   
     /*border-left: solid 2px white;*/ 
     float: left;
-    margin-right: 10px;
+    margin-right: 20px;
+}
+.detail-tbl-roll> tr > th.other{
+    width:100px !important;
+    margin-top: 10px;
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 0px;
+    font-size: 0.7em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 20px;
 }
 
-.detail-tbl-planaa> span.SUM{
+.detail-tbl-roll> tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 10px;
+    float: left;
+    
+} 
+
+/*プラン_E*/
+
+
+/*レントロール_S*/
+
+
+.detail-tbl-rent{
+    width: 48%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    margin:0px 10px 40px 10px;
+    border-top: solid 4px rgba(147, 170, 212, 0.692);
+    border-right: solid 4px rgba(147, 170, 212, 0.692);
+    float: left;
+}
+span.head_rent{
+    font-size: 0.8em;
+    border-left:solid 5px rgba(147, 170, 212, 0.692);
+    text-align: left;
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    width:100px !important;;
+    padding: 2px 0px 2px 10px;
+    height: 25px;
+    margin: 3px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+}
+.detail-tbl-rent> tr > th.title{
+    width:100px !important;
+    height: 22px !important;
+    line-height:30px;
+    padding: 2px 2px 5px 5px;
+    font-size: 1.0em;
+    float: left;
+    margin:10px 10px 10px 0px;
+    border-bottom:double 3px rgba(147, 170, 212, 0.692);
+}
+.detail-tbl-rent> tr > td.titlehead{
+    height: 30px;
+    line-height:30px;
+    min-width: 100px;
+    margin:10px 10px 10px 0px;
+    padding-left: 20px;
+    float: left;
+    
+} 
+ 
+
+
+.detail-tbl-rent> tr > th.main{
+    min-width: 45px;
+    min-height: 30px !important;
+    line-height:30px;
+    margin-right: 10px;
+    float: left;
+}
+
+.detail-tbl-rent> tr > td.yen1{
+    min-height: 30px;
+    min-width: 70px !important;
+    line-height:30px;
+    margin-right: 10px;
+    float: left;    
+} 
+.detail-tbl-rent> tr > td.yen2{
+    min-height: 30px;
+    min-width: 90px !important;
+    line-height:30px;
+    margin-right: 10px;
+    float: left;    
+} 
+.detail-tbl-rent> tr > td.yen3{
+    min-height: 30px;
+    min-width: 105px !important;
+    line-height:30px;
+    margin-right: 10px;
+    float: left;    
+} 
+
+/*レントロール合計_S*/
+.detail-tbl-rent> span.SUM{
     display: block;
-    width: 80%;
-    border-bottom:solid 1.5px rgba(236, 238, 105, 0.692);
+    width: 98%;
+    border-bottom:double 3px rgba(147, 170, 212, 0.692);
+    margin-bottom: 20px;
  
 }
 
-.detail-tbl-planaa> span.SUM > tr > th.main{
-    width:100px !important;
+.detail-tbl-rent> span.SUM > tr > th.main{
+    width:40px !important;
     text-align: left;
-    height: 22px !important;
+    min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
     border-top: solid 2px white;   
@@ -350,10 +566,122 @@ span.head_planaa{
     float: left;
     margin-right: 10px;
 }
-.detail-tbl-planaa> tr > th > td.YEN{
-    height: 30px;
+
+.detail-tbl-rent> span.SUM >tr > td.yen{
+    min-height: 30px;
     line-height:30px;
-    min-width: 160px;
-    margin-right: 10px;
+    margin-right: 20px;
+    float: left;
+   
+} 
+.detail-tbl-rent> span.SUM > tr > th.main{
+    min-width: 45px;
+    min-height: 30px !important;
+    line-height:30px;
+    margin-right: 5px;
     float: left;
 }
+
+.detail-tbl-rent> span.SUM > tr > td.yen1{
+    min-height: 30px;
+    min-width: 70px !important;
+    line-height:30px;
+    margin-right: 10px;
+    float: left;    
+} 
+.detail-tbl-rent> span.SUM > tr > td.yen2{
+    min-height: 30px;
+    min-width: 90px !important;
+    line-height:30px;
+    margin-right: 10px;
+    float: left;    
+} 
+.detail-tbl-rent> span.SUM > tr > td.yen3{
+    min-height: 30px;
+    min-width: 105px !important;
+    line-height:30px;
+    margin-right: 10px;
+    float: left;    
+} 
+
+.detail-tbl-rent> span.etcSUM > tr > th.main{
+    width:100px !important;
+    border-bottom:solid 1.5px rgba(147, 170, 212, 0.692);
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 20px;
+}
+
+
+.detail-tbl-rent> span.etcSUM > tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 10px;
+    float: left;
+    
+} 
+/*総合計*/
+.detail-tbl-rent> span.profitSUM{
+    display: block;
+    width: 98%;
+    border-bottom:solid 3px rgba(252, 255, 46, 0.692);
+    margin-bottom: 20px;
+ 
+}
+.detail-tbl-rent> span.profitSUM > tr > th.main{
+    background-color:rgba(147, 170, 212, 0.692);
+    width:100px !important;
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 20px;
+}
+.detail-tbl-rent> span.profitSUM >tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 10px;
+    float: left;
+    
+} 
+
+/*総合計*/
+.detail-tbl-rent> span.finSUM{
+    display: block;
+    width: 98%;
+    border-bottom:solid 3px rgba(252, 255, 46, 0.692);
+    margin-bottom: 20px;
+    margin-top: 70px;
+ 
+}
+.detail-tbl-rent> span.finSUM > tr > th.main{
+    background-color:rgba(252, 160, 160, 0.692);
+    width:100px !important;
+    text-align: left;
+    min-height: 22px !important;
+    padding: 2px 2px 2px 5px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+    /*border-left: solid 2px white;*/ 
+    float: left;
+    margin-right: 20px;
+}
+.detail-tbl-rent> span.finSUM >tr > td.yen{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-right: 10px;
+    float: left;
+    
+} 
+/*レントロール合計_E*/
