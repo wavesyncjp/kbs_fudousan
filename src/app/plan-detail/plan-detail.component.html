@@ -284,22 +284,53 @@
 <table class ="plan_detail"> 
     <table class = "detail-tbl-plan">
         <tr>
-            <td><span class="head_plan">事業収支</span></td>
+            <th class="title">事業収支</th>
+            <td class="titlehead">金額(税込)</td>
+            <td class="titlehead">単価・坪</td>
+            <td class="titlehead">算出根拠</td>
         </tr>
+        <tr>
+            <td><span class="head_plan">土地原価</span></td>
+        </tr>
+        
         <tr>
             <th class="main">売買価格</th>
-            <td class="first"><input type="text" class="Twidth150"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" placeholder="AVE">
+                ×<input type="text" class="par" placeholder="利回り" [ngModel]="plan.demo">&nbsp;％</td>
         </tr>
         <tr>
-            <th class="main">その他価格</th>
-            <td class="first"><input type="text" class="Twidth150"  [ngModel]="plan.demo"></td>            
+            <th class="main">事業幹事Fee</th>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>            
+        </tr>
+        <tr>
+            <th class="main">その他</th>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>            
         </tr>
         <span class = "SUM">
         <tr>
             <th class="main">売上高</th>
-            <td class="first"><input type="text" class="Twidth150" [attr.disabled]="true" [ngModel]="plan.demo"></td>            
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [ngModel]="plan.demo"></td>            
         </tr> 
-        </span>    
+        </span>
+        
+        <!--<tr>
+            <th class="grounds">千円／坪</th>
+            <td class="yen">&nbsp;</td>
+            <td class="yen">&nbsp;</td>
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [ngModel]="plan.demo"></td>
+        </tr>-->
+        <tr>
+            <th class="main">土地代</th>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+        </tr>
+        <tr>
+            <th class="main">前払い地代</th>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+        </tr>
 
     </table>
     <table class = "detail-tbl-planaa">
