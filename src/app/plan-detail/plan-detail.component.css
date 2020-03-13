@@ -626,6 +626,15 @@ span.head_rent{
     float: left;
     
 } 
+.detail-tbl-rent> span.etcSUM > tr > td.yento{
+    min-height: 30px;
+    line-height:30px;
+    min-width: 105px;
+    margin-left: 7px;
+    margin-right: 3px;
+    float: left;
+    
+} 
 /*総合計*/
 .detail-tbl-rent> span.profitSUM{
     display: block;
