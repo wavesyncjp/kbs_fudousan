@@ -99,3 +99,8 @@
     min-width: 250px !important;
     width: 250px !important;
 }
+.detail-tbl-min > tr > td{   
+    padding: 1px;
+    min-width: 200px;
+
+}

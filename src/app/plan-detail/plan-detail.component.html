@@ -1,5 +1,9 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div  class="detail-div">
+    <div class="register-div">
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+    </div>
 
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
@@ -351,7 +355,7 @@
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
             <td class="yen">
-                <input type="text" class="Twidth100" placeholder="精算分固都税年額" [ngModel]="plan.demo" [attr.disabled]="true">
+                <input type="text" class="Twidthy70" placeholder="精算分固都税年額" [ngModel]="plan.demo" [attr.disabled]="true">
                 ×<input type="text" class="Twidthy70" placeholder="負担日数" [ngModel]="plan.demo"></td>
         </tr>
         <tr>
@@ -414,6 +418,10 @@
             <th class="main">デューデリ費用</th>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+        </tr>
+        <tr>
+            <th class="main">近隣保障費等</th>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
         </tr>
         <tr>
             <th class="main">近隣委託費</th>
