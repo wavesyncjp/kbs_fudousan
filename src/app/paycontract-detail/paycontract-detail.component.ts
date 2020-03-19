@@ -177,7 +177,7 @@ export class PayContractDetailComponent extends BaseComponent {
         this.paycontract.convertForSave(this.service.loginUser.userId, this.datepipe);   //saveのために日付型のconvertを行う
         this.service.savePayContract(this.paycontract).then(res => {
 
-          const finishDlg = new Dialog({title: '完了', message: '契約情報を登録しました。'});
+          const finishDlg = new Dialog({title: '完了', message: '支払管理情報を登録しました。'});
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',

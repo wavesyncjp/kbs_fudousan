@@ -139,6 +139,24 @@ export class ContractDetailComponent extends BaseComponent {
   }
 
   /**
+   * チェックボックス変更
+   * @param event ：イベント
+   * @param flg ：フラグ
+   売買対象flgChange/相続未登記ありnotChange/建物未登記ありyetChange*/
+   flgChange1(event, flg: any) {
+    flg.payout_1 = (event.checked ? 1 : 0);
+   }
+   flgChange2(event, flg: any) {
+    flg.payout_2 = (event.checked ? 1 : 0);
+   }
+   flgChange3(event, flg: any) {
+    flg.payout_3 = (event.checked ? 1 : 0);
+   }
+   flgFinish(event, flg: any) {
+    flg.finish = (event.checked ? 1 : 0);
+   }
+
+  /**
    * 登録
    */
   save() {

@@ -3,6 +3,9 @@ import { Templandinfo } from './templandinfo';
 import { Locationinfo } from './locationinfo';
 import { SharerInfo } from './sharer-info';
 
+import {Plandetail} from  './plandetail';
+
+
 export class Planinfo {
 
     pid: number;
@@ -60,6 +63,9 @@ export class Planinfo {
     underAreaTsubo: number;
     totalAreaTsubo: number;
     salesAreaTsubo: number;
+    
+    
+    details: Plandetail[];
 
     public constructor(init?: Partial<Planinfo>) {
         Object.assign(this, init);

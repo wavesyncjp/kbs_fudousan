@@ -49,6 +49,8 @@ export class Contractinfo {
     decisionDay: string;
     settlementDay: string;
     settlementAfter: string;
+    canncellDay: string;
+    canncell: string;
     remarks: string;
     contractStaff: string;
 
@@ -66,6 +68,7 @@ export class Contractinfo {
     deposit1DayMap: Date = null;
     deposit2DayMap: Date = null;
     earnestPriceDayMap: Date = null;
+    canncellDayMap: Date = null;
 
 
     details: Contractdetailinfo[] = [];
@@ -119,6 +122,9 @@ export class Contractinfo {
         if (this.earnestPriceDay) {
             this.earnestPriceDayMap = parse(this.earnestPriceDay, 'yyyyMMdd', new Date());
         }
+        if (this.canncellDay) {
+            this.canncellDayMap = parse(this.canncellDay, 'yyyyMMdd', new Date());
+        }
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -142,6 +148,6 @@ export class Contractinfo {
         this.settlementDay = this.settlementDayMap != null ? datePipe.transform(this.settlementDayMap, 'yyyyMMdd') : null;
         this.deposit1Day = this.deposit1DayMap != null ? datePipe.transform(this.deposit1DayMap, 'yyyyMMdd') : null;
         this.deposit2Day = this.deposit2DayMap != null ? datePipe.transform(this.deposit2DayMap, 'yyyyMMdd') : null;
-        this.earnestPriceDay = this.earnestPriceDayMap != null ? datePipe.transform(this.earnestPriceDayMap, 'yyyyMMdd') : null;
+        this.canncellDay = this.canncellDayMap != null ? datePipe.transform(this.canncellDayMap, 'yyyyMMdd') : null;
     }
 }

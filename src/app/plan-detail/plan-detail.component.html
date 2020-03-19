@@ -1,5 +1,9 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div  class="detail-div">
+    <div class="register-div">
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+    </div>
 
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
@@ -290,6 +294,7 @@
             <td class="titlehead">単価・坪</td>
             <td class="titlehead">算出根拠</td>
         </tr>
+<!--20200317_del
         <tr>
             <td><span class="head_plan">売上</span></td>
         </tr>
@@ -316,13 +321,8 @@
         </tr>
         
         </span>
-        
-        <!--<tr>
-            <th class="grounds">千円／坪</th>
-            <td class="yen">&nbsp;</td>
-            <td class="yen">&nbsp;</td>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [ngModel]="plan.demo"></td>
-        </tr>-->
+-->
+    
         <tr>
             <td><span class="head_plan">土地原価</span></td>
         </tr>
@@ -340,8 +340,8 @@
             <th class="main">仲介料</th>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
-            <td class="yen"><input type="text" class="par" placeholder="手数料" [ngModel]="plan.demo">&nbsp;%
-                +<input type="text" placeholder="6" class="par" [ngModel]="plan.demo" ></td>
+            <td class="yen"><input type="text" class="par" placeholder="手数料" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;%
+<!--              +<input type="text" placeholder="6" class="par" [ngModel]="plan.demo" >--> </td>
         </tr> 
 
         <tr>
@@ -354,13 +354,13 @@
             <th class="main">固都税精算金</th>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-            <td class="yen"><input type="text" class="Twidthy70" placeholder="土地固都税" [ngModel]="plan.demo">
-                +<input type="text" class="Twidthy70" placeholder="建物固都税" [ngModel]="plan.demo">
+            <td class="yen">
+                <input type="text" class="Twidthy70" placeholder="精算分固都税年額" [ngModel]="plan.demo" [attr.disabled]="true">
                 ×<input type="text" class="Twidthy70" placeholder="負担日数" [ngModel]="plan.demo"></td>
         </tr>
         <tr>
             <th class="main">その他</th>
-            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
         </tr>
         <tr>
             <th class="main"><select name="その他" class="Twidth100"></select></th>
@@ -420,6 +420,10 @@
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
         </tr>
         <tr>
+            <th class="main">近隣保障費等</th>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        </tr>
+        <tr>
             <th class="main">近隣委託費</th>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
@@ -436,7 +440,7 @@
         </tr>
         <tr>
             <th class="main">その他</th>
-            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
         </tr>
         <tr>
             <th class="main"><select name="その他" class="Twidth100"></select></th>
@@ -495,7 +499,7 @@
         </tr>
         <tr>
             <th class="main">その他</th>
-            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" [attr.disabled]="true"></td>
         </tr>
     </div>
     <div class="kakomi-box11">
@@ -561,7 +565,7 @@
         </tr>
         <tr>
             <th class="main">その他</th>
-            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
         </tr>
         <tr>
             <th class="main"><select name="その他" class="Twidth100"></select></th>
@@ -590,6 +594,7 @@
             </tr>
             
         </span>
+<!--20200317_del
         <span class = "profitSUM">
         <tr>
             <th class="profit">粗利益</th>
@@ -597,6 +602,7 @@
             
         </tr>
         </span>
+-->
         <tr>
             <th class="main">土地関係金利</th>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
@@ -623,6 +629,7 @@
             </tr>
             
         </span>
+<!--20200317_del
         <span class = "profitSUM">
             <tr>
                 <th class="profit">PJ利益</th>
@@ -630,7 +637,7 @@
                 
             </tr>
         </span>
-        
+-->
 
     </table>
 <!--収支計算画面_E-->

@@ -176,6 +176,7 @@
                 <input type="text" [matDatepicker]="deposit1Day" class="width100" [(ngModel)]="contract.deposit1DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit1Day" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #deposit1Day></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;支払済</span><mat-checkbox [checked]="contract.payout_1 === '1'" (change)="flgChange1($event, data)"></mat-checkbox>
             </td>
             <th>内金②</th>
             <td><input type="text" [(ngModel)]="contract.deposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
@@ -183,6 +184,7 @@
                 <input type="text" [matDatepicker]="deposit2Day" class="width100" [(ngModel)]="contract.deposit2DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit2Day" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #deposit2Day></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;支払済</span><mat-checkbox [checked]="contract.payout_2 === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
             </td>
             <th>手付金</th>
             <td><input type="text" [(ngModel)]="contract.earnestPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
@@ -190,6 +192,7 @@
                 <input type="text" [matDatepicker]="earnestPriceDay" class="width100" [(ngModel)]="contract.earnestPriceDayMap">
                 <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #earnestPriceDay></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;支払済</span><mat-checkbox [checked]="contract.payout_3 === '1'" (change)="flgChange3($event, data)"></mat-checkbox>
             </td>
             <th>売買残代金</th>
             <td><input type="text" [(ngModel)]="contract.tradingBalance" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
@@ -229,6 +232,7 @@
             <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
             <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
             <mat-datepicker #decisionDay></mat-datepicker>
+            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;決済済</span><mat-checkbox [checked]="contract.finish === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
         </td>
         <th>即決和解申請日</th>
         <td>
@@ -240,6 +244,20 @@
         <td><input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter"></td>
         
        </tr>
+       <tr>
+       <th>解約日</th>
+       <td>
+           <input type="text" [matDatepicker]="canncellDay" class="width100" [(ngModel)]="contract.canncellDayMap">
+           <mat-datepicker-toggle matSuffix [for]="canncellDay" class="picker-icon"></mat-datepicker-toggle>
+           <mat-datepicker #canncellDay></mat-datepicker>
+       </td>
+       </tr>
+       <tr>
+        <th>解約理由</th>
+        <td colspan="7">
+            <input type="text" class="width85Per" [(ngModel)]="contract.canncell">
+        </td>
+        </tr>
         <tr>
             <th>備考</th>
             <td colspan="7">

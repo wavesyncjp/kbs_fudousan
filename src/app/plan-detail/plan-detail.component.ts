@@ -20,6 +20,7 @@ import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { Planinfo } from '../models/planinfo';
 
 
+
 @Component({
   selector: 'app-plan-detail',
   templateUrl: './plan-detail.component.html',
@@ -221,7 +222,7 @@ export class PlanDetailComponent extends BaseComponent {
     if (!this.validate()) {
       return;
     }
-    const dlg = new Dialog({title: '確認', message: '契約情報を登録しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: '事業収支情報を登録しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
@@ -234,7 +235,7 @@ export class PlanDetailComponent extends BaseComponent {
         this.contract.convertForSave(this.service.loginUser.userId, this.datepipe);
         this.service.saveContract(this.contract).then(res => {
 
-          const finishDlg = new Dialog({title: '完了', message: '契約情報を登録しました。'});
+          const finishDlg = new Dialog({title: '完了', message: '事業収支情報を登録しました。'});
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',
@@ -245,7 +246,7 @@ export class PlanDetailComponent extends BaseComponent {
             this.contract = new Contractinfo(res);
             this.convertData();
             this.contract.convert();
-            this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contract.pid}});
+            this.router.navigate(['/plans'], {queryParams: {pid: this.contract.pid}});
           });
 
         });
@@ -307,7 +308,7 @@ export class PlanDetailComponent extends BaseComponent {
    * @param event チェックイベント
    * @param item ：所有地
    * @param flg ：チェックフラグ
-   */
+   
   change(event, item: Locationinfo, flg) {
     if (event.checked) {
       item.contractDetail.contractDataType = flg;
@@ -318,7 +319,7 @@ export class PlanDetailComponent extends BaseComponent {
       item.contractDetail.contractArea = null;
     }
   }
-
+*/
   /**
    * バリデーション
    */
@@ -353,32 +354,32 @@ export class PlanDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/contracts'], {queryParams: {search: '1'}});
+    this.router.navigate(['/plans'], {queryParams: {search: '1'}});
   }
 
   /**
    * 物件情報遷移
-   */
+   
   toBukken() {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
   }
-
+*/
   /**
    * ファイルアップロード
    * @param event ：ファイル
-   */
+   
   uploaded(event) {
     if (this.contract.contractFiles === null) {
       this.contract.contractFiles = [];
     }
     const contractFile: ContractFile = JSON.parse(JSON.stringify(event));
     this.contract.contractFiles.push(contractFile);
-  }
+  }*/
 
   /**
    * 地図削除
    * @param map :　削除したい地図
-   */
+   
   deleteFile(map: ContractFile) {
 
     const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
@@ -391,7 +392,7 @@ export class PlanDetailComponent extends BaseComponent {
         });
       }
     });
-  }
+  }*/
 
   /**
    * 帳票
@@ -425,7 +426,8 @@ export class PlanDetailComponent extends BaseComponent {
 
   /**
    * 契約者追加
-   */
+   *
+  
   addContractSeller() {
     if (this.contract.sellers == null) {
       this.contract.sellers = [];
@@ -442,5 +444,5 @@ export class PlanDetailComponent extends BaseComponent {
       this.delSellers.push(seller);
     }
     this.contract.sellers.splice(sharerPos, 1);
-  }
+  } */
 }
