@@ -184,7 +184,7 @@
                 <input type="text" [matDatepicker]="deposit2Day" class="width100" [(ngModel)]="contract.deposit2DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit2Day" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #deposit2Day></mat-datepicker>
-                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;支払済</span><mat-checkbox [checked]="contract.payout_2 === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.payout_2 === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
             </td>
             <th>手付金</th>
             <td><input type="text" [(ngModel)]="contract.earnestPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
@@ -192,7 +192,7 @@
                 <input type="text" [matDatepicker]="earnestPriceDay" class="width100" [(ngModel)]="contract.earnestPriceDayMap">
                 <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #earnestPriceDay></mat-datepicker>
-                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;支払済</span><mat-checkbox [checked]="contract.payout_3 === '1'" (change)="flgChange3($event, data)"></mat-checkbox>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.payout_3 === '1'" (change)="flgChange3($event, data)"></mat-checkbox>
             </td>
             <th>売買残代金</th>
             <td><input type="text" [(ngModel)]="contract.tradingBalance" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
@@ -203,7 +203,11 @@
             <th>優先分譲戸数（階）</th>
             <td><input type="text" [(ngModel)]="contract.prioritySalesFloor" class="width100 number" (keypress)="numericOnly($event)">&nbsp;階</td>
             <th>優先分譲予定価格</th>
-            <td colspan="3"><input [(ngModel)]="contract.prioritySalesPlanPrice" type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>            
+            <td><input [(ngModel)]="contract.prioritySalesPlanPrice" type="text" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td>            
+            <th>固都税清算金</th>
+            <td>
+            <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTax">&nbsp;円
+            </td>       
         </tr>
        <tr>
            <th>明渡期日</th>
@@ -213,11 +217,19 @@
                 <mat-datepicker #vacationDay></mat-datepicker>
            </td>
            <th>契約日</th>
-           <td colspan="5">
+           <td>
                 <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="contract.contractDayMap">
                 <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #contractDay></mat-datepicker>
            </td>
+           <th>即決和解申請日</th>
+        <td>
+            <input type="text" [matDatepicker]="settlementDay" class="width100" [(ngModel)]="contract.settlementDayMap">
+            <mat-datepicker-toggle matSuffix [for]="settlementDay" class="picker-icon"></mat-datepicker-toggle>
+            <mat-datepicker #settlementDay></mat-datepicker>
+        </td>
+        <th>和解成立後</th>
+        <td><input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter"></td>
        </tr>
 
         <tr>
@@ -232,18 +244,35 @@
             <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
             <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
             <mat-datepicker #decisionDay></mat-datepicker>
-            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;決済済</span><mat-checkbox [checked]="contract.finish === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.finish === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
         </td>
-        <th>即決和解申請日</th>
+        <th>留保金</th>
         <td>
-            <input type="text" [matDatepicker]="settlementDay" class="width100" [(ngModel)]="contract.settlementDayMap">
-            <mat-datepicker-toggle matSuffix [for]="settlementDay" class="picker-icon"></mat-datepicker-toggle>
-            <mat-datepicker #settlementDay></mat-datepicker>
+            <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.retainage">&nbsp;円
         </td>
-        <th>和解成立後</th>
-        <td><input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter"></td>
         
-       </tr>
+        <th>留保金支払(明渡)日</th>
+        <td>
+            <input type="text" [matDatepicker]="retainageDay" class="width100" [(ngModel)]="contract.retainageDayMap">
+            <mat-datepicker-toggle matSuffix [for]="retainageDay" class="picker-icon"></mat-datepicker-toggle>
+            <mat-datepicker #retainageDay></mat-datepicker>
+        </td>
+        </tr>
+        <tr>
+        <th>取引先</th>
+        <td colspan="7"><input type="text" [(ngModel)]="contract.supplierName" class="width85Per"></td>
+        </tr>
+
+        <tr>
+            <th>振込情報</th>
+            <td colspan="7">
+                &nbsp;&nbsp;&nbsp;<label>・銀行</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.bank" class="width150">
+                &nbsp;&nbsp;&nbsp;<label>・支店</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.branchName" class="width150">
+                &nbsp;&nbsp;&nbsp;<label>・口座</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.accountName" class="width150">
+                &nbsp;&nbsp;&nbsp;<label>・名義</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.bankName" class="width150">
+            </td>
+        </tr>
+        
        <tr>
        <th>解約日</th>
        <td>

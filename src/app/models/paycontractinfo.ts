@@ -9,8 +9,10 @@ export class Paycontractinfo {
     depCode: string;
     userId: number;
     supplierName: string;
+    bank: string;
     branchName: string;
     accountName: string;
+    bankName: string;
     contractPrice: number;
     contractTax: number;
     contractPriceTax: number;

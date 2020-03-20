@@ -5,6 +5,18 @@
     flex-direction: column;
 }
 
+.detail-tbl > tr > th{
+    width:100px !important;
+    background-color: whitesmoke;
+    text-align: left;
+    height: 22px !important;
+    padding: 2px;
+    /*padding-left:5px;*/
+    font-size: 0.8em;
+    border-top: solid 2px white;  
+}
+
+
 input[type="text"], select, mat-select{
     min-width: 100px;
     height: 21px;
@@ -63,6 +75,20 @@ mat-form-field > input {
     display: inline-flex;
     align-items: center;
     font-weight: bold;
+    
+}
+.block-title-statusNew{
+    font-size: 0.9em;
+    border-left:solid 5px  rgb(175, 173, 173);
+    color:black;
+    width: 127px !important;
+    padding: 2px 0px 2px 10px;
+    height: 30px;
+    margin: 0px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    float: left;
     
 }
 .block-title-etc{
