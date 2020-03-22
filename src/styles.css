@@ -21,6 +21,10 @@ textarea {
 .width40{
     width: 40px !important;
 }
+.width60{
+    min-width: 60px !important;
+    width: 60px !important;
+}
 .width80{
     min-width: 80px !important;
     width: 80px !important;

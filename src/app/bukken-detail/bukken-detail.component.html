@@ -11,25 +11,28 @@
             <tr>
                 <th>物件番号</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0">
+                    <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80">
                 </td>
-            </tr>
-            <tr>
                 <th>物件名</th>
                 <td>
                     <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
                 </td>
-            </tr>
-            <tr>
                 <th>住居表示</th>
                 <td>
                     <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
                 </td>
             </tr>
+            
         </table>
     <table class ="block-status">
-        <br>
-        <span class="block-title-status">情報ステータス</span>
+        
+        <tr>
+            <th class="block-title-statusNew">情報ステータス</th>
+            <td>
+                <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result" [noBlank]="true"></app-select-component>
+            </td>
+        </tr>
+
         <table class="detail-tbl-status">  
             <tr>
                 <th>物件担当部署</th>
@@ -41,6 +44,14 @@
                     <mat-select multiple class="width300" [(ngModel)]="data.infoStaffMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.userId">{{emp.userName}}</mat-option>
                     </mat-select>
+                </td>
+                <th>着手日</th>
+                <td>
+                    <div class="picker-div">
+                        <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">
+                        <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -58,15 +69,6 @@
                         <mat-option *ngFor="let emp of emps" [value]="emp.userId">{{emp.userName}}</mat-option>
                     </mat-select>
                 </td>
-            <tr>
-                <th>着手日</th>
-                <td>
-                    <div class="picker-div">
-                        <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">
-                        <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
-                        <mat-datepicker #startDate></mat-datepicker>
-                    </div>
-                </td>      
                 <th>終了日</th>
                 <td>
                     <div class="picker-div">
@@ -75,11 +77,8 @@
                         <mat-datepicker #finishDate></mat-datepicker>
                     </div>
                 </td>
-                <th>結果</th>
-                <td>
-                    <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result" [noBlank]="true"></app-select-component>
-                </td>      
             </tr>
+            
             <tr>
                 <th>備考1</th>
                 <td colspan="5">
@@ -102,17 +101,16 @@
                     <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                 </td>
                 <th>不可分子</th>
-                <td><input type="text" [(ngModel)]="data.indivisibleNumerator" class="width150"></td>
+                <td><input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60"></td>
                 <th>不可分母</th>
-                <td><input type="text" [(ngModel)]="data.indivisibleDenominator" class="width150"></td>
+                <td><input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60"></td>
+                <th>容積率</th>
+                <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width60': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
+                <th>建蔽率</th>
+                <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
             </tr>
             <!--11/26修正-->
-            <tr>
-                <th>容積率</th>
-                <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width80': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
-                <th>建蔽率</th>
-                <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width80': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
-            </tr>
+            
             <!--11/26修正-->
     
             <tr>

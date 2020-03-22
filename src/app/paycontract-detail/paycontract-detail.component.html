@@ -24,7 +24,7 @@
                 </datalist>
             </td>
             <th rowspan="3">取引先</th>
-            <td colspan="5"><label>取引先</label><input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per"></td>        
+            <td colspan="5"><label>取引先</label>&nbsp;<input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per"></td>        
         </tr> 
         <tr>
             <th>契約担当部署</th>
@@ -32,7 +32,8 @@
                 <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
             </td>
             <td colspan="5">
-                <label>支店　</label><input type="text" [(ngModel)]="paycontract.branchName" class="width85Per">
+                <label>銀行　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width150">
+                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.branchName" class="width150">
             </td> 
         </tr>   
         <tr>
@@ -41,7 +42,8 @@
                 <app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>
             </td>
             <td colspan="5">
-                <label>口座　</label><input type="text" [(ngModel)]="paycontract.accountName" class="width85Per">
+                <label>口座　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.accountName" class="width150">
+                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bankName" class="width150">
             </td>   
         </tr>       
         <tr>

@@ -30,6 +30,7 @@ export class Contractinfo {
     prioritySalesArea: number;
     prioritySalesFloor: number;
     prioritySalesPlanPrice: number;
+    fixedTax: number;
     vacationDay: string;
     contractDay: string;
     attachFilePath: string;
@@ -49,10 +50,17 @@ export class Contractinfo {
     decisionDay: string;
     settlementDay: string;
     settlementAfter: string;
+    retainage: number;
+    retainageDay: string;
     canncellDay: string;
     canncell: string;
     remarks: string;
     contractStaff: string;
+    supplierName: string;
+    bank: string;
+    branchName: string;
+    accountName: string;
+    bankName: string;
 
 
 
@@ -69,6 +77,7 @@ export class Contractinfo {
     deposit2DayMap: Date = null;
     earnestPriceDayMap: Date = null;
     canncellDayMap: Date = null;
+    retainageDayMap: Date = null;
 
 
     details: Contractdetailinfo[] = [];
@@ -125,6 +134,9 @@ export class Contractinfo {
         if (this.canncellDay) {
             this.canncellDayMap = parse(this.canncellDay, 'yyyyMMdd', new Date());
         }
+        if (this.retainageDay) {
+            this.retainageDayMap = parse(this.retainageDay, 'yyyyMMdd', new Date());
+        }
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -149,5 +161,6 @@ export class Contractinfo {
         this.deposit1Day = this.deposit1DayMap != null ? datePipe.transform(this.deposit1DayMap, 'yyyyMMdd') : null;
         this.deposit2Day = this.deposit2DayMap != null ? datePipe.transform(this.deposit2DayMap, 'yyyyMMdd') : null;
         this.canncellDay = this.canncellDayMap != null ? datePipe.transform(this.canncellDayMap, 'yyyyMMdd') : null;
+        this.retainageDay = this.retainageDayMap != null ? datePipe.transform(this.retainageDayMap, 'yyyyMMdd') : null;
     }
 }
