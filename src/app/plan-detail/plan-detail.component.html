@@ -4,6 +4,7 @@
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
+    
 
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
@@ -883,7 +884,10 @@
     </table>
     
 </table>
-
+<div class="register-div-bottom">
+    <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+    <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+</div>
    
 
 </div>    
