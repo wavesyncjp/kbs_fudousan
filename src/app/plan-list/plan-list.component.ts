@@ -80,7 +80,7 @@ export class PlanListComponent extends BaseComponent {
   }
 
   createNew(raw : PlanDetailComponent) {
-    this.router.navigate(['/pldetail']);
+    this.router.navigate(['/plandetail']);
   }
 
   deleteRow(row: Planinfo) {
@@ -99,7 +99,7 @@ export class PlanListComponent extends BaseComponent {
       }
     });
   }
-
+/*
   showDetail(row: Planinfo) {
     const dialogRef = this.dialog.open(PlanListComponent, {
       width: '840px',
@@ -113,7 +113,11 @@ export class PlanListComponent extends BaseComponent {
         this.searchPlan();
       }
     });
+  }*/
+  showDetail(row: Planinfo) {
+    this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
   }
+  
 
   highlight(row) {
     this.selectedRowIndex = row.pid;
