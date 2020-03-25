@@ -53,6 +53,13 @@ export class Planinfo {
     settlement: number;
     period : string;
     traffic : string;
+    scheduledDay: string;
+
+    cratedDayMap: Date = null;
+    startDayMap: Date = null;
+    upperWingDayMap: Date = null;
+    completionDayMap: Date = null;
+    scheduledDayMap: Date = null;
 
     //DBには無いカラム"坪"計算用
     siteAreaBuyTsubo: number;
