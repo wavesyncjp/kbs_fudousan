@@ -3,8 +3,9 @@ import { Templandinfo } from './templandinfo';
 import { Locationinfo } from './locationinfo';
 import { SharerInfo } from './sharer-info';
 
+import { DatePipe } from '@angular/common';
 import {Plandetail} from  './plandetail';
-
+import { parse } from 'date-fns';
 
 export class Planinfo {
 
@@ -61,15 +62,7 @@ export class Planinfo {
     completionDayMap: Date = null;
     scheduledDayMap: Date = null;
 
-    //DBには無いカラム"坪"計算用
-    siteAreaBuyTsubo: number;
-    siteAreaCheckTsubo: number;
-    buildAreaTsubo: number;
-    entranceTsubo: number;
-    parkingTsubo: number;
-    underAreaTsubo: number;
-    totalAreaTsubo: number;
-    salesAreaTsubo: number;
+    
     
     
     details: Plandetail[];
@@ -78,7 +71,37 @@ export class Planinfo {
         Object.assign(this, init);
     }
 
-    public convertForSave(userId: number) {
+    public convert() {
+        if (this.cratedDay) {
+            this.cratedDayMap = parse(this.cratedDay, 'yyyyMMdd', new Date());
+        }
+        if (this.startDay) {
+            this.startDayMap = parse(this.startDay, 'yyyyMMdd', new Date());
+        }
+        if (this.upperWingDay) {
+            this.upperWingDayMap = parse(this.upperWingDay, 'yyyyMMdd', new Date());
+        }
+        if (this.completionDay) {
+            this.completionDayMap = parse(this.completionDay, 'yyyyMMdd', new Date());
+        }
+        if (this.scheduledDay) {
+            this.scheduledDayMap = parse(this.scheduledDay, 'yyyyMMdd', new Date());
+        }
+
+        /*this.details.forEach((detail) => {
+            if (detail.cratedDay) {
+                detail.cratedDayMap = parse(detail.cratedDay, 'yyyyMMdd', new Date());
+            }
+            if (detail.contractDay) {
+                detail.contractDayMap = parse(detail.contractDay, 'yyyyMMdd', new Date());
+            }
+            if (detail.contractFixDay) {
+                detail.contractFixDayMap = parse(detail.contractFixDay, 'yyyyMMdd', new Date());
+            }
+        }*/
+    }
+
+    public convertForSave(userId: number , datePipe: DatePipe) {
         if (this.createUserId > 0) {
             this.updateUserId = userId;
         } else {

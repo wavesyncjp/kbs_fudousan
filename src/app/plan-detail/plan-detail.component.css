@@ -518,6 +518,7 @@ span.head_rent{
 
 .detail-tbl-rent> tr > th.main{
     min-width: 45px;
+    width:45px;
     min-height: 30px !important;
     line-height:30px;
     margin-right: 10px;
