@@ -23,7 +23,7 @@
             <th>作成日</th>
                 <td class="first">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="cratedDay" class="Twidth100" [(ngModel)]="plan.cratedDay">  
+                <input type="text" [matDatepicker]="cratedDay" class="Twidth100" [(ngModel)]="plan.cratedDayMap">  
                 <mat-datepicker-toggle matSuffix [for]="cratedDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #cratedDay></mat-datepicker>
                 </div>
@@ -97,9 +97,9 @@
             <th>仕入契約予定日</th>
                 <td>
                 <div class="picker-div">  
-                <input type="text" [matDatepicker]="aaa" class="width100" [(ngModel)]="plan.aaa">
-                <mat-datepicker-toggle matSuffix [for]="aaa" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #aaa></mat-datepicker>
+                <input type="text" [matDatepicker]="scheduledDay" class="width100" [(ngModel)]="plan.scheduledDayMap">
+                <mat-datepicker-toggle matSuffix [for]="scheduledDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #scheduledDay></mat-datepicker>
                 </div>
             </td>
         </tr>
@@ -117,7 +117,7 @@
             <th>着工</th>
             <td class="force">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="startDay" class="width100" [(ngModel)]="plan.startDay">
+                <input type="text" [matDatepicker]="startDay" class="width100" [(ngModel)]="plan.startDayMap">
                 <mat-datepicker-toggle matSuffix [for]="startDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #startDay></mat-datepicker>
                 </div>
@@ -125,7 +125,7 @@
             <th>上棟</th>
                 <td class="etc">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="upperWingDay" class="width100" [(ngModel)]="plan.upperWingDay">
+                <input type="text" [matDatepicker]="upperWingDay" class="width100" [(ngModel)]="plan.upperWingDayMap">
                 <mat-datepicker-toggle matSuffix [for]="upperWingDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #upperWingDay></mat-datepicker>
                 </div>
@@ -133,7 +133,7 @@
             <th>竣工</th>
                 <td>
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="completionDay" class="width100" [(ngModel)]="plan.completionDay">
+                <input type="text" [matDatepicker]="completionDay" class="width100" [(ngModel)]="plan.completionDayMap">
                 <mat-datepicker-toggle matSuffix [for]="completionDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #completionDay></mat-datepicker>
                 </div>
