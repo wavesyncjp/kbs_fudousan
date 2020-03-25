@@ -571,9 +571,11 @@ export class BackendService {
     return req.toPromise();
   }
 
+  
+
 
   /**
-   * 事業収支取得
+   * 事業収支一覧取得
    */
   searchPlan(cond: any): Promise<Planinfo[]> {
     const searchApi = 'plansearch.php';
@@ -588,6 +590,19 @@ export class BackendService {
   savePlan(plan: Planinfo): Promise<Planinfo> {
     const saveApi = 'plansave.php';
     const req = this.http.post<Planinfo>(`${this.BaseUrl}/${saveApi}`, plan);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支取得
+   * @param id 事業収支情報Id
+   */
+  getPlan(id: number): Promise<Planinfo> {
+    const getApi = 'planget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planinfo>(`${this.BaseUrl}/${getApi}`, body);
     return req.toPromise();
   }
 

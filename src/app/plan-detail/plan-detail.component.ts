@@ -138,67 +138,22 @@ export class PlanDetailComponent extends BaseComponent {
     });
   }
   
-  changesiteAreaBuy(event) {
-    const val = event.target.value;
+/*坪数計算*/
+  changeVal(val) {
     if (this.isNumberStr(val)) {
-      this.plan.siteAreaBuyTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+      return Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+    else {
+      return '';
     }
   }
 
-  changesiteAreaCheck(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.plan.siteAreaCheckTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
-    }
-  }
-
-  changebuildArea(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.plan.buildAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
-    }
-  }
-
-  changeentrance(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.plan.entranceTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
-    }
-  }
-
-  changeparking(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.plan.parkingTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
-    }
-  }
-
-  changeunderArea(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.plan.underAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
-    }
-  }
-
-  changetotalArea(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.plan.totalAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
-    }
-  }
-
-  changesalesArea(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.plan.salesAreaTsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
-    }
-  }
 
 
   
   /**
    * 契約情報＋所有地マージ
-   */
+  
   convertData() {
 
     const locs = [];
@@ -214,7 +169,7 @@ export class PlanDetailComponent extends BaseComponent {
     });
     this.data.locations = locs;
   }
-
+  */
   /**
    * 登録
    */
@@ -230,10 +185,10 @@ export class PlanDetailComponent extends BaseComponent {
 
         this.spinner.show();
 
-        this.contract.tempLandInfoPid = this.data.pid;
+        this.plan.tempLandInfoPid = this.data.pid;
         this.convertForSave(); // 契約詳細⊕不可分データ準備
-        this.contract.convertForSave(this.service.loginUser.userId, this.datepipe);
-        this.service.saveContract(this.contract).then(res => {
+        this.plan.convertForSave(this.service.loginUser.userId, this.datepipe);
+        this.service.savePlan(this.plan).then(res => {
 
           const finishDlg = new Dialog({title: '完了', message: '事業収支情報を登録しました。'});
           const dlgVal = this.dialog.open(FinishDialogComponent, {
@@ -243,9 +198,9 @@ export class PlanDetailComponent extends BaseComponent {
           });
           dlgVal.afterClosed().subscribe(val => {
             this.spinner.hide();
-            this.contract = new Contractinfo(res);
-            this.convertData();
-            this.contract.convert();
+            this.plan = new Planinfo(res);
+            /*this.convertData();*/
+            this.plan.convert();
             this.router.navigate(['/plans'], {queryParams: {pid: this.contract.pid}});
           });
 
