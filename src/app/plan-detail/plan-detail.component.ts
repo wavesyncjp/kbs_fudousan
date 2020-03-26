@@ -18,6 +18,7 @@ import { ContractFile } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { Planinfo } from '../models/planinfo';
+import { Plandetail } from '../models/plandetail';
 
 
 
@@ -50,7 +51,12 @@ export class PlanDetailComponent extends BaseComponent {
   public pid: number;
   public bukkenid: number;
   public plan: Planinfo;
+  public plandetailan: Plandetail;
+  public bukkenName : string;
+  bukkens = [];
+  bukkenMap: { [key: string]: number; } = {};
   delSellers = [];
+  delDetails = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -109,34 +115,35 @@ export class PlanDetailComponent extends BaseComponent {
       this.emps = values[2];
     
       
-      // 20200222 E_Update
+     //入力の際に表示される物件名称を取得するための処理
+     this.bukkens = this.lands
       
+     // データが存在する場合
+     if ( values.length > 3) {
+       if (this.pid > 0) {
+         this.plan = new Planinfo(values[3] as Planinfo);
+         this.plan.convert();
+         this.bukkenName = values[3].land.bukkenName;
+       } else {
+         this.plan = new Planinfo();
+       }
+     }
 
-      // 物件あり場合
-      /*
-      if ( values.length > 1) {
-        if (this.pid > 0) {
-          this.contract = new Contractinfo(values[2] as Contractinfo);
-          this.contract.convert();
-          if (this.contract.sellers == null || this.contract.sellers.length === 0) {
-            this.contract.sellers = [];
-            this.contract.sellers.push(new ContractSellerInfo());
-          }
-          this.data = values[2].land;
-        } else {
-          this.data = new Templandinfo(values[2] as Templandinfo);
-          this.contract = new Contractinfo();
-          this.contract.sellers = [];
-          this.contract.sellers.push(new ContractSellerInfo());
-        }
-        this.convertData();
-      }
-      */
+     //明細情報が存在しない場合
+     if (this.plan.details == null || this.plan.details.length == 0) {
+       this.plan.details = [];
+       this.plan.details.push(new Plandetail());
+     }
 
-      this.spinner.hide();
+     //物件名称をキーにpidをmapに保持していく
+     this.lands.forEach((land) => {
+       this.bukkenMap[land.bukkenName] = land.pid
+     });
 
-    });
-  }
+     this.spinner.hide();
+
+   });
+ }
   
 /*坪数計算*/
   changeVal(val) {
@@ -214,49 +221,14 @@ export class PlanDetailComponent extends BaseComponent {
    * 登録の為の変換
    */
   convertForSave() {
-    const addList = [];
-    const types = ['01', '02', '03'];
-    this.data.locations.forEach(loc => {
-      const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
-
-      // 削除
-      if (detailList.length > 0) {
-        if (types.indexOf(loc.contractDetail.contractDataType) < 0) {
-          detailList[0].deleteUserId = this.service.loginUser.userId;
-        } else {
-          detailList[0] = loc.contractDetail;
-        }
-      } else {
-        if (types.indexOf(loc.contractDetail.contractDataType) >= 0) {
-          loc.contractDetail.locationInfoPid = loc.pid;
-          addList.push(loc.contractDetail);
-        }
-      }
-    });
-
-    addList.forEach(data => {
-      this.contract.details.push(data);
-    });
-
-    // 契約者
-    if (this.delSellers.length > 0) {
-      this.delSellers.forEach(del => {
-        del.deleteUserId = this.service.loginUser.userId;
-        this.contract.sellers.push(del);
-      });
+    
+    this.plan.tempLandInfoPid = this.bukkenMap[this.bukkenName]
+    if (this.plan.tempLandInfoPid == null || this.plan.tempLandInfoPid == 0){
+      this.plan.tempLandInfoPid = null
     }
-
-    // 所有地 (仕入契約登記人情報登録のため)
-    this.data.locations.forEach(loc => {
-      if (loc.sharers.length > 0) {
-        const val = {
-          locationInfoPid: loc.pid,
-          sharerInfoPid: loc.sharers.map(sr => sr.pid)
-        };
-        this.contract.locations.push(val);
-      }
-    });
+    
   }
+
 
   /**
    * チェック
