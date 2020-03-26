@@ -1,4 +1,4 @@
-import { Templandinfo } from './templandinfo';
+
 
 export class Plandetail {
 
@@ -10,19 +10,6 @@ export class Plandetail {
     updateUserId: number;
     updateDate: Date;
     createDate: Date;
-    settlement: number;
-    period : string;
-    traffic : string;
-
-    public constructor(init?: Partial<Plandetail>) {
-        Object.assign(this, init);
-    }
-
-    public convertForSave(userId: number) {
-        if (this.createUserId > 0) {
-            this.updateUserId = userId;
-        } else {
-            this.createUserId = userId;
-        }
-    }
+    
+    deleteUserId: number;
 }
