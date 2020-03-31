@@ -26,7 +26,7 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 export class PaymentTypeListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['paymentCode', 'paymentName', 'landFlg', 'buildingFlg', 'sellingFlg', 'otherFlg', 'addFlg', 'taxFlg', 'createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['paymentCode', 'paymentName', 'costFlg', 'addFlg', 'taxFlg', 'utilityChargesFlg', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<PaymentType>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -46,7 +46,7 @@ export class PaymentTypeListComponent extends BaseComponent {
     this.cond = {};
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['014']));
+    funcs.push(this.service.getCodes(['014','020']));
 
     Promise.all(funcs).then(values => {
 
