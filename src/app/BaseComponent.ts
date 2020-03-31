@@ -15,7 +15,7 @@ export class BaseComponent implements OnInit {
 //    public codes = [];
     public sysCodeNameMsts = [];
     public taxes = [];
-
+    public paymenttypes=[];
     public errorMsgs: string[] = [];
     public errors = {};
 

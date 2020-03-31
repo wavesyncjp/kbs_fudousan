@@ -51,7 +51,7 @@ export class PlanDetailComponent extends BaseComponent {
   public pid: number;
   public bukkenid: number;
   public plan: Planinfo;
-  public plandetailan: Plandetail;
+  public plandetail: Plandetail;
   public bukkenName : string;
   bukkens = [];
   bukkenMap: { [key: string]: number; } = {};
@@ -87,9 +87,11 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan = new Planinfo();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['011','016','017','018']));
+    funcs.push(this.service.getCodes(['011','016','017','018','020']));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getEmps(null));
+    
+    funcs.push(this.service.getPaymentTypes(null));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
     }
@@ -113,6 +115,7 @@ export class PlanDetailComponent extends BaseComponent {
       //      this.emps = values[1];
       this.deps = values[1];
       this.emps = values[2];
+      this.paymenttypes = values[3];
     
       
      //入力の際に表示される物件名称を取得するための処理
@@ -132,8 +135,158 @@ export class PlanDetailComponent extends BaseComponent {
      //明細情報が存在しない場合
      if (this.plan.details == null || this.plan.details.length == 0) {
        this.plan.details = [];
-       this.plan.details.push(new Plandetail());
-     }
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1001";//
+       this.plandetail.backNumber = "1";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1002";//
+       this.plandetail.backNumber = "2";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1003";//
+       this.plandetail.backNumber = "3";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1004";//
+       this.plandetail.backNumber = "4";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1005";//
+       this.plandetail.backNumber = "5";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1101";//
+       this.plandetail.backNumber = "11";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1102";//
+       this.plandetail.backNumber = "12";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1103";//
+       this.plandetail.backNumber = "13";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1104";//
+       this.plandetail.backNumber = "14";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "1105";//
+       this.plandetail.backNumber = "15";
+       this.plan.details.push(this.plandetail);
+       this.plandetail.paymentCode = "2001";//
+       this.plandetail.backNumber = "21";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2002";//
+       this.plandetail.backNumber = "22";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2003";//
+       this.plandetail.backNumber = "23";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2004";//
+       this.plandetail.backNumber = "24";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2005";//
+       this.plandetail.backNumber = "25";
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2006";//
+       this.plandetail.backNumber = "26";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2007";//
+       this.plandetail.backNumber = "27";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2008";//
+       this.plandetail.backNumber = "28";
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2101";//
+       this.plandetail.backNumber = "31";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2102";//
+       this.plandetail.backNumber = "32";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2103";//
+       this.plandetail.backNumber = "33";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2104";//
+       this.plandetail.backNumber = "34";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "2105";//
+       this.plandetail.backNumber = "35";
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3001";//
+       this.plandetail.backNumber = "41";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3002";//
+       this.plandetail.backNumber = "42";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3003";//
+       this.plandetail.backNumber = "43";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3004";//
+       this.plandetail.backNumber = "44";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3005";//
+       this.plandetail.backNumber = "45";
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3006";//
+       this.plandetail.backNumber = "46";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3007";//
+       this.plandetail.backNumber = "47";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3008";//
+       this.plandetail.backNumber = "48";
+       this.plandetail = new Plandetail();
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3009";//
+       this.plandetail.backNumber = "49";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3010";//
+       this.plandetail.backNumber = "50";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3011";//
+       this.plandetail.backNumber = "51";
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3101";//
+       this.plandetail.backNumber = "61";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3102";//
+       this.plandetail.backNumber = "62";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3103";//
+       this.plandetail.backNumber = "63";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3104";//
+       this.plandetail.backNumber = "64";
+       this.plan.details.push(this.plandetail);
+       this.plandetail = new Plandetail();
+       this.plandetail.paymentCode = "3105";//
+       this.plandetail.backNumber = "65";
+      }
+
+   
 
      //物件名称をキーにpidをmapに保持していく
      this.lands.forEach((land) => {
@@ -154,7 +307,15 @@ export class PlanDetailComponent extends BaseComponent {
       return '';
     }
   }
-
+  //20200331 ADD まだ機能しない為、再考
+  
+  getNumber( val ) {
+    if(val == null || val === '' || isNaN(val) ) return 0;
+    return Number(val);
+  }
+  changeSum(val1, val2, val3, val4, val5) {
+  return this.getNumber(val1) + this.getNumber(val2) + this.getNumber(val3) + this.getNumber(val4) + this.getNumber(val5);
+}
 
 
   

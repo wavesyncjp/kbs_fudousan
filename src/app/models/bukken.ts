@@ -105,12 +105,10 @@ export class PaymentType {
 
     paymentCode: string;
     paymentName: string;
-    landFlg: string;
-    buildingFlg: string;
-    sellingFlg: string;
-    otherFlg: string;
+    costFlg: string;
     addFlg: string;
     taxFlg: string;
+    utilityChargesFlg: string;
     createUserId: number;
     updateUserId: number;
     updateDate: Date;

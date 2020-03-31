@@ -55,6 +55,8 @@ export class Planinfo {
     period : string;
     traffic : string;
     scheduledDay: string;
+    groundType: string;
+    jvRatio: number;
 
     cratedDayMap: Date = null;
     startDayMap: Date = null;
