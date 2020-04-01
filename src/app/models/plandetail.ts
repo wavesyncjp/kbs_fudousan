@@ -6,7 +6,6 @@ export class Plandetail {
     tempLandInfoPid: number;
     planpid: number;
     paymentCode: string;
-    groundsCode: string;
     routePrice: string;
     burdenDays: string;
     unitPrice: string;
