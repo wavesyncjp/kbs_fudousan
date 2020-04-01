@@ -97,7 +97,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
     // tslint:disable-next-line:one-line
     else if (this.pid > 0) {
-      funcs.push(this.service.getContract(this.pid));
+      funcs.push(this.service.getPlan(this.pid));
     }
 
     Promise.all(funcs).then(values => {
@@ -115,18 +115,18 @@ export class PlanDetailComponent extends BaseComponent {
       //      this.emps = values[1];
       this.deps = values[1];
       this.emps = values[2];
-      this.paymenttypes = values[3];
+      this.plan = values[3];
     
       
      //入力の際に表示される物件名称を取得するための処理
      this.bukkens = this.lands
       
      // データが存在する場合
-     if ( values.length > 3) {
+     if ( values.length > 4) {
        if (this.pid > 0) {
-         this.plan = new Planinfo(values[3] as Planinfo);
+         this.plan = new Planinfo(values[4] as Planinfo);
          this.plan.convert();
-         this.bukkenName = values[3].land.bukkenName;
+         this.bukkenName = values[4].land.bukkenName;
        } else {
          this.plan = new Planinfo();
        }
