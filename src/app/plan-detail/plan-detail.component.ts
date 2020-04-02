@@ -134,6 +134,20 @@ export class PlanDetailComponent extends BaseComponent {
 
      //明細情報が存在しない場合
      if (this.plan.details == null || this.plan.details.length == 0) {
+     this.plan.details = [];
+     const lst = ['001','002','003','004','005','006','007','008','009','010',
+     '011','012','013','014','015','016','017','018','019','020',
+     '021','022','023','024','025','026','027','028','029','030',
+     '031','032','033','034','035','036','037','038','039','040','041'];
+     lst.forEach((code, index) => {
+      let detail = new Plandetail();
+      detail.paymentCode = code;
+      detail.backNumber = String(index);
+      this.plan.details.push(detail);
+     });
+    }
+     //明細情報が存在しない場合
+     /*if (this.plan.details == null || this.plan.details.length == 0) {
        this.plan.details = [];
        this.plandetail = new Plandetail();
        this.plandetail.paymentCode = "1001";//
@@ -284,7 +298,7 @@ export class PlanDetailComponent extends BaseComponent {
        this.plandetail = new Plandetail();
        this.plandetail.paymentCode = "3105";//
        this.plandetail.backNumber = "65";
-      }
+      }*/
 
    
 
@@ -382,13 +396,19 @@ export class PlanDetailComponent extends BaseComponent {
    * 登録の為の変換
    */
   convertForSave() {
-    
+
+
+    //入力された物件名称から物件pid
     this.plan.tempLandInfoPid = this.bukkenMap[this.bukkenName]
     if (this.plan.tempLandInfoPid == null || this.plan.tempLandInfoPid == 0){
       this.plan.tempLandInfoPid = null
     }
     
   }
+
+
+  
+
 
 
   /**
