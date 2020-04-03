@@ -13,6 +13,10 @@
                 <td>
                     <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80">
                 </td>
+                <th>契約物件番号</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80">
+                </td>
                 <th>物件名</th>
                 <td>
                     <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >

@@ -135,10 +135,10 @@ export class PlanDetailComponent extends BaseComponent {
      //明細情報が存在しない場合
      if (this.plan.details == null || this.plan.details.length == 0) {
      this.plan.details = [];
-     const lst = ['001','002','003','004','005','006','007','008','009','010',
-     '011','012','013','014','015','016','017','018','019','020',
-     '021','022','023','024','025','026','027','028','029','030',
-     '031','032','033','034','035','036','037','038','039','040','041'];
+     const lst = ["1001","1002","1003","1004","1005","1101","1102","1103","1104","1105",
+     "2001","2002","2003","2004","2005","2006","2007","2008","2101","2102",
+     "2103","2104","2105","3001","3002","3003","3004","3005","3006","3007",
+     "3008","3009","3010","3011","3101","3102","3103","3104","3105"];
      lst.forEach((code, index) => {
       let detail = new Plandetail();
       detail.paymentCode = code;
@@ -327,6 +327,7 @@ export class PlanDetailComponent extends BaseComponent {
     if(val == null || val === '' || isNaN(val) ) return 0;
     return Number(val);
   }
+  
   changeSum(val1, val2, val3, val4, val5) {
   return this.getNumber(val1) + this.getNumber(val2) + this.getNumber(val3) + this.getNumber(val4) + this.getNumber(val5);
 }

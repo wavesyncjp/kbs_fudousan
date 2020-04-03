@@ -5,6 +5,7 @@ import { SharerInfo } from './sharer-info';
 export class Templandinfo {
     pid: number;
     bukkenNo = '';
+    contractBukkenNo: number;
     bukkenName = '';
     residence = '';
     pickDate = '';

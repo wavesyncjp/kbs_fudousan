@@ -17,10 +17,18 @@
         </tr>
         <tr>
             <th>物件番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNo"></td>            
+            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNo"></td>
+            
+            <th>物件契約番号</th>
+            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.contractBukkenNo"></td>
+
             <th>契約番号</th>
             <td>
                 <input type="text" class="width150" [attr.disabled]="true" value="{{data.bukkenNo + '-' + contract.contractNumber}}">
+            </td>
+            <th>契約書番号</th>
+            <td>
+                <input type="text" class="width150"  [ngModel]="contract.contractFormNumber">
             </td>
             <th>契約担当者</th>
             <td colspan="3">
