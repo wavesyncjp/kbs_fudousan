@@ -8,6 +8,7 @@ export class Contractinfo {
     pid: number;
     tempLandInfoPid: number;
     contractNumber = '';
+    contractFormNumber: number;
     contractType: string;
     promptDecideFlg: number;
     promptDecideContent: string;

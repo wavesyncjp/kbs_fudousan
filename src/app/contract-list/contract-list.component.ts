@@ -21,7 +21,7 @@ import { Templandinfo } from '../models/templandinfo';
 })
 export class ContractListComponent  extends BaseComponent {
 
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'remark1', 'remark2',
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName','contractBukkenNo', 'remark1', 'remark2',
                                 'contractNo', 'buildingType', 'contractOwner', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
@@ -30,6 +30,7 @@ export class ContractListComponent  extends BaseComponent {
 
   cond = {
     bukkenNo: '',
+    contractBukkenNo:'',
     bukkenName: '',
     contractNumber: '',
     vacationDayMap: null,
