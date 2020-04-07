@@ -27,17 +27,22 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 
 export class PlanListComponent extends BaseComponent {
   public cond: any;
+  search = 0;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'address', 'planName', 'createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Planinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
               public dialog: MatDialog,
+              private route: ActivatedRoute,
               public service: BackendService,
               private spinner: NgxSpinnerService,) {
     super(router, service);
+    this.route.queryParams.subscribe(params => {
+      this.search = params.search;
+    });
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -77,6 +82,10 @@ export class PlanListComponent extends BaseComponent {
         this.spinner.hide();
       }, 500);
     });
+  }
+
+  createPlan(row: Planinfo) {
+    this.router.navigate(['/plandetail'], {queryParams: {bukkenid: row.tempLandInfoPid}});
   }
 
   createNew(raw : PlanDetailComponent) {

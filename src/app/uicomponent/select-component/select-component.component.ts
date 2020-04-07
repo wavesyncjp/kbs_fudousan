@@ -22,6 +22,9 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
   @Input()
   exclass: false;
 
+  @Input()
+  cusClass : string = '';
+
   @Output() changed: EventEmitter<any> = new EventEmitter();
 
   @Input()
@@ -75,10 +78,14 @@ export class SelectComponentComponent implements OnInit, ControlValueAccessor  {
 
   getClass() {
     const css = [];
-    if (!this.exclass) {
+    if(this.cusClass != null && this.cusClass !== '') {
+      css.push(this.cusClass);      
+    }
+    else if (!this.exclass) {
       css.push('width140');
-    } else {
-      css.push('width300');
+    }
+    else {
+      css.push('width300'); 
     }
     if (this.isError) {
       css.push('error');

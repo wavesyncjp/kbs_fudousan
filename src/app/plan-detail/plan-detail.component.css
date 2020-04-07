@@ -167,6 +167,11 @@ span.head{
     width: 100px;
 }
 
+::ng-deep .Twidth100{
+    min-width: 100px;
+    width: 100px;
+}
+
 .Twidth150{
     min-width: 150px;
     width: 150px;

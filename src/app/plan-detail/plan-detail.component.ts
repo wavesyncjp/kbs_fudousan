@@ -9,18 +9,11 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { Dialog } from '../models/dialog';
 import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
-import { Locationinfo } from '../models/locationinfo';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Contractdetailinfo } from '../models/contractdetailinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
-import { ContractFile } from '../models/mapattach';
-import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
-import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { Planinfo } from '../models/planinfo';
 import { Plandetail } from '../models/plandetail';
-
-
 
 @Component({
   selector: 'app-plan-detail',
@@ -33,30 +26,11 @@ import { Plandetail } from '../models/plandetail';
 })
 export class PlanDetailComponent extends BaseComponent {
 
-  @ViewChild('topElement', {static: true}) topElement: ElementRef;
-
-  // 20200222 S_Add
-  cond = {
-    bukkenNo: '',
-    bukkenName: '',
-    contractNumber: '',
-    vacationDayMap: null,
-    vacationDay: '',
-    contractDay: '',
-    contractDayMap: null
-  };
-
   public contract: Contractinfo;
   public data: Templandinfo;
   public pid: number;
   public bukkenid: number;
   public plan: Planinfo;
-  public plandetail: Plandetail;
-  public bukkenName : string;
-  bukkens = [];
-  bukkenMap: { [key: string]: number; } = {};
-  delSellers = [];
-  delDetails = [];
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -71,7 +45,6 @@ export class PlanDetailComponent extends BaseComponent {
       });
 
       this.data = new Templandinfo();
-      this.data.locations = [];
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -115,19 +88,17 @@ export class PlanDetailComponent extends BaseComponent {
       //      this.emps = values[1];
       this.deps = values[1];
       this.emps = values[2];
-      this.plan = values[3];
+      this.payTypes = values[3];
     
-      
-     //入力の際に表示される物件名称を取得するための処理
-     this.bukkens = this.lands
-      
      // データが存在する場合
      if ( values.length > 4) {
        if (this.pid > 0) {
-         this.plan = new Planinfo(values[4] as Planinfo);
+         this.plan = new Planinfo(values[4] as Planinfo);         
          this.plan.convert();
-         this.bukkenName = values[4].land.bukkenName;
+         this.data = new Templandinfo(values[4].land as Templandinfo);
+         delete this.plan['land'];
        } else {
+         this.data = new Templandinfo(values[4] as Templandinfo);
          this.plan = new Planinfo();
        }
      }
@@ -135,178 +106,16 @@ export class PlanDetailComponent extends BaseComponent {
      //明細情報が存在しない場合
      if (this.plan.details == null || this.plan.details.length == 0) {
      this.plan.details = [];
-     const lst = ["1001","1002","1003","1004","1005","1101","1102","1103","1104","1105",
-     "2001","2002","2003","2004","2005","2006","2007","2008","2101","2102",
-     "2103","2104","2105","3001","3002","3003","3004","3005","3006","3007",
-     "3008","3009","3010","3011","3101","3102","3103","3104","3105"];
+     const lst = ["1001","1002","1003","1004","1005","","","","","","2001","2002","2003","2004","2005","2006","2007","2008",
+                  "","","","","","3001","3002","3003","3004","3005","3006","3007","3008","3009","3010","3011","","","","",""];
      lst.forEach((code, index) => {
       let detail = new Plandetail();
       detail.paymentCode = code;
-      detail.backNumber = String(index);
+      detail.backNumber = String(index + 1);
+      detail.price = null;
       this.plan.details.push(detail);
      });
-    }
-     //明細情報が存在しない場合
-     /*if (this.plan.details == null || this.plan.details.length == 0) {
-       this.plan.details = [];
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1001";//
-       this.plandetail.backNumber = "1";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1002";//
-       this.plandetail.backNumber = "2";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1003";//
-       this.plandetail.backNumber = "3";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1004";//
-       this.plandetail.backNumber = "4";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1005";//
-       this.plandetail.backNumber = "5";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1101";//
-       this.plandetail.backNumber = "11";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1102";//
-       this.plandetail.backNumber = "12";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1103";//
-       this.plandetail.backNumber = "13";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1104";//
-       this.plandetail.backNumber = "14";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "1105";//
-       this.plandetail.backNumber = "15";
-       this.plan.details.push(this.plandetail);
-       this.plandetail.paymentCode = "2001";//
-       this.plandetail.backNumber = "21";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2002";//
-       this.plandetail.backNumber = "22";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2003";//
-       this.plandetail.backNumber = "23";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2004";//
-       this.plandetail.backNumber = "24";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2005";//
-       this.plandetail.backNumber = "25";
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2006";//
-       this.plandetail.backNumber = "26";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2007";//
-       this.plandetail.backNumber = "27";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2008";//
-       this.plandetail.backNumber = "28";
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2101";//
-       this.plandetail.backNumber = "31";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2102";//
-       this.plandetail.backNumber = "32";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2103";//
-       this.plandetail.backNumber = "33";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2104";//
-       this.plandetail.backNumber = "34";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "2105";//
-       this.plandetail.backNumber = "35";
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3001";//
-       this.plandetail.backNumber = "41";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3002";//
-       this.plandetail.backNumber = "42";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3003";//
-       this.plandetail.backNumber = "43";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3004";//
-       this.plandetail.backNumber = "44";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3005";//
-       this.plandetail.backNumber = "45";
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3006";//
-       this.plandetail.backNumber = "46";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3007";//
-       this.plandetail.backNumber = "47";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3008";//
-       this.plandetail.backNumber = "48";
-       this.plandetail = new Plandetail();
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3009";//
-       this.plandetail.backNumber = "49";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3010";//
-       this.plandetail.backNumber = "50";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3011";//
-       this.plandetail.backNumber = "51";
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3101";//
-       this.plandetail.backNumber = "61";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3102";//
-       this.plandetail.backNumber = "62";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3103";//
-       this.plandetail.backNumber = "63";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3104";//
-       this.plandetail.backNumber = "64";
-       this.plan.details.push(this.plandetail);
-       this.plandetail = new Plandetail();
-       this.plandetail.paymentCode = "3105";//
-       this.plandetail.backNumber = "65";
-      }*/
-
-   
-
-     //物件名称をキーにpidをmapに保持していく
-     this.lands.forEach((land) => {
-       this.bukkenMap[land.bukkenName] = land.pid
-     });
-
+    } 
      this.spinner.hide();
 
    });
@@ -314,7 +123,7 @@ export class PlanDetailComponent extends BaseComponent {
   
 /*坪数計算*/
   changeVal(val) {
-    if (this.isNumberStr(val)) {
+    if (!this.isNumberStr(val)) {
       return Math.floor(Number(val) * 0.3025 * 100 ) / 100;
     }
     else {
@@ -332,27 +141,6 @@ export class PlanDetailComponent extends BaseComponent {
   return this.getNumber(val1) + this.getNumber(val2) + this.getNumber(val3) + this.getNumber(val4) + this.getNumber(val5);
 }
 
-
-  
-  /**
-   * 契約情報＋所有地マージ
-  
-  convertData() {
-
-    const locs = [];
-    this.data.locations.forEach(loc => {
-      const newLoc = new Locationinfo(loc as Locationinfo);
-      const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid);
-      if (lst.length > 0) {
-        newLoc.contractDetail = lst[0];
-      } else {
-        newLoc.contractDetail = new Contractdetailinfo();
-      }
-      locs.push(newLoc);
-    });
-    this.data.locations = locs;
-  }
-  */
   /**
    * 登録
    */
@@ -369,7 +157,6 @@ export class PlanDetailComponent extends BaseComponent {
         this.spinner.show();
 
         this.plan.tempLandInfoPid = this.data.pid;
-        this.convertForSave(); // 契約詳細⊕不可分データ準備
         this.plan.convertForSave(this.service.loginUser.userId, this.datepipe);
         this.service.savePlan(this.plan).then(res => {
 
@@ -381,10 +168,7 @@ export class PlanDetailComponent extends BaseComponent {
           });
           dlgVal.afterClosed().subscribe(val => {
             this.spinner.hide();
-            this.plan = new Planinfo(res);
-            /*this.convertData();*/
-            this.plan.convert();
-            this.router.navigate(['/plans'], {queryParams: {pid: this.contract.pid}});
+            this.router.navigate(['/plans'], {queryParams: {search: 1}});
           });
 
         });
@@ -393,42 +177,6 @@ export class PlanDetailComponent extends BaseComponent {
 
   }
 
-  /**
-   * 登録の為の変換
-   */
-  convertForSave() {
-
-
-    //入力された物件名称から物件pid
-    this.plan.tempLandInfoPid = this.bukkenMap[this.bukkenName]
-    if (this.plan.tempLandInfoPid == null || this.plan.tempLandInfoPid == 0){
-      this.plan.tempLandInfoPid = null
-    }
-    
-  }
-
-
-  
-
-
-
-  /**
-   * チェック
-   * @param event チェックイベント
-   * @param item ：所有地
-   * @param flg ：チェックフラグ
-   
-  change(event, item: Locationinfo, flg) {
-    if (event.checked) {
-      item.contractDetail.contractDataType = flg;
-    } else {
-      item.contractDetail.contractDataType = '';
-    }
-    if (item.contractDetail.contractDataType !== '03') {
-      item.contractDetail.contractArea = null;
-    }
-  }
-*/
   /**
    * バリデーション
    */
@@ -466,92 +214,4 @@ export class PlanDetailComponent extends BaseComponent {
     this.router.navigate(['/plans'], {queryParams: {search: '1'}});
   }
 
-  /**
-   * 物件情報遷移
-   
-  toBukken() {
-    this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
-  }
-*/
-  /**
-   * ファイルアップロード
-   * @param event ：ファイル
-   
-  uploaded(event) {
-    if (this.contract.contractFiles === null) {
-      this.contract.contractFiles = [];
-    }
-    const contractFile: ContractFile = JSON.parse(JSON.stringify(event));
-    this.contract.contractFiles.push(contractFile);
-  }*/
-
-  /**
-   * 地図削除
-   * @param map :　削除したい地図
-   
-  deleteFile(map: ContractFile) {
-
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        this.service.deleteContractFile(map.pid).then(res => {
-          this.contract.contractFiles.splice(this.contract.contractFiles.indexOf(map), 1);
-        });
-      }
-    });
-  }*/
-
-  /**
-   * 帳票
-   */
-  export() {
-
-    const dlg = new Dialog({title: '確認', message: '契約書を出力しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        this.spinner.show();
-        this.service.exportContract(this.contract.pid).then(data => {
-          this.service.writeToFile(data);
-          this.spinner.hide();
-        });
-      }
-    });
-  }
-  showSharer(loc: Locationinfo) {
-    const dialogRef = this.dialog.open(SharerDialogComponent, {
-      width: '600px',
-      height: '400px',
-      data: loc
-    });
-  }
-
-  hasSharer(loc: Locationinfo) {
-    return loc.sharers.length > 0 && loc.sharers.filter(s => s.buysellFlg === '1').length > 0;
-  }
-
-  /**
-   * 契約者追加
-   *
-  
-  addContractSeller() {
-    if (this.contract.sellers == null) {
-      this.contract.sellers = [];
-    }
-    this.contract.sellers.push(new ContractSellerInfo());
-  }
-
-  deleteContractSeller(sharerPos: number) {
-    const seller = this.contract.sellers[sharerPos];
-    if (seller.pid > 0) {
-      if (this.delSellers == null) {
-        this.delSellers = [];
-      }
-      this.delSellers.push(seller);
-    }
-    this.contract.sellers.splice(sharerPos, 1);
-  } */
 }
