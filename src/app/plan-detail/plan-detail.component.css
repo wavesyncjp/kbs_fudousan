@@ -166,11 +166,14 @@ span.head{
     min-width: 100px;
     width: 100px;
 }
-
-::ng-deep .Twidth100{
-    min-width: 100px;
-    width: 100px;
+/*//20200407_hirano src*/
+::ng-deep .Twidth180{
+    min-width: 180px;
+    width: 180px;
+    font-size: 0.8em;
 }
+
+
 
 .Twidth150{
     min-width: 150px;
@@ -210,8 +213,9 @@ span.head_plan{
     display: inline-flex;
     align-items: center;
 }
+/*//20200407_hirano src*/
 .detail-tbl-plan> tr > th.title{
-    width:100px !important;
+    width:180px !important;
     height: 22px !important;
     line-height:30px;
     padding: 2px 2px 5px 5px;
@@ -231,9 +235,9 @@ span.head_plan{
 } 
  
 
-
+/*//20200407_hirano src*/
 .detail-tbl-plan> tr > th.main{
-    width:100px !important;
+    width:180px !important;
     border-bottom:solid 1.5px rgba(193, 224, 188, 0.692);
     text-align: left;
     min-height: 22px !important;
@@ -284,9 +288,9 @@ span.head_plan{
     margin-bottom: 20px;
  
 }
-
+/*//20200407_hirano src*/
 .detail-tbl-plan> span.SUM > tr > th.main{
-    width:100px !important;
+    width:180px !important;
     text-align: left;
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
@@ -336,8 +340,9 @@ span.head_plan{
     background-color: #fff; /* タイトル背景色 */
     font-size: 0.8em;
 }
+/*//20200407_hirano src*/
 .detail-tbl-plan > .kakomi-box11 > tr > th.main{
-    width:90px !important;
+    width:170px !important;
     border-bottom:solid 1.5px rgba(193, 224, 188, 0.692);
     text-align: left;
     min-height: 22px !important;
