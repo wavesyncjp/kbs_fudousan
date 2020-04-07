@@ -50,3 +50,9 @@ table {
 
 }
 
+.ct-list {
+    height: 42px;
+    display: flex;
+    align-items: center;
+}
+

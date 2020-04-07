@@ -32,6 +32,10 @@ export class PlanDetailComponent extends BaseComponent {
   public bukkenid: number;
   public plan: Planinfo;
 
+  public payTypeGroup1 = [];
+  public payTypeGroup2 = [];
+  public payTypeGroup3 = [];
+
   constructor(public router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog,
@@ -89,6 +93,13 @@ export class PlanDetailComponent extends BaseComponent {
       this.deps = values[1];
       this.emps = values[2];
       this.payTypes = values[3];
+
+      this.payTypeGroup1 = this.payTypes.filter(tp => { return tp.costFlg === '01' && tp.addFlg === '1'})
+                                        .map(tp => new Code({codeDetail: tp.paymentCode, name: tp.paymentName}));
+      this.payTypeGroup2 = this.payTypes.filter(tp => { return tp.costFlg === '02' && tp.addFlg === '1'})
+                                        .map(tp => new Code({codeDetail: tp.paymentCode, name: tp.paymentName}));
+      this.payTypeGroup3 = this.payTypes.filter(tp => { return tp.costFlg === '03' && tp.addFlg === '1'})
+                                        .map(tp => new Code({codeDetail: tp.paymentCode, name: tp.paymentName}));
     
      // データが存在する場合
      if ( values.length > 4) {

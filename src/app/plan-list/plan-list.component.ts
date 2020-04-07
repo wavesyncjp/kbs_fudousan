@@ -129,6 +129,6 @@ export class PlanListComponent extends BaseComponent {
   
 
   highlight(row) {
-    this.selectedRowIndex = row.pid;
+    this.selectedRowIndex = row.tempLandInfoPid;
   }
 }
