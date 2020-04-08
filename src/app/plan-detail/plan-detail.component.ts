@@ -195,6 +195,20 @@ export class PlanDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
+    this.checkBlank(this.plan.planNumber, 'planNumber', 'プラン番号は必須です。');
+    this.checkBlank(this.plan.planName, 'planName', 'プラン名は必須です。');
+
+    if (this.errorMsgs.length > 0) {
+      return false;
+    }
+    return true;
+  }
+
+  ok() {
+    if (!this.validate()) {
+      return;
+    }
+
     this.data.locations.forEach((loc, pos) => {
       if(loc.sharers == null || loc.sharers.length == 1) {
         return;

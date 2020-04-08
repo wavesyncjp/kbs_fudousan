@@ -14,7 +14,7 @@ export class Planinfo {
     planNumber: string;
     planName = '';
     planStatus: string;
-    cratedDay: string;
+    createDay: string;
     depCode: string;
     userId: string;
     address: string;
@@ -58,12 +58,12 @@ export class Planinfo {
     groundType: string;
     jvRatio: number;
 
-    cratedDayMap: Date = null;
+    createDayMap: Date = null;
     startDayMap: Date = null;
     upperWingDayMap: Date = null;
     completionDayMap: Date = null;
     scheduledDayMap: Date = null;
-
+    
     
     
     
@@ -74,8 +74,8 @@ export class Planinfo {
     }
 
     public convert() {
-        if (this.cratedDay) {
-            this.cratedDayMap = parse(this.cratedDay, 'yyyyMMdd', new Date());
+        if (this.createDay) {
+            this.createDayMap = parse(this.createDay, 'yyyyMMdd', new Date());
         }
         if (this.startDay) {
             this.startDayMap = parse(this.startDay, 'yyyyMMdd', new Date());
@@ -89,18 +89,6 @@ export class Planinfo {
         if (this.scheduledDay) {
             this.scheduledDayMap = parse(this.scheduledDay, 'yyyyMMdd', new Date());
         }
-
-        /*this.details.forEach((detail) => {
-            if (detail.cratedDay) {
-                detail.cratedDayMap = parse(detail.cratedDay, 'yyyyMMdd', new Date());
-            }
-            if (detail.contractDay) {
-                detail.contractDayMap = parse(detail.contractDay, 'yyyyMMdd', new Date());
-            }
-            if (detail.contractFixDay) {
-                detail.contractFixDayMap = parse(detail.contractFixDay, 'yyyyMMdd', new Date());
-            }
-        }*/
     }
 
     public convertForSave(userId: number , datePipe: DatePipe) {
@@ -109,5 +97,16 @@ export class Planinfo {
         } else {
             this.createUserId = userId;
         }
+        //20200408_hirano_S
+        this.createDay = this.createDayMap != null ? datePipe.transform(this.createDayMap, 'yyyyMMdd') : null;
+        this.startDay = this.startDayMap != null ? datePipe.transform(this.startDayMap, 'yyyyMMdd') : null;
+        this.upperWingDay = this.upperWingDayMap != null ? datePipe.transform(this.upperWingDayMap, 'yyyyMMdd') : null;
+        this.completionDay = this.completionDayMap != null ? datePipe.transform(this.completionDayMap, 'yyyyMMdd') : null;
+        this.scheduledDay = this.scheduledDayMap != null ? datePipe.transform(this.scheduledDayMap, 'yyyyMMdd') : null;
+        //20200408_hirano_E
     }
 }
+
+
+
+
