@@ -24,9 +24,9 @@
             <th>作成日</th>
                 <td class="first">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="cratedDay" class="Twidth100" [(ngModel)]="plan.cratedDayMap">  
-                <mat-datepicker-toggle matSuffix [for]="cratedDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #cratedDay></mat-datepicker>
+                <input type="text" [matDatepicker]="createdDay" class="Twidth100" [(ngModel)]="plan.createDayMap">  
+                <mat-datepicker-toggle matSuffix [for]="createDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #createDay></mat-datepicker>
                 </div>
                 </td>
                 <th>決済期</th>
@@ -39,10 +39,11 @@
         </tr>
         <tr>
             <th>プラン番号</th>
-            <td class="first"><input type="text" class="Twidth150" [attr.disabled]="true" [(ngModel)]="plan.planNumber"></td>            
+            <!--20200408_hirano-->
+            <td class="first"><input type="text" class="Twidth150" [ngClass]="{'Twidth150': true, 'error': errors['planNumber']}" [attr.disabled]="plan.createUserId > 0 ? '' : null" [(ngModel)]="plan.planNumber"></td>            
             <th>プラン名</th>
             <td class="second">
-              <input type="text" class="Twidth400" [(ngModel)]="plan.planName">
+              <input type="text" class="Twidth400" [ngClass]="{'Twidth400': true, 'error': errors['planName']}" [(ngModel)]="plan.planName">
             </td>    
         </tr>
         
@@ -89,11 +90,11 @@
         <tr>
             <th>所有者</th>
             <td class="second">
-              <input type="text" style="width: 400px;" [(ngModel)]="data.owner">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.landOwner">
             </td>
             <th>権利関係</th>
             <td td class="third">
-                <app-select-component [codes]="getCode('保留')" [(ngModel)]="plan.rightsRelationship"></app-select-component>
+                <app-select-component [codes]="getCode('011')" [(ngModel)]="plan.rightsRelationship"></app-select-component>
             </td>
             <th>仕入契約予定日</th>
                 <td>
@@ -154,7 +155,7 @@
         <tr>
             <th>所在地</th>
             <td class="second">
-              <input type="text" style="width: 400px;" [(ngModel)]="data.address">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.address">
             </td>
             <th>交通</th>
             <td class="second">
@@ -214,7 +215,9 @@
         <tr>
         <th>用途地域</th>
             <td td class="second_tubo">
-                <app-select-component [codes]="getCode('保留2')" [(ngModel)]="plan.restrictedArea"></app-select-component>
+                <input type="text" class="width100" [(ngModel)]="plan.restrictedArea">
+                
+                <!--<app-select-component [codes]="getCode('保留2')" [(ngModel)]="plan.restrictedArea"></app-select-component>-->
             </td>
             <th>地目</th>
             <td class="second_tubo">
@@ -309,7 +312,7 @@
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[0].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100" placeholder="路線価" [(ngModel)]="plan.routePrice"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="路線価" [(ngModel)]="plan.details[0].routePrice"></td>
         </tr>
         <tr>
             <th class="main">前払い地代</th>
@@ -335,7 +338,7 @@
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[4].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
             <td class="yen">
-                <input type="text" class="Twidth100" placeholder="負担日数" [ngModel]="plan.burdenDays"></td>
+                <input type="text" class="Twidth100" placeholder="負担日数" [(ngModel)]="plan.details[4].burdenDays"></td>
         </tr>
         <!--20200331 ADD-->
         <tr>
@@ -346,27 +349,27 @@
         
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[5].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[5].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[6].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[6].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[7].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[7].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[8].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[8].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[9].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[9].price" (keyup)="changeSum($event)"></td>
         </tr>
         <span class = "SUM">
@@ -383,7 +386,7 @@
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[10].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100" placeholder="容積単価" [ngModel]="plan.unitPrice"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="容積単価" [(ngModel)]="plan.details[10].unitPrice"></td>
         </tr>
         <tr>
             <th class="main">設計料</th>
@@ -433,27 +436,27 @@
         
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[18].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[18].price"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[19].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[19].price"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[20].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[20].price"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[21].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[21].price"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[22].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[22].price"></td>
         </tr>
         <span class = "SUM">
@@ -468,19 +471,19 @@
         </tr>
         <tr>
             <th class="main">土地固都税</th>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [(ngModel)]="plan.details[23].price"></td>
+            <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[23].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100" placeholder="～竣工単価" [ngModel]="plan.complePriceMonth">ヵ月</td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="～竣工単価" [(ngModel)]="plan.details[23].complePriceMonth">ヵ月</td>
         </tr>
     <div class="kakomi-box11">
         <span class="title-box11">・既存建物関係費</span>
         <tr>
             <th class="main">固都税</th>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [(ngModel)]="plan.details[24].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[24].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100" placeholder="～解体" [ngModel]="plan.dismantlingMonth">ヵ月</td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="～解体" [(ngModel)]="plan.details[24].dismantlingMonth">ヵ月</td>
         </tr>
         <tr>
             <th class="main">管理費</th>
@@ -492,7 +495,7 @@
         </tr>
         <tr>
             <th class="main">取得税</th>
-            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" [attr.disabled]="true"></td>
+            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" ></td>
         </tr>
         <tr>
             <th class="main">登録免許税</th>
@@ -517,12 +520,12 @@
         </tr>
         <tr>
             <th class="main">取得税</th>
-            <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[30].price"></td>
+            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo"></td>
             <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo"></td>
         </tr>
         <tr>
             <th class="main">登録税</th>
-            <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[31].price"></td>
+            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo"></td>
             <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo"></td>
         </tr>
     </div>
@@ -530,14 +533,14 @@
         <span class="title-box11">・建物 取得時税金</span>
         <tr>
             <th class="main">取得税</th>
-            <td class="yen"><input type="text" class="Twidth100"></td>
+            <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[30].price"></td>
             <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100" placeholder="取得税評価額" [ngModel]="plan.valuation"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="取得税評価額" [(ngModel)]="plan.details[30].valuation"></td>
         </tr>
         <tr>
             <th class="main">登録税</th>
-            <td class="yen"><input type="text" class="Twidth100"></td>
+            <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[31].price"></td>
             <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo"></td>
             
         </tr>
@@ -547,14 +550,14 @@
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[32].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100" placeholder="地代" [ngModel]="plan.rent"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="地代" [(ngModel)]="plan.details[32].rent"></td>
         </tr>
         <tr>
             <th class="main">保証金(解体費用)</th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[33].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100" placeholder="取得～竣工" [ngModel]="plan.totalMonths"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="取得～竣工"  [(ngModel)]="plan.details[33].totalMonths"></td>
         </tr>
         <tr>
             <th class="main">その他</th>
@@ -562,28 +565,31 @@
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[34].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[34].price"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3"></app-select-component></th>
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[35].paymentCode"></app-select-component></th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[35].price"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3"></app-select-component></th>
+            <th class="main">融資手数料</th>
             <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[36].price"></td>
+            <td class="yen"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="手数料率" [(ngModel)]="plan.details[36].commissionRate"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3"></app-select-component></th>
+            <th class="main">抵当権設定費用</th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[37].price"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3"></app-select-component></th>
+            <th class="main">司法書士報酬</th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[38].price"></td>
+            
         </tr>
         <span class = "SUM">
             <tr>
