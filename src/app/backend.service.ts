@@ -296,6 +296,16 @@ export class BackendService {
     return res.toPromise();
   }
 
+  /**
+   * 収支帳票
+   * @param pid 収支Pid
+   */
+  exportPlan(planPid: number): Promise<Blob> {
+    const downloadUrl = 'planexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: planPid}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+
   writeToFile(data: any) {
     const blob = new Blob([data], {
       type: 'application/octet-stream'
