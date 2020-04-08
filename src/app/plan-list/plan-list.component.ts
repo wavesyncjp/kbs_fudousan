@@ -29,7 +29,7 @@ export class PlanListComponent extends BaseComponent {
   public cond: any;
   search = 0;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDate', 'updateDate', 'delete', 'detail', 'report'];
+  displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Planinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -131,19 +131,5 @@ export class PlanListComponent extends BaseComponent {
   highlight(row) {
     this.selectedRowIndex = row.tempLandInfoPid;
   }
-
-  export(row) {
-    const dlg = new Dialog({title: '確認', message: '収支帳票を出力しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        this.spinner.show();
-        this.service.exportPlan(row.pid).then(data => {
-          this.service.writeToFile(data);
-          this.spinner.hide();
-        });
-      }
-    });
-  }
+  
 }

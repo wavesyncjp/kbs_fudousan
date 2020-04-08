@@ -705,3 +705,9 @@ span.head_rent{
     
 } 
 /*レントロール合計_E*/
+
+.export-button {
+    background: dimgray;
+    color: white;
+    width: 120px;
+}

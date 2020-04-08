@@ -225,4 +225,19 @@ export class PlanDetailComponent extends BaseComponent {
     this.router.navigate(['/plans'], {queryParams: {search: '1'}});
   }
 
+  export() {
+    const dlg = new Dialog({title: '確認', message: '収支帳票を出力しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportPlan(this.plan.pid).then(data => {
+          this.service.writeToFile(data);
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+
 }
