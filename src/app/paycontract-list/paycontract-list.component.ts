@@ -27,7 +27,7 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 export class PayContractListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','contractDay','contractFixDay', 'delete', 'detail'];
+  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','contractDay','contractFixDay', 'delete', 'detail'];// 'paymentCode',
   dataSource = new MatTableDataSource<Paycontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

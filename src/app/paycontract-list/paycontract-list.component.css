@@ -49,4 +49,11 @@ table {
     /*padding-bottom: 13px;*/
 
 }
+.picker-div_1{
+    width: 120px;
+    margin-right: 10px;
+}
+.left{
+    float: left;
+}
 

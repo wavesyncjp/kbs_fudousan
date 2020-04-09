@@ -7,38 +7,76 @@
         <table class="search-tbl">                
             <tr>
                 <th>物件番号</th>
-                <td>
+                <td colspan="3">
                     <input type="text" class="width300" [(ngModel)]="cond.bukkenNo">
                 </td>
                 <th>物件名</th>
-                <td>
+                <td colspan="3">
                     <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName">
                 </td>
             </tr>    
             <tr>
                 <th>取引先</th>
-                <td>
+                <td colspan="3">
                     <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName">
                 </td>
-                <th>契約予定日</th>
-                <td>
+                <th>契約予定日(開始)</th>
+                <td class="picker-div_1">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="startDate" [(ngModel)]="cond.contractDay" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #startDate></mat-datepicker>
+                <input type="text" [matDatepicker]="startDate_From" [(ngModel)]="cond.contractDay_From" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="startDate_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDate_From></mat-datepicker>
+                </div>
+                </td>
+                <th>契約予定日(終了)</th>
+                <td>
+                <div class="picker-div_1">
+                <input type="text" [matDatepicker]="startDate_To" [(ngModel)]="cond.contractDay_To" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="startDate_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDate_To></mat-datepicker>
                 </div>
                 </td>
             </tr> 
             <tr>
-                <th>契約完了日</th>
-                <td>
+                <th>契約確定日(開始)</th>
+                <td class="picker-div_1">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="finishDate" [(ngModel)]="cond.contractFixDay" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #finishDate></mat-datepicker>
+                <input type="text" [matDatepicker]="contractFixDay_From" [(ngModel)]="cond.contractFixDayMap_From" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="contractFixDay_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractFixDay_From></mat-datepicker>
                 </div>
                 </td>
-            </tr> 
+                <th>契約確定日(開始)</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="contractFixDay_To" [(ngModel)]="cond.contractFixDayMap_To" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="contractFixDay_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractFixDay_To></mat-datepicker>
+                </div>
+                </td>
+                <th>支払種別</th>
+                <td colspan="3">
+                    <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="cond.paymentCode"></app-select-component>
+                </td>
+            </tr>
+            <tr>
+                <th>支払予定日(開始)</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="startDate_From" [(ngModel)]="cond.contractDay_From" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="startDate_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDate_From></mat-datepicker>
+                </div>
+                </td>
+                <th>支払予定日(終了)</th>
+                <td>
+                <div class="picker-div_1">
+                <input type="text" [matDatepicker]="startDate_To" [(ngModel)]="cond.contractDay_To" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="startDate_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDate_To></mat-datepicker>
+                </div>
+                </td>
+            </tr>
         </table>      
         <div style="margin: 10px 0px 10px 0px;">
             <button mat-raised-button (click)="searchPayContract()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;&nbsp;

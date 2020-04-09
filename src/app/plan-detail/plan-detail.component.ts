@@ -134,7 +134,7 @@ export class PlanDetailComponent extends BaseComponent {
   
 /*坪数計算*/
   changeVal(val) {
-    if (!this.isNumberStr(val)) {
+    if (this.isNumberStr(val)) {
       return Math.floor(Number(val) * 0.3025 * 100 ) / 100;
     }
     else {
@@ -151,6 +151,29 @@ export class PlanDetailComponent extends BaseComponent {
   changeSum(val1, val2, val3, val4, val5) {
   return this.getNumber(val1) + this.getNumber(val2) + this.getNumber(val3) + this.getNumber(val4) + this.getNumber(val5);
 }
+  changeSumLand(val1, val2, val3, val4, val5, val6, val7, val8, val9, val10) {
+  return this.getNumber(val1) + this.getNumber(val2) + this.getNumber(val3) + this.getNumber(val4) + this.getNumber(val5)
+  +this.getNumber(val6) + this.getNumber(val7) + this.getNumber(val8) + this.getNumber(val9) + this.getNumber(val10);
+}
+
+  changeHang(val, val1) {
+    if(val == null || val === '' || isNaN(val) ) return 0;
+    return Number(val)*this.getNumber(val1);
+}
+
+changetest() {
+  //return this.getNumber(val1) * this.getNumber(val2);
+  this.plan.details[10].unitPrice = String(this.plan.siteAreaBuy * this.getNumber(this.plan.details[10].price));
+}
+ /* if (this.isNumberStr(val1)) {
+    return Math.floor(Number(val1) * this.getNumber(val2));
+  }
+  else {
+    return '';
+  }
+}*/
+  
+
 
   /**
    * 登録
