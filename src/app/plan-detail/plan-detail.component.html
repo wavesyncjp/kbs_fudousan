@@ -165,7 +165,7 @@
         <tr>
             <th>敷地面積(売買)</th>
             <td class="second_tubo">
-              <input type="text" class="width100" [(ngModel)]="plan.siteAreaBuy"  (keyup)="changesiteAreaBuy($event)">&nbsp;㎡&nbsp;&nbsp;
+              <input type="text" class="width100" [(ngModel)]="plan.siteAreaBuy"  (keypress)="floatOnly($event)" (keyup)="changetest()">&nbsp;㎡&nbsp;&nbsp;
               <input type="text" class="width100"  [attr.disabled]="true"  [value]="changeVal(plan.siteAreaBuy)">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th>敷地面積(確認)</th>
@@ -309,33 +309,33 @@
         </tr>
         <tr>
             <th class="main">土地代</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[0].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[0].price" (keyup)="changeSumLand($event)"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <!--20200407_hirano src-->
             <td class="yen"><input type="text" class="Twidth100" placeholder="路線価" [(ngModel)]="plan.details[0].routePrice"></td>
         </tr>
         <tr>
             <th class="main">前払い地代</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[1].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[1].price" (keyup)="changeSumLand($event)"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             
         </tr>
         <tr>
             <th class="main">仲介料</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[2].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[2].price" (keyup)="changeSumLand($event)"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             
         </tr> 
 
         <tr>
             <th class="main">解体費</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[3].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[3].price" (keyup)="changeSumLand($event)"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
         </tr>
 
         <tr>
             <th class="main">固都税精算金</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[4].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[4].price" (keyup)="changeSumLand($event)"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
             <td class="yen">
                 <input type="text" class="Twidth100" placeholder="負担日数" [(ngModel)]="plan.details[4].burdenDays"></td>
@@ -350,32 +350,33 @@
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[5].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[5].price" (keyup)="changeSum($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[5].price" (keyup)="changeSum($event)" (keyup)="changeSumLand($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[6].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[6].price" (keyup)="changeSum($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[6].price" (keyup)="changeSum($event)" (keyup)="changeSumLand($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[7].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[7].price" (keyup)="changeSum($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[7].price" (keyup)="changeSum($event)" (keyup)="changeSumLand($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[8].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[8].price" (keyup)="changeSum($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[8].price" (keyup)="changeSum($event)" (keyup)="changeSumLand($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[9].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[9].price" (keyup)="changeSum($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[9].price" (keyup)="changeSum($event)" (keyup)="changeSumLand($event)"></td>
         </tr>
         <span class = "SUM">
             <tr>
                 <th class="main">土地原価合計</th>
-                <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [(ngModel)]="plan.demo"></td>            
+                <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" 
+                    [value]="changeSumLand(plan.details[0].price,plan.details[1].price,plan.details[2].price,plan.details[3].price,plan.details[4].price,plan.details[5].price, plan.details[6].price, plan.details[7].price, plan.details[8].price, plan.details[9].price)"></td>            
             </tr>
         </span>
         <tr>
@@ -383,7 +384,7 @@
         </tr>
         <tr>
             <th class="main">建築費</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[10].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[10].price" (keyup)="changetest()"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo"></td>
             <!--20200407_hirano src-->
             <td class="yen"><input type="text" class="Twidth100" placeholder="容積単価" [(ngModel)]="plan.details[10].unitPrice"></td>
@@ -431,33 +432,34 @@
         </tr>
         <tr>
             <th class="main">その他</th>
-            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [value]="changeSum(plan.details[18].price, plan.details[19].price, plan.details[20].price, plan.details[21].price, plan.details[22].price)" 
+                [attr.disabled]="true"></td>
         </tr>
         
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[18].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[18].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[18].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[19].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[19].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[19].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[20].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[20].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[20].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[21].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[21].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[21].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[22].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[22].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[22].price" (keyup)="changeSum($event)"></td>
         </tr>
         <span class = "SUM">
             <tr>
@@ -561,34 +563,35 @@
         </tr>
         <tr>
             <th class="main">その他</th>
-            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [value]="changeSum(plan.details[34].price, plan.details[35].price, plan.details[36].price, plan.details[37].price, plan.details[38].price)" 
+                [attr.disabled]="true"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[34].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[34].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[34].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[35].paymentCode"></app-select-component></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[35].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[35].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main">融資手数料</th>
-            <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[36].price"></td>
+            <td class="yen"><input type="text" class="Twidth100" [(ngModel)]="plan.details[36].price" (keyup)="changeSum($event)"></td>
             <td class="yen"></td>
             <td class="yen"><input type="text" class="Twidth100" placeholder="手数料率" [(ngModel)]="plan.details[36].commissionRate"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main">抵当権設定費用</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[37].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[37].price" (keyup)="changeSum($event)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
             <th class="main">司法書士報酬</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[38].price"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[38].price" (keyup)="changeSum($event)"></td>
             
         </tr>
         <span class = "SUM">
