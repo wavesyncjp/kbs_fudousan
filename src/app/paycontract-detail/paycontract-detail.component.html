@@ -102,9 +102,13 @@
                 <th class="width130">消費税</th>
                 <th class="width130">支払金額(税込)</th>
                 <th class="width80">〆日</th>
-                <th class="width80">支払予定日</th>
+                <!--hiranomemo 支払時期 追加-->
+                <th class="width80">支払時期</th>
+                <th class="width100">支払予定日</th>
                 <th class="width80">支払確定日</th>
                 <th class="width130">支払方法</th>
+                <!--hiranomemo 契約者 追加-->
+                <th>契約者</th>
                 <th>備考</th>                
             </thead>
             <tbody class="list-body">
@@ -125,6 +129,8 @@
                             <mat-datepicker #closingDay></mat-datepicker>
                         </div>
                     </td>
+                    <!--hiranomemo paymentSeason 追加-->
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason"></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
@@ -140,6 +146,8 @@
                         </div>
                     </td>
                     <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
+                    <!--hiranomemo contractor 追加-->
+                    <td><input class="width300" type="text" [(ngModel)]="detail.contractor"></td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>         
                 </tr>
                 <tr *ngFor="let detail of paycontract.details | slice:1; index as sharerPos">                      
@@ -159,6 +167,8 @@
                             <mat-datepicker #closingDay></mat-datepicker>
                         </div>
                     </td>
+                    <!--hiranomemo paymentSeason 追加-->
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason"></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
@@ -174,6 +184,8 @@
                         </div>
                     </td>
                     <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
+                    <!--hiranomemo contractor 追加-->
+                    <td><input class="width300" type="text" [(ngModel)]="detail.contractor"></td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>
                 </tr>
             </tbody>

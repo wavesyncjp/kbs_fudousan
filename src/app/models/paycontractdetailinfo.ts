@@ -7,9 +7,11 @@ export class Paycontractdetailinfo {
     payTax: number;
     payPriceTax: number;
     closingDay: string;
+    paymentSeason: string;
     contractDay: string;
     contractFixDay: string;
     paymentMethod: string;
+    contractor: string;
     detailRemarks: string;
 
     closingDayMap: Date = null;
