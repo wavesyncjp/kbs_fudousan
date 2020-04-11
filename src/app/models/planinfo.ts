@@ -57,6 +57,20 @@ export class Planinfo {
     scheduledDay: string;
     groundType: string;
     jvRatio: number;
+    residentialRate: number;
+    landEvaluation: number;
+    taxation: number;
+    taxationCity: number;  
+    buildValuation: number;
+    fixedTaxLand: number;
+    cityPlanTaxLand: number;
+    fixedTaxBuild: number;
+    cityPlanTaxBuild: number;
+    afterTaxation: number;
+    afterTaxationCity: number;
+    afterFixedTax: number;
+    afterCityPlanTax: number;
+
 
     createDayMap: Date = null;
     startDayMap: Date = null;

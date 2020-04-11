@@ -270,8 +270,7 @@
             <input type="text" class="width100" [(ngModel)]="plan.buysellUnits">&nbsp;戸
             </td>
         </tr>
-        <tr>
-                
+        <tr>    
             <th>敷地駐車台数</th>
             <td class="etc3">
             <input type="text" class="width100" [(ngModel)]="plan.parkingIndoor">&nbsp;台
@@ -291,10 +290,102 @@
             <th>内機械式</th>
             <td class="etc2">
             <input type="text" class="width100" [(ngModel)]="plan.mechanical">&nbsp;台
-            
+            </td>
+            <th>当社JV比率</th>
+            <td class="etc2">
+            <input type="text" class="width100" [(ngModel)]="plan.jvRatio"(keypress)="floatOnly($event)">&nbsp;％
             </td>
         </tr>
-    </table> 
+    </table>
+
+    <table class="fixed_asset">
+        <tr>
+            <td>
+                <span class="fixed_asset_head"><label>固定資産税等概算</label></span>                        
+            </td>
+            
+        </tr>
+        <tr><td style="font-size: 0.8em;">&nbsp;&nbsp;【固定資産税(精算分)】</td></tr>
+        <tr>
+            <th>住宅用地の率</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.residentialRate">
+            </td>
+            <th>土地評価額</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.landEvaluation">
+            </td>
+            <th>課税標準額(固定)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.taxation">
+            </td>
+            <th>課税標準額(都市)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.taxationCity">
+            </td>
+            <th>既存建物評価額</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.buildValuation">
+            </td>
+        </tr>
+
+        <tr>
+            <th>固定資産税(土地)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.residentialRate">
+            </td>
+            <th>都市計画税(土地)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.landEvaluation">
+            </td>
+            <th>固定資産税(建物)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.taxation">
+            </td>
+            <th>都市計画税(建物)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.taxationCity">
+            </td>
+        </tr>
+        <tr>
+            <th>精算分固都税年額</th>
+            <td colspan="9">
+              <input type="text" class="width150" [attr.disabled]="true">
+            </td>
+        </tr>
+        
+    </table>
+    <table class="fixed_asset">
+        <tr><td style="font-size: 0.8em;" >&nbsp;&nbsp;【土地固定資産税(取得後)】</td></tr>
+        <tr>
+            <th>課税標準額(固定)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.afterTaxation">
+            </td>
+            <th>課税標準額(都市)</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.afterTaxationCity">
+            </td>
+            <th>固定資産税</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.afterFixedTax">
+            </td>
+            <th>都市計画税</th>
+            <td>
+              <input type="text" class="width100" [(ngModel)]="plan.afterCityPlanTax">
+            </td>
+            
+        </tr>
+
+        <tr>
+            <th>取得後固都税年額</th>
+            <td colspan="7">
+              <input type="text" class="width150" [attr.disabled]="true">
+            </td>
+        </tr>
+    </table>
+    
+    
 <!--収支計算画面_S-->
 <table class ="plan_detail"> 
     <table class = "detail-tbl-plan">

@@ -1,6 +1,6 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div class="detail-div">
-    <div class="register-div">
+    <div class="register-div1">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
@@ -8,8 +8,16 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <br>
+    <div class="register-div1">
+        <div><span class="must">消費税適用日</span>&nbsp;&nbsp;
+                <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="paycontract.taxEffectiveDayMap" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="taxEffectiveDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #taxEffectiveDay></mat-datepicker>
+        </div>
+
+    </div>
     <!--/支払情報ヘッダー-->
-    <table class="detail-tbl-min">  
+    <table class="detail-tbl-min-pay">  
         <tr>
             <td colspan="10"><span class="min">契約区分</span></td>
         </tr>
@@ -77,14 +85,6 @@
             </td>
         </tr>
         <tr>
-            <th>消費税適用日</th>
-            <td colspan="2">
-                <div class="picker-div">
-                    <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="paycontract.taxEffectiveDayMap" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="taxEffectiveDay" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #taxEffectiveDay></mat-datepicker>
-                </div>
-            </td>
             <th>備考</th>
             <td colspan="6">
                 <input type="text" [(ngModel)]="paycontract.remarks" class="width85Per">
