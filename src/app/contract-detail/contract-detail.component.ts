@@ -155,6 +155,9 @@ export class ContractDetailComponent extends BaseComponent {
    flgFinish(event, flg: any) {
     flg.finish = (event.checked ? 1 : 0);
    }
+   flgCanncell(event, flg: any) {
+    flg.canncell = (event.checked ? 1 : 0);
+   }
 
   /**
    * 登録

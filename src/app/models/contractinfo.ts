@@ -50,6 +50,7 @@ export class Contractinfo {
     decisionPrice:number;
     decisionDay: string;
     settlementDay: string;
+    settlementDayFin: string;
     settlementAfter: string;
     retainage: number;
     retainageDay: string;
@@ -74,6 +75,7 @@ export class Contractinfo {
     deliveryDayMap: Date = null;
     decisionDayMap: Date = null;
     settlementDayMap: Date = null;
+    settlementDayFinMap: Date = null;
     deposit1DayMap: Date = null;
     deposit2DayMap: Date = null;
     earnestPriceDayMap: Date = null;
@@ -123,6 +125,9 @@ export class Contractinfo {
         if (this.settlementDay) {
             this.settlementDayMap = parse(this.settlementDay, 'yyyyMMdd', new Date());
         }
+        if (this.settlementDayFin) {
+            this.settlementDayFinMap = parse(this.settlementDayFin, 'yyyyMMdd', new Date());
+        }
         if (this.deposit1Day) {
             this.deposit1DayMap = parse(this.deposit1Day, 'yyyyMMdd', new Date());
         }
@@ -159,6 +164,7 @@ export class Contractinfo {
         //20200212
         this.decisionDay = this.decisionDayMap != null ? datePipe.transform(this.decisionDayMap, 'yyyyMMdd') : null;
         this.settlementDay = this.settlementDayMap != null ? datePipe.transform(this.settlementDayMap, 'yyyyMMdd') : null;
+        this.settlementDayFin = this.settlementDayFinMap != null ? datePipe.transform(this.settlementDayFinMap, 'yyyyMMdd') : null;
         this.deposit1Day = this.deposit1DayMap != null ? datePipe.transform(this.deposit1DayMap, 'yyyyMMdd') : null;
         this.deposit2Day = this.deposit2DayMap != null ? datePipe.transform(this.deposit2DayMap, 'yyyyMMdd') : null;
         this.canncellDay = this.canncellDayMap != null ? datePipe.transform(this.canncellDayMap, 'yyyyMMdd') : null;
