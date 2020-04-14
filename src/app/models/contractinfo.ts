@@ -7,6 +7,7 @@ import { ContractSellerInfo } from './contractsellerinfo';
 export class Contractinfo {
     pid: number;
     tempLandInfoPid: number;
+    contractNow: string;
     contractNumber = '';
     contractFormNumber: number;
     contractType: string;

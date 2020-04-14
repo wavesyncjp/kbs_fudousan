@@ -65,6 +65,12 @@ export class Planinfo {
     fixedTaxLand: number;
     cityPlanTaxLand: number;
     fixedTaxBuild: number;
+    landInterest: string;
+    landLoan: string;
+    landPeriod: string;
+    buildInterest: string;
+    buildLoan: string;
+    buildPeriod: string;
     cityPlanTaxBuild: number;
     afterTaxation: number;
     afterTaxationCity: number;
