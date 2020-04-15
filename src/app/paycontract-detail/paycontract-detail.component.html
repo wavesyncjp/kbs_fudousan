@@ -119,9 +119,9 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc($event, sharerPos)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -147,7 +147,10 @@
                     </td>
                     <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
                     <!--hiranomemo contractor 追加-->
-                    <td><input class="width300" type="text" [(ngModel)]="detail.contractor"></td>
+                    <td>
+                        <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
+                        <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
+                    </td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>         
                 </tr>
                 <tr *ngFor="let detail of paycontract.details | slice:1; index as sharerPos">                      
@@ -157,9 +160,9 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc($event, sharerPos+1)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -185,7 +188,10 @@
                     </td>
                     <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
                     <!--hiranomemo contractor 追加-->
-                    <td><input class="width300" type="text" [(ngModel)]="detail.contractor"></td>
+                    <td>
+                        <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
+                        <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
+                    </td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>
                 </tr>
             </tbody>

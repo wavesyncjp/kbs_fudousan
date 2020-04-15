@@ -12,6 +12,7 @@ import { Locationinfo } from './models/locationinfo';
 import { Contractdetailinfo } from './models/contractdetailinfo';
 import { Paycontractinfo } from './models/paycontractinfo';
 import { Tax } from './models/tax';
+import { ContractSellerInfo } from './models/contractsellerinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -665,6 +666,17 @@ export class BackendService {
   deletePayContracte(id: number): Promise<void> {
     const deleteApi = 'paycontractdelete.php';
     const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
+    return req.toPromise();
+  }
+
+
+   /**
+   * 物件契約者取得
+   * @param tempLandInfoPid 物件Id
+   */
+  getBukkenSeller(tempLandInfoPid: number): Promise<ContractSellerInfo[]> {
+    const api = 'sellerget.php';
+    const req = this.http.post<ContractSellerInfo[]>(`${this.BaseUrl}/${api}`, {tempLandInfoPid: tempLandInfoPid});
     return req.toPromise();
   }
 

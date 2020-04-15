@@ -24,17 +24,17 @@
                 <th>契約予定日(開始)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="startDate_From" [(ngModel)]="cond.contractDay_From" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="startDate_From" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #startDate_From></mat-datepicker>
+                <input type="text" [matDatepicker]="contractDay_From" [(ngModel)]="cond.contractDay_From" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="contractDay_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractDay_From></mat-datepicker>
                 </div>
                 </td>
                 <th>契約予定日(終了)</th>
                 <td>
                 <div class="picker-div_1">
-                <input type="text" [matDatepicker]="startDate_To" [(ngModel)]="cond.contractDay_To" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="startDate_To" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #startDate_To></mat-datepicker>
+                <input type="text" [matDatepicker]="contractDay_To" [(ngModel)]="cond.contractDay_To" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="contractDay_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractDay_To></mat-datepicker>
                 </div>
                 </td>
             </tr> 
@@ -42,7 +42,7 @@
                 <th>契約確定日(開始)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="contractFixDay_From" [(ngModel)]="cond.contractFixDayMap_From" class="width100">
+                <input type="text" [matDatepicker]="contractFixDay_From" [(ngModel)]="cond.contractFixDay_From" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="contractFixDay_From" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #contractFixDay_From></mat-datepicker>
                 </div>
@@ -50,7 +50,7 @@
                 <th>契約確定日(開始)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="contractFixDay_To" [(ngModel)]="cond.contractFixDayMap_To" class="width100">
+                <input type="text" [matDatepicker]="contractFixDay_To" [(ngModel)]="cond.contractFixDay_To" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="contractFixDay_To" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #contractFixDay_To></mat-datepicker>
                 </div>
@@ -65,17 +65,17 @@
                 <th>支払予定日(開始)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
-                <input type="text" [matDatepicker]="contractDay___From" [(ngModel)]="cond.contractDay___From" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="contractDay___From" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #contractDay___From></mat-datepicker>
+                <input type="text" [matDatepicker]="payDay_From" [(ngModel)]="cond.payDay_From" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="payDay_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #payDay_From></mat-datepicker>
                 </div>
                 </td>
                 <th>支払予定日(終了)</th>
                 <td>
                 <div class="picker-div_1">
-                <input type="text" [matDatepicker]="contractDay___To" [(ngModel)]="cond.contractDay___To" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="contractDay___To" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #contractDay___To></mat-datepicker>
+                <input type="text" [matDatepicker]="payDay_To" [(ngModel)]="cond.payDay_To" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="payDay_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #payDay_To></mat-datepicker>
                 </div>
                 </td>
             </tr>
@@ -104,41 +104,45 @@
        
         <ng-container matColumnDef="supplierName">
         <th mat-header-cell *matHeaderCellDef> 取引先 </th>
-        <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+        <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="contractDay">
+        <ng-container matColumnDef="payContractDay">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約予定日 </th>
-        <td mat-cell *matCellDef="let element"> {{element.contractDay}} </td>
+        <td mat-cell *matCellDef="let element">{{formatDay(element.payContractDay, 'yyyy/MM/dd')}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="contractFixDay">
+        <ng-container matColumnDef="payContractFixDay">
         <th mat-header-cell *matHeaderCellDef> 契約確定日 </th>
-        <td mat-cell *matCellDef="let element"> {{element.contractFixDay}} </td>
+        <td mat-cell *matCellDef="let element">{{formatDay(element.payContractFixDay, 'yyyy/MM/dd')}}</td>
         </ng-container>
         <!--hiranomemo 支払種別 追加-->
         <ng-container matColumnDef="paymentCode">
         <th mat-header-cell *matHeaderCellDef> 支払種別 </th>
-        <td mat-cell *matCellDef="let element"> {{element.paymentCode}} </td>
+        <td mat-cell *matCellDef="let element"> <!--{{element.paymentCode}} -->
+            <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{getPaymentName(detail.paymentCode)}}</div>
+        </td>
         </ng-container>
          <!--hiranomemo  支払予定日 追加-->
-        <ng-container matColumnDef="contractDay___">
+        <ng-container matColumnDef="contractDay">
         <th mat-header-cell *matHeaderCellDef> 支払予定日 </th>
-        <td mat-cell *matCellDef="let element"> {{element.contractDay___}} </td>
+        <td mat-cell *matCellDef="let element"> <!--{{element.contractDay}} -->
+            <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractDay , 'yyyy/MM/dd')}}</div>
+        </td>
         </ng-container>
    
         <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row"> 
-            <button mat-raised-button (click)="deleteRow(row)" class="delete_btn">削除</button>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-raised-button (click)="deleteRow(element)" class="delete_btn">削除</button>            
         </td>
         </ng-container>
         
         <!-- 詳細 Column -->
         <ng-container matColumnDef="detail">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row"> 
-            <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>            
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-raised-button (click)="showDetail(element)" color="warn">詳細</button>            
         </td>
         </ng-container>
     

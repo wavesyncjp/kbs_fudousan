@@ -42,6 +42,8 @@ export class PayContractDetailComponent extends BaseComponent {
   taxEffectiveDay : String;
   effectiveDay : String;
 
+  sellers: Code[];
+
   constructor(public router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog,
@@ -113,6 +115,10 @@ export class PayContractDetailComponent extends BaseComponent {
           this.paycontract = new Paycontractinfo(values[6] as Paycontractinfo);
           this.paycontract.convert();
           this.bukkenName = values[6].land.bukkenName;
+
+          //Seller
+          this.loadSellers(this.paycontract.tempLandInfoPid);
+
         } else {
           this.paycontract = new Paycontractinfo();
         }
@@ -130,6 +136,25 @@ export class PayContractDetailComponent extends BaseComponent {
       });
 
       this.spinner.hide();
+
+    });
+  }
+
+  loadSellers(landId: number) {
+    this.service.getBukkenSeller(landId).then(ret => {
+
+      const ids = ret.map(data => data.contractInfoPid).filter((id, i, arr) => arr.indexOf(id) === i);
+      let lst : Code[] = [];
+
+      ids.forEach(id => {
+        const rt = ret.filter(data => data.contractInfoPid === id && data.contractorName != null && data.contractorName !== '').map(data => {return  { id: data.pid, name: data.contractorName} });
+        if(rt.length > 0) {
+          lst.push(new Code({codeDetail: rt.map(cd => cd.id).join(','), name: rt.map(cd => cd.name).join(',') }))
+        }        
+
+      });
+
+      this.sellers = lst;
 
     });
   }
@@ -254,39 +279,53 @@ export class PayContractDetailComponent extends BaseComponent {
    */
   bukkenSearch() {
     this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.bukkenName));
+
+    //seler取得
+    const lst = this.lands.filter(land => land.bukkenName === this.bukkenName);
+    if(lst.length === 1) {
+      this.loadSellers(this.bukkenMap[this.bukkenName]);
+    }
+    else {
+      this.sellers = [];
+    }
+
+
     return this.bukkens;
   }
 
   /**
    * 税額を自動計算する
    */
-  taxCalc(event, sharerPos: number){
+  taxCalc(event, detail: Paycontractdetailinfo){
     const val = event.target.value;
     this.paycontract.taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
-    if (this.isNumberStr(val)) {
-      this.paycontract.details.forEach((detail, pos) => {
+    if (detail.payPrice > 0) {
 
-        if ( sharerPos == pos ){
-          this.taxRate = 0;
-          this.maxDate = 0;
-          //消費税マスタで支払管理の消費税適応日より小さい中での最大値を求める
-          this.taxes.forEach((tax) => {
-            //整形する
-            this.effectiveDay = tax.effectiveDay != null ? this.datepipe.transform(tax.effectiveDay, 'yyyyMMdd') : null;
-            //支払管理の消費税適応日 >=  消費税マスタの適用日
-            if (Number(this.paycontract.taxEffectiveDay) > Number(tax.effectiveDay)){
-              //maxDate < 消費税マスタの適用日
-              if(this.maxDate < Number(this.effectiveDay)){
-                this.maxDate = Number(this.effectiveDay);
-                this.taxRate = tax.taxRate;
-              }
-            }
-          });
-          detail.payTax = Math.floor(Number(val) * (this.taxRate / 100));
-          detail.payPriceTax = Number(val) + detail.payTax
+      this.taxRate = 0;
+      this.maxDate = 0;
+      //消費税マスタで支払管理の消費税適応日より小さい中での最大値を求める
+      this.taxes.forEach((tax) => {
+        //整形する
+        this.effectiveDay = tax.effectiveDay != null ? this.datepipe.transform(tax.effectiveDay, 'yyyyMMdd') : null;
+        //支払管理の消費税適応日 >=  消費税マスタの適用日
+        if (Number(this.paycontract.taxEffectiveDay) > Number(tax.effectiveDay)){
+          //maxDate < 消費税マスタの適用日
+          if(this.maxDate < Number(this.effectiveDay)){
+            this.maxDate = Number(this.effectiveDay);
+            this.taxRate = tax.taxRate;
+          }
         }
-      });
+      });      
+      detail.payPriceTax = Number(detail.payPrice) + Number(Math.floor(detail.payPrice * (this.taxRate / 100)));      
+      detail.payTax = detail.payPriceTax  - detail.payPrice;
+      
     }
+  }
+
+  taxOnlyCalc(event, detail: Paycontractdetailinfo) {
+    if(detail.payPrice >= 0 && detail.payPriceTax >= 0) {
+      detail.payTax = detail.payPriceTax  - detail.payPrice;
+    }    
   }
 
 }

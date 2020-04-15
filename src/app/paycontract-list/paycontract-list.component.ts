@@ -27,8 +27,7 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 export class PayContractListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  //hiranomemo  'paymentCode','contractDay___' 追加
-  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','contractDay','contractFixDay', 'paymentCode','contractDay___','delete', 'detail'];// 'paymentCode',
+  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail'];// 'paymentCode',
   dataSource = new MatTableDataSource<Paycontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -46,6 +45,10 @@ export class PayContractListComponent extends BaseComponent {
     this.service.changeTitle('支払管理一覧');
     this.dataSource.paginator = this.paginator;
     this.cond = {};
+
+    this.service.getPaymentTypes(null).then(ret => {
+      this.payTypes = ret;
+    });
   }
 
   /**
@@ -54,12 +57,32 @@ export class PayContractListComponent extends BaseComponent {
   searchPayContract() {
     this.spinner.show();
     this.service.searchPayContract(this.cond).then(res => {
+      //const lst = this.groupData(res);
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
     });
+  }
+
+  /**
+   * グループ化
+   * @param res 検索結果データ
+   */
+  groupData(res) {
+    const lst = res.map(data => {return {pid: data.payContractPid, bukkenNo: data.bukkenNo, bukkenName: data.bukkenName,
+                                        supplierName: data.supplierName, payContractDay: data.payContractDay, payContractFixDay: data.payContractFixDay};}
+                  ).filter((thing, i, arr) => arr.findIndex(t => t.pid === thing.pid) === i);
+
+    lst.sort((a,b) => {
+      return a.bukkenNo.localeCompare(b.bukkenNo);
+    });
+    lst.forEach(data => {
+      data['details'] = res.filter(me => me.payContractPid == data.pid)
+                           .map(me => {return {paymentCode: me.paymentCode, contractDay: me.contractDay};});
+    });    
+    return lst;
   }
 
   createNew(raw : PayContractDetailComponent) {

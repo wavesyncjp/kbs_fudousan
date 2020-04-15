@@ -152,6 +152,18 @@ export class BaseComponent implements OnInit {
     }
 
     /**
+     * 
+     * @param paymentCode 支払い名称取得
+     */
+    getPaymentName(paymentCode: string): string {
+        const lst = this.payTypes.filter(data => data.paymentCode === paymentCode).map(data => data.paymentName);
+        if(lst.length > 0) {
+            return lst[0];
+        }
+        return '';
+    }
+
+    /**
      * 消費税取得
      */
     getTaxes() {
