@@ -62,3 +62,14 @@ table {
     display: flex;
     align-items: center;
 }
+.search-tbl > tr > th.picker-div_2{
+    width:140px !important;
+    background-color: #D9E1F2;
+    text-align: left;
+    padding: 2px;
+    /*padding-left:5px;*/
+    font-size: 0.8em;
+    border-top: solid 2px white;
+    float: left;
+    /*border-left: solid 2px rgba(0,0,0,.12);*/
+}
