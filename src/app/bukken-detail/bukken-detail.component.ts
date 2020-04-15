@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MAT_DATE_FORMATS, MatCheckbox } from '@angular/material';
+import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MAT_DATE_FORMATS, MatCheckbox,MatTabGroup,MatRadioChange} from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -26,12 +26,17 @@ import { LocationDetailComponent } from '../location-detail/location-detail.comp
   ],
 })
 export class BukkenDetailComponent extends BaseComponent {
+  //hirano_202004.15_edd
+  @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
+  //hirano_202004.15_edd
   @ViewChild('cbxBuysellFlg', {static: true})
   cbxBuysellFlg: MatCheckbox;
   public data: Templandinfo;
   public pid: number;
   removeLoc: Locationinfo[] = [];
   contracts: Contractinfo[] = []; // 契約情報
+  public cond = {mode: 1
+  };
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -207,6 +212,20 @@ export class BukkenDetailComponent extends BaseComponent {
   backToList() {
     this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
   }
+//hirano_202004.15_edd
+/**
+   * プラン画面切り替え
+   */
+  switchTab(event: MatRadioChange) {
+    if (event.value === 1) {
+      this.tabGroup.selectedIndex = 0;
+    } else {
+      this.tabGroup.selectedIndex = 1;
+    }
+    this.cond.mode = event.value;
+    this.service.searchCondition = this.cond;
+  }
+//hirano_202004.15_edd
 
   /**
    * データ保存

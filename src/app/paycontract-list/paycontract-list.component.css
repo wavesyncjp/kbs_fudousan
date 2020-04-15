@@ -51,7 +51,7 @@ table {
 }
 .picker-div_1{
     width: 120px;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 .left{
     float: left;
@@ -62,14 +62,13 @@ table {
     display: flex;
     align-items: center;
 }
-.search-tbl > tr > th.picker-div_2{
-    width:140px !important;
+.search-tbl > tr > th{
+    width:100px !important;
     background-color: #D9E1F2;
     text-align: left;
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
     border-top: solid 2px white;
-    float: left;
     /*border-left: solid 2px rgba(0,0,0,.12);*/
 }

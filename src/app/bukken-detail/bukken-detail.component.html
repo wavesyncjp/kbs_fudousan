@@ -26,8 +26,16 @@
                     <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
                 </td>
             </tr>
-            
+            <!--hirano_202004.15_edd-->
+            <tr>
+            <mat-radio-group (change)="switchTab($event)"  style="float: right;" [(ngModel)]="data.aaa">
+                <mat-radio-button [value]="1" [checked]="true">物件情報&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
+                <mat-radio-button [value]="2">プラン&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
+              </mat-radio-group></tr>
+            <!--hirano_202004.15_edd-->
         </table>
+    <!--hirano_202004.15_edd
+    <mat-tab-group class="bukken-tab">-->
     <table class ="block-status">
         
         <tr>
@@ -269,6 +277,7 @@
                 </tbody>
             </table>
         </div>
+       
     
         <!--/契約情報-->
             
@@ -278,5 +287,132 @@
             <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
             <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
         </div>
+        <!--hirano_202004.15_edd
+    </mat-tab-group>-->
+　　<div style="font-size: 50px;">ここからプランぺージ切り替え</div>
+    <table class ="block-status">
+        
+        <tr>
+            <th class="block-title-statusNew">測量</th>
+            
+        </tr>
 
+        <table class="detail-tbl-status">  
+            <tr>
+                <th>測量依頼日</th>
+                <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="testDay1" [(ngModel)]="data.testDayMap1" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="testDay1" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #testDay1></mat-datepicker>
+                </div>
+                </td>
+                <th>測量依頼先</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.test" class="width300">
+                </td>
+                <th>現場担当者</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.test" class="width300">
+                </td>
+            </tr>
+            <tr>
+                <th>仮測量図</th>
+                <td>
+                    &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.test === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                </td>
+                <th>官民申請書</th>
+                <td>
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.test === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.test" class="width200">
+                </td>
+                <th>民民</th>
+                <td>
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.test === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.test" class="width200">
+                </td>
+            </tr>
+            <tr>
+                <th>備考2</th>
+                <td colspan="5">
+                    <input type="text" [(ngModel)]="data.test" class="width85Per">
+                </td>
+
+            </tr>
+            
+        </table>
+        <tr>
+            <th class="block-title-statusNew">プラン</th>
+            <td>
+            <button mat-raised-button (click)="addSharer()">追加</button>
+            </td>
+            
+        </tr>
+        <table class="detail-tbl-status">  
+            <tr>
+                <th>プラン検討先</th>
+                <td colspan="3">
+                    <input type="text" [(ngModel)]="data.test" class="width400">
+                </td>
+                <th>プラン価格</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.test" class="width100">
+                </td>
+            </tr>
+            <tr>
+                <th>プラン依頼</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.test" class="width200">
+                </td>
+                <th>プラン依頼日</th>
+                <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="testDay2" [(ngModel)]="data.testDayMap2" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="testDay2" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #testDay2></mat-datepicker>
+                </div>
+                </td>
+                <th>プラン取得予定日</th>
+                <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="testDay3" [(ngModel)]="data.testDayMap3" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="testDay3" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #testDay3></mat-datepicker>
+                </div>
+                </td>
+            </tr>
+           
+            
+        </table>
+        <div class="contact-div"  style="width: 100%;">
+            <th class="block-title-statusNew">売り契約</th>
+            <table>
+                <thead class="list-header">
+                    <th class="width200">売買先</th>
+                    <th class="width200">売買対象（所在地）</th>
+                    <th class="width100">地積（㎡、坪）</th>
+                    <th class="width100">売買代金</th>
+                    <th class="width100">契約予定日</th>
+                    <th class="width80">契約日</th>
+                    <th class="width100">決済予定日</th>
+                    <th class="width80">決済日</th>
+                    <th class="width80">詳細</th>                       
+                </thead>
+                <tbody class="list-body">
+                    <tr *ngFor="let contract of contracts">                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>               
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </table>
+    
 </div>
