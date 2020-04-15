@@ -22,16 +22,13 @@
           </td>
           <tr>
           <th>所在地</th>
-          <td>
+          <td colspan="3">
             <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.address">
           </td>
           <th>住居表示</th>
           <td>
             <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.residence">
           </td>
-        </tr>
-        <tr>
-          
           <th>情報収集日</th>
           <td>
             <div class="picker-div">
@@ -39,9 +36,12 @@
                 <mat-datepicker-toggle matSuffix [for]="pickDate" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #pickDate></mat-datepicker>
             </div>
-          </td>        
+          </td>  
+        </tr>
+        <tr>
+                
           <th>担当部署</th>
-          　<td>           
+          　<td colspan="3">           
                 <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>                              
             </td>
            <th>結果</th>

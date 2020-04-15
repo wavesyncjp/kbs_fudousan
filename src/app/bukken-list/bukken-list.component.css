@@ -77,3 +77,6 @@ th.mat-sort-header-sorted {
    overflow: hidden;
    text-overflow: ellipsis;
 }
+.left{
+    float: left;
+}
