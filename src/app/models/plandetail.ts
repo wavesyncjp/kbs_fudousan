@@ -17,6 +17,8 @@ export class Plandetail {
     commissionRate: string;
     backNumber: string;
     price: string;
+    priceTax: string;
+
     
     createUserId: number;
     updateUserId: number;

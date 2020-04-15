@@ -484,6 +484,7 @@
             <th class="main">設計料</th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[11].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="税込金額" [(ngModel)]="plan.details[11].priceTax"></td>
             
         </tr>
         <tr>
@@ -495,6 +496,7 @@
             <th class="main">建築予備費</th>
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[13].price"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+            <td class="yen"><input type="text" class="Twidth100" placeholder="税込金額" [(ngModel)]="plan.details[13].priceTax"></td>
             
         </tr>
         <tr>
