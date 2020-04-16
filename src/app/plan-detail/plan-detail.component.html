@@ -2,8 +2,9 @@
 <div  class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
         <button mat-raised-button class="button export-button"  (click)="export()">帳票出力</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+        
     </div>
     
 
@@ -426,7 +427,7 @@
 
         <tr>
             <th class="main">固都税精算金</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[4].price" (keyup)="changeSumLand($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[4].price" (keyup)="changeSumLand($event)" [attr.disabled]="true"></td>
             <td class="yen"><input type="text" class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true" [attr.disabled]="true"></td>
             <td class="yen">
                 <input type="text" class="Twidth100" placeholder="負担日数" [(ngModel)]="plan.details[4].burdenDays"></td>
@@ -679,7 +680,7 @@
         <tr>
             <!--20200407_hirano src-->
             <th class="main">抵当権設定費用</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[37].price" (keyup)="changeSum($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[37].price" (keyup)="changeSum($event)" [attr.disabled]="true"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
@@ -748,38 +749,64 @@
         <th class="title">利益</th>
     </tr>
     <tr>
-    <td><span class="head_roll">プラン</span></td>
+        <th class="head_main">稼働率(%)</th>
+        <td class="left"><input type="text" class="par"  [(ngModel)]="plan.occupancyRate">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <th class="head_main">年間収入(B)</th>
+        <td class="left"><input type="text" class="Twidth100" [(ngModel)]="plan.demo">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <th class="head_main2">売却時想定利回り(%)(C)</th>
+        <td class="left"><input type="text" class="par" [(ngModel)]="plan.salesProfits"></td>
+    </tr>
+
+    <tr>
+    <th class="head_roll">プラン</th>
+    <td class="yen_plan">プランA</td>
+    <td class="yen_plan">プランB</td>
+    <td class="yen_plan">プランC</td>
+    <td class="yen_plan">プランD</td>
     </tr>
         
-    <tr>
-        <th class="main">プランA</th>
-        <td class="yen"><input type="text" placeholder="販売価格"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen"><input type="text" placeholder="利益"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利益率" [ngModel]="plan.demo">&nbsp;%</td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利回り" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;%</td>
+    <tr class="rentline">
+        <th class="main_plan_rent">経費率(%)</th>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio1">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio2">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio3">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio4">&nbsp;%</td>
     </tr>
-    <tr>
-        <th class="main">プランB</th>
-        <td class="yen"><input type="text" placeholder="販売価格"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen"><input type="text" placeholder="利益"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利益率" [ngModel]="plan.demo">&nbsp;%</td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利回り" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;%</td>
+    <tr class="rentline">
+        <th class="main_plan_rent">NOI<br>※(B)*(1-経費率)</th>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
-    <tr>
-        <th class="main">プランC</th>
-        <td class="yen"><input type="text" placeholder="販売価格"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen"><input type="text" placeholder="利益"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利益率" [ngModel]="plan.demo">&nbsp;%</td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利回り" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;%</td>
+    <tr class="rentline">
+        <th class="main_plan_rent">NOI利回り<br>※NOI/(C)</th>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
-    <tr>
-        <th class="main">プランD</th>
-        <td class="yen"><input type="text" placeholder="販売価格"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen"><input type="text" placeholder="利益"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利益率" [ngModel]="plan.demo">&nbsp;%</td>
-        <td class="yen"><input type="text" class="Twidthy70" placeholder="利回り" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;%</td>
+    <tr class="rentline"> 
+        <th class="main_plan_rent">売上金利(D)<br>※NOI/(A)</th>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
-    
+    <tr class="rentline">
+        <th class="main_plan_rent">売却時利益(E)<br>※(D)-(A)</th>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
+    <tr class="rentline">
+        <th class="main_plan_rent">利益率<br>※(E)/(D)</th>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
 
 </table>
 <!--利益プラン_E-->
@@ -790,118 +817,169 @@
     </tr>
         
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[0].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[0].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[0].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[0].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par" [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100" [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[1].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[1].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[1].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[1].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[2].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[2].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[2].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[2].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[3].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[3].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[3].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[3].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[4].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[4].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[4].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[4].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[5].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[5].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[5].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[5].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[6].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[6].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[6].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[6].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[7].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[7].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[7].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[7].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[8].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[8].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[8].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[8].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[9].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[9].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[9].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[9].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[10].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[10].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [(ngModel)]="plan.rentdetails[10].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[10].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[11].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[11].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[11].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[11].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
+    <tr>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[12].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[12].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[12].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[12].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
+    <tr>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[13].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[13].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[13].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[13].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
+    <tr>
+        <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[14].targetArea"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[14].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[14].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[14].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par"  [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     
     <td><span class="head_rent">駐車場</span></td>
     <tr>
-        <th class="main"><input type="text" placeholder="フロア"class="par"  [ngModel]="plan.demo"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo">&nbsp;㎡</td>
-        <td class="yen2"><input type="text" placeholder="敷金"class="par" [ngModel]="plan.demo">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
-        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <th class="main"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[15].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[15].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[15].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par" [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
+    <td><span class="head_rent">駐輪場</span></td>
+    <tr>
+        <th class="main"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[16].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[16].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[16].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par" [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
+    <td><span class="head_rent">ﾊﾞｲｸ置き場</span></td>
+    <tr>
+        <th class="main"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[17].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[17].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[17].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par" [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
+    </tr>
+    <td><span class="head_rent">自販機</span></td>
+    <tr>
+        <th class="main"></th>
+        <td class="yen1"><input type="text" placeholder="面積"class="par" [(ngModel)]="plan.rentdetails[18].space">&nbsp;㎡</td>
+        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100" [(ngModel)]="plan.rentdetails[18].rentUnitPrice"></td>
+        <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100" [(ngModel)]="plan.rentdetails[18].securityDeposit"></td>
+        <td class="yen2"><input type="text" placeholder="敷金"class="par" [(ngModel)]="plan.demo">&nbsp;ヵ月</td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     <span class = "SUM">
     <tr>
         <th class="main">合計</th>
         <td class="yen1"><input type="text" placeholder="面積"class="par" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;㎡</td>
-        <td class="yen2">&nbsp;</td>
-        <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100"  [ngModel]="plan.demo"></td>
+        <td class="yen3"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
+        <td class="yen2">&nbsp;</td>
         <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100"  [ngModel]="plan.demo" [attr.disabled]="true"></td>
     </tr>
     </span>
@@ -918,8 +996,8 @@
     <span class = "etcSUM">
         <tr>
             <th class="main">共益費(月間)</th>
-            <td class="yento"><input type="text" class="par" [ngModel]="plan.demo">&nbsp;戸</td>
-            <td class="yen"><input type="text" placeholder="賃料単価" class="Twidth100" [ngModel]="plan.demo"></td>
+            <td class="yento"><input type="text" class="par" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;戸</td>
+            <td class="yen"><input type="text" placeholder="共益費" class="Twidth100"  [(ngModel)]="plan.commonFee"></td>
             <td class="yen">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" [attr.disabled]="true"></td>
             
@@ -928,7 +1006,27 @@
     <span class = "etcSUM">
         <tr>
             <th class="main">共益費(年間)</th>
-            <td class="yento"><input type="text" class="par" [ngModel]="plan.demo">&nbsp;戸</td>
+            <td class="yento"><input type="text" class="par" [ngModel]="plan.demo" [attr.disabled]="true">&nbsp;戸</td>
+            <td class="yen">&nbsp;</td>
+            <td class="yen">&nbsp;</td>
+            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" [attr.disabled]="true"></td>
+            
+        </tr>
+    </span>
+    <span class = "etcSUM">
+        <tr>
+            <th class="main">その他収入(月間)</th>
+            <td class="yento">&nbsp;</td>
+            <td class="yen">&nbsp;</td>
+            <td class="yen">&nbsp;</td>
+            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.monthlyOtherIncome"></td>
+            
+        </tr>
+    </span>
+    <span class = "etcSUM">
+        <tr>
+            <th class="main">その他収入(年間)</th>
+            <td class="yento">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" [attr.disabled]="true"></td>
@@ -937,21 +1035,6 @@
     </span>
     <span class = "profitSUM">
         <tr>
-            <th class="main">賃料・共益費</th>
-            <td class="yen">&nbsp;</td>
-            <td class="yen">&nbsp;</td>
-            <td class="yen">&nbsp;</td>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [ngModel]="plan.demo" [attr.disabled]="true"></td>
-            
-        </tr>
-    </span>
-    <span class = "etcSUM">
-        <tr>
-            <th class="main">消費税等</th>
-            <td class="yen">&nbsp;</td>
-            <td class="yen">&nbsp;</td>
-            <td class="yen">&nbsp;</td>
-            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" [attr.disabled]="true"></td>
             
         </tr>
     </span>
@@ -985,7 +1068,8 @@
 </table>
 <div class="register-div-bottom">
 <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-<button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
 <button mat-raised-button class="button export-button"  (click)="export()">帳票出力</button>
+<button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+
 </div>
         

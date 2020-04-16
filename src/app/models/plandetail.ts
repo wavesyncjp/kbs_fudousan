@@ -4,7 +4,7 @@ export class Plandetail {
 
     pid: number;
     tempLandInfoPid: number;
-    planpid: number;
+    planPid: number;
     paymentCode: string;
     routePrice: string;
     burdenDays: string;

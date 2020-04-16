@@ -14,6 +14,9 @@ import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Planinfo } from '../models/planinfo';
 import { Plandetail } from '../models/plandetail';
+import { Planrentroll } from '../models/Planrentroll';
+import { Planrentrolldetail } from '../models/Planrentrolldetail';
+
 
 @Component({
   selector: 'app-plan-detail',
@@ -31,6 +34,8 @@ export class PlanDetailComponent extends BaseComponent {
   public pid: number;
   public bukkenid: number;
   public plan: Planinfo;
+  public rent: Planrentroll;
+  
 
   public payTypeGroup1 = [];
   public payTypeGroup2 = [];
@@ -127,6 +132,24 @@ export class PlanDetailComponent extends BaseComponent {
       this.plan.details.push(detail);
      });
     } 
+    //20200416_hirano_src
+    if (this.plan.rentdetails == null || this.plan.rentdetails.length == 0) {
+      this.plan.rentdetails = [];
+      //targetArea="101"～ "115" //space="201"～ "219" //rentUnitPrice="301"～ "319" //securityDeposit="401"～ "419"
+      const lst = ["101","102","103","104","105","106","107","108","109","110","111","112","113","114","115",
+                   "201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219",
+                   "301","302","303","304","305","306","307","308","309","310","311","312","313","314","315","316","317","318","319",
+                   "401","402","403","404","405","406","407","408","409","410","411","412","413","414","415","416","417","418","419"];
+      lst.forEach((code, index) => {
+       let rentdetail = new Planrentrolldetail();
+       rentdetail.targetArea = null;
+       rentdetail.space = null;
+       rentdetail.rentUnitPrice = null;
+       rentdetail.securityDeposit = null;
+       this.plan.rentdetails.push(rentdetail);
+      });
+     } 
+     //20200416_hirano_src
      this.spinner.hide();
 
    });
