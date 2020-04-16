@@ -136,16 +136,14 @@ export class PlanDetailComponent extends BaseComponent {
     if (this.plan.rentdetails == null || this.plan.rentdetails.length == 0) {
       this.plan.rentdetails = [];
       //targetArea="101"～ "115" //space="201"～ "219" //rentUnitPrice="301"～ "319" //securityDeposit="401"～ "419"
-      const lst = ["101","102","103","104","105","106","107","108","109","110","111","112","113","114","115",
-                   "201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219",
-                   "301","302","303","304","305","306","307","308","309","310","311","312","313","314","315","316","317","318","319",
-                   "401","402","403","404","405","406","407","408","409","410","411","412","413","414","415","416","417","418","419"];
+      const lst = ["","","","","","","","","","","","","","","","駐車場","駐輪場","ﾊﾞｲｸ置き場","自販機"];
       lst.forEach((code, index) => {
        let rentdetail = new Planrentrolldetail();
-       rentdetail.targetArea = null;
-       rentdetail.space = null;
-       rentdetail.rentUnitPrice = null;
-       rentdetail.securityDeposit = null;
+       rentdetail.targetArea = code;
+       rentdetail.space = '';
+       rentdetail.rentUnitPrice ='';
+       rentdetail.securityDeposit ='';
+       rentdetail.backNumber = String(index + 1);
        this.plan.rentdetails.push(rentdetail);
       });
      } 
