@@ -5,6 +5,8 @@ import { SharerInfo } from './sharer-info';
 
 import { DatePipe } from '@angular/common';
 import {Plandetail} from  './plandetail';
+import { Planrentroll } from '../models/Planrentroll';
+import { Planrentrolldetail } from '../models/Planrentrolldetail';
 import { parse } from 'date-fns';
 
 export class Planinfo {
@@ -88,6 +90,8 @@ export class Planinfo {
     
     
     details: Plandetail[];
+    rent: Planrentroll[];
+    rentdetails: Planrentrolldetail[];
 
     public constructor(init?: Partial<Planinfo>) {
         Object.assign(this, init);
