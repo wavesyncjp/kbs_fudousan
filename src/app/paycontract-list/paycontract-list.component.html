@@ -16,7 +16,7 @@
                 </td>
             
                 <th>支払種別</th>
-                <td>
+                <td colspan="3">
                     <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="cond.paymentCode"></app-select-component>
                 </td>
             </tr>    
@@ -27,7 +27,7 @@
                 </td>
                 <!--hiranomemo 契約予定日はtblPayContractのcontractDayカラム-->
                 
-                <th>契約予定日(開始)</th>
+                <th>契約予定日<br>(開始)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="contractDay_From" [(ngModel)]="cond.contractDay_From" class="width100">
@@ -35,7 +35,7 @@
                 <mat-datepicker #contractDay_From></mat-datepicker>
                 </div>
                 </td>
-                <th>契約予定日(終了)</th>
+                <th>契約予定日<br>(終了)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="contractDay_To" [(ngModel)]="cond.contractDay_To" class="width100">
@@ -43,9 +43,8 @@
                 <mat-datepicker #contractDay_To></mat-datepicker>
                 </div>
                 </td>
-            </tr>
-            <tr>
-                <th>契約確定日(開始)</th>
+            
+                <th>契約確定日<br>(開始)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="contractFixDay_From" [(ngModel)]="cond.contractFixDay_From" class="width100">
@@ -53,7 +52,7 @@
                 <mat-datepicker #contractFixDay_From></mat-datepicker>
                 </div>
                 </td>
-                <th>契約確定日(開始)</th>
+                <th>契約確定日<br>(終了)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="contractFixDay_To" [(ngModel)]="cond.contractFixDay_To" class="width100">
@@ -61,8 +60,10 @@
                 <mat-datepicker #contractFixDay_To></mat-datepicker>
                 </div>
                 </td>
+            </tr>
+            <tr>
                 <!--hiranomemo 支払予定日はtblPayContractDetailのcontractDayカラム-->
-                <th>支払予定日(開始)</th>
+                <th>支払予定日<br>(開始)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="payDay_From" [(ngModel)]="cond.payDay_From" class="width100">
@@ -70,7 +71,7 @@
                 <mat-datepicker #payDay_From></mat-datepicker>
                 </div>
                 </td>
-                <th>支払予定日(終了)</th>
+                <th>支払予定日<br>(終了)</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="payDay_To" [(ngModel)]="cond.payDay_To" class="width100">

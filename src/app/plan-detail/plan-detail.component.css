@@ -798,6 +798,21 @@ th.head_roll{
     align-items: center;
     float: left;
 }
+th.head_roll_1{
+    font-size: 0.8em;
+    border-left:solid 5px rgba(212, 147, 147, 0.692);
+    text-align: left;
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    width:150px !important;;
+    padding: 2px 0px 2px 10px;
+    height: 25px;
+    margin: 3px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+    float: left;
+}
 .detail-tbl-roll> tr > th.main_plan_rent{
     width:100px !important;
     text-align: left;
