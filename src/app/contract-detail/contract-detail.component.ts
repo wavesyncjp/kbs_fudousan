@@ -144,19 +144,24 @@ export class ContractDetailComponent extends BaseComponent {
    * @param flg ：フラグ
    売買対象flgChange/相続未登記ありnotChange/建物未登記ありyetChange*/
    flgChange1(event, flg: any) {
-    flg.payout_1 = (event.checked ? 1 : 0);
+    flg.deposit1DayChk = (event.checked ? 1 : 0);
+    this.contract.deposit1DayChk = flg.deposit1DayChk;
    }
    flgChange2(event, flg: any) {
-    flg.payout_2 = (event.checked ? 1 : 0);
+    flg.deposit2DayChk = (event.checked ? 1 : 0);
+    this.contract.deposit2DayChk = flg.deposit2DayChk;
    }
    flgChange3(event, flg: any) {
-    flg.payout_3 = (event.checked ? 1 : 0);
+    flg.earnestPriceDayChk = (event.checked ? 1 : 0);
+    this.contract.earnestPriceDayChk = flg.earnestPriceDayChk;
    }
    flgFinish(event, flg: any) {
-    flg.finish = (event.checked ? 1 : 0);
+    flg.decisionDayChk = (event.checked ? 1 : 0);
+    this.contract.decisionDayChk = flg.decisionDayChk;
    }
    flgCanncell(event, flg: any) {
-    flg.canncell = (event.checked ? 1 : 0);
+    flg.canncellDayChk = (event.checked ? 1 : 0);
+    this.contract.canncellDayChk = flg.canncellDayChk;
    }
 
   /**

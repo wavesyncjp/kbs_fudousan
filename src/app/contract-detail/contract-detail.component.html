@@ -188,7 +188,7 @@
                 <input type="text" [matDatepicker]="deposit1Day" class="width100" [(ngModel)]="contract.deposit1DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit1Day" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #deposit1Day></mat-datepicker>
-                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.payout_1 === '1'" (change)="flgChange1($event, data)"></mat-checkbox>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit1DayChk === '1'" (change)="flgChange1($event, data)"></mat-checkbox>
             </td>
             <th>内金②</th>
             <td><input type="text" [(ngModel)]="contract.deposit2" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
@@ -196,7 +196,7 @@
                 <input type="text" [matDatepicker]="deposit2Day" class="width100" [(ngModel)]="contract.deposit2DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit2Day" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #deposit2Day></mat-datepicker>
-                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.payout_2 === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit2DayChk === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
             </td>
             <th>手付金</th>
             <td><input type="text" [(ngModel)]="contract.earnestPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
@@ -204,7 +204,7 @@
                 <input type="text" [matDatepicker]="earnestPriceDay" class="width100" [(ngModel)]="contract.earnestPriceDayMap">
                 <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #earnestPriceDay></mat-datepicker>
-                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.payout_3 === '1'" (change)="flgChange3($event, data)"></mat-checkbox>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.earnestPriceDayChk === '1'" (change)="flgChange3($event, data)"></mat-checkbox>
             </td>
             <th>売買残代金</th>
             <td><input type="text" [(ngModel)]="contract.tradingBalance" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円</td> 
@@ -266,7 +266,7 @@
             <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
             <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
             <mat-datepicker #decisionDay></mat-datepicker>
-            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.finish === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.decisionDayChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
         </td>
         <th>留保金</th>
         <td>
@@ -297,7 +297,7 @@
            <input type="text" [matDatepicker]="canncellDay" class="width100" [(ngModel)]="contract.canncellDayMap">
            <mat-datepicker-toggle matSuffix [for]="canncellDay" class="picker-icon"></mat-datepicker-toggle>
            <mat-datepicker #canncellDay></mat-datepicker>
-           &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;等価交換の為</span><mat-checkbox [checked]="contract.canncell === '1'" (change)="flgCanncell($event, data)"></mat-checkbox>
+           &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;等価交換の為</span><mat-checkbox [checked]="contract.canncellDayChk === '1'" (change)="flgCanncell($event, data)"></mat-checkbox>
        </td>
        </tr>
        <tr>

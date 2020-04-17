@@ -24,10 +24,13 @@ export class Contractinfo {
     setlementPrice: number;
     deposit1: number;
     deposit1Day: string;
+    deposit1DayChk: string;
     deposit2: number;
     deposit2Day: string;
+    deposit2DayChk: string;
     earnestPrice: number;
     earnestPriceDay: string;
+    earnestPriceDayChk: string;
     tradingBalance: number;
     prioritySalesArea: number;
     prioritySalesFloor: number;
@@ -50,12 +53,14 @@ export class Contractinfo {
     dependType: string;
     decisionPrice:number;
     decisionDay: string;
+    decisionDayChk: string;
     settlementDay: string;
     settlementDayFin: string;
     settlementAfter: string;
     retainage: number;
     retainageDay: string;
     canncellDay: string;
+    canncellDayChk: string;
     canncell: string;
     remarks: string;
     contractStaff: string;
