@@ -15,6 +15,7 @@ import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 import { PlanListComponent } from './plan-list/plan-list.component';
+import { BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -29,11 +30,13 @@ const routes: Routes = [
   { path: 'users', component: UserListComponent},
   { path: 'codes', component: CodeListComponent},
   { path: 'paymentTypes', component: PaymentTypeListComponent},
+  { path: 'bukkenplans', component: BukkenplaninfoDetailComponent},
 
   { path: 'plans', component: PlanListComponent},
   { path: 'plandetail', component: PlanDetailComponent},
   { path: 'pays', component: PayContractListComponent},
-  { path: 'paydetail', component: PayContractDetailComponent}
+  { path: 'paydetail', component: PayContractDetailComponent},
+  
 
 ];
 
