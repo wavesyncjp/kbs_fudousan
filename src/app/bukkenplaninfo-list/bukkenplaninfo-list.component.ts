@@ -10,7 +10,7 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
-
+import {Bukkenplaninfo} from '../models/bukkenplaninfo';
 @Component({
   selector: 'app-bukkenplaninfo-list',
   templateUrl: './bukkenplaninfo-list.component.html',
@@ -26,7 +26,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   constructor(public router: Router,
               public service: BackendService,
               private spinner: NgxSpinnerService,
-              public dialogRef: MatDialogRef<Locationinfo>,
+              public dialogRef: MatDialogRef<Bukkenplaninfo>,
               public dialog: MatDialog,
               /*public sharer: SharerInfo,*/
               @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
