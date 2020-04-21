@@ -46,6 +46,8 @@ import { PayContractDetailComponent } from './paycontract-detail/paycontract-det
 // 20200226 test S_Add
 import { PlanListComponent } from './plan-list/plan-list.component';
 // 20200226 test E_Add
+import{BukkenplaninfoDetailComponent} from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
+import{BukkenplaninfoListComponent} from './bukkenplaninfo-list/bukkenplaninfo-list.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,9 @@ import { PlanListComponent } from './plan-list/plan-list.component';
     // 20200213 test E_Add
     // 20200226 test S_Add
     PlanListComponent,
+    BukkenplaninfoDetailComponent,
+    BukkenplaninfoListComponent,
+
     
     // 20200226 test E_Add
   ],
