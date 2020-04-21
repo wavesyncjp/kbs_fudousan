@@ -15,7 +15,8 @@ import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.com
 import { Contractinfo } from '../models/contractinfo';
 import { SharerInfo } from '../models/sharer-info';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
-
+import {BukkenplaninfoListComponent} from '../bukkenplaninfo-list/bukkenplaninfo-list.component';
+import {Bukkenplaninfo} from '../models/bukkenplaninfo';
 @Component({
   selector: 'app-bukkenplaninfo-detail',
   templateUrl: './bukkenplaninfo-detail.component.html',
@@ -139,10 +140,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
    * 所有地追加
    */
   addLocation(): void {
-    const loc = new Locationinfo();
+    const loc = new Bukkenplaninfo();
     loc.tempLandInfoPid = this.data.pid;
     loc.sharers = [];
-    const dialogRef = this.dialog.open(BukkenplaninfoDetailComponent, {
+    const dialogRef = this.dialog.open(BukkenplaninfoListComponent, {
       width: '98%',
       height: '550px',
       data: loc
