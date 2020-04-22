@@ -18,11 +18,15 @@ export class Bukkenplaninfo {
     planRequestDay: string;
     planScheduledDay: string;
     planRemark: string;
-
+    
     createUserId: number;
     updateUserId: number;
     updateDate: Date;
     createDate: Date;
+
+    
+    planRequestDayMap: Date = null;
+    planScheduledDayMap: Date = null;
     
     sharers: SharerInfo[];
     
@@ -35,22 +39,15 @@ export class Bukkenplaninfo {
         Object.assign(this, init);
     }
 
-   /* public convert() {
-        if (this.createDay) {
-            this.createDayMap = parse(this.createDay, 'yyyyMMdd', new Date());
+   public convert() {
+        
+        if (this.planRequestDay) {
+            this.planRequestDayMap = parse(this.planRequestDay, 'yyyyMMdd', new Date());
         }
-        if (this.startDay) {
-            this.startDayMap = parse(this.startDay, 'yyyyMMdd', new Date());
+        if (this.planScheduledDay) {
+            this.planScheduledDayMap = parse(this.planScheduledDay, 'yyyyMMdd', new Date());
         }
-        if (this.upperWingDay) {
-            this.upperWingDayMap = parse(this.upperWingDay, 'yyyyMMdd', new Date());
-        }
-        if (this.completionDay) {
-            this.completionDayMap = parse(this.completionDay, 'yyyyMMdd', new Date());
-        }
-        if (this.scheduledDay) {
-            this.scheduledDayMap = parse(this.scheduledDay, 'yyyyMMdd', new Date());
-        }
+        
     }
 
     public convertForSave(userId: number , datePipe: DatePipe) {
@@ -59,14 +56,13 @@ export class Bukkenplaninfo {
         } else {
             this.createUserId = userId;
         }
-        //20200408_hirano_S
-        this.createDay = this.createDayMap != null ? datePipe.transform(this.createDayMap, 'yyyyMMdd') : null;
-        this.startDay = this.startDayMap != null ? datePipe.transform(this.startDayMap, 'yyyyMMdd') : null;
-        this.upperWingDay = this.upperWingDayMap != null ? datePipe.transform(this.upperWingDayMap, 'yyyyMMdd') : null;
-        this.completionDay = this.completionDayMap != null ? datePipe.transform(this.completionDayMap, 'yyyyMMdd') : null;
-        this.scheduledDay = this.scheduledDayMap != null ? datePipe.transform(this.scheduledDayMap, 'yyyyMMdd') : null;
-        //20200408_hirano_E
-    }*/
+        
+        
+        this.planRequestDay = this.planRequestDayMap != null ? datePipe.transform(this.planRequestDayMap, 'yyyyMMdd') : null;
+        this.planScheduledDay = this.planScheduledDayMap != null ? datePipe.transform(this.planScheduledDayMap, 'yyyyMMdd') : null;
+        
+        
+    }
 }
 
 

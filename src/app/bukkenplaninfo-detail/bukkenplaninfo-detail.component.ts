@@ -15,7 +15,7 @@ import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.com
 import { Contractinfo } from '../models/contractinfo';
 import { SharerInfo } from '../models/sharer-info';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
-import {BukkenplaninfoListComponent} from '../bukkenplaninfo-list/bukkenplaninfo-list.component';
+import { BukkenplaninfoListComponent } from  '../bukkenplaninfo-list/bukkenplaninfo-list.component';
 import {Bukkenplaninfo} from '../models/bukkenplaninfo';
 @Component({
   selector: 'app-bukkenplaninfo-detail',
@@ -34,6 +34,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   cbxBuysellFlg: MatCheckbox;
   public data: Templandinfo;
   public pid: number;
+  public dataplan: Bukkenplaninfo;
   removeLoc: Locationinfo[] = [];
   contracts: Contractinfo[] = []; // 契約情報
   public cond = {mode: 1
@@ -51,6 +52,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     });
     this.data = new Templandinfo();
     this.data.result = '01';
+    this.dataplan= new Bukkenplaninfo
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -105,20 +107,20 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   convertForDisplay() {
     this.data.convert();
     // 物件位置情報
-    if (this.data.locations && this.data.locations.length > 0) {
-      const locs: Locationinfo[] = [];
+    if (this.data.bukkenplans && this.data.bukkenplans.length > 0) {
+      const locs: Bukkenplaninfo[] = [];
       this.data.locations.forEach(loc => {
-        const locFront = new Locationinfo(loc);
+        const locFront = new Bukkenplaninfo(loc);
         locs.push(locFront);
       });
-      this.sortLocation(locs);
-      this.data.locations = locs;
+      
+      this.data.bukkenplans = locs;
     } else {
-      this.data.locations = [];
+      this.data.bukkenplans = [];
     }
   }
 
-  sortLocation(locs : Locationinfo[]) {
+  /*sortLocation(locs : Locationinfo[]) {
     locs.sort((a,b) => {
       let id1 = a.pid;
       let id2 = b.pid;
@@ -134,7 +136,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       }
       return id1 - id2;
     });
-  }
+  }*/
 
   /**
    * 所有地追加
@@ -149,13 +151,13 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       data: loc
     });
     // 再検索
-    /*
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {        
-        this.data.locations.push(result.data);
-        this.sortLocation(this.data.locations);
+        this.data.bukkenplans.push(result.data);
+        //this.sortLocation(this.data.locations);
       }
-    });*/
+    });
 
   }
 
@@ -163,8 +165,8 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
    * 所有地詳細
    * @param loc : 所有地
    */
-  showLocation(loc: Locationinfo, pos: number) {
-    const dialogRef = this.dialog.open(LocationDetailComponent, {
+  showLocation(loc: Bukkenplaninfo, pos: number) {
+    const dialogRef = this.dialog.open(BukkenplaninfoListComponent, {
       width: '98%',
       height: '550px',
       data: loc
@@ -186,8 +188,8 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
    * 所有地コピー
    * @param loc ：所有地
    */
-  copyLocation(loc: Locationinfo) {
-    const newLoc = new Locationinfo(loc);
+  copyLocation(loc: Bukkenplaninfo) {
+    const newLoc = new Bukkenplaninfo(loc);
     const newSharer = JSON.parse(JSON.stringify(loc.sharers));
     newLoc.sharers = newSharer;
     newLoc.sharers.forEach(sh => {
@@ -195,7 +197,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       sh.pid = null
     });
     newLoc.pid = null;
-    const dialogRef = this.dialog.open(LocationDetailComponent, {
+    const dialogRef = this.dialog.open(BukkenplaninfoListComponent, {
       width: '98%',
       height: '550px',
       data: newLoc
@@ -203,7 +205,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.data.locations.push(newLoc);
+        this.data.bukkenplans.push(newLoc);
       }
     });
   }
@@ -212,7 +214,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
+    this.router.navigate(['/bukkenplans'], {queryParams: {search: '1'}});
   }
 //hirano_202004.15_edd
 /**
