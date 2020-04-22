@@ -42,3 +42,6 @@ mat-select {
 .buysell{
     font-size: 0.6em;
 }
+.left{
+    float: left;
+}
