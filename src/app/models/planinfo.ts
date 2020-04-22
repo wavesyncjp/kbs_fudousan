@@ -86,8 +86,8 @@ export class Planinfo {
     completionDayMap: Date = null;
     scheduledDayMap: Date = null;
     
-    
-    
+    commonFee: number = 0;
+    monthlyOtherIncome: number = 0;
     
     details: Plandetail[];
     rent: Planrentroll[];
