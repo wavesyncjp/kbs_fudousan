@@ -1,58 +1,40 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MAT_DATE_FORMATS, MatCheckbox,MatTabGroup,MatRadioChange} from '@angular/material';
-import { BackendService } from '../backend.service';
-import { JPDateAdapter } from '../adapters/adapters';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Locationinfo } from '../models/locationinfo';
 import { Router, ActivatedRoute } from '@angular/router';
+import { BackendService } from '../backend.service';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Templandinfo } from '../models/templandinfo';
-import { Locationinfo } from '../models/locationinfo';
+import { SharerInfo } from '../models/sharer-info';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { Code } from '../models/bukken';
-import { MapAttach, AttachFile } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
-import { Contractinfo } from '../models/contractinfo';
-import { SharerInfo } from '../models/sharer-info';
-import { LocationDetailComponent } from '../location-detail/location-detail.component';
-import { BukkenplaninfoListComponent } from  '../bukkenplaninfo-list/bukkenplaninfo-list.component';
+import { Code } from '../models/bukken';
 import {Bukkenplaninfo} from '../models/bukkenplaninfo';
+
+
+
 @Component({
   selector: 'app-bukkenplaninfo-detail',
   templateUrl: './bukkenplaninfo-detail.component.html',
-  styleUrls: ['./bukkenplaninfo-detail.component.css'],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
-  ],
+  styleUrls: ['./bukkenplaninfo-detail.component.css']
 })
 export class BukkenplaninfoDetailComponent extends BaseComponent {
-  //hirano_202004.15_edd
-  @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
-  //hirano_202004.15_edd
-  @ViewChild('cbxBuysellFlg', {static: true})
-  cbxBuysellFlg: MatCheckbox;
-  public data: Templandinfo;
-  public pid: number;
-  public dataplan: Bukkenplaninfo;
-  removeLoc: Locationinfo[] = [];
-  contracts: Contractinfo[] = []; // 契約情報
-  public cond = {mode: 1
-  };
 
+  pid: number;
+  oldLocationType = '';
+  public cond: any;
+  public locAdresses =[];
+ 
   constructor(public router: Router,
-              private route: ActivatedRoute,
               public service: BackendService,
+              private spinner: NgxSpinnerService,
+              public dialogRef: MatDialogRef<Locationinfo>,
               public dialog: MatDialog,
-              private spinner: NgxSpinnerService) {
-    super(router, service);
-
-    this.route.queryParams.subscribe(params => {
-      this.pid = params.pid;
-    });
-    this.data = new Templandinfo();
-    this.data.result = '01';
-    this.dataplan= new Bukkenplaninfo
+              //public dataplan: Bukkenplaninfo,
+              /*public sharer: SharerInfo,*/
+              @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
+      super(router, service);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -60,17 +42,12 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('物件情報詳細');
     this.spinner.show();
+    this.oldLocationType = this.data.locationType;
 
     const funcs = [];
-    funcs.push(this.service.getCodes(null));
-    funcs.push(this.service.getDeps(null));
-    funcs.push(this.service.getEmps(null));
-    if (this.pid > 0) {
-      funcs.push(this.service.getLand(this.pid));
-      funcs.push(this.service.getLandContract(this.pid));
-    }
-    Promise.all(funcs).then(values => {
+    funcs.push(this.service.getCodes(['002', '003', '007', '011']));
 
+    Promise.all(funcs).then(values => {
       // コード
       const codes = values[0] as Code[];
       if (codes !== null && codes.length > 0) {
@@ -81,165 +58,192 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
-
-      // 部署
-      this.deps = values[1];
-
-      // 社員
-      this.emps = values[2];
-
-      // 物件あり場合
-      if ( values.length > 3) {
-        this.data = new Templandinfo(values[3] as Templandinfo);
-      }
-
-      // 土地の契約情報
-      if (values.length > 4) {
-        this.contracts = values[4];
-      }
-
-      this.convertForDisplay();
-
       this.spinner.hide();
-
     });
-  }
-  convertForDisplay() {
-    this.data.convert();
-    // 物件位置情報
-    if (this.data.bukkenplans && this.data.bukkenplans.length > 0) {
-      const locs: Bukkenplaninfo[] = [];
-      this.data.locations.forEach(loc => {
-        const locFront = new Bukkenplaninfo(loc);
-        locs.push(locFront);
-      });
+     if(this.data.pid == undefined) this.data.locationType = '01';
+     else{
+       
+      if (this.data.locationType === '04') {
+
+        this.cond = {
+          tempLandInfoPid: this.data.tempLandInfoPid,
+          locationType: '03'
+        };
+        const funcs = [];
+        funcs.push(this.service.searchLocation(this.cond));
+        Promise.all(funcs).then(values => {
+          // 住所
+          this.locAdresses = values[0];
+          // this.spinner.hide();
+        });
+      }
       
-      this.data.bukkenplans = locs;
-    } else {
-      this.data.bukkenplans = [];
-    }
-  }
-
-  /*sortLocation(locs : Locationinfo[]) {
-    locs.sort((a,b) => {
-      let id1 = a.pid;
-      let id2 = b.pid;
-
-      if(a.locationType === '04' && a.ridgePid !== null && a.ridgePid !== '0' && a.ridgePid !== ''){
-        id1 = Number(a.ridgePid);
-      }
-      if(b.locationType === '04' && b.ridgePid !== null && b.ridgePid !== '0' && b.ridgePid !== ''){
-        id2 = Number(b.ridgePid);
-      }
-      if(id1 === id2) {
-        return a.locationType.localeCompare(b.locationType);
-      }
-      return id1 - id2;
-    });
-  }*/
-
-  /**
-   * 所有地追加
-   */
-  addLocation(): void {
-    const loc = new Bukkenplaninfo();
-    loc.tempLandInfoPid = this.data.pid;
-    loc.sharers = [];
-    const dialogRef = this.dialog.open(BukkenplaninfoListComponent, {
-      width: '98%',
-      height: '550px',
-      data: loc
-    });
-    // 再検索
-    
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result.isSave) {        
-        this.data.bukkenplans.push(result.data);
-        //this.sortLocation(this.data.locations);
-      }
-    });
-
+     }
   }
 
   /**
-   * 所有地詳細
-   * @param loc : 所有地
-   */
-  showLocation(loc: Bukkenplaninfo, pos: number) {
-    const dialogRef = this.dialog.open(BukkenplaninfoListComponent, {
-      width: '98%',
-      height: '550px',
-      data: loc
-    });
-    // 再検索
-    dialogRef.afterClosed().subscribe(result => {
-      if (result != null) {
-        // 更新
-        if (result.isSave) {
-          loc = result.data;
-        } else if (result.isDelete) {
-          this.data.locations.splice(pos, 1);
-        }
-      }
-    });
-  }
-
-  /**
-   * 所有地コピー
+   * 所有者追加
    * @param loc ：所有地
    */
-  copyLocation(loc: Bukkenplaninfo) {
-    const newLoc = new Bukkenplaninfo(loc);
-    const newSharer = JSON.parse(JSON.stringify(loc.sharers));
-    newLoc.sharers = newSharer;
-    newLoc.sharers.forEach(sh => {
-      sh.locationInfoPid = null
-      sh.pid = null
-    });
-    newLoc.pid = null;
-    const dialogRef = this.dialog.open(BukkenplaninfoListComponent, {
-      width: '98%',
-      height: '550px',
-      data: newLoc
-    });
-    // 再検索
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.data.bukkenplans.push(newLoc);
-      }
-    });
-  }
-
-  /**
-   * 一覧へ戻る
-   */
-  backToList() {
-    this.router.navigate(['/bukkenplans'], {queryParams: {search: '1'}});
-  }
-//hirano_202004.15_edd
-/**
-   * プラン画面切り替え
-   */
-  switchTab(event: MatRadioChange) {
-    if (event.value === 1) {
-      this.tabGroup.selectedIndex = 0;
-    } else {
-      this.tabGroup.selectedIndex = 1;
+  addSharer() {
+    if (this.data.sharers == null) {
+      this.data.sharers = [];
     }
-    this.cond.mode = event.value;
-    this.service.searchCondition = this.cond;
+    if (this.data.sharers.length === 0) {
+      this.data.sharers.push(new SharerInfo());
+      this.data.sharers.push(new SharerInfo());
+    } else {
+      this.data.sharers.push(new SharerInfo());
+    }
   }
-//hirano_202004.15_edd
 
   /**
-   * データ保存
+   * 所有者削除
+   * @param loc ：所有地
    */
+  deleteSharer(sharerPos: number) {
+    const sharer = this.data.sharers[sharerPos];
+    if (sharer.pid > 0) {
+      if (this.data.delSharers == null) {
+        this.data.delSharers = [];
+      }
+      this.data.delSharers.push(sharer.pid);
+    }
+    this.data.sharers.splice(sharerPos, 1);
+    
+  }
+
+  /**
+   * 共有者情報
+   */
+  convertSharer() {
+      if (this.data.sharers == null) {
+        this.data.sharers = [];
+      }
+      if (this.data.sharers.length === 0) {
+        this.data.sharers.push(new SharerInfo());
+      }
+      // 共通
+      const firstSharer = this.data.sharers[0];
+      firstSharer.sharer = this.data.owner;
+      firstSharer.sharerAdress = this.data.ownerAdress;
+      firstSharer.shareRatio = this.data.equity;
+      firstSharer.buysellFlg = this.data.buysellFlg;
+  }
+
+  changeArea(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      this.data.tsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    }
+  }
+
+
+  changeType(event) {
+    if (event.target.value !== this.oldLocationType && this.oldLocationType != null && this.oldLocationType !== '') {
+      const dlg = new Dialog({title: '確認', message: '区分を変更すると一部の項目は値がクリアされるます。よろしいですか？'});
+      const dlgRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '500px',
+        height: '250px',
+        data: dlg
+      });
+      dlgRef.afterClosed().subscribe(result => {
+        if (dlg.choose) {
+          this.applyChangeType();
+        } else {
+          this.data.locationType = this.oldLocationType;
+        }
+      });      
+    } else {
+      this.applyChangeType();
+    }
+  }
+
+  applyChangeType() {
+    if (this.data.locationType === '01') {
+      this.data.buildingNumber = '';
+      this.data.floorSpace = null;
+      this.data.liveInfo = '';
+      this.data.dependTypeMap = null;
+      this.data.dependFloor = null;
+      this.data.liveInfo = null;
+      this.data.structure = null;
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
+    } else if (this.data.locationType === '02') {
+      this.data.blockNumber = '';
+      this.data.area = null;
+      this.data.tsubo = null;
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
+    } else if (this.data.locationType === '03') {
+      this.data.buysellFlg = '';
+      this.data.owner = null;
+      this.data.ownerAdress = null;
+      this.data.equity = null; 
+      var index: number = 0;
+      this.data.sharers.forEach(sharer => {
+        this.deleteSharer(index);
+        index++;
+      }); 
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
+    } else if (this.data.locationType === '04') {
+      this.data.inheritanceNotyet = '';
+      this.data.buildingNotyet = '';
+      this.cond = {
+        tempLandInfoPid: this.data.tempLandInfoPid,
+        locationType: '03'
+      };
+      const funcs = [];
+      funcs.push(this.service.searchLocation(this.cond));
+      Promise.all(funcs).then(values => {
+        // 住所
+        this.locAdresses = values[0];
+        // this.spinner.hide();
+      });
+    }
+    this.oldLocationType = this.data.locationType;
+  }
+
+  /**
+   * 20200124 S_Add
+   * 一棟の建物　住所取得
+   */
+  getLocAdress() {
+    if (this.locAdresses) {
+      return this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+    } else {
+      return [];
+    }
+  }
+
+  /**
+   * チェックボックス変更
+   * @param event ：イベント
+   * @param flg ：フラグ
+   売買対象flgChange/相続未登記ありnotChange/建物未登記ありyetChange*/
+  flgChange(event, flg: any) {
+    flg.buysellFlg = (event.checked ? 1 : 0);
+   }
+   notChange(event, flg: any) {
+    flg.inheritanceNotyet = (event.checked ? 1 : 0);
+   }
+   yetChange(event, flg: any) {
+    flg.buildingNotyet = (event.checked ? 1 : 0);
+   }
+
+
+   
+
   save() {
     if (!this.validate()) {
       return;
     }
 
-    const dlg = new Dialog({title: '確認', message: '土地情報を登録しますが、よろしいですか？'});
+    
+
+    const dlg = new Dialog({title: '確認', message: '謄本情報を登録しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -248,23 +252,54 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        // 土地情報登録
+        this.convertSharer();
         this.data.convertForSave(this.service.loginUser.userId);
-        const funcs = [];
-        funcs.push(this.service.saveLand(this.data));
-        Promise.all(funcs).then(values => {
+        // 削除された所在地も送る
 
-          const finishDlg = new Dialog({title: '完了', message: '土地情報を登録しました。'});
+        this.service.saveLocation(this.data).then(values => {
+          const finishDlg = new Dialog({title: '完了', message: '謄本情報を登録しました。'});
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',
             data: finishDlg
           });
           dlgVal.afterClosed().subscribe(res => {
-            this.data = new Templandinfo(values[0]);
-            this.convertForDisplay();
-            this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
+            this.data = new Locationinfo(values);
+            this.spinner.hide();
+            this.dialogRef.close({data: this.data, isSave: true});
           });
+        });
+      }
+    });
+  }
+
+  /**
+   * 所有地削除
+   * @param row ：削除したい所有地
+   */
+  deleteLoc() {
+    const dlg = new Dialog({title: '確認', message: '謄本情報を削除してよろしいですか？'});
+    const dlgRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+
+    dlgRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.deleteLocation(this.data).then(res => {
+
+          // 既に契約されている
+          this.spinner.hide();
+          if (res.status === 'NG') {
+            this.dialog.open(FinishDialogComponent, {
+              width: '500px',　height: '250px',
+              data: new Dialog({title: 'エラー', message: '謄本情報を既に契約されています。'})
+            });
+          } else {
+            this.dialogRef.close({data: this.data, isDelete: true});
+          }
         });
       }
     });
@@ -277,235 +312,17 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
-
-    this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
-    this.checkBlank(this.data.residence, 'residence', '住居表示は必須です。');
-  　// this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
-    // this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
-
+    this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
+    if (this.data.locationType !== '03') {
+    this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
     if (this.errorMsgs.length > 0) {
       return false;
     }
     return true;
   }
 
-  // 地図アップロード
-  mapUploaded(event) {
-    // ファイル添付
-    if (event.attachFileName !== undefined) {
-      if (this.data.attachFiles === null) {
-        this.data.attachFiles = [];
-      }
-      const attachFile: AttachFile = JSON.parse(JSON.stringify(event));
-      this.data.attachFiles.push(attachFile);
-
-    }
-    // 地図添付
-    // tslint:disable-next-line:one-line
-    else {
-      if (this.data.mapFiles === null) {
-        this.data.mapFiles = [];
-      }
-      const mapFile: MapAttach = JSON.parse(JSON.stringify(event));
-      this.data.mapFiles.push(mapFile);
-
-    }
-  }
-
-  /**
-   * 地図削除
-   * @param map :　削除したい地図
-   */
-  deleteMapFile(map: MapAttach) {
-
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        this.service.deleteFile(map.pid, false).then(res => {
-          this.data.mapFiles.splice(this.data.mapFiles.indexOf(map), 1);
-        });
-      }
-    });
-  }
-
-  /**
-   * ファイル添付削除
-   * @param map :　削除したいファイル添付
-   */
-  deleteAttachFile(map: AttachFile) {
-
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-        this.service.deleteFile(map.pid, true).then(res => {
-          this.data.attachFiles.splice(this.data.attachFiles.indexOf(map), 1);
-        });
-      }
-    });
-  }
-
-  /**
-   * 契約画面遷移
-   * @param loc: 所在地
-   */
-  navigateContract() {
-    this.router.navigate(['/ctdetail'], {queryParams: {bukkenid: this.data.pid}});
-  }
-
-  /**
-   * 契約詳細
-   * @param data : 契約情報
-   */
-  showContract(ctData: Contractinfo) {
-    this.router.navigate(['/ctdetail'], {queryParams: {pid: ctData.pid}});
-  }
-
-  getLocationType(ctData: Contractinfo) {
-    return ctData.details.map(dt => {
-      return this.getCodeTitle('007', this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].locationType);
-    }).join('\n\r');
-  }
-  getAddress(ctData: Contractinfo) {
-    return ctData.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].address;
-    }).join('\n\r');
-  }
-  getBlockNumber(ctData: Contractinfo) {
-    return ctData.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].blockNumber;
-    }).join('\n\r');
-  }
-  getBuildingNumber(ctData: Contractinfo) {
-    return ctData.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].buildingNumber;
-    }).join('\n\r');
-  }
-  getOwnerName(ctData: Contractinfo) {
-    return ctData.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid)[0].owner;
-    }).join('\n\r');
-  }
-
-  /**
-   * 所有地を契約済みかどうか
-   * @param locationId ：所有地
-   */
-  contracted(locationId: number) {
-    if (this.contracts === undefined || this.contracts.length === 0) {
-      return false;
-    }
-    if (this.contracts.filter(ct => ct.details.filter(dt => dt.locationInfoPid === locationId).length > 0).length > 0) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * 所有地ー契約取得
-   */
-  getLandContract(loc: Locationinfo) {    
-    const ret = this.contracts.filter(ct => {
-      return ct.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01').length > 0;
-    });
-    return ret;
-  }
-
-  ShowContractNo(loc: Locationinfo, contractNo: string) {
-    const buysellCount = loc.sharers.filter(s => {
-      return s.buysellFlg === '1';
-    }).length;
-    if (buysellCount === 0) {
-      return '';
-    }
-    return contractNo;
-  }
-
-  /**
-   * 所有地の契約ステータス
-   * @param loc ：所有地
-   */
-  showStatus(loc: Locationinfo) {
-    let status = ''; // this.getCodeTitle('013', '01');
-
-    // ①
-    const buysellCount = loc.sharers.filter(s => {
-      return s.buysellFlg === '1';
-    }).length;
-    if (buysellCount === 0) {
-      return status;
-    }
-
-    if (loc.sharers != null && loc.sharers.length > 0) {
-
-      // ②仕入契約登記人情報
-      const outputCount = this.countContractRegistrant(loc.pid);
-
-      // 契約
-      const ret = this.contracts.filter(ct => {
-        return ct.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01').length > 0;
-      });
-
-      status = this.getCodeTitle('013', '01');
-
-      // 契約あり
-      if (ret.length > 0) {
-
-        // 契約日あり
-        const contractDayCount = ret.filter(ct => {
-          return ct.contractDay != null && ct.contractDay !== '';
-        }).length;
-
-        // 所有者一人
-        if (outputCount === buysellCount) {
-          if (contractDayCount === 0) {
-            return this.getCodeTitle('013', '01');
-          } else if (ret.length !== contractDayCount) {
-            return this.getCodeTitle('013', '05');
-          } else {
-            return this.getCodeTitle('013', '09');
-          }
-
-        } else {
-          if (contractDayCount === 0) {
-            return this.getCodeTitle('013', '01');
-          } else {
-            return this.getCodeTitle('013', '05');
-          }
-        }
-      }
-    }
-    return status;
-  }
-
-  /**
-   * 仕入契約登記人情報
-   * @param locPid ：所有地
-   */
-  countContractRegistrant(locPid: number) {
-    let sellers = [];
-    this.contracts.forEach(ct => {
-      ct.details.forEach(dt => {
-        if (dt.locationInfoPid === locPid && dt.contractDataType === '01') {
-          const ids = dt.registrants.filter(re => { return sellers.indexOf(re.sharerInfoPid) < 0; }).map(re => re.sharerInfoPid);
-          sellers = sellers.concat(ids);
-        }
-      });
-    });
-
-    return sellers.length;
-  }
-
-  /**
-   * 契約者名表示
-   * @param contract 契約者
-   */
-  displaySeller(contract: Contractinfo) {
-    return contract.sellers.filter(ct => ct.contractorName != null && ct.contractorName !== '').map(ct => ct.contractorName).join('\n\r');
+  cancel() {
+    this.spinner.hide();
+    this.dialogRef.close(false);
   }
 }
-
-
