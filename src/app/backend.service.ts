@@ -13,6 +13,7 @@ import { Contractdetailinfo } from './models/contractdetailinfo';
 import { Paycontractinfo } from './models/paycontractinfo';
 import { Tax } from './models/tax';
 import { ContractSellerInfo } from './models/contractsellerinfo';
+import { Bukkenplaninfo } from './models/bukkenplaninfo';
 
 @Injectable({
   providedIn: 'root'
@@ -681,4 +682,6 @@ export class BackendService {
   }
 
 }
+
+ 
 

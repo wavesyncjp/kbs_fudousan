@@ -32,40 +32,54 @@
                 <th>測量依頼日</th>
                 <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="testDay1" [(ngModel)]="data.testDayMap1" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="testDay1" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #testDay1></mat-datepicker>
+                    <input type="text" [matDatepicker]="surveyRequestedDay" [(ngModel)]="data.surveyRequestedDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="surveyRequestedDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #surveyRequestedDay></mat-datepicker>
                 </div>
                 </td>
                 <th>測量依頼先</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.test" class="width300">
+                    <input type="text" [(ngModel)]="data.surveyRequested" class="width300">
                 </td>
                 <th>現場担当者</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.test" class="width300">
+                    <input type="text" [(ngModel)]="data.surveyStaff" class="width300">
                 </td>
             </tr>
             <tr>
                 <th>仮測量図</th>
                 <td>
-                    &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.test === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                    <span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.surveyMapChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
                 </td>
                 <th>官民申請書</th>
                 <td>
-                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.test === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.test" class="width200">
-                </td>
-                <th>民民</th>
-                <td>
-                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.test === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.test" class="width200">
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.publicAndPrivateFormChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.publicAndPrivateForm" class="width200">
                 </td>
             </tr>
             <tr>
-                <th>備考2</th>
+                <th>民民</th>
+                <td>
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.privateChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.private" class="width200">
+                </td>
+                <th>官民</th>
+                <td>
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.publicChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.public" class="width200">
+                </td>
+                <th>納品日</th>
+                <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="surveyDeliveryDay" [(ngModel)]="data.surveyDeliveryDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="surveyDeliveryDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #surveyDeliveryDay></mat-datepicker>
+                </div>
+            </tr>
+            <tr>
+                <th>備考</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.test" class="width85Per">
+                    <input type="text" [(ngModel)]="data.surveyRemark" class="width85Per">
                 </td>
 
             </tr>
@@ -82,34 +96,41 @@
             <tr>
                 <th>プラン検討先</th>
                 <td colspan="3">
-                    <input type="text" [(ngModel)]="data.test" class="width400">
+                    <input type="text" [(ngModel)]="dataplan.planConsidered" class="width400">
                 </td>
                 <th>プラン価格</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.test" class="width100">
+                    <input type="text" [(ngModel)]="dataplan.planPrice" class="width100">
                 </td>
             </tr>
             <tr>
                 <th>プラン依頼</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.test" class="width200">
+                    <input type="text" [(ngModel)]="dataplan.planRequest" class="width200">
                 </td>
                 <th>プラン依頼日</th>
                 <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="testDay2" [(ngModel)]="data.testDayMap2" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="testDay2" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #testDay2></mat-datepicker>
+                    <input type="text" [matDatepicker]="planRequestDay" [(ngModel)]="dataplan.planRequestDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="planRequestDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #planRequestDay></mat-datepicker>
                 </div>
                 </td>
                 <th>プラン取得予定日</th>
                 <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="testDay3" [(ngModel)]="data.testDayMap3" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="testDay3" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #testDay3></mat-datepicker>
+                    <input type="text" [matDatepicker]="planScheduledDay" [(ngModel)]="dataplan.planScheduledDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="planScheduledDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #planScheduledDay></mat-datepicker>
                 </div>
                 </td>
+            </tr>
+            <tr>
+                <th>プラン備考</th>
+                <td colspan="5">
+                    <input type="text" [(ngModel)]="dataplan.planRemark" class="width85Per">
+                </td>
+
             </tr>
            
             

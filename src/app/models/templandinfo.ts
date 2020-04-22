@@ -1,6 +1,8 @@
 import { Locationinfo } from './locationinfo';
 import { MapAttach, AttachFile } from './mapattach';
+import {Bukkenplaninfo} from './bukkenplaninfo'
 import { SharerInfo } from './sharer-info';
+import { from } from 'rxjs';
 
 export class Templandinfo {
     pid: number;
@@ -24,17 +26,32 @@ export class Templandinfo {
     landCategory = '';
     floorAreaRatio: number = null;
     coverageRate: number = null;
+    surveyRequestedDay: string;
+    surveyRequested: string;
+    surveyStaff: string;
+    surveyMapChk: string;
+    publicAndPrivateFormChk: string;
+    publicAndPrivateForm: string;
+    privateChk: string;
+    private: string;
+    publicChk: string;
+    public: string;
+    surveyDeliveryDay: string;
+    surveyRemark: string;
     mapFiles: MapAttach[];
     attachFiles: AttachFile[];
     locations: Locationinfo[];
+    bukkenplans: Bukkenplaninfo[];
 
 
     pickDateMap: Date = null;
     startDateMap: Date = null;
     finishDateMap: Date = null;
+    surveyRequestedDayMap: Date = null;
+    surveyDeliveryDayMap: Date = null;
     infoStaffMap: string[] = [];
     infoOfferMap: string[] = [];
-
+    
     createUserId: number;
     updateUserId: number;
     
@@ -56,6 +73,12 @@ export class Templandinfo {
         if (this.finishDate) {
             this.finishDateMap = new Date(this.finishDate);
         }
+        if (this.surveyRequestedDay) {
+            this.surveyRequestedDayMap = new Date(this.surveyRequestedDay);
+        }
+        if (this.surveyDeliveryDay) {
+            this.surveyDeliveryDayMap = new Date(this.surveyDeliveryDay);
+        }
         if (this.infoStaff !== null) {
             this.infoStaffMap = this.infoStaff.split(',');
         }
@@ -70,6 +93,8 @@ export class Templandinfo {
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
         this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;
         this.finishDate = this.finishDateMap != null ? this.finishDateMap.toLocaleString() : null;
+        this.surveyRequestedDay = this.surveyRequestedDayMap != null ? this.surveyRequestedDayMap.toLocaleString() : null;
+        this.surveyDeliveryDay = this.surveyDeliveryDayMap != null ? this.surveyDeliveryDayMap.toLocaleString() : null;
 
         if (this.pid > 0) {
             this.updateUserId = userId;

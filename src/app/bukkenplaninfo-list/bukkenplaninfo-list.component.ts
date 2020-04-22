@@ -11,6 +11,8 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
 import {Bukkenplaninfo} from '../models/bukkenplaninfo';
+
+
 @Component({
   selector: 'app-bukkenplaninfo-list',
   templateUrl: './bukkenplaninfo-list.component.html',
@@ -26,8 +28,9 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   constructor(public router: Router,
               public service: BackendService,
               private spinner: NgxSpinnerService,
-              public dialogRef: MatDialogRef<Bukkenplaninfo>,
+              public dialogRef: MatDialogRef<Locationinfo>,
               public dialog: MatDialog,
+              public dataplan: Bukkenplaninfo,
               /*public sharer: SharerInfo,*/
               @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
       super(router, service);
