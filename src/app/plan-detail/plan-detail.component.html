@@ -753,11 +753,11 @@
     </tr>
     <tr>
         <th class="head_main">稼働率(%)</th>
-        <td class="left"><input type="text" class="par"  [(ngModel)]="plan.occupancyRate"></td>
+        <td class="left"><input type="text" class="par" [(ngModel)]="plan.rent.occupancyRate"></td>
         <th class="head_main">年間収入(B)</th>
         <td class="left"><input type="text" class="Twidth100" [(ngModel)]="plan.demo"></td>
         <th class="head_main">売却時想定<br>利回り(%)(C)</th>
-        <td class="left"><input type="text" class="par" [(ngModel)]="plan.salesProfits"></td>
+        <td class="left"><input type="text" class="par" [(ngModel)]="plan.rent.salesProfits"></td>
         <th class="head_main">取得原価</th>
         <td class="left"><input type="text" class="Twidth100" [attr.disabled]="true"></td>
     </tr>
@@ -772,10 +772,10 @@
         
     <tr class="rentline">
         <th class="main_plan_rent">経費率(%)</th>
-        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio1">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio2">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio3">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.expenseRatio4">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.rent.expenseRatio1">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.rent.expenseRatio2">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.rent.expenseRatio3">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par"  [(ngModel)]="plan.rent.expenseRatio4">&nbsp;%</td>
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent">NOI<br>※(B)*(1-経費率)</th>
@@ -823,10 +823,10 @@
             
         <tr class="rentline">
             <th class="main_plan_rent">利回り</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.profitsA"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.profitsB"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.profitsC"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.profitsD"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.profitsA"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.profitsB"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.profitsC"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.profitsD"></td>
         </tr>
         <tr class="rentline">
             <th class="main_plan_rent">売買金額</th>
@@ -836,25 +836,25 @@
             <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.demo" [attr.disabled]="true"></td>
         </tr>
         <tr class="rentline">
-            <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpenseName1" placeholder="販売経費等"></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense1A"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense1B"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense1C"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense1D"></td>
+            <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpenseName1" placeholder="販売経費等"></th>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense1A"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense1B"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense1C"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense1D"></td>
         </tr>
         <tr class="rentline">
-            <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpenseName2" placeholder="販売経費等"></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense2A"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense2B"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense2C"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense2D"></td>
+            <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpenseName2" placeholder="販売経費等"></th>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense2A"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense2B"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense2C"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense2D"></td>
         </tr>
         <tr class="rentline">
-            <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpenseName3" placeholder="販売経費等"></th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense3A"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense3B"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense3C"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.salesExpense3D"></td>
+            <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpenseName3" placeholder="販売経費等"></th>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense3A"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense3B"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense3C"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpense3D"></td>
         </tr>
         <tr class="rentline">
             <th class="main_plan_rent">販売経費小計</th>
@@ -882,10 +882,10 @@
         </tr>
         <tr class="rentline">
             <th class="main_plan_rent">坪単価</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.tsuboUnitPriceA"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.tsuboUnitPriceB"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.tsuboUnitPriceC"></td>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.tsuboUnitPriceD"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.tsuboUnitPriceA"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.tsuboUnitPriceB"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.tsuboUnitPriceC"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.tsuboUnitPriceD"></td>
         </tr>
 
 </table>
@@ -1077,7 +1077,7 @@
         <tr>
             <th class="main">共益費(月間)</th>
             <td class="yento"><input type="text" class="par" [value]="plan.totalUnits" [attr.disabled]="true">&nbsp;戸</td>
-            <td class="yen"><input type="text" placeholder="共益費" class="Twidth100"  [(ngModel)]="plan.commonFee"></td>
+            <td class="yen"><input type="text" placeholder="共益費" class="Twidth100"  [(ngModel)]="plan.rent.commonFee"></td>
             <td class="yen">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.demo" [attr.disabled]="true"></td>
             
@@ -1099,7 +1099,7 @@
             <td class="yento">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen">&nbsp;</td>
-            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.monthlyOtherIncome"></td>
+            <td class="yen"><input type="text" class="Twidth100" [ngModel]="plan.rent.monthlyOtherIncome"></td>
             
         </tr>
     </span>

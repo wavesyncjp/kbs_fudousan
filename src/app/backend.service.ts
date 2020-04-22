@@ -600,7 +600,7 @@ export class BackendService {
    * @param plan ：事業収支
    */
   savePlan(plan: Planinfo): Promise<Planinfo> {
-    const saveApi = 'plansave.php';
+    const saveApi = 'plansave.php'; 
     const req = this.http.post<Planinfo>(`${this.BaseUrl}/${saveApi}`, plan);
     return req.toPromise();
   }

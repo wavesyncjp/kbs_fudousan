@@ -84,13 +84,13 @@ export class Planinfo {
     startDayMap: Date = null;
     upperWingDayMap: Date = null;
     completionDayMap: Date = null;
-    scheduledDayMap: Date = null;
-    
-    commonFee: number = 0;
-    monthlyOtherIncome: number = 0;
+    scheduledDayMap: Date = null;    
     
     details: Plandetail[];
-    rent: Planrentroll[];
+    // 20200422 S_Update
+//    rent: Planrentroll[];
+    rent: Planrentroll;
+    // 20200422 E_Update
     rentdetails: Planrentrolldetail[];
 
     public constructor(init?: Partial<Planinfo>) {

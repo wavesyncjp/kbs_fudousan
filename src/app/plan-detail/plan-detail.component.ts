@@ -69,6 +69,7 @@ export class PlanDetailComponent extends BaseComponent {
 
     this.spinner.show();
     this.plan = new Planinfo();
+    this.plan.rent = new Planrentroll();// 20200422 Add
 
     const funcs = [];
     funcs.push(this.service.getCodes(['011', '016', '017', '018', '020']));
@@ -119,6 +120,10 @@ export class PlanDetailComponent extends BaseComponent {
           this.data = new Templandinfo(values[4] as Templandinfo);
           this.plan = new Planinfo();
         }
+      }     
+
+      if(this.plan.rent == null) {
+        this.plan.rent = new Planrentroll();
       }
 
       //明細情報が存在しない場合
@@ -183,20 +188,6 @@ export class PlanDetailComponent extends BaseComponent {
     if (val == null || val === '' || isNaN(val)) return 0;
     return Number(val) * this.getNumber(val1);
   }
-
-  changetest() {
-    //return this.getNumber(val1) * this.getNumber(val2);
-    this.plan.details[10].unitPrice = String(this.plan.siteAreaBuy * this.getNumber(this.plan.details[10].price));
-  }
-  /* if (this.isNumberStr(val1)) {
-     return Math.floor(Number(val1) * this.getNumber(val2));
-   }
-   else {
-     return '';
-   }
- }*/
-
-
 
   /**
    * 登録
@@ -450,7 +441,7 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算６８
   cal68() {
-    let val62 = this.cal62() * 12 + this.getNumber(this.plan.commonFee)*this.getNumber(this.plan.totalUnits)*12 + this.getNumber(this.plan.monthlyOtherIncome) * 12
+    let val62 = this.cal62() * 12 + this.getNumber(this.plan.rent.commonFee)*this.getNumber(this.plan.totalUnits)*12 + this.getNumber(this.plan.rent.monthlyOtherIncome) * 12
     return Math.round(val62);
   }
 }
