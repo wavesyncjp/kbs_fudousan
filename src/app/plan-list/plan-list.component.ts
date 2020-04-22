@@ -59,7 +59,7 @@ export class PlanListComponent extends BaseComponent {
 
       // コード
       const codes = values[0] as Code[];
-      if (codes !== null && codes.length > 0) {
+      if (codes != null && codes.length > 0) {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);

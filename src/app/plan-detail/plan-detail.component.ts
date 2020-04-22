@@ -157,8 +157,8 @@ export class PlanDetailComponent extends BaseComponent {
 
   /*坪数計算*/
   calTsubo(val) {
-    if (this.isNumberStr(val)) {
-      return Math.floor(Number(val) * 0.3025 * 100) / 100;
+    if (!isNullOrUndefined(val)) {
+      return Math.floor(this.getNumber(val) * 0.3025 * 100) / 100;
     }
     else {
       return '';
