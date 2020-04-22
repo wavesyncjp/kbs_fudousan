@@ -5,7 +5,7 @@ import { BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail.component
 describe('BukkenplaninfoDetailComponent', () => {
   let component: BukkenplaninfoDetailComponent;
   let fixture: ComponentFixture<BukkenplaninfoDetailComponent>;
-  
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ BukkenplaninfoDetailComponent ]
