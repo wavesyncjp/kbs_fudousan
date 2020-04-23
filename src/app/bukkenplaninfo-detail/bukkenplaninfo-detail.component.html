@@ -16,9 +16,9 @@
        
         <tr> 
             <th>売買(公簿売買<br>or実測売買）</th>
-            <td colspan="3"><input type="text" [(ngModel)]="dataplan.salesType" class= "width250"></td>            
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesType" class= "width250"></td>            
             <th>売却先</th>
-            <td colspan="3"><input type="text" [(ngModel)]="dataplan.salesName" class= "width250"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesName" class= "width250"></td>
                                     
         </tr>
         
@@ -26,26 +26,26 @@
 
         <tr>
             <th>売買対象<br>(所在地）</th>
-            <td colspan="3"><input type="text" [(ngModel)]="dataplan.salesLocation" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesLocation" class="width400"></td>
             <th>売却先住所</th>
-            <td colspan="3"><input type="text" [(ngModel)]="dataplan.salesAddress" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesAddress" class="width400"></td>
             
         </tr>
         <tr>
             <th>契約日</th>
             <td>
             <div class="picker-div">
-                <input type="text" [matDatepicker]="salesContractDay" [(ngModel)]="dataplan.salesContractDayMap" class="width100">
+                <input type="text" [matDatepicker]="salesContractDay" [(ngModel)]="data.salesContractDayMap" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="salesContractDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #salesContractDay></mat-datepicker>
             </div>
             </td>
             <th>売買代金</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesTradingPrice" class="width100"></td>
-            <th class="left">契約予定日</th>
+            <td><input type="text" [(ngModel)]="data.salesTradingPrice" class="width100"></td>
+            <th>契約予定日</th>
             <td colspan="3">
             <div class="picker-div">
-                <input type="text" [matDatepicker]="salesContractSchDay" [(ngModel)]="dataplan.salesContractSchDayMap" class="width100">
+                <input type="text" [matDatepicker]="salesContractSchDay" [(ngModel)]="data.salesContractSchDayMap" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="salesContractSchDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #salesContractSchDay></mat-datepicker>
             </div>
@@ -56,17 +56,17 @@
             <th>決済予定日</th>
             <td>
             <div class="picker-div">
-                <input type="text" [matDatepicker]="salesDecisionSchDay" [(ngModel)]="dataplan.salesDecisionSchDayMap" class="width100">
+                <input type="text" [matDatepicker]="salesDecisionSchDay" [(ngModel)]="data.salesDecisionSchDayMap" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="salesDecisionSchDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #salesDecisionSchDay></mat-datepicker>
             </div>
             </td>
             <th>決済代金</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesDecisionPrice" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesDecisionPrice" class="width100"></td>
             <th>決済日</th>
             <td colspan="3">
             <div class="picker-div">
-                <input type="text" [matDatepicker]="salesDecisionDay" [(ngModel)]="dataplan.salesDecisionDayMap" class="width100">
+                <input type="text" [matDatepicker]="salesDecisionDay" [(ngModel)]="data.salesDecisionDayMap" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="salesDecisionDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #salesDecisionDay></mat-datepicker>
             </div>
@@ -74,38 +74,38 @@
         </tr>
         <tr>
             <th>固都税清算金</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesFixedTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedTax" class="width100"></td>
             <th>(固都税清算金)土地</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesFixedLandTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedLandTax" class="width100"></td>
             <th>(固都税清算金)建物</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesFixedBuildingTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedBuildingTax" class="width100"></td>
             <th>(固都税清算金)消費</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesFixedConsumptionTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedConsumptionTax" class="width100"></td>
 
         </tr>
         <tr>
             <th>その他清算金</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesLiquidation1" class="width100"></td>
-            <td><input type="text" [(ngModel)]="dataplan.salesLiquidation2" class="width100"></td>
-            <td><input type="text" [(ngModel)]="dataplan.salesLiquidation3" class="width100"></td>
-            <td><input type="text" [(ngModel)]="dataplan.salesLiquidation4" class="width100"></td>
-            <td><input type="text" [(ngModel)]="dataplan.salesLiquidation5" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation1" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation2" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation3" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation4" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation5" class="width100"></td>
            
         </tr>
         <tr>
             <th>仲介手数料</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesBrokerageFee" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesBrokerageFee" class="width100"></td>
             <th>地積</th>
-            <td><input type="text" [(ngModel)]="dataplan.salesLandArea" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLandArea" class="width100"></td>
 
         </tr>
         <tr>
             <th>仲介会社</th>
-            <td colspan="3"><input type="text" [(ngModel)]="dataplan.salesIntermediary" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesIntermediary" class="width400"></td>
         </tr>
         <tr>
             <th>備考</th>
-            <td colspan="3"><input type="text" [(ngModel)]="dataplan.salesRemark" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesRemark" class="width400"></td>
             
         </tr>
             

@@ -1,11 +1,11 @@
-import { Contractdetailinfo } from './contractdetailinfo';
-import { Templandinfo } from './templandinfo';
-import { Locationinfo } from './locationinfo';
+
 import { SharerInfo } from './sharer-info';
+import { Bukkensalesinfo } from './bukkensalesinfo'
 
 import { DatePipe } from '@angular/common';
 
 import { parse } from 'date-fns';
+import { from } from 'rxjs';
 
 export class Bukkenplaninfo {
 
@@ -29,6 +29,7 @@ export class Bukkenplaninfo {
     planScheduledDayMap: Date = null;
     
     sharers: SharerInfo[];
+    bukkensales:Bukkensalesinfo[];
     
     
     /*details: Plandetail[];

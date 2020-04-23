@@ -10,7 +10,7 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
-import {Bukkensalesinfo} from '../models/bukkensalesinfo';
+import { Bukkensalesinfo } from '../models/bukkensalesinfo';
 
 
 
@@ -27,6 +27,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   public cond: any;
   public locAdresses =[];
  
+ 
   constructor(public router: Router,
               public service: BackendService,
               private spinner: NgxSpinnerService,
@@ -41,7 +42,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('物件情報詳細');
+    this.service.changeTitle('売り契約情報詳細');
     this.spinner.show();
     this.oldLocationType = this.data.locationType;
 
