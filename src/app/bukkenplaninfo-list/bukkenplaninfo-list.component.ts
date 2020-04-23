@@ -15,7 +15,7 @@ import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.com
 import { Contractinfo } from '../models/contractinfo';
 import { SharerInfo } from '../models/sharer-info';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
-import {Bukkenplaninfo} from '../models/bukkenplaninfo';
+import { Bukkenplaninfo } from '../models/bukkenplaninfo';
 import { BukkenplaninfoDetailComponent} from '../bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 
 @Component({

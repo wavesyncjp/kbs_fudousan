@@ -1,8 +1,5 @@
-import { Contractdetailinfo } from './contractdetailinfo';
-import { Templandinfo } from './templandinfo';
-import { Locationinfo } from './locationinfo';
-import { SharerInfo } from './sharer-info';
-import {Bukkenplaninfo}from './bukkenplaninfo';
+
+
 
 import { DatePipe } from '@angular/common';
 
@@ -47,8 +44,8 @@ export class Bukkensalesinfo {
     salesDecisionSchDayMap: Date = null;
     salesDecisionDayMap: Date = null;
     
-    sharers: SharerInfo[];
-    dataplan: Bukkenplaninfo[];
+    
+   
     
     /*details: Plandetail[];
     rent: Planrentroll[];
