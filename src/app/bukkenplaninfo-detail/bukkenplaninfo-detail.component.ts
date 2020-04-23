@@ -10,7 +10,8 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
-import {Bukkenplaninfo} from '../models/bukkenplaninfo';
+import {Bukkensalesinfo} from '../models/bukkensalesinfo';
+
 
 
 
