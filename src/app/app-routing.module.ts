@@ -35,8 +35,7 @@ const routes: Routes = [
   { path: 'plans', component: PlanListComponent},
   { path: 'plandetail', component: PlanDetailComponent},
   { path: 'pays', component: PayContractListComponent},
-  { path: 'paydetail', component: PayContractDetailComponent},
-  
+  { path: 'paydetail', component: PayContractDetailComponent}
 
 ];
 

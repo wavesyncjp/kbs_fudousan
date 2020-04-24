@@ -20,7 +20,7 @@ import { Bukkenplaninfo } from './models/bukkenplaninfo';
 })
 export class BackendService {
 
-  // private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
+  //private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   public loginUser: User;
 

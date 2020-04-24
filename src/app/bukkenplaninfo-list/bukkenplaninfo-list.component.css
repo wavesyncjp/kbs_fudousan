@@ -215,3 +215,24 @@ mat-form-field > input {
     color: white;
     width: 180px;
 }
+
+/*------------tab-------------*/
+.switch-tab {
+    display: flex;
+    float: right;
+    margin-right: 20px;
+}
+
+.switch-tab span {
+    padding-left:4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    border-left: solid 2px antiquewhite;
+    border-right: solid 2px antiquewhite;
+    margin-right: 5px;
+}
+
+.switch-tab button {
+    width: 90px;
+    height: 30px;
+}

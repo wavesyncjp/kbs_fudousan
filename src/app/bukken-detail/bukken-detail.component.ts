@@ -502,6 +502,13 @@ export class BukkenDetailComponent extends BaseComponent {
   displaySeller(contract: Contractinfo) {
     return contract.sellers.filter(ct => ct.contractorName != null && ct.contractorName !== '').map(ct => ct.contractorName).join('\n\r');
   }
+
+  /**
+   * 物件プラン
+   */
+  gotoPlan() {
+    this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
+  }
 }
 
 

@@ -8,11 +8,12 @@
             <li *ngFor="let msg of errorMsgs">{{msg}}</li>
         </ul>
         <table class="detail-tbl"  style="margin:10px;width:99%">
-        <tr>
-            <mat-radio-group (change)="switchTab($event)"  style="float: right;" [(ngModel)]="data.aaa">
-                <mat-radio-button [value]="1" [checked]="true">物件情報&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
-                <mat-radio-button [value]="2">プラン&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
-              </mat-radio-group></tr>
+            <tr>
+                <div class="switch-tab">                    
+                    <button mat-flat-button  style="background-color: pink;" (click)="gotoBukken()">物件情報</button>
+                    <span>ブラン</span>
+                </div>
+            </tr>
             <!--hirano_202004.15_edd-->
             <div class="button-div-left">
                 <button mat-raised-button  class="addLocation" (click)="addLocation()" >プラン情報　登録</button>

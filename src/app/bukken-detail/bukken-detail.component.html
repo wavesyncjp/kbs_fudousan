@@ -28,10 +28,13 @@
             </tr>
             <!--hirano_202004.15_edd-->
             <tr>
-            <mat-radio-group (change)="switchTab($event)"  style="float: right;" [(ngModel)]="data.aaa">
-                <mat-radio-button [value]="1" [checked]="true">物件情報&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
-                <mat-radio-button [value]="2">プラン&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
-              </mat-radio-group></tr>
+                <td colspan="8" style="text-align: right;">
+                    <div class="switch-tab">
+                        <span>物件情報</span>
+                        <button mat-flat-button  style="background-color: pink;" (click)="gotoPlan()">ブラン</button>
+                    </div>                    
+                </td>                
+            </tr>
             <!--hirano_202004.15_edd-->
         </table>
     <!--hirano_202004.15_edd
