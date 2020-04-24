@@ -237,16 +237,16 @@
             </td>
             <th>消化容積</th>
             <td class="etc">
-              <input type="text" class="width100" [(ngModel)]="plan.digestionVolume" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;％
+              <input type="text" class="width100" [(ngModel)]="plan.digestionVolume" (keypress)="floatOnly($event)" [attr.disabled]="true" [value]="cal9()">&nbsp;％
             </td>
             <th>レンタブル比</th>
             <td class="etc">
-              <input type="text" class="width100" [(ngModel)]="plan.lentable"(keypress)="floatOnly($event)"  [attr.disabled]="true">&nbsp;％
+              <input type="text" class="width100" [(ngModel)]="plan.lentable"(keypress)="floatOnly($event)"  [attr.disabled]="true" [value]="cal10()">&nbsp;％
             </td>
         </tr>
         <tr>
             <th class="sum">総専有面積／（建築遅延面積＋エントランス・内廊下部分</th>
-            <td><input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)" >&nbsp;％</td>
+            <td><input type="text" class="width100"  [attr.disabled]="true" (keypress)="floatOnly($event)" [value]="cal11()" >&nbsp;％</td>
         </tr>
         <tr>
             <th>構造規模</th>
@@ -280,7 +280,7 @@
             <input type="text" class="width100" [(ngModel)]="plan.parkingOutdoor" (keypress)="numericOnly($event)">&nbsp;台
             <th>駐車合計台数</th>
             <td class="etc2">
-            <input type="text" class="width100"  [attr.disabled]="true">&nbsp;台
+            <input type="text" class="width100"  [attr.disabled]="true"  [value]="cal12()">&nbsp;台
             </td>
         </tr>
         <tr>
