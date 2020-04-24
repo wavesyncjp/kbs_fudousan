@@ -343,6 +343,49 @@ export class PlanDetailComponent extends BaseComponent {
       this.cal43();
     }
   }
+   //計算９  
+   cal9() {
+    if(this.plan.buildArea > 0 && this.plan.siteAreaCheck > 0) {
+      const val9 = (Number(this.plan.buildArea) / Number(this.plan.siteAreaCheck))*100;
+      return val9;
+    } else {
+      return '';
+    }
+    
+  }
+
+  //計算１０  
+  cal10() {
+    if(this.plan.totalArea > 0 && this.plan.buildArea > 0) {
+      const val10 = (Number(this.plan.totalArea) / Number(this.plan.buildArea))*100;
+      return val10;
+    } else {
+      return '';
+    }
+    
+  }
+
+  //計算 11 
+  cal11() {
+    if(this.plan.totalArea > 0 && this.plan.buildArea > 0  && this.plan.entrance > 0) {
+      const val11 = Number(this.plan.totalArea) / (Number(this.plan.buildArea) + (Number(this.plan.entrance)))*100;
+      return val11;
+    } else {
+      return '';
+    }
+    
+  }
+  
+
+   //計算１２  
+   cal12() {
+    if(this.plan.parkingIndoor > 0 || this.plan.parkingOutdoor > 0) {
+      const val12 =Number(this.plan.parkingIndoor) + Number(this.plan.parkingOutdoor);
+      return val12;
+    } else {
+        return '';
+      }
+    }
 
   //計算１３
   cal13(){

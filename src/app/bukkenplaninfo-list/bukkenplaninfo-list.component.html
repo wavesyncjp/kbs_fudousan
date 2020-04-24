@@ -8,6 +8,26 @@
             <li *ngFor="let msg of errorMsgs">{{msg}}</li>
         </ul>
         <table class="detail-tbl"  style="margin:10px;width:99%">
+            <table class="detail-tbl"  style="margin:10px;width:99%">  
+                <tr>
+                    <th>物件番号</th>
+                    <td>
+                        <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80">
+                    </td>
+                    <th>契約物件番号</th>
+                    <td>
+                        <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80">
+                    </td>
+                    <th>物件名</th>
+                    <td>
+                        <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
+                    </td>
+                    <th>住居表示</th>
+                    <td>
+                        <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
+                    </td>
+                </tr>
+            </table>
             <tr>
                 <div class="switch-tab">                    
                     <button mat-flat-button  style="background-color: pink;" (click)="gotoBukken()">物件情報</button>
@@ -15,9 +35,7 @@
                 </div>
             </tr>
             <!--hirano_202004.15_edd-->
-            <div class="button-div-left">
-                <button mat-raised-button  class="addLocation" (click)="addLocation()" >プラン情報　登録</button>
-            </div>
+            
         </table>
 
        
@@ -95,6 +113,9 @@
         </tr>
         <table class="detail-tbl-status">  
             <tr>
+                <td rowspan="4"><mat-checkbox [checked]="dataplan.planFixFlg === '1'" (change)="flgFinish($event, data)"></mat-checkbox></td>
+            </tr>
+            <tr>
                 <th>プラン検討先</th>
                 <td colspan="3">
                     <input type="text" [(ngModel)]="dataplan.planConsidered" class="width400">
@@ -138,6 +159,9 @@
         </table>
         <div class="contact-div"  style="width: 100%;">
             <th class="block-title-statusNew">売り契約</th>
+            <div class="button-div-left">
+                <button mat-raised-button  class="addLocation" (click)="addLocation()" color="warn">新規作成</button>
+            </div>
             <table>
                 <thead class="list-header">
                     <th class="width200">売買先</th>
