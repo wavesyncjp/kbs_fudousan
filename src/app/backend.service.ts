@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, Code, Department, Employee, CodeNameMst, PaymentType} from './models/bukken';
 import { Planinfo } from './models/planinfo';
-import { Templandinfo } from './models/templandinfo';
+import { Templandinfo, LandPlanInfo } from './models/templandinfo';
 import { Information } from './models/information';
 import { Contractinfo } from './models/contractinfo';
 import { Converter } from './utils/converter';
@@ -14,6 +14,7 @@ import { Paycontractinfo } from './models/paycontractinfo';
 import { Tax } from './models/tax';
 import { ContractSellerInfo } from './models/contractsellerinfo';
 import { Bukkenplaninfo } from './models/bukkenplaninfo';
+import { Bukkensalesinfo } from './models/bukkensalesinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -114,7 +115,7 @@ export class BackendService {
     };
     const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${getLandApi}`, body);
     return req.toPromise();
-  }
+  }  
 
   /**
    * 土地情報一覧取得
@@ -678,6 +679,40 @@ export class BackendService {
   getBukkenSeller(tempLandInfoPid: number): Promise<ContractSellerInfo[]> {
     const api = 'sellerget.php';
     const req = this.http.post<ContractSellerInfo[]>(`${this.BaseUrl}/${api}`, {tempLandInfoPid: tempLandInfoPid});
+    return req.toPromise();
+  }
+
+
+  /**
+   * プラン情報取得
+   * @param id 土地Id
+   */
+  getLandPlan(id: number): Promise<LandPlanInfo> {
+    const getLandApi = 'landplanget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<LandPlanInfo>(`${this.BaseUrl}/${getLandApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支登録
+   * @param plan ：事業収支
+   */
+  saveLandPlan(plan: LandPlanInfo): Promise<LandPlanInfo> {
+    const saveApi = 'lanplansave.php'; 
+    const req = this.http.post<LandPlanInfo>(`${this.BaseUrl}/${saveApi}`, plan);
+    return req.toPromise();
+  }
+
+  /**
+   * 売り契約登録
+   * @param sale 売り契約
+   */
+  saveBukkenSale(sale: Bukkensalesinfo): Promise<Bukkensalesinfo> {
+    const saveApi = 'lansalesave.php'; 
+    const req = this.http.post<Bukkensalesinfo>(`${this.BaseUrl}/${saveApi}`, sale);
     return req.toPromise();
   }
 

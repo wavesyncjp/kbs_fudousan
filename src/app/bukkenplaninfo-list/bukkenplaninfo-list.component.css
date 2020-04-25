@@ -236,3 +236,10 @@ mat-form-field > input {
     width: 90px;
     height: 30px;
 }
+
+.delete_btn {
+    background-color: rgb(91, 91, 95);
+    color: whitesmoke;
+    height: 30px;
+    width: 60px;
+}

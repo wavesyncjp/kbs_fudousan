@@ -1,49 +1,47 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div class="detail-div">
-        <div class="register-div">
-            <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-            <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
-        </div>
-        <ul *ngIf="errorMsgs.length > 0" class="error-span">
-            <li *ngFor="let msg of errorMsgs">{{msg}}</li>
-        </ul>
-        <table class="detail-tbl"  style="margin:10px;width:99%">
-            <table class="detail-tbl"  style="margin:10px;width:99%">  
-                <tr>
-                    <th>物件番号</th>
-                    <td>
-                        <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80">
-                    </td>
-                    <th>契約物件番号</th>
-                    <td>
-                        <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80">
-                    </td>
-                    <th>物件名</th>
-                    <td>
-                        <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
-                    </td>
-                    <th>住居表示</th>
-                    <td>
-                        <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
-                    </td>
-                </tr>
-            </table>
+    <div class="register-div">
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+    </div>
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <table class="detail-tbl"  style="margin:10px;width:99%">
+        <table class="detail-tbl"  style="margin:10px;width:99%">  
             <tr>
-                <div class="switch-tab">                    
-                    <button mat-flat-button  style="background-color: pink;" (click)="gotoBukken()">物件情報</button>
-                    <span>ブラン</span>
-                </div>
+                <th>物件番号</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.land.bukkenNo" [attr.disabled]="data.land.pid < 0" class = "width80">
+                </td>
+                <th>契約物件番号</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.land.contractBukkenNo" class = "width80">
+                </td>
+                <th>物件名</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.land.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
+                </td>
+                <th>住居表示</th>
+                <td>
+                    <input type="text" [(ngModel)]="data.land.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
+                </td>
             </tr>
-            <!--hirano_202004.15_edd-->
-            
         </table>
+        <tr>
+            <div class="switch-tab">                    
+                <button mat-flat-button  style="background-color: pink;" (click)="gotoBukken()">物件情報</button>
+                <span>ブラン</span>
+            </div>
+        </tr>
+        <!--hirano_202004.15_edd-->            
+    </table>
 
        
     <table class ="block-status">
         
         <tr>
-            <th class="block-title-statusNew">測量</th>
-            
+            <th class="block-title-statusNew">測量</th>            
         </tr>
 
         <table class="detail-tbl-status">  
@@ -51,46 +49,46 @@
                 <th>測量依頼日</th>
                 <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="surveyRequestedDay" [(ngModel)]="data.surveyRequestedDayMap" class="width100">
+                    <input type="text" [matDatepicker]="surveyRequestedDay" [(ngModel)]="data.land.surveyRequestedDayMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="surveyRequestedDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #surveyRequestedDay></mat-datepicker>
                 </div>
                 </td>
                 <th>測量依頼先</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.surveyRequested" class="width300">
+                    <input type="text" [(ngModel)]="data.land.surveyRequested" class="width300">
                 </td>
                 <th>現場担当者</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.surveyStaff" class="width300">
+                    <input type="text" [(ngModel)]="data.land.surveyStaff" class="width300">
                 </td>
             </tr>
             <tr>
                 <th>仮測量図</th>
                 <td>
-                    <span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.surveyMapChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                    <span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.land.surveyMapChk === '1'" (change)="flgFinish($event, 'surveyMapChk')"></mat-checkbox>
                 </td>
                 <th>官民申請書</th>
                 <td>
-                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.publicAndPrivateFormChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.publicAndPrivateForm" class="width200">
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.publicAndPrivateFormChk === '1'" (change)="flgFinish($event, 'publicAndPrivateFormChk')"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.publicAndPrivateForm" class="width200">
                 </td>
             </tr>
             <tr>
                 <th>民民</th>
                 <td>
-                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.privateChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.private" class="width200">
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.privateChk === '1'" (change)="flgFinish($event, 'privateChk')"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.private" class="width200">
                 </td>
                 <th>官民</th>
                 <td>
-                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.publicChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.public" class="width200">
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.publicChk === '1'" (change)="flgFinish($event, 'publicChk')"></mat-checkbox>
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.public" class="width200">
                 </td>
                 <th>納品日</th>
                 <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="surveyDeliveryDay" [(ngModel)]="data.surveyDeliveryDayMap" class="width100">
+                    <input type="text" [matDatepicker]="surveyDeliveryDay" [(ngModel)]="data.land.surveyDeliveryDayMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="surveyDeliveryDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #surveyDeliveryDay></mat-datepicker>
                 </div>
@@ -98,97 +96,105 @@
             <tr>
                 <th>備考</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.surveyRemark" class="width85Per">
+                    <input type="text" [(ngModel)]="data.land.surveyRemark" class="width85Per">
                 </td>
-
-            </tr>
-            
+            </tr>            
         </table>
-        <tr>
-            <th class="block-title-statusNew">プラン</th>
-            <td>
-            <button mat-raised-button (click)="addSharer()">追加</button>
-            </td>
-            
-        </tr>
-        <table class="detail-tbl-status">  
-            <tr>
-                <td rowspan="4"><mat-checkbox [checked]="dataplan.planFixFlg === '1'" (change)="flgFinish($event, data)"></mat-checkbox></td>
-            </tr>
-            <tr>
-                <th>プラン検討先</th>
-                <td colspan="3">
-                    <input type="text" [(ngModel)]="dataplan.planConsidered" class="width400">
-                </td>
-                <th>プラン価格</th>
-                <td>
-                    <input type="text" [(ngModel)]="dataplan.planPrice" class="width100">
-                </td>
-            </tr>
-            <tr>
-                <th>プラン依頼</th>
-                <td>
-                    <input type="text" [(ngModel)]="dataplan.planRequest" class="width200">
-                </td>
-                <th>プラン依頼日</th>
-                <td>
-                <div class="picker-div">
-                    <input type="text" [matDatepicker]="planRequestDay" [(ngModel)]="dataplan.planRequestDayMap" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="planRequestDay" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #planRequestDay></mat-datepicker>
-                </div>
-                </td>
-                <th>プラン取得予定日</th>
-                <td>
-                <div class="picker-div">
-                    <input type="text" [matDatepicker]="planScheduledDay" [(ngModel)]="dataplan.planScheduledDayMap" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="planScheduledDay" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #planScheduledDay></mat-datepicker>
-                </div>
-                </td>
-            </tr>
-            <tr>
-                <th>プラン備考</th>
-                <td colspan="5">
-                    <input type="text" [(ngModel)]="dataplan.planRemark" class="width85Per">
-                </td>
 
-            </tr>
-           
-            
-        </table>
-        <div class="contact-div"  style="width: 100%;">
-            <th class="block-title-statusNew">売り契約</th>
+        <!--プラン-->
+        <div style="margin-top: 10px;">
+            <span class="block-title-statusNew">プラン</span>
             <div class="button-div-left">
-                <button mat-raised-button  class="addLocation" (click)="addLocation()" color="warn">新規作成</button>
+                <button mat-raised-button (click)="addPlan()">追加</button>
             </div>
-            <table>
-                <thead class="list-header">
-                    <th class="width200">売買先</th>
-                    <th class="width200">売買対象（所在地）</th>
-                    <th class="width100">地積（㎡、坪）</th>
-                    <th class="width100">売買代金</th>
-                    <th class="width100">契約予定日</th>
-                    <th class="width80">契約日</th>
-                    <th class="width100">決済予定日</th>
-                    <th class="width80">決済日</th>
-                    <th class="width80">詳細</th>                       
-                </thead>
-                <tbody class="list-body">
-                    <tr *ngFor="let contract of contracts">                        
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>               
-                    </tr>
-                </tbody>
-            </table>
         </div>
+        <ng-container *ngFor="let plan of data.plans; index as pos">
+            <table *ngIf="!plan.delete" class="detail-tbl-status" style="margin-bottom: 20px;">  
+                <tr>
+                    <td rowspan="4" style="width: 50px;"><mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>                            
+                    <th>プラン検討先</th>
+                    <td colspan="3">
+                        <input type="text" [(ngModel)]="plan.planConsidered" class="width400">
+                    </td>
+                    <th>プラン価格</th>
+                    <td>
+                        <input type="text" [(ngModel)]="plan.planPrice" class="width100">
+                    </td>
+                    <td rowspan="4">
+                        <button *ngIf="pos > 0" mat-flat-button class="delete_btn" (click)="deletePlan(plan, pos)">削除</button>
+    
+                        <button *ngIf="pos === 0" mat-flat-button class="attach-btn" style="background-color: white;"></button>
+                    </td>                            
+                </tr>
+                <tr>
+                    <th>プラン依頼</th>
+                    <td>
+                        <input type="text" [(ngModel)]="plan.planRequest" class="width200">
+                    </td>
+                    <th>プラン依頼日</th>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="planRequestDay" [(ngModel)]="plan.planRequestDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="planRequestDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #planRequestDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <th>プラン取得予定日</th>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="planScheduledDay" [(ngModel)]="plan.planScheduledDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="planScheduledDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #planScheduledDay></mat-datepicker>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>プラン備考</th>
+                    <td colspan="5">
+                        <input type="text" [(ngModel)]="plan.planRemark" class="width85Per">
+                    </td>
+                </tr>          
+            </table>
+        </ng-container>        
+        <!--プラン-->
+
+        <!--売り契約-->
+        <div>
+            <span class="block-title-statusNew">売り契約</span>
+            <div class="button-div-left">
+                <button mat-raised-button  class="addLocation" (click)="addLandSale()" color="warn">新規作成</button>
+            </div>
+        </div>
+        <div class="contact-div" style="width: 98%;margin-left: -2px;"> 
+        <table>
+            <thead class="list-header">
+                <th class="width200">売買先</th>
+                <th class="width200">売買対象（所在地）</th>
+                <th class="width100">地積（㎡、坪）</th>
+                <th class="width100">売買代金</th>
+                <th class="width100">契約予定日</th>
+                <th class="width80">契約日</th>
+                <th class="width100">決済予定日</th>
+                <th class="width80">決済日</th>
+                <th class="width80">詳細</th>                       
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let sale of data.sales">                        
+                    <td class="text-left">{{sale.salesName}}</td>
+                    <td class="text-left">{{sale.salesAddress}}</td>
+                    <td class="text-right">{{formatIntNumber(sale.salesLandArea, '')}}</td>
+                    <td class="text-right">{{formatIntNumber(sale.salesTradingPrice, '')}}</td>
+                    <td>{{formatDay(sale.salesContractSchDay, 'yyyy/MM/dd')}}</td>
+                    <td>{{formatDay(sale.salesContractDay, 'yyyy/MM/dd')}}</td>
+                    <td>{{formatDay(sale.salesDecisionSchDay, 'yyyy/MM/dd')}}</td>
+                    <td>{{formatDay(sale.salesDecisionDay, 'yyyy/MM/dd')}}</td>
+                    <td><button mat-raised-button (click)="showLandSale(sale)" color="warn">詳細</button></td>               
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <!--/売り契約-->
+
     </table>
     
 </div>

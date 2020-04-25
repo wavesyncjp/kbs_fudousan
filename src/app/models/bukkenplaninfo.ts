@@ -23,18 +23,12 @@ export class Bukkenplaninfo {
     updateUserId: number;
     updateDate: Date;
     createDate: Date;
+    deleteUserId: number;
 
     
     planRequestDayMap: Date = null;
     planScheduledDayMap: Date = null;
-    
-    sharers: SharerInfo[];
-    bukkensales:Bukkensalesinfo[];
-    
-    
-    /*details: Plandetail[];
-    rent: Planrentroll[];
-    rentdetails: Planrentrolldetail[];*/
+    delete: boolean;
 
     public constructor(init?: Partial<Bukkenplaninfo>) {
         Object.assign(this, init);
@@ -56,13 +50,12 @@ export class Bukkenplaninfo {
             this.updateUserId = userId;
         } else {
             this.createUserId = userId;
-        }
-        
-        
+        }                
         this.planRequestDay = this.planRequestDayMap != null ? datePipe.transform(this.planRequestDayMap, 'yyyyMMdd') : null;
-        this.planScheduledDay = this.planScheduledDayMap != null ? datePipe.transform(this.planScheduledDayMap, 'yyyyMMdd') : null;
-        
-        
+        this.planScheduledDay = this.planScheduledDayMap != null ? datePipe.transform(this.planScheduledDayMap, 'yyyyMMdd') : null;   
+        if(this.delete) {
+            this.deleteUserId = userId;
+        }             
     }
 }
 

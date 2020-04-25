@@ -37,20 +37,13 @@ export class Bukkensalesinfo {
     updateUserId: number;
     updateDate: Date;
     createDate: Date;
-
+    deleteUserId: number;
     
     salesContractDayMap: Date = null;
     salesContractSchDayMap: Date = null;
     salesDecisionSchDayMap: Date = null;
     salesDecisionDayMap: Date = null;
     
-    
-   
-    
-    /*details: Plandetail[];
-    rent: Planrentroll[];
-    rentdetails: Planrentrolldetail[];*/
-
     public constructor(init?: Partial<Bukkensalesinfo>) {
         Object.assign(this, init);
     }
@@ -73,14 +66,17 @@ export class Bukkensalesinfo {
         
     }
 
-    public convertForSave(userId: number , datePipe: DatePipe) {
+    public convertForSave(userId: number , datePipe: DatePipe, isDelete: boolean) {
         if (this.createUserId > 0) {
             this.updateUserId = userId;
         } else {
             this.createUserId = userId;
         }
-        
-        
+
+        if(isDelete) {
+            this.deleteUserId = userId;
+        }
+            
         this.salesContractDay = this.salesContractDayMap != null ? datePipe.transform(this.salesContractDayMap, 'yyyyMMdd') : null;
         this.salesContractSchDay = this.salesContractSchDayMap != null ? datePipe.transform(this.salesContractSchDayMap, 'yyyyMMdd') : null;
         this.salesDecisionSchDay = this.salesDecisionSchDayMap != null ? datePipe.transform(this.salesDecisionSchDayMap, 'yyyyMMdd') : null;

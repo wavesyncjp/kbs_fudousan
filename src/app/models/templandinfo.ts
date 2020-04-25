@@ -3,6 +3,7 @@ import { MapAttach, AttachFile } from './mapattach';
 import {Bukkenplaninfo} from './bukkenplaninfo'
 import { SharerInfo } from './sharer-info';
 import { from } from 'rxjs';
+import { Bukkensalesinfo } from './bukkensalesinfo';
 
 export class Templandinfo {
     pid: number;
@@ -41,7 +42,6 @@ export class Templandinfo {
     mapFiles: MapAttach[];
     attachFiles: AttachFile[];
     locations: Locationinfo[];
-    bukkenplans: Bukkenplaninfo[];
 
 
     pickDateMap: Date = null;
@@ -102,5 +102,20 @@ export class Templandinfo {
             this.createUserId = userId;
         }
 
+    }    
+}
+
+/**
+ * 
+ */
+export class LandPlanInfo {
+    land: Templandinfo;
+    plans: Bukkenplaninfo[];
+    sales: Bukkensalesinfo[];
+
+    public constructor(init?: Partial<LandPlanInfo>) {
+        if (init) {
+            Object.assign(this, init);
+        }
     }
 }
