@@ -54,6 +54,7 @@ table {
     margin-right: 0px;
 }
 .left{
+    width: 120px;
     float: left;
 }
 
