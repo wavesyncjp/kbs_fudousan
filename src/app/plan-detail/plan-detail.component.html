@@ -482,7 +482,7 @@
         </tr>
         <tr>
             <th class="main">設計料</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[11].price" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('price11')"  [value]="cal30()"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[11].price" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('price11')"></td>
             <td class="yen"><input type="text" class="Twidth100"  [value]="cal50(11)" [attr.disabled]="true"></td>
             <td class="yen"><input type="text" class="Twidth100" placeholder="税込金額" [(ngModel)]="plan.details[11].priceTax"></td>
             
@@ -494,7 +494,7 @@
         </tr>
         <tr>
             <th class="main">建築予備費</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[13].price" [value]="cal31()"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[13].price" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('price13')"></td>
             <td class="yen"><input type="text" class="Twidth100"  [attr.disabled]="true" [value]="cal50(13)"></td>
             <td class="yen"><input type="text" class="Twidth100" placeholder="税込金額" [(ngModel)]="plan.details[13].priceTax"></td>
             

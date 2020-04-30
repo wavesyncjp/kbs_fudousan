@@ -361,7 +361,12 @@ export class PlanDetailComponent extends BaseComponent {
 
     //計算３０
     if(name === 'price11' && !isNullOrUndefined(this.plan.details[11].price)) {
-      this.plan.details[11].priceTax = String(Math.round(Number(this.plan.details[11].price) * 0.03));
+      this.plan.details[11].priceTax = String(Math.round(Number(this.plan.details[10].price) * 0.03));
+    }
+
+    //計算３１
+    if(name === 'price13' && !isNullOrUndefined(this.plan.details[13].price)) {
+      this.plan.details[13].priceTax = String(Math.round(Number(this.plan.details[10].price) * 0.02));
     }
 
     //計算４１
@@ -377,7 +382,7 @@ export class PlanDetailComponent extends BaseComponent {
    //計算９  
    cal9() {
     if(this.plan.buildArea > 0 && this.plan.siteAreaCheck > 0) {
-      const val9 = this.plan.buildArea / this.plan.siteAreaCheck*100;
+      const val9 = Math.round(this.plan.buildArea / this.plan.siteAreaCheck*100*100)/100;
       return val9;
     } else {
       return '';
@@ -388,7 +393,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算１０  
   cal10() {
     if(this.plan.totalArea > 0 && this.plan.buildArea > 0) {
-      const val10 =this.plan.totalArea / this.plan.buildArea *100;
+      const val10 = Math.round(this.plan.totalArea / this.plan.buildArea *100*100)/100;
       return val10;
     } else {
       return '';
@@ -399,7 +404,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算 11 ☆☆
   cal11() {
     if(this.plan.totalArea > 0 && this.plan.buildArea > 0  && this.plan.entrance > 0) {
-      const val11 =(this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100;
+      const val11 = Math.round((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
       return val11;
     } else {
       return '';
@@ -503,7 +508,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算２７
   cal27() {
     if(this.plan.fixedTaxLand > 0 || this.plan.cityPlanTaxLand > 0 || this.plan.fixedTaxBuild > 0 || this.plan.cityPlanTaxBuild > 0 || !isNullOrUndefined(this.plan.details[4].burdenDays)){
-      this.plan.details[4].price = String(Math.round(
+      this.plan.details[4].price = String(Math.floor(
         (this.getNumber(this.plan.fixedTaxLand) + this.getNumber(this.plan.cityPlanTaxLand) 
         + this.getNumber(this.plan.fixedTaxBuild) + this.getNumber(this.plan.cityPlanTaxBuild)) 
         / 365 * Number(this.getNumber(this.plan.details[4].burdenDays))));
@@ -513,29 +518,33 @@ export class PlanDetailComponent extends BaseComponent {
    //計算28　土地その他合計
    cal28() {
     let ret= (this.getNumber(this.plan.details[5].price)) + (this.getNumber(this.plan.details[6].price)) + (this.getNumber(this.plan.details[7].price)) + (this.getNumber(this.plan.details[8].price)) + (this.getNumber(this.plan.details[9].price));
-    return Math.round(ret);
+    return Math.floor(ret);
     }
 
 
    //計算29 土地原価合計
     cal29() {
     let ret= (this.getNumber(this.plan.details[0].price)) + (this.getNumber(this.plan.details[1].price)) + (this.getNumber(this.plan.details[2].price)) + (this.getNumber(this.plan.details[3].price)) + (this.getNumber(this.plan.details[4].price) + this.cal28());
-    return Math.round(ret);
+    return Math.floor(ret);
     }
 
-     //計算30　☆☆
+
+    
+    //計算30　☆☆
    cal30() {
-   
+      if(!isNullOrUndefined(this.plan.details[10].routePrice) && !isNullOrUndefined(this.plan.details[11].routePrice)){
       this.plan.details[11].price= String(Number(this.getNumber(this.plan.details[10].price)) * 0.03);
-      
+      this.changeValue('price11');
+      }
       
     }
 
     //計算31　☆☆
    cal31() {
-     
+    if(!isNullOrUndefined(this.plan.details[10].routePrice)){
     this.plan.details[13].price= String(Number(this.getNumber(this.plan.details[10].price)) * 0.02);
-    
+    this.changeValue('price13');
+    }
     
   }
 
@@ -544,25 +553,25 @@ export class PlanDetailComponent extends BaseComponent {
    //計算32
    cal32() {
     let ret= (this.getNumber(this.plan.details[15].price)) + (this.getNumber(this.plan.details[16].price)) + (this.getNumber(this.plan.details[17].price));
-    return Math.round(ret);
+    return Math.floor(ret);
     }
 
     //計算33　建物その他合計
    cal33() {
     let ret= (this.getNumber(this.plan.details[18].price)) + (this.getNumber(this.plan.details[19].price)) + (this.getNumber(this.plan.details[20].price)) + (this.getNumber(this.plan.details[21].price)) + (this.getNumber(this.plan.details[22].price));
-    return Math.round(ret);
+    return Math.floor(ret);
     }
 
     //計算34　建物合計
    cal34() {
     let ret= (this.getNumber(this.plan.details[10].price)) + (this.getNumber(this.plan.details[11].price)) + (this.getNumber(this.plan.details[12].price)) + (this.getNumber(this.plan.details[13].price)) + (this.getNumber(this.plan.details[14].price) + this.cal32() + this.cal32() + this.cal33());
-    return Math.round(ret);
+    return Math.floor(ret);
     }
 
      //計算35
   cal35() {
     if(this.plan.afterFixedTax > 0 && this.plan.afterCityPlanTax > 0 && !isNullOrUndefined(this.plan.details[23].complePriceMonth)){
-      this.plan.details[23].price = String(Math.round(
+      this.plan.details[23].price = String(Math.floor(
         (this.getNumber(this.plan.afterFixedTax) + this.getNumber(this.plan.afterCityPlanTax) 
         ) / 12 * Number(this.getNumber(this.plan.details[23].complePriceMonth))));
         
@@ -573,7 +582,7 @@ export class PlanDetailComponent extends BaseComponent {
 //計算36
 cal36() {
   if(this.plan.fixedTaxBuild > 0 && this.plan.cityPlanTaxBuild > 0 && !isNullOrUndefined(this.plan.details[24].dismantlingMonth)){
-    this.plan.details[24].price = String(Math.round(
+    this.plan.details[24].price = String(Math.floor(
       (this.getNumber(this.plan.fixedTaxBuild) + this.getNumber(this.plan.cityPlanTaxBuild) 
       ) / 12 * Number(this.getNumber(this.plan.details[24].dismantlingMonth))));
       
@@ -584,7 +593,7 @@ cal36() {
 cal37() {
   if(this.plan.buildValuation > 0){
   const val37= Number(this.plan.buildValuation) * 0.03;
-  return val37;
+  return Math.floor (val37);
  } else {
    return '';
  }
@@ -595,7 +604,7 @@ cal37() {
 cal38() {
   if(this.plan.buildValuation > 0){
   const cal38= Number(this.plan.buildValuation) * 0.02;
-  return cal38;
+  return Math.floor (cal38);
  } else {
    return '';
  }
@@ -606,7 +615,7 @@ cal38() {
 cal39() {
   if(this.plan.taxation > 0){
   const cal39= Number(this.plan.taxation) * 0.015;
-  return cal39;
+  return Math.floor (cal39);
  } else {
    return '';
  }
@@ -617,7 +626,7 @@ cal39() {
 cal40() {
   if(this.plan.taxation > 0){
   const cal40= Number(this.plan.taxation) * 0.02;
-  return cal40;
+  return Math.floor (cal40);
  } else {
    return '';
  }
@@ -653,7 +662,7 @@ cal44() {
  //計算42　その他その他合計
  cal42() {
   let ret= (this.getNumber(this.plan.details[34].price)) + (this.getNumber(this.plan.details[35].price)) + (this.getNumber(this.plan.details[36].price)) + (this.getNumber(this.plan.details[37].price)) + (this.getNumber(this.plan.details[38].price));
-  return Math.round(ret);
+  return Math.floor(ret);
   }
 
   //計算45　その他合計
@@ -661,14 +670,14 @@ cal44() {
     let ret=(this.getNumber(this.plan.details[23].price)) + (this.getNumber(this.plan.details[24].price)) + (this.getNumber(this.plan.details[25].price)) + (this.getNumber(this.plan.details[26].price)) + (this.getNumber(this.plan.details[27].price))
     + (this.getNumber(this.plan.details[28].price)) + (this.getNumber(this.plan.details[29].price)) + (this.getNumber(this.plan.details[30].price)) + (this.getNumber(this.plan.details[31].price))+ (this.getNumber(this.plan.details[32].price))+ (this.getNumber(this.plan.details[33].price))
     + (Number(this.cal37())) + (Number(this.cal38()))+ (Number(this.cal39()))+ (Number(this.cal40()))+ this.cal42();
-    return Math.round(ret);
+    return Math.floor(ret);
     }
 
     //計算46　土地関係金利
     cal46() {
       if(!isNullOrUndefined(this.plan.landLoan) && !isNullOrUndefined(this.plan.landInterest) && !isNullOrUndefined(this.plan.landPeriod)){
-        const cal46=String(Number(this.plan.landLoan) * Number(this.plan.landInterest) / 12 * Number(this.plan.landPeriod));
-        return cal46;
+        let ret = (Number(this.plan.landLoan) * Number(this.plan.landInterest) / 12 * Number(this.plan.landPeriod));
+        return Math.floor (ret);
       }
     
     }
@@ -676,8 +685,8 @@ cal44() {
     //計算47　建物関係金利
     cal47() {
       if(!isNullOrUndefined(this.plan.buildLoan) && !isNullOrUndefined(this.plan.buildInterest) && !isNullOrUndefined(this.plan.buildPeriod)){
-        const cal47=String(Number(this.plan.buildLoan) * Number(this.plan.buildInterest) / 12 * Number(this.plan.buildPeriod));
-        return cal47;
+        let ret =(Number(this.plan.buildLoan) * Number(this.plan.buildInterest) / 12 * Number(this.plan.buildPeriod));
+        return Math.floor (ret);
       }
     
     }
@@ -685,7 +694,7 @@ cal44() {
     //計算48　金利合計
     cal48() {
       let ret= (Number(this.cal46())) + (Number(this.cal47()));
-      return Math.round(ret);
+      return Math.floor(ret);
       }
     
     
@@ -704,29 +713,29 @@ cal44() {
     if(this.getNumber(this.plan.buildPeriod) > 0) {
       ret += (this.getNumber(this.plan.buildLoan) * this.getNumber(this.plan.buildInterest) / 12 * this.getNumber(this.plan.buildPeriod));
     }     
-    return Math.round(ret);
+    return Math.floor(ret);
   }
 
   //計算50_s  
   cal50(pos: number) {
     if(!isNullOrUndefined(this.plan.details[pos].price) && this.plan.totalArea > 0){
-      let ret = Math.round(Number(this.plan.details[pos].price) * (this.plan.totalArea * 0.3025 * 100 ) / 100);
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.details[pos].price) * (this.plan.totalArea * 0.3025 * 100 ) / 100);
+      return Math.floor(ret);
     }    
   }
   
   
   cal50_39() {
     if(!isNullOrUndefined(Number(this.cal39())) && this.plan.totalArea > 0){
-      let ret = Math.round(Number(this.cal39()) * (this.plan.totalArea * 0.3025 * 100 ) / 100);
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.cal39()) * (this.plan.totalArea * 0.3025 * 100 ) / 100);
+      return Math.floor(ret);
     }    
   }
 
   cal50_40() {
     if(!isNullOrUndefined(Number(this.cal40())) && this.plan.totalArea > 0){
-      let ret = Math.round(Number(this.cal40()) * (this.plan.totalArea * 0.3025 * 100 ) / 100);
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.cal40()) * (this.plan.totalArea * 0.3025 * 100 ) / 100);
+      return Math.floor(ret);
     }    
   }
 
@@ -740,15 +749,15 @@ cal44() {
   
   cal51(pos: number) {
     if(!isNullOrUndefined(this.plan.rentdetails[pos].space) && !isNullOrUndefined(this.plan.rentdetails[pos].rentUnitPrice)){
-      let ret = Math.round(Number(this.plan.rentdetails[pos].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[pos].rentUnitPrice));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[pos].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[pos].rentUnitPrice));
+      return Math.floor(ret);
     }    
   }
 
   cal52(pos: number) {
     if(!isNullOrUndefined(this.plan.rentdetails[pos].space) && !isNullOrUndefined(this.plan.rentdetails[pos].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[pos].securityDeposit)){
-      let ret = Math.round(Number(this.plan.rentdetails[pos].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[pos].rentUnitPrice))* (Number(this.plan.rentdetails[pos].securityDeposit));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[pos].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[pos].rentUnitPrice))* (Number(this.plan.rentdetails[pos].securityDeposit));
+      return Math.floor(ret);
     }    
   }
 
@@ -757,50 +766,50 @@ cal44() {
   //計算52_e　敷金
   cal53() {
     if(!isNullOrUndefined(this.plan.rentdetails[15].space) && !isNullOrUndefined(this.plan.rentdetails[15].rentUnitPrice)){
-      let ret = Math.round(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice));
+      return Math.floor(ret);
     }    
   }
 
   cal54() {
     if(!isNullOrUndefined(this.plan.rentdetails[15].space) && !isNullOrUndefined(this.plan.rentdetails[15].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[15].securityDeposit)){
-      let ret = Math.round(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice))* (Number(this.plan.rentdetails[15].securityDeposit));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice))* (Number(this.plan.rentdetails[15].securityDeposit));
+      return Math.floor(ret);
     }    
   }
 
   cal55() {
     if(!isNullOrUndefined(this.plan.rentdetails[16].space) && !isNullOrUndefined(this.plan.rentdetails[16].rentUnitPrice)){
-      let ret = Math.round(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice));
+      return Math.floor(ret);
     }    
   }
 
   cal56() {
     if(!isNullOrUndefined(this.plan.rentdetails[16].space) && !isNullOrUndefined(this.plan.rentdetails[16].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[16].securityDeposit)){
-      let ret = Math.round(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice))* (Number(this.plan.rentdetails[16].securityDeposit));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice))* (Number(this.plan.rentdetails[16].securityDeposit));
+      return Math.floor(ret);
     }    
   }
 
   cal57() {
     if(!isNullOrUndefined(this.plan.rentdetails[17].space) && !isNullOrUndefined(this.plan.rentdetails[17].rentUnitPrice)){
-      let ret = Math.round(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice));
+      return Math.floor(ret);
     }    
   }
 
   cal58() {
     if(!isNullOrUndefined(this.plan.rentdetails[17].space) && !isNullOrUndefined(this.plan.rentdetails[17].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[17].securityDeposit)){
-      let ret = Math.round(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice))* (Number(this.plan.rentdetails[17].securityDeposit));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice))* (Number(this.plan.rentdetails[17].securityDeposit));
+      return Math.floor(ret);
     }    
   }
 
   cal59() {
     if(!isNullOrUndefined(this.plan.rentdetails[18].space) && !isNullOrUndefined(this.plan.rentdetails[18].rentUnitPrice)){
-      let ret = Math.round(Number(this.plan.rentdetails[18].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[18].rentUnitPrice));
-      return Math.round(ret);
+      let ret = Math.floor(Number(this.plan.rentdetails[18].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[18].rentUnitPrice));
+      return Math.floor(ret);
     }    
   }
   
@@ -810,7 +819,7 @@ cal44() {
   cal60() {
     if(!isNullOrUndefined(this.plan.rentdetails[18].space) && !isNullOrUndefined(this.plan.rentdetails[18].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[18].securityDeposit)){
     let ret = ((this.getNumber(this.plan.rentdetails[18].space) * 0.3025 * 100 ) / 100)* this.getNumber(this.plan.rentdetails[18].rentUnitPrice) * this.getNumber(this.plan.rentdetails[18].securityDeposit);
-    return Math.round(ret);
+    return Math.floor(ret);
     }
   }
 
@@ -820,7 +829,7 @@ cal44() {
     +(this.getNumber(this.plan.rentdetails[5].space))+(this.getNumber(this.plan.rentdetails[6].space))+(this.getNumber(this.plan.rentdetails[7].space))+(this.getNumber(this.plan.rentdetails[8].space))
     +(this.getNumber(this.plan.rentdetails[9].space))+(this.getNumber(this.plan.rentdetails[10].space))+(this.getNumber(this.plan.rentdetails[11].space))+(this.getNumber(this.plan.rentdetails[12].space))
     +(this.getNumber(this.plan.rentdetails[13].space))+(this.getNumber(this.plan.rentdetails[14].space))+(this.getNumber(this.plan.rentdetails[15].space))+(this.getNumber(this.plan.rentdetails[16].space))+(this.getNumber(this.plan.rentdetails[17].space))+(this.getNumber(this.plan.rentdetails[18].space));
-    return Math.round(ret);
+    return Math.floor(ret);
     }
   
 
@@ -832,7 +841,7 @@ cal44() {
       ret += (((this.getNumber(this.plan.rentdetails[pos].space) * 0.3025 * 100 ) / 100) * this.getNumber(this.plan.rentdetails[pos].rentUnitPrice));
       pos++;
     }
-    return Math.round(ret);
+    return Math.floor(ret);
   }
 
   //計算６３
@@ -843,12 +852,12 @@ cal44() {
       ret += (((this.getNumber(this.plan.rentdetails[pos].space) * 0.3025 * 100 ) / 100) * this.getNumber(this.plan.rentdetails[pos].rentUnitPrice) * this.getNumber(this.plan.rentdetails[pos].securityDeposit));
       pos++;
     }
-    return Math.round(ret);
+    return Math.floor(ret);
   }
   //計算６４
   cal64() {
     let ret = this.cal62() * 12;
-    return Math.round(ret);
+    return Math.floor(ret);
  
   }
   //計算６５
@@ -865,27 +874,27 @@ cal44() {
   //計算６６
   cal66() {
     let ret = Number(this.cal65()) * 12;
-    return Math.round(ret);
+    return Math.floor(ret);
  
   }
 
   //計算６７
   cal67() {
-    let ret = Math.round(Number(this.plan.rent.monthlyOtherIncome) * 12);
-    return Math.round(ret);
+    let ret = Math.floor(Number(this.plan.rent.monthlyOtherIncome) * 12);
+    return Math.floor(ret);
   }
 
 
   //計算６８
   cal68() {
     let val62 = this.cal62() * 12 + this.getNumber(this.plan.rent.commonFee)*this.getNumber(this.plan.totalUnits)*12 + this.getNumber(this.plan.rent.monthlyOtherIncome) * 12;
-    return Math.round(val62);
+    return Math.floor(val62);
   }
 
   //計算６９
   cal69() {
     let cal69 = this.cal68() * this.getNumber(this.plan.rent.occupancyRate);
-    return Math.round(cal69);
+    return Math.floor(cal69);
   }
 
 
@@ -893,33 +902,33 @@ cal44() {
 //計算７０_S ＮＯＩ※(B)*(1-経費率）
 cal70_1() {
   let cal70_1 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio1))/100);
-  return Math.round(cal70_1);
+  return Math.floor(cal70_1);
 }
 
 cal70_2() {
   let cal70_2 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio2))/100);
-  return Math.round(cal70_2);
+  return Math.floor(cal70_2);
 }
 
 cal70_3() {
   let cal70_3 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio3))/100);
-  return Math.round(cal70_3);
+  return Math.floor(cal70_3);
 }
 
 cal70_4() {
   let cal70_4 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio4))/100);
-  return Math.round(cal70_4);
+  return Math.floor(cal70_4);
 }
 
 //計算７１_S ※NOI/(A)
 cal71_1() {
   let cal71_1 = this.cal70_1() * this.cal49();
-  return Math.round(cal71_1);
+  return Math.floor(cal71_1);
 }
 
 cal71_2() {
   let cal71_2 = this.cal70_2()  * this.cal49();
-  return Math.round(cal71_2);
+  return Math.floor(cal71_2);
 }
 
 cal71_3() {
@@ -929,154 +938,186 @@ cal71_3() {
 
 cal71_4() {
   let cal71_4 = this.cal70_4()  * this.cal49();
-  return Math.round(cal71_4);
+  return Math.floor(cal71_4);
 }
 
 //計算７２_S 売却金額(D) ※NOI/(C)
 cal72_1() {
   let cal72_1 = this.cal70_1() / (this.getNumber(this.plan.rent.salesProfits)/100);
-  return Math.round(cal72_1);
+  return Math.floor(cal72_1);
 }
 
 cal72_2() {
   let cal72_2 = this.cal70_2() / (this.getNumber(this.plan.rent.salesProfits)/100);
-  return Math.round(cal72_2);
+  return Math.floor(cal72_2);
 }
 
 cal72_3() {
   let cal72_3 = this.cal70_3() / (this.getNumber(this.plan.rent.salesProfits)/100);
-  return Math.round(cal72_3);
+  return Math.floor(cal72_3);
 }
 
 cal72_4() {
   let cal72_4 = this.cal70_4() / (this.getNumber(this.plan.rent.salesProfits)/100);
-  return Math.round(cal72_4);
+  return Math.floor(cal72_4);
 }
 
 //計算７３_S 売却時利益(E)※(D)-(A)
 cal73_1() {
   let cal73_1 = this.cal72_1() - this.cal49();
-  return Math.round(cal73_1);
+  return Math.floor(cal73_1);
 }
 
 cal73_2() {
   let cal73_2 = this.cal72_2() - this.cal49();
-  return Math.round(cal73_2);
+  return Math.floor(cal73_2);
 }
 
 cal73_3() {
   let cal73_3 = this.cal72_3() - this.cal49();
-  return Math.round(cal73_3);
+  return Math.floor(cal73_3);
 }
 
 cal73_4() {
   let cal73_4 = this.cal72_4() - this.cal49();
-  return Math.round(cal73_4);
+  return Math.floor(cal73_4);
 }
 
 //計算７４_S 利益率※(E)/(D)
 cal74_1() {
-  let cal74_1 = this.cal73_1() / this.cal72_1()
-  return Math.round(cal74_1);
+  if(!isNullOrUndefined(this.cal73_1 == null )&& !isNullOrUndefined(this.cal72_1 == null)){
+  let cal74_1 = Math.round(this.cal73_1() / this.cal72_1() *100)/100;
+  return cal74_1;
+} else {
+  return '';
+}
 }
 
 cal74_2() {
-  let cal74_2 = this.cal73_2() / this.cal72_2();
-  return Math.round(cal74_2);
+  if(!isNullOrUndefined(this.cal73_2 == null )&& !isNullOrUndefined(this.cal72_2 == null)){
+  let cal74_2 =  Math.round(this.cal73_2() / this.cal72_2()*100)/100;
+  return cal74_2;
+} else {
+  return '';
+}
 }
 
 cal74_3() {
-  let cal74_3 = this.cal73_3() / this.cal72_3();
-  return Math.round(cal74_3);
+  if(!isNullOrUndefined(this.cal73_3 == null )&& !isNullOrUndefined(this.cal72_3 == null)){
+  let cal74_3 = Math.round(this.cal73_3() / this.cal72_3()*100)/100;
+  return cal74_3;
+} else {
+  return '';
+}
 }
 
 cal74_4() {
-  let cal74_4 =this.cal73_4() / this.cal72_4();
-  return Math.round(cal74_4);
+  if(!isNullOrUndefined(this.cal73_4 == null )&& !isNullOrUndefined(this.cal72_4 == null)){
+  let cal74_4 =Math.round(this.cal73_4() / this.cal72_4()*100)/100;
+  return cal74_4;
+} else {
+  return '';
+}
 }
 
 //計算７７_S 売買計画　売却金額
 cal77_1() {
   let cal77_1 = this.cal69() *  (this.getNumber(this.plan.rent.profitsA));
-  return Math.round(cal77_1);
+  return Math.floor(cal77_1);
 }
 
 cal77_2() {
   let cal77_2 = this.cal69() *  (this.getNumber(this.plan.rent.profitsB));
-  return Math.round(cal77_2);
+  return Math.floor(cal77_2);
 }
 
 cal77_3() {
   let cal77_3 = this.cal69() * (this.getNumber(this.plan.rent.profitsC));
-  return Math.round(cal77_3);
+  return Math.floor(cal77_3);
 }
 
 cal77_4() {
   let cal77_4 = this.cal69() *  (this.getNumber(this.plan.rent.profitsD));
-  return Math.round(cal77_4);
+  return Math.floor(cal77_4);
 }
 
 //計算７９_S 売買計画　販売経費小計
 cal79_1() {
   let cal79_1 = (this.getNumber(this.plan.rent.salesExpense1A)) + (this.getNumber(this.plan.rent.salesExpense2A)) + (this.getNumber(this.plan.rent.salesExpense3A));
-  return Math.round(cal79_1);
+  return Math.floor(cal79_1);
 }
 
 cal79_2() {
   let cal79_2 =  (this.getNumber(this.plan.rent.salesExpense1B)) + (this.getNumber(this.plan.rent.salesExpense2B)) + (this.getNumber(this.plan.rent.salesExpense3B));
-  return Math.round(cal79_2);
+  return Math.floor(cal79_2);
 }
 
 cal79_3() {
   let cal79_3 =  (this.getNumber(this.plan.rent.salesExpense1C)) + (this.getNumber(this.plan.rent.salesExpense2C)) + (this.getNumber(this.plan.rent.salesExpense3C));
-  return Math.round(cal79_3);
+  return Math.floor(cal79_3);
 }
 
 cal79_4() {
   let cal79_4 =  (this.getNumber(this.plan.rent.salesExpense1D)) + (this.getNumber(this.plan.rent.salesExpense2D)) + (this.getNumber(this.plan.rent.salesExpense3D));
-  return Math.round(cal79_4);
+  return Math.floor(cal79_4);
 }
 
 //計算８０_S 売買計画　利益
 cal80_1() {
   let cal80_1 = this.cal77_1() - this.cal49() - this.cal79_1();
-  return Math.round(cal80_1);
+  return Math.floor(cal80_1);
 }
 
 cal80_2() {
   let cal80_2 = this.cal77_2() - this.cal49() - this.cal79_2();
-  return Math.round(cal80_2);
+  return Math.floor(cal80_2);
 }
 
 cal80_3() {
   let cal80_3 = this.cal77_3() - this.cal49() - this.cal79_3();
-  return Math.round(cal80_3);
+  return Math.floor(cal80_3);
 }
 
 cal80_4() {
   let cal80_4 = this.cal77_4() - this.cal49() - this.cal79_4();
-  return Math.round(cal80_4);
+  return Math.floor(cal80_4);
 }
 
 //計算８１_S 売買計画　利益率
 cal81_1() {
-  let cal81_1 = this.cal80_1() / this.cal77_1() ;
-  return Math.round(cal81_1);
+  if(!isNullOrUndefined(this.cal80_1 == null )&& !isNullOrUndefined(this.cal77_1 == null)){
+  let cal81_1 = Math.round(this.cal80_1() / this.cal77_1()*100)/100;
+  return cal81_1;
+} else {
+  return '';
+}
 }
 
 cal81_2() {
-  let cal81_2 = this.cal80_2() / this.cal77_2() ;
-  return Math.round(cal81_2);
+  if(!isNullOrUndefined(this.cal80_2 == null )&& !isNullOrUndefined(this.cal77_2 == null)){
+  let cal81_2 = Math.round(this.cal80_2() / this.cal77_2()*100)/100;
+  return cal81_2;
+} else {
+  return '';
+}
 }
 
 cal81_3() {
-  let cal81_3 = this.cal80_3() / this.cal77_3() ;
-  return Math.round(cal81_3);
+  if(!isNullOrUndefined(this.cal80_3 == null )&& !isNullOrUndefined(this.cal77_3 == null)){
+  let cal81_3 =  Math.round(this.cal80_3() / this.cal77_3()*100)/100;
+  return cal81_3;
+} else {
+  return '';
+}
 }
 
 cal81_4() {
-  let cal81_4 = this.cal80_4() / this.cal77_4() ;
-  return Math.round(cal81_4);
+  if(!isNullOrUndefined(this.cal80_4 == null )&& !isNullOrUndefined(this.cal77_4 == null)){
+  let cal81_4 =  Math.round(this.cal80_4() / this.cal77_4()*100)/100;
+  return cal81_4;
+} else {
+  return '';
+}
 }
 
 
