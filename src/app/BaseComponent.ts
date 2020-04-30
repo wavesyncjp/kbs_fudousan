@@ -193,6 +193,10 @@ export class BaseComponent implements OnInit {
         return true;
     }
 
+    isBlank(str): boolean {
+        return (!str || /^\s*$/.test(str));
+    }
+
     /**
      * 空白チェック
      * @param str : チェック文字列
