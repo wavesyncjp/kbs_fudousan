@@ -509,6 +509,24 @@ export class BukkenDetailComponent extends BaseComponent {
   gotoPlan() {
     this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
   }
+
+
+  export() {
+
+    const dlg = new Dialog({title: '確認', message: '売買取引管理表を出力しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportSale(this.pid).then(data => {
+          this.service.writeToFile(data);
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+
 }
 
 

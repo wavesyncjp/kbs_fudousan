@@ -309,6 +309,16 @@ export class BackendService {
     return res.toPromise();
   }
 
+  /**
+   * 売買取引管理表　出力
+   * @param pid 物件
+   */
+  exportSale(pid: number): Promise<Blob> {
+    const downloadUrl = 'saleexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: pid}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+
   writeToFile(data: any) {
     const blob = new Blob([data], {
       type: 'application/octet-stream'
