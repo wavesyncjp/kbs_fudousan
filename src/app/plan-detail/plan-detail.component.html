@@ -475,7 +475,7 @@
         </tr>
         <tr>
             <th class="main">建築費</th>
-            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[10].price" (keypress)="numericOnly($event)"></td>
+            <td class="yen"><input type="text" class="Twidth100"  [(ngModel)]="plan.details[10].price" (keypress)="numericOnly($event)"  (ngModelChange)="changeValue('price10')"></td>
             <td class="yen"><input type="text" class="Twidth100"  [value]="cal50(10)" [attr.disabled]="true"></td>
             <!--20200407_hirano src-->
             <td class="yen"><input type="text" class="Twidth100" placeholder="容積単価" [(ngModel)]="plan.details[10].unitPrice"></td>
@@ -616,12 +616,12 @@
         <tr>
             <th class="main">取得税</th>
             <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="cal39()"></td>
-            <td class="yen"><input type="text" class="Twidth100" [value]="cal50_39()"[attr.disabled]="true"></td>
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true"></td><!--[value]="cal50(39)"-->
         </tr>
         <tr>
             <th class="main">登録税</th>
             <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="cal40()"></td>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="cal50_40()"></td>
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" ></td><!--[value]="cal50(40)"-->
         </tr>
     </div>
     <div class="kakomi-box11">
