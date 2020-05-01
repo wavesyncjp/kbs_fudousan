@@ -615,13 +615,13 @@
         </tr>
         <tr>
             <th class="main">取得税</th>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="cal39()"></td>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true"></td><!--[value]="cal50(39)"-->
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="changeHang(plan.taxation,0.015)"></td>
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="changeUnit(plan.taxation,0.015)"></td>
         </tr>
         <tr>
             <th class="main">登録税</th>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="cal40()"></td>
-            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" ></td><!--[value]="cal50(40)"-->
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true" [value]="changeHang(plan.taxation,0.02)"></td>
+            <td class="yen"><input type="text" class="Twidth100" [attr.disabled]="true"  [value]="changeUnit(plan.taxation,0.02)"></td>
         </tr>
     </div>
     <div class="kakomi-box11">
