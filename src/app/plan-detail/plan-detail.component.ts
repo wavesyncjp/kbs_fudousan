@@ -362,8 +362,8 @@ export class PlanDetailComponent extends BaseComponent {
 
     if(name === 'price10'){
       if(!isNullOrUndefined(this.plan.details[10].price) && !isNullOrUndefined(this.plan.details[11].price)){
-        this.plan.details[11].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.03)*100 / 100);
-        this.plan.details[13].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.02)*100 / 100);
+        this.plan.details[11].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.03));
+        this.plan.details[13].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.02));
       
         this.changeValue('price11');
         this.changeValue('price13');
@@ -918,7 +918,7 @@ cal44() {
 //計算７０_S ＮＯＩ※(B)*(1-経費率）
 cal70_1() {
   if(!isNullOrUndefined(this.cal69 == null ) && Number(this.plan.rent.expenseRatio1 ) > 0){
-  let ret = Math.floor(this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio1))/100));
+  let ret = Math.floor(this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio1)/100)));
   return Math.floor(ret);
 } else {
   return '';
@@ -926,24 +926,24 @@ cal70_1() {
 }
 
 cal70_2() {
-  let cal70_2 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio2))/100);
+  let cal70_2 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio2)/100));
   return Math.floor(cal70_2);
 }
 
 cal70_3() {
-  let cal70_3 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio3))/100);
+  let cal70_3 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio3)/100));
   return Math.floor(cal70_3);
 }
 
 cal70_4() {
-  let cal70_4 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio4))/100);
+  let cal70_4 = this.cal69() * ( 1- (this.getNumber(this.plan.rent.expenseRatio4)/100));
   return Math.floor(cal70_4);
 }
 
-//計算７１_S ※NOI/(A)
+//計算７１_S ＮＯＩ利回り※NOI/(A)
 cal71_1() {
   if(!isNullOrUndefined(this.cal70_1 == null )  && !isNullOrUndefined(this.cal49 == null )){
-  let cal71_1 = Math.floor(Number(this.cal70_1()) * this.cal49());
+  let cal71_1 = Math.floor(Number(this.cal70_1()) / this.cal49());
   return Math.floor(cal71_1);
 } else {
   return '';
@@ -965,10 +965,10 @@ cal71_4() {
   return Math.floor(cal71_4);
 }
 
-//計算７２_S 売却金額(D) ※NOI/(C)
+//計算７２_S 売上金利(D)※NOI/(A)
 cal72_1() {
   if(!isNullOrUndefined(this.cal70_1 == null )&&  Number(this.plan.rent.salesProfits) > 0 ){
-  let ret = Math.floor(Number(this.cal70_1()) / (this.getNumber(this.plan.rent.salesProfits)/100));
+  let ret = Math.floor(Number(this.cal70_1()) / (Number(this.plan.rent.salesProfits)/100));
   return Math.floor(ret);
 } else {
   return '';
@@ -1019,10 +1019,9 @@ cal73_4() {
 //計算７４_S 利益率※(E)/(D)
 cal74_1() {
   if(!isNullOrUndefined(this.cal73_1 == null )  && isNullOrUndefined(this.cal72_1 == null) ){
-  let cal74_1 =  Math.round(Number(this.cal73_1()) / Number(this.cal72_1())*100)/100;
-  return cal74_1;
-} else {
-  return '';
+  let ret =  Math.round(Number(this.cal73_1()) / (Number(this.cal72_1())/100)*100);
+  return Math.round(ret);
+
 }
 }
 
