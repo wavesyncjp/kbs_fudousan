@@ -48,6 +48,7 @@ import { PlanListComponent } from './plan-list/plan-list.component';
 // 20200226 test E_Add
 import{ BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
+import { ContractTemplateComponent } from './contract-template/contract-template.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo
     PlanListComponent,
     BukkenplaninfoDetailComponent,
     BukkenplaninfoListComponent,
+    ContractTemplateComponent,
 
     
     // 20200226 test E_Add
@@ -124,8 +126,8 @@ import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo
   entryComponents: [BukkenDetailComponent, ContractDetailComponent,
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
     UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
-    PaymentTypeDetailComponent
-    , PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent// 20200213 test Add
+    PaymentTypeDetailComponent, PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent,
+    ContractTemplateComponent
   ],
 })
 export class AppModule { }

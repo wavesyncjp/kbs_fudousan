@@ -18,6 +18,7 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { ContractFile } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 import { ContractSellerInfo } from '../models/contractsellerinfo';
+import { ContractTemplateComponent } from '../contract-template/contract-template.component';
 
 @Component({
   selector: 'app-contract-detail',
@@ -356,6 +357,30 @@ export class ContractDetailComponent extends BaseComponent {
    */
   export() {
 
+    //テンプレート選択
+    const dialogRef = this.dialog.open(ContractTemplateComponent, {
+      width: '450px',
+      height: '200px',
+      data: {
+        pid: this.contract.pid,
+        promptDecideFlg: this.contract.promptDecideFlg,
+        indivisibleFlg: this.contract.indivisibleFlg,
+        equiExchangeFlg: this.contract.equiExchangeFlg,
+        tradingType: this.contract.tradingType
+      }
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['choose']) {    
+        this.spinner.show();
+        this.service.exportContract(this.contract.pid, result['templatePid']).then(data => {
+          this.service.writeToFile(data, result['fileName']);
+          this.spinner.hide();
+        });    
+      }
+    });
+
+    /*
     const dlg = new Dialog({title: '確認', message: '契約書を出力しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
@@ -368,6 +393,8 @@ export class ContractDetailComponent extends BaseComponent {
         });
       }
     });
+    */
+
   }
   showSharer(loc: Locationinfo) {
     const dialogRef = this.dialog.open(SharerDialogComponent, {

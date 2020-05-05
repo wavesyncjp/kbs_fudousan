@@ -19,7 +19,7 @@ import { Bukkensalesinfo } from './models/bukkensalesinfo';
 @Injectable({
   providedIn: 'root'
 })
-export class BackendService {
+export class BackendService {  
 
   //private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
@@ -292,10 +292,10 @@ export class BackendService {
    * 契約書出力
    * @param contractPid 契約Pid
    */
-  exportContract(contractPid: number): Promise<Blob> {
+  exportContract(contractPid: number, templatePid: any): Promise<Blob> {
     const downloadUrl = 'contractexport.php';
     // tslint:disable-next-line:max-line-length
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: contractPid}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: contractPid, templatePid: templatePid}, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
 
@@ -319,16 +319,21 @@ export class BackendService {
     return res.toPromise();
   }
 
-  writeToFile(data: any) {
+  writeToFile(data: any, fileName: string = '') {
     const blob = new Blob([data], {
       type: 'application/octet-stream'
     });
+
+    if(fileName !== '') {
+      fileName = fileName.replace('.xlsx', '') + '_';
+    }    
 
     const convert = new Converter();
 
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    link.download = convert.formatDay(new Date(), 'yyyyMMddHHmmss') + '.xlsx';
+    
+    link.download = fileName + convert.formatDay(new Date(), 'yyyyMMddHHmmss') + '.xlsx';
     link.click();
     window.URL.revokeObjectURL(link.href);
   }
@@ -723,6 +728,14 @@ export class BackendService {
   saveBukkenSale(sale: Bukkensalesinfo): Promise<Bukkensalesinfo> {
     const saveApi = 'lansalesave.php'; 
     const req = this.http.post<Bukkensalesinfo>(`${this.BaseUrl}/${saveApi}`, sale);
+    return req.toPromise();
+  }
+
+
+  //契約書
+  loadContractTemplate(data: any):  Promise<any[]>{
+    const api = 'contracttemplate.php'; 
+    const req = this.http.post<any[]>(`${this.BaseUrl}/${api}`, data);
     return req.toPromise();
   }
 
