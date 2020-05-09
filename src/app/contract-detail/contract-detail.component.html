@@ -222,6 +222,12 @@
             </td>       
         </tr>
        <tr>
+            <th>引渡期日</th>
+            <td>
+                <input type="text" [matDatepicker]="deliveryFixedDay" class="width100" [(ngModel)]="contract.deliveryFixedDayMap">
+                <mat-datepicker-toggle matSuffix [for]="deliveryFixedDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deliveryFixedDay></mat-datepicker>
+            </td>
            <th>明渡期日</th>
            <td>
                 <input type="text" [matDatepicker]="vacationDay" class="width100" [(ngModel)]="contract.vacationDayMap">

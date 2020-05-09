@@ -36,6 +36,7 @@ export class Contractinfo {
     prioritySalesFloor: number;
     prioritySalesPlanPrice: number;
     fixedTax: number;
+    deliveryFixedDay: string;
     vacationDay: string;
     contractDay: string;
     attachFilePath: string;
@@ -71,7 +72,7 @@ export class Contractinfo {
     bankName: string;
 
 
-
+    deliveryFixedDayMap: Date = null;
     vacationDayMap: Date = null;
     contractDayMap: Date = null;
     acquisitionConfirmDayMap: Date = null;
@@ -104,6 +105,9 @@ export class Contractinfo {
     }
 
     public convert() {
+        if (this.deliveryFixedDay) {
+            this.deliveryFixedDayMap = parse(this.deliveryFixedDay, 'yyyyMMdd', new Date());
+        }
         if (this.vacationDay) {
             this.vacationDayMap = parse(this.vacationDay, 'yyyyMMdd', new Date());
         }
@@ -158,6 +162,7 @@ export class Contractinfo {
             this.createUserId = userId;
         }
 
+        this.deliveryFixedDay = this.deliveryFixedDayMap != null ? datePipe.transform(this.deliveryFixedDayMap, 'yyyyMMdd') : null;
         this.vacationDay = this.vacationDayMap != null ? datePipe.transform(this.vacationDayMap, 'yyyyMMdd') : null;
         this.contractDay = this.contractDayMap != null ? datePipe.transform(this.contractDayMap, 'yyyyMMdd') : null;
         // tslint:disable-next-line:max-line-length
