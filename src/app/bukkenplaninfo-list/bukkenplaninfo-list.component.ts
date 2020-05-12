@@ -248,6 +248,13 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   gotoBukken() {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: this.pid}});
   }
+
+  /**
+   * 一覧へ戻る
+   */
+  backToList() {
+    this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
+  }
 }
 
 
