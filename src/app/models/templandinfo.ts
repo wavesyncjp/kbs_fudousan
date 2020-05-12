@@ -27,7 +27,7 @@ export class Templandinfo {
     landCategory = '';
     floorAreaRatio: number = null;
     coverageRate: number = null;
-    surveyRequestedDay: string;
+    surveyRequestedDay: string;z
     surveyRequested: string;
     surveyStaff: string;
     surveyMapChk: string;
