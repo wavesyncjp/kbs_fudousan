@@ -34,14 +34,14 @@
           <th>情報収集日</th>
           <td>
             <div class="picker-div">
-                <input type="text" [matDatepicker]="pickDate_From" [(ngModel)]="cond.pickDateMap_From" class="width100">
+                <input type="text" [matDatepicker]="pickDate_From" [(ngModel)]="cond.pickDateMap_From" placeholder="開始日" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="pickDate_From" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #pickDate_From></mat-datepicker>
             </div>
           </td>
           <td colspan="2">
             <div class="picker-div">
-                <input type="text" [matDatepicker]="pickDate_To" [(ngModel)]="cond.pickDateMap_To" class="width100">
+                <input type="text" [matDatepicker]="pickDate_To" [(ngModel)]="cond.pickDateMap_To"  placeholder="終了日"class="width100">
                 <mat-datepicker-toggle matSuffix [for]="pickDate_To" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #pickDate_To></mat-datepicker>
             </div>
@@ -49,14 +49,14 @@
           <th>測量依頼日</th>
           <td>
             <div class="picker-div">
-                <input type="text" [matDatepicker]="surveyRequestedDay_From" [(ngModel)]="cond.surveyRequestedDayMap_From" class="width100">
+                <input type="text" [matDatepicker]="surveyRequestedDay_From" [(ngModel)]="cond.surveyRequestedDayMap_From" placeholder="開始日" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="surveyRequestedDay_From" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #surveyRequestedDay_From></mat-datepicker>
             </div>
           </td>
           <td>
             <div class="picker-div">
-                <input type="text" [matDatepicker]="surveyRequestedDay_To" [(ngModel)]="cond.surveyRequestedDayMap_To" class="width100">
+                <input type="text" [matDatepicker]="surveyRequestedDay_To" [(ngModel)]="cond.surveyRequestedDayMap_To" placeholder="終了日" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="surveyRequestedDay_To" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #surveyRequestedDay_To></mat-datepicker>
             </div>
