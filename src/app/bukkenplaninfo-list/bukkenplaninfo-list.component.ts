@@ -216,7 +216,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
    * 保存ための変換
    */
   convertForSave() {
-    this.data.land.convertForSave(this.service.loginUser.userId);
+    this.data.land.convertForSave(this.service.loginUser.userId, this.datepipe);
     this.data.plans.forEach(me => {
       me.convertForSave(this.service.loginUser.userId, this.datepipe);
     });

@@ -15,6 +15,7 @@ import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.com
 import { Contractinfo } from '../models/contractinfo';
 import { SharerInfo } from '../models/sharer-info';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -42,6 +43,7 @@ export class BukkenDetailComponent extends BaseComponent {
               private route: ActivatedRoute,
               public service: BackendService,
               public dialog: MatDialog,
+              public datepipe: DatePipe,
               private spinner: NgxSpinnerService) {
     super(router, service);
 
@@ -245,7 +247,7 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         // 土地情報登録
-        this.data.convertForSave(this.service.loginUser.userId);
+        this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
         const funcs = [];
         funcs.push(this.service.saveLand(this.data));
         Promise.all(funcs).then(values => {

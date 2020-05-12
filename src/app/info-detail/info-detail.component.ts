@@ -6,6 +6,7 @@ import { Code } from '../models/bukken';
 import { BaseComponent } from '../BaseComponent';
 import { Router } from '@angular/router';
 import { Checklib } from '../utils/checklib';
+import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
@@ -33,6 +34,7 @@ export class InfoDetailComponent extends BaseComponent {
               public service: BackendService,
               public dialogRef: MatDialogRef<InfoDetailComponent>,
               public dialog: MatDialog,
+              public datepipe: DatePipe,
               @Inject(MAT_DIALOG_DATA) public data: Information) {
     super(router, service);
   }
@@ -110,7 +112,7 @@ export class InfoDetailComponent extends BaseComponent {
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
-        this.data.convertForSave(this.service.loginUser.userId);
+        this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
         if (this.cbxFinishFlg.checked) {
           this.data.finishFlg = '1';
         } else {

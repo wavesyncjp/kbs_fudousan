@@ -4,6 +4,8 @@ import {Bukkenplaninfo} from './bukkenplaninfo'
 import { SharerInfo } from './sharer-info';
 import { from } from 'rxjs';
 import { Bukkensalesinfo } from './bukkensalesinfo';
+import { DatePipe } from '@angular/common';
+import { parse } from 'date-fns';
 
 export class Templandinfo {
     pid: number;
@@ -65,13 +67,14 @@ export class Templandinfo {
 
     public convert() {
         if (this.pickDate) {
-            this.pickDateMap = new Date(this.pickDate);
+//            this.pickDateMap = new Date(this.pickDate);
+            this.pickDateMap = parse(this.pickDate, 'yyyyMMdd', new Date());
         }
         if (this.startDate) {
-            this.startDateMap = new Date(this.startDate);
+            this.startDateMap = parse(this.startDate, 'yyyyMMdd', new Date());
         }
         if (this.finishDate) {
-            this.finishDateMap = new Date(this.finishDate);
+            this.finishDateMap = parse(this.finishDate, 'yyyyMMdd', new Date());
         }
         if (this.surveyRequestedDay) {
             this.surveyRequestedDayMap = new Date(this.surveyRequestedDay);
@@ -87,12 +90,17 @@ export class Templandinfo {
         }
     }
 
-    public convertForSave(userId: number) {
+    public convertForSave(userId: number, datePipe: DatePipe) {
         this.infoStaff = this.infoStaffMap.join(',');
         this.infoOffer = this.infoOfferMap.join(',');
+        /*
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
         this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;
         this.finishDate = this.finishDateMap != null ? this.finishDateMap.toLocaleString() : null;
+        */
+        this.pickDate = this.pickDateMap != null ? datePipe.transform(this.pickDateMap, 'yyyyMMdd') : null;
+        this.startDate = this.startDateMap != null ? datePipe.transform(this.startDateMap, 'yyyyMMdd') : null;
+        this.finishDate = this.finishDateMap != null ? datePipe.transform(this.finishDateMap, 'yyyyMMdd') : null;
         this.surveyRequestedDay = this.surveyRequestedDayMap != null ? this.surveyRequestedDayMap.toLocaleString() : null;
         this.surveyDeliveryDay = this.surveyDeliveryDayMap != null ? this.surveyDeliveryDayMap.toLocaleString() : null;
 
