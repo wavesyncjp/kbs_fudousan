@@ -77,10 +77,10 @@ export class Templandinfo {
             this.finishDateMap = parse(this.finishDate, 'yyyyMMdd', new Date());
         }
         if (this.surveyRequestedDay) {
-            this.surveyRequestedDayMap = new Date(this.surveyRequestedDay);
+            this.surveyRequestedDayMap = parse(this.surveyRequestedDay, 'yyyyMMdd', new Date());
         }
         if (this.surveyDeliveryDay) {
-            this.surveyDeliveryDayMap = new Date(this.surveyDeliveryDay);
+            this.surveyDeliveryDayMap = parse(this.surveyDeliveryDay, 'yyyyMMdd', new Date());
         }
         if (this.infoStaff !== null) {
             this.infoStaffMap = this.infoStaff.split(',');
@@ -97,12 +97,14 @@ export class Templandinfo {
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
         this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;
         this.finishDate = this.finishDateMap != null ? this.finishDateMap.toLocaleString() : null;
+        this.surveyRequestedDay = this.surveyRequestedDayMap != null ? this.surveyRequestedDayMap.toLocaleString() : null;
+        this.surveyDeliveryDay = this.surveyDeliveryDayMap != null ? this.surveyDeliveryDayMap.toLocaleString() : null;
         */
         this.pickDate = this.pickDateMap != null ? datePipe.transform(this.pickDateMap, 'yyyyMMdd') : null;
         this.startDate = this.startDateMap != null ? datePipe.transform(this.startDateMap, 'yyyyMMdd') : null;
         this.finishDate = this.finishDateMap != null ? datePipe.transform(this.finishDateMap, 'yyyyMMdd') : null;
-        this.surveyRequestedDay = this.surveyRequestedDayMap != null ? this.surveyRequestedDayMap.toLocaleString() : null;
-        this.surveyDeliveryDay = this.surveyDeliveryDayMap != null ? this.surveyDeliveryDayMap.toLocaleString() : null;
+        this.surveyRequestedDay = this.surveyRequestedDayMap != null ? datePipe.transform(this.surveyRequestedDayMap, 'yyyyMMdd') : null;
+        this.surveyDeliveryDay = this.surveyDeliveryDayMap != null ? datePipe.transform(this.surveyDeliveryDayMap, 'yyyyMMdd') : null;
 
         if (this.pid > 0) {
             this.updateUserId = userId;

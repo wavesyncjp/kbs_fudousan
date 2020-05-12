@@ -150,13 +150,13 @@
         <!-- 情報収集日 Column -->
         <ng-container matColumnDef="pickDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 情報収集日 </th>
-          <td mat-cell *matCellDef="let element"> {{element.pickDate | date:'yyyy/MM/dd'}} </td>
+          <td mat-cell *matCellDef="let element"> {{formatDay(element.pickDate, 'yyyy/MM/dd')}} </td>
         </ng-container>
 
         <!-- 測量依頼日 Column -->
         <ng-container matColumnDef="surveyRequestedDay">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 測量依頼日 </th>
-          <td mat-cell *matCellDef="let element"> {{element.surveyRequestedDay | date:'yyyy/MM/dd'}} </td>
+          <td mat-cell *matCellDef="let element"> {{formatDay(element.surveyRequestedDay, 'yyyy/MM/dd')}} </td>
         </ng-container>
     
          <!-- 担当部署 Column -->
