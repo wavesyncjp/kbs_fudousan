@@ -34,9 +34,13 @@ export class BukkenListComponent extends BaseComponent {
     residence: '',
     address: '',
     pickDate_From: '',
+    pickDateSearch_From: '',
     pickDate_To: '',
+    pickDateSearch_To: '',
     surveyRequestedDay_From: '',
+    surveyRequestedDaySearch_From: '',
     surveyRequestedDay_To: '',
+    surveyRequestedDaySearch_To: '',
 //    pickDateMap: new Date(),
 //    pickDate: '',
     department: [],
@@ -133,10 +137,10 @@ export class BukkenListComponent extends BaseComponent {
     this.markers = [];
 
 //    this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
-    this.cond.pickDate_From = this.cond.pickDate_From != null ? this.datepipe.transform(this.cond.pickDate_From, 'yyyyMMdd') : "";
-    this.cond.pickDate_To = this.cond.pickDate_To != null ? this.datepipe.transform(this.cond.pickDate_To, 'yyyyMMdd') : "";
-    this.cond.surveyRequestedDay_From = this.cond.surveyRequestedDay_From != null ? this.datepipe.transform(this.cond.surveyRequestedDay_From, 'yyyyMMdd') : "";
-    this.cond.surveyRequestedDay_To = this.cond.surveyRequestedDay_To != null ? this.datepipe.transform(this.cond.surveyRequestedDay_To, 'yyyyMMdd') : "";
+    this.cond.pickDateSearch_From = this.cond.pickDate_From != null ? this.datepipe.transform(this.cond.pickDate_From, 'yyyyMMdd') : "";
+    this.cond.pickDateSearch_To = this.cond.pickDate_To != null ? this.datepipe.transform(this.cond.pickDate_To, 'yyyyMMdd') : "";
+    this.cond.surveyRequestedDaySearch_From = this.cond.surveyRequestedDay_From != null ? this.datepipe.transform(this.cond.surveyRequestedDay_From, 'yyyyMMdd') : "";
+    this.cond.surveyRequestedDaySearch_To = this.cond.surveyRequestedDay_To != null ? this.datepipe.transform(this.cond.surveyRequestedDay_To, 'yyyyMMdd') : "";
 
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
