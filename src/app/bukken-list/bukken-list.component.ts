@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
 import { Code } from '../models/bukken';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-bukken-list',
@@ -32,6 +33,10 @@ export class BukkenListComponent extends BaseComponent {
     bukkenName: '',
     residence: '',
     address: '',
+    pickDate_From: '',
+    pickDate_To: '',
+    surveyRequestedDay_From: '',
+    surveyRequestedDay_To: '',
 //    pickDateMap: new Date(),
 //    pickDate: '',
     department: [],
@@ -60,6 +65,7 @@ export class BukkenListComponent extends BaseComponent {
               private route: ActivatedRoute,
               public service: BackendService,
               public dialog: MatDialog,
+              public datepipe: DatePipe,
               private spinner: NgxSpinnerService) {
                 super(router, service);
 
@@ -127,6 +133,11 @@ export class BukkenListComponent extends BaseComponent {
     this.markers = [];
 
 //    this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
+    this.cond.pickDate_From = this.cond.pickDate_From != null ? this.datepipe.transform(this.cond.pickDate_From, 'yyyyMMdd') : "";
+    this.cond.pickDate_To = this.cond.pickDate_To != null ? this.datepipe.transform(this.cond.pickDate_To, 'yyyyMMdd') : "";
+    this.cond.surveyRequestedDay_From = this.cond.surveyRequestedDay_From != null ? this.datepipe.transform(this.cond.surveyRequestedDay_From, 'yyyyMMdd') : "";
+    this.cond.surveyRequestedDay_To = this.cond.surveyRequestedDay_To != null ? this.datepipe.transform(this.cond.surveyRequestedDay_To, 'yyyyMMdd') : "";
+
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         res.forEach(obj => {
