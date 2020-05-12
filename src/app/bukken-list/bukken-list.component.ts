@@ -41,7 +41,7 @@ export class BukkenListComponent extends BaseComponent {
   search = '0';
   searched = false;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'department', 'result', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -247,6 +247,12 @@ export class BukkenListComponent extends BaseComponent {
         dayStr = parseVal.toLocaleDateString();
       }
 
+      let requestedStr = '';
+      if (!(bk.surveyRequestedDay === undefined || bk.surveyRequestedDay === '' || bk.surveyRequestedDay == null)) {
+        const parseVal = new Date(bk.surveyRequestedDay);
+        requestedStr = parseVal.toLocaleDateString();
+      }
+
       const linkStr = [];
       bk.mapFiles.forEach(file => {
         linkStr.push(`<a href="${file.mapFilePath + file.mapFileName}" target="_blank">${file.mapFileName}</a>`);
@@ -263,6 +269,7 @@ export class BukkenListComponent extends BaseComponent {
                       <tr><th class="label">地図情報</th><th>${linkStr.join('   ')}</th></tr>
                       <tr><th><br></th><th></th></tr>
                       <tr><th class="label">情報収集日</th><th>${dayStr}</th></tr>
+                      <tr><th class="label">測量依頼日</th><th>${requestedStr}</th></tr>
                       <tr><th class="label">担当部署</th><th>${bk.department}</th></tr>
                       <tr><th class="label"></th><th><a href="javascript:openDetailFromMap(${bk.pid})">詳細</a></th></tr>
                     </table>

@@ -11,6 +11,7 @@ import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.com
 import { Bukkensalesinfo } from '../models/bukkensalesinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
+import { Code } from '../models/bukken';
 
 
 
@@ -43,6 +44,23 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     this.service.changeTitle('売り契約情報詳細');
     this.data = new Bukkensalesinfo(this.data);
     this.data.convert();
+
+    const funcs = [];
+    funcs.push(this.service.getCodes(null));
+
+    Promise.all(funcs).then(values => {
+
+      // コード
+      const codes = values[0] as Code[];
+      if (codes !== null && codes.length > 0) {
+        const uniqeCodes = [...new Set(codes.map(code => code.code))];
+        uniqeCodes.forEach(code => {
+          const lst = codes.filter(c => c.code === code);
+          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          this.sysCodes[code] = lst;
+        });
+      }
+    });
   }
 
   save() {
