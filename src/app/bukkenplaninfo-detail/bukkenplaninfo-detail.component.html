@@ -16,7 +16,7 @@
        
         <tr> 
             <th>売買(公簿売買<br>or実測売買）</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesType" class= "width250"></td>            
+            <td colspan="3"><app-select-component [codes]="getCode('021')" [(ngModel)]="data.salesType" [noBlank]="true"></app-select-component></td>            
             <th>売却先</th>
             <td colspan="3"><input type="text" [(ngModel)]="data.salesName" class= "width250"></td>
                                     

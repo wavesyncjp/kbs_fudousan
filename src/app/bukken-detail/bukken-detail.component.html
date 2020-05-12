@@ -267,7 +267,7 @@
                     <tr *ngFor="let contract of contracts">                        
                         <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                         <!--20200414hirano src_S-->
-                        <td>{{!isBlank(contract.contractFormNumber) ? data.bukkenNo + "-" + contract.contractFormNumber : ""}}</td>
+                        <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
                         <!--20200414hirano src_E-->
                         <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
                         <td style="white-space: pre;">{{displaySeller(contract)}}</td>
