@@ -271,12 +271,12 @@
                         <!--20200414hirano src_E-->
                         <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
                         <td style="white-space: pre;">{{displaySeller(contract)}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td style="white-space: pre;">{{displayAddress(contract)}}</td>
+                        <td style="white-space: pre;">{{displayBlockNumber(contract)}}</td>
+                        <td style="white-space: pre;">{{displayBuildingNumber(contract)}}</td>
+                        <td style="white-space: pre;">{{displayOwner(contract)}}</td>
                         <td class="text-right">{{formatIntNumber(contract.tradingPrice, '円')}}</td>
-                        <td></td>
+                        <td>{{formatDay(contract.decisionDay, 'yyyy/MM/dd')}}</td>
                         <td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>               
                     </tr>
                 </tbody>

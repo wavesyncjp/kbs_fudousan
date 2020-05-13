@@ -504,6 +504,42 @@ export class BukkenDetailComponent extends BaseComponent {
   displaySeller(contract: Contractinfo) {
     return contract.sellers.filter(ct => ct.contractorName != null && ct.contractorName !== '').map(ct => ct.contractorName).join('\n\r');
   }
+  /**
+   * 所在地表示
+   * @param contract 契約者
+   */
+  displayAddress(contract: Contractinfo) {
+    return contract.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => loc.address);
+    }).join('\n\r');
+  }
+  /**
+   * 地番表示
+   * @param contract 契約者
+   */
+  displayBlockNumber(contract: Contractinfo) {
+    return contract.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => loc.blockNumber);
+    }).join('\n\r');
+  }
+  /**
+   * 家屋番号表示
+   * @param contract 契約者
+   */
+  displayBuildingNumber(contract: Contractinfo) {
+    return contract.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => loc.buildingNumber);
+    }).join('\n\r');
+  }
+  /**
+   * 所有者表示
+   * @param contract 契約者
+   */
+  displayOwner(contract: Contractinfo) {
+    return contract.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => loc.owner);
+    }).join('\n\r');
+  }
 
   /**
    * 物件プラン
