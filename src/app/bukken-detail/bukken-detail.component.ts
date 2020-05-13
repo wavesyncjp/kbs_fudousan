@@ -522,7 +522,7 @@ export class BukkenDetailComponent extends BaseComponent {
       if (dlg.choose) {
         this.spinner.show();
         this.service.exportSale(this.pid).then(data => {
-          this.service.writeToFile(data);
+          this.service.writeToFile(data, "売買取引管理表");
           this.spinner.hide();
         });
       }
