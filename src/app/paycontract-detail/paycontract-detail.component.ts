@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Paycontractinfo } from '../models/paycontractinfo';
 import { Paycontractdetailinfo } from '../models/paycontractdetailinfo';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-paycontract-detail',
@@ -302,6 +303,8 @@ export class PayContractDetailComponent extends BaseComponent {
     if (detail.payPrice > 0) {
 
       this.taxRate = 0;
+
+      /*
       this.maxDate = 0;
       //消費税マスタで支払管理の消費税適応日より小さい中での最大値を求める
       this.taxes.forEach((tax) => {
@@ -315,7 +318,13 @@ export class PayContractDetailComponent extends BaseComponent {
             this.taxRate = tax.taxRate;
           }
         }
-      });      
+      });   
+      */
+      if(!this.isBlank(this.paycontract.taxEffectiveDay)) {
+        var taxtData =this.taxes.filter(me => me.effectiveDay <= this.paycontract.taxEffectiveDay).sort((a,b) => String(b.effectiveDay).localeCompare(a.effectiveDay))[0];
+        this.taxRate = taxtData.taxRate;
+      }             
+
       detail.payPriceTax = Number(detail.payPrice) + Number(Math.floor(detail.payPrice * (this.taxRate / 100)));      
       detail.payTax = detail.payPriceTax  - detail.payPrice;
       
