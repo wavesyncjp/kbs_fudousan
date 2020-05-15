@@ -329,12 +329,23 @@ export class PayContractDetailComponent extends BaseComponent {
       detail.payTax = detail.payPriceTax  - detail.payPrice;
       
     }
+    else
+    {
+      detail.payPriceTax = null;
+      detail.payTax = null;
+    }
   }
 
   taxOnlyCalc(event, detail: Paycontractdetailinfo) {
     if(detail.payPrice >= 0 && detail.payPriceTax >= 0) {
       detail.payTax = detail.payPriceTax  - detail.payPrice;
     }    
+  }
+
+  changeTaxEffectiveDay(event) {
+    this.paycontract.details.forEach(detail => {
+      this.taxCalc(event, detail);
+    });
   }
 
 }

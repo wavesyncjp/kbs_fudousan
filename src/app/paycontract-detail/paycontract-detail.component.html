@@ -10,7 +10,7 @@
     <br>
     <div class="register-div1">
         <div><span class="must">消費税適用日</span>&nbsp;&nbsp;
-                <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="paycontract.taxEffectiveDayMap" class="width100">
+                <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="paycontract.taxEffectiveDayMap" class="width100" (ngModelChange)="changeTaxEffectiveDay($event)">
                 <mat-datepicker-toggle matSuffix [for]="taxEffectiveDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #taxEffectiveDay></mat-datepicker>
         </div>
