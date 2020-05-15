@@ -4,9 +4,9 @@
 
         <div class="mat-elevation-z8 main-data">
 
-            <table mat-table [dataSource]="dataSource">            
+            <table mat-table [dataSource]="dataSource">
                 <ng-container matColumnDef="infoDate">
-                    <td mat-cell *matCellDef="let element" > {{element.infoDate | date:'yyyy/MM/dd'}} </td>
+                    <td mat-cell *matCellDef="let element" > {{formatDay(element.infoDate, 'yyyy/MM/dd')}} </td>
                 </ng-container>
             
                 <ng-container matColumnDef="infoSubject">
