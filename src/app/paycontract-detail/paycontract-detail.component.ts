@@ -72,6 +72,7 @@ export class PayContractDetailComponent extends BaseComponent {
 
     this.spinner.show();
     this.paycontract = new Paycontractinfo();
+    this.paycontract.taxEffectiveDayMap = new Date();
 
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012','015']));
@@ -120,9 +121,12 @@ export class PayContractDetailComponent extends BaseComponent {
           //Seller
           this.loadSellers(this.paycontract.tempLandInfoPid);
 
-        } else {
+        }
+        /* 
+        else {
           this.paycontract = new Paycontractinfo();
         }
+        */
       }
 
       //明細情報が存在しない場合
@@ -297,7 +301,8 @@ export class PayContractDetailComponent extends BaseComponent {
   /**
    * 税額を自動計算する
    */
-  taxCalc(detail: Paycontractdetailinfo){
+  taxCalc(event, detail: Paycontractdetailinfo){
+    const val = event.target.value;
     this.paycontract.taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
     if (detail.payPrice > 0) {
 
@@ -343,7 +348,7 @@ export class PayContractDetailComponent extends BaseComponent {
 
   changeTaxEffectiveDay(event) {
     this.paycontract.details.forEach(detail => {
-      this.taxCalc(detail);
+      this.taxCalc(event, detail);
     });
   }
 

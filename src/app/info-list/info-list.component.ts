@@ -44,7 +44,7 @@ export class InfoListComponent extends BaseComponent {
     this.dataSource.paginator = this.paginator;
     this.cond = {
       infoSubject: '',
-      infoDateMap: new Date(),
+      infoDateMap: '',
       infoDate: '',
       finishFlg: ['0']
     };
