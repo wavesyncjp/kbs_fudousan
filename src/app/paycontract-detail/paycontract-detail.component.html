@@ -119,7 +119,7 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td>
@@ -160,7 +160,7 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
                     <td>
