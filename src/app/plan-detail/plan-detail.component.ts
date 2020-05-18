@@ -680,9 +680,14 @@ cal44() {
 
     //計算48　金利合計
     cal48() {
+      if(this.cal46() > 0 || this.cal47() > 0 ){
       let ret= (Number(this.cal46())) + (Number(this.cal47()));
       return Math.floor(ret);
+      } else {
+        return '';
       }
+     
+     }
     
     
 
@@ -929,7 +934,7 @@ cal70_4() {
 
 //計算７１_S ＮＯＩ利回り※NOI/(A)
 cal71_1() {
-  if(!isNullOrUndefined(this.cal70_1 == null )  && !isNullOrUndefined(this.cal49 == null )){
+  if(isNullOrUndefined(this.cal70_1 == null)){
   let cal71_1 = Math.floor(Number(this.cal70_1()) / this.cal49());
   return Math.floor(cal71_1);
 } else {
@@ -938,7 +943,7 @@ cal71_1() {
 }
 
 cal71_2() {
-  if(!isNullOrUndefined(this.cal70_2 == null )  && !isNullOrUndefined(this.cal49 == null )){
+  if(isNullOrUndefined(this.cal70_2 == null )){
     let cal71_2 = Math.floor(Number(this.cal70_2()) / this.cal49());
     return Math.floor(cal71_2);
   } else {
@@ -947,7 +952,7 @@ cal71_2() {
   }
 
 cal71_3() {
-  if(!isNullOrUndefined(this.cal70_3 == null )  && !isNullOrUndefined(this.cal49 == null )){
+  if(isNullOrUndefined(this.cal70_3 == null )){
     let cal71_3 = Math.floor(Number(this.cal70_3()) / this.cal49());
     return Math.floor(cal71_3);
   } else {
@@ -956,7 +961,7 @@ cal71_3() {
   }
 
 cal71_4() {
-  if(!isNullOrUndefined(this.cal70_4 == null )  && !isNullOrUndefined(this.cal49 == null )){
+  if(isNullOrUndefined(this.cal70_4 == null )){
     let cal70_4 = Math.floor(Number(this.cal70_4()) / this.cal49());
     return Math.floor(cal70_4);
   } else {
