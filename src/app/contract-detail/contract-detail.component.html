@@ -292,6 +292,7 @@
             <td colspan="7">
                 &nbsp;&nbsp;&nbsp;<label>・銀行</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.bank" class="width150">
                 &nbsp;&nbsp;&nbsp;<label>・支店</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.branchName" class="width150">
+                &nbsp;&nbsp;&nbsp;<label>・口座種別</label>&nbsp;&nbsp;&nbsp;<app-select-component [codes]="getCode('026')"  [(ngModel)]="contract.accountType"></app-select-component>
                 &nbsp;&nbsp;&nbsp;<label>・口座</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.accountName" class="width150">
                 &nbsp;&nbsp;&nbsp;<label>・名義</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.bankName" class="width150">
             </td>

@@ -68,6 +68,7 @@ export class Contractinfo {
     supplierName: string;
     bank: string;
     branchName: string;
+    accountType: string;
     accountName: string;
     bankName: string;
 

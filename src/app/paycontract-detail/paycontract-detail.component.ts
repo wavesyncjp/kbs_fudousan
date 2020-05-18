@@ -75,7 +75,7 @@ export class PayContractDetailComponent extends BaseComponent {
     this.paycontract.taxEffectiveDayMap = new Date();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012','015']));
+    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012','015','026']));
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getPaymentTypes(null));
