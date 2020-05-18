@@ -24,6 +24,7 @@
     "@swimlane/ngx-charts": "^12.0.1",
     "@types/googlemaps": "^3.38.1",
     "date-fns": "^2.8.1",
+    "encoding-japanese": "^1.0.30",
     "file-saver": "^2.0.2",
     "moment": "^2.24.0",
     "ngx-spinner": "^8.0.3",

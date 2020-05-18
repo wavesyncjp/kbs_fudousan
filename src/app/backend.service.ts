@@ -739,6 +739,27 @@ export class BackendService {
     return req.toPromise();
   }
 
+  //CSV選択
+  loadCsvTemplate(data: any):  Promise<any[]>{
+    const api = 'csvtemplate.php'; 
+    const req = this.http.post<any[]>(`${this.BaseUrl}/${api}`, data);
+    return req.toPromise();
+  }
+
+  /**
+   * CSV出力
+   * @param id 物件ID
+   * @param csvCode csvCode
+   */
+  exportCsv(id, csvCode) : Promise<any> {
+    const api = 'csvexport.php'; 
+    let param = {
+      csvCode: csvCode
+    }
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
+    return req.toPromise();
+  }
+
 }
 
  

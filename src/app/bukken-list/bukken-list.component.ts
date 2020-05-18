@@ -13,6 +13,9 @@ import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
 import { Code } from '../models/bukken';
 import { DatePipe } from '@angular/common';
+import { utils } from 'protractor';
+import { Util } from '../utils/util';
+import { CsvTemplateComponent } from '../csv-template/csv-template.component';
 
 @Component({
   selector: 'app-bukken-list',
@@ -296,5 +299,31 @@ export class BukkenListComponent extends BaseComponent {
   }
 
   // マップエンド
+
+  /**
+   * CSV出力
+   */
+  csvExport(){
+
+
+    //テンプレート選択
+    const dialogRef = this.dialog.open(CsvTemplateComponent, {
+      width: '450px',
+      height: '200px',
+      data: {
+        type: '01'
+      }
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['choose']) {    
+        this.spinner.show();
+        this.service.exportCsv(1, result['csvCode']).then(ret => {
+          Util.stringToCSV(ret['data'], result['csvName']);
+          this.spinner.hide();
+        });    
+      }
+    });
+  }
 
 }

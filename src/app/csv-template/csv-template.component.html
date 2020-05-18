@@ -1,0 +1,11 @@
+<div class="dialog-div"> 
+    <div> 
+        <label>出力対象&nbsp;&nbsp;</label>
+        <app-select-component [codes]="list" [(ngModel)]="selectTemplate" [cusClass]="'width300'" ></app-select-component>
+    </div>
+    <mat-dialog-actions align="end">        
+        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">CSV出力</button>
+    </mat-dialog-actions>
+</div>
+

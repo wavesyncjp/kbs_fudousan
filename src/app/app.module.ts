@@ -49,6 +49,7 @@ import { PlanListComponent } from './plan-list/plan-list.component';
 import{ BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
 import { ContractTemplateComponent } from './contract-template/contract-template.component';
+import { CsvTemplateComponent } from './csv-template/csv-template.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { ContractTemplateComponent } from './contract-template/contract-template
     BukkenplaninfoDetailComponent,
     BukkenplaninfoListComponent,
     ContractTemplateComponent,
+    CsvTemplateComponent,    
 
     
     // 20200226 test E_Add
@@ -127,7 +129,7 @@ import { ContractTemplateComponent } from './contract-template/contract-template
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
     UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
     PaymentTypeDetailComponent, PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent,
-    ContractTemplateComponent
+    ContractTemplateComponent, CsvTemplateComponent
   ],
 })
 export class AppModule { }

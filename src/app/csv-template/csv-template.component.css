@@ -1,0 +1,10 @@
+.dialog-div div {
+    margin-top:40px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.mat-dialog-actions {
+    margin-top: 20px;
+    margin-right: 20px;
+}
