@@ -80,7 +80,8 @@ export class TopComponent  extends BaseComponent {
     });
 
     this.spinner.show();
-    this.service.searchInfo({count: 5, finishFlg: ['0'], today: '1'}).then(res => {
+//    this.service.searchInfo({count: 5, finishFlg: ['0'], today: '1'}).then(res => {
+    this.service.searchInfo({count: 5, finishFlg: ['0']}).then(res => {
       this.dataSource.data = res;
 
       if (res !== undefined && res.length > 0) {
