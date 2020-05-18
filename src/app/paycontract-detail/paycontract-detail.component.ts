@@ -301,8 +301,7 @@ export class PayContractDetailComponent extends BaseComponent {
   /**
    * 税額を自動計算する
    */
-  taxCalc(event, detail: Paycontractdetailinfo){
-    const val = event.target.value;
+  taxCalc(detail: Paycontractdetailinfo){
     this.paycontract.taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
     if (detail.payPrice > 0) {
 
@@ -348,8 +347,7 @@ export class PayContractDetailComponent extends BaseComponent {
 
   changeTaxEffectiveDay(event) {
     this.paycontract.details.forEach(detail => {
-      this.taxCalc(event, detail);
+      this.taxCalc(detail);
     });
   }
-
 }
