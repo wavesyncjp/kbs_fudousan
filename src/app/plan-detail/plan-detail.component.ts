@@ -18,6 +18,7 @@ import { Planrentroll } from '../models/Planrentroll';
 import { Planrentrolldetail } from '../models/Planrentrolldetail';
 import { Converter } from '../utils/converter';
 import { isNullOrUndefined } from 'util';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -300,7 +301,7 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'routePrice' || name === 'siteAreaBuy') {
       this.cal14();
     }
-
+    
     //計算１５
     if(name === 'landEvaluation' || name === 'residentialRate') {
       this.cal15();
@@ -361,7 +362,13 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'price10'){
       if(!isNullOrUndefined(this.plan.details[10].price) && !isNullOrUndefined(this.plan.details[11].price)){
         this.plan.details[11].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.03));
+        // 20200518 S_Add
+        this.plan.details[11].price = this.numberFormat(this.plan.details[11].price);
+        // 20200518 E_Add
         this.plan.details[13].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.02));
+        // 20200518 S_Add
+        this.plan.details[13].price = this.numberFormat(this.plan.details[11].price);
+        // 20200518 E_Add
       
         this.changeValue('price11');
         this.changeValue('price13');
@@ -386,11 +393,50 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'landLoan' || name === 'commissionRate'){
       this.cal43();
     }
+
+    // 20200518 S_Add
+    if(name === 'landEvaluation') {
+      this.plan.landEvaluationMap = this.numberFormat(this.plan.landEvaluationMap);
+    }
+    if(name === 'taxation') {
+      this.plan.taxationMap = this.numberFormat(this.plan.taxationMap);
+    }
+    if(name === 'taxationCity') {
+      this.plan.taxationCityMap = this.numberFormat(this.plan.taxationCityMap);
+    }
+    if(name === 'buildValuation') {
+      this.plan.buildValuationMap = this.numberFormat(this.plan.buildValuationMap);
+    }
+    if(name === 'fixedTaxLand') {
+      this.plan.fixedTaxLandMap = this.numberFormat(this.plan.fixedTaxLandMap);
+    }
+    if(name === 'cityPlanTaxLand') {
+      this.plan.cityPlanTaxLandMap = this.numberFormat(this.plan.cityPlanTaxLandMap);
+    }
+    if(name === 'fixedTaxBuild') {
+      this.plan.fixedTaxBuildMap = this.numberFormat(this.plan.fixedTaxBuildMap);
+    }
+    if(name === 'cityPlanTaxBuild') {
+      this.plan.cityPlanTaxBuildMap = this.numberFormat(this.plan.cityPlanTaxBuildMap);
+    }
+    if(name === 'afterTaxation') {
+      this.plan.afterTaxationMap = this.numberFormat(this.plan.afterTaxationMap);
+    }
+    if(name === 'afterTaxationCity') {
+      this.plan.afterTaxationCityMap = this.numberFormat(this.plan.afterTaxationCityMap);
+    }
+    if(name === 'afterFixedTax') {
+      this.plan.afterFixedTaxMap = this.numberFormat(this.plan.afterFixedTaxMap);
+    }
+    if(name === 'afterCityPlanTax') {
+      this.plan.afterCityPlanTaxMap = this.numberFormat(this.plan.afterCityPlanTaxMap);
+    }
+    // 20200518 E_Add
     
   }
   
-   //計算９  
-   cal9() {
+  //計算９  
+  cal9() {
     if(this.plan.buildArea > 0 && this.plan.siteAreaCheck > 0) {
       const val9 = Math.round(this.plan.buildArea / this.plan.siteAreaCheck*100*100)/100;
       return val9;
@@ -447,10 +493,19 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算１４  
   cal14() {
-    if(!isNullOrUndefined(this.plan.details[0].routePrice) && this.plan.siteAreaBuy > 0){
-      this.plan.landEvaluation = Math.round(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
+    // 20200518 S_Edit
+    var routePriceForCalc0 = this.removeComma(this.plan.details[0].routePrice);
+
+    // if(!isNullOrUndefined(this.plan.details[0].routePrice) && this.plan.siteAreaBuy > 0){
+    //   this.plan.landEvaluation = Math.round(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
+    //   this.changeValue('landEvaluation');
+    // } 
+
+    if(!isNullOrUndefined(routePriceForCalc0) && this.plan.siteAreaBuy > 0){
+      this.plan.landEvaluation = Math.round(Number(routePriceForCalc0) * this.plan.siteAreaBuy * 7 / 8);
       this.changeValue('landEvaluation');
-    }    
+    }
+    // 20200518 E_Edit
   }
 
   //計算１５
@@ -470,13 +525,23 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算21
   cal21() {
-    if(this.plan.fixedTaxLand > 0 && this.plan.cityPlanTaxLand > 0 && this.plan.fixedTaxBuild > 0 && this.plan.cityPlanTaxBuild > 0){
-    const val21= (this.plan.fixedTaxLand + this.plan.cityPlanTaxLand + this.plan.fixedTaxBuild + this.plan.cityPlanTaxBuild);
-    return val21;
-   } else {
-     return '';
-   }
+    // 20200518 S_Add
+    this.plan.fixedTaxLand = +this.plan.fixedTaxLandMap.replace(/,/g, "").trim()
+    this.plan.cityPlanTaxLand = +this.plan.cityPlanTaxLandMap.replace(/,/g, "").trim()
+    this.plan.fixedTaxBuild = +this.plan.fixedTaxBuildMap.replace(/,/g, "").trim()
+    this.plan.cityPlanTaxBuild = +this.plan.cityPlanTaxBuildMap.replace(/,/g, "").trim()
 
+    if(this.plan.fixedTaxLand > 0 && this.plan.cityPlanTaxLand > 0 && this.plan.fixedTaxBuild > 0 && this.plan.cityPlanTaxBuild > 0){
+      const val21= (this.plan.fixedTaxLand + this.plan.cityPlanTaxLand + this.plan.fixedTaxBuild + this.plan.cityPlanTaxBuild);
+
+      //return val21;
+      var result = this.numberFormat(val21.toString());
+      return result
+      // 20200518 E_Edit
+    
+    } else {
+      return '';
+    }
   }
 
   //計算２２
@@ -503,17 +568,24 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算26
   cal26() {
+    // 20200518 S_Add
+    this.plan.afterFixedTax = +this.plan.afterFixedTaxMap.replace(/,/g, "").trim()
+    this.plan.afterCityPlanTax = +this.plan.afterCityPlanTaxMap.replace(/,/g, "").trim()
+    // 20200518 E_Add
+
     if(this.plan.afterFixedTax > 0 && this.plan.afterCityPlanTax > 0 ){
-    const val26= (this.plan.afterFixedTax + this.plan.afterCityPlanTax);
-    return val26;
-   } else {
-     return '';
-   }
+      const val26= (this.plan.afterFixedTax + this.plan.afterCityPlanTax);
 
+      // 20200518 S_Edit
+      //return val26;
+      var result = this.numberFormat(val26.toString());
+      return result
+      // 20200518 E_Edit
+
+    } else {
+      return '';
+    }
   }
-
-
-  
 
   //計算２７
   cal27() {
@@ -525,18 +597,40 @@ export class PlanDetailComponent extends BaseComponent {
     }    
   }
 
-   //計算28　土地その他合計
-   cal28() {
-    let ret= (this.getNumber(this.plan.details[5].price)) + (this.getNumber(this.plan.details[6].price)) + (this.getNumber(this.plan.details[7].price)) + (this.getNumber(this.plan.details[8].price)) + (this.getNumber(this.plan.details[9].price));
-    return Math.floor(ret);
-    }
+  //計算28　土地その他合計
+  cal28() {
+    // 20200518 S_Edit
+    var priceForCalc5 = this.removeComma(this.plan.details[5].price);
+    var priceForCalc6 = this.removeComma(this.plan.details[6].price);
+    var priceForCalc7 = this.removeComma(this.plan.details[7].price);
+    var priceForCalc8 = this.removeComma(this.plan.details[8].price);
+    var priceForCalc9 = this.removeComma(this.plan.details[9].price);
+
+    // let ret= (this.getNumber(this.plan.details[5].price)) + (this.getNumber(this.plan.details[6].price)) + (this.getNumber(this.plan.details[7].price)) + (this.getNumber(this.plan.details[8].price)) + (this.getNumber(this.plan.details[9].price));
+    let ret= (this.getNumber(priceForCalc5)) + (this.getNumber(priceForCalc6)) + (this.getNumber(priceForCalc7)) + (this.getNumber(priceForCalc8)) + (this.getNumber(priceForCalc9));
+    
+    // return Math.floor(ret);
+    return this.numberFormat(Math.floor(ret).toString());
+    // 20200518 E_Edit
+  }
 
 
-   //計算29 土地原価合計
-    cal29() {
-    let ret= (this.getNumber(this.plan.details[0].price)) + (this.getNumber(this.plan.details[1].price)) + (this.getNumber(this.plan.details[2].price)) + (this.getNumber(this.plan.details[3].price)) + (this.getNumber(this.plan.details[4].price) + this.cal28());
-    return Math.floor(ret);
-    }
+  //計算29 土地原価合計
+  cal29() {
+    // 20200518 S_Edit
+    var priceForCalc0 = this.removeComma(this.plan.details[0].price);
+    var priceForCalc1 = this.removeComma(this.plan.details[1].price);
+    var priceForCalc2 = this.removeComma(this.plan.details[2].price);
+    var priceForCalc3 = this.removeComma(this.plan.details[3].price);
+    var priceForCalc4 = this.removeComma(this.plan.details[4].price);
+
+    let ret= (this.getNumber(priceForCalc0)) + (this.getNumber(priceForCalc1)) + (this.getNumber(priceForCalc2)) + (this.getNumber(priceForCalc3)) + (this.getNumber(priceForCalc4));
+    
+    // let ret= (this.getNumber(this.plan.details[0].price)) + (this.getNumber(this.plan.details[1].price)) + (this.getNumber(this.plan.details[2].price)) + (this.getNumber(this.plan.details[3].price)) + (this.getNumber(this.plan.details[4].price) + this.cal28());
+    // return Math.floor(ret);
+    return this.numberFormat(Math.floor(ret).toString());
+    // 20200518 E_Edit
+  }
 
 
     
@@ -560,75 +654,102 @@ export class PlanDetailComponent extends BaseComponent {
 
 
 
-   //計算32
-   cal32() {
-    let ret= (this.getNumber(this.plan.details[15].price)) + (this.getNumber(this.plan.details[16].price)) + (this.getNumber(this.plan.details[17].price));
-    return Math.floor(ret);
-    }
+  //計算32
+  cal32() {
+    // 20200518 S_Edit
+    var priceForCalc15 = this.removeComma(this.plan.details[15].price);
+    var priceForCalc16 = this.removeComma(this.plan.details[16].price);
+    var priceForCalc17 = this.removeComma(this.plan.details[17].price);
+    var priceForCalc18 = this.removeComma(this.plan.details[18].price);
+    var priceForCalc19 = this.removeComma(this.plan.details[19].price);
+    let ret= (this.getNumber(priceForCalc15)) + (this.getNumber(priceForCalc16)) + (this.getNumber(priceForCalc17)) + (this.getNumber(priceForCalc18)) + (this.getNumber(priceForCalc19));
 
-    //計算33　建物その他合計
-   cal33() {
-    let ret= (this.getNumber(this.plan.details[18].price)) + (this.getNumber(this.plan.details[19].price)) + (this.getNumber(this.plan.details[20].price)) + (this.getNumber(this.plan.details[21].price)) + (this.getNumber(this.plan.details[22].price));
-    return Math.floor(ret);
-    }
+    // let ret= (this.getNumber(this.plan.details[15].price)) + (this.getNumber(this.plan.details[16].price)) + (this.getNumber(this.plan.details[17].price));
+    // return Math.floor(ret);
+    return this.numberFormat(Math.floor(ret).toString());
+    // 20200518 E_Edit
+  }
+
+  //計算33　建物その他合計
+  cal33() {
+    // 20200518 S_Edit
+    var priceForCalc18 = this.removeComma(this.plan.details[18].price);
+    var priceForCalc19 = this.removeComma(this.plan.details[19].price);
+    var priceForCalc20 = this.removeComma(this.plan.details[20].price);
+    var priceForCalc21 = this.removeComma(this.plan.details[21].price);
+    var priceForCalc22 = this.removeComma(this.plan.details[22].price);
+    let ret= (this.getNumber(priceForCalc18)) + (this.getNumber(priceForCalc19)) + (this.getNumber(priceForCalc20)) + (this.getNumber(priceForCalc21)) + (this.getNumber(priceForCalc22));
+
+    //let ret= (this.getNumber(this.plan.details[18].price)) + (this.getNumber(this.plan.details[19].price)) + (this.getNumber(this.plan.details[20].price)) + (this.getNumber(this.plan.details[21].price)) + (this.getNumber(this.plan.details[22].price));
+    //return Math.floor(ret);
+    return this.numberFormat(Math.floor(ret).toString());
+    // 20200518 E_Edit
+  }
 
     //計算34　建物合計
-   cal34() {
-    let ret= (this.getNumber(this.plan.details[10].price)) + (this.getNumber(this.plan.details[11].price)) + (this.getNumber(this.plan.details[12].price)) + (this.getNumber(this.plan.details[13].price)) + (this.getNumber(this.plan.details[14].price) + this.cal32() + this.cal32() + this.cal33());
-    return Math.floor(ret);
-    }
+  cal34() {
+    // 20200518 S_Edit
+    var priceForCalc10 = this.removeComma(this.plan.details[10].price);
+    var priceForCalc11 = this.removeComma(this.plan.details[11].price);
+    var priceForCalc12 = this.removeComma(this.plan.details[12].price);
+    var priceForCalc13 = this.removeComma(this.plan.details[13].price);
+    var priceForCalc14 = this.removeComma(this.plan.details[14].price);
+    let ret= (this.getNumber(priceForCalc10)) + (this.getNumber(priceForCalc11)) + (this.getNumber(priceForCalc12)) + (this.getNumber(priceForCalc13)) + (this.getNumber(priceForCalc14));
 
-     //計算35
+    //let ret= (this.getNumber(this.plan.details[10].price)) + (this.getNumber(this.plan.details[11].price)) + (this.getNumber(this.plan.details[12].price)) + (this.getNumber(this.plan.details[13].price)) + (this.getNumber(this.plan.details[14].price) + this.cal32() + this.cal32() + this.cal33());
+    //return Math.floor(ret);
+    return this.numberFormat(Math.floor(ret).toString());
+    // 20200518 E_Edit
+  }
+
+  //計算35
   cal35() {
     if(this.plan.afterFixedTax > 0 && this.plan.afterCityPlanTax > 0 && !isNullOrUndefined(this.plan.details[23].complePriceMonth)){
       this.plan.details[23].price = String(Math.floor(
         (this.getNumber(this.plan.afterFixedTax) + this.getNumber(this.plan.afterCityPlanTax) 
         ) / 12 * Number(this.getNumber(this.plan.details[23].complePriceMonth))));
         
+    }
   }
 
-}
+  //計算36
+  cal36() {
+    if(this.plan.fixedTaxBuild > 0 && this.plan.cityPlanTaxBuild > 0 && !isNullOrUndefined(this.plan.details[24].dismantlingMonth)){
+      this.plan.details[24].price = String(Math.floor(
+        (this.getNumber(this.plan.fixedTaxBuild) + this.getNumber(this.plan.cityPlanTaxBuild) 
+        ) / 12 * Number(this.getNumber(this.plan.details[24].dismantlingMonth))));
+        
+      }
+  }
 
-//計算36
-cal36() {
-  if(this.plan.fixedTaxBuild > 0 && this.plan.cityPlanTaxBuild > 0 && !isNullOrUndefined(this.plan.details[24].dismantlingMonth)){
-    this.plan.details[24].price = String(Math.floor(
-      (this.getNumber(this.plan.fixedTaxBuild) + this.getNumber(this.plan.cityPlanTaxBuild) 
-      ) / 12 * Number(this.getNumber(this.plan.details[24].dismantlingMonth))));
-      
+  //計算37　
+  cal37() {
+    if(this.plan.buildValuation > 0){
+      const val37= Number(this.plan.buildValuation) * 0.03;
+      return Math.floor (val37);
+    } else {
+      return '';
     }
-}
 
-//計算37　
-cal37() {
-  if(this.plan.buildValuation > 0){
-  const val37= Number(this.plan.buildValuation) * 0.03;
-  return Math.floor (val37);
- } else {
-   return '';
- }
+  }
 
-}
+  //計算38　
+  cal38() {
+      if(this.plan.buildValuation > 0){
+      const cal38= Number(this.plan.buildValuation) * 0.02;
+      return Math.floor (cal38);
+    } else {
+      return '';
+    }
 
-//計算38　
-cal38() {
-  if(this.plan.buildValuation > 0){
-  const cal38= Number(this.plan.buildValuation) * 0.02;
-  return Math.floor (cal38);
- } else {
-   return '';
- }
+  }
 
-}
-//計算４１
+　//計算４１
   cal41() {
     if(!isNullOrUndefined(this.plan.details[32].rent) && !isNullOrUndefined(this.plan.details[33].totalMonths)){
       this.plan.details[32].price = String(Number(this.plan.details[32].rent) * Number(this.plan.details[33].totalMonths));
     }    
   }
-  
-
-    
 
   //計算４３
   cal43() {
@@ -708,16 +829,23 @@ cal44() {
     return Math.floor(ret);
   }
 
-  //計算50_s  
-  //計算50_s  
+  //計算50_s    
   cal50(pos :number) {
     let ret = 0;
-    ret = !isNullOrUndefined(this.plan.details[pos].price) ? Number(this.plan.details[pos].price) : 0;
+  
+    // 20200518 S_Edit
+    var priceForCalc = this.removeComma(this.plan.details[pos].price);
+
+    //ret = !isNullOrUndefined(this.plan.details[pos].price) ? Number(this.plan.details[pos].price) : 0;
+    ret = !isNullOrUndefined(priceForCalc) ? Number(priceForCalc) : 0;
 
     if(ret > 0 && this.plan.totalArea > 0){
       ret = Math.floor(ret / (this.plan.totalArea * 0.3025 ));
     }
-    return Math.floor(ret);
+
+    //return Math.floor(ret);
+    return this.numberFormat(ret.toString());
+    // 20200518 E_Edit
   }
   
   
@@ -1185,6 +1313,25 @@ cal81_4() {
   return '';
 }
 }
+
+// 20200518 S_Add
+numberFormat(val) {
+  // 空の場合そのまま返却
+  if (val == ''){
+    return '';
+  }
+  // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
+  val = val.replace(/,/g, "").trim();
+  // 整数部分を3桁カンマ区切りへ
+  val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return val;
+}
+
+removeComma(val) {
+  val = val.replace(/,/g, "").trim();
+  return val;
+}
+// 20200518 E_Add
 
 
 

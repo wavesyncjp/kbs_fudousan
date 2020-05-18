@@ -84,7 +84,23 @@ export class Planinfo {
     startDayMap: Date = null;
     upperWingDayMap: Date = null;
     completionDayMap: Date = null;
-    scheduledDayMap: Date = null;    
+    scheduledDayMap: Date = null;
+    
+
+    // 20200518 S_Add
+    landEvaluationMap: String;
+    taxationMap: String;
+    taxationCityMap: String;
+    buildValuationMap: String;
+    fixedTaxLandMap: String;
+    cityPlanTaxLandMap: String;
+    fixedTaxBuildMap: String;
+    cityPlanTaxBuildMap: String;
+    afterTaxationMap: String;
+    afterTaxationCityMap: String;
+    afterFixedTaxMap: String;
+    afterCityPlanTaxMap: String;
+    // 20200518 E_Add
     
     details: Plandetail[];
     // 20200422 S_Update
@@ -113,6 +129,55 @@ export class Planinfo {
         if (this.scheduledDay) {
             this.scheduledDayMap = parse(this.scheduledDay, 'yyyyMMdd', new Date());
         }
+
+        // 20200518 S_Add
+        // 金額を表示する際にカンマ区切りで表示する用に設定
+        if (this.landEvaluation) {
+            this.landEvaluationMap = Number(this.landEvaluation).toLocaleString();
+        }
+        if (this.taxation) {
+            this.taxationMap = Number(this.taxation).toLocaleString();
+        }
+        if (this.taxationCity) {
+            this.taxationCityMap = Number(this.taxationCity).toLocaleString();
+        }
+        if (this.buildValuation) {
+            this.buildValuationMap = Number(this.buildValuation).toLocaleString();
+        }
+        if (this.fixedTaxLand) {
+            this.fixedTaxLandMap = Number(this.fixedTaxLand).toLocaleString();
+        }
+        if (this.cityPlanTaxLand) {
+            this.cityPlanTaxLandMap = Number(this.cityPlanTaxLand).toLocaleString();
+        }
+        if (this.fixedTaxBuild) {
+            this.fixedTaxBuildMap = Number(this.fixedTaxBuild).toLocaleString();
+        }
+        if (this.cityPlanTaxBuild) {
+            this.cityPlanTaxBuildMap = Number(this.cityPlanTaxBuild).toLocaleString();
+        }
+        if (this.afterTaxation) {
+            this.afterTaxationMap = Number(this.afterTaxation).toLocaleString();
+        }
+        if (this.afterTaxationCity) {
+            this.afterTaxationCityMap = Number(this.afterTaxationCity).toLocaleString();
+        }
+        if (this.afterFixedTax) {
+            this.afterFixedTaxMap = Number(this.afterFixedTax).toLocaleString();
+        }
+        if (this.afterCityPlanTax) {
+            this.afterCityPlanTaxMap = Number(this.afterCityPlanTax).toLocaleString();
+        }
+
+        this.details.forEach((detail) => {
+            if (detail.price) {
+                detail.price = Number(detail.price).toLocaleString();
+                detail.routePrice = Number(detail.routePrice).toLocaleString();
+                detail.unitPrice = Number(detail.unitPrice).toLocaleString();
+                detail.priceTax = Number(detail.priceTax).toLocaleString();
+            }
+        });
+        // 20200518 E_Add
     }
 
     public convertForSave(userId: number , datePipe: DatePipe) {
@@ -128,6 +193,29 @@ export class Planinfo {
         this.completionDay = this.completionDayMap != null ? datePipe.transform(this.completionDayMap, 'yyyyMMdd') : null;
         this.scheduledDay = this.scheduledDayMap != null ? datePipe.transform(this.scheduledDayMap, 'yyyyMMdd') : null;
         //20200408_hirano_E
+
+        // 20200518 S_Add
+        // 登録の際はカンマを外すように設定
+        this.landEvaluation = this.landEvaluationMap != null ? +this.landEvaluationMap.replace(/,/g, "").trim() : null;
+        this.taxation = this.taxationMap != null ? +this.taxationMap.replace(/,/g, "").trim() : null;
+        this.taxationCity = this.taxationCityMap != null ? +this.taxationCityMap.replace(/,/g, "").trim() : null;
+        this.buildValuation = this.buildValuationMap != null ? +this.buildValuationMap.replace(/,/g, "").trim() : null;
+        this.fixedTaxLand = this.fixedTaxLandMap != null ? +this.fixedTaxLandMap.replace(/,/g, "").trim() : null;
+        this.cityPlanTaxLand = this.cityPlanTaxLandMap != null ? +this.cityPlanTaxLandMap.replace(/,/g, "").trim() : null;
+        this.fixedTaxBuild = this.fixedTaxBuildMap != null ? +this.fixedTaxBuildMap.replace(/,/g, "").trim() : null;
+        this.cityPlanTaxBuild = this.cityPlanTaxBuildMap != null ? +this.cityPlanTaxBuildMap.replace(/,/g, "").trim() : null;
+        this.afterTaxation = this.afterTaxationMap != null ? +this.afterTaxationMap.replace(/,/g, "").trim() : null;
+        this.afterTaxationCity = this.afterTaxationCityMap != null ? +this.afterTaxationCityMap.replace(/,/g, "").trim() : null;
+        this.afterFixedTax = this.afterFixedTaxMap != null ? +this.afterFixedTaxMap.replace(/,/g, "").trim() : null;
+        this.afterCityPlanTax = this.afterCityPlanTaxMap != null ? +this.afterCityPlanTaxMap.replace(/,/g, "").trim() : null;
+
+        this.details.forEach((detail) => {
+            detail.price = detail.price != null ? detail.price.replace(/,/g, "").trim() : null;
+            detail.routePrice = detail.routePrice != null ? detail.routePrice.replace(/,/g, "").trim() : null;
+            detail.unitPrice = detail.unitPrice != null ? detail.unitPrice.replace(/,/g, "").trim() : null;
+            detail.priceTax = detail.priceTax != null ? detail.priceTax.replace(/,/g, "").trim() : null;
+        });
+        // 20200518 E_Add
     }
 }
 
