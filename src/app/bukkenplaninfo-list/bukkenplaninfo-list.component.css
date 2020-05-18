@@ -292,6 +292,7 @@ mat-form-field > input {
   }
   .tab-switch:checked+.tab-label {
     background: #325A8C;    
+    cursor: default;
   }
   .tab-switch:checked+.tab-label+.tab-content {
     height: auto;
