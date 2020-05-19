@@ -376,8 +376,8 @@
         </tr>
         <tr>
             <th class="main">土地代</th>
-            <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.details[0].price" (ngModelChange)="changeValueDetail('price', 0)"></td>
-            <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal50(0)) | number"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" [(ngModel)]="plan.details[0].price" (ngModelChange)="changeValueDetail('price', 0)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal50(0)) | number"></td>
             <!--20200407_hirano src-->
             <td class="yen"><input type="text" class="Twidth100 number" placeholder="路線価" [(ngModel)]="plan.details[0].routePrice" (ngModelChange)="changeValue('routePrice')"></td>
         </tr>
@@ -402,7 +402,7 @@
 
         <tr>
             <th class="main">固都税精算金</th>
-            <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.details[4].price" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 4)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.details[4].price" [attr.disabled]="true"></td>
             <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal50(4)) | number"></td>
             <td class="yen">
                 <input type="text" class="Twidth100" placeholder="負担日数" [(ngModel)]="plan.details[4].burdenDays" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('burdenDays')"></td>
@@ -590,13 +590,13 @@
         </tr>
         <tr>
             <th class="main">取得税</th>
-            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeHang(plan.taxation,0.015)"></td>
-            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeUnit(plan.taxation,0.015)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeHang(plan.taxationMap,0.015)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeUnit(plan.taxationMap,0.015)"></td>
         </tr>
         <tr>
             <th class="main">登録税</th>
-            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeHang(plan.taxation,0.02)"></td>
-            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true"  [value]="changeUnit(plan.taxation,0.02)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeHang(plan.taxationMap,0.02)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true"  [value]="changeUnit(plan.taxationMap,0.02)"></td>
         </tr>
     </div>
     <div class="kakomi-box11">

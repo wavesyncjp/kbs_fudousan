@@ -313,21 +313,37 @@ export class PlanDetailComponent extends BaseComponent {
 
      //計算17
      if(name === 'taxation') {
+      // 20200518 S_Edit
+      this.plan.taxation = +this.removeComma(this.plan.taxationMap);
       this.plan.fixedTaxLand = Math.round(this.plan.taxation * 0.014);
+      this.plan.fixedTaxLandMap = this.numberFormat(this.plan.fixedTaxLand.toString());
+      // 20200518 E_Edit
     }
 
     //計算18
     if(name === 'taxationCity') {
+      // 20200518 S_Edit
+      this.plan.taxationCity = +this.removeComma(this.plan.taxationCityMap);
       this.plan.cityPlanTaxLand = Math.round(this.plan.taxationCity * 0.03);
+      this.plan.cityPlanTaxLandMap = this.numberFormat(this.plan.cityPlanTaxLand.toString());
+      // 20200518 E_Edit
     }
-     //計算19
-     if(name === 'buildValuation') {
+    //計算19
+    if(name === 'buildValuation') {
+      // 20200518 S_Edit
+      this.plan.buildValuation = +this.removeComma(this.plan.buildValuationMap);
       this.plan.fixedTaxBuild = Math.round(this.plan.buildValuation * 0.014);
+      this.plan.fixedTaxBuildMap = this.numberFormat(this.plan.fixedTaxBuild.toString());
+      // 20200518 E_Edit
     }
 
     //計算20
     if(name === 'buildValuation') {
+      // 20200518 S_Edit
+      this.plan.buildValuation = +this.removeComma(this.plan.buildValuationMap);
       this.plan.cityPlanTaxBuild = Math.round(this.plan.buildValuation * 0.03);
+      this.plan.cityPlanTaxBuildMap = this.numberFormat(this.plan.cityPlanTaxBuild.toString());
+      // 20200518 E_Edit
     }
 
   
@@ -344,12 +360,20 @@ export class PlanDetailComponent extends BaseComponent {
 
     //計算２４
     if(name === 'afterTaxation') {
+      // 20200518 S_Edit
+      this.plan.afterTaxation = +this.removeComma(this.plan.afterTaxationMap);
       this.plan.afterFixedTax = Math.round(this.plan.afterTaxation * 0.014);
+      this.plan.afterFixedTaxMap = this.numberFormat(this.plan.afterFixedTax.toString());
+      // 20200518 E_Edit
     }
 
     //計算２５
     if(name === 'afterTaxationCity') {
+      // 20200518 S_Edit
+      this.plan.afterTaxationCity = +this.removeComma(this.plan.afterTaxationCityMap);
       this.plan.afterCityPlanTax = Math.round(this.plan.afterTaxationCity * 0.03);
+      this.plan.afterCityPlanTaxMap = this.numberFormat(this.plan.afterCityPlanTax.toString());
+      // 20200518 E_Edit
     }
 
     //計算２７
@@ -621,7 +645,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.cityPlanTaxBuild = +this.removeComma(this.plan.cityPlanTaxBuildMap);
     // 20200519 E_Edit
 
-    if(this.plan.fixedTaxLand > 0 && this.plan.cityPlanTaxLand > 0 && this.plan.fixedTaxBuild > 0 && this.plan.cityPlanTaxBuild > 0){
+    if(this.plan.fixedTaxLand > 0 || this.plan.cityPlanTaxLand > 0 || this.plan.fixedTaxBuild > 0 || this.plan.cityPlanTaxBuild > 0){
       const val21= (this.plan.fixedTaxLand + this.plan.cityPlanTaxLand + this.plan.fixedTaxBuild + this.plan.cityPlanTaxBuild);
       return val21;
     } else {
@@ -672,7 +696,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.afterCityPlanTax = +this.removeComma(this.plan.afterCityPlanTaxMap);
     // 20200519 E_Edit
 
-    if(this.plan.afterFixedTax > 0 && this.plan.afterCityPlanTax > 0 ){
+    if(this.plan.afterFixedTax > 0 || this.plan.afterCityPlanTax > 0 ){
       const val26= (this.plan.afterFixedTax + this.plan.afterCityPlanTax);
       return val26;
     } else {
@@ -698,26 +722,22 @@ export class PlanDetailComponent extends BaseComponent {
         / 365 * Number(this.getNumber(this.plan.details[4].burdenDays))));
     }
 
-    this.plan.details[4].price = this.numberFormat(this.plan.details[4].price);
+    //this.plan.details[4].price = this.numberFormat(this.plan.details[4].price);
     // 20200519 E_Edit
   }
 
   //計算28　土地その他合計
   cal28() {
     // 20200519 S_Edit
-    this.plan.details[5].price = this.removeComma(this.plan.details[5].price);
-    this.plan.details[6].price = this.removeComma(this.plan.details[6].price);
-    this.plan.details[7].price = this.removeComma(this.plan.details[7].price);
-    this.plan.details[8].price = this.removeComma(this.plan.details[8].price);
-    this.plan.details[9].price = this.removeComma(this.plan.details[9].price);
+    for (let i = 5; i <= 9; i++) {
+      this.plan.details[i].price = this.removeComma(this.plan.details[i].price);
+    }
 
     let ret= (this.getNumber(this.plan.details[5].price)) + (this.getNumber(this.plan.details[6].price)) + (this.getNumber(this.plan.details[7].price)) + (this.getNumber(this.plan.details[8].price)) + (this.getNumber(this.plan.details[9].price));
     
-    this.plan.details[5].price = this.numberFormat(this.plan.details[5].price);
-    this.plan.details[6].price = this.numberFormat(this.plan.details[6].price);
-    this.plan.details[7].price = this.numberFormat(this.plan.details[7].price);
-    this.plan.details[8].price = this.numberFormat(this.plan.details[8].price);
-    this.plan.details[9].price = this.numberFormat(this.plan.details[9].price);
+    for (let i = 5; i <= 9; i++) {
+      this.plan.details[i].price = this.numberFormat(this.plan.details[i].price);
+    }
     // 20200519 E_Edit
 
     return Math.floor(ret);
@@ -727,19 +747,15 @@ export class PlanDetailComponent extends BaseComponent {
   //計算29 土地原価合計
   cal29() {
     // 20200519 S_Edit
-    this.plan.details[0].price = this.removeComma(this.plan.details[0].price);
-    this.plan.details[1].price = this.removeComma(this.plan.details[1].price);
-    this.plan.details[2].price = this.removeComma(this.plan.details[2].price);
-    this.plan.details[3].price = this.removeComma(this.plan.details[3].price);
-    this.plan.details[4].price = this.removeComma(this.plan.details[4].price);
+    for (let i = 0; i <= 4; i++) {
+      this.plan.details[i].price = this.removeComma(this.plan.details[i].price);
+    }
 
     let ret= (this.getNumber(this.plan.details[0].price)) + (this.getNumber(this.plan.details[1].price)) + (this.getNumber(this.plan.details[2].price)) + (this.getNumber(this.plan.details[3].price)) + (this.getNumber(this.plan.details[4].price) + this.cal28());
     
-    this.plan.details[0].price = this.numberFormat(this.plan.details[0].price);
-    this.plan.details[1].price = this.numberFormat(this.plan.details[1].price);
-    this.plan.details[2].price = this.numberFormat(this.plan.details[2].price);
-    this.plan.details[3].price = this.numberFormat(this.plan.details[3].price);
-    this.plan.details[4].price = this.numberFormat(this.plan.details[4].price);
+    for (let i = 0; i <= 4; i++) {
+      this.plan.details[i].price = this.numberFormat(this.plan.details[i].price);
+    }
     // 20200519 E_Edit
 
     return Math.floor(ret);
@@ -770,15 +786,15 @@ export class PlanDetailComponent extends BaseComponent {
   //計算32
   cal32() {
     // 20200519 S_Edit
-    this.plan.details[15].price = this.removeComma(this.plan.details[15].price);
-    this.plan.details[16].price = this.removeComma(this.plan.details[16].price);
-    this.plan.details[17].price = this.removeComma(this.plan.details[17].price);
+    for (let i = 15; i <= 17; i++) {
+      this.plan.details[i].price = this.removeComma(this.plan.details[i].price);
+    }
 
     let ret= (this.getNumber(this.plan.details[15].price)) + (this.getNumber(this.plan.details[16].price)) + (this.getNumber(this.plan.details[17].price));
     
-    this.plan.details[15].price = this.numberFormat(this.plan.details[15].price);
-    this.plan.details[16].price = this.numberFormat(this.plan.details[16].price);
-    this.plan.details[17].price = this.numberFormat(this.plan.details[17].price);
+    for (let i = 15; i <= 17; i++) {
+      this.plan.details[i].price = this.numberFormat(this.plan.details[i].price);
+    }
     // 20200519 E_Edit
 
     return Math.floor(ret);
@@ -787,19 +803,15 @@ export class PlanDetailComponent extends BaseComponent {
   //計算33　建物その他合計
   cal33() {
     // 20200519 S_Edit
-    this.plan.details[18].price = this.removeComma(this.plan.details[18].price);
-    this.plan.details[19].price = this.removeComma(this.plan.details[19].price);
-    this.plan.details[20].price = this.removeComma(this.plan.details[20].price);
-    this.plan.details[21].price = this.removeComma(this.plan.details[21].price);
-    this.plan.details[22].price = this.removeComma(this.plan.details[22].price);
+    for (let i = 18; i <= 22; i++) {
+      this.plan.details[i].price = this.removeComma(this.plan.details[i].price);
+    }
 
     let ret= (this.getNumber(this.plan.details[18].price)) + (this.getNumber(this.plan.details[19].price)) + (this.getNumber(this.plan.details[20].price)) + (this.getNumber(this.plan.details[21].price)) + (this.getNumber(this.plan.details[22].price));
     
-    this.plan.details[18].price = this.numberFormat(this.plan.details[18].price);
-    this.plan.details[19].price = this.numberFormat(this.plan.details[19].price);
-    this.plan.details[20].price = this.numberFormat(this.plan.details[20].price);
-    this.plan.details[21].price = this.numberFormat(this.plan.details[21].price);
-    this.plan.details[22].price = this.numberFormat(this.plan.details[22].price);
+    for (let i = 18; i <= 22; i++) {
+      this.plan.details[i].price = this.numberFormat(this.plan.details[i].price);
+    }
     // 20200519 E_Edit
 
     return Math.floor(ret);
@@ -808,20 +820,16 @@ export class PlanDetailComponent extends BaseComponent {
   //計算34　建物合計
   cal34() {
     // 20200519 S_Edit
-    this.plan.details[10].price = this.removeComma(this.plan.details[10].price);
-    this.plan.details[11].price = this.removeComma(this.plan.details[11].price);
-    this.plan.details[12].price = this.removeComma(this.plan.details[12].price);
-    this.plan.details[13].price = this.removeComma(this.plan.details[13].price);
-    this.plan.details[14].price = this.removeComma(this.plan.details[14].price);
+    for (let i = 10; i <= 14; i++) {
+      this.plan.details[i].price = this.removeComma(this.plan.details[i].price);
+    }
 
     //let ret= (this.getNumber(this.plan.details[10].price)) + (this.getNumber(this.plan.details[11].price)) + (this.getNumber(this.plan.details[12].price)) + (this.getNumber(this.plan.details[13].price)) + (this.getNumber(this.plan.details[14].price) + this.cal32() + this.cal32() + this.cal33());
     let ret= (this.getNumber(this.plan.details[10].price)) + (this.getNumber(this.plan.details[11].price)) + (this.getNumber(this.plan.details[12].price)) + (this.getNumber(this.plan.details[13].price)) + (this.getNumber(this.plan.details[14].price) + this.cal32() + this.cal33());
 
-    this.plan.details[10].price = this.numberFormat(this.plan.details[10].price);
-    this.plan.details[11].price = this.numberFormat(this.plan.details[11].price);
-    this.plan.details[12].price = this.numberFormat(this.plan.details[12].price);
-    this.plan.details[13].price = this.numberFormat(this.plan.details[13].price);
-    this.plan.details[14].price = this.numberFormat(this.plan.details[14].price);
+    for (let i = 10; i <= 14; i++) {
+      this.plan.details[i].price = this.numberFormat(this.plan.details[i].price);
+    }
     // 20200519 E_Edit
 
     return Math.floor(ret);
@@ -924,19 +932,15 @@ export class PlanDetailComponent extends BaseComponent {
   //計算42　その他その他合計
   cal42() {
     // 20200519 S_Edit
-    this.plan.details[34].price = this.removeComma(this.plan.details[34].price);
-    this.plan.details[35].price = this.removeComma(this.plan.details[35].price);
-    this.plan.details[36].price = this.removeComma(this.plan.details[36].price);
-    this.plan.details[37].price = this.removeComma(this.plan.details[37].price);
-    this.plan.details[38].price = this.removeComma(this.plan.details[38].price);
+    for (let i = 34; i <= 38; i++) {
+      this.plan.details[i].price = this.removeComma(this.plan.details[i].price);
+    }
 
     let ret= (this.getNumber(this.plan.details[34].price)) + (this.getNumber(this.plan.details[35].price)) + (this.getNumber(this.plan.details[36].price)) + (this.getNumber(this.plan.details[37].price)) + (this.getNumber(this.plan.details[38].price));
     
-    this.plan.details[34].price = this.numberFormat(this.plan.details[34].price);
-    this.plan.details[35].price = this.numberFormat(this.plan.details[35].price);
-    this.plan.details[36].price = this.numberFormat(this.plan.details[36].price);
-    this.plan.details[37].price = this.numberFormat(this.plan.details[37].price);
-    this.plan.details[38].price = this.numberFormat(this.plan.details[38].price);
+    for (let i = 34; i <= 38; i++) {
+      this.plan.details[i].price = this.numberFormat(this.plan.details[i].price);
+    }
     // 20200519 E_Edit
 
     return Math.floor(ret);
@@ -1107,48 +1111,80 @@ export class PlanDetailComponent extends BaseComponent {
 
     if(!isNullOrUndefined(this.plan.rentdetails[15].space) && !isNullOrUndefined(this.plan.rentdetails[15].rentUnitPrice)){
       let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice));
+      this.plan.rentdetails[15].rentUnitPrice = this.numberFormat(this.plan.rentdetails[15].rentUnitPrice);
+      // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
 
   cal54() {
+    // 20200519 S_Edit
+    this.plan.rentdetails[15].rentUnitPrice = this.removeComma(this.plan.rentdetails[15].rentUnitPrice);
+
     if(!isNullOrUndefined(this.plan.rentdetails[15].space) && !isNullOrUndefined(this.plan.rentdetails[15].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[15].securityDeposit)){
       let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice))* (Number(this.plan.rentdetails[15].securityDeposit));
+      this.plan.rentdetails[15].rentUnitPrice = this.numberFormat(this.plan.rentdetails[15].rentUnitPrice);
+      // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
 
   cal55() {
+    // 20200519 S_Edit
+    this.plan.rentdetails[16].rentUnitPrice = this.removeComma(this.plan.rentdetails[16].rentUnitPrice);
+
     if(!isNullOrUndefined(this.plan.rentdetails[16].space) && !isNullOrUndefined(this.plan.rentdetails[16].rentUnitPrice)){
       let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice));
+      this.plan.rentdetails[16].rentUnitPrice = this.numberFormat(this.plan.rentdetails[16].rentUnitPrice);
+      // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
 
   cal56() {
+    // 20200519 S_Edit
+    this.plan.rentdetails[16].rentUnitPrice = this.removeComma(this.plan.rentdetails[16].rentUnitPrice);
+
     if(!isNullOrUndefined(this.plan.rentdetails[16].space) && !isNullOrUndefined(this.plan.rentdetails[16].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[16].securityDeposit)){
       let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice))* (Number(this.plan.rentdetails[16].securityDeposit));
+      this.plan.rentdetails[16].rentUnitPrice = this.numberFormat(this.plan.rentdetails[16].rentUnitPrice);
+      // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
 
   cal57() {
+    // 20200519 S_Edit
+    this.plan.rentdetails[17].rentUnitPrice = this.removeComma(this.plan.rentdetails[17].rentUnitPrice);
+
     if(!isNullOrUndefined(this.plan.rentdetails[17].space) && !isNullOrUndefined(this.plan.rentdetails[17].rentUnitPrice)){
       let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice));
+      this.plan.rentdetails[17].rentUnitPrice = this.numberFormat(this.plan.rentdetails[17].rentUnitPrice);
+      // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
 
   cal58() {
+    // 20200519 S_Edit
+    this.plan.rentdetails[17].rentUnitPrice = this.removeComma(this.plan.rentdetails[17].rentUnitPrice);
+
     if(!isNullOrUndefined(this.plan.rentdetails[17].space) && !isNullOrUndefined(this.plan.rentdetails[17].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[17].securityDeposit)){
       let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice))* (Number(this.plan.rentdetails[17].securityDeposit));
+      this.plan.rentdetails[17].rentUnitPrice = this.numberFormat(this.plan.rentdetails[17].rentUnitPrice);
+      // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
 
   cal59() {
+    // 20200519 S_Edit
+    this.plan.rentdetails[18].rentUnitPrice = this.removeComma(this.plan.rentdetails[18].rentUnitPrice);
+
     if(!isNullOrUndefined(this.plan.rentdetails[18].space) && !isNullOrUndefined(this.plan.rentdetails[18].rentUnitPrice)){
       let ret = Math.floor(Number(this.plan.rentdetails[18].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[18].rentUnitPrice));
+      this.plan.rentdetails[18].rentUnitPrice = this.numberFormat(this.plan.rentdetails[18].rentUnitPrice);
+      // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
@@ -1157,9 +1193,14 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算６０
   cal60() {
+    // 20200519 S_Edit
+    this.plan.rentdetails[18].rentUnitPrice = this.removeComma(this.plan.rentdetails[18].rentUnitPrice);
+
     if(!isNullOrUndefined(this.plan.rentdetails[18].space) && !isNullOrUndefined(this.plan.rentdetails[18].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[18].securityDeposit)){
-    let ret = ((this.getNumber(this.plan.rentdetails[18].space) * 0.3025 * 100 ) / 100)* this.getNumber(this.plan.rentdetails[18].rentUnitPrice) * this.getNumber(this.plan.rentdetails[18].securityDeposit);
-    return Math.floor(ret);
+      let ret = ((this.getNumber(this.plan.rentdetails[18].space) * 0.3025 * 100 ) / 100)* this.getNumber(this.plan.rentdetails[18].rentUnitPrice) * this.getNumber(this.plan.rentdetails[18].securityDeposit);
+      this.plan.rentdetails[18].rentUnitPrice = this.numberFormat(this.plan.rentdetails[18].rentUnitPrice);
+      // 20200519 E_Edit
+      return Math.floor(ret);
     }
   }
 
@@ -1177,8 +1218,12 @@ export class PlanDetailComponent extends BaseComponent {
   cal62() {
     let ret = 0;
     let pos = 0;
-    while(pos < 19) {      
+    while(pos < 19) {  
+      // 20200519 S_Edit
+      this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice);    
       ret += (((this.getNumber(this.plan.rentdetails[pos].space) * 0.3025 * 100 ) / 100) * this.getNumber(this.plan.rentdetails[pos].rentUnitPrice));
+      this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
+      // 20200519 E_Edit
       pos++;
     }
     return Math.floor(ret);
@@ -1189,7 +1234,11 @@ export class PlanDetailComponent extends BaseComponent {
     let ret = 0;
     let pos = 0;
     while(pos < 19) {      
+      // 20200519 S_Edit
+      this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice); 
       ret += (((this.getNumber(this.plan.rentdetails[pos].space) * 0.3025 * 100 ) / 100) * this.getNumber(this.plan.rentdetails[pos].rentUnitPrice) * this.getNumber(this.plan.rentdetails[pos].securityDeposit));
+      this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
+      // 20200519 E_Edit
       pos++;
     }
     return Math.floor(ret);
@@ -1202,13 +1251,18 @@ export class PlanDetailComponent extends BaseComponent {
   }
   //計算６５
   cal65() {
+    // 20200519 S_Edit
+    this.plan.rent.commonFee = this.removeComma(this.plan.rent.commonFee); 
+
     if(!isNullOrUndefined(this.plan.rent.commonFee == null) && this.plan.totalUnits > 0){
-    const cal65= Number(this.plan.rent.commonFee) * this.plan.totalUnits;
-    return cal65;
-   } else {
-     return '';
-   }
-  
+      const cal65= Number(this.plan.rent.commonFee) * this.plan.totalUnits;
+      this.plan.rent.commonFee = this.numberFormat(this.plan.rent.commonFee);
+      return cal65;
+    } else {
+      this.plan.rent.commonFee = this.numberFormat(this.plan.rent.commonFee);
+      // 20200519 E_Edit
+      return '';
+    }
   }
 
   //計算６６
@@ -1220,14 +1274,27 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算６７
   cal67() {
+    // 20200519 S_Edit
+    this.plan.rent.monthlyOtherIncome = this.removeComma(this.plan.rent.monthlyOtherIncome); 
     let ret = Math.floor(Number(this.plan.rent.monthlyOtherIncome) * 12);
+    this.plan.rent.monthlyOtherIncome = this.numberFormat(this.plan.rent.monthlyOtherIncome);
+    // 20200519 E_Edit
     return Math.floor(ret);
   }
 
 
   //計算６８
   cal68() {
+    // 20200519 S_Edit
+    this.plan.rent.commonFee = this.removeComma(this.plan.rent.commonFee);
+    this.plan.rent.monthlyOtherIncome = this.removeComma(this.plan.rent.monthlyOtherIncome); 
+
     let val62 = this.cal62() * 12 + this.getNumber(this.plan.rent.commonFee)*this.getNumber(this.plan.totalUnits)*12 + this.getNumber(this.plan.rent.monthlyOtherIncome) * 12;
+    
+    this.plan.rent.commonFee = this.numberFormat(this.plan.rent.commonFee);
+    this.plan.rent.monthlyOtherIncome = this.numberFormat(this.plan.rent.monthlyOtherIncome);
+    // 20200519 E_Edit
+    
     return Math.floor(val62);
   }
 
@@ -1453,22 +1520,62 @@ cal77_4() {
 
 //計算７９_S 売買計画　販売経費小計
 cal79_1() {
+  // 20200519 S_Add
+  this.plan.rent.salesExpense1A = this.removeComma(this.plan.rent.salesExpense1A);
+  this.plan.rent.salesExpense2A = this.removeComma(this.plan.rent.salesExpense2A);
+  this.plan.rent.salesExpense3A = this.removeComma(this.plan.rent.salesExpense3A);
+
   let cal79_1 = (this.getNumber(this.plan.rent.salesExpense1A)) + (this.getNumber(this.plan.rent.salesExpense2A)) + (this.getNumber(this.plan.rent.salesExpense3A));
+  
+  this.plan.rent.salesExpense1A = this.numberFormat(this.plan.rent.salesExpense1A);
+  this.plan.rent.salesExpense2A = this.numberFormat(this.plan.rent.salesExpense2A);
+  this.plan.rent.salesExpense3A = this.numberFormat(this.plan.rent.salesExpense3A);
+  // 20200519 E_Add
   return Math.floor(cal79_1);
 }
 
 cal79_2() {
+  // 20200519 S_Add
+  this.plan.rent.salesExpense1B = this.removeComma(this.plan.rent.salesExpense1B);
+  this.plan.rent.salesExpense2B = this.removeComma(this.plan.rent.salesExpense2B);
+  this.plan.rent.salesExpense3B = this.removeComma(this.plan.rent.salesExpense3B);
+
   let cal79_2 =  (this.getNumber(this.plan.rent.salesExpense1B)) + (this.getNumber(this.plan.rent.salesExpense2B)) + (this.getNumber(this.plan.rent.salesExpense3B));
+  
+  this.plan.rent.salesExpense1B = this.numberFormat(this.plan.rent.salesExpense1B);
+  this.plan.rent.salesExpense2B = this.numberFormat(this.plan.rent.salesExpense2B);
+  this.plan.rent.salesExpense3B = this.numberFormat(this.plan.rent.salesExpense3B);
+  // 20200519 E_Add
   return Math.floor(cal79_2);
 }
 
 cal79_3() {
+  // 20200519 S_Add
+  this.plan.rent.salesExpense1C = this.removeComma(this.plan.rent.salesExpense1C);
+  this.plan.rent.salesExpense2C = this.removeComma(this.plan.rent.salesExpense2C);
+  this.plan.rent.salesExpense3C = this.removeComma(this.plan.rent.salesExpense3C);
+
   let cal79_3 =  (this.getNumber(this.plan.rent.salesExpense1C)) + (this.getNumber(this.plan.rent.salesExpense2C)) + (this.getNumber(this.plan.rent.salesExpense3C));
+  
+  this.plan.rent.salesExpense1C = this.numberFormat(this.plan.rent.salesExpense1C);
+  this.plan.rent.salesExpense2C = this.numberFormat(this.plan.rent.salesExpense2C);
+  this.plan.rent.salesExpense3C = this.numberFormat(this.plan.rent.salesExpense3C);
+  // 20200519 E_Add
   return Math.floor(cal79_3);
 }
 
 cal79_4() {
+  // 20200519 S_Add
+  this.plan.rent.salesExpense1D = this.removeComma(this.plan.rent.salesExpense1D);
+  this.plan.rent.salesExpense2D = this.removeComma(this.plan.rent.salesExpense2D);
+  this.plan.rent.salesExpense3D = this.removeComma(this.plan.rent.salesExpense3D);
+
   let cal79_4 =  (this.getNumber(this.plan.rent.salesExpense1D)) + (this.getNumber(this.plan.rent.salesExpense2D)) + (this.getNumber(this.plan.rent.salesExpense3D));
+  
+  this.plan.rent.salesExpense1D = this.numberFormat(this.plan.rent.salesExpense1D);
+  this.plan.rent.salesExpense2D = this.numberFormat(this.plan.rent.salesExpense2D);
+  this.plan.rent.salesExpense3D = this.numberFormat(this.plan.rent.salesExpense3D);
+  // 20200519 E_Add
   return Math.floor(cal79_4);
 }
 
@@ -1533,7 +1640,7 @@ cal81_4() {
   // 20200518 S_Add
   numberFormat(val) {
     // 空の場合そのまま返却
-    if (val == ''){
+    if (val == '' || val == null){
       return '';
     }
     // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
@@ -1544,8 +1651,12 @@ cal81_4() {
   }
 
   removeComma(val) {
-    val = val.replace(/,/g, "").trim();
-    return val;
+    if (val == '' || val == null){
+      return '';
+    } else {
+      val = val.replace(/,/g, "").trim();
+      return val;
+    }
   }
   // 20200518 E_Add
 

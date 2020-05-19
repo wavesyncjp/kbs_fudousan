@@ -216,8 +216,8 @@ export class Planinfo {
         if (this.rent.tsuboUnitPriceD) {
             this.rent.tsuboUnitPriceD = Number(this.rent.tsuboUnitPriceD).toLocaleString();
         }
-        if (this.rent.monthlyOtherIncome) {
-            this.rent.monthlyOtherIncome = Number(this.rent.monthlyOtherIncome).toLocaleString();
+        if (this.rent.commonFee) {
+            this.rent.commonFee = Number(this.rent.commonFee).toLocaleString();
         }
         if (this.rent.monthlyOtherIncome) {
             this.rent.monthlyOtherIncome = Number(this.rent.monthlyOtherIncome).toLocaleString();
@@ -225,11 +225,11 @@ export class Planinfo {
 
         this.details.forEach((detail) => {
             if (detail.price) {
-                detail.price = Number(detail.price).toLocaleString();
-                detail.routePrice = Number(detail.routePrice).toLocaleString();
-                detail.unitPrice = Number(detail.unitPrice).toLocaleString();
-                detail.priceTax = Number(detail.priceTax).toLocaleString();
+                detail.price = Number(this.rent.monthlyOtherIncome).toLocaleString();
             }
+            detail.routePrice = Number(detail.routePrice).toLocaleString();
+            detail.unitPrice = Number(detail.unitPrice).toLocaleString();
+            detail.priceTax = Number(detail.priceTax).toLocaleString();
         });
 
         this.rentdetails.forEach((detail) => {
