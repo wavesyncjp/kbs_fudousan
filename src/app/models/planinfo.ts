@@ -168,6 +168,60 @@ export class Planinfo {
         if (this.afterCityPlanTax) {
             this.afterCityPlanTaxMap = Number(this.afterCityPlanTax).toLocaleString();
         }
+        if (this.rent.salesExpense1A) {
+            this.rent.salesExpense1A = Number(this.rent.salesExpense1A).toLocaleString();
+        }
+        if (this.rent.salesExpense1B) {
+            this.rent.salesExpense1B = Number(this.rent.salesExpense1B).toLocaleString();
+        }
+        if (this.rent.salesExpense1C) {
+            this.rent.salesExpense1C = Number(this.rent.salesExpense1C).toLocaleString();
+        }
+        if (this.rent.salesExpense1D) {
+            this.rent.salesExpense1D = Number(this.rent.salesExpense1D).toLocaleString();
+        }
+        if (this.rent.salesExpense2A) {
+            this.rent.salesExpense2A = Number(this.rent.salesExpense2A).toLocaleString();
+        }
+        if (this.rent.salesExpense2B) {
+            this.rent.salesExpense2B = Number(this.rent.salesExpense2B).toLocaleString();
+        }
+        if (this.rent.salesExpense2C) {
+            this.rent.salesExpense2C = Number(this.rent.salesExpense2C).toLocaleString();
+        }
+        if (this.rent.salesExpense2D) {
+            this.rent.salesExpense2D = Number(this.rent.salesExpense2D).toLocaleString();
+        }
+        if (this.rent.salesExpense3A) {
+            this.rent.salesExpense3A = Number(this.rent.salesExpense3A).toLocaleString();
+        }
+        if (this.rent.salesExpense3B) {
+            this.rent.salesExpense3B = Number(this.rent.salesExpense3B).toLocaleString();
+        }
+        if (this.rent.salesExpense3C) {
+            this.rent.salesExpense3C = Number(this.rent.salesExpense3C).toLocaleString();
+        }
+        if (this.rent.salesExpense3D) {
+            this.rent.salesExpense3D = Number(this.rent.salesExpense3D).toLocaleString();
+        }
+        if (this.rent.tsuboUnitPriceA) {
+            this.rent.tsuboUnitPriceA = Number(this.rent.tsuboUnitPriceA).toLocaleString();
+        }
+        if (this.rent.tsuboUnitPriceB) {
+            this.rent.tsuboUnitPriceB = Number(this.rent.tsuboUnitPriceB).toLocaleString();
+        }
+        if (this.rent.tsuboUnitPriceC) {
+            this.rent.tsuboUnitPriceC = Number(this.rent.tsuboUnitPriceC).toLocaleString();
+        }
+        if (this.rent.tsuboUnitPriceD) {
+            this.rent.tsuboUnitPriceD = Number(this.rent.tsuboUnitPriceD).toLocaleString();
+        }
+        if (this.rent.monthlyOtherIncome) {
+            this.rent.monthlyOtherIncome = Number(this.rent.monthlyOtherIncome).toLocaleString();
+        }
+        if (this.rent.monthlyOtherIncome) {
+            this.rent.monthlyOtherIncome = Number(this.rent.monthlyOtherIncome).toLocaleString();
+        }
 
         this.details.forEach((detail) => {
             if (detail.price) {
@@ -175,6 +229,12 @@ export class Planinfo {
                 detail.routePrice = Number(detail.routePrice).toLocaleString();
                 detail.unitPrice = Number(detail.unitPrice).toLocaleString();
                 detail.priceTax = Number(detail.priceTax).toLocaleString();
+            }
+        });
+
+        this.rentdetails.forEach((detail) => {
+            if (detail.rentUnitPrice) {
+                detail.rentUnitPrice = Number(detail.rentUnitPrice).toLocaleString();
             }
         });
         // 20200518 E_Add
@@ -208,6 +268,8 @@ export class Planinfo {
         this.afterTaxationCity = this.afterTaxationCityMap != null ? +this.afterTaxationCityMap.replace(/,/g, "").trim() : null;
         this.afterFixedTax = this.afterFixedTaxMap != null ? +this.afterFixedTaxMap.replace(/,/g, "").trim() : null;
         this.afterCityPlanTax = this.afterCityPlanTaxMap != null ? +this.afterCityPlanTaxMap.replace(/,/g, "").trim() : null;
+        this.landLoan = this.landLoan != null ? this.landLoan.replace(/,/g, "").trim() : null;
+        this.buildLoan = this.buildLoan != null ? this.buildLoan.replace(/,/g, "").trim() : null;
 
         this.details.forEach((detail) => {
             detail.price = detail.price != null ? detail.price.replace(/,/g, "").trim() : null;
@@ -215,6 +277,29 @@ export class Planinfo {
             detail.unitPrice = detail.unitPrice != null ? detail.unitPrice.replace(/,/g, "").trim() : null;
             detail.priceTax = detail.priceTax != null ? detail.priceTax.replace(/,/g, "").trim() : null;
         });
+
+        this.rentdetails.forEach((detail) => {
+            detail.rentUnitPrice = detail.rentUnitPrice != null ? detail.rentUnitPrice.replace(/,/g, "").trim() : null;
+        });
+
+        this.rent.salesExpense1A = this.rent.salesExpense1A != null ? this.rent.salesExpense1A.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense1B = this.rent.salesExpense1B != null ? this.rent.salesExpense1B.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense1C = this.rent.salesExpense1C != null ? this.rent.salesExpense1C.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense1D = this.rent.salesExpense1D != null ? this.rent.salesExpense1D.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense2A = this.rent.salesExpense2A != null ? this.rent.salesExpense2A.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense2B = this.rent.salesExpense2B != null ? this.rent.salesExpense2B.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense2C = this.rent.salesExpense2C != null ? this.rent.salesExpense2C.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense2D = this.rent.salesExpense2D != null ? this.rent.salesExpense2D.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense3A = this.rent.salesExpense3A != null ? this.rent.salesExpense3A.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense3B = this.rent.salesExpense3B != null ? this.rent.salesExpense3B.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense3C = this.rent.salesExpense3C != null ? this.rent.salesExpense3C.replace(/,/g, "").trim() : null;
+        this.rent.salesExpense3D = this.rent.salesExpense3D != null ? this.rent.salesExpense3D.replace(/,/g, "").trim() : null;
+        this.rent.tsuboUnitPriceA = this.rent.tsuboUnitPriceA != null ? this.rent.tsuboUnitPriceA.replace(/,/g, "").trim() : null;
+        this.rent.tsuboUnitPriceB = this.rent.tsuboUnitPriceB != null ? this.rent.tsuboUnitPriceB.replace(/,/g, "").trim() : null;
+        this.rent.tsuboUnitPriceC = this.rent.tsuboUnitPriceC != null ? this.rent.tsuboUnitPriceC.replace(/,/g, "").trim() : null;
+        this.rent.tsuboUnitPriceD = this.rent.tsuboUnitPriceD != null ? this.rent.tsuboUnitPriceD.replace(/,/g, "").trim() : null;
+        this.rent.monthlyOtherIncome = this.rent.monthlyOtherIncome != null ? this.rent.monthlyOtherIncome.replace(/,/g, "").trim() : null;
+        this.rent.commonFee = this.rent.commonFee != null ? this.rent.commonFee.replace(/,/g, "").trim() : null;
         // 20200518 E_Add
     }
 }

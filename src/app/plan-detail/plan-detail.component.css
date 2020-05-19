@@ -13,7 +13,7 @@
 
 
 .detail-tbl-head{
-    width: 90%;
+    width: 100%;
     border-spacing: 0px;
     border-collapse: collapse;
     margin:0px 10px 10px 10px;
@@ -114,7 +114,7 @@ span.fixed_asset_head{
 .first{
     height: 30px;
     line-height:30px;
-    min-width: 200px;
+    min-width: 180px;
     margin-right: 20px;
     float: left;
 } 
@@ -162,7 +162,10 @@ span.fixed_asset_head{
     margin-right: 138px;
     float: left;
 } 
- 
+.etc4{
+    margin-right: 125px;
+    float: left;
+}
  
 
 .detail-tbl-head > tr > th.sharer{
@@ -202,9 +205,17 @@ span.head{
     width: 40px;
 }
 
+.Twidthy50{
+    min-width: 50px;
+    width: 50px;
+}
 .Twidthy70{
     min-width: 70px;
     width: 70px;
+}
+.Twidthy80{
+    min-width: 80px;
+    width: 80px;
 }
 .Twidth100{
     min-width: 100px;
