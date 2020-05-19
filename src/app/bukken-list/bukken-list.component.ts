@@ -53,7 +53,7 @@ export class BukkenListComponent extends BaseComponent {
   search = '0';
   searched = false;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail', 'csvCheck'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -305,6 +305,8 @@ export class BukkenListComponent extends BaseComponent {
    */
   csvExport(){
 
+    let lst = this.dataSource.data.filter(me => me['select']).map(me => Number(me.pid));
+    if(lst.length === 0) return;
 
     //テンプレート選択
     const dialogRef = this.dialog.open(CsvTemplateComponent, {
@@ -318,7 +320,7 @@ export class BukkenListComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['choose']) {    
         this.spinner.show();
-        this.service.exportCsv(1, result['csvCode']).then(ret => {
+        this.service.exportCsv(lst, result['csvCode']).then(ret => {
           Util.stringToCSV(ret['data'], result['csvName']);
           this.spinner.hide();
         });    

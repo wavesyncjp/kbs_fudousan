@@ -751,9 +751,10 @@ export class BackendService {
    * @param id 物件ID
    * @param csvCode csvCode
    */
-  exportCsv(id, csvCode) : Promise<any> {
+  exportCsv(ids: Number[], csvCode) : Promise<any> {
     const api = 'csvexport.php'; 
     let param = {
+      ids: ids.join(','),
       csvCode: csvCode
     }
     const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
