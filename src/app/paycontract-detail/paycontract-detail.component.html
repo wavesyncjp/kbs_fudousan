@@ -40,8 +40,8 @@
                 <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
             </td>
             <td colspan="6">
-                <label>銀行　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width150">
-                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.branchName" class="width150">
+                <label>銀行　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width140">
+                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.branchName" class="width100">
             </td> 
         </tr>   
         <tr>
@@ -51,8 +51,8 @@
             </td>
             <td colspan="6">
                 <label>口座種別</label>&nbsp;<app-select-component [codes]="getCode('026')"  [(ngModel)]="paycontract.accountType"></app-select-component>
-                &nbsp;&nbsp;<label>口座　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.accountName" class="width150">
-                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bankName" class="width150">
+                &nbsp;&nbsp;<label>口座　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.accountName" class="width100">
+                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bankName" class="width100">
             </td>   
         </tr>       
         <tr>
