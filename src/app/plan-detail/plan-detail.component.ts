@@ -119,11 +119,31 @@ export class PlanDetailComponent extends BaseComponent {
         } else {
           this.data = new Templandinfo(values[4] as Templandinfo);
           this.plan = new Planinfo();
+          // 20200519 S_Add
+          this.plan.landLoan = "";
+          this.plan.buildLoan = "";
+          // 20200519 E_Add
         }
-      }     
+      }
 
       if(this.plan.rent == null || !this.plan.rent) {
         this.plan.rent = new Planrentroll();
+        // 20200519 S_Add
+        this.plan.rent.salesExpense1A = "";
+        this.plan.rent.salesExpense1B = "";
+        this.plan.rent.salesExpense1C = "";
+        this.plan.rent.salesExpense1D = "";
+        this.plan.rent.salesExpense2A = "";
+        this.plan.rent.salesExpense2B = "";
+        this.plan.rent.salesExpense2C = "";
+        this.plan.rent.salesExpense2D = "";
+        this.plan.rent.salesExpense3A = "";
+        this.plan.rent.salesExpense3B = "";
+        this.plan.rent.salesExpense3C = "";
+        this.plan.rent.salesExpense3D = "";
+        this.plan.rent.commonFee = "";
+        this.plan.rent.monthlyOtherIncome  ="";
+        // 20200519 E_Add
       }
 
       //明細情報が存在しない場合
@@ -135,7 +155,13 @@ export class PlanDetailComponent extends BaseComponent {
           let detail = new Plandetail();
           detail.paymentCode = code;
           detail.backNumber = String(index + 1);
-          detail.price = null;
+          // 20200519 S_Add
+          if (index == 37) {
+            detail.price = "0";
+          } else {
+            detail.price = "";
+          }
+          // 20200519 E_Add
           this.plan.details.push(detail);
         });
       }
@@ -314,35 +340,35 @@ export class PlanDetailComponent extends BaseComponent {
      //計算17
      if(name === 'taxation') {
       // 20200518 S_Edit
-      this.plan.taxation = +this.removeComma(this.plan.taxationMap);
+      this.plan.taxation = this.getNumber(this.removeComma(this.plan.taxationMap));
       this.plan.fixedTaxLand = Math.round(this.plan.taxation * 0.014);
-      this.plan.fixedTaxLandMap = this.numberFormat(this.plan.fixedTaxLand.toString());
+      this.plan.fixedTaxLandMap = this.numberFormat(String(this.plan.fixedTaxLand));
       // 20200518 E_Edit
     }
 
     //計算18
     if(name === 'taxationCity') {
       // 20200518 S_Edit
-      this.plan.taxationCity = +this.removeComma(this.plan.taxationCityMap);
+      this.plan.taxationCity = this.getNumber(this.removeComma(this.plan.taxationCityMap));
       this.plan.cityPlanTaxLand = Math.round(this.plan.taxationCity * 0.03);
-      this.plan.cityPlanTaxLandMap = this.numberFormat(this.plan.cityPlanTaxLand.toString());
+      this.plan.cityPlanTaxLandMap = this.numberFormat(String(this.plan.cityPlanTaxLand));
       // 20200518 E_Edit
     }
     //計算19
     if(name === 'buildValuation') {
       // 20200518 S_Edit
-      this.plan.buildValuation = +this.removeComma(this.plan.buildValuationMap);
+      this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
       this.plan.fixedTaxBuild = Math.round(this.plan.buildValuation * 0.014);
-      this.plan.fixedTaxBuildMap = this.numberFormat(this.plan.fixedTaxBuild.toString());
+      this.plan.fixedTaxBuildMap = this.numberFormat(String(this.plan.fixedTaxBuild));
       // 20200518 E_Edit
     }
 
     //計算20
     if(name === 'buildValuation') {
       // 20200518 S_Edit
-      this.plan.buildValuation = +this.removeComma(this.plan.buildValuationMap);
+      this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
       this.plan.cityPlanTaxBuild = Math.round(this.plan.buildValuation * 0.03);
-      this.plan.cityPlanTaxBuildMap = this.numberFormat(this.plan.cityPlanTaxBuild.toString());
+      this.plan.cityPlanTaxBuildMap = this.numberFormat(String(this.plan.cityPlanTaxBuild));
       // 20200518 E_Edit
     }
 
@@ -361,18 +387,18 @@ export class PlanDetailComponent extends BaseComponent {
     //計算２４
     if(name === 'afterTaxation') {
       // 20200518 S_Edit
-      this.plan.afterTaxation = +this.removeComma(this.plan.afterTaxationMap);
+      this.plan.afterTaxation = this.getNumber(this.removeComma(this.plan.afterTaxationMap));
       this.plan.afterFixedTax = Math.round(this.plan.afterTaxation * 0.014);
-      this.plan.afterFixedTaxMap = this.numberFormat(this.plan.afterFixedTax.toString());
+      this.plan.afterFixedTaxMap = this.numberFormat(String(this.plan.afterFixedTax));
       // 20200518 E_Edit
     }
 
     //計算２５
     if(name === 'afterTaxationCity') {
       // 20200518 S_Edit
-      this.plan.afterTaxationCity = +this.removeComma(this.plan.afterTaxationCityMap);
+      this.plan.afterTaxationCity = this.getNumber(this.removeComma(this.plan.afterTaxationCityMap));
       this.plan.afterCityPlanTax = Math.round(this.plan.afterTaxationCity * 0.03);
-      this.plan.afterCityPlanTaxMap = this.numberFormat(this.plan.afterCityPlanTax.toString());
+      this.plan.afterCityPlanTaxMap = this.numberFormat(String(this.plan.afterCityPlanTax));
       // 20200518 E_Edit
     }
 
@@ -515,6 +541,12 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'monthlyOtherIncome'){
       this.plan.rent.monthlyOtherIncome = this.numberFormat(this.plan.rent.monthlyOtherIncome);
     }
+    if(name === 'price11'){
+      this.plan.details[11].price = this.numberFormat(this.plan.details[11].price);
+    }
+    if(name === 'price13'){
+      this.plan.details[13].price = this.numberFormat(this.plan.details[13].price);
+    }
     // 20200518 E_Add
     
   }
@@ -528,6 +560,12 @@ export class PlanDetailComponent extends BaseComponent {
   changeValueDetail(name: string, pos :number) {
     if(name === 'price') {
       this.plan.details[pos].price = this.numberFormat(this.plan.details[pos].price);
+    }
+    if(name === 'priceTax') {
+      this.plan.details[pos].priceTax = this.numberFormat(this.plan.details[pos].priceTax);
+    }
+    if(name === 'unitPrice') {
+      this.plan.details[pos].unitPrice = this.numberFormat(this.plan.details[pos].unitPrice);
     }
     if(name === 'rentUnitPrice') {
       this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
@@ -601,48 +639,47 @@ export class PlanDetailComponent extends BaseComponent {
 
     if(!isNullOrUndefined(this.plan.details[0].routePrice) && this.plan.siteAreaBuy > 0){
       this.plan.landEvaluation = Math.round(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
+      this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
+      this.plan.landEvaluationMap = this.numberFormat(String(this.plan.landEvaluation));
+      // 20200519 E_Edit
       this.changeValue('landEvaluation');
     }
-
-    this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
-    this.plan.landEvaluationMap = this.numberFormat(this.plan.landEvaluation.toString());
-    // 20200519 E_Edit
   }
 
   //計算１５
   cal15() {
     // 20200519 S_Edit
-    this.plan.landEvaluation = +this.removeComma(this.plan.landEvaluationMap);
+    this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
 
     if(this.plan.landEvaluation > 0 && this.plan.residentialRate > 0) {
       this.plan.taxation = Math.round(this.plan.landEvaluation * 1 / 6 * this.plan.residentialRate / 100 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+      this.plan.taxationMap = this.numberFormat(String(this.plan.taxation));
+      // 20200519 E_Edit
       this.changeValue('taxation');
     }
-
-    this.plan.taxationMap = this.numberFormat(this.plan.taxation.toString());
-    // 20200519 E_Edit
+    
   }
    //計算16
   cal16() {
     // 20200519 S_Edit
-    this.plan.landEvaluation = +this.removeComma(this.plan.landEvaluationMap);
+    this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
 
     if(this.plan.landEvaluation > 0 && this.plan.residentialRate > 0) {
       this.plan.taxationCity = Math.round(this.plan.landEvaluation * 1 / 3 * this.plan.residentialRate / 100 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+      this.plan.taxationCityMap = this.numberFormat(String(this.plan.taxationCity));
+      // 20200519 E_Edit
       this.changeValue('taxationCity');
     }
-
-    this.plan.taxationCityMap = this.numberFormat(this.plan.taxationCity.toString());
-    // 20200519 E_Edit
+   
   }
 
   //計算21
   cal21() {
     // 20200519 S_Edit
-    this.plan.fixedTaxLand = +this.removeComma(this.plan.fixedTaxLandMap);
-    this.plan.cityPlanTaxLand = +this.removeComma(this.plan.cityPlanTaxLandMap);
-    this.plan.fixedTaxBuild = +this.removeComma(this.plan.fixedTaxBuildMap);
-    this.plan.cityPlanTaxBuild = +this.removeComma(this.plan.cityPlanTaxBuildMap);
+    this.plan.fixedTaxLand = this.getNumber(this.removeComma(this.plan.fixedTaxLandMap));
+    this.plan.cityPlanTaxLand = this.getNumber(this.removeComma(this.plan.cityPlanTaxLandMap));
+    this.plan.fixedTaxBuild = this.getNumber(this.removeComma(this.plan.fixedTaxBuildMap));
+    this.plan.cityPlanTaxBuild = this.getNumber(this.removeComma(this.plan.cityPlanTaxBuildMap));
     // 20200519 E_Edit
 
     if(this.plan.fixedTaxLand > 0 || this.plan.cityPlanTaxLand > 0 || this.plan.fixedTaxBuild > 0 || this.plan.cityPlanTaxBuild > 0){
@@ -656,25 +693,28 @@ export class PlanDetailComponent extends BaseComponent {
   //計算２２
   cal22() {
     // 20200519 S_Edit
-    this.plan.taxation = +this.removeComma(this.plan.taxationMap);
-    this.plan.landEvaluation = +this.removeComma(this.plan.landEvaluationMap);
+    this.plan.taxation = this.getNumber(this.removeComma(this.plan.taxationMap));
+    this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
 
-    if(this.plan.siteAreaBuy <= 200) {
-      this.plan.afterTaxation = this.plan.taxation;
-    }
-    else {
-      this.plan.afterTaxation = Math.round(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 1 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
-    }
-    this.changeValue('afterTaxation');
+      if(this.plan.siteAreaBuy <= 200) {
+        this.plan.afterTaxation = this.plan.taxation;
+      }
+      else {
+        this.plan.afterTaxation = Math.round(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 1 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+      }
 
-    this.plan.afterTaxationMap = this.numberFormat(this.plan.afterTaxation.toString());
-    // 20200519 E_Edit
+      if (this.getNumber(this.plan.afterTaxation) != 0) {
+        this.plan.afterTaxationMap = this.numberFormat(String(this.plan.afterTaxation));
+      }
+      // 20200519 E_Edit
+
+      this.changeValue('afterTaxation');
   }
 
   cal23() {
     // 20200519 S_Edit
-    this.plan.taxation = +this.removeComma(this.plan.taxationMap);
-    this.plan.landEvaluation = +this.removeComma(this.plan.landEvaluationMap);
+    this.plan.taxation = this.getNumber(this.removeComma(this.plan.taxationMap));
+    this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
 
     if(this.plan.siteAreaBuy <= 200) {
       this.plan.afterTaxationCity = this.plan.taxation;
@@ -682,18 +722,21 @@ export class PlanDetailComponent extends BaseComponent {
     else {
       this.plan.afterTaxationCity = Math.round(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 2 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
     }
-    this.changeValue('afterTaxationCity');
 
-    this.plan.afterTaxationCityMap = this.numberFormat(this.plan.afterTaxationCity.toString());
+    if (this.getNumber(this.plan.afterTaxationCity) != 0) {
+      this.plan.afterTaxationCityMap = this.numberFormat(String(this.plan.afterTaxationCity));
+    }
     // 20200519 E_Edit
+
+    this.changeValue('afterTaxationCity');
   }
 
 
   //計算26
   cal26() {
     // 20200519 S_Edit
-    this.plan.afterFixedTax = +this.removeComma(this.plan.afterFixedTaxMap);
-    this.plan.afterCityPlanTax = +this.removeComma(this.plan.afterCityPlanTaxMap);
+    this.plan.afterFixedTax = this.getNumber(this.removeComma(this.plan.afterFixedTaxMap));
+    this.plan.afterCityPlanTax = this.getNumber(this.removeComma(this.plan.afterCityPlanTaxMap));
     // 20200519 E_Edit
 
     if(this.plan.afterFixedTax > 0 || this.plan.afterCityPlanTax > 0 ){
@@ -710,10 +753,10 @@ export class PlanDetailComponent extends BaseComponent {
   //計算２７
   cal27() {
     // 20200519 S_Edit
-    this.plan.fixedTaxLand = +this.removeComma(this.plan.fixedTaxLandMap);
-    this.plan.cityPlanTaxLand = +this.removeComma(this.plan.cityPlanTaxLandMap);
-    this.plan.fixedTaxBuild = +this.removeComma(this.plan.fixedTaxBuildMap);
-    this.plan.cityPlanTaxBuild = +this.removeComma(this.plan.cityPlanTaxBuildMap);
+    this.plan.fixedTaxLand = this.getNumber(this.removeComma(this.plan.fixedTaxLandMap));
+    this.plan.cityPlanTaxLand = this.getNumber(this.removeComma(this.plan.cityPlanTaxLandMap));
+    this.plan.fixedTaxBuild = this.getNumber(this.removeComma(this.plan.fixedTaxBuildMap));
+    this.plan.cityPlanTaxBuild = this.getNumber(this.removeComma(this.plan.cityPlanTaxBuildMap));
 
     if(this.plan.fixedTaxLand > 0 || this.plan.cityPlanTaxLand > 0 || this.plan.fixedTaxBuild > 0 || this.plan.cityPlanTaxBuild > 0 || !isNullOrUndefined(this.plan.details[4].burdenDays)){
       this.plan.details[4].price = String(Math.floor(
@@ -722,7 +765,7 @@ export class PlanDetailComponent extends BaseComponent {
         / 365 * Number(this.getNumber(this.plan.details[4].burdenDays))));
     }
 
-    //this.plan.details[4].price = this.numberFormat(this.plan.details[4].price);
+    this.plan.details[4].price = this.numberFormat(this.plan.details[4].price);
     // 20200519 E_Edit
   }
 
@@ -838,8 +881,8 @@ export class PlanDetailComponent extends BaseComponent {
   //計算35
   cal35() {
     // 20200519 S_Edit
-    this.plan.afterFixedTax = +this.removeComma(this.plan.afterFixedTaxMap);
-    this.plan.afterCityPlanTax = +this.removeComma(this.plan.afterCityPlanTaxMap);
+    this.plan.afterFixedTax = this.getNumber(this.removeComma(this.plan.afterFixedTaxMap));
+    this.plan.afterCityPlanTax = this.getNumber(this.removeComma(this.plan.afterCityPlanTaxMap));
 
     if(this.plan.afterFixedTax > 0 && this.plan.afterCityPlanTax > 0 && !isNullOrUndefined(this.plan.details[23].complePriceMonth)){
       this.plan.details[23].price = String(Math.floor(
@@ -854,8 +897,8 @@ export class PlanDetailComponent extends BaseComponent {
   //計算36
   cal36() {
     // 20200519 S_Edit
-    this.plan.fixedTaxBuild = +this.removeComma(this.plan.fixedTaxBuildMap);
-    this.plan.cityPlanTaxBuild = +this.removeComma(this.plan.cityPlanTaxBuildMap);
+    this.plan.fixedTaxBuild = this.getNumber(this.removeComma(this.plan.fixedTaxBuildMap));
+    this.plan.cityPlanTaxBuild = this.getNumber(this.removeComma(this.plan.cityPlanTaxBuildMap));
 
     if(this.plan.fixedTaxBuild > 0 && this.plan.cityPlanTaxBuild > 0 && !isNullOrUndefined(this.plan.details[24].dismantlingMonth)){
       this.plan.details[24].price = String(Math.floor(
@@ -870,7 +913,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算37　
   cal37() {
     // 20200519 S_Edit
-    this.plan.buildValuation = +this.removeComma(this.plan.buildValuationMap);
+    this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
     // 20200519 E_Edit
 
     if(this.plan.buildValuation > 0){
@@ -884,7 +927,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算38　
   cal38() {
     // 20200519 S_Edit
-    this.plan.buildValuation = +this.removeComma(this.plan.buildValuationMap);
+    this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
     // 20200519 E_Edit
 
     if(this.plan.buildValuation > 0){
@@ -897,9 +940,15 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算４１
   cal41() {
+    // 20200519 S_Edit
+    this.plan.details[32].rent = this.removeComma(this.plan.details[32].rent);
+
     if(!isNullOrUndefined(this.plan.details[32].rent) && !isNullOrUndefined(this.plan.details[33].totalMonths)){
       this.plan.details[32].price = String(Number(this.plan.details[32].rent) * Number(this.plan.details[33].totalMonths));
-    }    
+    }
+
+    this.plan.details[32].rent = this.numberFormat(this.plan.details[32].rent);
+    // 20200519 E_Edit
   }
 
   //計算４３

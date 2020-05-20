@@ -168,6 +168,12 @@ export class Planinfo {
         if (this.afterCityPlanTax) {
             this.afterCityPlanTaxMap = Number(this.afterCityPlanTax).toLocaleString();
         }
+        if (this.landLoan) {
+            this.landLoan = Number(this.landLoan).toLocaleString();
+        }
+        if (this.buildLoan) {
+            this.buildLoan = Number(this.buildLoan).toLocaleString();
+        }
         if (this.rent.salesExpense1A) {
             this.rent.salesExpense1A = Number(this.rent.salesExpense1A).toLocaleString();
         }
@@ -225,11 +231,23 @@ export class Planinfo {
 
         this.details.forEach((detail) => {
             if (detail.price) {
-                detail.price = Number(this.rent.monthlyOtherIncome).toLocaleString();
+                detail.price = Number(detail.price).toLocaleString();
             }
-            detail.routePrice = Number(detail.routePrice).toLocaleString();
-            detail.unitPrice = Number(detail.unitPrice).toLocaleString();
-            detail.priceTax = Number(detail.priceTax).toLocaleString();
+            if (detail.routePrice) {
+                detail.routePrice = Number(detail.routePrice).toLocaleString();
+            }
+            if (detail.unitPrice) {
+                detail.unitPrice = Number(detail.unitPrice).toLocaleString();
+            }
+            if (detail.priceTax) {
+                detail.priceTax = Number(detail.priceTax).toLocaleString();
+            }
+            if (detail.valuation) {
+                detail.valuation = Number(detail.valuation).toLocaleString();
+            }
+            if (detail.rent) {
+                detail.rent = Number(detail.rent).toLocaleString();
+            }
         });
 
         this.rentdetails.forEach((detail) => {
@@ -276,6 +294,8 @@ export class Planinfo {
             detail.routePrice = detail.routePrice != null ? detail.routePrice.replace(/,/g, "").trim() : null;
             detail.unitPrice = detail.unitPrice != null ? detail.unitPrice.replace(/,/g, "").trim() : null;
             detail.priceTax = detail.priceTax != null ? detail.priceTax.replace(/,/g, "").trim() : null;
+            detail.valuation = detail.valuation != null ? detail.valuation.replace(/,/g, "").trim() : null;
+            detail.rent = detail.rent != null ? detail.rent.replace(/,/g, "").trim() : null;
         });
 
         this.rentdetails.forEach((detail) => {
