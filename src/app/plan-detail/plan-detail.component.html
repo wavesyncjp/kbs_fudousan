@@ -405,7 +405,7 @@
             <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.details[4].price" [attr.disabled]="true"></td>
             <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal50(4)) | number"></td>
             <td class="yen">
-                <input type="text" class="Twidth100" placeholder="負担日数" [(ngModel)]="plan.details[4].burdenDays" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('burdenDays')"></td>
+                <input type="text" class="Twidth100 number" placeholder="負担日数" [(ngModel)]="plan.details[4].burdenDays" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('burdenDays')"></td>
         </tr>
         <!--20200331 ADD-->
         <tr>
@@ -453,13 +453,13 @@
             <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.details[10].price" (keypress)="numericOnly($event)"  (ngModelChange)="changeValue('price10')"></td>
             <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal50(10)) | number" [attr.disabled]="true"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100 number" placeholder="容積単価" [(ngModel)]="plan.details[10].unitPrice"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" placeholder="容積単価" [(ngModel)]="plan.details[10].unitPrice" (ngModelChange)="changeValueDetail('unitPrice', 10)"></td>
         </tr>
         <tr>
             <th class="main">設計料</th>
             <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.details[11].price" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('price11')"></td>
             <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal50(11)) | number" [attr.disabled]="true"></td>
-            <td class="yen"><input type="text" class="Twidth100 number" placeholder="税込金額" [(ngModel)]="plan.details[11].priceTax"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" placeholder="税込金額" [(ngModel)]="plan.details[11].priceTax" (ngModelChange)="changeValueDetail('priceTax', 11)"></td>
             
         </tr>
         <tr>
@@ -471,7 +471,7 @@
             <th class="main">建築予備費</th>
             <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.details[13].price" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('price13')"></td>
             <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal50(13)) | number"></td>
-            <td class="yen"><input type="text" class="Twidth100 number" placeholder="税込金額" [(ngModel)]="plan.details[13].priceTax"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" placeholder="税込金額" [(ngModel)]="plan.details[13].priceTax" (ngModelChange)="changeValueDetail('priceTax', 13)"></td>
             
         </tr>
         <tr>
