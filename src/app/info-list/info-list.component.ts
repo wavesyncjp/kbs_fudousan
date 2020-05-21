@@ -7,6 +7,7 @@ import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { Information } from '../models/information';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
@@ -32,6 +33,7 @@ export class InfoListComponent extends BaseComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(public router: Router,
               public dialog: MatDialog,
+              public datepipe: DatePipe,
               public service: BackendService,
               private spinner: NgxSpinnerService) {
     super(router, service);
@@ -75,7 +77,7 @@ export class InfoListComponent extends BaseComponent {
    */
   searchInfo() {
     this.spinner.show();
-    this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
+    this.cond.infoDate = this.cond.infoDateMap != null ? this.datepipe.transform(this.cond.infoDateMap, 'yyyyMMdd') : null;
     this.service.searchInfo(this.cond).then(res => {
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
