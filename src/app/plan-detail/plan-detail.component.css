@@ -110,7 +110,13 @@ span.fixed_asset_head{
     display: inline-flex;
     align-items: center;
 }
-
+.first_0{
+    height: 30px;
+    line-height:30px;
+    min-width: 110px;
+    margin-right: 20px;
+    float: left;
+} 
 .first{
     height: 30px;
     line-height:30px;
