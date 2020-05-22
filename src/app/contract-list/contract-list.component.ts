@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ContractDetailComponent } from '../contract-detail/contract-detail.component';
 import { JPDateAdapter, MatPaginatorIntlJa } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { BaseComponent } from '../BaseComponent';
 import { Contractinfo } from '../models/contractinfo';
 import { Templandinfo } from '../models/templandinfo';
@@ -44,6 +45,7 @@ export class ContractListComponent  extends BaseComponent {
               private route: ActivatedRoute,
               public service: BackendService,
               public dialog: MatDialog,
+              public datepipe: DatePipe,
               private spinner: NgxSpinnerService) {
                 super(router, service);
                 this.route.queryParams.subscribe(params => {
@@ -64,8 +66,8 @@ export class ContractListComponent  extends BaseComponent {
 
   searchContract() {
     this.spinner.show();
-    this.cond.vacationDay = this.cond.vacationDayMap != null ? this.cond.vacationDayMap.toLocaleDateString() : null;
-    this.cond.contractDay = this.cond.contractDayMap != null ? this.cond.contractDayMap.toLocaleDateString() : null;
+    this.cond.vacationDay = this.cond.vacationDayMap != null ? this.datepipe.transform(this.cond.vacationDayMap, 'yyyyMMdd') : null;
+    this.cond.contractDay = this.cond.contractDayMap != null ? this.datepipe.transform(this.cond.contractDayMap, 'yyyyMMdd') : null;
     this.service.searchContract(this.cond).then(res => {
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
