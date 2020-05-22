@@ -184,7 +184,7 @@
             <tbody class="list-body">
                 <tr *ngFor="let sale of data.sales">                        
                     <td class="text-left">{{sale.salesName}}</td>
-                    <td class="text-left">{{sale.salesAddress}}</td>
+                    <td class="text-left">{{sale.salesLocation}}</td>
                     <td class="text-right">{{formatIntNumber(sale.salesLandArea, '')}}</td>
                     <td class="text-right">{{formatIntNumber(sale.salesTradingPrice, '')}}</td>
                     <td>{{formatDay(sale.salesContractSchDay, 'yyyy/MM/dd')}}</td>
