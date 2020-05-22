@@ -41,7 +41,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('売り契約情報詳細');
+    //this.service.changeTitle('売り契約情報詳細');
     this.data = new Bukkensalesinfo(this.data);
     this.data.convert();
 

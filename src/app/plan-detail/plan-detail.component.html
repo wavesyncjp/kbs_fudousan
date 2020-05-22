@@ -158,12 +158,12 @@
                 <input type="text" class="Twidthy50 number" [(ngModel)]="plan.siteAreaCheck" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('siteAreaCheck')">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.siteAreaCheck)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
-            <th>建築延面積</th>
+            <th>建築延面積*①</th>
             <td class="first">
                 <input type="text" class="Twidthy50 number" [(ngModel)]="plan.buildArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.buildArea)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
-            <th class="entrance">エントランス・内廊下部分</th>
+            <th>エントランス*②</th>
               <td class="first">
                 <input type="text" class="Twidthy50 number" [(ngModel)]="plan.entrance" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.entrance)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
@@ -181,7 +181,7 @@
                 <input type="text" class="Twidthy50 number" [(ngModel)]="plan.underArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.underArea)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
-            <th>総専有面積</th>
+            <th>総専有面積*③</th>
             <td class="first">
                 <input type="text" class="Twidthy50 number" [(ngModel)]="plan.totalArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.totalArea)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
@@ -220,7 +220,7 @@
             <td class="etc4">
               <input type="text" class="Twidthy50 number"(keypress)="floatOnly($event)"  [attr.disabled]="true" [value]="cal10()">&nbsp;％
             </td>
-            <th class="sum">総専有面積／（建築延面積＋エントランス・内廊下部分</th>
+            <th>③/(①＋②)</th>
             <td><input type="text" class="Twidthy50 number"  [attr.disabled]="true" (keypress)="floatOnly($event)" [value]="cal11()" >&nbsp;％</td>
         </tr>
         <tr>
@@ -336,19 +336,19 @@
         <tr>
             <th>課税標準額(固定)</th>
             <td>
-              <input type="text number" class="width100 number" [(ngModel)]="plan.afterTaxationMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterTaxation')">
+              <input type="text" class="width100 number" [(ngModel)]="plan.afterTaxationMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterTaxation')">
             </td>
             <th>課税標準額(都市)</th>
             <td>
-              <input type="text number" class="width100 number" [(ngModel)]="plan.afterTaxationCityMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterTaxationCity')">
+              <input type="text" class="width100 number" [(ngModel)]="plan.afterTaxationCityMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterTaxationCity')">
             </td>
             <th>固定資産税</th>
             <td>
-              <input type="text number" class="width100 number" [(ngModel)]="plan.afterFixedTaxMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterFixedTax')">
+              <input type="text" class="width100 number" [(ngModel)]="plan.afterFixedTaxMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterFixedTax')">
             </td>
             <th>都市計画税</th>
             <td>
-              <input type="text number" class="width100 number" [(ngModel)]="plan.afterCityPlanTaxMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterCityPlanTax')">
+              <input type="text" class="width100 number" [(ngModel)]="plan.afterCityPlanTaxMap" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('afterCityPlanTax')">
             </td>
             
         </tr>
@@ -356,7 +356,7 @@
         <tr>
             <th>取得後固都税年額</th>
             <td colspan="7">
-              <input type="text number" class="width150 number" [attr.disabled]="true" [value]="getNumber(cal26()) | number">
+              <input type="text" class="width150 number" [attr.disabled]="true" [value]="getNumber(cal26()) | number">
             </td>
         </tr>
     </table>
@@ -867,7 +867,7 @@
 <!--レントロール_S-->    
 <table class = "detail-tbl-rent">
     <tr>
-        <th class="title">レントロール</th>
+        <th class="title" style="width:180px !important;">レントロール&nbsp;※単位(円)</th>
     </tr>
         
     <tr>
