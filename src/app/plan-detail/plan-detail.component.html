@@ -77,8 +77,9 @@
             <td class="second">
               <input type="text" style="width: 400px;" [(ngModel)]="plan.landOwner">
             </td>
+            
             <th>権利関係</th>
-            <td td class="third">
+            <td class="third">
                 <app-select-component [codes]="getCode('011')" [(ngModel)]="plan.rightsRelationship"></app-select-component>
             </td>
             <th>仕入契約予定日</th>
@@ -102,7 +103,7 @@
         </tr>
         <tr>
             <th>着工</th>
-            <td class="force">
+            <td class="first">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="startDay" class="width100" [(ngModel)]="plan.startDayMap" (ngModelChange)="changeValue('startDay')">
                 <mat-datepicker-toggle matSuffix [for]="startDay" class="picker-icon"></mat-datepicker-toggle>
@@ -110,7 +111,7 @@
                 </div>
             </td>
             <th>上棟</th>
-                <td class="etc">
+            <td class="first">
                 <div class="picker-div">
                 <input type="text" [matDatepicker]="upperWingDay" class="width100" [(ngModel)]="plan.upperWingDayMap">
                 <mat-datepicker-toggle matSuffix [for]="upperWingDay" class="picker-icon"></mat-datepicker-toggle>
