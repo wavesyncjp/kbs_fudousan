@@ -11,7 +11,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
-
+import { Util } from '../utils/util';
+import { CsvTemplateComponent } from '../csv-template/csv-template.component';
 
 @Component({
   selector: 'app-paycontract-list',
@@ -26,8 +27,9 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 
 export class PayContractListComponent extends BaseComponent {
   public cond: any;
+  searched = false;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail'];// 'paymentCode',
+  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail', 'csvCheck'];// 'paymentCode',
   dataSource = new MatTableDataSource<Paycontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -60,6 +62,7 @@ export class PayContractListComponent extends BaseComponent {
       //const lst = this.groupData(res);
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
+      this.searched = true;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
@@ -112,5 +115,33 @@ export class PayContractListComponent extends BaseComponent {
 
   highlight(row) {
     this.selectedRowIndex = row.pid;
+  }
+
+  /**
+   * CSV出力
+   */
+  csvExport(){
+
+    let lst = this.dataSource.data.filter(me => me['select']).map(me => Number(me.pid));
+    if(lst.length === 0) return;
+
+    //テンプレート選択
+    const dialogRef = this.dialog.open(CsvTemplateComponent, {
+      width: '450px',
+      height: '200px',
+      data: {
+        type: '02'
+      }
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['choose']) {
+        this.spinner.show();
+        this.service.exportCsv(lst, result['csvCode']).then(ret => {
+          Util.stringToCSV(ret['data'], result['csvName']);
+          this.spinner.hide();
+        });    
+      }
+    });
   }
 }
