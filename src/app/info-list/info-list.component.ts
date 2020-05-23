@@ -25,7 +25,12 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
   ],
 })
 export class InfoListComponent extends BaseComponent {
-  public cond: any;
+  public cond = {
+    infoSubject: '',
+    infoDateMap: '',
+    infoDate: '',
+    finishFlg: ['0']
+  };
   selectedRowIndex = -1;
   displayedColumns: string[] = ['infoDate', 'infoSubject', 'detailFlg', 'infoDetail', 'attachFileName', 'finishFlg', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Information>();
@@ -44,12 +49,14 @@ export class InfoListComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('インフォメーション');
     this.dataSource.paginator = this.paginator;
+    /*
     this.cond = {
       infoSubject: '',
       infoDateMap: '',
       infoDate: '',
       finishFlg: ['0']
     };
+    */
 
     const funcs = [];
     funcs.push(this.service.getCodes(['005', '006']));
