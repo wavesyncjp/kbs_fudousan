@@ -264,11 +264,12 @@ export class PlanDetailComponent extends BaseComponent {
     }
     return true;
   }
-
+ /*20200525_del
   ok() {
     if (!this.validate()) {
       return;
     }
+    
 
     this.data.locations.forEach((loc, pos) => {
       if (loc.sharers == null || loc.sharers.length == 1) {
@@ -292,7 +293,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
     return true;
   }
-
+  20200525_del*/
   /**
    * 一覧へ戻る
    */
@@ -413,9 +414,9 @@ export class PlanDetailComponent extends BaseComponent {
         // 20200518 S_Edit
         this.plan.details[10].price = this.removeComma(this.plan.details[10].price);
         this.plan.details[11].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.03));
-        this.plan.details[11].price = this.numberFormat(this.plan.details[11].price);
+        //this.plan.details[11].price = this.numberFormat(this.plan.details[11].price);
         this.plan.details[13].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.02));
-        this.plan.details[13].price = this.numberFormat(this.plan.details[13].price);
+        //this.plan.details[13].price = this.numberFormat(this.plan.details[13].price);
       
         this.changeValue('price11');
         this.changeValue('price13');
