@@ -319,7 +319,22 @@
                 <input type="text" class="width85Per" [(ngModel)]="contract.remarks">
             </td>
         </tr>
-        
+        <tr>
+            <th>計画地の公図</th>
+            <td colspan="9" style="border-top: solid 1px rgba(197, 191, 191, 0.822);">
+                <label *ngIf="!(contract.pid > 0)" style="color:red">※契約情報を登録後に添付可能となります。</label>   
+                <app-file contractInfoId="{{contract.pid}}" *ngIf="contract.pid > 0" (uploaded)="uploaded($event)"></app-file> 
+                
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let map of contract.contractFiles">
+                        <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
+                        <td><button mat-flat-button class="attach-btn" (click)="deleteFile(map)">削除</button></td>
+                    </tr>
+                   
+                </table>
+                
+            </td> 
+       </tr>
     </table>
 
     <table class="detail-tbl-min">
