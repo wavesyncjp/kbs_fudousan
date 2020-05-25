@@ -113,6 +113,9 @@ export class PlanDetailComponent extends BaseComponent {
       if (values.length > 4) {
         if (this.pid > 0) {
           this.plan = new Planinfo(values[4] as Planinfo);
+          if(this.plan.rent == null || !this.plan.rent) {
+            this.plan.rent = new Planrentroll();
+          }
           this.plan.convert();
           this.data = new Templandinfo(values[4].land as Templandinfo);
           delete this.plan['land'];

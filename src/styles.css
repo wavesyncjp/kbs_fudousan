@@ -13,6 +13,10 @@ input[type="text"] {
     border-radius: 2px;
 }
 
+input[type="text"]:disabled{
+    background-color: #EBEBE4;
+}
+
 textarea {
     border: solid 1px cornflowerblue;
     border-radius: 2px;

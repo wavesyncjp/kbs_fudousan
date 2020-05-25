@@ -509,9 +509,10 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param contract 契約者
    */
   displayAddress(contract: Contractinfo) {
-    return contract.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => loc.address);
-    }).join('\n\r');
+    const lst = contract.details.map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01' && !this.isBlank(loc.address)).map(loc => loc.address);
+    });
+    return (lst.length > 0 ? lst[0] : '');
   }
   /**
    * 地番表示
@@ -519,7 +520,7 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   displayBlockNumber(contract: Contractinfo) {
     return contract.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => loc.blockNumber);
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => !this.isBlank(loc.blockNumber) ? loc.blockNumber : '-' );
     }).join('\n\r');
   }
   /**
