@@ -415,7 +415,7 @@ export class PlanDetailComponent extends BaseComponent {
         this.plan.details[11].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.03));
         this.plan.details[11].price = this.numberFormat(this.plan.details[11].price);
         this.plan.details[13].price= String(Math.floor(Number(this.getNumber(this.plan.details[10].price)) * 0.02));
-        this.plan.details[13].price = this.numberFormat(this.plan.details[11].price);
+        this.plan.details[13].price = this.numberFormat(this.plan.details[13].price);
       
         this.changeValue('price11');
         this.changeValue('price13');
