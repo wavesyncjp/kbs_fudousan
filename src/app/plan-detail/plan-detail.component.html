@@ -32,11 +32,11 @@
             </td>
             <th>決済期</th>
             <td class="first">
-                <input type="text" class="Twidth100" [(ngModel)]="plan.settlement">
+                <input type="text" class="Twidthy50" [(ngModel)]="plan.settlement">
                 <app-select-component [codes]="getCode('017')" [cusClass]="'Twidthy50'" [(ngModel)]="plan.period"></app-select-component>
             </td>
             <th>担当部署</th>
-            <td class="first_0">
+            <td class="first">
                 <app-select-component [codes]="getDeps()" [cusClass]="'Twidthy70'" [(ngModel)]="plan.depCode"></app-select-component>
             </td>
             <th>物件担当者</th>
@@ -79,7 +79,7 @@
             </td>
             
             <th>権利関係</th>
-            <td class="third">
+            <td class="first">
                 <app-select-component [codes]="getCode('011')" [(ngModel)]="plan.rightsRelationship"></app-select-component>
             </td>
             <th>仕入契約予定日</th>
@@ -204,21 +204,21 @@
                 <input type="text" class="Twidthy80" [(ngModel)]="plan.groundType">
             </td>
             <th>容積率</th>
-            <td class="etc4">
+            <td class="first">
               <input type="text" class="Twidthy50 number" [(ngModel)]="plan.floorAreaRate" (keypress)="floatOnly($event)">&nbsp;％
             </td>
             <th>建蔽率</th>
-            <td class="etc">
+            <td class="first">
               <input type="text" class="Twidthy50 number" [(ngModel)]="plan.coverageRate" (keypress)="floatOnly($event)">&nbsp;％
             </td>
         </tr>
         <tr>
             <th>消化容積</th>
-            <td class="etc4">
+            <td class="first">
               <input type="text" class="Twidthy50 number" (keypress)="floatOnly($event)" [attr.disabled]="true" [value]="cal9()">&nbsp;％
             </td>
             <th>レンタブル比</th>
-            <td class="etc4">
+            <td class="first">
               <input type="text" class="Twidthy50 number"(keypress)="floatOnly($event)"  [attr.disabled]="true" [value]="cal10()">&nbsp;％
             </td>
             <th>③/(①＋②)</th>
@@ -269,7 +269,7 @@
             <input type="text" class="width100" [(ngModel)]="plan.mechanical" (keypress)="numericOnly($event)">&nbsp;台
             </td>
             <th>当社JV比率</th>
-            <td class="etc2">
+            <td class="first">
             <input type="text" class="width100 number" [(ngModel)]="plan.jvRatio" (keypress)="floatOnly($event)">&nbsp;％
             </td>
         </tr>
