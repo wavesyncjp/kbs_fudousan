@@ -341,7 +341,7 @@ export class PlanDetailComponent extends BaseComponent {
      if(name === 'taxation') {
       // 20200518 S_Edit
       this.plan.taxation = this.getNumber(this.removeComma(this.plan.taxationMap));
-      this.plan.fixedTaxLand = Math.round(this.plan.taxation * 0.014);
+      this.plan.fixedTaxLand = Math.floor(this.plan.taxation * 0.014);
       this.plan.fixedTaxLandMap = this.numberFormat(String(this.plan.fixedTaxLand));
       // 20200518 E_Edit
     }
@@ -350,7 +350,7 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'taxationCity') {
       // 20200518 S_Edit
       this.plan.taxationCity = this.getNumber(this.removeComma(this.plan.taxationCityMap));
-      this.plan.cityPlanTaxLand = Math.round(this.plan.taxationCity * 0.03);
+      this.plan.cityPlanTaxLand = Math.floor(this.plan.taxationCity * 0.03);
       this.plan.cityPlanTaxLandMap = this.numberFormat(String(this.plan.cityPlanTaxLand));
       // 20200518 E_Edit
     }
@@ -358,7 +358,7 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'buildValuation') {
       // 20200518 S_Edit
       this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
-      this.plan.fixedTaxBuild = Math.round(this.plan.buildValuation * 0.014);
+      this.plan.fixedTaxBuild = Math.floor(this.plan.buildValuation * 0.014);
       this.plan.fixedTaxBuildMap = this.numberFormat(String(this.plan.fixedTaxBuild));
       // 20200518 E_Edit
     }
@@ -367,7 +367,7 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'buildValuation') {
       // 20200518 S_Edit
       this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
-      this.plan.cityPlanTaxBuild = Math.round(this.plan.buildValuation * 0.03);
+      this.plan.cityPlanTaxBuild = Math.floor(this.plan.buildValuation * 0.03);
       this.plan.cityPlanTaxBuildMap = this.numberFormat(String(this.plan.cityPlanTaxBuild));
       // 20200518 E_Edit
     }
@@ -388,7 +388,7 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'afterTaxation') {
       // 20200518 S_Edit
       this.plan.afterTaxation = this.getNumber(this.removeComma(this.plan.afterTaxationMap));
-      this.plan.afterFixedTax = Math.round(this.plan.afterTaxation * 0.014);
+      this.plan.afterFixedTax = Math.floor(this.plan.afterTaxation * 0.014);
       this.plan.afterFixedTaxMap = this.numberFormat(String(this.plan.afterFixedTax));
       // 20200518 E_Edit
     }
@@ -397,7 +397,7 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'afterTaxationCity') {
       // 20200518 S_Edit
       this.plan.afterTaxationCity = this.getNumber(this.removeComma(this.plan.afterTaxationCityMap));
-      this.plan.afterCityPlanTax = Math.round(this.plan.afterTaxationCity * 0.03);
+      this.plan.afterCityPlanTax = Math.floor(this.plan.afterTaxationCity * 0.03);
       this.plan.afterCityPlanTaxMap = this.numberFormat(String(this.plan.afterCityPlanTax));
       // 20200518 E_Edit
     }
@@ -426,12 +426,12 @@ export class PlanDetailComponent extends BaseComponent {
     }
     /*//計算３０
     if(name === 'price11' && !isNullOrUndefined(this.plan.details[11].price)) {
-      this.plan.details[11].priceTax = String(Math.round(Number(this.plan.details[10].price) * 0.03));
+      this.plan.details[11].priceTax = String(Math.floor(Number(this.plan.details[10].price) * 0.03));
     }
 
     //計算３１
     if(name === 'price13' && !isNullOrUndefined(this.plan.details[13].price)) {
-      this.plan.details[13].priceTax = String(Math.round(Number(this.plan.details[10].price) * 0.02));
+      this.plan.details[13].priceTax = String(Math.floor(Number(this.plan.details[10].price) * 0.02));
     }*/
 
     //計算４１
@@ -579,7 +579,7 @@ export class PlanDetailComponent extends BaseComponent {
    //計算９  
    cal9() {
     if(this.plan.buildArea > 0 && this.plan.siteAreaCheck > 0) {
-      const val9 = Math.round(this.plan.buildArea / this.plan.siteAreaCheck*100*100)/100;
+      const val9 = Math.floor(this.plan.buildArea / this.plan.siteAreaCheck*100*100)/100;
       return val9;
     } else {
       return '';
@@ -590,7 +590,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算１０  
   cal10() {
     if(this.plan.totalArea > 0 && this.plan.buildArea > 0) {
-      const val10 = Math.round(this.plan.totalArea / this.plan.buildArea *100*100)/100;
+      const val10 = Math.floor(this.plan.totalArea / this.plan.buildArea *100*100)/100;
       return val10;
     } else {
       return '';
@@ -601,7 +601,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算 11 ☆☆
   cal11() {
     if(this.plan.totalArea > 0 && this.plan.buildArea > 0  && this.plan.entrance > 0) {
-      const val11 = Math.round((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
+      const val11 = Math.floor((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
       return val11;
     } else {
       return '';
@@ -625,7 +625,7 @@ export class PlanDetailComponent extends BaseComponent {
   //計算１３
   cal13(){
     if(!isNullOrUndefined(Number(this.cal12())) && this.plan.buysellUnits > 0){
-      const val13 = (Number(this.cal12()) / this.plan.buysellUnits * 100) .toFixed(4);
+      const val13 = (Number(this.cal12()) / this.plan.buysellUnits * 100) .toFixed(2);
       return val13;
     } else {
       return ' ';
@@ -638,7 +638,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.details[0].routePrice = this.removeComma(this.plan.details[0].routePrice);
 
     if(!isNullOrUndefined(this.plan.details[0].routePrice) && this.plan.siteAreaBuy > 0){
-      this.plan.landEvaluation = Math.round(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
+      this.plan.landEvaluation = Math.floor(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
       this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
       this.plan.landEvaluationMap = this.numberFormat(String(this.plan.landEvaluation));
       // 20200519 E_Edit
@@ -652,7 +652,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
 
     if(this.plan.landEvaluation > 0 && this.plan.residentialRate > 0) {
-      this.plan.taxation = Math.round(this.plan.landEvaluation * 1 / 6 * this.plan.residentialRate / 100 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+      this.plan.taxation = Math.floor(this.plan.landEvaluation * 1 / 6 * this.plan.residentialRate / 100 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
       this.plan.taxationMap = this.numberFormat(String(this.plan.taxation));
       // 20200519 E_Edit
       this.changeValue('taxation');
@@ -665,7 +665,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
 
     if(this.plan.landEvaluation > 0 && this.plan.residentialRate > 0) {
-      this.plan.taxationCity = Math.round(this.plan.landEvaluation * 1 / 3 * this.plan.residentialRate / 100 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+      this.plan.taxationCity = Math.floor(this.plan.landEvaluation * 1 / 3 * this.plan.residentialRate / 100 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
       this.plan.taxationCityMap = this.numberFormat(String(this.plan.taxationCity));
       // 20200519 E_Edit
       this.changeValue('taxationCity');
@@ -700,7 +700,7 @@ export class PlanDetailComponent extends BaseComponent {
         this.plan.afterTaxation = this.plan.taxation;
       }
       else {
-        this.plan.afterTaxation = Math.round(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 1 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+        this.plan.afterTaxation = Math.floor(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 1 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
       }
 
       if (this.getNumber(this.plan.afterTaxation) != 0) {
@@ -720,7 +720,7 @@ export class PlanDetailComponent extends BaseComponent {
       this.plan.afterTaxationCity = this.plan.taxation;
     }
     else {
-      this.plan.afterTaxationCity = Math.round(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 2 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+      this.plan.afterTaxationCity = Math.floor(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 2 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
     }
 
     if (this.getNumber(this.plan.afterTaxationCity) != 0) {
@@ -1508,8 +1508,8 @@ cal73_4() {
 cal74_1() {
   
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-  let ret =  Math.round(Number(this.cal73_1()) / (Number(this.cal72_1())/100)*100);
-  return Math.round(ret);
+  let ret =  Math.floor(Number(this.cal73_1()) / (Number(this.cal72_1())/100)*100);
+  return Math.floor(ret);
 
 }else{
   return '';
@@ -1518,8 +1518,8 @@ cal74_1() {
 
 cal74_2() {
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-    let ret =  Math.round(Number(this.cal73_2()) / (Number(this.cal72_2())/100)*100);
-    return Math.round(ret);
+    let ret =  Math.floor(Number(this.cal73_2()) / (Number(this.cal72_2())/100)*100);
+    return Math.floor(ret);
   
   }else{
     return '';
@@ -1528,8 +1528,8 @@ cal74_2() {
 
 cal74_3() {
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-    let ret =  Math.round(Number(this.cal73_3()) / (Number(this.cal72_3())/100)*100);
-    return Math.round(ret);
+    let ret =  Math.floor(Number(this.cal73_3()) / (Number(this.cal72_3())/100)*100);
+    return Math.floor(ret);
   
   }else{
     return '';
@@ -1538,8 +1538,8 @@ cal74_3() {
 
 cal74_4() {
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-  let ret =  Math.round(Number(this.cal73_4()) / (Number(this.cal72_4())/100)*100);
-  return Math.round(ret);
+  let ret =  Math.floor(Number(this.cal73_4()) / (Number(this.cal72_4())/100)*100);
+  return Math.floor(ret);
 
 }else{
   return '';
@@ -1652,7 +1652,7 @@ cal80_4() {
 //計算８１_S 売買計画　利益率
 cal81_1() {
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-  let cal81_1 = Math.round(this.cal80_1() / this.cal77_1()*100)/100;
+  let cal81_1 = Math.floor(this.cal80_1() / this.cal77_1()*100)/100;
   return cal81_1;
 } else {
   return '';
@@ -1661,7 +1661,7 @@ cal81_1() {
 
 cal81_2() {
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-  let cal81_2 = Math.round(this.cal80_2() / this.cal77_2()*100)/100;
+  let cal81_2 = Math.floor(this.cal80_2() / this.cal77_2()*100)/100;
   return cal81_2;
 } else {
   return '';
@@ -1670,7 +1670,7 @@ cal81_2() {
 
 cal81_3() {
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-  let cal81_3 =  Math.round(this.cal80_3() / this.cal77_3()*100)/100;
+  let cal81_3 =  Math.floor(this.cal80_3() / this.cal77_3()*100)/100;
   return cal81_3;
 } else {
   return '';
@@ -1679,7 +1679,7 @@ cal81_3() {
 
 cal81_4() {
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
-  let cal81_4 =  Math.round(this.cal80_4() / this.cal77_4()*100)/100;
+  let cal81_4 =  Math.floor(this.cal80_4() / this.cal77_4()*100)/100;
   return cal81_4;
 } else {
   return '';
