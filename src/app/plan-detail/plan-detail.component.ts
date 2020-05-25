@@ -547,6 +547,9 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'price13'){
       this.plan.details[13].price = this.numberFormat(this.plan.details[13].price);
     }
+    if(name === 'routePrice'){
+      this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
+    }
     // 20200518 E_Add
     
   }
@@ -639,7 +642,6 @@ export class PlanDetailComponent extends BaseComponent {
 
     if(!isNullOrUndefined(this.plan.details[0].routePrice) && this.plan.siteAreaBuy > 0){
       this.plan.landEvaluation = Math.floor(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
-      this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
       this.plan.landEvaluationMap = this.numberFormat(String(this.plan.landEvaluation));
       // 20200519 E_Edit
       this.changeValue('landEvaluation');
