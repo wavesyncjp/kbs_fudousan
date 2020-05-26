@@ -509,8 +509,8 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param contract 契約者
    */
   displayAddress(contract: Contractinfo) {
-    const lst = contract.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01' && !this.isBlank(loc.address)).map(loc => loc.address);
+    const lst = contract.details.filter(dt => dt.contractDataType === '01').map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && !this.isBlank(loc.address)).map(loc => loc.address);
     });
     return (lst.length > 0 ? lst[0] : '');
   }
@@ -519,8 +519,8 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param contract 契約者
    */
   displayBlockNumber(contract: Contractinfo) {
-    return contract.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => !this.isBlank(loc.blockNumber) ? loc.blockNumber : '-' );
+    return contract.details.filter(dt => dt.contractDataType === '01').map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => !this.isBlank(loc.blockNumber) ? loc.blockNumber : '-' );
     }).join('\n\r');
   }
   /**
@@ -528,8 +528,8 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param contract 契約者
    */
   displayBuildingNumber(contract: Contractinfo) {
-    return contract.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => !this.isBlank(loc.buildingNumber) ? loc.buildingNumber : '-');
+    return contract.details.filter(dt => dt.contractDataType === '01').map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => loc.buildingNumber);
     }).join('\n\r');
   }
   /**
@@ -537,8 +537,8 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param contract 契約者
    */
   displayOwner(contract: Contractinfo) {
-    return contract.details.map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid && dt.contractDataType === '01').map(loc => !this.isBlank(loc.owner) ? loc.owner : '-');
+    return contract.details.filter(dt => dt.contractDataType === '01').map(dt => {
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => loc.owner);
     }).join('\n\r');
   }
 
@@ -567,5 +567,3 @@ export class BukkenDetailComponent extends BaseComponent {
   }
 
 }
-
-
