@@ -54,6 +54,9 @@ export class LocationDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+
+      this.data.convert();
+
       this.spinner.hide();
     });
      if(this.data.pid == undefined) this.data.locationType = '01';
