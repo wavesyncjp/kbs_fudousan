@@ -6,6 +6,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 import { Code } from '../models/bukken';
+import { DatePipe } from '@angular/common';
 import { Planinfo } from '../models/planinfo';
 import { Router,ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -26,16 +27,24 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 })
 
 export class PlanListComponent extends BaseComponent {
-  public cond: any;
-  search = 0;
+  public cond = {
+    bukkenNo: '',
+    bukkenName: '',
+    address: '',
+    planName: '',
+    createDay: '',
+    createDayMap: ''
+ };
+  search = '0';
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDay', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Planinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public router: Router,
               public dialog: MatDialog,
+              public datepipe: DatePipe,
               private route: ActivatedRoute,
               public service: BackendService,
               private spinner: NgxSpinnerService,) {
@@ -50,7 +59,10 @@ export class PlanListComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('事業収支一覧');
     this.dataSource.paginator = this.paginator;
-    this.cond = {};
+
+    if (this.search === '1') {
+      this.cond = this.service.searchCondition;
+    }
 
     const funcs = [];
     /*funcs.push(this.service.getCodes(['014']));*/
@@ -67,6 +79,11 @@ export class PlanListComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+
+      if (this.search === '1') {
+        this.searchPlan();
+      }
+
     });
   }
 
@@ -75,7 +92,11 @@ export class PlanListComponent extends BaseComponent {
    */
   searchPlan() {
     this.spinner.show();
+
+    this.cond.createDay = this.cond.createDayMap != null ? this.datepipe.transform(this.cond.createDayMap, 'yyyyMMdd') : "";
+
     this.service.searchPlan(this.cond).then(res => {
+      this.service.searchCondition = this.cond;
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
       setTimeout(() => {
@@ -102,7 +123,7 @@ export class PlanListComponent extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deletePlan(row.address).then(res => {
+        this.service.deletePlan(row.pid).then(res => {
           this.searchPlan();
         });
       }

@@ -636,11 +636,11 @@ export class BackendService {
 
   /**
    * 事業収支削除
-   * @param planCode : 事業収支
+   * @param id : 事業収支情報Id
    */
-  deletePlan(planCode: string): Promise<void> {
+  deletePlan(id: number): Promise<void> {
     const deleteApi = 'plandelete.php';
-    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { planCode: planCode, deleteUserId: this.loginUser.userId });
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
   

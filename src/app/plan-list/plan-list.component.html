@@ -4,7 +4,7 @@
                 <mat-panel-title>検索条件</mat-panel-title>
             </mat-expansion-panel-header>
             <div class="search-div">
-            <table class="search-tbl">                
+            <table class="search-tbl">
                 <tr>
                     <th>物件番号</th>
                     <td>
@@ -29,9 +29,9 @@
                     <th>作成日</th>
                     <td>
                     <div class="picker-div">
-                    <input type="text" [matDatepicker]="createDate" [(ngModel)]="cond.createDate" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="createDate" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #createDate></mat-datepicker>
+                    <input type="text" [matDatepicker]="createDayMap" [(ngModel)]="cond.createDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="createDayMap" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #createDayMap></mat-datepicker>
                     </div>
                     </td>
                 </tr> 
@@ -65,10 +65,12 @@
             </ng-container>
 
             <ng-container matColumnDef="address">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> 所在地 </th>
-            <td mat-cell *matCellDef="let element" class="planlist_width"> {{element.address}} </td>
+                <th mat-header-cell *matHeaderCellDef> 所在地 </th>
+                <td mat-cell *matCellDef="let element" class="planlist_width"> 
+                    <div *ngFor="let plan of element.plans; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.plans.length - 1)}">{{plan.address}}</div>
+                </td>
             </ng-container>
-    
+            
             <ng-container matColumnDef="planName">
             <th mat-header-cell *matHeaderCellDef> プラン名 </th>
             <td mat-cell *matCellDef="let element" class="planlist_width"> 
@@ -76,6 +78,13 @@
             </td>
             </ng-container>
 
+            <ng-container matColumnDef="createDay">
+                <th mat-header-cell *matHeaderCellDef> 作成日 </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngFor="let plan of element.plans; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.plans.length - 1)}">{{formatDay(plan.createDay, 'yyyy/MM/dd')}}</div>
+                </td>
+            </ng-container>
+<!--
             <ng-container matColumnDef="createDate">
                 <th mat-header-cell *matHeaderCellDef> 登録日 </th>
                 <td mat-cell *matCellDef="let element"> 
@@ -88,8 +97,8 @@
                 <td mat-cell *matCellDef="let element">
                     <div *ngFor="let plan of element.plans; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.plans.length - 1)}">{{plan.updateDate | date:'yyyy/MM/dd HH:mm:ss'}}</div>
                 </td>
-            </ng-container>-->
-
+            </ng-container>
+-->
        
             <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef></th>
