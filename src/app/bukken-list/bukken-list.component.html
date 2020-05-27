@@ -8,26 +8,26 @@
         <tr>
           <th>物件番号</th>
           <td>
-            <input type="text" [(ngModel)]="cond.bukkenNo" class="width100">
+            <input type="text" [(ngModel)]="cond.bukkenNo" class="width100" maxlength="15">
           </td>
 
           <th>契約物件番号</th>
           <td>
-            <input type="text" [(ngModel)]="cond.contractBukkenNo" class="width100">
+            <input type="text" [(ngModel)]="cond.contractBukkenNo" class="width100" maxlength="15">
           </td>
           
           <th>物件名</th>
           <td colspan="2">
-            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName">
+            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
           </td>
           <tr>
           <th>所在地</th>
           <td colspan="3">
-            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.address">
+            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.address" maxlength="100">
           </td>
           <th>住居表示</th>
           <td colspan="2">
-            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.residence">
+            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.residence" maxlength="100">
           </td>
           </tr>
           <tr>
