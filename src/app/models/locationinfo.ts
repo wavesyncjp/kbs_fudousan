@@ -53,7 +53,7 @@ export class Locationinfo {
     }
 
     public convert() {
-        if (this.dependType !== null) {
+        if (this.dependType !== null && this.dependType !== undefined && this.dependType.length > 0) {
             this.dependTypeMap = this.dependType.split(',');
         }
     }
