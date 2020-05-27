@@ -12,19 +12,19 @@
         <tr>
             <th>物件番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80">
+                <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80" maxlength="15">
             </td>
             <th>契約物件番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80">
+                <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80" maxlength="15">
             </td>
             <th>物件名</th>
             <td>
-                <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
+                <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" maxlength="100">
             </td>
             <th>住居表示</th>
             <td>
-                <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
+                <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" maxlength="100">
             </td>
         </tr>
         <!--hirano_202004.15_edd-->
@@ -107,13 +107,13 @@
             <tr>
                 <th>備考1</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.remark1" class="width85Per">
+                    <input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100">
                 </td>      
             </tr>
             <tr>
                 <th>備考2</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.remark2" class="width85Per">
+                    <input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100">
                 </td>      
             </tr>
         </table>
@@ -126,13 +126,13 @@
                     <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                 </td>
                 <th>不可分子</th>
-                <td><input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60"></td>
+                <td><input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15"></td>
                 <th>不可分母</th>
-                <td><input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60"></td>
+                <td><input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15"></td>
                 <th>容積率</th>
-                <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width60': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
+                <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width60': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%</td>
                 <th>建蔽率</th>
-                <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)">&nbsp;%</td>
+                <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%</td>
             </tr>
             <!--11/26修正-->
             
@@ -163,7 +163,7 @@
                     <table style="margin-left: 5px;">
                         <tr *ngFor="let map of data.attachFiles">
                             <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
-                            <td><input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;"></td>
+                            <td><input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;" maxlength="100"></td>
                             <td><button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button></td>
                         </tr>
                         
