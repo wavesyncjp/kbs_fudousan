@@ -542,7 +542,7 @@
         </tr>
         <tr>
             <th class="main">土地固都税</th>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[23].price" [attr.disabled]="true"  [value]="getNumber(cal35()) | number"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[23].price" [attr.disabled]="true"  [value]="getNumber(cal35())"></td>
             <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal50(23)) | number" [attr.disabled]="true"></td>
             <!--20200407_hirano src-->
             <td class="yen"><input type="text" class="Twidth100 number" placeholder="～竣工単価" [(ngModel)]="plan.details[23].complePriceMonth">ヵ月</td>
@@ -619,7 +619,7 @@
     </div>
         <tr>
             <th class="main">竣工前地代</th>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15"  [(ngModel)]="plan.details[32].price" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 32)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15"  [(ngModel)]="plan.details[32].price" [attr.disabled]="true"></td>
             <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal50(32)) | number" [attr.disabled]="true"></td>
             <!--20200407_hirano src-->
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" placeholder="地代" [(ngModel)]="plan.details[32].rent" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('rent')"></td>
@@ -649,7 +649,7 @@
         <tr>
             <!--20200407_hirano src-->
             <th class="main">融資手数料</th>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[36].price" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 36)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[36].price" [attr.disabled]="true"></td>
             <td class="yen"></td>
             <td class="yen"><input type="text" class="Twidth100 number" placeholder="手数料率" [(ngModel)]="plan.details[36].commissionRate" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('commissionRate')"></td>
         </tr>
@@ -981,7 +981,7 @@
         <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100 number" maxlength="15" [(ngModel)]="plan.rentdetails[13].rentUnitPrice" (ngModelChange)="changeValueDetail('rentUnitPrice', 13)"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number" [value]="getNumber(cal52(13)) | number" [attr.disabled]="true"></td>
         <td class="yen2"><input type="text" placeholder="敷金"class="par number"  [(ngModel)]="plan.rentdetails[13].securityDeposit">&nbsp;ヵ月</td>
-        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100 number" [value]="getNumber(cal52(13)) | number" [attr.disabled]="true"></td>
+        <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100 number" [value]="getNumber(cal51(13)) | number" [attr.disabled]="true"></td>
     </tr>
     <tr>
         <th class="main"><input type="text" placeholder="対象"class="par" [(ngModel)]="plan.rentdetails[14].targetArea"></th>

@@ -126,6 +126,15 @@ export class PlanDetailComponent extends BaseComponent {
           this.plan.landLoan = "";
           this.plan.buildLoan = "";
           // 20200519 E_Add
+          // 20200527 S_Add 新規作成の際、カンマを自動でつける処理が行われないこと、自動計算が行われないことに対する修正
+          this.plan.landInterest = "";
+          this.plan.landPeriod = "";
+          this.plan.buildInterest = "";
+          this.plan.buildPeriod = "";
+          //新規作成で片方にしか値が入っていない場合計算結果がNaNになっていたため修正
+          this.plan.parkingIndoor = 0;
+          this.plan.parkingOutdoor = 0;
+          // 20200527 E_Add
         }
       }
 
@@ -158,13 +167,20 @@ export class PlanDetailComponent extends BaseComponent {
           let detail = new Plandetail();
           detail.paymentCode = code;
           detail.backNumber = String(index + 1);
-          // 20200519 S_Add
-          if (index == 37) {
-            detail.price = "0";
-          } else {
-            detail.price = "";
-          }
-          // 20200519 E_Add
+
+          // 20200527 S_Add 新規作成の際、カンマを自動でつける処理が行われないこと、自動計算が行われないことに対する修正
+          detail.price = "";
+          detail.unitPrice = "";
+          detail.priceTax = "";
+          detail.valuation = "";
+          detail.rent = "";
+          detail.burdenDays = "";
+          detail.totalMonths = "";
+          detail.commissionRate = "";
+          detail.complePriceMonth = "";
+          detail.dismantlingMonth = "";
+          detail.routePrice = "";
+          // 20200527 E_Add
           this.plan.details.push(detail);
         });
       }
@@ -207,11 +223,21 @@ export class PlanDetailComponent extends BaseComponent {
 
 
   changeHang(val, val1) {
+    // 20200527 S_Add 土地 取得時税金 所得税・登録税が出力していない点を修正
+    val = this.removeComma(String(val));
+    // 20200527 E_Add
     if (isNullOrUndefined(val) || val == null || val === '' || isNaN(val)) return 0;
     return Math.floor(Number(val) * this.getNumber(val1));
   }
 
   changeUnit (val, val1) {
+    // 20200527 S_Add　土地 取得時税金 所得税・登録税が出力していない点を修正
+    val = this.removeComma(String(val));
+    // totalAreaが0の時、0除算が発生してエラーになっていたため
+    if(this.plan.totalArea == 0 || this.plan.totalArea == null) {
+      return 0;
+    }
+    // 20200527 E_Add
     if (isNullOrUndefined(val) || val == null || val === '' || isNaN(val)) return 0;
     return Math.floor(Number(val) * this.getNumber(val1) / this.getNumber((this.plan.totalArea) * 0.3025));
   }
@@ -647,6 +673,9 @@ export class PlanDetailComponent extends BaseComponent {
     if(!isNullOrUndefined(this.plan.details[0].routePrice) && this.plan.siteAreaBuy > 0){
       this.plan.landEvaluation = Math.floor(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
       this.plan.landEvaluationMap = this.numberFormat(String(this.plan.landEvaluation));
+      // 20200527 S_Add 計算後にカンマが外れていたため
+      this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
+      // 20200527 E_Add
       // 20200519 E_Edit
       this.changeValue('landEvaluation');
     }
@@ -1400,12 +1429,20 @@ cal70_4() {
 
 //計算７１_S ＮＯＩ利回り※NOI/(A)
 cal71_1() {
-  if(isNullOrUndefined(this.cal70_1 == null)){
-  let cal71_1 = Math.floor(Number(this.cal70_1()) / this.cal49());
-  return Math.floor(cal71_1);
-} else {
-  return '';
-}
+  // 20200527 S_Edit 
+  // 0除算を起こさないための修正
+  if (this.cal49() == 0) {
+    return 0
+  }
+  // NOI利回りの計算が行えていないに対する修正
+  // if(isNullOrUndefined(this.cal70_1 == null)){
+  if(!isNullOrUndefined(this.cal70_1 == null)){
+  // 20200527 E_Edit
+    let cal71_1 = Math.floor(Number(this.cal70_1()) / this.cal49());
+    return Math.floor(cal71_1);
+  } else {
+    return '';
+  }
 }
 
 cal71_2() {
@@ -1512,6 +1549,11 @@ cal73_4() {
 
 //計算７４_S 利益率※(E)/(D)
 cal74_1() {
+  //20200527 S_Add 経費率に値が入っていないときに0除算を起こさせないための修正
+  if (this.cal72_1() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
   
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
   let ret =  Math.floor(Number(this.cal73_1()) / (Number(this.cal72_1())/100)*100);
@@ -1523,6 +1565,12 @@ cal74_1() {
 }
 
 cal74_2() {
+  //20200527 S_Add 経費率に値が入っていないときに0除算を起こさせないための修正
+  if (this.cal72_2() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
+
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
     let ret =  Math.floor(Number(this.cal73_2()) / (Number(this.cal72_2())/100)*100);
     return Math.floor(ret);
@@ -1533,6 +1581,12 @@ cal74_2() {
   }
 
 cal74_3() {
+  //20200527 S_Add 経費率に値が入っていないときに0除算を起こさせないための修正
+  if (this.cal72_3() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
+
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
     let ret =  Math.floor(Number(this.cal73_3()) / (Number(this.cal72_3())/100)*100);
     return Math.floor(ret);
@@ -1543,6 +1597,12 @@ cal74_3() {
   }
 
 cal74_4() {
+  //20200527 S_Add 経費率に値が入っていないときに0除算を起こさせないための修正
+  if (this.cal72_4() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
+
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
   let ret =  Math.floor(Number(this.cal73_4()) / (Number(this.cal72_4())/100)*100);
   return Math.floor(ret);
@@ -1657,6 +1717,12 @@ cal80_4() {
 
 //計算８１_S 売買計画　利益率
 cal81_1() {
+  //20200527 S_Add 利回りに値が入っていないときに0除算を起こさせないための修正
+  if (this.cal77_1() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
+
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
   let cal81_1 = Math.floor(this.cal80_1() / this.cal77_1()*100)/100;
   return cal81_1;
@@ -1666,6 +1732,12 @@ cal81_1() {
 }
 
 cal81_2() {
+  //20200527 S_Add 利回りに値が入っていないときに0除算を起こさせないための修正
+  if (this.cal77_2() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
+
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
   let cal81_2 = Math.floor(this.cal80_2() / this.cal77_2()*100)/100;
   return cal81_2;
@@ -1675,6 +1747,12 @@ cal81_2() {
 }
 
 cal81_3() {
+  //20200527 S_Add 利回りに値が入っていないときに0除算を起こさせないための修正
+  if (this.cal77_3() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
+
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
   let cal81_3 =  Math.floor(this.cal80_3() / this.cal77_3()*100)/100;
   return cal81_3;
@@ -1684,6 +1762,12 @@ cal81_3() {
 }
 
 cal81_4() {
+  //20200527 S_Add 利回りに値が入っていないときに0除算を起こさせないための修正
+  if (this.cal77_4() == 0) {
+    return 0;
+  }
+  //20200527 E_Add
+
   if(this.getNumber(this.plan.rent.occupancyRate) > 0  &&  this.getNumber(this.plan.rent.salesProfits) > 0){
   let cal81_4 =  Math.floor(this.cal80_4() / this.cal77_4()*100)/100;
   return cal81_4;
