@@ -18,7 +18,7 @@
             <th>売買区分</th>
             <td colspan="3"><app-select-component [codes]="getCode('021')" [(ngModel)]="data.salesType" [noBlank]="true"></app-select-component></td>            
             <th>売却先</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesName" class= "width250"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesName" class= "width250" maxlength="100"></td>
                                     
         </tr>
         
@@ -26,9 +26,9 @@
 
         <tr>
             <th>売買対象<br>(所在地）</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesLocation" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesLocation" class="width400" maxlength="100"></td>
             <th>売却先住所</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesAddress" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesAddress" class="width400" maxlength="100"></td>
             
         </tr>
         <tr>
@@ -41,7 +41,7 @@
             </div>
             </td>
             <th>売買代金</th>
-            <td><input type="text" [(ngModel)]="data.salesTradingPrice" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesTradingPrice" class="width100" maxlength="15"></td>
             <th>契約予定日</th>
             <td colspan="3">
             <div class="picker-div">
@@ -62,7 +62,7 @@
             </div>
             </td>
             <th>決済代金</th>
-            <td><input type="text" [(ngModel)]="data.salesDecisionPrice" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesDecisionPrice" class="width100" maxlength="15"></td>
             <th>決済日</th>
             <td colspan="3">
             <div class="picker-div">
@@ -74,38 +74,38 @@
         </tr>
         <tr>
             <th>固都税清算金</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedTax" class="width100" maxlength="15"></td>
             <th>(固都税清算金)土地</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedLandTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedLandTax" class="width100" maxlength="15"></td>
             <th>(固都税清算金)建物</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedBuildingTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedBuildingTax" class="width100" maxlength="15"></td>
             <th>(固都税清算金)消費</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedConsumptionTax" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedConsumptionTax" class="width100" maxlength="15"></td>
 
         </tr>
         <tr>
             <th>その他清算金</th>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation1" class="width100"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation2" class="width100"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation3" class="width100"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation4" class="width100"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation5" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation1" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation2" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation3" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation4" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation5" class="width100" maxlength="15"></td>
            
         </tr>
         <tr>
             <th>仲介手数料</th>
-            <td><input type="text" [(ngModel)]="data.salesBrokerageFee" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesBrokerageFee" class="width100" maxlength="15"></td>
             <th>地積（㎡、坪）</th>
-            <td><input type="text" [(ngModel)]="data.salesLandArea" class="width100"></td>
+            <td><input type="text" [(ngModel)]="data.salesLandArea" class="width100" maxlength="15"></td>
 
         </tr>
         <tr>
             <th>仲介会社</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesIntermediary" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesIntermediary" class="width400" maxlength="100"></td>
         </tr>
         <tr>
             <th>備考</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesRemark" class="width400"></td>
+            <td colspan="3"><input type="text" [(ngModel)]="data.salesRemark" class="width400" maxlength="100"></td>
             
         </tr>
             

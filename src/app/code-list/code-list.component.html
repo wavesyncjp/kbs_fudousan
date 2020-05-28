@@ -14,13 +14,13 @@
                 <tr>
                     <th>子コード</th>
                     <td>
-                        <input type="text" class="width200" [(ngModel)]="cond.codeDetail">
+                        <input type="text" class="width200" [(ngModel)]="cond.codeDetail" maxlength="15">
                     </td>
                 </tr>
                 <tr>
                     <th>子コード名称</th>
                     <td>
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.name">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.name" maxlength="20">
                     </td>
                 </tr>    
             </table>      

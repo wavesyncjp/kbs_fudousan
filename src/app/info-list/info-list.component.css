@@ -10,9 +10,7 @@ table {
 .mat-column-detailFlg{
     width: 120px;
 }
-.mat-column-infoDetail{
-    /*width: 30%;*/
-}
+
 .mat-column-attachFileName{
     width: 200px;
 }
@@ -48,3 +46,9 @@ table {
 
 }
 
+.bukkenlist_width{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }

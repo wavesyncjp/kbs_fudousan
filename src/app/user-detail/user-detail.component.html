@@ -6,24 +6,24 @@
     <table class="detail-tbl">
         <tr>
             <th>ユーザーID</th>
-            <td><input type="text"  [(ngModel)]="data.userId" [ngClass]="{'width150': true}" disabled="true" ></td>
+            <td><input type="text"  [(ngModel)]="data.userId" [ngClass]="{'width150': true}" disabled="true"></td>
         
             <th>ユーザー名</th>
-            <td><input type="text"  [(ngModel)]="data.userName" [ngClass]="{'width300': true, 'error': errors['userName']}" ></td>
+            <td><input type="text"  [(ngModel)]="data.userName" [ngClass]="{'width300': true, 'error': errors['userName']}" maxlength="20"></td>
         </tr>
         <tr>
             <th>社員コード</th>
-            <td><input type="text"  [(ngModel)]="data.employeeCode" ></td>
+            <td><input type="text"  [(ngModel)]="data.employeeCode" maxlength="15"></td>
         
             <th>部署名</th>
             <td><app-select-component [codes]="getDeps()" [(ngModel)]="data.depCode"></app-select-component></td>
         </tr>
         <tr>
             <th>ログインID</th>
-            <td><input type="text"  [(ngModel)]="data.loginId" ></td>
+            <td><input type="text"  [(ngModel)]="data.loginId" maxlength="15"></td>
         
             <th>パスワード</th>
-            <td><input type="text"  [(ngModel)]="data.password" ></td>
+            <td><input type="text"  [(ngModel)]="data.password" maxlength="15"></td>
         </tr>
         <!--
         <tr>

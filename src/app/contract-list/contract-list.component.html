@@ -8,26 +8,26 @@
                 <tr>
                     <th>物件番号</th>
                     <td>
-                        <input type="text" [(ngModel)]="cond.bukkenNo">
+                        <input type="text" [(ngModel)]="cond.bukkenNo" maxlength="15">
                     </td>
                     <th>物件契約番号</th>
                     <td>
-                        <input type="text" [(ngModel)]="cond.contractBukkenNo">
+                        <input type="text" [(ngModel)]="cond.contractBukkenNo" maxlength="15">
                     </td>
                     <th>物件名</th>
                     <td colspan="3">
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
                     </td>                    
                 </tr>
                 <tr>
                     <th>契約番号</th>
                     <td>
-                        <input type="text" [(ngModel)]="cond.contractNumber">
+                        <input type="text" [(ngModel)]="cond.contractNumber" maxlength="15">
                     </td>
                     <th>明渡期日</th>
                     <td>
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="vacationDay" class="width150" [(ngModel)]="cond.vacationDayMap">
+                            <input type="text" [matDatepicker]="vacationDay" class="width100" [(ngModel)]="cond.vacationDayMap">
                             <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #vacationDay></mat-datepicker>
                         </div>
@@ -35,7 +35,7 @@
                     <th>契約日</th>
                     <td>
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="contractDay" class="width150" [(ngModel)]="cond.contractDayMap">
+                            <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="cond.contractDayMap">
                             <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #contractDay></mat-datepicker>
                         </div>

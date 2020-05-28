@@ -8,14 +8,14 @@
                 <tr>
                     <th>部署コード</th>
                     <td>
-                        <input type="text" class="width200" [(ngModel)]="cond.depCode">
+                        <input type="text" class="width200" [(ngModel)]="cond.depCode" maxlength="15">
                     </td>
                 
                 </tr>    
                 <tr>
                     <th>部署名</th>
                     <td colspan="3">
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.depName">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.depName" maxlength="20">
                     </td>
                 </tr>   
             </table>      

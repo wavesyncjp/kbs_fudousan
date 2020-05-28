@@ -73,3 +73,10 @@ table {
     border-top: solid 2px white;
     /*border-left: solid 2px rgba(0,0,0,.12);*/
 }
+
+.bukkenlist_width{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }

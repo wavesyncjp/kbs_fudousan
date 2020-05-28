@@ -12,19 +12,19 @@
         <tr>
             <th>物件番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.land.bukkenNo" [attr.disabled]="data.land.pid < 0" class = "width80">
+                <input type="text" [(ngModel)]="data.land.bukkenNo" [attr.disabled]="data.land.pid < 0" class = "width80" maxlength="15">
             </td>
             <th>契約物件番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.land.contractBukkenNo" class = "width80">
+                <input type="text" [(ngModel)]="data.land.contractBukkenNo" class = "width80" maxlength="15">
             </td>
             <th>物件名</th>
             <td>
-                <input type="text" [(ngModel)]="data.land.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" >
+                <input type="text" [(ngModel)]="data.land.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" maxlength="100">
             </td>
             <th>住居表示</th>
             <td>
-                <input type="text" [(ngModel)]="data.land.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" >
+                <input type="text" [(ngModel)]="data.land.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" maxlength="100">
             </td>
         </tr>
     </table>
@@ -59,11 +59,11 @@
                 </td>
                 <th>測量依頼先</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.land.surveyRequested" class="width300">
+                    <input type="text" [(ngModel)]="data.land.surveyRequested" class="width300" maxlength="100">
                 </td>
                 <th>現場担当者</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.land.surveyStaff" class="width300">
+                    <input type="text" [(ngModel)]="data.land.surveyStaff" class="width300" maxlength="100">
                 </td>
             </tr>
             <tr>
@@ -74,19 +74,19 @@
                 <th>官民申請書</th>
                 <td>
                     <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.publicAndPrivateFormChk === '1'" (change)="flgFinish($event, 'publicAndPrivateFormChk')"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.publicAndPrivateForm" class="width200">
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.publicAndPrivateForm" class="width200" maxlength="100">
                 </td>
             </tr>
             <tr>
                 <th>民民</th>
                 <td>
                     <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.privateChk === '1'" (change)="flgFinish($event, 'privateChk')"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.private" class="width200">
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.private" class="width200" maxlength="100">
                 </td>
                 <th>官民</th>
                 <td>
                     <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.publicChk === '1'" (change)="flgFinish($event, 'publicChk')"></mat-checkbox>
-                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.public" class="width200">
+                    &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.public" class="width200" maxlength="100">
                 </td>
                 <th>納品日</th>
                 <td>
@@ -99,7 +99,7 @@
             <tr>
                 <th>備考</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.land.surveyRemark" class="width85Per">
+                    <input type="text" [(ngModel)]="data.land.surveyRemark" class="width85Per" maxlength="100">
                 </td>
             </tr>            
         </table>
@@ -117,11 +117,11 @@
                     <td rowspan="4" style="width: 50px;"><mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>                            
                     <th>プラン検討先</th>
                     <td colspan="3">
-                        <input type="text" [(ngModel)]="plan.planConsidered" class="width400">
+                        <input type="text" [(ngModel)]="plan.planConsidered" class="width400" maxlength="100">
                     </td>
                     <th>プラン価格</th>
                     <td>
-                        <input type="text" [(ngModel)]="plan.planPrice" class="width100">
+                        <input type="text" [(ngModel)]="plan.planPrice" class="width100" maxlength="15">
                     </td>
                     <td rowspan="4">
                         <button *ngIf="pos > 0" mat-flat-button class="delete_btn" (click)="deletePlan(plan, pos)">削除</button>
@@ -132,7 +132,7 @@
                 <tr>
                     <th>プラン依頼</th>
                     <td>
-                        <input type="text" [(ngModel)]="plan.planRequest" class="width200">
+                        <input type="text" [(ngModel)]="plan.planRequest" class="width200" maxlength="100">
                     </td>
                     <th>プラン依頼日</th>
                     <td>
@@ -154,7 +154,7 @@
                 <tr>
                     <th>プラン備考</th>
                     <td colspan="5">
-                        <input type="text" [(ngModel)]="plan.planRemark" class="width85Per">
+                        <input type="text" [(ngModel)]="plan.planRemark" class="width85Per" maxlength="100">
                     </td>
                 </tr>          
             </table>

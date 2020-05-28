@@ -9,7 +9,7 @@
                     <th>ユーザーID</th>
                     <td>
                         <!--20191202　inList は　BaseComponent.ts参照　-->
-                        <input type="text" class="width200" [(ngModel)]="cond.userId">
+                        <input type="text" class="width200" [(ngModel)]="cond.userId" maxlength="15">
                     </td>
                 <!--
                     <th>掲載終了</th>
@@ -23,7 +23,7 @@
                     <th>ユーザー名</th>
                     <td colspan="3">
                         <!--fuzzyWide 曖昧検索-->
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.userName">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.userName" maxlength="20">
                     </td>
                 </tr>   
             </table>      
