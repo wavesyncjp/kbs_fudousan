@@ -118,8 +118,8 @@
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
                                 <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
-                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractArea"></span></td>
-                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="c_width250" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractHave"></span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractArea" maxlength="100"></span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="c_width250" (keypress)="numericOnly($event)" [(ngModel)]="item.contractDetail.contractHave" maxlength="100"></span></td>
                                 <td>{{getCodeTitles('003',item.dependType)}}</td>
                                 <td style="white-space: pre;">{{item.structure}}</td>
                                 <td>{{item.dependFloor}}</td>

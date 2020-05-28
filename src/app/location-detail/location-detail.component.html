@@ -33,9 +33,9 @@
             <th>所在地</th>
             <td><input type="text" [(ngModel)]="data.address" [ngClass]="{'width250': true, 'error': errors['address']}" maxlength="100"></td>            
             <th>地番</th>
-            <td><input type="text" [(ngModel)]="data.blockNumber" [disabled]="data.locationType == '02'" class="width100" maxlength="100"></td>
+            <td><input type="text" [(ngModel)]="data.blockNumber" [disabled]="data.locationType == '02'" class="width100" maxlength="15"></td>
             <th>家屋番号</th>
-            <td><input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01'" class="width100" maxlength="100"></td>                        
+            <td><input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01'" class="width100" maxlength="15"></td>                        
         </tr>
         <tr>
             <th class="sharer">所有者名
@@ -86,7 +86,7 @@
             </td>
             <th>階建</th>
             <td colspan="3">
-                <input type="text" class="width100" [(ngModel)]="data.dependFloor" [disabled]="data.locationType == '01'" maxlength="15">&nbsp;階建
+                <input type="text" class="width100" [(ngModel)]="data.dependFloor" [disabled]="data.locationType == '01'" maxlength="2">&nbsp;階建
             </td>
         </tr>
         <tr>            
@@ -94,7 +94,7 @@
             <td><textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'" maxlength="100"></textarea></td>
     
             <th>床面積</th>
-            <td colspan="3"><textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace']}" [disabled]="data.locationType == '01'" maxlength="100"></textarea></td>
+            <td colspan="3"><textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace']}" [disabled]="data.locationType == '01'" maxlength="15"></textarea></td>
         </tr>
         <tr>
             <th>入居者情報</th>
