@@ -13,17 +13,17 @@
         </tr>
         <tr>
             <th>社員コード</th>
-            <td><input type="text"  [(ngModel)]="data.employeeCode" maxlength="15"></td>
+            <td><input type="text"  [(ngModel)]="data.employeeCode" maxlength="20"></td>
         
             <th>部署名</th>
             <td><app-select-component [codes]="getDeps()" [(ngModel)]="data.depCode"></app-select-component></td>
         </tr>
         <tr>
             <th>ログインID</th>
-            <td><input type="text"  [(ngModel)]="data.loginId" maxlength="15"></td>
+            <td><input type="text"  [(ngModel)]="data.loginId" maxlength="20"></td>
         
             <th>パスワード</th>
-            <td><input type="text"  [(ngModel)]="data.password" maxlength="15"></td>
+            <td><input type="text"  [(ngModel)]="data.password" maxlength="20"></td>
         </tr>
         <!--
         <tr>
