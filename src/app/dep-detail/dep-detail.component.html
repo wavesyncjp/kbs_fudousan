@@ -5,7 +5,7 @@
     <table class="detail-tbl">
         <tr>
             <th>部署コード</th>
-            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width150': true, 'error': errors['depCode']}" [attr.disabled]="data.createUserId > 0 ? '' : null"  maxlength="15"></td>
+            <td><input type="text"  [(ngModel)]="data.depCode" [ngClass]="{'width150': true, 'error': errors['depCode']}" [attr.disabled]="data.createUserId > 0 ? '' : null"  maxlength="20"></td>
         
             <th>部署名</th>
             <td><input type="text"  [(ngModel)]="data.depName" [ngClass]="{'width300': true, 'error': errors['depName']}"  maxlength="20"></td>
