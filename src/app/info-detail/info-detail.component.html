@@ -7,7 +7,7 @@
         <tr>
             <th>日付</th>
             <td>
-                <input type="text" [matDatepicker]="infoDate" [ngClass]="{'width150': true, 'error': errors['infoDate']}" [(ngModel)]="data.infoDateMap">
+                <input type="text" [matDatepicker]="infoDate" [ngClass]="{'width100': true, 'error': errors['infoDate']}" [(ngModel)]="data.infoDateMap">
                 <mat-datepicker-toggle matSuffix [for]="infoDate" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #infoDate></mat-datepicker>
             </td>
@@ -15,7 +15,7 @@
         </tr>                
         <tr>
             <th>件名</th>
-            <td><input type="text"  [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" ></td>
+            <td><input type="text"  [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" maxlength="100"></td>
         </tr>
         <tr>
             <th>詳細</th> 

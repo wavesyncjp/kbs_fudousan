@@ -10,14 +10,14 @@
         </tr>
         <tr>
             <th>子コード</th>
-            <td><input type="text"  [(ngModel)]="data.codeDetail" [ngClass]="{'width150': true, 'error': errors['codeDetail']}" [attr.disabled]="data.createUserId > 0 ? '' : null" ></td>
+            <td><input type="text"  [(ngModel)]="data.codeDetail" [ngClass]="{'width150': true, 'error': errors['codeDetail']}" [attr.disabled]="data.createUserId > 0 ? '' : null"  maxlength="15"></td>
         
             <th>子コード名</th>
-            <td><input type="text"  [(ngModel)]="data.name" [ngClass]="{'width300': true, 'error': errors['name']}" ></td>
+            <td><input type="text"  [(ngModel)]="data.name" [ngClass]="{'width300': true, 'error': errors['name']}"  maxlength="20"></td>
         </tr>
         <tr>
             <th>表示順序</th>
-            <td><input type="text"  [(ngModel)]="data.displayOrder" ></td>
+            <td><input type="text"  [(ngModel)]="data.displayOrder"  maxlength="15"></td>
         </tr>
         <tr>
             <th>登録日</th>

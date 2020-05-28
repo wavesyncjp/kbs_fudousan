@@ -8,13 +8,13 @@
             <tr>
                 <th>支払コード</th>
                 <td>
-                    <input type="text" class="fuzzyWidth200" [(ngModel)]="cond.paymentCode">
+                    <input type="text" class="fuzzyWidth200" [(ngModel)]="cond.paymentCode" maxlength="15">
                 </td>
             </tr>
             <tr>
                 <th>支払名称</th>
                 <td>
-                    <input type="text" class="fuzzyWidth200" [(ngModel)]="cond.paymentName">
+                    <input type="text" class="fuzzyWidth200" [(ngModel)]="cond.paymentName"  maxlength="20">
                 </td>
             </tr>
         </table>

@@ -8,11 +8,11 @@
             <tr>
                 <th>物件番号</th>
                 <td colspan="2">
-                    <input type="text" class="width100" [(ngModel)]="cond.bukkenNo">
+                    <input type="text" class="width100" [(ngModel)]="cond.bukkenNo" maxlength="15">
                 </td>
                 <th>物件名</th>
                 <td colspan="2">
-                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName">
+                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
                 </td>
             
                 <th>支払種別</th>
@@ -23,7 +23,7 @@
             <tr>
                 <th>取引先</th>
                 <td colspan="2">
-                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName">
+                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName" maxlength="100">
                 </td>
                 <!--hiranomemo 契約予定日はtblPayContractのcontractDayカラム-->
                 
@@ -99,12 +99,12 @@
 
         <ng-container matColumnDef="bukkenName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
-        <td mat-cell *matCellDef="let element"> {{element.bukkenName}} </td>
+        <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
         </ng-container>
        
         <ng-container matColumnDef="supplierName">
         <th mat-header-cell *matHeaderCellDef> 取引先 </th>
-        <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
+        <td mat-cell *matCellDef="let element" class="bukkenlist_width">{{element.supplierName}}</td>
         </ng-container>
 
         <ng-container matColumnDef="payContractDay">

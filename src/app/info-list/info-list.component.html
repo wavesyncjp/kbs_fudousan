@@ -9,7 +9,7 @@
                     <th>日付</th>
                     <td>
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="finishDate" class="width150" [(ngModel)]="cond.infoDateMap">
+                            <input type="text" [matDatepicker]="finishDate" class="width100" [(ngModel)]="cond.infoDateMap">
                             <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #finishDate></mat-datepicker>
                         </div>
@@ -17,7 +17,7 @@
                     <th>件名</th>
                     <td>
                         <!--fuzzyWide 曖昧検索-->
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject" maxlength="100">
                     </td>
                    
                     <th style="float: left;">掲載終了</th>
@@ -46,7 +46,7 @@
 
             <ng-container matColumnDef="infoSubject">
             <th mat-header-cell *matHeaderCellDef> 件名 </th>
-            <td mat-cell *matCellDef="let element"> {{element.infoSubject}} </td>
+            <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.infoSubject}} </td>
             </ng-container>
 
             <ng-container matColumnDef="detailFlg">
@@ -61,7 +61,7 @@
 
             <ng-container matColumnDef="attachFileName">
             <th mat-header-cell *matHeaderCellDef> 添付ファイル </th>
-            <td mat-cell *matCellDef="let element"> <a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
+            <td mat-cell *matCellDef="let element" class="bukkenlist_width"> <a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
             </ng-container>
 
             <ng-container matColumnDef="finishFlg">

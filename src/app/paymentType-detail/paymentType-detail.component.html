@@ -5,10 +5,10 @@
     <table class="detail-tbl">
         <tr>
             <th>支払コード</th>
-            <td><input type="text"  [(ngModel)]="data.paymentCode" [ngClass]="{'width150': true, 'error': errors['paymentCode']}" [attr.disabled]="data.createUserId > 0 ? '' : null" ></td>
+            <td><input type="text"  [(ngModel)]="data.paymentCode" [ngClass]="{'width150': true, 'error': errors['paymentCode']}" [attr.disabled]="data.createUserId > 0 ? '' : null"  maxlength="15"></td>
         
             <th>支払名称</th>
-            <td><input type="text"  [(ngModel)]="data.paymentName" [ngClass]="{'width300': true, 'error': errors['paymentName']}" ></td>
+            <td><input type="text"  [(ngModel)]="data.paymentName" [ngClass]="{'width300': true, 'error': errors['paymentName']}"  maxlength="20"></td>
         </tr>
         <tr>
             <th>原価フラグ</th>

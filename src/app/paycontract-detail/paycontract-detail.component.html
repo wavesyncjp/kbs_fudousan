@@ -32,7 +32,7 @@
                 </datalist>
             </td>
             <th rowspan="3">取引先</th>
-            <td colspan="6"><label>取引先　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per"></td>        
+            <td colspan="6"><label>取引先　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per" maxlength="100"></td>        
         </tr> 
         <tr>
             <th>契約担当部署</th>
@@ -40,8 +40,8 @@
                 <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
             </td>
             <td colspan="6">
-                <label>銀行　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width140">
-                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.branchName" class="width100">
+                <label>銀行　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width140" maxlength="100">
+                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.branchName" class="width100" maxlength="100">
             </td> 
         </tr>   
         <tr>
@@ -51,8 +51,8 @@
             </td>
             <td colspan="6">
                 <label>口座種別</label>&nbsp;<app-select-component [codes]="getCode('026')"  [(ngModel)]="paycontract.accountType"></app-select-component>
-                &nbsp;&nbsp;<label>口座　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.accountName" class="width100">
-                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bankName" class="width100">
+                &nbsp;&nbsp;<label>口座　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.accountName" class="width100" maxlength="100">
+                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bankName" class="width100" maxlength="100">
             </td>   
         </tr>       
         <tr>
@@ -74,21 +74,21 @@
             </td>
             <th>契約金額(税抜)</th>
             <td colspan="2">
-                <input type="text" [(ngModel)]="paycontract.contractPrice" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <input type="text" [(ngModel)]="paycontract.contractPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
             </td>
             <th>消費税</th>
             <td colspan="2">
-                <input type="text" [(ngModel)]="paycontract.contractTax" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <input type="text" [(ngModel)]="paycontract.contractTax" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
             </td>
             <th>契約金額(税込)</th>
             <td colspan="2">
-                <input type="text" [(ngModel)]="paycontract.contractPriceTax" class="width100 number" (keypress)="numericOnly($event)">&nbsp;円
+                <input type="text" [(ngModel)]="paycontract.contractPriceTax" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
             </td>
         </tr>
         <tr>
             <th>備考</th>
             <td colspan="6">
-                <input type="text" [(ngModel)]="paycontract.remarks" class="width85Per">
+                <input type="text" [(ngModel)]="paycontract.remarks" class="width85Per" maxlength="100">
             </td>
         </tr>
     </table>
@@ -120,9 +120,9 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15"><label>円</label></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -131,7 +131,7 @@
                         </div>
                     </td>
                     <!--hiranomemo paymentSeason 追加-->
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason"></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason" maxlength="100"></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
@@ -152,7 +152,7 @@
                         <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
                         <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
                     </td>
-                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>         
+                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>         
                 </tr>
                 <tr *ngFor="let detail of paycontract.details | slice:1; index as sharerPos">                      
                     <td>
@@ -161,9 +161,9 @@
                     <td>
                         <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15"><label>円</label></td>
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)"><label>円</label></td>
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15"><label>円</label></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -172,7 +172,7 @@
                         </div>
                     </td>
                     <!--hiranomemo paymentSeason 追加-->
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason"></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason" maxlength="100"></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
@@ -193,7 +193,7 @@
                         <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
                         <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
                     </td>
-                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks"></td>
+                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>
                 </tr>
             </tbody>
         </table>
