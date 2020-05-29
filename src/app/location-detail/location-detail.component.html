@@ -31,11 +31,11 @@
         </tr>
         <tr> 
             <th>所在地</th>
-            <td><input type="text" [(ngModel)]="data.address" [ngClass]="{'width250': true, 'error': errors['address']}" maxlength="100"></td>            
+            <td><input type="text" [(ngModel)]="data.address" [ngClass]="{'width250': true, 'error': errors['address']}" maxlength="100"></td>
             <th>地番</th>
             <td><input type="text" [(ngModel)]="data.blockNumber" [disabled]="data.locationType == '02'" class="width100" maxlength="15"></td>
             <th>家屋番号</th>
-            <td><input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01'" class="width100" maxlength="15"></td>                        
+            <td><input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01'" class="width100" maxlength="15"></td>
         </tr>
         <tr>
             <th class="sharer">所有者名

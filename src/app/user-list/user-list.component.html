@@ -4,7 +4,7 @@
                 <mat-panel-title>検索条件</mat-panel-title>
             </mat-expansion-panel-header>
             <div class="search-div">
-            <table class="search-tbl">                
+            <table class="search-tbl">
                 <tr>
                     <th>ユーザーID</th>
                     <td>
@@ -23,7 +23,7 @@
                     <th>ユーザー名</th>
                     <td colspan="3">
                         <!--fuzzyWide 曖昧検索-->
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.userName" maxlength="20">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.userName" maxlength="100">
                     </td>
                 </tr>   
             </table>      

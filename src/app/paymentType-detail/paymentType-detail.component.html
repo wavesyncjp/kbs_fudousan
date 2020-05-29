@@ -8,7 +8,7 @@
             <td><input type="text"  [(ngModel)]="data.paymentCode" [ngClass]="{'width150': true, 'error': errors['paymentCode']}" [attr.disabled]="data.createUserId > 0 ? '' : null"  maxlength="20"></td>
         
             <th>支払名称</th>
-            <td><input type="text"  [(ngModel)]="data.paymentName" [ngClass]="{'width300': true, 'error': errors['paymentName']}"  maxlength="20"></td>
+            <td><input type="text"  [(ngModel)]="data.paymentName" [ngClass]="{'width300': true, 'error': errors['paymentName']}"  maxlength="100"></td>
         </tr>
         <tr>
             <th>原価フラグ</th>

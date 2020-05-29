@@ -31,7 +31,7 @@
                 
             </th>
             <td>
-                <textarea [ngClass]="{'width600': true, 'error': errors['infoDetail']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail"></textarea>
+                <textarea [ngClass]="{'width600': true, 'error': errors['infoDetail']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail" maxlength="1000"></textarea>
             </td>
         </tr>
         <tr>
