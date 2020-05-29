@@ -8,22 +8,22 @@
                 <tr>
                     <th>物件番号</th>
                     <td>
-                        <input type="text" class="width100" [(ngModel)]="cond.bukkenNo" >
+                        <input type="text" class="width100" [(ngModel)]="cond.bukkenNo"  maxlength="10">
                     </td>
                     <th>物件名</th>
                     <td>
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
                     </td>
                 </tr>    
                 <tr>
                     <th>所在地</th>
                     <td>
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.address">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.address" maxlength="100">
                     </td>
 
                     <th>プラン名</th>
                     <td>
-                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.planName">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.planName" maxlength="100">
                     </td>
                 
                     <th>作成日</th>
