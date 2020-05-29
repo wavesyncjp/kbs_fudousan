@@ -995,7 +995,7 @@
     <td><span class="head_rent">駐車場</span></td>
     <tr>
         <th class="main"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par number" [(ngModel)]="plan.rentdetails[15].space">&nbsp;㎡</td>
+        <td class="yen1"><input type="text" placeholder="台数"class="par number" [(ngModel)]="plan.rentdetails[15].space">&nbsp;台</td>
         <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rentdetails[15].rentUnitPrice" (ngModelChange)="changeValueDetail('rentUnitPrice', 15)"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number" [value]="getNumber(cal54()) | number" [attr.disabled]="true"></td>
         <td class="yen2"><input type="text" placeholder="敷金"class="par number" [(ngModel)]="plan.rentdetails[15].securityDeposit">&nbsp;ヵ月</td>
@@ -1004,7 +1004,7 @@
     <td><span class="head_rent">駐輪場</span></td>
     <tr>
         <th class="main"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par number" [(ngModel)]="plan.rentdetails[16].space">&nbsp;㎡</td>
+        <td class="yen1"><input type="text" placeholder="台数"class="par number" [(ngModel)]="plan.rentdetails[16].space">&nbsp;台</td>
         <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rentdetails[16].rentUnitPrice" (ngModelChange)="changeValueDetail('rentUnitPrice', 16)"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number" [value]="getNumber(cal56()) | number" [attr.disabled]="true"></td>
         <td class="yen2"><input type="text" placeholder="敷金"class="par number" [(ngModel)]="plan.rentdetails[16].securityDeposit">&nbsp;ヵ月</td>
@@ -1013,7 +1013,7 @@
     <td><span class="head_rent">ﾊﾞｲｸ置き場</span></td>
     <tr>
         <th class="main"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par number" [(ngModel)]="plan.rentdetails[17].space">&nbsp;㎡</td>
+        <td class="yen1"><input type="text" placeholder="台数"class="par number" [(ngModel)]="plan.rentdetails[17].space">&nbsp;台</td>
         <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rentdetails[17].rentUnitPrice" (ngModelChange)="changeValueDetail('rentUnitPrice', 17)"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number" [value]="getNumber(cal58()) | number" [attr.disabled]="true"></td>
         <td class="yen2"><input type="text" placeholder="敷金"class="par number" [(ngModel)]="plan.rentdetails[17].securityDeposit">&nbsp;ヵ月</td>
@@ -1022,7 +1022,7 @@
     <td><span class="head_rent">自販機</span></td>
     <tr>
         <th class="main"></th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par number" [(ngModel)]="plan.rentdetails[18].space" (keypress)="floatOnly($event)">&nbsp;㎡</td>
+        <td class="yen1"><input type="text" placeholder="台数"class="par number" [(ngModel)]="plan.rentdetails[18].space" (keypress)="floatOnly($event)">&nbsp;台</td>
         <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100 number" maxlength="15" [(ngModel)]="plan.rentdetails[18].rentUnitPrice" (keypress)="numericOnly($event)" (ngModelChange)="changeValueDetail('rentUnitPrice', 18)"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number" [value]="getNumber(cal60()) | number" [attr.disabled]="true"></td>
         <td class="yen2"><input type="text" placeholder="敷金"class="par number" [(ngModel)]="plan.rentdetails[18].securityDeposit" (keypress)="numericOnly($event)">&nbsp;ヵ月</td>
