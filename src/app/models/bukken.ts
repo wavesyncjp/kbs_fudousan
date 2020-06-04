@@ -6,6 +6,7 @@ export class User {
     userName: string;
     employeeCode: string;
     depCode: string;
+    authority: string;
     token: string;
     result: boolean;
     msg: string;

@@ -37,13 +37,12 @@ export class UserDetailComponent extends BaseComponent {
     super(router, service);
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     const funcs = [];
     funcs.push(this.service.getCodes(['010']));
     funcs.push(this.service.getDeps(null));
-    Promise.all(funcs).then(values => {
 
+    Promise.all(funcs).then(values => {
       // コード
       const codes = values[0] as Code[];
       if (codes !== null && codes.length > 0) {
@@ -59,20 +58,13 @@ export class UserDetailComponent extends BaseComponent {
 
       if (this.data == null || !(this.data.userId > 0)) {
         this.data = new User();
-        //this.data.depCode = '1';
       } else {
         this.data = new User(this.data);
-        //this.data.convert();
       }
-
     });
   }
 
-  /*hasFile() {
-    return this.data.attachFileName != null && this.data.attachFileName !== '';
-  }*/
-
-  /**11/25 追記
+  /**
    * バリデーション
    */
   validate(): boolean {
@@ -99,22 +91,7 @@ export class UserDetailComponent extends BaseComponent {
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
         this.data.convertForSave(this.service.loginUser.userId);
-        /*
-        if (this.cbxFinishFlg.checked) {
-          this.data.finishFlg = '1';
-        } else {
-          this.data.finishFlg = '0';
-        }
-        */
-        this.service.saveUser(this.data);  //.then(res => {
-          /*
-          if (this.fUpload != null && !this.fUpload.hasFile()) {
-            this.dialogRef.close(true);
-          } else {
-            this.fUpload.uploadInfoFile(res.pid);
-          }
-        });
-        */
+        this.service.saveUser(this.data);
         this.dialogRef.close(true);
       }
     });
@@ -123,13 +100,4 @@ export class UserDetailComponent extends BaseComponent {
   cancel() {
     this.dialogRef.close();
   }
-
-  /**
-   * ファイルアップロード
-   * @param event ：アップロード完了
-   */
-  uploaded(event) {
-    this.dialogRef.close(true);
-  }
 }
-

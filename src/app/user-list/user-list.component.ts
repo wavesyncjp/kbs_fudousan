@@ -27,7 +27,7 @@ export class UserListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
   /**/
-  displayedColumns: string[] = ['userId', 'userName','employeeCode','depName','loginId','password','createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['userId', 'userName','employeeCode','depName','loginId','authority','createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<User>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -44,23 +44,14 @@ export class UserListComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('社員マスタ');
     this.dataSource.paginator = this.paginator;
-    this.cond = {
-      infoDateMap: new Date(),
-      // 20191202 condにdepartmentセット(this)
-      user: []
-    };
+    this.cond = {};
 
     const funcs = [];
-    /*funcs.push(this.service.getCodes(['005']));*/
-
-
-    // 20191202 funcsにgetdeps全件データを取得(null)//
-//    funcs.push(this.service.getDeps(null));
+    funcs.push(this.service.getCodes(['010']));
 
     Promise.all(funcs).then(values => {
-
       // コード
-     /* const codes = values[0] as Code[];
+      const codes = values[0] as Code[];
       if (codes !== null && codes.length > 0) {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
@@ -68,13 +59,7 @@ export class UserListComponent extends BaseComponent {
           lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
           this.sysCodes[code] = lst;
         });
-      }*/
-
-      // 20191202 valuesに取得値をセット
-//      this.deps = values[0];
-
-      this.cond.infoDateMap = null;
-
+      }
     });
   }
 
@@ -83,17 +68,13 @@ export class UserListComponent extends BaseComponent {
    */
   searchUser() {
     this.spinner.show();
-    /*this.cond.infoDate = this.cond.infoDateMap != null ? this.cond.infoDateMap.toLocaleDateString() : null;
-    （toLocaleDateString=国、地域の時間をあった言語にて表示する）*/
     this.service.searchUser(this.cond).then(res => {
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
-
     });
-
   }
 
   createNew() {
@@ -126,7 +107,6 @@ export class UserListComponent extends BaseComponent {
         });
       }
     });
-
   }
 
   showDetail(row: User) {
@@ -142,7 +122,6 @@ export class UserListComponent extends BaseComponent {
         this.searchUser();
       }
     });
-
   }
 
   highlight(row) {
