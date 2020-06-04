@@ -162,7 +162,7 @@ export class PlanDetailComponent extends BaseComponent {
       if (this.plan.details == null || this.plan.details.length == 0) {
         this.plan.details = [];
         const lst = ["1001", "1002", "1003", "1004", "1005", "", "", "", "", "", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008",
-          "", "", "", "", "", "3001", "3002", "3003", "3004", "3005", "3006", "3007", "3008", "3009", "3010", "3011", "", "", "", "", ""];
+          "", "", "", "", "", "3001", "3002", "3003", "3004", "3005", "3006", "3007", "3008", "3009", "3010", "3011", "", "", "3012", "3013", "3014"];
         lst.forEach((code, index) => {
           let detail = new Plandetail();
           detail.paymentCode = code;
