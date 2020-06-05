@@ -520,7 +520,7 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   displayBlockNumber(contract: Contractinfo) {
     return contract.details.filter(dt => dt.contractDataType === '01').map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => !this.isBlank(loc.blockNumber) ? loc.blockNumber : '-' );
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => !this.isBlank(loc.blockNumber) ? loc.blockNumber : '-');
     }).join('\n\r');
   }
   /**
@@ -529,7 +529,7 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   displayBuildingNumber(contract: Contractinfo) {
     return contract.details.filter(dt => dt.contractDataType === '01').map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => loc.buildingNumber);
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => !this.isBlank(loc.buildingNumber) ? loc.buildingNumber : '-');
     }).join('\n\r');
   }
   /**
@@ -538,7 +538,7 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   displayOwner(contract: Contractinfo) {
     return contract.details.filter(dt => dt.contractDataType === '01').map(dt => {
-      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => loc.owner);
+      return this.data.locations.filter(loc => loc.pid === dt.locationInfoPid).map(loc => !this.isBlank(loc.owner) ? loc.owner : '-');
     }).join('\n\r');
   }
 
