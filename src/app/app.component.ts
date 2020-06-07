@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLogin = false;
   isTop = false;
   mobileQuery: MediaQueryList;
+  public authority: string = '';
 
   private mobileQueryListener: () => void;
 
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.service.changeLoginPageEvent.subscribe(isLogin => {
       this.isLogin = isLogin;
       if (this.isLogin) {
-        //this.snav.close();
+        //this.snav.close();        
       }
     });
 
@@ -46,6 +47,10 @@ export class AppComponent implements OnInit, OnDestroy {
         //this.snav.open();
       }
     });
+
+    this.service.afterLoginEvent.subscribe(login => {
+      this.authority = this.service.loginUser.authority;
+    });    
   }
 
   ngOnDestroy(): void {

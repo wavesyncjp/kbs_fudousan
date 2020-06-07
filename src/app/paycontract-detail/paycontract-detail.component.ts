@@ -28,6 +28,7 @@ export class PayContractDetailComponent extends BaseComponent {
 
   @ViewChild('topElement', {static: true}) topElement: ElementRef;
 
+  public authority: string = '';
   public paycontract: Paycontractinfo;
   public paycontractdetail: Paycontractdetailinfo;
   public data: Templandinfo;
@@ -65,6 +66,7 @@ export class PayContractDetailComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('支払管理詳細');
+    this.authority = this.service.loginUser.authority;
 
     const elementList = document.querySelectorAll('.detail-div');
     const element = elementList[0] as HTMLElement;

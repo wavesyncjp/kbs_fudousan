@@ -119,9 +119,14 @@
                     <td colspan="3">
                         <input type="text" [(ngModel)]="plan.planConsidered" class="width400" maxlength="100">
                     </td>
+                    <ng-container *ngIf="authority === '03'">
+                    <td></td>
+                    </ng-container>
+                    <ng-container *ngIf="authority !== '03'">
                     <th>プラン価格</th>
+                    </ng-container>                    
                     <td>
-                        <input type="text" [(ngModel)]="plan.planPrice" class="width100" maxlength="15">
+                        <input *ngIf="authority !== '03'" type="text" [(ngModel)]="plan.planPrice" class="width100" maxlength="15">
                     </td>
                     <td rowspan="4">
                         <button *ngIf="pos > 0" mat-flat-button class="delete_btn" (click)="deletePlan(plan, pos)">削除</button>
@@ -162,13 +167,13 @@
         <!--プラン-->
 
         <!--売り契約-->
-        <div>
+        <div *ngIf="authority !== '03'">
             <span class="block-title-statusNew">売り契約</span>
             <div class="button-div-left">
                 <button mat-raised-button  class="addLocation" (click)="addLandSale()" color="warn">新規作成</button>
             </div>
         </div>
-        <div class="contact-div" style="width: 98%;margin-left: -2px;"> 
+        <div class="contact-div" style="width: 98%;margin-left: -2px;" *ngIf="authority !== '03'"> 
         <table>
             <thead class="list-header">
                 <th class="width200">売買先</th>

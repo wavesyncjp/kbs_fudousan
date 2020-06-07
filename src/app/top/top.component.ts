@@ -109,7 +109,7 @@ export class TopComponent  extends BaseComponent {
     const empData = [];
     this.emps.forEach(emp => {
       empData.push({
-        name: emp.employeeName,
+        name: emp.userName,
         value: Math.round(Math.random() * 100)
       });
     });

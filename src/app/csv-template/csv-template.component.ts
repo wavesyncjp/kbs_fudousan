@@ -10,7 +10,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./csv-template.component.css']
 })
 export class CsvTemplateComponent extends BaseComponent {
-
+  authority = '';
   templates: any[];
   list: any[];
   selectTemplate: string;
@@ -24,13 +24,20 @@ export class CsvTemplateComponent extends BaseComponent {
     }
 
   ngOnInit() {
+    this.authority = this.service.loginUser.authority;
     this.loadTemplate();
   }
 
   loadTemplate() {    
     this.service.loadCsvTemplate(this.data).then(ret => {
-      this.templates = ret;
-      this.list = ret.map(me => {return  {codeDetail: me['csvCode'], name: me['csvName']} });      
+      this.templates = ret;      
+      if(this.authority !== '03') {
+        this.list = ret.map(me => {return  {codeDetail: me['csvCode'], name: me['csvName']} });      
+      }      
+      //営業権限の場合
+      else {
+        this.list = ret.filter(me =>  me['csvCode'] !== '0104').map(me => {return  {codeDetail: me['csvCode'], name: me['csvName']} });      
+      }
     });
   }
 

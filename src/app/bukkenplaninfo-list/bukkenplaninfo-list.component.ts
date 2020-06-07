@@ -30,6 +30,7 @@ import { DatePipe } from '@angular/common';
   ],
 })
 export class BukkenplaninfoListComponent extends BaseComponent {
+  authority = '';
   public pid: number;
   public data: LandPlanInfo;
 
@@ -48,8 +49,9 @@ export class BukkenplaninfoListComponent extends BaseComponent {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-    super.ngOnInit();
+    super.ngOnInit();    
     this.service.changeTitle('物件情報詳細');
+    this.authority = this.service.loginUser.authority;
     this.spinner.show();
 
     const funcs = [];

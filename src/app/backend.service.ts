@@ -36,6 +36,8 @@ export class BackendService {
 
   @Output() changeTopPageEvent: EventEmitter<boolean> = new EventEmitter();
 
+  @Output() afterLoginEvent: EventEmitter<boolean> = new EventEmitter();
+
   /**
    * ログインページ
    * @param isLogin ：ログインページ
@@ -66,6 +68,7 @@ export class BackendService {
    */
   setUser(user: User) {
     this.loginUser = user;
+    this.afterLoginEvent.emit(true);
   }
 
   /**
