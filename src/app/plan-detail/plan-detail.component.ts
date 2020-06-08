@@ -996,7 +996,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.landLoan = this.removeComma(this.plan.landLoan);
 
     if(!isNullOrUndefined(this.plan.landLoan) && !isNullOrUndefined(this.plan.details[36].commissionRate)){
-      this.plan.details[36].price = String(Number(this.plan.landLoan) * Number(this.plan.details[36].commissionRate));
+      this.plan.details[36].price = String(Number(this.plan.landLoan) * Number(this.plan.details[36].commissionRate)/100);
     }
 
     this.plan.details[36].price = this.numberFormat(this.plan.details[36].price);
@@ -1058,7 +1058,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.landLoan = this.removeComma(this.plan.landLoan);
 
     if(!isNullOrUndefined(this.plan.landLoan) && !isNullOrUndefined(this.plan.landInterest) && !isNullOrUndefined(this.plan.landPeriod)){
-      let ret = (Number(this.plan.landLoan) * Number(this.plan.landInterest) / 12 * Number(this.plan.landPeriod));
+      let ret = (Number(this.plan.landLoan) * Number(this.plan.landInterest) / 12 * Number(this.plan.landPeriod)/100);
       this.plan.landLoan = this.numberFormat(this.plan.landLoan);
       // 20200519 E_Edit
 
@@ -1072,7 +1072,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.buildLoan = this.removeComma(this.plan.buildLoan);
 
     if(!isNullOrUndefined(this.plan.buildLoan) && !isNullOrUndefined(this.plan.buildInterest) && !isNullOrUndefined(this.plan.buildPeriod)){
-      let ret =(Number(this.plan.buildLoan) * Number(this.plan.buildInterest) / 12 * Number(this.plan.buildPeriod));
+      let ret =(Number(this.plan.buildLoan) * Number(this.plan.buildInterest) / 12 * Number(this.plan.buildPeriod)/100);
       this.plan.buildLoan = this.numberFormat(this.plan.buildLoan);
       // 20200519 E_Edit
 
@@ -1303,7 +1303,7 @@ export class PlanDetailComponent extends BaseComponent {
     let ret = (this.getNumber(this.plan.rentdetails[0].space))+(this.getNumber(this.plan.rentdetails[1].space))+(this.getNumber(this.plan.rentdetails[2].space))+(this.getNumber(this.plan.rentdetails[3].space))+(this.getNumber(this.plan.rentdetails[4].space))
     +(this.getNumber(this.plan.rentdetails[5].space))+(this.getNumber(this.plan.rentdetails[6].space))+(this.getNumber(this.plan.rentdetails[7].space))+(this.getNumber(this.plan.rentdetails[8].space))
     +(this.getNumber(this.plan.rentdetails[9].space))+(this.getNumber(this.plan.rentdetails[10].space))+(this.getNumber(this.plan.rentdetails[11].space))+(this.getNumber(this.plan.rentdetails[12].space))
-    +(this.getNumber(this.plan.rentdetails[13].space))+(this.getNumber(this.plan.rentdetails[14].space))+(this.getNumber(this.plan.rentdetails[15].space))+(this.getNumber(this.plan.rentdetails[16].space))+(this.getNumber(this.plan.rentdetails[17].space))+(this.getNumber(this.plan.rentdetails[18].space));
+    +(this.getNumber(this.plan.rentdetails[13].space))+(this.getNumber(this.plan.rentdetails[14].space));
     return Math.floor(ret);
     }
   
