@@ -1394,7 +1394,7 @@ export class PlanDetailComponent extends BaseComponent {
 
   //計算６９
   cal69() {
-    let cal69 = this.cal68() * this.getNumber(this.plan.rent.occupancyRate);
+    let cal69 = this.cal68() * this.getNumber(this.plan.rent.occupancyRate)/100;
     return Math.floor(cal69);
   }
 
