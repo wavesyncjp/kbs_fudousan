@@ -34,7 +34,7 @@ export class DepDetailComponent extends BaseComponent {
               public dialogRef: MatDialogRef<DepDetailComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: Department) {
-    super(router, service);
+    super(router, service,dialog);
   }
 
   ngOnInit() {

@@ -48,7 +48,7 @@ export class PlanListComponent extends BaseComponent {
               private route: ActivatedRoute,
               public service: BackendService,
               private spinner: NgxSpinnerService,) {
-    super(router, service);
+    super(router, service,dialog);
     this.route.queryParams.subscribe(params => {
       this.search = params.search;
     });

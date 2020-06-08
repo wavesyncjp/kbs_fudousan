@@ -45,7 +45,7 @@ export class ContractDetailComponent extends BaseComponent {
               public service: BackendService,
               private spinner: NgxSpinnerService,
               public datepipe: DatePipe) {
-      super(router, service);
+      super(router, service,dialog);
       this.route.queryParams.subscribe(params => {
         this.pid = params.pid;
         this.bukkenid = params.bukkenid;

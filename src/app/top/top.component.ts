@@ -60,7 +60,7 @@ export class TopComponent  extends BaseComponent {
               public dialog: MatDialog,
               public service: BackendService,
               private spinner: NgxSpinnerService) {
-      super(router, service);
+      super(router, service,dialog);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface

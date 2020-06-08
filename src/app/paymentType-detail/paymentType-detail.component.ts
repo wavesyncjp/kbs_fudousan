@@ -32,7 +32,7 @@ export class PaymentTypeDetailComponent extends BaseComponent {
               public dialogRef: MatDialogRef<PaymentTypeDetailComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: PaymentType) {
-    super(router, service);
+    super(router, service,dialog);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface

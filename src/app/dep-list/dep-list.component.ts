@@ -35,7 +35,7 @@ export class DepListComponent extends BaseComponent {
               public dialog: MatDialog,
               public service: BackendService,
               private spinner: NgxSpinnerService) {
-    super(router, service);
+    super(router, service,dialog);
   }
 
   ngOnInit() {

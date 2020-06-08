@@ -41,7 +41,7 @@ export class InfoListComponent extends BaseComponent {
               public datepipe: DatePipe,
               public service: BackendService,
               private spinner: NgxSpinnerService) {
-    super(router, service);
+    super(router, service,dialog);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface

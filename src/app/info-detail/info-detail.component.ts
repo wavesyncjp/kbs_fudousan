@@ -36,7 +36,7 @@ export class InfoDetailComponent extends BaseComponent {
               public dialog: MatDialog,
               public datepipe: DatePipe,
               @Inject(MAT_DIALOG_DATA) public data: Information) {
-    super(router, service);
+    super(router, service,dialog);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface

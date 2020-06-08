@@ -30,7 +30,7 @@ export class LocationDetailComponent extends BaseComponent {
               public dialog: MatDialog,
               /*public sharer: SharerInfo,*/
               @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
-      super(router, service);
+      super(router, service,dialog);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface

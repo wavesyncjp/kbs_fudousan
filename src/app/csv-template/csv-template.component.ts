@@ -20,7 +20,7 @@ export class CsvTemplateComponent extends BaseComponent {
               public dialogRef: MatDialogRef<CsvTemplateComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: any) { 
-      super(router, service);
+      super(router, service,dialog);
     }
 
   ngOnInit() {

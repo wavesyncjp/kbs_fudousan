@@ -24,10 +24,9 @@ export class SharerDialogComponent extends BaseComponent {
               public dialogRef: MatDialogRef<SharerDialogComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
-    super(router, service);
+    super(router, service,dialog);
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
     if(this.data.contractDetail == null) {

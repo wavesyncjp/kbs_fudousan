@@ -34,7 +34,7 @@ export class UserDetailComponent extends BaseComponent {
               public dialogRef: MatDialogRef<UserDetailComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: User) {
-    super(router, service);
+    super(router, service, dialog);
   }
 
   ngOnInit() {

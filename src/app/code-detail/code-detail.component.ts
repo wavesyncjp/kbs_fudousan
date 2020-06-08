@@ -34,7 +34,7 @@ export class CodeDetailComponent extends BaseComponent {
               public dialogRef: MatDialogRef<CodeDetailComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: Code) {
-    super(router, service);
+    super(router, service,dialog);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface

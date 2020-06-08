@@ -21,7 +21,7 @@ export class ContractTemplateComponent extends BaseComponent {
               public dialogRef: MatDialogRef<ContractTemplateComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: any) { 
-      super(router, service);
+      super(router, service,dialog);
     }
 
   ngOnInit() {

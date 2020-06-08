@@ -36,7 +36,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
               public dialog: MatDialog,
               public datepipe: DatePipe,
               @Inject(MAT_DIALOG_DATA) public data: Bukkensalesinfo) {
-      super(router, service);
+      super(router, service,dialog);
   }
 
   ngOnInit() {

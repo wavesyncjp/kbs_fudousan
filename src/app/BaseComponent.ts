@@ -25,7 +25,8 @@ export class BaseComponent implements OnInit {
     private locale = 'en-US';
 
     constructor(public router: Router,
-                public service: BackendService) {
+                public service: BackendService,
+                public dialog: MatDialog) {
 
     }
 
@@ -33,14 +34,12 @@ export class BaseComponent implements OnInit {
         this.service.isLoginPage(false);
 
        if(!this.service.isLogin()) {
-        const dlg = new Dialog({title: 'エラー', message: '認証されていません。再度、ログインしてください。'});
-        /*
+        const dlg = new Dialog({title: 'エラー', message: '認証されていません。再度、ログインしてください。'});        
         const dialogRef = this.dialog.open(ErrorDialogComponent, {width: '500px', height: '250px', data: dlg});
     
         dialogRef.afterClosed().subscribe(result => {
             this.router.navigate(['/login']);
-        });
-        */
+        });        
        
        }
     }
