@@ -101,7 +101,7 @@ export class CodeListComponent extends BaseComponent {
     const row = new Code();
     const dialogRef = this.dialog.open(CodeDetailComponent, {
       width: '750px',
-      height: '350px',
+      height: '400px',
       data: row
     });
     // 再検索
