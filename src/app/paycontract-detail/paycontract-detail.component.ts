@@ -57,9 +57,12 @@ export class PayContractDetailComponent extends BaseComponent {
         this.pid = params.pid;
         this.bukkenid = params.bukkenid;
       });
-
+      /*
       this.data = new Templandinfo();
       this.data.locations = [];
+      */
+      this.paycontract = new Paycontractinfo();
+      this.paycontract.taxEffectiveDayMap = new Date();
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -73,8 +76,10 @@ export class PayContractDetailComponent extends BaseComponent {
     element.scrollIntoView();
 
     this.spinner.show();
+    /*
     this.paycontract = new Paycontractinfo();
     this.paycontract.taxEffectiveDayMap = new Date();
+    */
 
     const funcs = [];
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012','015','026']));
