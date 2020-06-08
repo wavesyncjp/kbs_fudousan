@@ -64,6 +64,12 @@ mat-expansion-panel-header{
     /*border: solid 1px rgba(0,0,0,.12);
     /*border-left: solid 1px rgba(0,0,0,.12); */
 }
+
+.money{
+    padding-left: 0px;
+    /*border: solid 1px rgba(0,0,0,.12);
+    /*border-left: solid 1px rgba(0,0,0,.12); */
+}
 .detail-tbl-min-pay > tr > td > span.th{
     width:100px;
     background-color: rgba(194, 205, 240, 0.692);
