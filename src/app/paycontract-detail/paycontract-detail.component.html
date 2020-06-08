@@ -159,7 +159,7 @@
                         <button mat-raised-button (click)="deletePayContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
                     </td>
                     <td>
-                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_'.index] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
+                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + sharerPos] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;"><label>円</label></td>

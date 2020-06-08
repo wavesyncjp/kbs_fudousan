@@ -309,33 +309,23 @@ export class PayContractDetailComponent extends BaseComponent {
    * 税額を自動計算する
    */
   taxCalc(detail: Paycontractdetailinfo){
+    
     this.paycontract.taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
     if (detail.payPrice > 0) {
-
       this.taxRate = 0;
-
-      /*
-      this.maxDate = 0;
-      //消費税マスタで支払管理の消費税適応日より小さい中での最大値を求める
-      this.taxes.forEach((tax) => {
-        //整形する
-        this.effectiveDay = tax.effectiveDay != null ? this.datepipe.transform(tax.effectiveDay, 'yyyyMMdd') : null;
-        //支払管理の消費税適応日 >=  消費税マスタの適用日
-        if (Number(this.paycontract.taxEffectiveDay) > Number(tax.effectiveDay)){
-          //maxDate < 消費税マスタの適用日
-          if(this.maxDate < Number(this.effectiveDay)){
-            this.maxDate = Number(this.effectiveDay);
-            this.taxRate = tax.taxRate;
-          }
-        }
-      });   
-      */
       if(!this.isBlank(this.paycontract.taxEffectiveDay)) {
         var taxtData =this.taxes.filter(me => me.effectiveDay <= this.paycontract.taxEffectiveDay).sort((a,b) => String(b.effectiveDay).localeCompare(a.effectiveDay))[0];
         this.taxRate = taxtData.taxRate;
       }             
 
-      detail.payPriceTax = Number(detail.payPrice) + Number(Math.floor(detail.payPrice * (this.taxRate / 100)));      
+      let lst = this.payTypes.filter(me => me.paymentCode === detail.paymentCode && me.taxFlg === "1");
+      //taxFlgが1ではない場合
+      if(lst.length == 0) {
+        detail.payPriceTax = detail.payPrice;
+      }
+      else {
+        detail.payPriceTax = Number(detail.payPrice) + Number(Math.floor(detail.payPrice * (this.taxRate / 100)));              
+      }      
       detail.payTax = detail.payPriceTax  - detail.payPrice;
       
     }

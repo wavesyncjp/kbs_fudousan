@@ -47,6 +47,13 @@ export class BackendService {
   }
 
   /**
+   * ログインチェック
+   */
+  isLogin() {
+    return this.loginUser != null;
+  }
+
+  /**
    * ログインページ
    * @param isLogin ：ログインページ
    */

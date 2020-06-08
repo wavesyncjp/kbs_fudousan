@@ -1,21 +1,24 @@
 import { OnInit, AfterViewInit, LOCALE_ID, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
-import { Code } from './models/bukken';
+import { Code, PaymentType } from './models/bukken';
 import { formatDate } from '@angular/common';
 import { parse } from 'date-fns';
+import { Dialog } from './models/dialog';
+import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material';
 
 export class BaseComponent implements OnInit {
     public sysCodes = {};
     public deps = [];
     public emps = [];
     public users = [];
-    public payTypes = [];
+    public payTypes: PaymentType[]  = [];
     public lands = [];
 //    public codes = [];
     public sysCodeNameMsts = [];
     public taxes = [];
-    public paymenttypes=[];
+    public paymenttypes= [];
     public errorMsgs: string[] = [];
     public errors = {};
 
@@ -28,12 +31,18 @@ export class BaseComponent implements OnInit {
 
     ngOnInit(): void {
         this.service.isLoginPage(false);
-        this.service.checkLogin().subscribe((msg: string) => {
-            // tslint:disable-next-line:radix
-            if (Number.parseInt(msg) !== 1) {
-                // this.router.navigate(['/login']);
-            }
+
+       if(!this.service.isLogin()) {
+        const dlg = new Dialog({title: 'エラー', message: '認証されていません。再度、ログインしてください。'});
+        /*
+        const dialogRef = this.dialog.open(ErrorDialogComponent, {width: '500px', height: '250px', data: dlg});
+    
+        dialogRef.afterClosed().subscribe(result => {
+            this.router.navigate(['/login']);
         });
+        */
+       
+       }
     }
 
     /**
