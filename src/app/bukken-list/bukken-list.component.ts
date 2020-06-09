@@ -92,6 +92,9 @@ export class BukkenListComponent extends BaseComponent {
 
     if (this.search === '1') {
       this.cond = this.service.searchCondition;
+      if(this.cond == null) {
+        this.resetCondition();
+      }
     }
 
     const funcs = [];
@@ -125,6 +128,32 @@ export class BukkenListComponent extends BaseComponent {
 
   highlight(row) {
     this.selectedRowIndex = row.pid;
+  }
+
+  /**
+   * 検索条件リセット
+   */
+  resetCondition() {
+    this.cond = {
+      bukkenNo: '',
+      contractBukkenNo:'',
+      bukkenName: '',
+      residence: '',
+      address: '',
+      pickDate_From: '',
+      pickDateSearch_From: '',
+      pickDate_To: '',
+      pickDateSearch_To: '',
+      surveyRequestedDay_From: '',
+      surveyRequestedDaySearch_From: '',
+      surveyRequestedDay_To: '',
+      surveyRequestedDaySearch_To: '',
+  //    pickDateMap: new Date(),
+  //    pickDate: '',
+      department: [],
+      result: ['01'],
+      mode: 1
+   };
   }
 
   /**
