@@ -73,6 +73,9 @@ export class PayContractListComponent extends BaseComponent {
     
     if (this.search === '1') {
       this.cond = this.service.searchCondition;
+      if(this.cond == null) {
+        this.resetCondition();
+      }
     }
 
     this.service.getPaymentTypes(null).then(ret => {
@@ -82,6 +85,30 @@ export class PayContractListComponent extends BaseComponent {
     if (this.search === '1') {
       this.searchPayContract();
     }
+  }
+
+  /**
+   * 検索条件リセット
+   */
+  resetCondition() {
+    this.cond = {
+      bukkenNo: '',
+      bukkenName: '',
+      paymentCode: '',
+      supplierName: '',
+      contractDay_From: '',
+      contractDayMap_From: '',
+      contractDay_To: '',
+      contractDayMap_To: '',
+      contractFixDay_From: '',
+      contractFixDayMap_From: '',
+      contractFixDay_To: '',
+      contractFixDayMap_To: '',
+      payDay_From: '',
+      payDayMap_From: '',
+      payDay_To: '',
+      payDayMap_To: ''
+   };
   }
 
   /**

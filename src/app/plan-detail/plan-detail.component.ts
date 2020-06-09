@@ -338,7 +338,7 @@ export class PlanDetailComponent extends BaseComponent {
       if (dlg.choose) {
         this.spinner.show();
         this.service.exportPlan(this.plan.pid).then(data => {
-          this.service.writeToFile(data);
+          this.service.writeToFile(data, "収支帳票");
           this.spinner.hide();
         });
       }

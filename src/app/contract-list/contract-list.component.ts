@@ -60,10 +60,32 @@ export class ContractListComponent  extends BaseComponent {
     this.dataSource.paginator = this.paginator;
     if (this.search === '1') {
       this.cond = this.service.searchCondition;
+      if(this.cond == null) {
+        this.resetCondition();
+      }
       this.searchContract();
     }
   }
 
+  /**
+   * 検索条件リセット
+   */
+  resetCondition() {
+    this.cond = {
+      bukkenNo: '',
+      contractBukkenNo:'',
+      bukkenName: '',
+      contractNumber: '',
+      vacationDayMap: null,
+      vacationDay: '',
+      contractDay: '',
+      contractDayMap: null
+   };
+  }
+
+  /**
+   * 検索
+   */
   searchContract() {
     this.spinner.show();
     this.cond.vacationDay = this.cond.vacationDayMap != null ? this.datepipe.transform(this.cond.vacationDayMap, 'yyyyMMdd') : null;

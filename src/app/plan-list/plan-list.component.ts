@@ -62,6 +62,9 @@ export class PlanListComponent extends BaseComponent {
 
     if (this.search === '1') {
       this.cond = this.service.searchCondition;
+      if(this.cond == null) {
+        this.resetCondition();
+      }
     }
 
     const funcs = [];
@@ -85,6 +88,20 @@ export class PlanListComponent extends BaseComponent {
       }
 
     });
+  }
+
+    /**
+   * 検索条件リセット
+   */
+  resetCondition() {
+    this.cond = {
+      bukkenNo: '',
+      bukkenName: '',
+      address: '',
+      planName: '',
+      createDay: '',
+      createDayMap: ''
+   };
   }
 
   /**
