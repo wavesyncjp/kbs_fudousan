@@ -454,6 +454,20 @@ export class PlanDetailComponent extends BaseComponent {
         // 20200518 E_Edit
       }
     }
+//ヒラノ修正中
+    if(name === 'price30'){
+      if(!isNullOrUndefined(this.plan.details[30].valuation) && !isNullOrUndefined(this.plan.buildArea)){
+        // 20200518 S_Edit
+        
+        this.plan.details[30].price = String(Math.floor(Number(this.getNumber(this.plan.details[30].valuation)) * (this.getNumber(this.plan.buildArea))*0.04));
+        this.plan.details[30].price = this.removeComma(this.plan.details[30].price);
+        //this.changeValue('price11');
+       
+
+        this.plan.details[30].price = this.numberFormat(this.plan.details[30].price);
+        // 20200518 E_Edit
+      }
+    }//ヒラノ修正中
     /*//計算３０
     if(name === 'price11' && !isNullOrUndefined(this.plan.details[11].price)) {
       this.plan.details[11].priceTax = String(Math.floor(Number(this.plan.details[10].price) * 0.03));
