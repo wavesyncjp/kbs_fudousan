@@ -1189,10 +1189,12 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[pos].space) && !isNullOrUndefined(this.plan.rentdetails[pos].rentUnitPrice)){
-      let ret = Math.floor(Number(this.plan.rentdetails[pos].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[pos].rentUnitPrice));
+      let num = Math.floor(Number(this.plan.rentdetails[pos].space) * 0.3025 * 100)/ 100;
+      let ret = Math.floor(Number(this.plan.rentdetails[pos].rentUnitPrice)) * num;
       this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
       // 20200519 E_Edit
-
+      pos++;
+      
       return Math.floor(ret);
     }    
   }
@@ -1202,9 +1204,11 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[pos].space) && !isNullOrUndefined(this.plan.rentdetails[pos].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[pos].securityDeposit)){
-      let ret = Math.floor(Number(this.plan.rentdetails[pos].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[pos].rentUnitPrice))* (Number(this.plan.rentdetails[pos].securityDeposit));
+      let num = Math.floor(Number(this.plan.rentdetails[pos].space) * 0.3025 * 100)/ 100;
+      let ret =(Number(this.plan.rentdetails[pos].rentUnitPrice))* (Number(this.plan.rentdetails[pos].securityDeposit)) * num;
       this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
       // 20200519 E_Edit
+      pos++;
 
       return Math.floor(ret);
     }    
@@ -1342,48 +1346,37 @@ export class PlanDetailComponent extends BaseComponent {
   
 
   //賃料　合計
-  cal62() {
-    let ret = 0;
-    let pos = 0;
-    while(pos < 15) {  
-      // 20200519 S_Edit
-      this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice);    
-      ret += (((this.getNumber(this.plan.rentdetails[pos].space) * 0.3025 * 100 ) / 100) * this.getNumber(this.plan.rentdetails[pos].rentUnitPrice));
-      this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
-      // 20200519 E_Edit
-      pos++;
+    //賃料　合計
+    cal62() {
+      let ret = 0;
+      let pos = 0;
+
+      while(pos < 15) {
+        ret += this.cal51(pos);
+        pos++;
+      }
+      ret += this.cal53();
+      ret += this.cal55();
+      ret += this.cal57();
+      ret += this.cal59();
+      return Math.floor(ret);
     }
-    return Math.floor(ret);
-  }
-//hirano 2020.06.10
-  cal62_2() {
-    let ret = 0;
-    let pos = 16;
-    while(pos < 19) {  
-      
-      this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice);    
-      ret += ((this.getNumber(this.plan.rentdetails[pos].space))* this.getNumber(this.plan.rentdetails[pos].rentUnitPrice));
-      this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
-      
-      pos++;
-    }
-    return Math.floor(ret);
-  }
- //hirano 2020.06.10
+
   //敷金　合計
   cal63() {
     let ret = 0;
-    let pos = 0;
-    while(pos < 19) {      
-      // 20200519 S_Edit
-      this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice); 
-      ret += (((this.getNumber(this.plan.rentdetails[pos].space) * 0.3025 * 100 ) / 100) * this.getNumber(this.plan.rentdetails[pos].rentUnitPrice) * this.getNumber(this.plan.rentdetails[pos].securityDeposit));
-      this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
-      // 20200519 E_Edit
-      pos++;
+      let pos = 0;
+      
+      while(pos < 15) {
+        ret += this.cal52(pos);
+        pos++;
+      }
+      ret += this.cal54();
+      ret += this.cal56();
+      ret += this.cal58();
+      ret += this.cal60();
+      return Math.floor(ret);
     }
-    return Math.floor(ret);
-  }
   //計算６４
   cal64() {
     let ret = this.cal62() * 12;
