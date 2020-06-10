@@ -1036,7 +1036,7 @@
     <td><span class="head_rent">駐車場</span></td>
     <tr>
         <th class="main"></th>
-        <td class="yen1"><input type="text" placeholder="台数"class="par number" [(ngModel)]="plan.rentdetails[15].space" [value]="getNumber(cal53_1()) | number">&nbsp;台</td>
+        <td class="yen1"><input type="text" placeholder="台数"class="par number" [(ngModel)]="plan.rentdetails[15].space" [value]="getNumber(cal53_1()) | number" [attr.disabled]="true">&nbsp;台</td>
         <td class="yen3"><input type="text" placeholder="賃料単価"class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rentdetails[15].rentUnitPrice" (ngModelChange)="changeValueDetail('rentUnitPrice', 15)"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number" [value]="getNumber(cal54()) | number" [attr.disabled]="true"></td>
         <td class="yen2"><input type="text" placeholder="敷金"class="par number" [(ngModel)]="plan.rentdetails[15].securityDeposit">&nbsp;ヵ月</td>
