@@ -803,7 +803,7 @@ export class PlanDetailComponent extends BaseComponent {
 
   
 
-  //計算２７
+  //固都税精算金
   cal27() {
     // 20200519 S_Edit
     this.plan.fixedTaxLand = this.getNumber(this.removeComma(this.plan.fixedTaxLandMap));
@@ -1213,84 +1213,100 @@ export class PlanDetailComponent extends BaseComponent {
   
   //計算51_e 賃料
   //計算52_e　敷金
+
+  //駐車場 台数
+  cal53_1(){
+    if(this.plan.parkingIndoor > 0){
+      this.plan.rentdetails[15].space = String(Math.floor(
+        (this.getNumber(this.plan.parkingIndoor))));
+    }else{
+      return '';
+    }
+
+    this.plan.rentdetails[15].space = this.numberFormat(this.plan.rentdetails[15].space);
+    
+  }
+  
+
+  //駐車場　賃料
   cal53() {
     // 20200519 S_Edit
     this.plan.rentdetails[15].rentUnitPrice = this.removeComma(this.plan.rentdetails[15].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[15].space) && !isNullOrUndefined(this.plan.rentdetails[15].rentUnitPrice)){
-      let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice));
+      let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * (Number(this.plan.rentdetails[15].rentUnitPrice));
       this.plan.rentdetails[15].rentUnitPrice = this.numberFormat(this.plan.rentdetails[15].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
-
+  //駐車場　敷金
   cal54() {
     // 20200519 S_Edit
     this.plan.rentdetails[15].rentUnitPrice = this.removeComma(this.plan.rentdetails[15].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[15].space) && !isNullOrUndefined(this.plan.rentdetails[15].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[15].securityDeposit)){
-      let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[15].rentUnitPrice))* (Number(this.plan.rentdetails[15].securityDeposit));
+      let ret = Math.floor(Number(this.plan.rentdetails[15].space)) * (Number(this.plan.rentdetails[15].rentUnitPrice))* (Number(this.plan.rentdetails[15].securityDeposit));
       this.plan.rentdetails[15].rentUnitPrice = this.numberFormat(this.plan.rentdetails[15].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
-
+  //駐輪場　賃料
   cal55() {
     // 20200519 S_Edit
     this.plan.rentdetails[16].rentUnitPrice = this.removeComma(this.plan.rentdetails[16].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[16].space) && !isNullOrUndefined(this.plan.rentdetails[16].rentUnitPrice)){
-      let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice));
+      let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * (Number(this.plan.rentdetails[16].rentUnitPrice));
       this.plan.rentdetails[16].rentUnitPrice = this.numberFormat(this.plan.rentdetails[16].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
-
+  //駐輪場　敷金
   cal56() {
     // 20200519 S_Edit
     this.plan.rentdetails[16].rentUnitPrice = this.removeComma(this.plan.rentdetails[16].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[16].space) && !isNullOrUndefined(this.plan.rentdetails[16].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[16].securityDeposit)){
-      let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[16].rentUnitPrice))* (Number(this.plan.rentdetails[16].securityDeposit));
+      let ret = Math.floor(Number(this.plan.rentdetails[16].space)) * (Number(this.plan.rentdetails[16].rentUnitPrice))* (Number(this.plan.rentdetails[16].securityDeposit));
       this.plan.rentdetails[16].rentUnitPrice = this.numberFormat(this.plan.rentdetails[16].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
-
+  //バイク置き場　賃料
   cal57() {
     // 20200519 S_Edit
     this.plan.rentdetails[17].rentUnitPrice = this.removeComma(this.plan.rentdetails[17].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[17].space) && !isNullOrUndefined(this.plan.rentdetails[17].rentUnitPrice)){
-      let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice));
+      let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * (Number(this.plan.rentdetails[17].rentUnitPrice));
       this.plan.rentdetails[17].rentUnitPrice = this.numberFormat(this.plan.rentdetails[17].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
-
+  //バイク置き場　敷金
   cal58() {
     // 20200519 S_Edit
     this.plan.rentdetails[17].rentUnitPrice = this.removeComma(this.plan.rentdetails[17].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[17].space) && !isNullOrUndefined(this.plan.rentdetails[17].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[17].securityDeposit)){
-      let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[17].rentUnitPrice))* (Number(this.plan.rentdetails[17].securityDeposit));
+      let ret = Math.floor(Number(this.plan.rentdetails[17].space)) * (Number(this.plan.rentdetails[17].rentUnitPrice))* (Number(this.plan.rentdetails[17].securityDeposit));
       this.plan.rentdetails[17].rentUnitPrice = this.numberFormat(this.plan.rentdetails[17].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
     }    
   }
-
+  //自販機　賃料
   cal59() {
     // 20200519 S_Edit
     this.plan.rentdetails[18].rentUnitPrice = this.removeComma(this.plan.rentdetails[18].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[18].space) && !isNullOrUndefined(this.plan.rentdetails[18].rentUnitPrice)){
-      let ret = Math.floor(Number(this.plan.rentdetails[18].space)) * 0.3025 * 100  / 100 * (Number(this.plan.rentdetails[18].rentUnitPrice));
+      let ret = Math.floor(Number(this.plan.rentdetails[18].space)) * (Number(this.plan.rentdetails[18].rentUnitPrice));
       this.plan.rentdetails[18].rentUnitPrice = this.numberFormat(this.plan.rentdetails[18].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
@@ -1299,34 +1315,37 @@ export class PlanDetailComponent extends BaseComponent {
   
   
 
-  //計算６０
+  //自販機　敷金
   cal60() {
     // 20200519 S_Edit
     this.plan.rentdetails[18].rentUnitPrice = this.removeComma(this.plan.rentdetails[18].rentUnitPrice);
 
     if(!isNullOrUndefined(this.plan.rentdetails[18].space) && !isNullOrUndefined(this.plan.rentdetails[18].rentUnitPrice) && !isNullOrUndefined(this.plan.rentdetails[18].securityDeposit)){
-      let ret = ((this.getNumber(this.plan.rentdetails[18].space) * 0.3025 * 100 ) / 100)* this.getNumber(this.plan.rentdetails[18].rentUnitPrice) * this.getNumber(this.plan.rentdetails[18].securityDeposit);
+      let ret = ((this.getNumber(this.plan.rentdetails[18].space)))* this.getNumber(this.plan.rentdetails[18].rentUnitPrice) * this.getNumber(this.plan.rentdetails[18].securityDeposit);
       this.plan.rentdetails[18].rentUnitPrice = this.numberFormat(this.plan.rentdetails[18].rentUnitPrice);
       // 20200519 E_Edit
       return Math.floor(ret);
     }
   }
 
-  //計算６１
+  //面積　合計
   cal61() {
-    let ret = (this.getNumber(this.plan.rentdetails[0].space))+(this.getNumber(this.plan.rentdetails[1].space))+(this.getNumber(this.plan.rentdetails[2].space))+(this.getNumber(this.plan.rentdetails[3].space))+(this.getNumber(this.plan.rentdetails[4].space))
-    +(this.getNumber(this.plan.rentdetails[5].space))+(this.getNumber(this.plan.rentdetails[6].space))+(this.getNumber(this.plan.rentdetails[7].space))+(this.getNumber(this.plan.rentdetails[8].space))
-    +(this.getNumber(this.plan.rentdetails[9].space))+(this.getNumber(this.plan.rentdetails[10].space))+(this.getNumber(this.plan.rentdetails[11].space))+(this.getNumber(this.plan.rentdetails[12].space))
-    +(this.getNumber(this.plan.rentdetails[13].space))+(this.getNumber(this.plan.rentdetails[14].space));
+    let ret = 0;
+    let pos = 0;
+    while(pos < 15){
+    this.plan.rentdetails[pos].space = this.removeComma(this.plan.rentdetails[pos].space);
+    ret =(this.getNumber(this.plan.rentdetails[pos].space))+ ret;
+    pos++;
+    }
     return Math.floor(ret);
     }
   
 
-  //計算６２
+  //賃料　合計
   cal62() {
     let ret = 0;
     let pos = 0;
-    while(pos < 19) {  
+    while(pos < 15) {  
       // 20200519 S_Edit
       this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice);    
       ret += (((this.getNumber(this.plan.rentdetails[pos].space) * 0.3025 * 100 ) / 100) * this.getNumber(this.plan.rentdetails[pos].rentUnitPrice));
@@ -1336,8 +1355,22 @@ export class PlanDetailComponent extends BaseComponent {
     }
     return Math.floor(ret);
   }
-
-  //計算６３
+//hirano 2020.06.10
+  cal62_2() {
+    let ret = 0;
+    let pos = 16;
+    while(pos < 19) {  
+      
+      this.plan.rentdetails[pos].rentUnitPrice = this.removeComma(this.plan.rentdetails[pos].rentUnitPrice);    
+      ret += ((this.getNumber(this.plan.rentdetails[pos].space))* this.getNumber(this.plan.rentdetails[pos].rentUnitPrice));
+      this.plan.rentdetails[pos].rentUnitPrice = this.numberFormat(this.plan.rentdetails[pos].rentUnitPrice);
+      
+      pos++;
+    }
+    return Math.floor(ret);
+  }
+ //hirano 2020.06.10
+  //敷金　合計
   cal63() {
     let ret = 0;
     let pos = 0;
