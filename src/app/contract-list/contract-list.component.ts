@@ -23,7 +23,7 @@ import { Templandinfo } from '../models/templandinfo';
 export class ContractListComponent  extends BaseComponent {
 
   displayedColumns: string[] = ['bukkenNo', 'bukkenName','contractBukkenNo', 'remark1', 'remark2',
-                                'contractNo', 'buildingType', 'contractOwner', 'detail'];
+                                'contractNo', 'contractOwner', 'detail'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
