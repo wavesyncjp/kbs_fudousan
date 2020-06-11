@@ -16,6 +16,7 @@ import { Contractinfo } from '../models/contractinfo';
 import { SharerInfo } from '../models/sharer-info';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
 import { DatePipe } from '@angular/common';
+import { Util } from '../utils/util';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -167,14 +168,15 @@ export class BukkenDetailComponent extends BaseComponent {
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
       height: '550px',
-      data: loc
+      data:  <Locationinfo>Util.deepCopy(loc, 'Locationinfo')
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
         // 更新
         if (result.isSave) {
-          loc = result.data;
+          this.data.locations[pos] = new Locationinfo(result.data);
+          //loc = new Locationinfo(result.data);
         } else if (result.isDelete) {
           this.data.locations.splice(pos, 1);
         }
