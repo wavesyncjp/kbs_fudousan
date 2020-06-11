@@ -250,6 +250,26 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   gotoBukken() {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: this.pid}});
   }
+ /**
+   * 坪計算
+   *修正中/
+
+  
+  
+  changeArea(event) {
+    const val = event.target.value;
+    if (this.isNumberStr(val)) {
+      return Math.floor(this.getNumber(val) * 0.3025 * 100) / 100;
+    }
+    else {
+      return '';
+    }
+  }
+
+  getNumber(val) {
+    if (val == null || val === '' || isNaN(val)) return 0;
+    return Number(val);
+  }
 
   /**
    * 一覧へ戻る

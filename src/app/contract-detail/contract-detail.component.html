@@ -321,7 +321,7 @@
         </tr>
         <tr>
             <th>計画地の公図</th>
-            <td colspan="9" style="border-top: solid 1px rgba(197, 191, 191, 0.822);">
+            <td colspan="9">
                 <label *ngIf="!(contract.pid > 0)" style="color:red">※契約情報を登録後に添付可能となります。</label>   
                 <app-file contractInfoId="{{contract.pid}}" *ngIf="contract.pid > 0" (uploaded)="uploaded($event)"></app-file> 
                 
@@ -365,31 +365,31 @@
         </tr>
         <tr>
             <th>建築確認取得</th>
-            <td>
+            <td style="width: 120px;">
                 <input type="text" [matDatepicker]="acquisitionConfirmDay" class="width100" [(ngModel)]="contract.acquisitionConfirmDayMap">
                 <mat-datepicker-toggle matSuffix [for]="acquisitionConfirmDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #acquisitionConfirmDay></mat-datepicker>
             </td>
             <th>計画建物着工</th>
-            <td>
+            <td style="width: 120px;">
                 <input type="text" [matDatepicker]="startScheduledDay" class="width100" [(ngModel)]="contract.startScheduledDayMap">
                 <mat-datepicker-toggle matSuffix [for]="startScheduledDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #startScheduledDay></mat-datepicker>
             </td>
             <th>優先分譲契約締結</th>
-            <td>
+            <td style="width: 150px;">
                 <input type="text" [matDatepicker]="prioritySalesAgreementDay" class="width100" [(ngModel)]="contract.prioritySalesAgreementDayMap">
                 <mat-datepicker-toggle matSuffix [for]="prioritySalesAgreementDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #prioritySalesAgreementDay></mat-datepicker>
             </td>
             <th>計画建物竣工</th>
-            <td>
+            <td style="width: 160px;">
                 <input type="text" [matDatepicker]="finishScheduledDay" class="width100" [(ngModel)]="contract.finishScheduledDayMap">
                 <mat-datepicker-toggle matSuffix [for]="finishScheduledDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #finishScheduledDay></mat-datepicker>
             </td> 
             <th>取得物件引渡</th>
-            <td>
+            <td style="width: 120px;">
                 <input type="text" [matDatepicker]="deliveryDay" class="width100" [(ngModel)]="contract.deliveryDayMap">
                 <mat-datepicker-toggle matSuffix [for]="deliveryDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #deliveryDay></mat-datepicker>
@@ -399,7 +399,7 @@
 
     <!--/建物情報契約-->
     <br>
-    <mat-divider></mat-divider>
+    
     <div class="register-div" style="margin-top:10px">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
