@@ -95,9 +95,10 @@
         <tr>
             <th>仲介手数料</th>
             <td><input type="text" [(ngModel)]="data.salesBrokerageFee" class="width100" maxlength="15"></td>
-            <th>地積（㎡、坪）</th>
-            <td><input type="text" [(ngModel)]="data.salesLandArea" class="width100" maxlength="15"></td>
-
+            <th>地積</th>
+            <td><input type="text" [(ngModel)]="data.salesLandArea" class="width100 number" maxlength="15" (keypress)="floatOnly($event)">㎡</td>
+            <td><input type="text" [(ngModel)]="data.tsubo" class="width100 number" [value]="getNumber() | number" [attr.disabled]="true" maxlength="15">&nbsp;坪</td>
+           <!--[value]="getNumber(data.salesLandArea) | number"--> 
         </tr>
         <tr>
             <th>仲介会社</th>

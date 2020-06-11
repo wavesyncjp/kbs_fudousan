@@ -32,12 +32,12 @@
           </tr>
           <tr>
           <th>情報収集日</th>
-          <td>
+          <td style="width: 150px;">
             <div class="picker-div">
                 <input type="text" [matDatepicker]="pickDate_From" [(ngModel)]="cond.pickDate_From" placeholder="開始日" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="pickDate_From" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #pickDate_From></mat-datepicker>
-            </div>
+            </div>&nbsp;&nbsp;～
           </td>
           <td colspan="2">
             <div class="picker-div">
@@ -47,12 +47,12 @@
             </div>
           </td>
           <th>測量依頼日</th>
-          <td>
+          <td style="width: 150px;"> 
             <div class="picker-div">
                 <input type="text" [matDatepicker]="surveyRequestedDay_From" [(ngModel)]="cond.surveyRequestedDay_From" placeholder="開始日" class="width100">
                 <mat-datepicker-toggle matSuffix [for]="surveyRequestedDay_From" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #surveyRequestedDay_From></mat-datepicker>
-            </div>
+            </div>&nbsp;&nbsp;～
           </td>
           <td>
             <div class="picker-div">

@@ -69,7 +69,7 @@
             <tr>
                 <th>仮測量図</th>
                 <td>
-                    <span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.land.surveyMapChk === '1'" (change)="flgFinish($event, 'surveyMapChk')"></mat-checkbox>
+                    <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.surveyMapChk === '1'" (change)="flgFinish($event, 'surveyMapChk')"></mat-checkbox>
                 </td>
                 <th>官民申請書</th>
                 <td>
@@ -111,10 +111,12 @@
                 <button mat-raised-button (click)="addPlan()">追加</button>
             </div>
         </div>
+        
         <ng-container *ngFor="let plan of data.plans; index as pos">
             <table *ngIf="!plan.delete" class="detail-tbl-status" style="margin-bottom: 20px;">  
                 <tr>
-                    <td rowspan="4" style="width: 50px;"><mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>                            
+                    
+                    <td rowspan="3" style="width: 60px;"><div style="font-size: x-small;">プラン選択</div><br>&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>                            
                     <th>プラン検討先</th>
                     <td colspan="3">
                         <input type="text" [(ngModel)]="plan.planConsidered" class="width400" maxlength="100">
@@ -136,11 +138,11 @@
                 </tr>
                 <tr>
                     <th>プラン依頼</th>
-                    <td>
+                    <td style="width:230px;">
                         <input type="text" [(ngModel)]="plan.planRequest" class="width200" maxlength="100">
                     </td>
                     <th>プラン依頼日</th>
-                    <td>
+                    <td style="width:340px;">
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="planRequestDay" [(ngModel)]="plan.planRequestDayMap" class="width100">
                             <mat-datepicker-toggle matSuffix [for]="planRequestDay" class="picker-icon"></mat-datepicker-toggle>
