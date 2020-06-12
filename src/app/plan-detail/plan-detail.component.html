@@ -754,9 +754,9 @@
         
     <tr class="rentline">
         <th class="main_plan_rent">経費率(%)</th>
-        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio1">&nbsp;%</td>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio1">&nbsp;%</td>
         <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio2">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio3">&nbsp;%</td>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio3">&nbsp;%</td>
         <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio4">&nbsp;%</td>
     </tr>
     <tr class="rentline">
@@ -796,7 +796,7 @@
     </tr>
 
     <tr>
-        <th class="head_roll">その他 利回り</th>
+        <th class="head_roll">利回り(表面)</th>
         <td class="yen_plan">プランA</td>
         <td class="yen_plan">プランB</td>
         <td class="yen_plan">プランC</td>
@@ -811,19 +811,13 @@
         <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.rent.profitsD"></td>
     </tr>
     <tr class="rentline">
-        <th class="main_plan_rent">売買金額(表面)</th>
+        <th class="main_plan_rent">売買金額</th>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_1()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_2()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_3()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_4()) | number" [attr.disabled]="true"></td>
     </tr>
-    <tr class="rentline">
-        <th class="main_plan_rent">売買金額(土地)</th>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_1()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_2()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_3()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal77_4()) | number" [attr.disabled]="true"></td>
-    </tr>
+    
     <tr class="rentline">
         <th class="main_plan_rent"><input type="text" class="Twidth100" [(ngModel)]="plan.rent.salesExpenseName1" placeholder="販売経費等"></th>
         <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1A" (ngModelChange)="changeValue('salesExpense1A')"></td>
@@ -853,47 +847,20 @@
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal79_4()) | number" [attr.disabled]="true"></td>
     </tr>
     <tr class="rentline">
-        <th class="main_plan_rent">利益(表面)</th>
+        <th class="main_plan_rent">利益</th>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_1()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_2()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_3()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_4()) | number" [attr.disabled]="true"></td>
     </tr>
     <tr class="rentline">
-        <th class="main_plan_rent">利益率(表面)</th>
+        <th class="main_plan_rent">利益率</th>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_1()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_2()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_3()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_4()) | number" [attr.disabled]="true"></td>
     </tr>
-    <tr class="rentline">
-        <th class="main_plan_rent">利益(簡易)</th>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_1()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_2()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_3()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_4()) | number" [attr.disabled]="true"></td>
-    </tr>
-    <tr class="rentline">
-        <th class="main_plan_rent">利益率(簡易)</th>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_1()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_2()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_3()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_4()) | number" [attr.disabled]="true"></td>
-    </tr>
-    <tr class="rentline">
-        <th class="main_plan_rent">利益(土地)</th>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_1()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_2()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_3()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal80_4()) | number" [attr.disabled]="true"></td>
-    </tr>
-    <tr class="rentline">
-        <th class="main_plan_rent">利益率(土地)</th>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_1()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_2()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_3()) | number" [attr.disabled]="true"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal81_4()) | number" [attr.disabled]="true"></td>
-    </tr>
+    
     <tr>
         <th class="head_roll_1">簡易版</th>
     </tr>
@@ -1073,7 +1040,7 @@
     <tr>
         <th class="main">合計</th>
         <td class="yen1"><input type="text" placeholder="面積"class="par number" [value]="cal61()" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;㎡</td>
-        <td class="yen3"></td>
+        <td class="yen3" style="width: 110px;"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number"  [value]="getNumber(cal63()) | number" [attr.disabled]="true"></td>
         <td class="yen2">&nbsp;</td>
         <td class="yen3"><input type="text" placeholder="賃料"class="Twidth100 number"  [value]="getNumber(cal62()) | number" [attr.disabled]="true"></td>
@@ -1082,7 +1049,7 @@
     <span class = "profitSUM">
         <tr>
             <th class="main">年間賃料</th>
-            <td class="yen">&nbsp;</td>
+            <td class="yen" style="width: 110px;">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal64()) | number" ></td>
@@ -1092,9 +1059,9 @@
     <span class = "etcSUM">
         <tr>
             <th class="main">共益費(月間)</th>
-            <td class="yento"><input type="text" class="par" [value]="plan.totalUnits" [attr.disabled]="true">&nbsp;戸</td>
-            <td class="yen"><input type="text" placeholder="共益費" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.commonFee" (ngModelChange)="changeValue('commonFee')"></td>
-            <td class="yen">&nbsp;</td>
+            <td class="yento" style="width: 115px;margin-left: 15px;"><input type="text" class="par" [value]="plan.totalUnits" [attr.disabled]="true">&nbsp;戸</td>
+            <td class="yen" style=" margin-right: 0px;"><input type="text" placeholder="共益費" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.commonFee" (ngModelChange)="changeValue('commonFee')"></td>
+            <td class="yen" style="width: 70px;margin-right: 0px;">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal65()) | number" [attr.disabled]="true"></td>
             
         </tr>
@@ -1102,9 +1069,9 @@
     <span class = "etcSUM">
         <tr>
             <th class="main">共益費(年間)</th>
-            <td class="yento"><input type="text" class="par" [value]="plan.totalUnits" [attr.disabled]="true">&nbsp;戸</td>
-            <td class="yen">&nbsp;</td>
-            <td class="yen">&nbsp;</td>
+            <td class="yento" style="width: 115px;margin-left: 15px;"><input type="text" class="par" [value]="plan.totalUnits" [attr.disabled]="true">&nbsp;戸</td>
+            <td class="yen" style=" margin-right: 0px;">&nbsp;</td>
+            <td class="yen" style="width: 75px; margin-right: 5px;">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal66()) | number" [attr.disabled]="true"></td>
             
         </tr>
@@ -1112,7 +1079,7 @@
     <span class = "etcSUM">
         <tr>
             <th class="main">その他収入(月間)</th>
-            <td class="yento">&nbsp;</td>
+            <td class="yento" style="width: 110px;">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.monthlyOtherIncome" (ngModelChange)="changeValue('monthlyOtherIncome')"></td>
@@ -1122,7 +1089,7 @@
     <span class = "etcSUM">
         <tr>
             <th class="main">その他収入(年間)</th>
-            <td class="yento">&nbsp;</td>
+            <td class="yento" style="width: 110px;">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal67()) | number" [attr.disabled]="true"></td>
@@ -1137,7 +1104,7 @@
     <span class = "finSUM">
         <tr>
             <th class="main">年間(税込み)</th>
-            <td class="yen">&nbsp;</td>
+            <td class="yen" style="width: 110px;">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal68()) | number" ></td>
