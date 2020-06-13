@@ -162,12 +162,24 @@
                 <td colspan="3">
                     <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
                 </td>
+        </tr>
+        <tr>
+            <th>契約日</th>
+            <td>
+                <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="contract.contractDayMap">
+                <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractDay></mat-datepicker>
+                
+            </td>
         </tr> 
         <tr>
             <th>売買代金</th>
             <td colspan="7">
                 <input type="text" [(ngModel)]="contract.tradingPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
             </td>
+        </tr>
+        <tr>
+            <td colspan="7" style="font-size: x-small; font-weight: bold;">&nbsp;&nbsp;※売買代金(内訳)</td>
         </tr>
         <tr>
             <th>売買代金（土地）</th>
@@ -180,6 +192,45 @@
             <td><input type="text" [(ngModel)]="contract.tradingLeasePrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円</td>
             <th>実測精算単価</th>
             <td><input type="text" [(ngModel)]="contract.setlementPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円</td> 
+        </tr>
+        <tr>
+            <th>決済日(所有権移転日)</th>
+            <td>
+            <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
+            <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
+            <mat-datepicker #decisionDay></mat-datepicker>
+            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.decisionDayChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+            </td>
+            <th>引渡期日</th>
+            <td>
+                <input type="text" [matDatepicker]="deliveryFixedDay" class="width100" [(ngModel)]="contract.deliveryFixedDayMap">
+                <mat-datepicker-toggle matSuffix [for]="deliveryFixedDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deliveryFixedDay></mat-datepicker>
+            </td>
+           <th>明渡期日</th>
+           <td>
+                <input type="text" [matDatepicker]="vacationDay" class="width100" [(ngModel)]="contract.vacationDayMap">
+                <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #vacationDay></mat-datepicker>
+           </td>
+           
+        </tr>
+        <tr>
+            <th>即決和解申請日</th>
+             <td>
+             <input type="text" [matDatepicker]="settlementDay" class="width100" [(ngModel)]="contract.settlementDayMap">
+             <mat-datepicker-toggle matSuffix [for]="settlementDay" class="picker-icon"></mat-datepicker-toggle>
+             <mat-datepicker #settlementDay></mat-datepicker>
+             </td>
+             <th>即決和解成立日</th>
+             <td>
+             <input type="text" [matDatepicker]="settlementDayFin" class="width100" [(ngModel)]="contract.settlementDayFinMap">
+             <mat-datepicker-toggle matSuffix [for]="settlementDayFin" class="picker-icon"></mat-datepicker-toggle>
+             <mat-datepicker #settlementDayFin></mat-datepicker>
+             </td>
+         
+             <th>和解成立後</th>
+             <td><input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter" maxlength="100"></td>
         </tr>
         <tr>
             <th>内金①</th>
@@ -221,44 +272,8 @@
             <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTax" maxlength="15">&nbsp;円
             </td>       
         </tr>
-       <tr>
-            <th>引渡期日</th>
-            <td>
-                <input type="text" [matDatepicker]="deliveryFixedDay" class="width100" [(ngModel)]="contract.deliveryFixedDayMap">
-                <mat-datepicker-toggle matSuffix [for]="deliveryFixedDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #deliveryFixedDay></mat-datepicker>
-            </td>
-           <th>明渡期日</th>
-           <td>
-                <input type="text" [matDatepicker]="vacationDay" class="width100" [(ngModel)]="contract.vacationDayMap">
-                <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #vacationDay></mat-datepicker>
-           </td>
-           <th>契約日</th>
-           <td>
-                <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="contract.contractDayMap">
-                <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #contractDay></mat-datepicker>
-                
-           </td>
-        </tr>
-        <tr>
-           <th>即決和解申請日</th>
-        <td>
-            <input type="text" [matDatepicker]="settlementDay" class="width100" [(ngModel)]="contract.settlementDayMap">
-            <mat-datepicker-toggle matSuffix [for]="settlementDay" class="picker-icon"></mat-datepicker-toggle>
-            <mat-datepicker #settlementDay></mat-datepicker>
-        </td>
-        <th>即決和解成立日</th>
-        <td>
-            <input type="text" [matDatepicker]="settlementDayFin" class="width100" [(ngModel)]="contract.settlementDayFinMap">
-            <mat-datepicker-toggle matSuffix [for]="settlementDayFin" class="picker-icon"></mat-datepicker-toggle>
-            <mat-datepicker #settlementDayFin></mat-datepicker>
-        </td>
+       
         
-        <th>和解成立後</th>
-        <td><input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter" maxlength="100"></td>
-       </tr>
 
         <tr>
 
@@ -267,13 +282,7 @@
             <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.decisionPrice" maxlength="15">&nbsp;円
         </td>
         
-        <th>決済日(所有権移転日)</th>
-        <td>
-            <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
-            <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
-            <mat-datepicker #decisionDay></mat-datepicker>
-            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.decisionDayChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
-        </td>
+        
         <th>留保金</th>
         <td>
             <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.retainage" maxlength="15">&nbsp;円
