@@ -167,7 +167,7 @@
             </td>
             <th>建築延面積*①</th>
             <td class="first">
-                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.buildArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.buildArea" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('buildArea')">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.buildArea)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th>エントランス*②</th>
@@ -610,15 +610,16 @@
         <span class="title-box11">・建物 取得時税金</span>
         <tr>
             <th class="main">取得税</th><!--建物☆☆☆-->
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[30].price" (ngModelChange)="changeValueDetail('price', 30)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[30].price" (ngModelChange)="changeValue('price30')"></td>
             <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal50(30)) | number" [attr.disabled]="true"></td>
             <!--20200407_hirano src-->
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" placeholder="取得税評価額" [(ngModel)]="plan.details[30].valuation" (ngModelChange)="changeValueDetail('valuation', 30)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" placeholder="取得税評価額" [(ngModel)]="plan.details[30].valuation" (ngModelChange)="changeValue('buildArea')" ></td>
+            <!--(ngModelChange)="changeValue('price30')"-->
         </tr>
 
         <tr>
             <th class="main">登録税</th><!--建物-->
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[31].price" (ngModelChange)="changeValueDetail('price', 31)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[31].price" (ngModelChange)="changeValue('price31')"></td>
             <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal50(31)) | number" [attr.disabled]="true"></td>
             
         </tr>
@@ -655,9 +656,9 @@
         <tr>
             <!--20200407_hirano src-->
             <th class="main">融資手数料</th>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[36].price" [attr.disabled]="true"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[36].price" [attr.disabled]="true"  [value]="getNumber(cal43()) | number" (ngModelChange)="changeValueDetail('price', 36)"></td>
             <td class="yen"></td>
-            <td class="yen"><input type="text" class="Twidth100 number" placeholder="手数料率" [(ngModel)]="plan.details[36].commissionRate" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('commissionRate')"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" placeholder="手数料率" [(ngModel)]="plan.details[36].commissionRate" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('commissionRate')">&nbsp;％</td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
@@ -767,7 +768,7 @@
         <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal70_4()) | number" [attr.disabled]="true"></td>
     </tr>
     <tr class="rentline">
-        <th class="main_plan_rent">NOI利回り<br>※NOI/(A)</th>
+        <th class="main_plan_rent">NOI利回り(%)<br>※NOI/(A)</th>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal71_1()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal71_2()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal71_3()) | number" [attr.disabled]="true"></td>
@@ -788,7 +789,7 @@
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal73_4()) | number" [attr.disabled]="true"></td>
     </tr>
     <tr class="rentline">
-        <th class="main_plan_rent">利益率<br>※(E)/(D)</th>
+        <th class="main_plan_rent">利益率(%)<br>※(E)/(D)</th>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal74_1()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal74_2()) | number" [attr.disabled]="true"></td>
         <td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal74_3()) | number" [attr.disabled]="true"></td>
