@@ -437,7 +437,8 @@ export class PlanDetailComponent extends BaseComponent {
       this.cal27();
     }
 
-
+    //設計料 price11
+    //建築予備費 price13
     if(name === 'price10'){
       if(!isNullOrUndefined(this.plan.details[10].price) && !isNullOrUndefined(this.plan.details[11].price)){
         // 20200518 S_Edit
@@ -454,7 +455,8 @@ export class PlanDetailComponent extends BaseComponent {
         // 20200518 E_Edit
       }
     }
-
+    //建物　取得時税金　取得税 price30
+    //建物　取得時税金　登録税 price31
     if(name === 'buildArea'){
       if(Number(this.plan.details[30].valuation)>0 || Number(this.plan.buildArea)>0){
         // 20200518 S_Edit
@@ -626,67 +628,67 @@ export class PlanDetailComponent extends BaseComponent {
   }
   // 20200518 E_Add
   
-   //計算９  
+   //消化容積 
    cal9() {
     if(this.plan.buildArea > 0 && this.plan.siteAreaCheck > 0) {
       const val9 = Math.floor(this.plan.buildArea / this.plan.siteAreaCheck*100*100)/100;
       return val9;
     } else {
-      return '';
+      return 0;
     }
     
   }
 
-  //計算１０  
+  //レンタブル比 
   cal10() {
     if(this.plan.totalArea > 0 && this.plan.buildArea > 0) {
-      const val10 = Math.floor(this.plan.totalArea / this.plan.buildArea *100*100)/100;
-      return val10;
-    } else {
-      return '';
+        const val10 = Math.floor(this.plan.totalArea / this.plan.buildArea *100*100)/100;
+        return val10;
+      } else {
+        return 0;
     }
     
   }
 
-  //計算 11 ☆☆
+  //総専有面積／（建築遅延面積＋エントランス・内廊下部分
   cal11() {
     if(this.plan.totalArea > 0 && this.plan.buildArea > 0  && this.plan.entrance > 0) {
       //20200528 S_Edit 計算が正しく行われていないことに対する改修
       //const val11 = Math.floor((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
-      const val11 = Math.floor((this.getNumber(this.plan.totalArea) / 
+        const val11 = Math.floor((this.getNumber(this.plan.totalArea) / 
         (this.getNumber(this.plan.buildArea) + this.getNumber(this.plan.entrance))) *100*100)/100;
-      //20200528 E_Edit
-      return val11;
-    } else {
-      return '';
+        //20200528 E_Edit
+        return val11;
+      } else {
+        return 0;
     }
     
   }
   
 
-   //計算１２  
+   //駐車合計台数  
    cal12() {
     if(this.plan.parkingIndoor > 0 || this.plan.parkingOutdoor > 0) {
-      const val12 =Number(this.plan.parkingIndoor) + Number(this.plan.parkingOutdoor);
-      return val12;
+        const val12 =Number(this.plan.parkingIndoor) + Number(this.plan.parkingOutdoor);
+        return val12;
     } else {
-        return '';
-      }
-    }
-
-   
-
-  //計算１３
-  cal13(){
-    if(!isNullOrUndefined(Number(this.cal12())) && this.plan.buysellUnits > 0){
-      const val13 = (Number(this.cal12()) / this.plan.buysellUnits * 100) .toFixed(2);
-      return val13;
-    } else {
-      return ' ';
+        return 0;
     }
   }
 
-  //計算１４  
+   
+
+  //駐車場設置率
+  cal13(){
+    if(this.cal12() > 0 && this.plan.buysellUnits > 0){
+      const val13 = (this.cal12() / this.plan.buysellUnits * 100) .toFixed(2);
+      return val13;
+    } else {
+      return 0;
+    }
+  }
+
+  //土地評価額 
   cal14() {
     // 20200519 S_Edit
     this.plan.details[0].routePrice = this.removeComma(this.plan.details[0].routePrice);
@@ -702,7 +704,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
   }
 
-  //計算１５
+  //課税標準額（固定）
   cal15() {
     // 20200519 S_Edit
     this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
@@ -715,7 +717,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
     
   }
-   //計算16
+   //課税標準額（都市）
   cal16() {
     // 20200519 S_Edit
     this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
@@ -729,7 +731,7 @@ export class PlanDetailComponent extends BaseComponent {
    
   }
 
-  //計算21
+  //精算分固都税年額
   cal21() {
     // 20200519 S_Edit
     this.plan.fixedTaxLand = this.getNumber(this.removeComma(this.plan.fixedTaxLandMap));
@@ -746,7 +748,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
   }
 
-  //計算２２
+  //取得後課税標準額（固定）
   cal22() {
     // 20200519 S_Edit
     this.plan.taxation = this.getNumber(this.removeComma(this.plan.taxationMap));
@@ -767,6 +769,8 @@ export class PlanDetailComponent extends BaseComponent {
       this.changeValue('afterTaxation');
   }
 
+
+  //取得後課税標準額（都市）
   cal23() {
     // 20200519 S_Edit
     this.plan.taxation = this.getNumber(this.removeComma(this.plan.taxationMap));
@@ -788,7 +792,7 @@ export class PlanDetailComponent extends BaseComponent {
   }
 
 
-  //計算26
+  //取得後固都税年額
   cal26() {
     // 20200519 S_Edit
     this.plan.afterFixedTax = this.getNumber(this.removeComma(this.plan.afterFixedTaxMap));
@@ -799,7 +803,7 @@ export class PlanDetailComponent extends BaseComponent {
       const val26= (this.plan.afterFixedTax + this.plan.afterCityPlanTax);
       return val26;
     } else {
-      return '';
+      return 0;
     }
   }
 
@@ -861,20 +865,10 @@ export class PlanDetailComponent extends BaseComponent {
   }
 
 
-    
-/*
-    //計算31　☆☆
-   cal31() {
-    if(!isNullOrUndefined(this.plan.details[10].price)){
-    this.plan.details[13].price= String(Number(this.getNumber(this.plan.details[10].price)) * 0.02);
-    this.changeValue('price13');
-    }
-    
-  }*/
+  
 
 
-
-  //計算32
+  //近隣保障費等　金額(税抜)
   cal32() {
     // 20200519 S_Edit
     for (let i = 15; i <= 17; i++) {
@@ -908,7 +902,7 @@ export class PlanDetailComponent extends BaseComponent {
     return Math.floor(ret);
   }
 
-  //計算34　建物合計
+  //建物合計
   cal34() {
     // 20200519 S_Edit
     for (let i = 10; i <= 14; i++) {
@@ -926,7 +920,7 @@ export class PlanDetailComponent extends BaseComponent {
     return Math.floor(ret);
   }
 
-  //計算35
+  //その他費用　土地固都税　金額(税抜)
   cal35() {
     // 20200519 S_Edit
     this.plan.afterFixedTax = this.getNumber(this.removeComma(this.plan.afterFixedTaxMap));
@@ -942,7 +936,7 @@ export class PlanDetailComponent extends BaseComponent {
     // 20200519 E_Edit
   }
 
-  //計算36
+  //その他費用　既存建物関係費　固都税　金額(税抜)
   cal36() {
     // 20200519 S_Edit
     this.plan.fixedTaxBuild = this.getNumber(this.removeComma(this.plan.fixedTaxBuildMap));
@@ -958,7 +952,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
   }
 
-  //計算37　
+  //その他費用　既存建物関係費　取得税
   cal37() {
     // 20200519 S_Edit
     this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
@@ -972,7 +966,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
   }
 
-  //計算38　
+  //その他費用　既存建物関係費　登録免許税　
   cal38() {
     // 20200519 S_Edit
     this.plan.buildValuation = this.getNumber(this.removeComma(this.plan.buildValuationMap));
@@ -999,7 +993,7 @@ export class PlanDetailComponent extends BaseComponent {
     // 20200519 E_Edit
   }
 
-  //計算４３
+  //融資手数料
   cal43() {
     // 20200519 S_Edit
     this.plan.landLoan = this.removeComma(this.plan.landLoan);
@@ -1014,7 +1008,7 @@ export class PlanDetailComponent extends BaseComponent {
     // 20200519 E_Edit
   }
 
-  //計算44　
+  //抵当権設定費用　
   cal44() {
     // 20200519 S_Edit
     this.plan.landLoan = this.removeComma(this.plan.landLoan);
