@@ -12,6 +12,7 @@ import { Bukkensalesinfo } from '../models/bukkensalesinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Code } from '../models/bukken';
+import { isNullOrUndefined } from 'util';
 
 
 
@@ -105,6 +106,16 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     this.errors = {};    
     return true;
   }
+
+  calTsubo(val) {
+    if (!isNullOrUndefined(this.data.salesLandArea)) {
+      return Math.floor(val * 0.3025 * 100) / 100;
+    } else {
+      return '0';
+    }
+  }
+
+
 
   /**
    * 売り契約削除

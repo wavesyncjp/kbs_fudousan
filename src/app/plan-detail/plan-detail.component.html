@@ -172,30 +172,30 @@
             </td>
             <th>エントランス*②</th>
               <td class="first">
-                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.entrance" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.entrance" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('entrance')">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.entrance)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
         </tr>
         <tr>
             <th>駐車場面積</th>
             <td class="first">
-                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.parking" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.parking" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('parking')">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.parking)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
             
             <th>地下面積</th>
               <td class="first">
-                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.underArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.underArea" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('underArea')">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.underArea)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th>総専有面積*③</th>
             <td class="first">
-                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.totalArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.totalArea" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('totalArea')">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.totalArea)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th>販売専有面積</th>
             <td class="first">
-                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.salesArea" (keypress)="floatOnly($event)">&nbsp;㎡&nbsp;&nbsp;
+                <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.salesArea" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('salesArea')">&nbsp;㎡&nbsp;&nbsp;
                 <input type="text" class="Twidthy50 number" [value]="calTsubo(plan.salesArea)" [attr.disabled]="true">&nbsp;坪&nbsp;&nbsp;
             </td>
         </tr>
