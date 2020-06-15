@@ -31,8 +31,6 @@ export class Planinfo {
     restrictedArea: string;
     floorAreaRate: number;
     coverageRate: number;
-    digestionVolume: number;
-    lentable: number;
     structureScale: string;
     ground: number;
     underground: number;

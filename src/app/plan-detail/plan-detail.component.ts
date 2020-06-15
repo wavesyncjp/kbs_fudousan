@@ -269,7 +269,7 @@ export class PlanDetailComponent extends BaseComponent {
           });
           dlgVal.afterClosed().subscribe(val => {
             this.spinner.hide();
-            this.router.navigate(['/plans'], { queryParams: { search: 1 } });
+            this.router.navigate(['/plandetail'], {queryParams: {pid: this.plan.pid}});
           });
 
         });
