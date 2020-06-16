@@ -806,11 +806,11 @@
     </tr>
             
     <tr class="rentline">
-        <th class="main_plan_rent">利回り</th>
-        <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.rent.profitsA"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.rent.profitsB"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.rent.profitsC"></td>
-        <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.rent.profitsD"></td>
+        <th class="main_plan_rent">利回り(%)</th>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsA">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsB">&nbsp;%</td>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsC">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsD">&nbsp;%</td>
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent">売買金額</th>
@@ -1041,7 +1041,7 @@
     <span class = "SUM">
     <tr>
         <th class="main">合計</th>
-        <td class="yen1"><input type="text" placeholder="面積"class="par number" [value]="cal61()" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;㎡</td>
+        <td class="yen1"><input type="text" placeholder="面積"class="par number" [value]="getNumber(cal61()) | number" (keypress)="floatOnly($event)" [attr.disabled]="true">&nbsp;㎡</td>
         <td class="yen3" style="width: 110px;"></td>
         <td class="yen3"><input type="text" placeholder="敷金"class="Twidth100 number"  [value]="getNumber(cal63()) | number" [attr.disabled]="true"></td>
         <td class="yen2">&nbsp;</td>

@@ -625,6 +625,7 @@ export class PlanDetailComponent extends BaseComponent {
         this.plan.salesArea = this.numberFormat(this.plan.salesArea);
       }
     }
+
     /*㎡にカンマをつける作業
     　2020.06.15 E_Add*/
   }
@@ -1336,13 +1337,12 @@ export class PlanDetailComponent extends BaseComponent {
       this.plan.rentdetails[pos].space = this.removeComma(this.plan.rentdetails[pos].space);
       ret =(this.getNumber(this.plan.rentdetails[pos].space))+ ret;
       pos++;
-    
     }
+    //ret = Math.floor(ret);
+    //return this.numberFormat(ret);
+    //ret = this.numberFormat(ret);
     return Math.floor(ret);
-    }
-    
-  
-
+  }
   //賃料　合計
     //賃料　合計
     cal62() {
