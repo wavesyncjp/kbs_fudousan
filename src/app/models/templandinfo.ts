@@ -25,7 +25,7 @@ export class Templandinfo {
     remark2 = '';
     indivisibleFlg: number;
     indivisibleNumerator: number;
-    indivisibleDenominator: number;
+    indivisibleDenominator: string;
     landCategory = '';
     floorAreaRatio: string;
     coverageRate: number = null;
