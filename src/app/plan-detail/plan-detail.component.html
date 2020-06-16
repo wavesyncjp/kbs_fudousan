@@ -211,7 +211,8 @@
             </td>
             <th>容積率</th>
             <td class="first">
-              <input type="text" class="Twidthy50 number" [(ngModel)]="plan.floorAreaRate" (keypress)="floatOnly($event)">&nbsp;％
+              <!--<input type="text" class="Twidthy50 number" [(ngModel)]="plan.floorAreaRate" (keypress)="floatOnly($event)">&nbsp;％-->
+              <input type="text" [(ngModel)]="plan.floorAreaRate" class = "width80" maxlength="20">
             </td>
             <th>建蔽率</th>
             <td class="first">

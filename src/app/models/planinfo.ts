@@ -29,7 +29,7 @@ export class Planinfo {
     totalArea: number;
     salesArea: number;
     restrictedArea: string;
-    floorAreaRate: number;
+    floorAreaRate: string;
     coverageRate: number;
     structureScale: string;
     ground: number;

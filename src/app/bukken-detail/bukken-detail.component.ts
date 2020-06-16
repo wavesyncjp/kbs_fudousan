@@ -278,7 +278,7 @@ export class BukkenDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
-    this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
+    // this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
     this.checkBlank(this.data.residence, 'residence', '住居表示は必須です。');
   　// this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
     // this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');

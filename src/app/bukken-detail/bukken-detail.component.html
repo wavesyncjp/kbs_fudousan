@@ -130,7 +130,10 @@
                 <th>不可分母</th>
                 <td><input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15"></td>
                 <th>容積率</th>
+<!--                
                 <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width60': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%</td>
+-->
+                <td><input type="text" [(ngModel)]="data.floorAreaRatio" class = "width80" maxlength="20"></td>
                 <th>建蔽率</th>
                 <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%</td>
             </tr>
