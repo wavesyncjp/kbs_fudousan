@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.service.changeTitleEvent.subscribe(title => {
-      this.title = `プロジェクト管理システム　MetPRO：${title}`;
+      this.title = `プロジェクト管理システム　MetPro：${title}`;
       this.subTitle = title;
     });
 

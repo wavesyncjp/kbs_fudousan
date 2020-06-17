@@ -197,3 +197,9 @@ button.bkRed {
     background-color: red;
     color: white;
 }
+
+.searchbutton {
+    height: 32px;
+    width: 40px;
+    margin-left: 10px;
+}

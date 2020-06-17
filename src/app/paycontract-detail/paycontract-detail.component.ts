@@ -86,7 +86,7 @@ export class PayContractDetailComponent extends BaseComponent {
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getPaymentTypes(null));
-    funcs.push(this.service.getLands(null));   // 物件情報一覧の取得
+    //funcs.push(this.service.getLands(null));   // 物件情報一覧の取得
     funcs.push(this.service.getTaxes(null));   // 消費税一覧の取得
 
     if (this.bukkenid > 0) {
@@ -112,18 +112,18 @@ export class PayContractDetailComponent extends BaseComponent {
       this.users = values[1];
       this.deps = values[2];
       this.payTypes = values[3];
-      this.lands = values[4];
-      this.taxes = values[5];
+      //this.lands = values[4];
+      this.taxes = values[4];
 
       //入力の際に表示される物件名称を取得するための処理
-      this.bukkens = this.lands
+      //this.bukkens = this.lands
       
       // データが存在する場合
-      if ( values.length > 6) {
+      if ( values.length > 5) {
         if (this.pid > 0) {
-          this.paycontract = new Paycontractinfo(values[6] as Paycontractinfo);
+          this.paycontract = new Paycontractinfo(values[5] as Paycontractinfo);
           this.paycontract.convert();
-          this.bukkenName = values[6].land.bukkenName;
+          this.bukkenName = values[5].land.bukkenName;
 
           //Seller
           this.loadSellers(this.paycontract.tempLandInfoPid);
@@ -143,9 +143,12 @@ export class PayContractDetailComponent extends BaseComponent {
       }
 
       //物件名称をキーにpidをmapに保持していく
-      this.lands.forEach((land) => {
-        this.bukkenMap[land.bukkenName] = land.pid
-      });
+      if(this.lands != null) {
+        this.lands.forEach((land) => {
+          this.bukkenMap[land.bukkenName] = land.pid
+        });
+      }
+      
 
       this.spinner.hide();
 
@@ -290,19 +293,28 @@ export class PayContractDetailComponent extends BaseComponent {
    * 入力の度に物件を検索する
    */
   bukkenSearch() {
-    this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.bukkenName));
+    if(this.bukkenName == null || this.bukkenName.length < 1) return;
 
-    //seler取得
-    const lst = this.lands.filter(land => land.bukkenName === this.bukkenName);
-    if(lst.length === 1) {
-      this.loadSellers(this.bukkenMap[this.bukkenName]);
-    }
-    else {
-      this.sellers = [];
-    }
+    this.service.getLands(this.bukkenName).then(ret => {
+      this.lands = ret;
+      this.bukkens = this.lands;
 
+      this.lands.forEach((land) => {
+        this.bukkenMap[land.bukkenName] = land.pid
+      });
+      
+      const lst = this.lands.filter(land => land.bukkenName === this.bukkenName);
+      if(lst.length === 1) {
+        this.loadSellers(this.bukkenMap[this.bukkenName]);
+      }
+      else {
+        this.sellers = [];
+      }
 
-    return this.bukkens;
+    }).then(e => {
+    });
+
+    //this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.bukkenName));
   }
 
   /**
