@@ -1,3 +1,7 @@
+::ng-deep.app-sidenav-container {
+    background-color: white;
+}
+
 .login-card{
     position: absolute;
     left: 50%;

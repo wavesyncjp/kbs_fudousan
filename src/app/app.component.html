@@ -8,6 +8,7 @@
         <button *ngIf="!isLogin" mat-raised-button mat-raised-button color="basic" class="logout-btn" (click)="logout()">Logout</button>        
 　　　　　-->
     </mat-toolbar>
+        <img src="/assets/img/logo_M.png" width="444" *ngIf="subTitle === 'ログイン'">
         <div class="cp_navi" *ngIf="!isLogin">
         <ul>
             <li><a (click)="navigate('top')">&nbsp;ダッシュボード&nbsp;</a></li>

@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   //@ViewChild('snav', {static: true}) public snav: MatSidenav;
 
   title = '不動産管理システム';
+  subTitle = '';
   isLogin = false;
   isTop = false;
   mobileQuery: MediaQueryList;
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.service.changeTitleEvent.subscribe(title => {
-      this.title = `不動産管理システム：${title}`;
+      this.title = `プロジェクト管理システム　MetPRO：${title}`;
+      this.subTitle = title;
     });
 
     this.service.changeLoginPageEvent.subscribe(isLogin => {
