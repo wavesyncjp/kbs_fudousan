@@ -134,7 +134,7 @@ export class BaseComponent implements OnInit {
 
     getEmps() {
         if (this.emps) {
-            return this.emps.map(user => new Code({codeDetail: user.employeeCode, name: user.userName}));
+            return this.emps.map(user => new Code({codeDetail: user.userId, name: user.userName}));
         } else {
         return [];
         }
