@@ -1,18 +1,25 @@
-<div style="display: flex;">
-    <img src="/assets/img/logo_M.png" width="250" style="margin: auto;margin-top: 100px;">
-</div>
-
-<mat-card class="login-card">    
-    <mat-card-content>               
-        <span class="error-span" *ngIf="user.msg">{{user.msg}}</span>  
-        <div style="margin-top: 20px;">      
-            <input type="text" class="login-input" (keydown.enter)="login()" placeholder="ログインID" [(ngModel)]="user.loginId">        
-            <input type="password" class="login-input" (keydown.enter)="login()" placeholder="パスワード" [(ngModel)]="user.password">        
-        </div>
-    </mat-card-content>    
-    
-    <mat-card-actions class="login-btn">   
-        <mat-divider style="margin-left: 22px;"></mat-divider>
-        <button mat-raised-button color="primary" (click)="login()">Login</button>
-    </mat-card-actions>
-</mat-card>
+<table style="width: 100%;">
+    <tr>
+        <td style="text-align: center;">
+            <img src="/assets/img/logo_M.png" width="250" style="margin: auto;margin-top: 100px;margin-bottom: 20px;">
+        </td>
+    </tr>
+    <tr>
+        <td style="display: flex; justify-content: center;">
+            <mat-card class="login-card">    
+                <mat-card-content>               
+                    <span class="error-span" *ngIf="user.msg">{{user.msg}}</span>  
+                    <div style="margin-top: 20px;">      
+                        <input type="text" class="login-input" (keydown.enter)="login()" placeholder="ログインID" [(ngModel)]="user.loginId">        
+                        <input type="password" class="login-input" (keydown.enter)="login()" placeholder="パスワード" [(ngModel)]="user.password">        
+                    </div>
+                </mat-card-content>    
+                
+                <mat-card-actions class="login-btn">   
+                    <mat-divider style="margin-left: 22px;"></mat-divider>
+                    <button mat-raised-button color="primary" (click)="login()">Login</button>
+                </mat-card-actions>
+            </mat-card>
+        </td>
+    </tr>
+</table>
