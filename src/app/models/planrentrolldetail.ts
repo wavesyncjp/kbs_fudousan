@@ -10,7 +10,7 @@ export class Planrentrolldetail {
     space: string;
     rentUnitPrice: string;
     securityDeposit: string;
-    backNumber: string;
+    backNumber: number;
     createUserId: number;
     updateUserId: number;
     updateDate: Date;
