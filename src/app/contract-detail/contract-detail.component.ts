@@ -19,6 +19,7 @@ import { ContractFile } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { ContractTemplateComponent } from '../contract-template/contract-template.component';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-contract-detail',
@@ -272,11 +273,35 @@ export class ContractDetailComponent extends BaseComponent {
       item.contractDetail.contractHave = null;
     }
 
-
+  }
     /*if (item.contractDetail.contractDataType !== '03') {
       item.locations.locationType= '';
-    }*/
+    }
   }
+  changeValue(name:string, val:string){
+    if(name === val){
+      this.contract.locations.push(val)
+    }
+  }*/
+
+  //数値にカンマを付ける作業
+  //2020.06.24_Add
+  changeValue(val) {
+    if (!isNullOrUndefined(val)) {
+      val =  this.numberFormat(Number(val));
+      return (val);
+    } else{
+      return '';
+    }
+  }
+  /*changeValue(val) {
+    if(val == null || val === '' || isNaN(val)){
+      return '';
+    } else {
+      val = this.numberFormat(Number(val));
+      return (val); 
+    }
+  }*/
 
   /**
    * バリデーション
