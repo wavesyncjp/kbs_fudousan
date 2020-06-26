@@ -288,9 +288,9 @@ export class ContractDetailComponent extends BaseComponent {
   //2020.06.24_Add
   changeValue(val) {
     if (!isNullOrUndefined(val)) {
-      val =  this.numberFormat(Number(val));
-      return (val);
-    } else{
+      val =  this.numberFormat(val);
+      return Math.floor(val);
+    } else {
       return '';
     }
   }

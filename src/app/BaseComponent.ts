@@ -265,10 +265,10 @@ export class BaseComponent implements OnInit {
         if (val == '' || val == null){
           return '';
         }
-        // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
-        val = val.replace(/,/g, "").trim();
+        // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除 toString().
+        val = val.toString().replace(/,/g, "").trim();
         // 整数部分を3桁カンマ区切りへ
-        val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         return val;
       }
 }
