@@ -21,8 +21,8 @@ import { Bukkensalesinfo } from './models/bukkensalesinfo';
 })
 export class BackendService {  
 
-  private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
-  //private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
+  //private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
+  private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';
   //private readonly BaseUrl = 'https://metpro.jp/backend/api';
   public loginUser: User;
 
