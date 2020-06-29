@@ -167,14 +167,14 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.dependFloor = null;
       this.data.liveInfo = null;
       this.data.structure = null;
-      this.data.inheritanceNotyet = '';
-      this.data.buildingNotyet = '';
+      this.data.inheritanceNotyet = '0';
+      this.data.buildingNotyet = '0';
     } else if (this.data.locationType === '02') {
       this.data.blockNumber = '';
       this.data.area = null;
       this.data.tsubo = null;
-      this.data.inheritanceNotyet = '';
-      this.data.buildingNotyet = '';
+      this.data.inheritanceNotyet = '0';
+      this.data.buildingNotyet = '0';
     } else if (this.data.locationType === '03') {
       this.data.buysellFlg = '';
       this.data.owner = null;
@@ -185,11 +185,11 @@ export class LocationDetailComponent extends BaseComponent {
         this.deleteSharer(index);
         index++;
       }); 
-      this.data.inheritanceNotyet = '';
-      this.data.buildingNotyet = '';
+      this.data.inheritanceNotyet = '0';
+      this.data.buildingNotyet = '0';
     } else if (this.data.locationType === '04') {
-      this.data.inheritanceNotyet = '';
-      this.data.buildingNotyet = '';
+      this.data.inheritanceNotyet = '0';
+      this.data.buildingNotyet = '0';
       this.cond = {
         tempLandInfoPid: this.data.tempLandInfoPid,
         locationType: '03'
