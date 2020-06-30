@@ -1520,9 +1520,9 @@ cal71_4() {
   }
 }
 
-//計算７２_S 売上金利(D)※NOI/(A)
+//計算７２_S 売上金利(D)※NOI/(C)
 cal72_1() {
-  if(Number(this.cal70_1()) > 0 &&  !isNullOrUndefined(this.plan.rent.salesProfits == null)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal70_1()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1531,7 +1531,7 @@ cal72_1() {
 }
 
 cal72_2() {
-  if(Number(this.cal70_2()) > 0 &&  !isNullOrUndefined(this.plan.rent.salesProfits == null)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal70_2()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1540,7 +1540,7 @@ cal72_2() {
 }
 
 cal72_3() {
-  if(Number(this.cal70_3()) > 0 &&  !isNullOrUndefined(this.plan.rent.salesProfits == null)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal70_3()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1549,7 +1549,7 @@ cal72_3() {
 }
 
 cal72_4() {
-  if(Number(this.cal70_4()) > 0 &&  !isNullOrUndefined(this.plan.rent.salesProfits == null)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal70_4()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1558,7 +1558,7 @@ cal72_4() {
 }
 //計算７３_S 売却時利益(E)※(D)-(A)
 cal73_1() {
-  if(Number(this.cal72_1()) > 0  && Number(this.cal49()) > 0){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal72_1()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
@@ -1567,7 +1567,7 @@ cal73_1() {
 }
 
 cal73_2() {
-  if(Number(this.cal72_2()) > 0  && Number(this.cal49()) > 0){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal72_2()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
@@ -1576,7 +1576,7 @@ cal73_2() {
 }
 
 cal73_3() {
-  if(Number(this.cal72_3()) > 0  && Number(this.cal49()) > 0){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal72_3()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
@@ -1585,7 +1585,7 @@ cal73_3() {
 }
 
 cal73_4() {
-  if(Number(this.cal72_4()) > 0  && Number(this.cal49()) > 0){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
     let ret = Math.floor(Number(this.cal72_4()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
