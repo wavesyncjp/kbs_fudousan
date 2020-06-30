@@ -2,7 +2,7 @@
 <div  class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button class="button export-button"  (click)="export()">帳票出力</button>
+        <button mat-raised-button class="button export-button" *ngIf="plan.pid > 0" (click)="export()">帳票出力</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
         
     </div>
