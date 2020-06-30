@@ -1748,7 +1748,7 @@ cal80_2() {
 
 cal80_3() {
   if(this.cal77_3() > 0){
-    let cal80_3 = this.cal77_1() - (((this.cal49() -  this.cal46() - this.cal47()) * (this.getNumber(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()) - this.cal79_3();
+    let cal80_3 = this.cal77_3() - (((this.cal49() -  this.cal46() - this.cal47()) * (this.getNumber(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()) - this.cal79_3();
     return Math.floor(cal80_3);
   }
 }
