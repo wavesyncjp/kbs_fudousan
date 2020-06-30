@@ -232,18 +232,17 @@ export class PlanDetailComponent extends BaseComponent {
   changeUnit (val, val1) {
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
     // 20200527 S_Add　土地 取得時税金 所得税・登録税が出力していない点を修正
-    val = this.removeComma(String(val));{
+    val = this.removeComma(String(val));
     // totalAreaが0の時、0除算が発生してエラーになっていたため
       /*if(this.plan.totalArea == 0 || this.plan.totalArea == null) 
         return 0;
       }*/
-      if(this.plan.totalArea == null) 
-      return 0;
-    }
+      if(this.plan.totalArea.length == 0) return 0;
     // 20200527 E_Add
       if (isNullOrUndefined(val) || val == null || val === '' || isNaN(val)) return 0;
+      val = Number(val) * this.getNumber(val1) / (this.getNumber(this.plan.totalArea) * 0.3025);
       this.plan.totalArea = this.numberFormat(this.plan.totalArea);
-      return Math.floor(Number(val) * this.getNumber(val1) / (this.getNumber(this.plan.totalArea) * 0.3025));
+      return Math.floor(val);
     
   }
 
@@ -1522,7 +1521,7 @@ cal71_4() {
 
 //計算７２_S 売上金利(D)※NOI/(C)
 cal72_1() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits) && this.plan.rent.salesProfits.length > 0){
     let ret = Math.floor(Number(this.cal70_1()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1531,7 +1530,7 @@ cal72_1() {
 }
 
 cal72_2() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits) && this.plan.rent.salesProfits.length > 0){
     let ret = Math.floor(Number(this.cal70_2()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1540,7 +1539,7 @@ cal72_2() {
 }
 
 cal72_3() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits) && this.plan.rent.salesProfits.length > 0){
     let ret = Math.floor(Number(this.cal70_3()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1549,7 +1548,7 @@ cal72_3() {
 }
 
 cal72_4() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(!isNullOrUndefined(this.plan.rent.salesProfits) && this.plan.rent.salesProfits.length > 0){
     let ret = Math.floor(Number(this.cal70_4()) / (this.getNumber(this.plan.rent.salesProfits)/100));
     return Math.floor(ret);
   } else {
@@ -1558,7 +1557,7 @@ cal72_4() {
 }
 //計算７３_S 売却時利益(E)※(D)-(A)
 cal73_1() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(Number(this.cal72_1()) > 0  && Number(this.cal49()) > 0){
     let ret = Math.floor(Number(this.cal72_1()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
@@ -1567,7 +1566,7 @@ cal73_1() {
 }
 
 cal73_2() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(Number(this.cal72_2()) > 0  && Number(this.cal49()) > 0){
     let ret = Math.floor(Number(this.cal72_2()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
@@ -1576,7 +1575,7 @@ cal73_2() {
 }
 
 cal73_3() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(Number(this.cal72_3()) > 0  && Number(this.cal49()) > 0){
     let ret = Math.floor(Number(this.cal72_3()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
@@ -1585,7 +1584,7 @@ cal73_3() {
 }
 
 cal73_4() {
-  if(!isNullOrUndefined(this.plan.rent.salesProfits)){
+  if(Number(this.cal72_4()) > 0  && Number(this.cal49()) > 0){
     let ret = Math.floor(Number(this.cal72_4()) - (((this.cal49() -  this.cal46() - this.cal47()) * (Number(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()));
     return Math.floor(ret);
   } else {
