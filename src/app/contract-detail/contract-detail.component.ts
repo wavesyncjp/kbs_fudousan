@@ -371,6 +371,15 @@ export class ContractDetailComponent extends BaseComponent {
       if (result && result['choose']) {    
         this.spinner.show();
         this.service.exportContract(this.contract.pid, result['templatePid']).then(data => {
+          
+          /*
+          var reader = new FileReader();
+          reader.onload = function() {
+              alert(reader.result);
+          }
+          reader.readAsText(data);
+          */
+
           this.service.writeToFile(data, result['fileName']);
           this.spinner.hide();
         });    
