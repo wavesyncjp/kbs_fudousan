@@ -290,31 +290,15 @@ export class PayContractDetailComponent extends BaseComponent {
   /**
    * 入力の度に物件を検索する
    */
-  bukkenSearch() {
-    /*
-    if(this.bukkenName == null || this.bukkenName.length < 1) return;
-
-    this.service.getLands(this.bukkenName).then(ret => {
-      this.lands = ret;
-      this.bukkens = this.lands;
-
-      this.lands.forEach((land) => {
-        this.bukkenMap[land.bukkenName] = land.pid
-      });
-      
-      const lst = this.lands.filter(land => land.bukkenName === this.bukkenName);
-      if(lst.length === 1) {
-        this.loadSellers(this.bukkenMap[this.bukkenName]);
-      }
-      else {
-        this.sellers = [];
-      }
-
-    }).then(e => {
-    });
-    */
-
+  bukkenSearch() {    
     this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.bukkenName));
+    const lst = this.lands.filter(land => land.bukkenName === this.bukkenName);
+    if(lst.length === 1) {
+      this.loadSellers(this.bukkenMap[this.bukkenName]);
+    }
+    else {
+      this.sellers = [];
+    }
   }
 
   /**
