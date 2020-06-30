@@ -298,6 +298,11 @@ export class PayContractDetailComponent extends BaseComponent {
     }
     else {
       this.sellers = [];
+      if(this.paycontract != null && this.paycontract.details.length > 0) {
+        this.paycontract.details.forEach(me => {
+          me.contractor = '';
+        });
+      }
     }
   }
 
