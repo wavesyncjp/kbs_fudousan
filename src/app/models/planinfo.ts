@@ -26,7 +26,7 @@ export class Planinfo {
     entrance: number;
     parking: number;
     underArea: number;
-    totalArea: number;
+    totalArea: string;
     salesArea: number;
     restrictedArea: string;
     floorAreaRate: string;
@@ -208,7 +208,7 @@ export class Planinfo {
         if (this.rent.salesExpense3D) {
             this.rent.salesExpense3D = Number(this.rent.salesExpense3D).toLocaleString();
         }
-        if (this.rent.tsuboUnitPriceA) {
+       /**/  if (this.rent.tsuboUnitPriceA) {
             this.rent.tsuboUnitPriceA = Number(this.rent.tsuboUnitPriceA).toLocaleString();
         }
         if (this.rent.tsuboUnitPriceB) {
@@ -225,6 +225,10 @@ export class Planinfo {
         }
         if (this.rent.monthlyOtherIncome) {
             this.rent.monthlyOtherIncome = Number(this.rent.monthlyOtherIncome).toLocaleString();
+        }
+ /*2020 06.30_Add*/
+       if (this.totalArea) {
+            this.totalArea = Number(this.totalArea).toLocaleString();
         }
 
         this.details.forEach((detail) => {
@@ -318,6 +322,8 @@ export class Planinfo {
         this.rent.tsuboUnitPriceD = this.rent.tsuboUnitPriceD != null ? this.rent.tsuboUnitPriceD.replace(/,/g, "").trim() : null;
         this.rent.monthlyOtherIncome = this.rent.monthlyOtherIncome != null ? this.rent.monthlyOtherIncome.replace(/,/g, "").trim() : null;
         this.rent.commonFee = this.rent.commonFee != null ? this.rent.commonFee.replace(/,/g, "").trim() : null;
+    /*2020 06.30_Add*/
+        this.totalArea = this.totalArea != null ? this.totalArea.replace(/,/g, "").trim() : null;
         // 20200518 E_Add
     }
 }

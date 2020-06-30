@@ -234,13 +234,16 @@ export class PlanDetailComponent extends BaseComponent {
     // 20200527 S_Add　土地 取得時税金 所得税・登録税が出力していない点を修正
     val = this.removeComma(String(val));{
     // totalAreaが0の時、0除算が発生してエラーになっていたため
-      if(this.plan.totalArea == 0 || this.plan.totalArea == null) 
+      /*if(this.plan.totalArea == 0 || this.plan.totalArea == null) 
         return 0;
-      }
+      }*/
+      if(this.plan.totalArea == null) 
+      return 0;
+    }
     // 20200527 E_Add
       if (isNullOrUndefined(val) || val == null || val === '' || isNaN(val)) return 0;
       this.plan.totalArea = this.numberFormat(this.plan.totalArea);
-      return Math.floor(Number(val) * this.getNumber(val1) / this.getNumber((this.plan.totalArea) * 0.3025));
+      return Math.floor(Number(val) * this.getNumber(val1) / this.getNumber(Number(this.plan.totalArea) * 0.3025));
     
   }
 
@@ -613,7 +616,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
 
     if(name === 'totalArea'){
-      if(this.plan.totalArea>0){
+      if(!isNullOrUndefined(this.plan.totalArea)){
        
         this.plan.totalArea = this.numberFormat(this.plan.totalArea);
       }
@@ -677,8 +680,8 @@ export class PlanDetailComponent extends BaseComponent {
   cal10() {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
-    if(this.plan.totalArea > 0 && this.plan.buildArea > 0) {
-        const val10 = Math.floor(this.plan.totalArea / this.plan.buildArea *100*100)/100;
+    if(!isNullOrUndefined(this.plan.totalArea)  && this.plan.buildArea > 0) {
+        const val10 = Math.floor(this.getNumber(this.plan.totalArea) / this.plan.buildArea *100*100)/100;
         this.plan.buildArea = this.numberFormat(this.plan.buildArea);
         this.plan.totalArea = this.numberFormat(this.plan.totalArea);
         return val10;
@@ -693,7 +696,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.entrance = this.removeComma(this.plan.entrance);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
-    if(this.plan.totalArea > 0 && this.plan.buildArea > 0  && this.plan.entrance > 0) {
+    if(!isNullOrUndefined(this.plan.totalArea)  && this.plan.buildArea > 0  && this.plan.entrance > 0) {
       //20200528 S_Edit 計算が正しく行われていないことに対する改修
       //const val11 = Math.floor((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
         const val11 = Math.floor((this.getNumber(this.plan.totalArea) / 
@@ -1164,9 +1167,9 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.details[pos].price = this.numberFormat(this.plan.details[pos].price);
     // 20200519 E_Edit
 
-    if(ret > 0 && this.plan.totalArea > 0){
+    if(ret > 0 && !isNullOrUndefined(this.plan.totalArea)){
       this.plan.totalArea = this.removeComma(this.plan.totalArea);
-      ret = Math.floor(ret / (this.plan.totalArea * 0.3025 ));
+      ret = Math.floor(ret / (this.getNumber(this.plan.totalArea) * 0.3025 ));
       this.plan.totalArea = this.numberFormat(this.plan.totalArea);
     }
     return Math.floor(ret);
