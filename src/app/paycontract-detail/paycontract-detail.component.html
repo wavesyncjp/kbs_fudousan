@@ -26,11 +26,11 @@
             <!--<td colspan="3"><input type="text" class="width150" [ngModel]="data.bukkenNo"></td>-->
             <td colspan="5">
                 <!--<app-select-component [codes]="getLands()" [(ngModel)]="paycontract.tempLandInfoPid" [exclass] = "true"></app-select-component>-->
-                <input type="search" name="example" list="data" [(ngModel)]="bukkenName"  style="width: 350px;height: 26px;">
+                <input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" style="width: 400px">
                 <datalist id="data">
                     <option *ngFor="let land of bukkens">{{land.bukkenName}}</option>
                 </datalist>
-                <button mat-raised-button class="searchbutton" (click)="bukkenSearch()">検索</button>
+                <!--<button mat-raised-button class="searchbutton" (click)="bukkenSearch()">検索</button>-->
             </td>
             <th rowspan="3">取引先</th>
             <td colspan="6"><label>取引先　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per" maxlength="100"></td>
