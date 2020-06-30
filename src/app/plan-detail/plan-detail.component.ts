@@ -243,7 +243,7 @@ export class PlanDetailComponent extends BaseComponent {
     // 20200527 E_Add
       if (isNullOrUndefined(val) || val == null || val === '' || isNaN(val)) return 0;
       this.plan.totalArea = this.numberFormat(this.plan.totalArea);
-      return Math.floor(Number(val) * this.getNumber(val1) / this.getNumber(Number(this.plan.totalArea) * 0.3025));
+      return Math.floor(Number(val) * this.getNumber(val1) / (this.getNumber(this.plan.totalArea) * 0.3025));
     
   }
 
@@ -568,17 +568,17 @@ export class PlanDetailComponent extends BaseComponent {
     if(name === 'routePrice'){
       this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
     }
-    /*㎡にカンマをつける作業
-    　2020.06.15 S_Add*/
+    //㎡にカンマをつける作業
+    
     if(name === 'siteAreaBuy'){
-      if(this.plan.siteAreaBuy>0){
+      if(!isNullOrUndefined(this.plan.siteAreaBuy)){
         
         
         this.plan.siteAreaBuy = this.numberFormat(this.plan.siteAreaBuy);
       }
     }
     if(name === 'siteAreaCheck'){
-      if(this.plan.siteAreaCheck>0){
+      if(!isNullOrUndefined(this.plan.siteAreaCheck)){
         
         
         this.plan.siteAreaCheck = this.numberFormat(this.plan.siteAreaCheck);
@@ -587,21 +587,21 @@ export class PlanDetailComponent extends BaseComponent {
     
 
     if(name === 'buildArea'){
-      if(this.plan.buildArea>0){
+      if(!isNullOrUndefined(this.plan.buildArea)){
        
         
         this.plan.buildArea = this.numberFormat(this.plan.buildArea);
       } 
     }
     if(name === 'entrance'){
-      if(this.plan.entrance>0){
+      if(!isNullOrUndefined(this.plan.entrance)){
     
         this.plan.entrance = this.numberFormat(this.plan.entrance);
       }
     }
 
     if(name === 'parking'){
-      if(this.plan.parking>0){
+      if(!isNullOrUndefined(this.plan.parking)){
 
         this.plan.parking = this.numberFormat(this.plan.parking);
       
@@ -609,7 +609,7 @@ export class PlanDetailComponent extends BaseComponent {
     }
 
     if(name === 'underArea'){
-      if(this.plan.underArea>0){
+      if(!isNullOrUndefined(this.plan.underArea)){
       
         this.plan.underArea = this.numberFormat(this.plan.underArea);
       }
@@ -623,14 +623,12 @@ export class PlanDetailComponent extends BaseComponent {
     }
 
     if(name === 'salesArea'){
-      if(this.plan.salesArea>0){
+      if(!isNullOrUndefined(this.plan.salesArea)){
        
         this.plan.salesArea = this.numberFormat(this.plan.salesArea);
       }
     }
-
-    /*㎡にカンマをつける作業
-    　2020.06.15 E_Add*/
+  
   }
   
 
@@ -663,9 +661,9 @@ export class PlanDetailComponent extends BaseComponent {
    cal9() {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.siteAreaCheck = this.removeComma(this.plan.siteAreaCheck);
-    if(this.plan.buildArea > 0 && this.plan.siteAreaCheck > 0) {
+    if(!isNullOrUndefined(this.plan.buildArea) && !isNullOrUndefined(this.plan.siteAreaCheck)) {
         this.plan.siteAreaCheck = this.removeComma(this.plan.siteAreaCheck);
-        const val9 = Math.floor(this.plan.buildArea / this.plan.siteAreaCheck*100*100)/100;
+        const val9 = Math.floor(this.getNumber(this.plan.buildArea) / this.getNumber(this.plan.siteAreaCheck)*100*100)/100;
         this.plan.siteAreaCheck = this.numberFormat(this.plan.siteAreaCheck);
         this.plan.buildArea = this.numberFormat(this.plan.buildArea);
         return val9;
@@ -680,8 +678,8 @@ export class PlanDetailComponent extends BaseComponent {
   cal10() {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
-    if(!isNullOrUndefined(this.plan.totalArea)  && this.plan.buildArea > 0) {
-        const val10 = Math.floor(this.getNumber(this.plan.totalArea) / this.plan.buildArea *100*100)/100;
+    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)) {
+        const val10 = Math.floor(this.getNumber(this.plan.totalArea) / this.getNumber(this.plan.buildArea) *100*100)/100;
         this.plan.buildArea = this.numberFormat(this.plan.buildArea);
         this.plan.totalArea = this.numberFormat(this.plan.totalArea);
         return val10;
@@ -696,7 +694,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.entrance = this.removeComma(this.plan.entrance);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
-    if(!isNullOrUndefined(this.plan.totalArea)  && this.plan.buildArea > 0  && this.plan.entrance > 0) {
+    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)  && !isNullOrUndefined(this.plan.entrance)) {
       //20200528 S_Edit 計算が正しく行われていないことに対する改修
       //const val11 = Math.floor((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
         const val11 = Math.floor((this.getNumber(this.plan.totalArea) / 
@@ -742,8 +740,8 @@ export class PlanDetailComponent extends BaseComponent {
     // 20200519 S_Edit
     this.plan.details[0].routePrice = this.removeComma(this.plan.details[0].routePrice);
     this.plan.siteAreaBuy = this.removeComma(this.plan.siteAreaBuy);
-    if(!isNullOrUndefined(this.plan.details[0].routePrice) && this.plan.siteAreaBuy > 0){
-      this.plan.landEvaluation = Math.floor(Number(this.plan.details[0].routePrice) * this.plan.siteAreaBuy * 7 / 8);
+    if(!isNullOrUndefined(this.plan.details[0].routePrice) && !isNullOrUndefined(this.plan.siteAreaBuy)){
+      this.plan.landEvaluation = Math.floor(Number(this.plan.details[0].routePrice) * this.getNumber(this.plan.siteAreaBuy) * 7 / 8);
       this.plan.landEvaluationMap = this.numberFormat(String(this.plan.landEvaluation));
       // 20200527 S_Add 計算後にカンマが外れていたため
       this.plan.details[0].routePrice = this.numberFormat(this.plan.details[0].routePrice);
@@ -803,11 +801,11 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.taxation = this.getNumber(this.removeComma(this.plan.taxationMap));
     this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
     this.plan.siteAreaBuy = this.removeComma(this.plan.siteAreaBuy);
-      if(this.plan.siteAreaBuy <= 200) {
+      if(this.getNumber(this.plan.siteAreaBuy) <= 200) {
         this.plan.afterTaxation = this.plan.taxation;
       }
       else {
-        this.plan.afterTaxation = Math.floor(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 1 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+        this.plan.afterTaxation = Math.floor(this.plan.landEvaluation / this.getNumber(this.plan.siteAreaBuy) * (this.getNumber(this.plan.siteAreaBuy) - 100) * 1 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
       }
 
       if (this.getNumber(this.plan.afterTaxation) != 0) {
@@ -826,11 +824,11 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.landEvaluation = this.getNumber(this.removeComma(this.plan.landEvaluationMap));
     this.plan.siteAreaBuy = this.removeComma(this.plan.siteAreaBuy);
 
-    if(this.plan.siteAreaBuy <= 200) {
+    if(this.getNumber(this.plan.siteAreaBuy) <= 200) {
       this.plan.afterTaxationCity = this.plan.taxation;
     }
     else {
-      this.plan.afterTaxationCity = Math.floor(this.plan.landEvaluation / this.plan.siteAreaBuy * (this.plan.siteAreaBuy - 100) * 2 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
+      this.plan.afterTaxationCity = Math.floor(this.plan.landEvaluation / this.getNumber(this.plan.siteAreaBuy) * (this.getNumber(this.plan.siteAreaBuy) - 100) * 2 / 3 + this.plan.landEvaluation * (1 - this.plan.residentialRate / 100));
     }
 
     if (this.getNumber(this.plan.afterTaxationCity) != 0) {
