@@ -20,14 +20,14 @@ export class Planinfo {
     depCode: string;
     userId: string;
     address: string;
-    siteAreaBuy: number;
-    siteAreaCheck: number;
-    buildArea: number;
-    entrance: number;
-    parking: number;
-    underArea: number;
+    siteAreaBuy: string;
+    siteAreaCheck: string;
+    buildArea: string;
+    entrance: string;
+    parking: string;
+    underArea: string;
     totalArea: string;
-    salesArea: number;
+    salesArea: string;
     restrictedArea: string;
     floorAreaRate: string;
     coverageRate: number;
@@ -226,10 +226,32 @@ export class Planinfo {
         if (this.rent.monthlyOtherIncome) {
             this.rent.monthlyOtherIncome = Number(this.rent.monthlyOtherIncome).toLocaleString();
         }
- /*2020 06.30_Add*/
-       if (this.totalArea) {
+        // 20200630 S_Add
+        if (this.totalArea) {
             this.totalArea = Number(this.totalArea).toLocaleString();
         }
+        if (this.siteAreaBuy) {
+            this.siteAreaBuy = Number(this.siteAreaBuy).toLocaleString();
+        }
+        if (this.siteAreaCheck) {
+            this.siteAreaCheck = Number(this.siteAreaCheck).toLocaleString();
+        }
+        if (this.buildArea) {
+            this.buildArea = Number(this.buildArea).toLocaleString();
+        }
+        if (this.entrance) {
+            this.entrance = Number(this.entrance).toLocaleString();
+        }
+        if (this.parking) {
+            this.parking = Number(this.parking).toLocaleString();
+        }
+        if (this.underArea) {
+            this.underArea = Number(this.underArea).toLocaleString();
+        }
+        if (this.salesArea) {
+            this.salesArea = Number(this.salesArea).toLocaleString();
+        }
+        // 20200630 E_Add
 
         this.details.forEach((detail) => {
             if (detail.price) {
@@ -322,9 +344,17 @@ export class Planinfo {
         this.rent.tsuboUnitPriceD = this.rent.tsuboUnitPriceD != null ? this.rent.tsuboUnitPriceD.replace(/,/g, "").trim() : null;
         this.rent.monthlyOtherIncome = this.rent.monthlyOtherIncome != null ? this.rent.monthlyOtherIncome.replace(/,/g, "").trim() : null;
         this.rent.commonFee = this.rent.commonFee != null ? this.rent.commonFee.replace(/,/g, "").trim() : null;
-    /*2020 06.30_Add*/
-        this.totalArea = this.totalArea != null ? this.totalArea.replace(/,/g, "").trim() : null;
         // 20200518 E_Add
+        // 20200630 S_Add
+        this.totalArea = this.totalArea != null ? this.totalArea.replace(/,/g, "").trim() : null;
+        this.siteAreaBuy = this.siteAreaBuy != null ? this.siteAreaBuy.replace(/,/g, "").trim() : null;
+        this.siteAreaCheck = this.siteAreaCheck != null ? this.siteAreaCheck.replace(/,/g, "").trim() : null;
+        this.buildArea = this.buildArea != null ? this.buildArea.replace(/,/g, "").trim() : null;
+        this.entrance = this.entrance != null ? this.entrance.replace(/,/g, "").trim() : null;
+        this.parking = this.parking != null ? this.parking.replace(/,/g, "").trim() : null;
+        this.underArea = this.underArea != null ? this.underArea.replace(/,/g, "").trim() : null;
+        this.salesArea = this.salesArea != null ? this.salesArea.replace(/,/g, "").trim() : null;
+        // 20200630 E_Add
     }
 }
 
