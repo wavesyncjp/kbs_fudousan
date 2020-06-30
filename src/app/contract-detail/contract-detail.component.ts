@@ -274,34 +274,6 @@ export class ContractDetailComponent extends BaseComponent {
     }
 
   }
-    /*if (item.contractDetail.contractDataType !== '03') {
-      item.locations.locationType= '';
-    }
-  }
-  changeValue(name:string, val:string){
-    if(name === val){
-      this.contract.locations.push(val)
-    }
-  }*/
-
-  //数値にカンマを付ける作業
-  //2020.06.24_Add
-  changeValue(val) {
-    if (!isNullOrUndefined(val)) {
-      val =  this.numberFormat(val);
-      return Math.floor(val);
-    } else {
-      return '';
-    }
-  }
-  /*changeValue(val) {
-    if(val == null || val === '' || isNaN(val)){
-      return '';
-    } else {
-      val = this.numberFormat(Number(val));
-      return (val); 
-    }
-  }*/
 
   /**
    * バリデーション
