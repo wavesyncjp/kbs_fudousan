@@ -184,6 +184,10 @@ export class BukkenListComponent extends BaseComponent {
             const lst = obj.result.split(',');
             obj.result = this.getCode('001').filter((c) => lst.includes(c.codeDetail)).map(c => c.name).join(',');
           }
+
+          //CSVチェック
+          obj['select'] = true;
+
         });
       }
       this.service.searchCondition = this.cond;
