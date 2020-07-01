@@ -91,10 +91,10 @@
         </tr>
         <tr>            
             <th>構造</th>
-            <td><textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'" maxlength="100"></textarea></td>
+            <td><textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'" maxlength="128"></textarea></td>
     
             <th>床面積</th>
-            <td colspan="3"><textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace']}" [disabled]="data.locationType == '01'" maxlength="15"></textarea></td>
+            <td colspan="3"><textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace']}" [disabled]="data.locationType == '01'" maxlength="128"></textarea></td>
         </tr>
         <tr>
             <th>入居者情報</th>
