@@ -99,14 +99,14 @@
         <tr>
             <th>入居者情報</th>
             <td colspan="5">
-                <input type="text" [(ngModel)]="data.liveInfo" class="width85Per" [disabled]="data.locationType == '01'" maxlength="100">
+                <input type="text" [(ngModel)]="data.liveInfo" class="width85Per" [disabled]="data.locationType == '01'" maxlength="255">
             </td>
         </tr>
         
         <tr>
             <th>備考</th>
             <td colspan="5">
-                <input type="text" [(ngModel)]="data.ownerRemark" class="width85Per" maxlength="100">
+                <input type="text" [(ngModel)]="data.ownerRemark" class="width85Per" maxlength="255">
             </td>
         </tr>
         <tr>
