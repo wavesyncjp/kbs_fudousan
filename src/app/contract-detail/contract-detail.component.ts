@@ -90,7 +90,7 @@ export class ContractDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
-      this.emps = values[1];
+      this.users = values[1];
 
       // 物件あり場合
       if ( values.length > 1) {
