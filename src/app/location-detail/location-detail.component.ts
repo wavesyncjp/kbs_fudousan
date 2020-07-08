@@ -176,7 +176,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
     } else if (this.data.locationType === '03') {
-      this.data.buysellFlg = '';
+      this.data.buysellFlg = '0';
       this.data.owner = null;
       this.data.ownerAdress = null;
       this.data.equity = null; 
