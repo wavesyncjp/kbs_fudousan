@@ -7,6 +7,7 @@ import { parse } from 'date-fns';
 import { Dialog } from './models/dialog';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material';
+import { isNullOrUndefined } from 'util';
 
 export class BaseComponent implements OnInit {
     public sysCodes = {};
@@ -258,4 +259,16 @@ export class BaseComponent implements OnInit {
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         return parts.join('.') + (unit != null ? ' ' + unit : '');
     }
+    //数値にカンマを付ける作業
+    //20200709 S_Add
+    numberFormat(val) {
+        // 空の場合そのまま返却
+        if (isNullOrUndefined(val) || val == null || val === '' || isNaN(val)) return 0;
+        // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
+        val = val.replace(/,/g, "").trim();
+        // 整数部分を3桁カンマ区切りへ
+        val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return val;
+    }
+    //20200709 E_Add
 }

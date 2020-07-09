@@ -175,7 +175,7 @@
         <tr>
             <th>売買代金</th>
             <td>
-                <input type="text" [(ngModel)]="contract.tradingPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
+                <input type="text" [(ngModel)]="contract.tradingPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingPriceMap)">&nbsp;円
                 <span style="font-size: small;">&nbsp;&nbsp;(売買代金内訳)</span>
             </td>
             <th>売買代金（土地）</th>
