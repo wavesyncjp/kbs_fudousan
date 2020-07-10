@@ -158,6 +158,10 @@ export class Contractinfo {
         if (this.retainageDay) {
             this.retainageDayMap = parse(this.retainageDay, 'yyyyMMdd', new Date());
         }
+        // 20200709 S_Add
+        this.tradingPriceMap = Converter.stringForNumber(this.tradingPrice);
+       
+        // 20200709 E_Add
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -187,9 +191,8 @@ export class Contractinfo {
         this.canncellDay = this.canncellDayMap != null ? datePipe.transform(this.canncellDayMap, 'yyyyMMdd') : null;
         this.retainageDay = this.retainageDayMap != null ? datePipe.transform(this.retainageDayMap, 'yyyyMMdd') : null;
         // 20200709 S_Add
-        this.details.forEach(() => {
-        Converter.stringToNumber(this.tradingPriceMap, this.tradingPrice);
-        });
+        this.tradingPrice = Converter.stringToNumber(this.tradingPriceMap, this.tradingPrice);
+       
         // 20200709 E_Add
         
     }

@@ -21,6 +21,14 @@ export class Converter {
     
     public static stringToNumber(before: String, after: number) {
         after = before != null ? +before.replace(/,/g, "").trim() : null;
+        return after;
+    }
+    
+    public static stringForNumber(val: number) {
+        let ret;
+        if(val == 0) ret = '';
+        else if(val != null) ret = Number(val).toLocaleString();
+        return ret;
     }
 
 }
