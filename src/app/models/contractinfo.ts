@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
 import { ContractFile } from './mapattach';
 import { ContractSellerInfo } from './contractsellerinfo';
-import { Converter } from '../utils/converter';
+
 
 export class Contractinfo {
     pid: number;
@@ -90,10 +90,7 @@ export class Contractinfo {
     earnestPriceDayMap: Date = null;
     canncellDayMap: Date = null;
     retainageDayMap: Date = null;
-    // 20200709 S_Add
-    tradingPriceMap: String;
-    // 20200709 E_Add
-
+   
     details: Contractdetailinfo[] = [];
     contractFiles: ContractFile[];
     sellers: ContractSellerInfo[];
@@ -185,9 +182,7 @@ export class Contractinfo {
         this.earnestPriceDay = this.earnestPriceDayMap != null ? datePipe.transform(this.earnestPriceDayMap, 'yyyyMMdd') : null;
         this.canncellDay = this.canncellDayMap != null ? datePipe.transform(this.canncellDayMap, 'yyyyMMdd') : null;
         this.retainageDay = this.retainageDayMap != null ? datePipe.transform(this.retainageDayMap, 'yyyyMMdd') : null;
-        // 20200709 S_Add
-        Converter.stringToNumber(this.tradingPriceMap, this.tradingPrice);
-        // 20200709 E_Add
+  
         
     }
 }
