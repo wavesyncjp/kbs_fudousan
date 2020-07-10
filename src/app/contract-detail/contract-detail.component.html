@@ -169,7 +169,6 @@
                 <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="contract.contractDayMap">
                 <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #contractDay></mat-datepicker>
-                
             </td>
         </tr> 
         <tr>
@@ -178,6 +177,7 @@
                 <input type="text" [(ngModel)]="contract.tradingPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
                 <span style="font-size: small;">&nbsp;&nbsp;(売買代金内訳)</span>
             </td>
+              
             <th>売買代金（土地）</th>
             <td>
                 <input type="text" [(ngModel)]="contract.tradingLandPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
