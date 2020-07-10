@@ -19,7 +19,4 @@ export class Converter {
         return yearsDiff;
     }
 
-    public static stringToNumber(before: String, after: number) {
-        after = before != null ? +before.replace(/,/g, "").trim() : null;
-    }
 }
