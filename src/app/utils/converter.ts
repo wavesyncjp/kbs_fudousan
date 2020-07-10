@@ -18,5 +18,9 @@ export class Converter {
         let yearsDiff =  date2.getFullYear() - date1.getFullYear();
         return yearsDiff;
     }
+    
+    public static stringToNumber(before: String, after: number) {
+        after = before != null ? +before.replace(/,/g, "").trim() : null;
+    }
 
 }
