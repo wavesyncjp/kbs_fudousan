@@ -18,5 +18,4 @@ export class Converter {
         let yearsDiff =  date2.getFullYear() - date1.getFullYear();
         return yearsDiff;
     }
-
 }
