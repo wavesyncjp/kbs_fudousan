@@ -180,16 +180,16 @@
             </td>
             <th>売買代金（土地）</th>
             <td>
-                <input type="text" [(ngModel)]="contract.tradingLandPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
+                <input type="text" [(ngModel)]="contract.tradingLandPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingLandPriceMap)">&nbsp;円
             </td>
             <th>売買代金（建物）</th>
-            <td><input type="text" [(ngModel)]="contract.tradingBuildingPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円</td>
+            <td><input type="text" [(ngModel)]="contract.tradingBuildingPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingBuildingPriceMap)">&nbsp;円</td>
             <th>売買代金（借地権）</th>
-            <td><input type="text" [(ngModel)]="contract.tradingLeasePrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円</td>
+            <td><input type="text" [(ngModel)]="contract.tradingLeasePriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingLeasePriceMap)">&nbsp;円</td>
         </tr>
         <tr>
             <th>実測精算単価</th>
-            <td colspan="7"><input type="text" [(ngModel)]="contract.setlementPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円</td> 
+            <td colspan="7"><input type="text" [(ngModel)]="contract.setlementPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.setlementPriceMap)">&nbsp;円</td> 
         </tr>
         <tr>
             <th>決済日(所有権移転日)</th>
@@ -232,7 +232,7 @@
         </tr>
         <tr>
             <th>内金①</th>
-            <td><input type="text" [(ngModel)]="contract.deposit1" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
+            <td><input type="text" [(ngModel)]="contract.deposit1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit1Map)">&nbsp;円
                 <br>
                 <input type="text" [matDatepicker]="deposit1Day" class="width100" [(ngModel)]="contract.deposit1DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit1Day" class="picker-icon"></mat-datepicker-toggle>
@@ -240,7 +240,7 @@
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit1DayChk === '1'" (change)="flgChange1($event, data)"></mat-checkbox>
             </td>
             <th>内金②</th>
-            <td><input type="text" [(ngModel)]="contract.deposit2" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
+            <td><input type="text" [(ngModel)]="contract.deposit2Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit2Map)">&nbsp;円
                 <br>
                 <input type="text" [matDatepicker]="deposit2Day" class="width100" [(ngModel)]="contract.deposit2DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit2Day" class="picker-icon"></mat-datepicker-toggle>
@@ -248,7 +248,7 @@
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit2DayChk === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
             </td>
             <th>手付金</th>
-            <td><input type="text" [(ngModel)]="contract.earnestPrice" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円
+            <td><input type="text" [(ngModel)]="contract.earnestPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.earnestPriceMap)">&nbsp;円
                 <br>
                 <input type="text" [matDatepicker]="earnestPriceDay" class="width100" [(ngModel)]="contract.earnestPriceDayMap">
                 <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
@@ -256,7 +256,7 @@
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.earnestPriceDayChk === '1'" (change)="flgChange3($event, data)"></mat-checkbox>
             </td>
             <th>売買残代金</th>
-            <td><input type="text" [(ngModel)]="contract.tradingBalance" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円</td> 
+            <td><input type="text" [(ngModel)]="contract.tradingBalanceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingBalanceMap)">&nbsp;円</td> 
         </tr>
         
        
@@ -265,18 +265,18 @@
         <tr>
             <th>固都税清算金</th>
             <td>
-            <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTax" maxlength="15">&nbsp;円
+            <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTaxMap" maxlength="15" [value]="changeValue(contract.fixedTaxMap)">&nbsp;円
             </td> 
 
             <th>決済代金</th>
             <td>
-                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.decisionPrice" maxlength="15">&nbsp;円
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.decisionPriceMap" maxlength="15" [value]="changeValue(contract.decisionPriceMap)">&nbsp;円
             </td>
         
         
             <th>留保金</th>
             <td>
-                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.retainage" maxlength="15">&nbsp;円
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.retainageMap" maxlength="15" [value]="changeValue(contract.retainageMap)">&nbsp;円
             </td>
         
             <th>留保金支払(明渡)日</th>
@@ -344,11 +344,11 @@
         </tr>
         <tr>
             <th>優先分譲面積<br>（専有面積）</th>
-            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesArea" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;㎡</td>
+            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesAreaMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.prioritySalesAreaMap)">&nbsp;㎡</td>
             <th>優先分譲戸数（階）</th>
-            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesFloor" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;階</td>
+            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesFloorMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="3" [value]="changeValue(contract.prioritySalesFloorMap)">&nbsp;階</td>
             <th>優先分譲予定価格</th>
-            <td  colspan="5"><input [(ngModel)]="contract.prioritySalesPlanPrice" type="text" class="width100 number" (keypress)="numericOnly($event)" maxlength="15">&nbsp;円</td>      
+            <td  colspan="5"><input [(ngModel)]="contract.prioritySalesPlanPriceMap" type="text" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.prioritySalesPlanPriceMap)">&nbsp;円</td>      
         </tr>
     </table> 
 
@@ -360,15 +360,15 @@
         </tr>
         <tr>
             <th>敷地面積</th>
-            <td><input type="text" [(ngModel)]="contract.siteArea" class="width100 number" (keypress)="floatOnly($event)" maxlength="15">&nbsp;㎡</td>
+            <td><input type="text" [(ngModel)]="contract.siteAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.siteAreaMap)">&nbsp;㎡</td>
             <th>有効敷地面積</th>
-            <td><input type="text" [(ngModel)]="contract.siteAvailableArea" class="width100 number" (keypress)="floatOnly($event)" maxlength="15">&nbsp;㎡</td>
+            <td><input type="text" [(ngModel)]="contract.siteAvailableAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.siteAvailableAreaMap)">&nbsp;㎡</td>
             <th>構造</th>
             <td><input type="text" [(ngModel)]="contract.structure" class="width150" maxlength="100"></td>
             <th>規模</th>
             <td><input type="text" [(ngModel)]="contract.scale" lass="width200" maxlength="100"></td> 
             <th>延床面積</th>
-            <td><input type="text" [(ngModel)]="contract.totalFloorArea" class="width100 number" (keypress)="floatOnly($event)" maxlength="15">&nbsp;㎡</td>
+            <td><input type="text" [(ngModel)]="contract.totalFloorAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.totalFloorAreaMap)">&nbsp;㎡</td>
         </tr>
     </table> 
     

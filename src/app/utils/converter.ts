@@ -1,4 +1,6 @@
 import { formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { parse } from 'date-fns';
 
 export class Converter {
     public formatDay(val: Date, format: string) {
@@ -19,15 +21,24 @@ export class Converter {
         return yearsDiff;
     }
     
-    public static stringToNumber(before: String, after: number) {
-        after = before != null ? +before.replace(/,/g, "").trim() : null;
-        return after;
+    public static stringToNumber(val: String) {
+        let ret = val != null ? +val.replace(/,/g, "").trim() : null;
+        return ret;
     }
     
-    public static stringForNumber(val: number) {
+    public static numberToString(val: number) {
         let ret;
         if(val == 0) ret = '';
         else if(val != null) ret = Number(val).toLocaleString();
+        return ret;
+    }
+    public static dateToString(val: Date, format: string, datePipe: DatePipe) {
+        let ret = val != null ? datePipe.transform(val, format) : null;
+        return ret;
+    }
+
+    public static stringToDate(val: string, format: string) {
+        let ret = parse(val, format, new Date());
         return ret;
     }
 
