@@ -38,8 +38,7 @@ export class Converter {
     }
 
     public static stringToDate(val: string, format: string) {
-        let ret = parse(val, format, new Date());
+        let ret = val ? parse(val, format, new Date()) : null;
         return ret;
     }
-
 }
