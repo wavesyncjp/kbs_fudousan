@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 
 import { parse } from 'date-fns';
 import { from } from 'rxjs';
+import { Converter } from '../utils/converter';
 
 export class Bukkenplaninfo {
 
@@ -13,7 +14,7 @@ export class Bukkenplaninfo {
     tempLandInfoPid: number;
     planFixFlg: string;
     planConsidered: string;
-    planPrice: string;
+    planPrice: number;
     planRequest: string;
     planRequestDay: string;
     planScheduledDay: string;
@@ -24,6 +25,8 @@ export class Bukkenplaninfo {
     updateDate: Date;
     createDate: Date;
     deleteUserId: number;
+
+    planPriceMap: string;
 
     
     planRequestDayMap: Date = null;
@@ -42,7 +45,7 @@ export class Bukkenplaninfo {
         if (this.planScheduledDay) {
             this.planScheduledDayMap = parse(this.planScheduledDay, 'yyyyMMdd', new Date());
         }
-        
+        this.planPriceMap = Converter.numberToString(this.planPrice);
     }
 
     public convertForSave(userId: number , datePipe: DatePipe) {
@@ -55,7 +58,8 @@ export class Bukkenplaninfo {
         this.planScheduledDay = this.planScheduledDayMap != null ? datePipe.transform(this.planScheduledDayMap, 'yyyyMMdd') : null;   
         if(this.delete) {
             this.deleteUserId = userId;
-        }             
+        }
+        this.planPrice = Converter.stringToNumber(this.planPriceMap);             
     }
 }
 

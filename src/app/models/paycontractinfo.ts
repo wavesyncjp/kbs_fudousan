@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
 import { Paycontractdetailinfo } from './paycontractdetailinfo';
+import { Converter } from '../utils/converter';
+
 
 export class Paycontractinfo {
 
@@ -31,6 +33,10 @@ export class Paycontractinfo {
     contractFixDayMap: Date = null;
     taxEffectiveDayMap: Date = null;
 
+    contractPriceMap: string;
+    contractTaxMap: string;
+    contractPriceTaxMap: string;
+
     details: Paycontractdetailinfo[];
 
     public constructor(init?: Partial<Paycontractinfo>) {
@@ -59,6 +65,14 @@ export class Paycontractinfo {
                 detail.contractFixDayMap = parse(detail.contractFixDay, 'yyyyMMdd', new Date());
             }
         });
+        this.contractPriceMap = Converter.numberToString(this.contractPrice);
+        this.contractTaxMap = Converter.numberToString(this.contractTax);
+        this.contractPriceTaxMap = Converter.numberToString(this.contractPriceTax);
+        /*
+        this.details.payPriceMap = Converter.numberToString(this.details.payPrice);
+        this.details.payTaxMap = Converter.numberToString(this.details.payTax);
+        this.details.payPriceTaxMap = Converter.numberToString(this.details.payPriceTax);
+        */
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -77,5 +91,8 @@ export class Paycontractinfo {
             detail.contractDay = detail.contractDayMap != null ? datePipe.transform(detail.contractDayMap, 'yyyyMMdd') : null;
             detail.contractFixDay = detail.contractFixDayMap != null ? datePipe.transform(detail.contractFixDayMap, 'yyyyMMdd') : null;
         });
+        this.contractPrice = Converter.stringToNumber(this.contractPriceMap);
+        this.contractTax = Converter.stringToNumber(this.contractTaxMap);
+        this.contractPriceTax = Converter.stringToNumber(this.contractPriceTaxMap);
     }
 }

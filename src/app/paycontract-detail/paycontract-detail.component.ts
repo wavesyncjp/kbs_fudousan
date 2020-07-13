@@ -171,6 +171,13 @@ export class PayContractDetailComponent extends BaseComponent {
 
     });
   }
+  
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
 
   /**
    * 明細情報追加

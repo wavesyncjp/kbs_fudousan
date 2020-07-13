@@ -36,6 +36,7 @@ export class Converter {
         let ret = val != null ? datePipe.transform(val, format) : null;
         return ret;
     }
+    
 
     public static stringToDate(val: string, format: string) {
         let ret = parse(val, format, new Date());

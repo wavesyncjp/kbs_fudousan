@@ -130,10 +130,26 @@ export class LocationDetailComponent extends BaseComponent {
       firstSharer.buysellFlg = this.data.buysellFlg;
   }
 
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
+  removeComma(val) {
+    if (val == '' || val == null){
+      return '';
+    } else {
+      val = val.replace(/,/g, "").trim();
+      return val;
+    }
+  }
+
   changeArea(event) {
     const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.data.tsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    let ret = this.removeComma(val)
+    if (this.isNumberStr(ret)) {
+      this.data.tsubo = Math.floor(Number(ret) * 0.3025 * 100 ) / 100;
     }
   }
 

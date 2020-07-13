@@ -97,7 +97,6 @@ export class Contractinfo {
     tradingBuildingPriceMap: string;
     tradingLeasePriceMap: string;
     setlementPriceMap: string;
-    //
     deposit1Map: string;
     deposit2Map: string;
     earnestPriceMap: string;

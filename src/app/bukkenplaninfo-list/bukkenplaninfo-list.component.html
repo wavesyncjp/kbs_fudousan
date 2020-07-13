@@ -128,7 +128,7 @@
                     <th>プラン価格</th>
                     </ng-container>                    
                     <td>
-                        <input *ngIf="authority !== '03'" type="text" [(ngModel)]="plan.planPrice" class="width100" maxlength="15">
+                        <input *ngIf="authority !== '03'" type="text" [(ngModel)]="plan.planPriceMap" class="width100 number" maxlength="15" [value]="changeValue(plan.planPriceMap)">
                     </td>
                     <td rowspan="4">
                         <button *ngIf="pos > 0" mat-flat-button class="delete_btn" (click)="deletePlan(plan, pos)">削除</button>
