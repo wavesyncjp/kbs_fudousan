@@ -266,7 +266,7 @@ export class BaseComponent implements OnInit {
         // 空の場合そのまま返却
         if (isNullOrUndefined(val) || val == null || val === '') return '';
         // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
-        val = val.replace(/,/g, "").trim();
+        if(isNaN(val)) val = val.replace(/,/g, "").trim();
         // 整数部分を3桁カンマ区切りへ
         val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         return val;
