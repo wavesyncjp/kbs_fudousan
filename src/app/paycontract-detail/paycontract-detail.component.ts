@@ -123,7 +123,7 @@ export class PayContractDetailComponent extends BaseComponent {
         if (this.pid > 0) {
           this.paycontract = new Paycontractinfo(values[6] as Paycontractinfo);
           this.paycontract.convert();
-          this.bukkenName = values[6].land.bukkenName;
+          this.bukkenName = `${values[6].land.bukkenNo}:${values[6].land.bukkenName}`;
 
           //Seller
           this.loadSellers(this.paycontract.tempLandInfoPid);
@@ -144,7 +144,7 @@ export class PayContractDetailComponent extends BaseComponent {
 
       //物件名称をキーにpidをmapに保持していく
       this.lands.forEach((land) => {
-        this.bukkenMap[land.bukkenName] = land.pid
+        this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
       });
       
 
@@ -291,8 +291,8 @@ export class PayContractDetailComponent extends BaseComponent {
    * 入力の度に物件を検索する
    */
   bukkenSearch() {    
-    this.bukkens = this.lands.filter(land => land.bukkenName.includes(this.bukkenName));
-    const lst = this.lands.filter(land => land.bukkenName === this.bukkenName);
+    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
+    const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
     if(lst.length === 1) {
       this.loadSellers(this.bukkenMap[this.bukkenName]);
     }

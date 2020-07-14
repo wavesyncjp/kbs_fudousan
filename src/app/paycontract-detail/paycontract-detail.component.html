@@ -28,7 +28,7 @@
                 <!--<app-select-component [codes]="getLands()" [(ngModel)]="paycontract.tempLandInfoPid" [exclass] = "true"></app-select-component>-->
                 <input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" style="width: 400px">
                 <datalist id="data">
-                    <option *ngFor="let land of bukkens">{{land.bukkenName}}</option>
+                    <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option>
                 </datalist>
                 <!--<button mat-raised-button class="searchbutton" (click)="bukkenSearch()">検索</button>-->
             </td>
