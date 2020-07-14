@@ -268,7 +268,8 @@ export class BaseComponent implements OnInit {
         // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
         if(isNaN(val)) val = val.replace(/,/g, "").trim();
         // 整数部分を3桁カンマ区切りへ
-        val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        //val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        val = Number(val).toLocaleString();
         return val;
     }
     //20200709 E_Add

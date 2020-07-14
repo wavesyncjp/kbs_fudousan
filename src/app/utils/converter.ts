@@ -22,7 +22,7 @@ export class Converter {
     }
     
     public static stringToNumber(val: String) {
-        let ret = val != null ? +val.replace(/,/g, "").trim() : null;
+        let ret = val != null ? Number(val.replace(/,/g, "").trim()) : null;
         return ret;
     }
     
@@ -36,9 +36,12 @@ export class Converter {
         let ret = val != null ? datePipe.transform(val, format) : null;
         return ret;
     }
+    
 
     public static stringToDate(val: string, format: string) {
-        let ret = val ? parse(val, format, new Date()) : null;
+        let ret = parse(val, format, new Date());
         return ret;
     }
+    
+
 }
