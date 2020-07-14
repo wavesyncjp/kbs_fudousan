@@ -64,15 +64,16 @@ export class Paycontractinfo {
             if (detail.contractFixDay) {
                 detail.contractFixDayMap = parse(detail.contractFixDay, 'yyyyMMdd', new Date());
             }
+            
+            detail.payPriceMap = Converter.numberToString(detail.payPrice);
+            detail.payTaxMap = Converter.numberToString(detail.payTax);
+            detail.payPriceTaxMap = Converter.numberToString(detail.payPriceTax);
         });
         this.contractPriceMap = Converter.numberToString(this.contractPrice);
         this.contractTaxMap = Converter.numberToString(this.contractTax);
         this.contractPriceTaxMap = Converter.numberToString(this.contractPriceTax);
-        /*
-        this.details.payPriceMap = Converter.numberToString(this.details.payPrice);
-        this.details.payTaxMap = Converter.numberToString(this.details.payTax);
-        this.details.payPriceTaxMap = Converter.numberToString(this.details.payPriceTax);
-        */
+        
+        
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -90,6 +91,9 @@ export class Paycontractinfo {
             detail.closingDay = detail.closingDayMap != null ? datePipe.transform(detail.closingDayMap, 'yyyyMMdd') : null;
             detail.contractDay = detail.contractDayMap != null ? datePipe.transform(detail.contractDayMap, 'yyyyMMdd') : null;
             detail.contractFixDay = detail.contractFixDayMap != null ? datePipe.transform(detail.contractFixDayMap, 'yyyyMMdd') : null;
+            detail.payPrice = Converter.stringToNumber(detail.payPriceMap);
+            detail.payTax = Converter.stringToNumber(detail.payTaxMap);
+            detail.payPriceTax = Converter.stringToNumber(detail.payPriceTaxMap);
         });
         this.contractPrice = Converter.stringToNumber(this.contractPriceMap);
         this.contractTax = Converter.stringToNumber(this.contractTaxMap);

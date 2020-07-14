@@ -121,9 +121,9 @@
                     <td>
                         <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_0'] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15"style="padding: 0px;"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)"style="padding: 0px;"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15"style="padding: 0px;"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15"style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)"style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15"style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -162,9 +162,9 @@
                     <td>
                         <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + (sharerPos + 1)] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPrice" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTax" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTax" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">

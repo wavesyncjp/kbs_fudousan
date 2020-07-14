@@ -68,8 +68,8 @@
 
         <tr>
             <th>地積</th>
-            <td><input type="text" [(ngModel)]="data.areaMap" [ngClass]="{'width80': true, 'number': true, 'error': errors['area']}" (keypress)="floatOnly($event)" (keyup)="changeArea($event)" [disabled]="data.locationType == '02'" maxlength="15" [value]="changeValue(data.areaMap)">&nbsp;㎡                    
-            <input type="text" [(ngModel)]="data.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true" maxlength="15">&nbsp;坪</td>
+            <td><input type="text" [(ngModel)]="data.areaMap" [ngClass]="{'width80': true, 'number': true, 'error': errors['area']}" (keypress)="floatOnly($event)" [disabled]="data.locationType == '02'" maxlength="12" [value]="changeValue(data.areaMap)">&nbsp;㎡                    
+            <input type="text" [(ngModel)]="data.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true" maxlength="15" [value]="calTsubo(data.areaMap)">&nbsp;坪</td><!--(keyup)="changeArea($event)"-->
             <th>権利形態</th>
             <td><app-select-component [codes]="getCode('011')" [(ngModel)]="data.rightsForm"></app-select-component></td>
             <th>地目</th>

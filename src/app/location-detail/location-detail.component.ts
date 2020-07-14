@@ -10,6 +10,7 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-location-detail',
@@ -142,6 +143,14 @@ export class LocationDetailComponent extends BaseComponent {
     } else {
       val = val.replace(/,/g, "").trim();
       return val;
+    }
+  }
+
+  calTsubo(val) {
+    if (!isNullOrUndefined(this.data.areaMap)) {
+      return Math.floor(this.removeComma(val) * 0.3025 * 100) / 100;
+    } else {
+      return '0';
     }
   }
 
