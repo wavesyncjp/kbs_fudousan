@@ -273,7 +273,7 @@ export class BaseComponent implements OnInit {
         return val;
     }
     
-    removeComma(val: string) {
+    removeComma(val) {
         if (val == '' || val == null){
           return '';
         } else {
