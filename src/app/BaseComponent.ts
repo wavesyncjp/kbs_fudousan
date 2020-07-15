@@ -272,5 +272,14 @@ export class BaseComponent implements OnInit {
         val = Number(val).toLocaleString();
         return val;
     }
+    
+    removeComma(val: string) {
+        if (val == '' || val == null){
+          return '';
+        } else {
+          val = val.replace(/,/g, "").trim();
+          return val;
+        }
+      }
     //20200709 E_Add
 }
