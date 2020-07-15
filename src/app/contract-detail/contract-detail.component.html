@@ -344,7 +344,7 @@
         </tr>
         <tr>
             <th>優先分譲面積<br>（専有面積）</th>
-            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesAreaMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.prioritySalesAreaMap)">&nbsp;㎡</td>
+            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesAreaMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="12" [value]="changeValue(contract.prioritySalesAreaMap)">&nbsp;㎡</td>
             <th>優先分譲戸数（階）</th>
             <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesFloorMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="3" [value]="changeValue(contract.prioritySalesFloorMap)">&nbsp;階</td>
             <th>優先分譲予定価格</th>

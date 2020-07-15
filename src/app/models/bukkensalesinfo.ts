@@ -15,25 +15,10 @@ export class Bukkensalesinfo {
     salesAddress: string;
     salesContractDay: string;
     salesContractSchDay: string;
-    //salesTradingPrice: string;
     salesTradingPrice: number;
     salesDecisionSchDay: string;
-    //salesDecisionPrice: string;
     salesDecisionPrice: number;
     salesDecisionDay: string;
-    /*
-    salesFixedTax: string;
-    salesFixedLandTax: string;
-    salesFixedBuildingTax: string;
-    salesFixedConsumptionTax: string;
-    salesLiquidation1: string;
-    salesLiquidation2: string;
-    salesLiquidation3: string;
-    salesLiquidation4: string;
-    salesLiquidation5: string;
-    salesBrokerageFee: string;
-    salesLandArea: string;
-    */
     salesFixedTax: number;
     salesFixedLandTax: number;
     salesFixedBuildingTax: number;
@@ -47,6 +32,7 @@ export class Bukkensalesinfo {
     salesLandArea: number;
     salesIntermediary: string;
     salesRemark: string;
+    tsubo:number;
 
     createUserId: number;
     updateUserId: number;

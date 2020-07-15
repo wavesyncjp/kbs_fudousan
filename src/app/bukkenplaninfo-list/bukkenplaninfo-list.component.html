@@ -34,7 +34,7 @@
             <td colspan="8" class="tab_bottom">                
                 <div class="tab-wrap">
                     <input id="tab01" type="radio" name="tab" class="tab-switch"><label (click)="gotoBukken()" class="tab-label" for="tab01">物件情報</label>
-                    <input id="tab02" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab02">ブラン</label>
+                    <input id="tab02" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab02">プラン</label>
                 </div>               
             </td>                
         </tr>
@@ -128,7 +128,7 @@
                     <th>プラン価格</th>
                     </ng-container>                    
                     <td>
-                        <input *ngIf="authority !== '03'" type="text" [(ngModel)]="plan.planPriceMap" class="width100 number" maxlength="15" [value]="changeValue(plan.planPriceMap)">
+                        <input *ngIf="authority !== '03'" type="text" [(ngModel)]="plan.planPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(plan.planPriceMap)">
                     </td>
                     <td rowspan="4">
                         <button *ngIf="pos > 0" mat-flat-button class="delete_btn" (click)="deletePlan(plan, pos)">削除</button>

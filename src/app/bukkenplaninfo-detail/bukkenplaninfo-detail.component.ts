@@ -62,6 +62,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
         });
       }
     });
+     //this.data.tsubo = this.calTsubo(this.data.salesLandArea);
   }
 
   save() {
@@ -113,20 +114,13 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     return val;
   }
 
-  removeComma(val) {
-    if (val == '' || val == null){
-      return '';
-    } else {
-      val = val.replace(/,/g, "").trim();
-      return val;
-    }
-  }
+
 
   calTsubo(val) {
-    if (!isNullOrUndefined(this.data.salesLandAreaMap)) {
+    if (!isNullOrUndefined(val)) {
       return Math.floor(this.removeComma(val) * 0.3025 * 100) / 100;
     } else {
-      return '0';
+      return ' ';
     }
   }
 

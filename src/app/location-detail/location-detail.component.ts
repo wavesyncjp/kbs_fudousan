@@ -137,14 +137,6 @@ export class LocationDetailComponent extends BaseComponent {
     val = this.numberFormat(val);
     return val;
   }
-  removeComma(val) {
-    if (val == '' || val == null){
-      return '';
-    } else {
-      val = val.replace(/,/g, "").trim();
-      return val;
-    }
-  }
 
   calTsubo(val) {
     if (!isNullOrUndefined(this.data.areaMap)) {

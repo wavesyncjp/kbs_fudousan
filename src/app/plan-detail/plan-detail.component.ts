@@ -1734,27 +1734,27 @@ cal79_4() {
 //計算８０_S 売買計画　利益
 cal80_1() {
   if(this.cal77_1() > 0){
-    let cal80_1 = this.cal77_1() - (((this.cal49() -  this.cal46() - this.cal47()) * (this.getNumber(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()) - this.cal79_1();
+    let cal80_1 = this.cal77_1() - this.cal49() - this.cal79_1();
     return Math.floor(cal80_1);
   }
 }
 
 cal80_2() {
   if(this.cal77_2() > 0){
-    let cal80_2 = this.cal77_2() - (((this.cal49() -  this.cal46() - this.cal47()) * (this.getNumber(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()) - this.cal79_2();
+    let cal80_2 = this.cal77_2() - this.cal49() - this.cal79_2();
     return Math.floor(cal80_2);
   }
 }
 
 cal80_3() {
   if(this.cal77_3() > 0){
-    let cal80_3 = this.cal77_3() - (((this.cal49() -  this.cal46() - this.cal47()) * (this.getNumber(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()) - this.cal79_3();
+    let cal80_3 = this.cal77_3() - this.cal49() - this.cal79_3();
     return Math.floor(cal80_3);
   }
 }
 cal80_4() {
   if(this.cal77_4() > 0){
-    let cal80_4 = this.cal77_4() - (((this.cal49() -  this.cal46() - this.cal47()) * (this.getNumber(this.plan.jvRatio) / 100)) + this.cal46() + this.cal47()) - this.cal79_4();
+    let cal80_4 = this.cal77_4() - this.cal49() - this.cal79_4();
     return Math.floor(cal80_4);
   }
 }
