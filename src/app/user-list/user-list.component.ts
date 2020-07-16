@@ -48,6 +48,7 @@ export class UserListComponent extends BaseComponent {
 
     const funcs = [];
     funcs.push(this.service.getCodes(['010']));
+    funcs.push(this.service.getDeps(null));
 
     Promise.all(funcs).then(values => {
       // コード
@@ -60,6 +61,8 @@ export class UserListComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+
+      this.deps = values[1];
     });
   }
 

@@ -10,12 +10,16 @@
                     <td>
                         <input type="text" class="width200" [(ngModel)]="cond.userId" maxlength="20">
                     </td>
-                </tr>
-                <tr>
                     <th>ユーザー名</th>
                     <td colspan="3">
                         <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.userName" maxlength="100">
                     </td>
+                </tr>
+                <tr>
+                    <th>部署名</th>
+                    <td><app-select-component [codes]="getDeps()" [(ngModel)]="cond.depCode"></app-select-component></td>
+                    <th>権限</th>
+                    <td><app-select-component [codes]="getCode('010')" [(ngModel)]="cond.authority"></app-select-component></td>
                 </tr>
             </table>
             <div style="margin: 10px 0px 10px 0px;">
