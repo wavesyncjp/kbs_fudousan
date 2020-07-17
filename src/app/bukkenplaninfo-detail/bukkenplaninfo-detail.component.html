@@ -96,7 +96,7 @@
             <th>仲介手数料</th>
             <td><input type="text" [(ngModel)]="data.salesBrokerageFeeMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesBrokerageFeeMap)"></td>
             <th>地積</th>
-            <td><input type="text" [(ngModel)]="data.salesLandAreaMap" class="width100 number" maxlength="15" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('salesLandAreaMap')">㎡</td>
+            <td><input type="text" [(ngModel)]="data.salesLandAreaMap" class="width100 number" maxlength="15" (keypress)="floatOnly($event)" [value]="changeValue(data.salesLandAreaMap)">㎡</td>
             <td style="width: 150px;"><input type="text" class="width100 number" (keypress)="floatOnly($event)" [value]="calTsubo(data.salesLandAreaMap)" [attr.disabled]="true" maxlength="15">&nbsp;坪</td>
             <!--[value]="getNumber(data.salesLandArea) | number"--> 
         </tr>

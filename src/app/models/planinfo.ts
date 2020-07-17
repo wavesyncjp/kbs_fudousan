@@ -1,13 +1,10 @@
-import { Contractdetailinfo } from './contractdetailinfo';
-import { Templandinfo } from './templandinfo';
-import { Locationinfo } from './locationinfo';
-import { SharerInfo } from './sharer-info';
-
 import { DatePipe } from '@angular/common';
 import {Plandetail} from  './plandetail';
 import { Planrentroll } from '../models/Planrentroll';
 import { Planrentrolldetail } from '../models/Planrentrolldetail';
 import { parse } from 'date-fns';
+import { Converter } from '../utils/converter';
+
 
 export class Planinfo {
 
@@ -20,14 +17,14 @@ export class Planinfo {
     depCode: string;
     userId: string;
     address: string;
-    siteAreaBuy: string;
-    siteAreaCheck: string;
-    buildArea: string;
-    entrance: string;
-    parking: string;
-    underArea: string;
-    totalArea: string;
-    salesArea: string;
+    siteAreaBuy: number;
+    siteAreaCheck: number;
+    buildArea: number;
+    entrance: number;
+    parking: number;
+    underArea: number;
+    totalArea: number;
+    salesArea: number;
     restrictedArea: string;
     floorAreaRate: string;
     coverageRate: number;
@@ -65,12 +62,12 @@ export class Planinfo {
     fixedTaxLand: number;
     cityPlanTaxLand: number;
     fixedTaxBuild: number;
-    landInterest: string;
-    landLoan: string;
-    landPeriod: string;
-    buildInterest: string;
-    buildLoan: string;
-    buildPeriod: string;
+    landInterest: number;
+    landLoan: number;
+    landPeriod: number;
+    buildInterest: number;
+    buildLoan: number;
+    buildPeriod: number;
     cityPlanTaxBuild: number;
     afterTaxation: number;
     afterTaxationCity: number;
@@ -86,6 +83,7 @@ export class Planinfo {
     
 
     // 20200518 S_Add
+    residentialRateMap: string;
     landEvaluationMap: String;
     taxationMap: String;
     taxationCityMap: String;
@@ -99,6 +97,20 @@ export class Planinfo {
     afterFixedTaxMap: String;
     afterCityPlanTaxMap: String;
     // 20200518 E_Add
+    siteAreaBuyMap: string;
+    siteAreaCheckMap: string;
+    buildAreaMap: string;
+    entranceMap: string;
+    parkingMap: string;
+    underAreaMap: string;
+    totalAreaMap: string;
+    salesAreaMap: string;
+    landInterestMap: string;
+    landLoanMap: string;
+    landPeriodMap: string;
+    buildInterestMap: string;
+    buildLoanMap: string;
+    buildPeriodMap: string;
     
     details: Plandetail[];
     // 20200422 S_Update
@@ -112,174 +124,75 @@ export class Planinfo {
     }
 
     public convert() {
-        if (this.createDay) {
-            this.createDayMap = parse(this.createDay, 'yyyyMMdd', new Date());
-        }
-        if (this.startDay) {
-            this.startDayMap = parse(this.startDay, 'yyyyMMdd', new Date());
-        }
-        if (this.upperWingDay) {
-            this.upperWingDayMap = parse(this.upperWingDay, 'yyyyMMdd', new Date());
-        }
-        if (this.completionDay) {
-            this.completionDayMap = parse(this.completionDay, 'yyyyMMdd', new Date());
-        }
-        if (this.scheduledDay) {
-            this.scheduledDayMap = parse(this.scheduledDay, 'yyyyMMdd', new Date());
-        }
+        this.createDayMap = Converter.stringToDate(this.createDay, 'yyyyMMdd');
+        this.startDayMap = Converter.stringToDate(this.startDay, 'yyyyMMdd');
+        this.upperWingDayMap = Converter.stringToDate(this.upperWingDay, 'yyyyMMdd');
+        this.completionDayMap = Converter.stringToDate(this.completionDay, 'yyyyMMdd');
+        this.scheduledDayMap = Converter.stringToDate(this.scheduledDay, 'yyyyMMdd');
 
         // 20200518 S_Add
         // 金額を表示する際にカンマ区切りで表示する用に設定
-        if (this.landEvaluation) {
-            this.landEvaluationMap = Number(this.landEvaluation).toLocaleString();
-        }
-        if (this.taxation) {
-            this.taxationMap = Number(this.taxation).toLocaleString();
-        }
-        if (this.taxationCity) {
-            this.taxationCityMap = Number(this.taxationCity).toLocaleString();
-        }
-        if (this.buildValuation) {
-            this.buildValuationMap = Number(this.buildValuation).toLocaleString();
-        }
-        if (this.fixedTaxLand) {
-            this.fixedTaxLandMap = Number(this.fixedTaxLand).toLocaleString();
-        }
-        if (this.cityPlanTaxLand) {
-            this.cityPlanTaxLandMap = Number(this.cityPlanTaxLand).toLocaleString();
-        }
-        if (this.fixedTaxBuild) {
-            this.fixedTaxBuildMap = Number(this.fixedTaxBuild).toLocaleString();
-        }
-        if (this.cityPlanTaxBuild) {
-            this.cityPlanTaxBuildMap = Number(this.cityPlanTaxBuild).toLocaleString();
-        }
-        if (this.afterTaxation) {
-            this.afterTaxationMap = Number(this.afterTaxation).toLocaleString();
-        }
-        if (this.afterTaxationCity) {
-            this.afterTaxationCityMap = Number(this.afterTaxationCity).toLocaleString();
-        }
-        if (this.afterFixedTax) {
-            this.afterFixedTaxMap = Number(this.afterFixedTax).toLocaleString();
-        }
-        if (this.afterCityPlanTax) {
-            this.afterCityPlanTaxMap = Number(this.afterCityPlanTax).toLocaleString();
-        }
-        if (this.landLoan) {
-            this.landLoan = Number(this.landLoan).toLocaleString();
-        }
-        if (this.buildLoan) {
-            this.buildLoan = Number(this.buildLoan).toLocaleString();
-        }
-        if (this.rent.salesExpense1A) {
-            this.rent.salesExpense1A = Number(this.rent.salesExpense1A).toLocaleString();
-        }
-        if (this.rent.salesExpense1B) {
-            this.rent.salesExpense1B = Number(this.rent.salesExpense1B).toLocaleString();
-        }
-        if (this.rent.salesExpense1C) {
-            this.rent.salesExpense1C = Number(this.rent.salesExpense1C).toLocaleString();
-        }
-        if (this.rent.salesExpense1D) {
-            this.rent.salesExpense1D = Number(this.rent.salesExpense1D).toLocaleString();
-        }
-        if (this.rent.salesExpense2A) {
-            this.rent.salesExpense2A = Number(this.rent.salesExpense2A).toLocaleString();
-        }
-        if (this.rent.salesExpense2B) {
-            this.rent.salesExpense2B = Number(this.rent.salesExpense2B).toLocaleString();
-        }
-        if (this.rent.salesExpense2C) {
-            this.rent.salesExpense2C = Number(this.rent.salesExpense2C).toLocaleString();
-        }
-        if (this.rent.salesExpense2D) {
-            this.rent.salesExpense2D = Number(this.rent.salesExpense2D).toLocaleString();
-        }
-        if (this.rent.salesExpense3A) {
-            this.rent.salesExpense3A = Number(this.rent.salesExpense3A).toLocaleString();
-        }
-        if (this.rent.salesExpense3B) {
-            this.rent.salesExpense3B = Number(this.rent.salesExpense3B).toLocaleString();
-        }
-        if (this.rent.salesExpense3C) {
-            this.rent.salesExpense3C = Number(this.rent.salesExpense3C).toLocaleString();
-        }
-        if (this.rent.salesExpense3D) {
-            this.rent.salesExpense3D = Number(this.rent.salesExpense3D).toLocaleString();
-        }
-       /**/  if (this.rent.tsuboUnitPriceA) {
-            this.rent.tsuboUnitPriceA = Number(this.rent.tsuboUnitPriceA).toLocaleString();
-        }
-        if (this.rent.tsuboUnitPriceB) {
-            this.rent.tsuboUnitPriceB = Number(this.rent.tsuboUnitPriceB).toLocaleString();
-        }
-        if (this.rent.tsuboUnitPriceC) {
-            this.rent.tsuboUnitPriceC = Number(this.rent.tsuboUnitPriceC).toLocaleString();
-        }
-        if (this.rent.tsuboUnitPriceD) {
-            this.rent.tsuboUnitPriceD = Number(this.rent.tsuboUnitPriceD).toLocaleString();
-        }
-        if (this.rent.commonFee) {
-            this.rent.commonFee = Number(this.rent.commonFee).toLocaleString();
-        }
-        if (this.rent.monthlyOtherIncome) {
-            this.rent.monthlyOtherIncome = Number(this.rent.monthlyOtherIncome).toLocaleString();
-        }
+        this.residentialRateMap = Converter.numberToString(this.residentialRate);
+        this.landEvaluationMap = Converter.numberToString(this.landEvaluation);
+        this.taxationMap = Converter.numberToString(this.taxation);
+        this.taxationCityMap = Converter.numberToString(this.taxationCity);
+        this.buildValuationMap = Converter.numberToString(this.buildValuation);
+        this.fixedTaxLandMap = Converter.numberToString(this.fixedTaxLand);
+        this.cityPlanTaxLandMap = Converter.numberToString(this.cityPlanTaxLand);
+        this.fixedTaxBuildMap = Converter.numberToString(this.fixedTaxBuild);
+        this.cityPlanTaxBuildMap = Converter.numberToString(this.cityPlanTaxBuild);
+        this.afterTaxationMap = Converter.numberToString(this.afterTaxation);
+        this.afterTaxationCityMap = Converter.numberToString(this.afterTaxationCity);
+        this.afterFixedTaxMap = Converter.numberToString(this.afterFixedTax);
+        this.afterCityPlanTaxMap = Converter.numberToString(this.afterCityPlanTax);
+        this.landLoanMap = Converter.numberToString(this.landLoan);
+        this.buildLoanMap = Converter.numberToString(this.buildLoan);
+
+        this.rent.salesExpense1AMap = Converter.numberToString(this.rent.salesExpense1A);
+        this.rent.salesExpense1BMap = Converter.numberToString(this.rent.salesExpense1B);
+        this.rent.salesExpense1CMap = Converter.numberToString(this.rent.salesExpense1C);
+        this.rent.salesExpense1DMap = Converter.numberToString(this.rent.salesExpense1D);
+        this.rent.salesExpense2AMap = Converter.numberToString(this.rent.salesExpense2A);
+        this.rent.salesExpense2BMap = Converter.numberToString(this.rent.salesExpense2B);
+        this.rent.salesExpense2CMap = Converter.numberToString(this.rent.salesExpense2C);
+        this.rent.salesExpense2DMap = Converter.numberToString(this.rent.salesExpense2D);
+        this.rent.salesExpense3AMap = Converter.numberToString(this.rent.salesExpense3A);
+        this.rent.salesExpense3BMap = Converter.numberToString(this.rent.salesExpense3B);
+        this.rent.salesExpense3CMap = Converter.numberToString(this.rent.salesExpense3C);
+        this.rent.salesExpense3DMap = Converter.numberToString(this.rent.salesExpense3D);
+        this.rent.tsuboUnitPriceAMap = Converter.numberToString(this.rent.tsuboUnitPriceA);
+        this.rent.tsuboUnitPriceBMap = Converter.numberToString(this.rent.tsuboUnitPriceB);
+        this.rent.tsuboUnitPriceCMap = Converter.numberToString(this.rent.tsuboUnitPriceC);
+        this.rent.tsuboUnitPriceDMap = Converter.numberToString(this.rent.tsuboUnitPriceD);
+        this.rent.commonFeeMap = Converter.numberToString(this.rent.commonFee);
+        this.rent.monthlyOtherIncomeMap = Converter.numberToString(this.rent.monthlyOtherIncome);
         // 20200630 S_Add
-        if (this.totalArea) {
-            this.totalArea = Number(this.totalArea).toLocaleString();
-        }
-        if (this.siteAreaBuy) {
-            this.siteAreaBuy = Number(this.siteAreaBuy).toLocaleString();
-        }
-        if (this.siteAreaCheck) {
-            this.siteAreaCheck = Number(this.siteAreaCheck).toLocaleString();
-        }
-        if (this.buildArea) {
-            this.buildArea = Number(this.buildArea).toLocaleString();
-        }
-        if (this.entrance) {
-            this.entrance = Number(this.entrance).toLocaleString();
-        }
-        if (this.parking) {
-            this.parking = Number(this.parking).toLocaleString();
-        }
-        if (this.underArea) {
-            this.underArea = Number(this.underArea).toLocaleString();
-        }
-        if (this.salesArea) {
-            this.salesArea = Number(this.salesArea).toLocaleString();
-        }
+        this.totalAreaMap = Converter.numberToString(this.totalArea);
+        this.siteAreaBuyMap = Converter.numberToString(this.siteAreaBuy);
+        this.siteAreaCheckMap = Converter.numberToString(this.siteAreaCheck);
+        this.buildAreaMap = Converter.numberToString(this.buildArea);
+        this.entranceMap = Converter.numberToString(this.entrance);
+        this.underAreaMap = Converter.numberToString(this.underArea);
+        this.salesAreaMap = Converter.numberToString(this.salesArea);
+
         // 20200630 E_Add
 
         this.details.forEach((detail) => {
-            if (detail.price) {
-                detail.price = Number(detail.price).toLocaleString();
-            }
-            if (detail.routePrice) {
-                detail.routePrice = Number(detail.routePrice).toLocaleString();
-            }
-            if (detail.unitPrice) {
-                detail.unitPrice = Number(detail.unitPrice).toLocaleString();
-            }
-            if (detail.priceTax) {
-                detail.priceTax = Number(detail.priceTax).toLocaleString();
-            }
-            if (detail.valuation) {
-                detail.valuation = Number(detail.valuation).toLocaleString();
-            }
-            if (detail.rent) {
-                detail.rent = Number(detail.rent).toLocaleString();
-            }
+            detail.priceMap = Converter.numberToString(detail.price);
+            detail.routePriceMap = Converter.numberToString(detail.routePrice);
+            detail.unitPriceMap = Converter.numberToString(detail.unitPrice);
+            detail.priceTaxMap = Converter.numberToString(detail.priceTax);
+            detail.valuationMap = Converter.numberToString(detail.valuation);
+            detail.rentMap = Converter.numberToString(detail.rent);
+
         });
 
         this.rentdetails.forEach((detail) => {
-            if (detail.rentUnitPrice) {
-                detail.rentUnitPrice = Number(detail.rentUnitPrice).toLocaleString();
-            }
+            detail.rentUnitPriceMap = Converter.numberToString(detail.rentUnitPrice);
+            detail.spaceMap = Converter.numberToString(detail.space);
+            detail.securityDepositMap = Converter.numberToString(detail.securityDeposit);
         });
-        // 20200518 E_Add
+    
     }
 
     public convertForSave(userId: number , datePipe: DatePipe) {
@@ -289,71 +202,74 @@ export class Planinfo {
             this.createUserId = userId;
         }
         //20200408_hirano_S
-        this.createDay = this.createDayMap != null ? datePipe.transform(this.createDayMap, 'yyyyMMdd') : null;
-        this.startDay = this.startDayMap != null ? datePipe.transform(this.startDayMap, 'yyyyMMdd') : null;
-        this.upperWingDay = this.upperWingDayMap != null ? datePipe.transform(this.upperWingDayMap, 'yyyyMMdd') : null;
-        this.completionDay = this.completionDayMap != null ? datePipe.transform(this.completionDayMap, 'yyyyMMdd') : null;
-        this.scheduledDay = this.scheduledDayMap != null ? datePipe.transform(this.scheduledDayMap, 'yyyyMMdd') : null;
+        this.createDay = Converter.dateToString(this.createDayMap,'yyyyMMdd',datePipe);
+        this.startDay = Converter.dateToString(this.startDayMap,'yyyyMMdd',datePipe);
+        this.upperWingDay = Converter.dateToString(this.upperWingDayMap,'yyyyMMdd',datePipe);
+        this.completionDay = Converter.dateToString(this.completionDayMap,'yyyyMMdd',datePipe);
+        this.scheduledDay = Converter.dateToString(this.scheduledDayMap,'yyyyMMdd',datePipe);
         //20200408_hirano_E
 
         // 20200518 S_Add
         // 登録の際はカンマを外すように設定
-        this.landEvaluation = this.landEvaluationMap != null ? +this.landEvaluationMap.replace(/,/g, "").trim() : null;
-        this.taxation = this.taxationMap != null ? +this.taxationMap.replace(/,/g, "").trim() : null;
-        this.taxationCity = this.taxationCityMap != null ? +this.taxationCityMap.replace(/,/g, "").trim() : null;
-        this.buildValuation = this.buildValuationMap != null ? +this.buildValuationMap.replace(/,/g, "").trim() : null;
-        this.fixedTaxLand = this.fixedTaxLandMap != null ? +this.fixedTaxLandMap.replace(/,/g, "").trim() : null;
-        this.cityPlanTaxLand = this.cityPlanTaxLandMap != null ? +this.cityPlanTaxLandMap.replace(/,/g, "").trim() : null;
-        this.fixedTaxBuild = this.fixedTaxBuildMap != null ? +this.fixedTaxBuildMap.replace(/,/g, "").trim() : null;
-        this.cityPlanTaxBuild = this.cityPlanTaxBuildMap != null ? +this.cityPlanTaxBuildMap.replace(/,/g, "").trim() : null;
-        this.afterTaxation = this.afterTaxationMap != null ? +this.afterTaxationMap.replace(/,/g, "").trim() : null;
-        this.afterTaxationCity = this.afterTaxationCityMap != null ? +this.afterTaxationCityMap.replace(/,/g, "").trim() : null;
-        this.afterFixedTax = this.afterFixedTaxMap != null ? +this.afterFixedTaxMap.replace(/,/g, "").trim() : null;
-        this.afterCityPlanTax = this.afterCityPlanTaxMap != null ? +this.afterCityPlanTaxMap.replace(/,/g, "").trim() : null;
-        this.landLoan = this.landLoan != null ? this.landLoan.replace(/,/g, "").trim() : null;
-        this.buildLoan = this.buildLoan != null ? this.buildLoan.replace(/,/g, "").trim() : null;
+        this.residentialRate = Converter.stringToNumber(this.residentialRateMap);
+        this.landEvaluation = Converter.stringToNumber(this.landEvaluationMap);
+        this.taxation = Converter.stringToNumber(this.taxationMap);
+        this.taxationCity = Converter.stringToNumber(this.taxationCityMap);
+        this.buildValuation = Converter.stringToNumber(this.buildValuationMap);
+        this.fixedTaxLand = Converter.stringToNumber(this.fixedTaxLandMap);
+        this.cityPlanTaxLand = Converter.stringToNumber(this.cityPlanTaxLandMap);
+        this.fixedTaxBuild = Converter.stringToNumber(this.fixedTaxBuildMap);
+        this.cityPlanTaxBuild = Converter.stringToNumber(this.cityPlanTaxBuildMap);
+        this.afterTaxation = Converter.stringToNumber(this.afterTaxationMap);
+        this.afterTaxationCity = Converter.stringToNumber(this.afterTaxationCityMap);
+        this.afterFixedTax = Converter.stringToNumber(this.afterFixedTaxMap);
+        this.afterCityPlanTax = Converter.stringToNumber(this.afterCityPlanTaxMap);
+        this.landLoan = Converter.stringToNumber(this.landLoanMap);
+        this.buildLoan = Converter.stringToNumber(this.buildLoanMap);
 
         this.details.forEach((detail) => {
-            detail.price = detail.price != null ? detail.price.replace(/,/g, "").trim() : null;
-            detail.routePrice = detail.routePrice != null ? detail.routePrice.replace(/,/g, "").trim() : null;
-            detail.unitPrice = detail.unitPrice != null ? detail.unitPrice.replace(/,/g, "").trim() : null;
-            detail.priceTax = detail.priceTax != null ? detail.priceTax.replace(/,/g, "").trim() : null;
-            detail.valuation = detail.valuation != null ? detail.valuation.replace(/,/g, "").trim() : null;
-            detail.rent = detail.rent != null ? detail.rent.replace(/,/g, "").trim() : null;
+            detail.price = Converter.stringToNumber(detail.priceMap);
+            detail.routePrice = Converter.stringToNumber(detail.routePriceMap);
+            detail.unitPrice = Converter.stringToNumber(detail.unitPriceMap);
+            detail.priceTax = Converter.stringToNumber(detail.priceTaxMap);
+            detail.valuation = Converter.stringToNumber(detail.valuationMap);
+            detail.rent = Converter.stringToNumber(detail.rentMap);
         });
 
         this.rentdetails.forEach((detail) => {
-            detail.rentUnitPrice = detail.rentUnitPrice != null ? detail.rentUnitPrice.replace(/,/g, "").trim() : null;
+            detail.rentUnitPrice = Converter.stringToNumber(detail.rentUnitPriceMap);
+            detail.space = Converter.stringToNumber(detail.spaceMap);
+            detail.securityDeposit = Converter.stringToNumber(detail.securityDepositMap);
         });
+        this.rent.salesExpense1A = Converter.stringToNumber(this.rent.salesExpense1AMap);
+        this.rent.salesExpense1B = Converter.stringToNumber(this.rent.salesExpense1BMap);
+        this.rent.salesExpense1C = Converter.stringToNumber(this.rent.salesExpense1CMap);
+        this.rent.salesExpense1D = Converter.stringToNumber(this.rent.salesExpense1DMap);
+        this.rent.salesExpense2A = Converter.stringToNumber(this.rent.salesExpense2AMap);
+        this.rent.salesExpense2B = Converter.stringToNumber(this.rent.salesExpense2BMap);
+        this.rent.salesExpense2C = Converter.stringToNumber(this.rent.salesExpense2CMap);
+        this.rent.salesExpense2D = Converter.stringToNumber(this.rent.salesExpense2DMap);
+        this.rent.salesExpense3A = Converter.stringToNumber(this.rent.salesExpense3AMap);
+        this.rent.salesExpense3B = Converter.stringToNumber(this.rent.salesExpense3BMap);
+        this.rent.salesExpense3C = Converter.stringToNumber(this.rent.salesExpense3CMap);
+        this.rent.salesExpense3D = Converter.stringToNumber(this.rent.salesExpense3DMap);
+        this.rent.tsuboUnitPriceA = Converter.stringToNumber(this.rent.tsuboUnitPriceAMap);
+        this.rent.tsuboUnitPriceB = Converter.stringToNumber(this.rent.tsuboUnitPriceBMap);
+        this.rent.tsuboUnitPriceC = Converter.stringToNumber(this.rent.tsuboUnitPriceCMap);
+        this.rent.tsuboUnitPriceD = Converter.stringToNumber(this.rent.tsuboUnitPriceDMap);
+        this.rent.monthlyOtherIncome = Converter.stringToNumber(this.rent.monthlyOtherIncomeMap);
+        this.rent.commonFee = Converter.stringToNumber(this.rent.commonFeeMap);
 
-        this.rent.salesExpense1A = this.rent.salesExpense1A != null ? this.rent.salesExpense1A.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense1B = this.rent.salesExpense1B != null ? this.rent.salesExpense1B.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense1C = this.rent.salesExpense1C != null ? this.rent.salesExpense1C.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense1D = this.rent.salesExpense1D != null ? this.rent.salesExpense1D.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense2A = this.rent.salesExpense2A != null ? this.rent.salesExpense2A.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense2B = this.rent.salesExpense2B != null ? this.rent.salesExpense2B.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense2C = this.rent.salesExpense2C != null ? this.rent.salesExpense2C.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense2D = this.rent.salesExpense2D != null ? this.rent.salesExpense2D.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense3A = this.rent.salesExpense3A != null ? this.rent.salesExpense3A.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense3B = this.rent.salesExpense3B != null ? this.rent.salesExpense3B.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense3C = this.rent.salesExpense3C != null ? this.rent.salesExpense3C.replace(/,/g, "").trim() : null;
-        this.rent.salesExpense3D = this.rent.salesExpense3D != null ? this.rent.salesExpense3D.replace(/,/g, "").trim() : null;
-        this.rent.tsuboUnitPriceA = this.rent.tsuboUnitPriceA != null ? this.rent.tsuboUnitPriceA.replace(/,/g, "").trim() : null;
-        this.rent.tsuboUnitPriceB = this.rent.tsuboUnitPriceB != null ? this.rent.tsuboUnitPriceB.replace(/,/g, "").trim() : null;
-        this.rent.tsuboUnitPriceC = this.rent.tsuboUnitPriceC != null ? this.rent.tsuboUnitPriceC.replace(/,/g, "").trim() : null;
-        this.rent.tsuboUnitPriceD = this.rent.tsuboUnitPriceD != null ? this.rent.tsuboUnitPriceD.replace(/,/g, "").trim() : null;
-        this.rent.monthlyOtherIncome = this.rent.monthlyOtherIncome != null ? this.rent.monthlyOtherIncome.replace(/,/g, "").trim() : null;
-        this.rent.commonFee = this.rent.commonFee != null ? this.rent.commonFee.replace(/,/g, "").trim() : null;
         // 20200518 E_Add
         // 20200630 S_Add
-        this.totalArea = this.totalArea != null ? this.totalArea.replace(/,/g, "").trim() : null;
-        this.siteAreaBuy = this.siteAreaBuy != null ? this.siteAreaBuy.replace(/,/g, "").trim() : null;
-        this.siteAreaCheck = this.siteAreaCheck != null ? this.siteAreaCheck.replace(/,/g, "").trim() : null;
-        this.buildArea = this.buildArea != null ? this.buildArea.replace(/,/g, "").trim() : null;
-        this.entrance = this.entrance != null ? this.entrance.replace(/,/g, "").trim() : null;
-        this.parking = this.parking != null ? this.parking.replace(/,/g, "").trim() : null;
-        this.underArea = this.underArea != null ? this.underArea.replace(/,/g, "").trim() : null;
-        this.salesArea = this.salesArea != null ? this.salesArea.replace(/,/g, "").trim() : null;
+        this.totalArea = Converter.stringToNumber(this.totalAreaMap);
+        this.siteAreaBuy = Converter.stringToNumber(this.siteAreaBuyMap);
+        this.siteAreaCheck = Converter.stringToNumber(this.siteAreaCheckMap);
+        this.buildArea = Converter.stringToNumber(this.buildAreaMap);
+        this.entrance = Converter.stringToNumber(this.entranceMap);
+        this.parking = Converter.stringToNumber(this.parkingMap);
+        this.underArea = Converter.stringToNumber(this.underAreaMap);
+        this.salesArea = Converter.stringToNumber(this.salesAreaMap);
         // 20200630 E_Add
     }
 }

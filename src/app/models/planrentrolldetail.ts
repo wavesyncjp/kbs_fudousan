@@ -7,9 +7,9 @@ export class Planrentrolldetail {
     planPid: number;
     planRentRollPid: number;
     targetArea: string;
-    space: string;
-    rentUnitPrice: string;
-    securityDeposit: string;
+    space: number;
+    rentUnitPrice: number;
+    securityDeposit: number;
     backNumber: string;
     createUserId: number;
     updateUserId: number;
@@ -17,4 +17,8 @@ export class Planrentrolldetail {
     createDate: Date;
     
     deleteUserId: number;
+
+    spaceMap: string;
+    rentUnitPriceMap: string;
+    securityDepositMap: string;
 }
