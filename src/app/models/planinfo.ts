@@ -101,7 +101,6 @@ export class Planinfo {
     siteAreaCheckMap: string;
     buildAreaMap: string;
     entranceMap: string;
-    parkingMap: string;
     underAreaMap: string;
     totalAreaMap: string;
     salesAreaMap: string;
@@ -267,7 +266,6 @@ export class Planinfo {
         this.siteAreaCheck = Converter.stringToNumber(this.siteAreaCheckMap);
         this.buildArea = Converter.stringToNumber(this.buildAreaMap);
         this.entrance = Converter.stringToNumber(this.entranceMap);
-        this.parking = Converter.stringToNumber(this.parkingMap);
         this.underArea = Converter.stringToNumber(this.underAreaMap);
         this.salesArea = Converter.stringToNumber(this.salesAreaMap);
         // 20200630 E_Add
