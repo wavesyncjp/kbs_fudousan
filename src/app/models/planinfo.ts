@@ -84,18 +84,18 @@ export class Planinfo {
 
     // 20200518 S_Add
     residentialRateMap: string;
-    landEvaluationMap: String;
-    taxationMap: String;
-    taxationCityMap: String;
-    buildValuationMap: String;
-    fixedTaxLandMap: String;
-    cityPlanTaxLandMap: String;
-    fixedTaxBuildMap: String;
-    cityPlanTaxBuildMap: String;
-    afterTaxationMap: String;
-    afterTaxationCityMap: String;
-    afterFixedTaxMap: String;
-    afterCityPlanTaxMap: String;
+    landEvaluationMap: string;
+    taxationMap: string;
+    taxationCityMap: string;
+    buildValuationMap: string;
+    fixedTaxLandMap: string;
+    cityPlanTaxLandMap: string;
+    fixedTaxBuildMap: string;
+    cityPlanTaxBuildMap: string;
+    afterTaxationMap: string;
+    afterTaxationCityMap: string;
+    afterFixedTaxMap: string;
+    afterCityPlanTaxMap: string;
     // 20200518 E_Add
     siteAreaBuyMap: string;
     siteAreaCheckMap: string;
@@ -110,6 +110,7 @@ export class Planinfo {
     buildInterestMap: string;
     buildLoanMap: string;
     buildPeriodMap: string;
+    parkingMap: string;
     
     details: Plandetail[];
     // 20200422 S_Update
@@ -146,25 +147,7 @@ export class Planinfo {
         this.afterCityPlanTaxMap = Converter.numberToString(this.afterCityPlanTax);
         this.landLoanMap = Converter.numberToString(this.landLoan);
         this.buildLoanMap = Converter.numberToString(this.buildLoan);
-
-        this.rent.salesExpense1AMap = Converter.numberToString(this.rent.salesExpense1A);
-        this.rent.salesExpense1BMap = Converter.numberToString(this.rent.salesExpense1B);
-        this.rent.salesExpense1CMap = Converter.numberToString(this.rent.salesExpense1C);
-        this.rent.salesExpense1DMap = Converter.numberToString(this.rent.salesExpense1D);
-        this.rent.salesExpense2AMap = Converter.numberToString(this.rent.salesExpense2A);
-        this.rent.salesExpense2BMap = Converter.numberToString(this.rent.salesExpense2B);
-        this.rent.salesExpense2CMap = Converter.numberToString(this.rent.salesExpense2C);
-        this.rent.salesExpense2DMap = Converter.numberToString(this.rent.salesExpense2D);
-        this.rent.salesExpense3AMap = Converter.numberToString(this.rent.salesExpense3A);
-        this.rent.salesExpense3BMap = Converter.numberToString(this.rent.salesExpense3B);
-        this.rent.salesExpense3CMap = Converter.numberToString(this.rent.salesExpense3C);
-        this.rent.salesExpense3DMap = Converter.numberToString(this.rent.salesExpense3D);
-        this.rent.tsuboUnitPriceAMap = Converter.numberToString(this.rent.tsuboUnitPriceA);
-        this.rent.tsuboUnitPriceBMap = Converter.numberToString(this.rent.tsuboUnitPriceB);
-        this.rent.tsuboUnitPriceCMap = Converter.numberToString(this.rent.tsuboUnitPriceC);
-        this.rent.tsuboUnitPriceDMap = Converter.numberToString(this.rent.tsuboUnitPriceD);
-        this.rent.commonFeeMap = Converter.numberToString(this.rent.commonFee);
-        this.rent.monthlyOtherIncomeMap = Converter.numberToString(this.rent.monthlyOtherIncome);
+        this.parkingMap = Converter.numberToString(this.parking);
         // 20200630 S_Add
         this.totalAreaMap = Converter.numberToString(this.totalArea);
         this.siteAreaBuyMap = Converter.numberToString(this.siteAreaBuy);
@@ -191,6 +174,7 @@ export class Planinfo {
             detail.spaceMap = Converter.numberToString(detail.space);
             detail.securityDepositMap = Converter.numberToString(detail.securityDeposit);
         });
+        
     
     }
 
@@ -225,6 +209,7 @@ export class Planinfo {
         this.afterCityPlanTax = Converter.stringToNumber(this.afterCityPlanTaxMap);
         this.landLoan = Converter.stringToNumber(this.landLoanMap);
         this.buildLoan = Converter.stringToNumber(this.buildLoanMap);
+        this.parking = Converter.stringToNumber(this.parkingMap);
 
         this.details.forEach((detail) => {
             detail.price = Converter.stringToNumber(detail.priceMap);

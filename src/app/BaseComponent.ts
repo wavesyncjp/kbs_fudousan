@@ -262,24 +262,29 @@ export class BaseComponent implements OnInit {
     
     //数値にカンマを付ける作業
     //20200709 S_Add
-    numberFormat(val) {
+    numberFormat(val: number | string) {
         // 空の場合そのまま返却
-        if (isNullOrUndefined(val) || val == null || val === '') return '';
+        if (isNullOrUndefined(val) || val === '') return '';
         // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
-        if(isNaN(val)) val = val.replace(/,/g, "").trim();
+        if(isNaN(Number(val))) val = val.toString().replace(/,/g, "").trim();
         // 整数部分を3桁カンマ区切りへ
         //val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         val = Number(val).toLocaleString();
         return val;
     }
     
-    removeComma(val) {
-        if (val == '' || val == null){
-          return '';
-        } else {
-          val = val.replace(/,/g, "").trim();
-          return val;
+    removeComma(val: number | string) {
+        let ret;
+        if (isNullOrUndefined(val) || val === '')
+        {
+            return '';
         }
-      }
+        val = val.toString().replace(/,/g, "").trim();
+        return val;
+    }
     //20200709 E_Add
+    getNumber(val) {
+        if (isNullOrUndefined(val) || val === '' || isNaN(val)) return 0;
+        return Number(val);
+    }
 }

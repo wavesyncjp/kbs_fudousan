@@ -657,7 +657,7 @@
         <tr>
             <!--20200407_hirano src-->
             <th class="main">融資手数料</th>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[36].price" [attr.disabled]="true"  [value]="getNumber(cal43()) | number" (ngModelChange)="changeValueDetail('price', 36)"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[36].priceMap" [attr.disabled]="true"  [value]="getNumber(cal43()) | number" (ngModelChange)="changeValueDetail('price', 36)"></td>
             <td class="yen"></td>
             <td class="yen"><input type="text" class="Twidth100 number" placeholder="手数料率" [(ngModel)]="plan.details[36].commissionRate" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('commissionRate')">&nbsp;％</td>
         </tr>
@@ -689,16 +689,16 @@
         </span>
 -->
         <tr>
-            <th class="main">土地関係金利&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="par number" placeholder="金利" [(ngModel)]="plan.landInterest">&nbsp;%</th>
+            <th class="main">土地関係金利&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="par number" placeholder="金利" [(ngModel)]="plan.landInterestMap">&nbsp;%</th>
             <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal46()) | number"></td>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.landLoan" placeholder="融資金額" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('landLoan')"></td>
-            <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.landPeriod" placeholder="融資期間"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.landLoanMap" placeholder="融資金額" (keypress)="numericOnly($event)" (ngModelChange)="changeValue('landLoan')"></td>
+            <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.landPeriodMap" placeholder="融資期間"></td>
         </tr>
         <tr>
-            <th class="main">建物関係金利&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="par number" placeholder="金利" [(ngModel)]="plan.buildInterest">&nbsp;%</th>
+            <th class="main">建物関係金利&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="par number" placeholder="金利" [(ngModel)]="plan.buildInterestMap">&nbsp;%</th>
             <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal47()) | number"></td>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.buildLoan" placeholder="融資金額" (ngModelChange)="changeValue('buildLoan')"></td>
-            <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.buildPeriod" placeholder="融資期間"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.buildLoanMap" placeholder="融資金額" (ngModelChange)="changeValue('buildLoan')"></td>
+            <td class="yen"><input type="text" class="Twidth100 number"  [(ngModel)]="plan.buildPeriodMap" placeholder="融資期間"></td>
         </tr>
         <span class = "SUM">
             <tr>
@@ -737,11 +737,11 @@
     </tr>
     <tr>
         <th class="head_main">稼働率(%)</th>
-        <td class="left"><input type="text" class="par number" [(ngModel)]="plan.rent.occupancyRate"></td>
+        <td class="left"><input type="text" class="par number" [(ngModel)]="plan.rent.occupancyRateMap"></td>
         <th class="head_main">年間収入(B)</th>
         <td class="left"><input type="text" class="Twidth100 number" [value]="getNumber(cal69()) | number" [attr.disabled]="true"></td>
         <th class="head_main">売却時想定<br>利回り(%)(C)</th>
-        <td class="left"><input type="text" class="par number" [(ngModel)]="plan.rent.salesProfits"></td>
+        <td class="left"><input type="text" class="par number" [(ngModel)]="plan.rent.salesProfitsMap"></td>
         <th class="head_main">取得原価</th>
         <td class="left"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal49()) | number"></td>
     </tr>
@@ -756,10 +756,10 @@
         
     <tr class="rentline">
         <th class="main_plan_rent">経費率(%)</th>
-        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio1">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio2">&nbsp;%</td>
-        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio3">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio4">&nbsp;%</td>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio1Map">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio2Map">&nbsp;%</td>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio3Map">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.expenseRatio4Map">&nbsp;%</td>
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent">NOI<br>※(B)*(1-経費率)</th>
@@ -807,10 +807,10 @@
             
     <tr class="rentline">
         <th class="main_plan_rent">利回り(%)</th>
-        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsA">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsB">&nbsp;%</td>
-        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsC">&nbsp;%</td>
-        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsD">&nbsp;%</td>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsAMap">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsBMap">&nbsp;%</td>
+        <td class="yen" style="margin-left: 5px;"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsCMap">&nbsp;%</td>
+        <td class="yen"><input type="text" class="par number"  [(ngModel)]="plan.rent.profitsDMap">&nbsp;%</td>
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent">売却金額</th>
@@ -822,24 +822,24 @@
     
     <tr class="rentline">
         <th class="main_plan_rent"><input type="text" class="Twidth100" [(ngModel)]="plan.rent.salesExpenseName1" placeholder="販売経費等"></th>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1A" (ngModelChange)="changeValue('salesExpense1A')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1B" (ngModelChange)="changeValue('salesExpense1B')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1C" (ngModelChange)="changeValue('salesExpense1C')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1D" (ngModelChange)="changeValue('salesExpense1D')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1AMap" (ngModelChange)="changeValue('salesExpense1A')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1BMap" (ngModelChange)="changeValue('salesExpense1B')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1CMap" (ngModelChange)="changeValue('salesExpense1C')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense1DMap" (ngModelChange)="changeValue('salesExpense1D')"></td>
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpenseName2" placeholder="販売経費等"></th>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2A" (ngModelChange)="changeValue('salesExpense2A')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2B" (ngModelChange)="changeValue('salesExpense2B')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2C" (ngModelChange)="changeValue('salesExpense2C')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2D" (ngModelChange)="changeValue('salesExpense2D')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2AMap" (ngModelChange)="changeValue('salesExpense2A')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2BMap" (ngModelChange)="changeValue('salesExpense2B')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2CMap" (ngModelChange)="changeValue('salesExpense2C')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense2DMap" (ngModelChange)="changeValue('salesExpense2D')"></td>
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent"><input type="text" class="Twidth100"  [(ngModel)]="plan.rent.salesExpenseName3" placeholder="販売経費等"></th>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3A" (ngModelChange)="changeValue('salesExpense3A')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3B" (ngModelChange)="changeValue('salesExpense3B')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3C" (ngModelChange)="changeValue('salesExpense3C')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3D" (ngModelChange)="changeValue('salesExpense3D')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3AMap" (ngModelChange)="changeValue('salesExpense3A')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3BMap" (ngModelChange)="changeValue('salesExpense3B')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3CMap" (ngModelChange)="changeValue('salesExpense3C')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.salesExpense3DMap" (ngModelChange)="changeValue('salesExpense3D')"></td>
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent">販売経費小計</th>
@@ -868,10 +868,10 @@
     </tr>
     <tr class="rentline">
         <th class="main_plan_rent">坪単価</th>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceA" (ngModelChange)="changeValue('tsuboUnitPriceA')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceB" (ngModelChange)="changeValue('tsuboUnitPriceB')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceC" (ngModelChange)="changeValue('tsuboUnitPriceC')"></td>
-        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceD" (ngModelChange)="changeValue('tsuboUnitPriceD')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceAMap" (ngModelChange)="changeValue('tsuboUnitPriceA')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceBMap" (ngModelChange)="changeValue('tsuboUnitPriceB')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceCMap" (ngModelChange)="changeValue('tsuboUnitPriceC')"></td>
+        <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.tsuboUnitPriceDMap" (ngModelChange)="changeValue('tsuboUnitPriceD')"></td>
     </tr>
 </table>
 <!--利益プラン_E-->
@@ -1062,7 +1062,7 @@
         <tr>
             <th class="main">共益費(月間)</th>
             <td class="yento" style="width: 115px;margin-left: 15px;"><input type="text" class="par number" [value]="plan.totalUnits" [attr.disabled]="true">&nbsp;戸</td>
-            <td class="yen" style=" margin-right: 0px;"><input type="text" placeholder="共益費" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.commonFee" (ngModelChange)="changeValue('commonFee')"></td>
+            <td class="yen" style=" margin-right: 0px;"><input type="text" placeholder="共益費" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.commonFeeMap" (ngModelChange)="changeValue('commonFee')"></td>
             <td class="yen" style="width: 70px;margin-right: 0px;">&nbsp;</td>
             <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(cal65()) | number" [attr.disabled]="true"></td>
             
@@ -1084,7 +1084,7 @@
             <td class="yento" style="width: 110px;">&nbsp;</td>
             <td class="yen">&nbsp;</td>
             <td class="yen">&nbsp;</td>
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.monthlyOtherIncome" (ngModelChange)="changeValue('monthlyOtherIncome')"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.rent.monthlyOtherIncomeMap" (ngModelChange)="changeValue('monthlyOtherIncome')"></td>
             
         </tr>
     </span>
