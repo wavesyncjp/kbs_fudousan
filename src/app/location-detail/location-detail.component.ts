@@ -140,7 +140,7 @@ export class LocationDetailComponent extends BaseComponent {
 
   calTsubo(val) {
     if (!isNullOrUndefined(this.data.areaMap)) {
-      return Math.floor(this.removeComma(val) * 0.3025 * 100) / 100;
+      return Math.floor(this.getNumber(this.removeComma(val)) * 0.3025 * 100) / 100;
     } else {
       return '0';
     }

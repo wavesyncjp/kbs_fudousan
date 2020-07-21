@@ -118,7 +118,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
 
   calTsubo(val) {
     if (!isNullOrUndefined(val)) {
-      return Math.floor(this.removeComma(val) * 0.3025 * 100) / 100;
+      return Math.floor(this.getNumber(this.removeComma(val)) * 0.3025 * 100) / 100;
     } else {
       return ' ';
     }
