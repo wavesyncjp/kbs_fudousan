@@ -207,9 +207,6 @@ export class PlanDetailComponent extends BaseComponent {
 
   /*坪数計算*/
   calTsubo(val) {
-<<<<<<< HEAD
-    if (this.getNumber(val) > 0) {
-=======
     let ret = 0;
     ret = this.getNumber(this.removeComma(val));
     if (ret > 0) {
@@ -218,10 +215,9 @@ export class PlanDetailComponent extends BaseComponent {
     return ret;
     /*
     if (!isNullOrUndefined(val)) {
->>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
       return Math.floor(this.removeComma(val) * 0.3025 * 100) / 100;
     } else {
-      return 0;
+      return '';
     }
     */
   }
@@ -684,14 +680,8 @@ export class PlanDetailComponent extends BaseComponent {
    cal9() {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.siteAreaCheck = this.removeComma(this.plan.siteAreaCheck);
-<<<<<<< HEAD
-//    if(!isNullOrUndefined(this.plan.buildArea) && !isNullOrUndefined(this.plan.siteAreaCheck)) {
-    if(this.getNumber(this.plan.buildArea) > 0
-      && this.getNumber(this.plan.siteAreaCheck) > 0) {
-=======
     if(this.getNumber(this.plan.buildArea) > 0 && this.getNumber(this.plan.siteAreaCheck) > 0) {
 //    if(!isNullOrUndefined(this.plan.buildArea) && !isNullOrUndefined(this.plan.siteAreaCheck)) {
->>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
         this.plan.siteAreaCheck = this.removeComma(this.plan.siteAreaCheck);
         const val9 = Math.floor(this.getNumber(this.plan.buildArea) / this.getNumber(this.plan.siteAreaCheck)*100*100)/100;
         this.plan.siteAreaCheck = this.numberFormat(this.plan.siteAreaCheck);
@@ -708,14 +698,8 @@ export class PlanDetailComponent extends BaseComponent {
   cal10() {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
-<<<<<<< HEAD
-//    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)) {
-    if(this.plan.buildArea !== '' && this.plan.buildArea.length > 0
-      && this.plan.totalArea !== '' && this.plan.totalArea.length > 0) {
-=======
     if(this.getNumber(this.plan.totalArea) > 0  && this.getNumber(this.plan.buildArea) > 0) {
 //    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)) {
->>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
         const val10 = Math.floor(this.getNumber(this.plan.totalArea) / this.getNumber(this.plan.buildArea) *100*100)/100;
         this.plan.buildArea = this.numberFormat(this.plan.buildArea);
         this.plan.totalArea = this.numberFormat(this.plan.totalArea);
@@ -731,15 +715,8 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.entrance = this.removeComma(this.plan.entrance);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
-<<<<<<< HEAD
-//    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)  && !isNullOrUndefined(this.plan.entrance)) {
-  if(this.getNumber(this.plan.buildArea) > 0
-      && this.getNumber(this.plan.entrance) > 0
-      && this.getNumber(this.plan.totalArea) > 0) {
-=======
     if(this.getNumber(this.plan.totalArea) > 0 && this.getNumber(this.plan.buildArea) > 0 && this.getNumber(this.plan.entrance) > 0) {
 //    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)  && !isNullOrUndefined(this.plan.entrance)) {
->>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
       //20200528 S_Edit 計算が正しく行われていないことに対する改修
       //const val11 = Math.floor((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
         const val11 = Math.floor((this.getNumber(this.plan.totalArea) / 
@@ -1212,17 +1189,13 @@ export class PlanDetailComponent extends BaseComponent {
     // 20200519 S_Edit
     this.plan.details[pos].price = this.removeComma(this.plan.details[pos].price);
     
-    /*
     let ret = 0;
     ret = !isNullOrUndefined(this.plan.details[pos].price) ? Number(this.plan.details[pos].price) : 0;
-    */
-    let ret = this.getNumber(this.plan.details[pos].price);
     
     this.plan.details[pos].price = this.numberFormat(this.plan.details[pos].price);
     // 20200519 E_Edit
 
-//    if(ret > 0 && !isNullOrUndefined(this.plan.totalArea)){
-    if(ret > 0 && this.getNumber(this.plan.totalArea) > 0){
+    if(ret > 0 && !isNullOrUndefined(this.plan.totalArea)){
       this.plan.totalArea = this.removeComma(this.plan.totalArea);
       ret = Math.floor(ret / (this.getNumber(this.plan.totalArea) * 0.3025 ));
       this.plan.totalArea = this.numberFormat(this.plan.totalArea);
