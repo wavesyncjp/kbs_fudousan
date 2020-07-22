@@ -207,19 +207,32 @@ export class PlanDetailComponent extends BaseComponent {
 
   /*坪数計算*/
   calTsubo(val) {
+<<<<<<< HEAD
     if (this.getNumber(val) > 0) {
+=======
+    let ret = 0;
+    ret = this.getNumber(this.removeComma(val));
+    if (ret > 0) {
+      ret = Math.floor(ret * 0.3025 * 100) / 100;
+    }
+    return ret;
+    /*
+    if (!isNullOrUndefined(val)) {
+>>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
       return Math.floor(this.removeComma(val) * 0.3025 * 100) / 100;
     } else {
       return 0;
     }
+    */
   }
   //20200331 ADD まだ機能しない為、再考
 
+/*
   getNumber(val) {
     if (val == null || val === '' || isNaN(val)) return 0;
       return Number(val);
     }
-
+*/
 
   changeHang(val, val1) {
     // 20200527 S_Add 土地 取得時税金 所得税・登録税が出力していない点を修正
@@ -415,6 +428,16 @@ export class PlanDetailComponent extends BaseComponent {
     //設計料 price11
     //建築予備費 price13
     if(name === 'price10'){
+      let val = this.getNumber(this.removeComma(this.plan.details[10].price));
+      if(val > 0)
+      {
+        this.plan.details[11].price = String(Math.floor(val * 0.03));
+        this.plan.details[13].price = String(Math.floor(val * 0.02));
+
+        this.changeValue('price11');
+        this.changeValue('price13');
+      }
+      /*
       if(!isNullOrUndefined(this.plan.details[10].price) && !isNullOrUndefined(this.plan.details[11].price)){
         // 20200518 S_Edit
         this.plan.details[10].price = this.removeComma(this.plan.details[10].price);
@@ -429,6 +452,7 @@ export class PlanDetailComponent extends BaseComponent {
         this.plan.details[10].price = this.numberFormat(this.plan.details[10].price);
         // 20200518 E_Edit
       }
+      */
     }
     //建物　取得時税金　取得税 price30
     //建物　取得時税金　登録税 price31
@@ -660,9 +684,14 @@ export class PlanDetailComponent extends BaseComponent {
    cal9() {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.siteAreaCheck = this.removeComma(this.plan.siteAreaCheck);
+<<<<<<< HEAD
 //    if(!isNullOrUndefined(this.plan.buildArea) && !isNullOrUndefined(this.plan.siteAreaCheck)) {
     if(this.getNumber(this.plan.buildArea) > 0
       && this.getNumber(this.plan.siteAreaCheck) > 0) {
+=======
+    if(this.getNumber(this.plan.buildArea) > 0 && this.getNumber(this.plan.siteAreaCheck) > 0) {
+//    if(!isNullOrUndefined(this.plan.buildArea) && !isNullOrUndefined(this.plan.siteAreaCheck)) {
+>>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
         this.plan.siteAreaCheck = this.removeComma(this.plan.siteAreaCheck);
         const val9 = Math.floor(this.getNumber(this.plan.buildArea) / this.getNumber(this.plan.siteAreaCheck)*100*100)/100;
         this.plan.siteAreaCheck = this.numberFormat(this.plan.siteAreaCheck);
@@ -679,9 +708,14 @@ export class PlanDetailComponent extends BaseComponent {
   cal10() {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
+<<<<<<< HEAD
 //    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)) {
     if(this.plan.buildArea !== '' && this.plan.buildArea.length > 0
       && this.plan.totalArea !== '' && this.plan.totalArea.length > 0) {
+=======
+    if(this.getNumber(this.plan.totalArea) > 0  && this.getNumber(this.plan.buildArea) > 0) {
+//    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)) {
+>>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
         const val10 = Math.floor(this.getNumber(this.plan.totalArea) / this.getNumber(this.plan.buildArea) *100*100)/100;
         this.plan.buildArea = this.numberFormat(this.plan.buildArea);
         this.plan.totalArea = this.numberFormat(this.plan.totalArea);
@@ -697,10 +731,15 @@ export class PlanDetailComponent extends BaseComponent {
     this.plan.buildArea = this.removeComma(this.plan.buildArea);
     this.plan.entrance = this.removeComma(this.plan.entrance);
     this.plan.totalArea = this.removeComma(this.plan.totalArea);
+<<<<<<< HEAD
 //    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)  && !isNullOrUndefined(this.plan.entrance)) {
   if(this.getNumber(this.plan.buildArea) > 0
       && this.getNumber(this.plan.entrance) > 0
       && this.getNumber(this.plan.totalArea) > 0) {
+=======
+    if(this.getNumber(this.plan.totalArea) > 0 && this.getNumber(this.plan.buildArea) > 0 && this.getNumber(this.plan.entrance) > 0) {
+//    if(!isNullOrUndefined(this.plan.totalArea)  && !isNullOrUndefined(this.plan.buildArea)  && !isNullOrUndefined(this.plan.entrance)) {
+>>>>>>> d245873a4a989364a56ba08d97cddd6f5edda6bd
       //20200528 S_Edit 計算が正しく行われていないことに対する改修
       //const val11 = Math.floor((this.plan.totalArea / (this.plan.buildArea + this.plan.entrance)) *100*100)/100;
         const val11 = Math.floor((this.getNumber(this.plan.totalArea) / 
@@ -1159,9 +1198,17 @@ export class PlanDetailComponent extends BaseComponent {
     return Math.floor(ret);
   }
 
-  //計算50_s  
-  //計算50_s  
+  //計算50_s
   cal50(pos :number) {
+    let ret = 0;
+    let price = this.getNumber(this.removeComma(this.plan.details[pos].price));
+    let totalArea = this.getNumber(this.removeComma(this.plan.totalArea));
+    if(price > 0 && totalArea > 0)
+    {
+      ret = Math.floor(price / (totalArea * 0.3025 ));
+    }
+    return ret;
+    /*
     // 20200519 S_Edit
     this.plan.details[pos].price = this.removeComma(this.plan.details[pos].price);
     
@@ -1181,6 +1228,7 @@ export class PlanDetailComponent extends BaseComponent {
       this.plan.totalArea = this.numberFormat(this.plan.totalArea);
     }
     return Math.floor(ret);
+    */
   }
 
   //計算51_s 賃料
@@ -1830,7 +1878,7 @@ cal81_4() {
     return 0;
   }
 }
-
+/*
   // 20200518 S_Add
   numberFormat(val) {
     // 空の場合そのまま返却
@@ -1853,6 +1901,6 @@ cal81_4() {
     }
   }
   // 20200518 E_Add
-
+*/
 
 }

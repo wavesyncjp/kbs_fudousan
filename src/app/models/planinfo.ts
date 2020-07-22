@@ -86,18 +86,18 @@ export class Planinfo {
     
 
     // 20200518 S_Add
-    landEvaluationMap: String;
-    taxationMap: String;
-    taxationCityMap: String;
-    buildValuationMap: String;
-    fixedTaxLandMap: String;
-    cityPlanTaxLandMap: String;
-    fixedTaxBuildMap: String;
-    cityPlanTaxBuildMap: String;
-    afterTaxationMap: String;
-    afterTaxationCityMap: String;
-    afterFixedTaxMap: String;
-    afterCityPlanTaxMap: String;
+    landEvaluationMap: string;
+    taxationMap: string;
+    taxationCityMap: string;
+    buildValuationMap: string;
+    fixedTaxLandMap: string;
+    cityPlanTaxLandMap: string;
+    fixedTaxBuildMap: string;
+    cityPlanTaxBuildMap: string;
+    afterTaxationMap: string;
+    afterTaxationCityMap: string;
+    afterFixedTaxMap: string;
+    afterCityPlanTaxMap: string;
     // 20200518 E_Add
     
     details: Plandetail[];
