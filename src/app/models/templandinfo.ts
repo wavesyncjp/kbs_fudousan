@@ -51,8 +51,8 @@ export class Templandinfo {
     finishDateMap: Date = null;
     surveyRequestedDayMap: Date = null;
     surveyDeliveryDayMap: Date = null;
-    infoStaffMap: string[] = [];
-    infoOfferMap: string[] = [];
+    infoStaffMap = [];
+    infoOfferMap = [];
     
     createUserId: number;
     updateUserId: number;
@@ -65,7 +65,7 @@ export class Templandinfo {
         }
     }
 
-    public convert() {
+    public convert(emps: any[]) {
         if (this.pickDate) {
 //            this.pickDateMap = new Date(this.pickDate);
             this.pickDateMap = parse(this.pickDate, 'yyyyMMdd', new Date());
@@ -82,17 +82,19 @@ export class Templandinfo {
         if (this.surveyDeliveryDay) {
             this.surveyDeliveryDayMap = parse(this.surveyDeliveryDay, 'yyyyMMdd', new Date());
         }
-        if (this.infoStaff !== null) {
-            this.infoStaffMap = this.infoStaff.split(',');
+        if (this.infoStaff !== null && emps != null) {
+            this.infoStaffMap = emps.filter(me => this.infoStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
         }
-        if (this.infoOffer !== null) {
-            this.infoOfferMap = this.infoOffer.split(',');
+        if (this.infoOffer !== null && emps != null) {
+            this.infoOfferMap = emps.filter(me => this.infoOffer.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
         }
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
-        this.infoStaff = this.infoStaffMap.join(',');
-        this.infoOffer = this.infoOfferMap.join(',');
+        
+        this.infoStaff = this.infoStaffMap.map(me => me['userId']).join(',');
+
+        this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');
         /*
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
         this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;

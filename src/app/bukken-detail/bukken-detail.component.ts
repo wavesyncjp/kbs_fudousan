@@ -17,6 +17,7 @@ import { SharerInfo } from '../models/sharer-info';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
 import { DatePipe } from '@angular/common';
 import { Util } from '../utils/util';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-bukken-detail',
@@ -40,6 +41,10 @@ export class BukkenDetailComponent extends BaseComponent {
   public cond = {mode: 1
   };
 
+  dropdownSettings = {};
+  authority = '';
+  disableUser: boolean = false;
+
   constructor(public router: Router,
               private route: ActivatedRoute,
               public service: BackendService,
@@ -58,6 +63,8 @@ export class BukkenDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
+    this.authority = this.service.loginUser.authority;
+    this.disableUser = (this.authority === '03');
     this.service.changeTitle('物件情報詳細');
     this.spinner.show();
 
@@ -103,9 +110,21 @@ export class BukkenDetailComponent extends BaseComponent {
       this.spinner.hide();
 
     });
+
+  
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'userId',
+      textField: 'userName',
+      searchPlaceholderText: '検索',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+      enableCheckAll: false      
+    };
+
   }
   convertForDisplay() {
-    this.data.convert();
+    this.data.convert(this.emps);
     // 物件位置情報
     if (this.data.locations && this.data.locations.length > 0) {
       const locs: Locationinfo[] = [];
