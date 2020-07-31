@@ -36,8 +36,16 @@ export class ContractListComponent  extends BaseComponent {
     contractNumber: '',
     vacationDayMap: null,
     vacationDay: '',
+    //20200730 S_Update
+    /*
     contractDay: '',
     contractDayMap: null
+    */
+    contractDay_FromMap: null,
+    contractDay_From: '',
+    contractDay_ToMap: null,
+    contractDay_To: ''
+    //20200730 E_Update
  };
  search = '0';
 
@@ -78,8 +86,16 @@ export class ContractListComponent  extends BaseComponent {
       contractNumber: '',
       vacationDayMap: null,
       vacationDay: '',
+      //20200730 S_Update
+      /*
       contractDay: '',
       contractDayMap: null
+      */
+      contractDay_FromMap: null,
+      contractDay_From: '',
+      contractDay_ToMap: null,
+      contractDay_To: ''
+      //20200730 E_Update
    };
   }
 
@@ -89,7 +105,13 @@ export class ContractListComponent  extends BaseComponent {
   searchContract() {
     this.spinner.show();
     this.cond.vacationDay = this.cond.vacationDayMap != null ? this.datepipe.transform(this.cond.vacationDayMap, 'yyyyMMdd') : null;
+    //20200730 S_Update
+    /*
     this.cond.contractDay = this.cond.contractDayMap != null ? this.datepipe.transform(this.cond.contractDayMap, 'yyyyMMdd') : null;
+    */
+    this.cond.contractDay_From = this.cond.contractDay_FromMap != null ? this.datepipe.transform(this.cond.contractDay_FromMap, 'yyyyMMdd') : "";
+    this.cond.contractDay_To = this.cond.contractDay_ToMap != null ? this.datepipe.transform(this.cond.contractDay_ToMap, 'yyyyMMdd') : "";
+    //20200730 E_Update
     this.service.searchContract(this.cond).then(res => {
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;

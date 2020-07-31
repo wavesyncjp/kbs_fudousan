@@ -29,7 +29,7 @@ export class Templandinfo {
     landCategory = '';
     floorAreaRatio: string;
     coverageRate: number = null;
-    surveyRequestedDay: string;z
+    surveyRequestedDay: string;
     surveyRequested: string;
     surveyStaff: string;
     surveyMapChk: string;
@@ -51,9 +51,15 @@ export class Templandinfo {
     finishDateMap: Date = null;
     surveyRequestedDayMap: Date = null;
     surveyDeliveryDayMap: Date = null;
+    //20200731 S_Update
+    /*
     infoStaffMap: string[] = [];
     infoOfferMap: string[] = [];
-    
+    */
+    infoStaffMap = [];
+    infoOfferMap = [];
+    //20200731 E_Update
+
     createUserId: number;
     updateUserId: number;
     
@@ -65,7 +71,12 @@ export class Templandinfo {
         }
     }
 
+    //20200731 S_Update
+    /*
     public convert() {
+    */
+    public convert(emps: any[]) {
+    //20200731 E_Update
         if (this.pickDate) {
 //            this.pickDateMap = new Date(this.pickDate);
             this.pickDateMap = parse(this.pickDate, 'yyyyMMdd', new Date());
@@ -82,17 +93,34 @@ export class Templandinfo {
         if (this.surveyDeliveryDay) {
             this.surveyDeliveryDayMap = parse(this.surveyDeliveryDay, 'yyyyMMdd', new Date());
         }
+        //20200731 S_Update
+        /*
         if (this.infoStaff !== null) {
             this.infoStaffMap = this.infoStaff.split(',');
         }
         if (this.infoOffer !== null) {
             this.infoOfferMap = this.infoOffer.split(',');
         }
+        */
+        if (this.infoStaff !== null && emps != null) {
+            this.infoStaffMap = emps.filter(me => this.infoStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
+        }
+        if (this.infoOffer !== null && emps != null) {
+            this.infoOfferMap = emps.filter(me => this.infoOffer.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
+        }
+        //20200731 E_Update
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
+        //20200731 S_Update
+        /*
         this.infoStaff = this.infoStaffMap.join(',');
         this.infoOffer = this.infoOfferMap.join(',');
+        */
+        this.infoStaff = this.infoStaffMap.map(me => me['userId']).join(',');
+        this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');
+        //20200731 E_Update
+
         /*
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
         this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;

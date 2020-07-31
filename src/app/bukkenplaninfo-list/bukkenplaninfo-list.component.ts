@@ -74,7 +74,12 @@ export class BukkenplaninfoListComponent extends BaseComponent {
 
     this.data = new LandPlanInfo(ret);
     this.data.land = new Templandinfo(this.data.land);
-    this.data.land.convert(); 
+    //20200731 S_Update
+    /*
+    this.data.land.convert();
+    */
+    this.data.land.convert(null);
+    //20200731 E_Update
 
 
     let plans: Bukkenplaninfo[] = [];

@@ -51,6 +51,7 @@ import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo
 import { ContractTemplateComponent } from './contract-template/contract-template.component';
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
 
 @NgModule({
   declarations: [
@@ -123,7 +124,8 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
     MatSnackBarModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatSortModule
+    MatSortModule,
+    NgMultiSelectDropDownModule.forRoot()//20200731 Add
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

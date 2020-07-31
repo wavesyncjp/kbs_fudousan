@@ -48,7 +48,12 @@ export class PayContractListComponent extends BaseComponent {
   search = '0';
   searched = false;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail', 'csvCheck'];// 'paymentCode',
+  //20200730 S_Update
+  /*
+  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail', 'csvCheck'];
+  */
+  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'csvCheck'];
+  //20200730 E_Update
   dataSource = new MatTableDataSource<Paycontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

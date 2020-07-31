@@ -106,7 +106,8 @@
         <th mat-header-cell *matHeaderCellDef> 取引先 </th>
         <td mat-cell *matCellDef="let element" class="bukkenlist_width">{{element.supplierName}}</td>
         </ng-container>
-
+        <!-- 20200730 S_Delete -->
+        <!--
         <ng-container matColumnDef="payContractDay">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約予定日 </th>
         <td mat-cell *matCellDef="let element">{{formatDay(element.payContractDay, 'yyyy/MM/dd')}}</td>
@@ -116,20 +117,38 @@
         <th mat-header-cell *matHeaderCellDef> 契約確定日 </th>
         <td mat-cell *matCellDef="let element">{{formatDay(element.payContractFixDay, 'yyyy/MM/dd')}}</td>
         </ng-container>
-        <!--hiranomemo 支払種別 追加-->
+        -->
+        <!-- 20200730 E_Delete -->
+
         <ng-container matColumnDef="paymentCode">
         <th mat-header-cell *matHeaderCellDef> 支払種別 </th>
         <td mat-cell *matCellDef="let element"> <!--{{element.paymentCode}} -->
             <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{getPaymentName(detail.paymentCode)}}</div>
         </td>
         </ng-container>
-         <!--hiranomemo  支払予定日 追加-->
+
         <ng-container matColumnDef="contractDay">
         <th mat-header-cell *matHeaderCellDef> 支払予定日 </th>
         <td mat-cell *matCellDef="let element"> <!--{{element.contractDay}} -->
             <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractDay , 'yyyy/MM/dd')}}</div>
         </td>
         </ng-container>
+
+        <!-- 20200730 S_Add -->
+        <ng-container matColumnDef="contractFixDay">
+            <th mat-header-cell *matHeaderCellDef> 支払確定日 </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractFixDay , 'yyyy/MM/dd')}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="payPriceTax">
+            <th mat-header-cell *matHeaderCellDef> 支払金額(税込) </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{numberFormat(detail.payPriceTax)}}</div>
+            </td>
+        </ng-container>
+        <!-- 20200730 E_Add -->
    
         <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>

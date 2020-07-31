@@ -1,8 +1,9 @@
 .detail-div{
     margin:0px;
-    background-color:white;   
+    background-color:white;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;/*20200731 Add*/
 }
 
 .detail-tbl > tr > th{
@@ -298,3 +299,25 @@ mat-form-field > input {
   .tab-switch {
     display: none;
   }
+
+  /*20200731 S_Add*/
+  ::ng-deep.multiselect-dropdown {
+    width: 275px !important;
+    margin-left: 3px;
+  }
+  
+  ::ng-deep.multiselect-dropdown .dropdown-btn {
+    height: 22px !important;
+    padding: 5px 12px !important;
+    border-color: #6495ED !important;
+    border-radius: 3px !important;
+    line-height: unset !important;
+    font-size: 13px !important;
+  }
+
+  ::ng-deep.multiselect-dropdown .dropdown-btn .dropdown-down {
+    border-top: 5px solid #adadad !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+  }
+  /*20200731 E_Add*/

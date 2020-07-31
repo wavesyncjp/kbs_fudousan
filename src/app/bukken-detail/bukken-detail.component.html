@@ -54,7 +54,10 @@
         <tr>
             <th class="block-title-statusNew">情報ステータス</th>
             <td>
-                <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result" [noBlank]="true"></app-select-component>
+                <!-- 20200731 S_Update -->
+                <!--<app-select-component [codes]="getCode('001')" [(ngModel)]="data.result" [noBlank]="true"></app-select-component>-->
+                <app-select-component [codes]="getCode('001')" [(ngModel)]="data.result" [noBlank]="true" [isDisabled]="disableUser"></app-select-component>
+                <!-- 20200731 E_Update -->
             </td>
         </tr>
 
@@ -62,18 +65,38 @@
             <tr>
                 <th>物件担当部署</th>
                 <td style="width: 220px;">
-                    <app-select-component [codes]="getDeps()" [(ngModel)]="data.department"></app-select-component>
+                    <!-- 20200731 S_Update -->
+                    <!--<app-select-component [codes]="getDeps()" [(ngModel)]="data.department"></app-select-component>-->
+                    <app-select-component [codes]="getDeps()" [(ngModel)]="data.department" [isDisabled]="disableUser"></app-select-component>
+                    <!-- 20200731 E_Update -->
                 </td>
                 <th>物件担当者</th>
                 <td style="width: 360px;">
+                    <!-- 20200731 S_Delete -->
+                    <!--
                     <mat-select multiple class="width300" [(ngModel)]="data.infoStaffMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.userId">{{emp.userName}}</mat-option>
                     </mat-select>
+                    -->
+                    <!-- 20200731 E_Delete -->
+                    <!-- 20200731 S_Add -->
+                    <ng-multiselect-dropdown class="width300"
+                        [placeholder]="'選択'"
+                        [data]="emps"
+                        [disabled]="disableUser"
+                        [(ngModel)]="data.infoStaffMap"
+                        [settings]="dropdownSettings"
+                        >
+                    </ng-multiselect-dropdown>
+                    <!-- 20200731 E_Add -->
                 </td>
                 <th>着手日</th>
                 <td>
                     <div class="picker-div">
-                        <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">
+                        <!-- 20200731 S_Update -->
+                        <!--<input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">-->
+                        <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100" [disabled]="disableUser">
+                        <!-- 20200731 E_Update -->
                         <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
                         <mat-datepicker #startDate></mat-datepicker>
                     </div>
@@ -83,21 +106,41 @@
                 <th>情報収集日</th>
                 <td style="width: 220px;">
                     <div class="picker-div">
-                        <input type="text" [matDatepicker]="pickDate" [(ngModel)]="data.pickDateMap"  class="width100">
+                        <!-- 20200731 S_Update -->
+                        <!--<input type="text" [matDatepicker]="pickDate" [(ngModel)]="data.pickDateMap"  class="width100">-->
+                        <input type="text" [matDatepicker]="pickDate" [(ngModel)]="data.pickDateMap" class="width100" [disabled]="disableUser">
+                        <!-- 20200731 E_Update -->
                         <mat-datepicker-toggle matSuffix [for]="pickDate" class="picker-icon"></mat-datepicker-toggle>
                         <mat-datepicker #pickDate></mat-datepicker>
                     </div>
                 </td>
                 <th>情報提供者</th>
                 <td style="width: 360px;"> 
+                    <!-- 20200731 S_Delete -->
+                    <!--
                     <mat-select multiple class="width300" [(ngModel)]="data.infoOfferMap">
                         <mat-option *ngFor="let emp of emps" [value]="emp.userId">{{emp.userName}}</mat-option>
                     </mat-select>
+                    -->
+                    <!-- 20200731 E_Delete -->
+                    <!-- 20200731 S_Add -->
+                    <ng-multiselect-dropdown class="width300"
+                        [placeholder]="'選択'"
+                        [data]="emps"
+                        [disabled]="authority === '03' ? true : false"
+                        [(ngModel)]="data.infoOfferMap"
+                        [settings]="dropdownSettings"
+                        >
+                    </ng-multiselect-dropdown>
+                    <!-- 20200731 E_Add -->
                 </td>
                 <th>終了日</th>
                 <td>
                     <div class="picker-div">
-                        <input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width100">
+                        <!-- 20200731 S_Update -->
+                        <!--<input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width100">-->
+                        <input type="text" [matDatepicker]="finishDate" [(ngModel)]="data.finishDateMap" class="width100" [disabled]="disableUser">
+                        <!-- 20200731 E_Update -->
                         <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
                         <mat-datepicker #finishDate></mat-datepicker>
                     </div>
@@ -107,14 +150,20 @@
             <tr>
                 <th>備考1</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100">
-                </td>      
+                    <!-- 20200731 S_Update -->
+                    <!--<input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100">-->
+                    <input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
+                    <!-- 20200731 E_Update -->
+                </td>
             </tr>
             <tr>
                 <th>備考2</th>
                 <td colspan="5">
-                    <input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100">
-                </td>      
+                    <!-- 20200731 S_Update -->
+                    <!--<input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100">-->
+                    <input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
+                    <!-- 20200731 E_Update -->
+                </td>
             </tr>
         </table>
         <br>
@@ -241,6 +290,7 @@
             <span class="min">契約一覧</span>
             <table>
                 <thead class="list-header">
+                    <th class="width100">契約状況</th><!-- 20200730 Add -->
                     <th class="width150">契約番号</th>
                     <!--20200414hirano src_S-->
                     <th class="width100">契約書番号</th>
@@ -257,6 +307,7 @@
                 </thead>
                 <tbody class="list-body">
                     <tr *ngFor="let contract of contracts">
+                        <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                         <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                         <!--20200414hirano src_S-->
                         <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>

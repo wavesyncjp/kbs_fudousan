@@ -33,6 +33,8 @@
                         </div>
                     </td>
                     <th>契約日</th>
+                    <!-- 20200730 S_Update -->
+                    <!--
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="cond.contractDayMap">
@@ -40,6 +42,22 @@
                             <mat-datepicker #contractDay></mat-datepicker>
                         </div>
                     </td>
+                    -->
+                    <td style="width: 150px;"> 
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractDay_From" [(ngModel)]="cond.contractDay_FromMap" placeholder="開始日" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractDay_From" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractDay_From></mat-datepicker>
+                        </div>&nbsp;&nbsp;～
+                        </td>
+                        <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractDay_To" [(ngModel)]="cond.contractDay_ToMap" placeholder="終了日" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractDay_To" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractDay_To></mat-datepicker>
+                        </div>
+                    </td>
+                    <!-- 20200730 E_Update -->
                 </tr>       
             </table>      
             <div style="margin: 10px 0px 10px 0px;">
