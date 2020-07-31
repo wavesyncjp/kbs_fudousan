@@ -3,6 +3,7 @@
     background-color:white;   
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
 }
 
 .detail-tbl > tr > th{
