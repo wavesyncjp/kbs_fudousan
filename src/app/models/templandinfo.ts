@@ -15,7 +15,7 @@ export class Templandinfo {
     residence = '';
     pickDate = '';
     department = '';
-    staff = '';
+//    staff = '';//20200801 Delete
     infoStaff = '';
     infoOffer = '';
     startDate = '';
@@ -26,7 +26,7 @@ export class Templandinfo {
     indivisibleFlg: number;
     indivisibleNumerator: number;
     indivisibleDenominator: string;
-    landCategory = '';
+//    landCategory = '';//20200801 Delete
     floorAreaRatio: string;
     coverageRate: number = null;
     surveyRequestedDay: string;
