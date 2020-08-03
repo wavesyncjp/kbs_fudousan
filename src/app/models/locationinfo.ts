@@ -4,34 +4,42 @@ import { SharerInfo } from './sharer-info';
 export class Locationinfo {
     pid: number;
     tempLandInfoPid: number;
-    registPosition: number;
-    zipcode: string;
-    prefecture: string;
+    //20200803 S_Delete
+//    registPosition: number;
+//    zipcode: string;
+//    prefecture: string;
+    //20200803 E_Delete
     address: string;
     blockNumber: string;
     buildingNumber: string;
     area: number;
     tsubo: number;
-    floorAreaRate: number;
-    improveFlg: number;
+    //20200803 S_Delete
+//    floorAreaRate: number;
+//    improveFlg: number;
+    //20200803 E_Delete
     buildingType: string;
     floorSpace: string;
     structure: string;
-    coverageRate: number;
+//    coverageRate: number;//20200803 Delete
     owner: string;
     ownerAdress: string;
     equity: string;
-    landMortgage: string;
-    builMortgage: string;
+    //20200803 S_Delete
+//    landMortgage: string;
+//    builMortgage: string;
+    //20200803 E_Delete
     rightsForm: string;
     liveInfo: string;
     locationType: string;
-    residence: string;
+//    residence: string;//20200803 Delete
     buysellFlg = '0';
     dependType: string;
     dependFloor: string;
-    bukkenName = '';
-    floorAreaRatio: number = null;
+    //20200803 S_Delete
+//    bukkenName = '';
+//    floorAreaRatio: number = null;
+    //20200803 E_Delete
     landCategory: string;
     ownerRemark: string;
     ridgePid: string;
