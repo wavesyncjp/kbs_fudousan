@@ -155,5 +155,6 @@ export class LandPlanInfo {
         if (init) {
             Object.assign(this, init);
         }
+        
     }
 }
