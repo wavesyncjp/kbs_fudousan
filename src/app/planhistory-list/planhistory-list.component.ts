@@ -7,7 +7,7 @@ import { Code } from '../models/bukken';
 import { Templandinfo } from '../models/templandinfo';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Dialog } from '../models/dialog';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatTableDataSource} from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatePipe } from '@angular/common';
@@ -17,22 +17,17 @@ import { Plandetail } from '../models/plandetail';
 import { Planrentroll } from '../models/Planrentroll';
 import { Planrentrolldetail } from '../models/Planrentrolldetail';
 import { PlanHistoryCreateComponent } from '../planhistory-create/planhistory-create.component';
-import { PlanHistoryListComponent } from '../planhistory-list/planhistory-list.component';
 
 @Component({
-  selector: 'app-plan-detail',
-  templateUrl: './plan-detail.component.html',
-  styleUrls: ['./plan-detail.component.css'],
+  selector: 'app-planhistory-list',
+  templateUrl: './planhistory-list.component.html',
+  styleUrls: ['./planhistory-list.component.css'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
     { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
-export class PlanDetailComponent extends BaseComponent {
-  public cond = {
-    planStatus:'',
-    
- };
+export class PlanHistoryListComponent extends BaseComponent {
 
   public contract: Contractinfo;
   public data: Templandinfo;
@@ -59,9 +54,6 @@ export class PlanDetailComponent extends BaseComponent {
 
     this.data = new Templandinfo();
   }
-  /*Plan情報を入れる　07_31*/
-  dataSource = new MatTableDataSource<Planinfo>();
-  
 
   ngOnInit() {
     super.ngOnInit();
@@ -2583,47 +2575,4 @@ cal81_4() {
   }
   // 20200518 E_Add
 */
-
-  createHistory() {
-    const row = new Code();
-    const dialogRef = this.dialog.open(PlanHistoryCreateComponent, {
-      width: '750px',
-      height: '400px',
-      data: row
-    });
-  }
-  
-  historyList() {
-    const row = new Code();
-    const dialogRef = this.dialog.open(PlanHistoryListComponent, {
-      width: '100%',
-      height: '100%',
-      data: row
-    });
-  }
-
-   /**
-   * 契約者名表示
-   * @param plan 契約者
-   表示以外のplan情報をグリッドに表示したい動き
-   */
-  displayPlantype(plan: Planinfo) {
-    this.router.navigate(['/planinfo'], {queryParams: {pid: plan.pid}});
-  }
-
-  getplanStatus(plan: Planinfo) {
-    return plan.details.map(dt => {
-      return this.getCodeTitle('016', this.plan.filter(loc => loc.pid === dt.planPid));
-    }).join('\n\r');
-  }
-  
-  
- searchPlan() {
-  this.spinner.show();
-  this.service.searchPlan(this.cond).then(res => {
-    this.service.searchCondition = this.cond;
-    this.dataSource.data = res;
-  });
-}
-
 }

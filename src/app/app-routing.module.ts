@@ -14,8 +14,10 @@ import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.co
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
-import { PlanListComponent } from './plan-list/plan-list.component';
+import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';
+import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
 import { BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
+import { PlanListComponent } from './plan-list/plan-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,6 +36,8 @@ const routes: Routes = [
 
   { path: 'plans', component: PlanListComponent},
   { path: 'plandetail', component: PlanDetailComponent},
+  { path: 'planhistorycreate', component: PlanHistoryCreateComponent},
+  { path: 'planhistorylist', component: PlanHistoryListComponent},
   { path: 'pays', component: PayContractListComponent},
   { path: 'paydetail', component: PayContractDetailComponent}
 

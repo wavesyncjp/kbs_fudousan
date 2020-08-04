@@ -52,6 +52,9 @@ import { ContractTemplateComponent } from './contract-template/contract-template
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 
+import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';
+import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +92,9 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
     BukkenplaninfoListComponent,
     ContractTemplateComponent,
     CsvTemplateComponent,
-    ErrorDialogComponent,    
+    ErrorDialogComponent,
+    PlanHistoryCreateComponent,
+    PlanHistoryListComponent,    
 
     
     // 20200226 test E_Add
@@ -131,7 +136,7 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
     UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
     PaymentTypeDetailComponent, PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent,
-    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent
+    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent,PlanHistoryCreateComponent,PlanHistoryListComponent
   ],
 })
 export class AppModule { }

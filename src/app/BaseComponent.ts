@@ -8,6 +8,7 @@ import { Dialog } from './models/dialog';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material';
 import { isNullOrUndefined } from 'util';
+import { Planinfo } from './models/planinfo';
 
 export class BaseComponent implements OnInit {
     public sysCodes = {};
@@ -15,6 +16,7 @@ export class BaseComponent implements OnInit {
     public emps = [];
     public users = [];
     public payTypes: PaymentType[]  = [];
+    public plan: Planinfo[]  = [];
     public lands = [];
 //    public codes = [];
     public sysCodeNameMsts = [];
@@ -166,6 +168,18 @@ export class BaseComponent implements OnInit {
      */
     getPaymentName(paymentCode: string): string {
         const lst = this.payTypes.filter(data => data.paymentCode === paymentCode).map(data => data.paymentName);
+        if(lst.length > 0) {
+            return lst[0];
+        }
+        return '';
+    }
+    /*08.04_Edd*/
+    /**
+     * 
+     * @param planStatus 支払い名称取得
+     */
+    getplanStatus(planStatus: string) {
+        const lst = this.plan.filter(data => data.planStatus === planStatus).map(data => data.planStatus);
         if(lst.length > 0) {
             return lst[0];
         }

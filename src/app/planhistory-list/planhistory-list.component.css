@@ -267,13 +267,11 @@ span.head{
     width: 100%;
 }
 .detail-tbl-plan{
-    width: 48%;
+   
     border-spacing: 0px;
     border-collapse: collapse;
     margin:0px 10px 40px 10px;
-    border-top: solid 4px rgba(146, 192, 140, 0.692);
-    border-right: solid 4px rgba(146, 192, 140, 0.692);
-    float: left;
+    
 }
 span.head_plan{
     font-size: 0.8em;
