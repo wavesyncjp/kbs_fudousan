@@ -1899,6 +1899,7 @@ export class PlanDetailComponent extends BaseComponent {
     while(pos < 15) {
       ret += this.cal51(pos);
       pos++;
+      
     }
     for (let i = 15; i <= 18; i++) {
       ret += this.cal53(i);
