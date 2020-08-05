@@ -30,14 +30,20 @@ import { isNullOrUndefined } from 'util';
   ],
 })
 export class PlanDetailComponent extends BaseComponent {
+  //20200805 S_Add
+  public cond = {
+    tempLandInfoPid: null
+  };
+  //20200805 E_Add
 
   public contract: Contractinfo;
   public data: Templandinfo;
   public pid: number;
   public bukkenid: number;
+  public tempLandInfoPid: number;//20200805 Add
   public plan: Planinfo;
   public rent: Planrentroll;
-
+  plans: Planinfo[] = [];//20200805 Add
 
   public payTypeGroup1 = [];
   public payTypeGroup2 = [];
@@ -53,6 +59,7 @@ export class PlanDetailComponent extends BaseComponent {
     this.route.queryParams.subscribe(params => {
       this.pid = params.pid;
       this.bukkenid = params.bukkenid;
+      this.tempLandInfoPid = params.tempLandInfoPid;//20200805 Add
     });
 
     this.data = new Templandinfo();
@@ -79,10 +86,18 @@ export class PlanDetailComponent extends BaseComponent {
     funcs.push(this.service.getPaymentTypes(null));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
+      //20200805 S_Add
+      this.cond.tempLandInfoPid = this.bukkenid;
+      funcs.push(this.service.searchPlan(this.cond));
+      //20200805 E_Add
     }
     // tslint:disable-next-line:one-line
     else if (this.pid > 0) {
       funcs.push(this.service.getPlan(this.pid));
+      //20200805 S_Add
+      this.cond.tempLandInfoPid = this.tempLandInfoPid;
+      funcs.push(this.service.searchPlan(this.cond));
+      //20200805 E_Add
     }
 
     Promise.all(funcs).then(values => {
@@ -136,6 +151,8 @@ export class PlanDetailComponent extends BaseComponent {
           this.plan.parkingOutdoor = 0;
           // 20200527 E_Add
         }
+
+        this.plans = values[5];//20200805 Add
       }
 
       if(this.plan.rent == null || !this.plan.rent) {
