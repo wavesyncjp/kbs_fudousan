@@ -10,6 +10,7 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-location-detail',
@@ -130,10 +131,26 @@ export class LocationDetailComponent extends BaseComponent {
       firstSharer.buysellFlg = this.data.buysellFlg;
   }
 
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
+
+  calTsubo(val) {
+    if (!isNullOrUndefined(this.data.areaMap)) {
+      return Math.floor(this.getNumber(this.removeComma(val)) * 0.3025 * 100) / 100;
+    } else {
+      return '0';
+    }
+  }
+
   changeArea(event) {
     const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.data.tsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    let ret = this.removeComma(val)
+    if (this.isNumberStr(ret)) {
+      this.data.tsubo = Math.floor(Number(ret) * 0.3025 * 100 ) / 100;
     }
   }
 

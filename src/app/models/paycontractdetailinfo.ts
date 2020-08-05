@@ -19,4 +19,8 @@ export class Paycontractdetailinfo {
     contractFixDayMap: Date = null;
 
     deleteUserId: number;
+
+    payPriceMap: string;
+    payTaxMap: string;
+    payPriceTaxMap: string;
 }

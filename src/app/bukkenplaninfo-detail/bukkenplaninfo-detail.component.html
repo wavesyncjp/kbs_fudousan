@@ -41,7 +41,7 @@
             </div>
             </td>
             <th>売買代金</th>
-            <td><input type="text" [(ngModel)]="data.salesTradingPrice" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesTradingPriceMap" class="width100 number" maxlength="15" [value]="changeValue(data.salesTradingPriceMap)"></td>
             <th>契約予定日</th>
             <td colspan="3">
             <div class="picker-div">
@@ -62,7 +62,7 @@
             </div>
             </td>
             <th>決済代金</th>
-            <td><input type="text" [(ngModel)]="data.salesDecisionPrice" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesDecisionPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesDecisionPriceMap)"></td>
             <th>決済日</th>
             <td colspan="3">
             <div class="picker-div">
@@ -74,31 +74,31 @@
         </tr>
         <tr>
             <th>固都税清算金</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedTax" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesFixedTaxMap)"></td>
             <th>(固都税清算金)土地</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedLandTax" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedLandTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedLandTaxMap)"></td>
             <th>(固都税清算金)建物</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedBuildingTax" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedBuildingTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedBuildingTaxMap)"></td>
             <th>(固都税清算金)消費</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedConsumptionTax" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesFixedConsumptionTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedConsumptionTaxMap)"></td>
 
         </tr>
         <tr>
             <th>その他清算金</th>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation1" class="width100" maxlength="15"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation2" class="width100" maxlength="15"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation3" class="width100" maxlength="15"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation4" class="width100" maxlength="15"></td>
-            <td><input type="text" [(ngModel)]="data.salesLiquidation5" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation1Map)"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation2Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation2Map)"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation3Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation3Map)"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation4Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation4Map)"></td>
+            <td><input type="text" [(ngModel)]="data.salesLiquidation5Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation5Map)"></td>
            
         </tr>
         <tr>
             <th>仲介手数料</th>
-            <td><input type="text" [(ngModel)]="data.salesBrokerageFee" class="width100" maxlength="15"></td>
+            <td><input type="text" [(ngModel)]="data.salesBrokerageFeeMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesBrokerageFeeMap)"></td>
             <th>地積</th>
-            <td><input type="text" [(ngModel)]="data.salesLandArea" class="width100 number" maxlength="15" (keypress)="floatOnly($event)">㎡</td>
-            <td style="width: 150px;"><input type="text" [(ngModel)]="data.tsubo" class="width100 number"   [value]="calTsubo(data.salesLandArea)" [attr.disabled]="true" maxlength="15">&nbsp;坪</td>
-           <!--[value]="getNumber(data.salesLandArea) | number"--> 
+            <td><input type="text" [(ngModel)]="data.salesLandAreaMap" class="width100 number" maxlength="15" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('salesLandAreaMap')">㎡</td>
+            <td style="width: 150px;"><input type="text" class="width100 number" (keypress)="floatOnly($event)" [value]="calTsubo(data.salesLandAreaMap)" [attr.disabled]="true" maxlength="15">&nbsp;坪</td>
+            <!--[value]="getNumber(data.salesLandArea) | number"--> 
         </tr>
         <tr>
             <th>仲介会社</th>

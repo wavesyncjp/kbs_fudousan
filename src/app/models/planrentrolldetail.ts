@@ -1,5 +1,3 @@
-
-
 export class Planrentrolldetail {
 
     pid: number;
@@ -7,14 +5,18 @@ export class Planrentrolldetail {
     planPid: number;
     planRentRollPid: number;
     targetArea: string;
-    space: string;
-    rentUnitPrice: string;
-    securityDeposit: string;
-    backNumber: string;
+    space: number;
+    rentUnitPrice: number;
+    securityDeposit: number;
+    backNumber: number;
+
+    spaceMap: string;
+    rentUnitPriceMap: string;
+    securityDepositMap: string;
+
     createUserId: number;
+    createDate: Date;
     updateUserId: number;
     updateDate: Date;
-    createDate: Date;
-    
     deleteUserId: number;
 }

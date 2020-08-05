@@ -121,6 +121,13 @@ export class ContractDetailComponent extends BaseComponent {
       this.contract.promptDecideContent = '';
     }
   }
+  
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
 
 
   // 20200709 E_Add

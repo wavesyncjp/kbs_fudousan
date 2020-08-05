@@ -1,5 +1,7 @@
 import { Contractdetailinfo } from './contractdetailinfo';
 import { SharerInfo } from './sharer-info';
+import { Converter } from '../utils/converter';
+
 
 export class Locationinfo {
     pid: number;
@@ -46,6 +48,8 @@ export class Locationinfo {
     buildingNotyet = '0';
     inheritanceNotyet = '0';
 
+    areaMap:string;
+
     contractDetail: Contractdetailinfo;
     sharers: SharerInfo[];
     delSharers: number[];
@@ -64,6 +68,7 @@ export class Locationinfo {
         if (this.dependType !== null && this.dependType !== undefined && this.dependType.length > 0) {
             this.dependTypeMap = this.dependType.split(',');
         }
+        this.areaMap = Converter.numberToString(this.area);
     }
     public convertForSave(userId: number) {
         if (this.dependTypeMap != null && this.dependTypeMap.length > 0) {
@@ -74,6 +79,7 @@ export class Locationinfo {
         } else {
             this.createUserId = userId;
         }
+        this.area = Converter.stringToNumber(this.areaMap);
     }
 }
 
