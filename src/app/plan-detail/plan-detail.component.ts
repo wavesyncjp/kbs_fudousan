@@ -152,7 +152,8 @@ export class PlanDetailComponent extends BaseComponent {
           // 20200527 E_Add
         }
 
-        this.plans = values[5];//20200805 Add
+        const land = values[5];
+        this.plans = (land != null && land.length > 0 ? land[0].plans : []);//20200805 Add
       }
 
       if(this.plan.rent == null || !this.plan.rent) {
