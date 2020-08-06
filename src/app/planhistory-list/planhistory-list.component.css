@@ -78,6 +78,16 @@
     height: 30px;    
 }
 
+.historyLog {
+    background-color:#FFC000;
+    color: white;
+    line-height: 30px;
+    width:70px; 
+    padding: 0px 5px ;
+    font-size: 12px;
+
+}
+
 .fixed_asset> tr > th{
     width:110px !important;
     border-bottom: solid 2px  rgba(238, 204, 160, 0.692);
@@ -188,6 +198,11 @@ span.fixed_asset_head{
     /*border: solid 1px rgba(0,0,0,.12);
     /*border-left: solid 1px rgba(0,0,0,.12); */
 }
+.detail-tbl-head > tr > td.history{
+    padding: 1px;
+    float: left;
+    margin-left: 57px;
+}
 
 
 span.head{
@@ -252,13 +267,11 @@ span.head{
     width: 100%;
 }
 .detail-tbl-plan{
-    width: 48%;
+   
     border-spacing: 0px;
     border-collapse: collapse;
     margin:0px 10px 40px 10px;
-    border-top: solid 4px rgba(146, 192, 140, 0.692);
-    border-right: solid 4px rgba(146, 192, 140, 0.692);
-    float: left;
+    
 }
 span.head_plan{
     font-size: 0.8em;
@@ -845,22 +858,8 @@ th.head_roll_1{
     border-bottom:solid 2px rgba(179, 176, 176, 0.692);
  
 }
-.historyLog {
-    background-color:#FFC000;
-    color: white;
-    line-height: 30px;
-    width:70px; 
-    padding: 0px 5px ;
-    font-size: 12px;
 
-}
-.detail-tbl-head > tr > td.history{
-    padding: 1px;
-    float: left;
-    margin-left: 57px;
-}
-
-/*---------他プラン-------------*/
+/*---------契約-------------*/
 .contact-div {
     width: 86%;
     height: 100%;
@@ -908,4 +907,5 @@ th.head_roll_1{
     color: white;
     width: 180px;
 }
+
 
