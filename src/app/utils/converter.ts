@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
 
 export class Converter {
+    
     public formatDay(val: Date, format: string) {
         if (val === undefined || val == null) {
             return '';
@@ -37,11 +38,8 @@ export class Converter {
         return ret;
     }
     
-
     public static stringToDate(val: string, format: string) {
-        let ret = parse(val, format, new Date());
+        let ret = val != null && val !== '' ? parse(val, format, new Date()) : null;
         return ret;
     }
-    
-
 }
