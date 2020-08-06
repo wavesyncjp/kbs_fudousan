@@ -622,6 +622,17 @@ export class BackendService {
     return req.toPromise();
   }
 
+  //20200805 S_Add
+  /**
+   * 事業収支一覧取得（グリッド用）
+   */
+  searchPlanForGrid(cond: any): Promise<Planinfo[]> {
+    const searchApi = 'plansearchforgrid.php';
+    const req = this.http.post<Planinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+  //20200805 E_Add
+
   /**
    * 事業収支登録
    * @param plan ：事業収支
