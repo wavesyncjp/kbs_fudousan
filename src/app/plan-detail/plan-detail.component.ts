@@ -160,6 +160,10 @@ export class PlanDetailComponent extends BaseComponent {
         this.plans = (land != null && land.length > 0 ? land[0].plans : []);//20200805 Add
         */
         this.plans = values[5];
+        this.plans.forEach(me => {
+          me['pjCost'] = this.getPjCost(me);
+        });
+        //20200805 E_Update
       }
 
       if(this.plan.rent == null || !this.plan.rent) {
