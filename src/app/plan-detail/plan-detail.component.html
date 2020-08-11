@@ -1152,6 +1152,28 @@
 </div>
 <!-- 20200805 E_Add -->
 
+<!-- 20200808 S_Add -->
+<div class="history-div" *ngIf="plans && plans.length > 0" style="width: 100%;">
+    <span class="min">プラン履歴　一覧</span>
+    <table>
+        <thead class="history-header">
+            <th class="width100">プラン番号</th>
+            <th class="width150">プラン種別</th>
+            <th class="width100">プラン名</th>
+            <th class="width150">PJ原価</th>
+        </thead>
+        <tbody class="history-body">
+            <tr *ngFor="let plan of plans">
+                <td class="break-line">{{getCodeTitle('016', plan.planStatus)}}</td>
+                <td>{{plan.planName}}</td>
+                <td>{{plan.historyPjCost}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- 20200808 E_Add -->
+
 </table>
 <div class="register-div-bottom">
 <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
