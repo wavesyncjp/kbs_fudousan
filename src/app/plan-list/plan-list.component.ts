@@ -162,7 +162,12 @@ export class PlanListComponent extends BaseComponent {
     });
   }*/
   showDetail(row: Planinfo) {
+    //20200805 S_Update
+    /*
     this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
+    */
+   this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
+   //20200805 E_Update
   }
   
 
