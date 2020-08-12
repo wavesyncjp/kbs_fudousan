@@ -232,9 +232,16 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
+      //20200811 S_Update
+     /*
       if (result) {
         this.data.locations.push(newLoc);
       }
+      */
+     if (result && result.isSave) {
+      this.data.locations.push(result.data);
+    }
+    //20200811 E_Update
     });
   }
 
