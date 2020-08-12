@@ -1264,7 +1264,7 @@
 <!-- 20200805 E_Add -->
 
 <!-- 20200808 S_Add -->
-<div class="history-div" *ngIf="plans && plans.length > 0" style="width: 100%;">
+<div class="history-div" *ngIf="planHistorys && planHistorys.length > 0" style="width: 100%;">
     <span class="min">プラン履歴　一覧</span>
     <table>
         <thead class="history-header">
@@ -1274,11 +1274,11 @@
             <th class="width150">PJ原価</th>
         </thead>
         <tbody class="history-body">
-            <tr *ngFor="let plan of plans">
-                <td class="break-line">{{getCodeTitle('016', plan.planStatus)}}</td>
-                <td>{{plan.planName}}</td>
-                <td>{{plan.historyPjCost}}</td>
-                <td></td>
+            <tr *ngFor="let planHistory of planHistorys">
+                <td class="break-line">{{planHistory.planNumber}}</td>
+                <td>{{getCodeTitle('016', planHistory.planStatus)}}</td>
+                <td>{{planHistory.planHistoryName}}</td>
+                <td>{{planHistory.pjCost}}</td>
             </tr>
         </tbody>
     </table>

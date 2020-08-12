@@ -16,25 +16,22 @@ import { Planinfo } from '../models/planinfo';
 import { Plandetail } from '../models/plandetail';
 import { Planrentroll } from '../models/Planrentroll';
 import { Planrentrolldetail } from '../models/Planrentrolldetail';
-import { Planinfohistory } from '../models/Planinfohistory';
 import { PlanHistoryCreateComponent } from '../planhistory-create/planhistory-create.component';
-import { PlanHistoryListComponent } from '../planhistory-list/planhistory-list.component';
 
 @Component({
-  selector: 'app-plan-detail',
-  templateUrl: './plan-detail.component.html',
-  styleUrls: ['./plan-detail.component.css'],
+  selector: 'app-planhistory-list',
+  templateUrl: './planhistory-list.component.html',
+  styleUrls: ['./planhistory-list.component.css'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
     { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
-export class PlanDetailComponent extends BaseComponent {
+export class PlanHistoryListComponent extends BaseComponent {
   //20200805 S_Add
   public cond = {
     tempLandInfoPid: null,
-    notPlanPid: null,
-    planPid:null
+    notPlanPid: null
   };
   //20200805 E_Add
 
@@ -46,7 +43,7 @@ export class PlanDetailComponent extends BaseComponent {
   public plan: Planinfo;
   public rent: Planrentroll;
   plans: Planinfo[] = [];//20200805 Add
-  planHistorys: Planinfohistory[] = [];
+ 
 
   public payTypeGroup1 = [];
   public payTypeGroup2 = [];
@@ -86,7 +83,6 @@ export class PlanDetailComponent extends BaseComponent {
     funcs.push(this.service.getEmps(null));
 
     funcs.push(this.service.getPaymentTypes(null));
-    /*
     if(this.bukkenid > 0){
       funcs.push(this.service.getLand(this.bukkenid));
       //20200805 S_Add
@@ -99,24 +95,6 @@ export class PlanDetailComponent extends BaseComponent {
       this.cond.tempLandInfoPid = this.tempLandInfoPid;
       this.cond.notPlanPid = this.pid;
       funcs.push(this.service.searchPlanForGrid(this.cond));
-      //20200805 E_Add
-    }
-*/
-    if(this.bukkenid > 0){
-      funcs.push(this.service.getLand(this.bukkenid));
-      //20200805 S_Add
-      this.cond.tempLandInfoPid = this.bukkenid;
-      funcs.push(this.service.searchPlanForGrid(this.cond));
-      //20200805 E_Add
-      //funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
-    } else if(this.pid > 0) {
-      funcs.push(this.service.getPlan(this.pid));
-      //20200805 S_Add
-      this.cond.tempLandInfoPid = this.tempLandInfoPid;
-      this.cond.notPlanPid = this.pid;
-      funcs.push(this.service.searchPlanForGrid(this.cond));
-      this.cond.planPid = this.pid;
-      funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
       //20200805 E_Add
     }
 
@@ -175,17 +153,7 @@ export class PlanDetailComponent extends BaseComponent {
         const land = values[5];
         this.plans = (land != null && land.length > 0 ? land[0].plans : []);//20200805 Add
         */
-       this.plans = values[5];
-       this.plans.forEach(me => {
-         me['pjCost'] = this.getPjCost(me);
-       });
-       //20200805 E_Update
-
-       this.planHistorys = values[6];
        
-       this.planHistorys.forEach(me => {
-         me['pjCost'] = this.getPjCost(me);
-       });
       }
 
       if(this.plan.rent == null || !this.plan.rent){
@@ -2633,62 +2601,5 @@ cal81_4() {
   }
   // 20200518 E_Add
 */
-createHistory() {
-  const row = new Code();
-  const dialogRef = this.dialog.open(PlanHistoryCreateComponent, {
-    width: '750px',
-    height: '400px',
-    data: row
-  });
-}
-
-historyList() {
-  const row = new Code();
-  const dialogRef = this.dialog.open(PlanHistoryListComponent, {
-    width: '100%',
-    height: '100%',
-    data: row
-  });
-}
-  //20200805 S_Add
-  //PJ原価
-  getPjCost(plan: Planinfo) {
-    let ret = 0;
-
-    //ret = this.cal29() + this.cal34() + this.cal45() + this.cal46() + this.cal47();
-    
-    for (let i = 0; i <= 38; i++) {
-      let price = this.getNumber(this.removeComma(plan.details[i].price));
-      ret += price;
-    }
-    ret += this.changeHang(plan.taxation, 0.015) + this.changeHang(plan.taxation, 0.02);
-
-    let buildValuation = this.getNumber(this.removeComma(plan.buildValuation));
-    
-    if(buildValuation > 0){
-      ret += Math.floor(buildValuation * 0.03);
-      ret += Math.floor(buildValuation * 0.02);
-    }
-
-    let landLoan = this.getNumber(this.removeComma(plan.landLoan));
-    let landInterest = this.getNumber(this.removeComma(plan.landInterest));
-    let landPeriod = this.getNumber(this.removeComma(plan.landPeriod));
-
-    if(landLoan > 0 && landInterest > 0 && landPeriod > 0){
-      ret += landLoan * landInterest / 12 * landPeriod / 100;
-    }
-
-    let buildLoan = this.getNumber(this.removeComma(plan.buildLoan));
-    let buildInterest = this.getNumber(this.removeComma(plan.buildInterest));
-    let buildPeriod = this.getNumber(this.removeComma(plan.buildPeriod));
-
-    if(buildLoan > 0 && buildInterest > 0 && buildPeriod > 0){
-      ret += buildLoan * buildInterest / 12 * buildPeriod / 100;
-    }
-
-    return Math.floor(ret);
-  }
-  //20200805 E_Add
-
   
 }
