@@ -59,11 +59,15 @@ export class LocationDetailComponent extends BaseComponent {
 
       this.spinner.hide();
     });
-     if(this.data.pid == undefined) this.data.locationType = '01';
-     else{
-       
-      if (this.data.locationType === '04') {
 
+    //20200811 S_Update
+    /*
+    if(this.data.pid == undefined) this.data.locationType = '01';
+    */
+    if(this.data.pid == undefined && this.data.locationType == undefined) this.data.locationType = '01';
+    //20200811 E_Update
+    else{
+      if (this.data.locationType === '04') {
         this.cond = {
           tempLandInfoPid: this.data.tempLandInfoPid,
           locationType: '03'
@@ -76,8 +80,7 @@ export class LocationDetailComponent extends BaseComponent {
           // this.spinner.hide();
         });
       }
-      
-     }
+    }
   }
 
   /**
