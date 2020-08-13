@@ -28,8 +28,12 @@ export class Converter {
     
     public static numberToString(val: number) {
         let ret;
+        /*
         if(val == 0) ret = '';
         else if(val != null) ret = Number(val).toLocaleString();
+        */
+        if(val == null || val == 0) ret = '';
+        else ret = Number(val).toLocaleString();
         return ret;
     }
     public static dateToString(val: Date, format: string, datePipe: DatePipe) {
@@ -37,11 +41,8 @@ export class Converter {
         return ret;
     }
     
-
     public static stringToDate(val: string, format: string) {
         let ret = val != null && val !== '' ? parse(val, format, new Date()) : null;
         return ret;
     }
-    
-
 }

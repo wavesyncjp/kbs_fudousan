@@ -10,9 +10,9 @@ export class Planrentrolldetail {
     securityDeposit: number;
     backNumber: number;
 
-    spaceMap: string;
-    rentUnitPriceMap: string;
-    securityDepositMap: string;
+    spaceMap: string = "";
+    rentUnitPriceMap: string = "";
+    securityDepositMap: string = "";
 
     createUserId: number;
     createDate: Date;

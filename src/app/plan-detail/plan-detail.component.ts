@@ -118,6 +118,8 @@ export class PlanDetailComponent extends BaseComponent {
           this.plan.landLoanMap = "0";
           this.plan.buildLoanMap = "0";
           // 20200519 E_Add
+          //20200813 S_Delete
+          /*
           // 20200527 S_Add 新規作成の際、カンマを自動でつける処理が行われないこと、自動計算が行われないことに対する修正
           this.plan.landInterestMap = "";
           this.plan.landPeriodMap = "";
@@ -127,11 +129,15 @@ export class PlanDetailComponent extends BaseComponent {
 //          this.plan.parkingIndoor = 0;
 //          this.plan.parkingOutdoor = 0;
           // 20200527 E_Add
+          */
+          //20200813 E_Delete
         }
       }
 
       if(this.plan.rent == null || !this.plan.rent){
         this.plan.rent = new Planrentroll();
+        //20200813 S_Delete
+        /*
         // 20200519 S_Add
         this.plan.rent.salesExpense1AMap = "";
         this.plan.rent.salesExpense1BMap = "";
@@ -148,6 +154,8 @@ export class PlanDetailComponent extends BaseComponent {
         this.plan.rent.commonFeeMap = "";
         this.plan.rent.monthlyOtherIncomeMap = "";
         // 20200519 E_Add
+        */
+        //20200813 E_Delete
       }
 
       //明細情報が存在しない場合
@@ -161,6 +169,8 @@ export class PlanDetailComponent extends BaseComponent {
 //          detail.backNumber = String(index + 1);
           detail.backNumber = index + 1;
 
+          //20200813 S_Delete
+          /*
           // 20200527 S_Add 新規作成の際、カンマを自動でつける処理が行われないこと、自動計算が行われないことに対する修正
           detail.priceMap = "";
           if(index == 4 || index == 32) detail.priceMap = "0";
@@ -175,6 +185,8 @@ export class PlanDetailComponent extends BaseComponent {
           detail.dismantlingMonthMap = "";
           detail.routePriceMap = "";
           // 20200527 E_Add
+          */
+          //20200813 E_Delete
           this.plan.details.push(detail);
         });
       }
@@ -186,9 +198,13 @@ export class PlanDetailComponent extends BaseComponent {
         lst.forEach((code, index) => {
           let rentdetail = new Planrentrolldetail();
           rentdetail.targetArea = code;
+          //20200813 S_Delete
+          /*
           rentdetail.spaceMap = "";
           rentdetail.rentUnitPriceMap = "";
           rentdetail.securityDepositMap = "";
+          */
+          //20200813 E_Delete
 //          rentdetail.backNumber = String(index + 1);
           rentdetail.backNumber = index + 1;
           this.plan.rentdetails.push(rentdetail);

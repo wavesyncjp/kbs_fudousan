@@ -17,17 +17,17 @@ export class Plandetail {
     price: number;
     priceTax: number;
 
-    routePriceMap: string;
-    burdenDaysMap: string;
-    unitPriceMap: string;
-    complePriceMonthMap: string;
-    dismantlingMonthMap: string;
-    valuationMap: string;
-    rentMap: string;
-    totalMonthsMap: string;
-    commissionRateMap: string;
-    priceMap: string;
-    priceTaxMap: string;
+    routePriceMap: string = "";
+    burdenDaysMap: string = "";
+    unitPriceMap: string = "";
+    complePriceMonthMap: string = "";
+    dismantlingMonthMap: string = "";
+    valuationMap: string = "";
+    rentMap: string = "";
+    totalMonthsMap: string = "";
+    commissionRateMap: string = "";
+    priceMap: string = "";
+    priceTaxMap: string = "";
 
     createUserId: number;
     createDate: Date;
