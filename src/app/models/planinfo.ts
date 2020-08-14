@@ -72,11 +72,11 @@ export class Planinfo {
     updateUserId: number;
     updateDate: Date;
     
-    createDayMap: Date;
-    scheduledDayMap: Date;
-    startDayMap: Date;
-    upperWingDayMap: Date;
-    completionDayMap: Date;
+    createDayMap: Date = null;
+    scheduledDayMap: Date = null;
+    startDayMap: Date = null;
+    upperWingDayMap: Date = null;
+    completionDayMap: Date = null;
     
     siteAreaBuyMap: string = "";
     siteAreaCheckMap: string = "";

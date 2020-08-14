@@ -1,10 +1,8 @@
 import { Contractdetailinfo } from './contractdetailinfo';
 import { DatePipe } from '@angular/common';
-import { parse } from 'date-fns';
 import { ContractFile } from './mapattach';
 import { ContractSellerInfo } from './contractsellerinfo';
 import { Converter } from '../utils/converter';
-
 
 export class Contractinfo {
     pid: number;
@@ -74,7 +72,6 @@ export class Contractinfo {
     accountName: string;
     bankName: string;
 
-
     deliveryFixedDayMap: Date = null;
     vacationDayMap: Date = null;
     contractDayMap: Date = null;
@@ -91,26 +88,26 @@ export class Contractinfo {
     earnestPriceDayMap: Date = null;
     canncellDayMap: Date = null;
     retainageDayMap: Date = null;
+    
     // 20200709 S_Add
-    tradingPriceMap: string;
-    tradingLandPriceMap: string;
-    tradingBuildingPriceMap: string;
-    tradingLeasePriceMap: string;
-    setlementPriceMap: string;
-    //
-    deposit1Map: string;
-    deposit2Map: string;
-    earnestPriceMap: string;
-    tradingBalanceMap: string;
-    fixedTaxMap: string;
-    decisionPriceMap: string;
-    retainageMap: string;
-    prioritySalesPlanPriceMap: string;
-    prioritySalesAreaMap: string;
-    siteAreaMap: string;
-    totalFloorAreaMap: string;
-    siteAvailableAreaMap: string;
-    prioritySalesFloorMap: string;
+    tradingPriceMap: string = "";
+    tradingLandPriceMap: string = "";
+    tradingBuildingPriceMap: string = "";
+    tradingLeasePriceMap: string = "";
+    setlementPriceMap: string = "";
+    deposit1Map: string = "";
+    deposit2Map: string = "";
+    earnestPriceMap: string = "";
+    tradingBalanceMap: string = "";
+    fixedTaxMap: string = "";
+    decisionPriceMap: string = "";
+    retainageMap: string = "";
+    prioritySalesPlanPriceMap: string = "";
+    prioritySalesAreaMap: string = "";
+    siteAreaMap: string = "";
+    totalFloorAreaMap: string = "";
+    siteAvailableAreaMap: string = "";
+    prioritySalesFloorMap: string = "";
     // 20200709 E_Add
    
     details: Contractdetailinfo[] = [];
@@ -212,6 +209,5 @@ export class Contractinfo {
         this.siteAvailableArea = Converter.stringToNumber(this.siteAvailableAreaMap);
         this.prioritySalesFloor = Converter.stringToNumber(this.prioritySalesFloorMap);
        // 20200709 E_Add
-       
     }
 }

@@ -20,7 +20,7 @@ export class Paycontractdetailinfo {
 
     deleteUserId: number;
 
-    payPriceMap: string;
-    payTaxMap: string;
-    payPriceTaxMap: string;
+    payPriceMap: string = "";
+    payTaxMap: string = "";
+    payPriceTaxMap: string = "";
 }

@@ -1,8 +1,4 @@
-
-
-
 import { DatePipe } from '@angular/common';
-import { parse } from 'date-fns';
 import { Converter } from '../utils/converter';
 
 export class Bukkensalesinfo {
@@ -45,27 +41,32 @@ export class Bukkensalesinfo {
     salesDecisionDayMap: Date = null;
     
     // 20200713 S_Add
-    salesTradingPriceMap: string;
-    salesDecisionPriceMap: string;
-    salesFixedTaxMap: string;
-    salesFixedLandTaxMap: string;
-    salesFixedBuildingTaxMap: string;
-    salesFixedConsumptionTaxMap: string;
-    salesLiquidation1Map: string;
-    salesLiquidation2Map: string;
-    salesLiquidation3Map: string;
-    salesLiquidation4Map: string;
-    salesLiquidation5Map: string;
-    salesBrokerageFeeMap: string;
-    salesLandAreaMap: string;
+    salesTradingPriceMap: string = "";
+    salesDecisionPriceMap: string = "";
+    salesFixedTaxMap: string = "";
+    salesFixedLandTaxMap: string = "";
+    salesFixedBuildingTaxMap: string = "";
+    salesFixedConsumptionTaxMap: string = "";
+    salesLiquidation1Map: string = "";
+    salesLiquidation2Map: string = "";
+    salesLiquidation3Map: string = "";
+    salesLiquidation4Map: string = "";
+    salesLiquidation5Map: string = "";
+    salesBrokerageFeeMap: string = "";
+    salesLandAreaMap: string = "";
     // 20200713 E_Add
 
     public constructor(init?: Partial<Bukkensalesinfo>) {
         Object.assign(this, init);
     }
 
-  public convert() {
-        
+    public convert() {
+        //カレンダー
+        this.salesContractDayMap = Converter.stringToDate(this.salesContractDay, 'yyyyMMdd');
+        this.salesContractSchDayMap = Converter.stringToDate(this.salesContractSchDay, 'yyyyMMdd');
+        this.salesDecisionSchDayMap = Converter.stringToDate(this.salesDecisionSchDay, 'yyyyMMdd');
+        this.salesDecisionDayMap = Converter.stringToDate(this.salesDecisionDay, 'yyyyMMdd');
+        /*
         if (this.salesContractDay) {
             this.salesContractDayMap = parse(this.salesContractDay, 'yyyyMMdd', new Date());
         }
@@ -79,6 +80,7 @@ export class Bukkensalesinfo {
         if (this.salesDecisionDay) {
             this.salesDecisionDayMap = parse(this.salesDecisionDay, 'yyyyMMdd', new Date());
         }
+        */
         //カンマ// 20200713 S_Add
         this.salesTradingPriceMap = Converter.numberToString(this.salesTradingPrice);
         this.salesDecisionPriceMap = Converter.numberToString(this.salesDecisionPrice);
@@ -94,10 +96,7 @@ export class Bukkensalesinfo {
         this.salesBrokerageFeeMap = Converter.numberToString(this.salesBrokerageFee);
         this.salesLandAreaMap = Converter.numberToString(this.salesLandArea);
         // 20200713 E_Add
-        
     }
-    
-  
 
     public convertForSave(userId: number , datePipe: DatePipe, isDelete: boolean) {
         if (this.createUserId > 0) {
@@ -109,12 +108,18 @@ export class Bukkensalesinfo {
         if(isDelete) {
             this.deleteUserId = userId;
         }
-            
+        
+        //カレンダー
+        this.salesContractDay = Converter.dateToString(this.salesContractDayMap,'yyyyMMdd',datePipe);
+        this.salesContractSchDay = Converter.dateToString(this.salesContractSchDayMap,'yyyyMMdd',datePipe);
+        this.salesDecisionSchDay = Converter.dateToString(this.salesDecisionSchDayMap,'yyyyMMdd',datePipe);
+        this.salesDecisionDay = Converter.dateToString(this.salesDecisionDayMap,'yyyyMMdd',datePipe);
+        /*
         this.salesContractDay = this.salesContractDayMap != null ? datePipe.transform(this.salesContractDayMap, 'yyyyMMdd') : null;
         this.salesContractSchDay = this.salesContractSchDayMap != null ? datePipe.transform(this.salesContractSchDayMap, 'yyyyMMdd') : null;
         this.salesDecisionSchDay = this.salesDecisionSchDayMap != null ? datePipe.transform(this.salesDecisionSchDayMap, 'yyyyMMdd') : null;
         this.salesDecisionDay = this.salesDecisionDayMap != null ? datePipe.transform(this.salesDecisionDayMap, 'yyyyMMdd') : null;
-
+        */
         //カンマ
         this.salesTradingPrice = Converter.stringToNumber(this.salesTradingPriceMap);
         this.salesDecisionPrice = Converter.stringToNumber(this.salesDecisionPriceMap);
@@ -129,8 +134,6 @@ export class Bukkensalesinfo {
         this.salesLiquidation5 = Converter.stringToNumber(this.salesLiquidation5Map);
         this.salesBrokerageFee = Converter.stringToNumber(this.salesBrokerageFeeMap);
         this.salesLandArea = Converter.stringToNumber(this.salesLandAreaMap);
-        
-        
     }
 }
 

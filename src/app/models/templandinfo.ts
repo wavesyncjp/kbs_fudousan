@@ -1,11 +1,9 @@
 import { Locationinfo } from './locationinfo';
 import { MapAttach, AttachFile } from './mapattach';
 import {Bukkenplaninfo} from './bukkenplaninfo'
-import { SharerInfo } from './sharer-info';
-import { from } from 'rxjs';
 import { Bukkensalesinfo } from './bukkensalesinfo';
 import { DatePipe } from '@angular/common';
-import { parse } from 'date-fns';
+import { Converter } from '../utils/converter';
 
 export class Templandinfo {
     pid: number;
@@ -45,12 +43,12 @@ export class Templandinfo {
     attachFiles: AttachFile[];
     locations: Locationinfo[];
 
-
     pickDateMap: Date = null;
     startDateMap: Date = null;
     finishDateMap: Date = null;
     surveyRequestedDayMap: Date = null;
     surveyDeliveryDayMap: Date = null;
+    
     //20200731 S_Update
     /*
     infoStaffMap: string[] = [];
@@ -63,8 +61,6 @@ export class Templandinfo {
     createUserId: number;
     updateUserId: number;
     
-    
-
     public constructor(init?: Partial<Templandinfo>) {
         if (init) {
             Object.assign(this, init);
@@ -77,6 +73,13 @@ export class Templandinfo {
     */
     public convert(emps: any[]) {
     //20200731 E_Update
+        //日付
+        this.pickDateMap = Converter.stringToDate(this.pickDate, 'yyyyMMdd');
+        this.startDateMap = Converter.stringToDate(this.startDate, 'yyyyMMdd');
+        this.finishDateMap = Converter.stringToDate(this.finishDate, 'yyyyMMdd');
+        this.surveyRequestedDayMap = Converter.stringToDate(this.surveyRequestedDay, 'yyyyMMdd');
+        this.surveyDeliveryDayMap = Converter.stringToDate(this.surveyDeliveryDay, 'yyyyMMdd');
+        /*
         if (this.pickDate) {
 //            this.pickDateMap = new Date(this.pickDate);
             this.pickDateMap = parse(this.pickDate, 'yyyyMMdd', new Date());
@@ -93,6 +96,7 @@ export class Templandinfo {
         if (this.surveyDeliveryDay) {
             this.surveyDeliveryDayMap = parse(this.surveyDeliveryDay, 'yyyyMMdd', new Date());
         }
+        */
         //20200731 S_Update
         /*
         if (this.infoStaff !== null) {
@@ -127,20 +131,26 @@ export class Templandinfo {
         this.finishDate = this.finishDateMap != null ? this.finishDateMap.toLocaleString() : null;
         this.surveyRequestedDay = this.surveyRequestedDayMap != null ? this.surveyRequestedDayMap.toLocaleString() : null;
         this.surveyDeliveryDay = this.surveyDeliveryDayMap != null ? this.surveyDeliveryDayMap.toLocaleString() : null;
-        */
+        
         this.pickDate = this.pickDateMap != null ? datePipe.transform(this.pickDateMap, 'yyyyMMdd') : null;
         this.startDate = this.startDateMap != null ? datePipe.transform(this.startDateMap, 'yyyyMMdd') : null;
         this.finishDate = this.finishDateMap != null ? datePipe.transform(this.finishDateMap, 'yyyyMMdd') : null;
         this.surveyRequestedDay = this.surveyRequestedDayMap != null ? datePipe.transform(this.surveyRequestedDayMap, 'yyyyMMdd') : null;
         this.surveyDeliveryDay = this.surveyDeliveryDayMap != null ? datePipe.transform(this.surveyDeliveryDayMap, 'yyyyMMdd') : null;
+        */
+        //日付
+        this.pickDate = Converter.dateToString(this.pickDateMap, 'yyyyMMdd', datePipe);
+        this.startDate = Converter.dateToString(this.startDateMap, 'yyyyMMdd', datePipe);
+        this.finishDate = Converter.dateToString(this.finishDateMap, 'yyyyMMdd', datePipe);
+        this.surveyRequestedDay = Converter.dateToString(this.surveyRequestedDayMap, 'yyyyMMdd', datePipe);
+        this.surveyDeliveryDay = Converter.dateToString(this.surveyDeliveryDayMap, 'yyyyMMdd', datePipe);
 
         if (this.pid > 0) {
             this.updateUserId = userId;
         } else {
             this.createUserId = userId;
         }
-
-    }    
+    }
 }
 
 /**
