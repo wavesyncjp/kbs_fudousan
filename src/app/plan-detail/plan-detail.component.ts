@@ -134,7 +134,8 @@ export class PlanDetailComponent extends BaseComponent {
         }
       }
 
-      if(this.plan.rent == null || !this.plan.rent){
+//      if(this.plan.rent == null || !this.plan.rent){
+      if(this.plan.rent == null){
         this.plan.rent = new Planrentroll();
         //20200813 S_Delete
         /*
