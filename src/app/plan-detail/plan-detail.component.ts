@@ -2650,9 +2650,14 @@ historyList() {
     data: row
   });
 }
-//2020 08 17
-showContract(planData: Planinfo) {
-  this.router.navigate(['/ctdetail'], {queryParams: {pid: planData.pid}});
+//20200817 S_Edd
+showPlan(row: Planinfo) {
+  //20200805 S_Update
+  /*
+  this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
+  */
+ this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
+ //20200805 E_Update
 }
   //20200805 S_Add
   //PJ原価
