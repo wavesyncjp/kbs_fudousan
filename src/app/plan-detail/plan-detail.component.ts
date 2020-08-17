@@ -2650,6 +2650,10 @@ historyList() {
     data: row
   });
 }
+//2020 08 17
+showContract(planData: Planinfo) {
+  this.router.navigate(['/ctdetail'], {queryParams: {pid: planData.pid}});
+}
   //20200805 S_Add
   //PJ原価
   getPjCost(plan: Planinfo) {
