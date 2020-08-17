@@ -52,6 +52,8 @@ import { ContractTemplateComponent } from './contract-template/contract-template
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
+import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';//hirano0804
+import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';//hirano0804
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731
     BukkenplaninfoListComponent,
     ContractTemplateComponent,
     CsvTemplateComponent,
-    ErrorDialogComponent,    
+    ErrorDialogComponent,
+    PlanHistoryCreateComponent,//hirano0804
+    PlanHistoryListComponent ,  //hirano0804     
 
     
     // 20200226 test E_Add
@@ -133,7 +137,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
     UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
     PaymentTypeDetailComponent, PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent,
-    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent
+    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent,PlanHistoryCreateComponent,PlanHistoryListComponent
   ],
 })
 export class AppModule { }

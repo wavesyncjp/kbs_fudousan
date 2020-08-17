@@ -16,6 +16,11 @@
     <table class="detail-tbl-head">  
         <tr>
             <td><span class="head">プラン種別</span>&nbsp;&nbsp;<app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus"></app-select-component></td>
+            <td class="history">
+                <span *ngIf="plan.pid > 0">
+                    <button mat-raised-button (click)="createHistory()" color="warn" style="line-height: 30px;" >&nbsp;履歴登録&nbsp;</button>
+                </span> 
+            </td>
         </tr>
         <tr>
             <!--<th>プランステータス</th>
@@ -377,7 +382,8 @@
             <th class="title">事業収支&nbsp;※単位(円)</th>
             <td class="titlehead">金額(税抜)</td>
             <td class="titlehead">単価・坪</td>
-            <td class="titlehead">算出根拠</td>
+            <td class="titlehead">算出根拠&nbsp;&nbsp;&nbsp;&nbsp;
+                <button mat-raised-button (click)="historyList()" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button></td>
         </tr>
         <tr>
             <td><span class="head_plan">土地原価</span></td>
@@ -1239,6 +1245,53 @@
     
 
 </table>
+<!-- 20200805 S_Add -->
+<div class="contact-div" *ngIf="plans && plans.length > 0" style="width: 100%;">
+    <span class="min">事業収支　一覧</span>
+    <table>
+        <thead class="list-header">
+            <th class="width100">プラン種別</th>
+            <th class="width150">プラン名</th>
+            <th class="width100">PJ原価</th>
+            <th class="width150">履歴作成日</th>
+        </thead>
+        <tbody class="list-body">
+            <tr *ngFor="let plan of plans">
+                <td class="break-line">{{getCodeTitle('016', plan.planStatus)}}</td>
+                <td>
+                    <div class="contract-div">
+                        <a (click)="showPlan(plan)" class="contract-link" >{{plan.planName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- 20200805 E_Add -->
+
+<!-- 20200808 S_Add -->
+<div class="history-div" *ngIf="planHistorys && planHistorys.length > 0" style="width: 100%;">
+    <span class="min">プラン履歴　一覧</span>
+    <table>
+        <thead class="history-header">
+            <th class="width100">プラン番号</th>
+            <th class="width150">プラン種別</th>
+            <th class="width100">プラン名</th>
+            <th class="width150">PJ原価</th>
+        </thead>
+        <tbody class="history-body">
+            <tr *ngFor="let planHistory of planHistorys">
+                <td class="break-line">{{planHistory.planNumber}}</td>
+                <td>{{getCodeTitle('016', planHistory.planStatus)}}</td>
+                <td>{{planHistory.planHistoryName}}</td>
+                <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- 20200808 E_Add -->
 
 </table>
 <div class="register-div-bottom">
