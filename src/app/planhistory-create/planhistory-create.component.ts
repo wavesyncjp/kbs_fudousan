@@ -1,7 +1,7 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild,Inject} from '@angular/core';
 import { PlanDetailComponent } from '../Plan-detail/Plan-detail.component';
 import { BackendService } from '../backend.service';
-import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter,MatTabGroup,MatDialogRef,MAT_DIALOG_DATA } from '@angular/material';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
@@ -13,6 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
+import { Planinfohistory } from '../models/Planinfohistory';
+import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 
 
 @Component({
@@ -27,56 +29,31 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 })
 
 export class PlanHistoryCreateComponent extends BaseComponent {
+  @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
 
-  
-  public cond = {
-    bukkenNo: '',
-    bukkenName: '',
-    address: '',
-    planName: '',
-    createDay: '',
-    createDayMap: ''
- };
- 
-  search = '0';
-  selectedRowIndex = -1;
-  displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDay', 'delete', 'detail'];
-  
-
-  dataSource = new MatTableDataSource<PlanHistoryCreateComponent>();
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  constructor(public router: Router,
-              public dialog: MatDialog,
-              public datepipe: DatePipe,
-              private route: ActivatedRoute,
-              public service: BackendService,
-              private spinner: NgxSpinnerService,
-              public plan: Planinfo) {
-    super(router, service,dialog);
-    this.route.queryParams.subscribe(params => {
-      this.search = params.search;
-    });
-    
-  }
+  constructor(
+    public router: Router,
+    public service: BackendService,
+    public dialogRef: MatDialogRef<PlanHistoryCreateComponent>,
+    public dialog: MatDialog,
+    private spinner: NgxSpinnerService,
+    @Inject(MAT_DIALOG_DATA)
+    public data: Planinfohistory,
+    public datepipe: DatePipe) {
+super(router, service,dialog);
+}
+    public plan:Planinfo;
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-    super.ngOnInit();
-    this.service.changeTitle('事業収支一覧');
-    this.dataSource.paginator = this.paginator;
-
-
-
     const funcs = [];
-    /*funcs.push(this.service.getCodes(['014']));*/
-
+//    funcs.push(this.service.getCodes(['006']));
+    funcs.push(this.service.getCodeNameMsts(null));//getPlanHistory
     Promise.all(funcs).then(values => {
 
       // コード
       const codes = values[0] as Code[];
-      if (codes != null && codes.length > 0) {
+      if (codes !== null && codes.length > 0) {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);
@@ -85,49 +62,60 @@ export class PlanHistoryCreateComponent extends BaseComponent {
         });
       }
 
+      this.sysCodeNameMsts = values[0];
+
+      if (this.data == null) {
+        this.data = new Planinfohistory();
+        //this.data.depCode = '1';
+      } 
+
     });
   }
-
-    /**
-   * 検索条件リセット
+  /**追記
+   * バリデーション
    */
-
-
-  
-  createPlan(row: Planinfo) {
-    this.router.navigate(['/plandetail'], {queryParams: {bukkenid: row.tempLandInfoPid}});
+  validate(): boolean {
+    this.errorMsgs = [];
+    this.errors = {};
+    this.checkBlank(this.data.planHistoryName, 'planHistoryName', 'プラン履歴名は必須です。');
+    if (this.errorMsgs.length > 0) {
+      return false;
+    }
+    return true;
   }
+  ok() {
+    if (!this.validate()) {
+      return;
+    }
 
-  createNew(raw : PlanDetailComponent) {
-    this.router.navigate(['/plandetail']);
-  }
+    // 登録
+    const dlgObj = new Dialog({title: '確認', message: '登録しますが、よろしいですか？'});
+    const dlg = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlgObj});
 
+    dlg.afterClosed().subscribe(result => {
+      if (dlgObj.choose) {
+        this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
+        this.service.savePlanHistory(this.data).then(res => {
 
-
-    
-  
-/*
-  showDetail(row: Planinfo) {
-    const dialogRef = this.dialog.open(PlanListComponent, {
-      width: '840px',
-      height: '420px',
-      data: row
-    });
-
-    // 再検索
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.searchPlan();
+          const finishDlg = new Dialog({ title: '完了', message: '事業収支情報を登録しました。' });
+          const dlgVal = this.dialog.open(FinishDialogComponent, {
+            width: '500px',
+            height: '250px',
+            data: finishDlg
+          });
+          dlgVal.afterClosed().subscribe(val => {
+            this.spinner.hide();
+            this.router.navigate(['/plandetailhistory'], {queryParams: {pid: this.data.pid}});
+          });
+        });
       }
+        this.dialogRef.close(true);  
     });
-  }*/
-  showDetail(row: Planinfo) {
-    this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
+  }
+
+  cancel() {
+    this.dialogRef.close();
   }
   
-
-  highlight(row) {
-    this.selectedRowIndex = row.tempLandInfoPid;
-  }
   
 }

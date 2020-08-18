@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox } from '@angular/material';
 import { Code } from '../models/bukken';
 import { BackendService } from '../backend.service';
-//import { Code } from '../models/bukken';
+//import { Code } from '../models/bukken'; 
 import { BaseComponent } from '../BaseComponent';
 import { Router } from '@angular/router';
 import { Checklib } from '../utils/checklib';

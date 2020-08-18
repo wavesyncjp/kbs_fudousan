@@ -1,12 +1,13 @@
 .dialog-div{
-    margin: -15px 0px;
+    padding-top: 30px;
+    margin: -20px;
 }
 .detail-tbl{
     margin-left: 20px;
-    margin-top: 130px;
+    margin-top: 50px;
 
 }
 .mat-dialog-actions {    
     margin: auto;
-    margin-top: 200px;
+    margin-top: auto;
 }

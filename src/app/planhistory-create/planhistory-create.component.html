@@ -5,7 +5,7 @@
     <table class="detail-tbl">
         <tr>
             <th style="width: 100px !important;">プラン種別</th>
-            <td><input type="text" [(ngModel)]="data.planStatus" [ngClass]="{'width150': true}" disabled="true"></td>
+            <td><input type="text" [(ngModel)]="plan.planStatus" [ngClass]="{'width150': true}" disabled="true"></td>
             <th style="width: 100px !important;">履歴作成日</th>
             <td>
                 <input type="text" [matDatepicker]="createHistoryDay" class="width100" [(ngModel)]="data.createHistoryDayMap">
@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th style="width: 100px !important;">プラン履歴名</th>
-            <td><input type="text" [(ngModel)]="data.userName" [ngClass]="{'width200': true, 'error': errors['userName']}" maxlength="100"></td>
+            <td><input type="text" [(ngModel)]="data.planHistoryName" [ngClass]="{'width200': true, 'error': errors['planHistoryName']}" maxlength="100"></td>
         </tr>
        
     </table>

@@ -674,6 +674,16 @@ export class BackendService {
     const req = this.http.post<Planinfohistory[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
   }
+
+  /**
+   * 事業収支履歴登録 20200818_Edd
+   * @param planhistory ：事業収支履歴
+   */
+  savePlanHistory(planhistory: Planinfohistory): Promise<Planinfohistory> {
+    const saveApi = 'planhistorysave.php'; 
+    const req = this.http.post<Planinfohistory>(`${this.BaseUrl}/${saveApi}`, planhistory);
+    return req.toPromise();
+  }
   
   /**
    * 支払管理一覧取得
