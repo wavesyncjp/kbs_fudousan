@@ -120,6 +120,7 @@ export class PlanDetailComponent extends BaseComponent {
       funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
       //20200805 E_Add
     }
+    
 
     Promise.all(funcs).then(values => {
 
@@ -185,13 +186,13 @@ export class PlanDetailComponent extends BaseComponent {
           me['pjCost'] = this.getPjCost(me);
         });
        //20200805 E_Update
-        
-        this.planHistorys = values[6];
+        if(values.length > 6){
+          this.planHistorys = values[6];
        
-        this.planHistorys.forEach(me => {
-          me['pjCost'] = this.getPjCost(me);
-        });
-        
+          this.planHistorys.forEach(me => {
+            me['pjCost'] = this.getPjCost(me);
+          });
+        }
       }
 
 //      if(this.plan.rent == null || !this.plan.rent){
@@ -2677,7 +2678,7 @@ showPlan(row: Planinfo) {
   /*
   this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
   */
- this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
+ this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
  //20200805 E_Update
 }
   //20200805 S_Add

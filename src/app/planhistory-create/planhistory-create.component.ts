@@ -29,7 +29,7 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 export class PlanHistoryCreateComponent extends BaseComponent {
 
   
-  /*public cond = {
+  public cond = {
     bukkenNo: '',
     bukkenName: '',
     address: '',
@@ -37,10 +37,10 @@ export class PlanHistoryCreateComponent extends BaseComponent {
     createDay: '',
     createDayMap: ''
  };
- */
+ 
   search = '0';
   selectedRowIndex = -1;
-  //displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDay', 'delete', 'detail'];
+  displayedColumns: string[] = ['create', 'bukkenNo', 'bukkenName', 'address', 'planName', 'createDay', 'delete', 'detail'];
   
 
   dataSource = new MatTableDataSource<PlanHistoryCreateComponent>();
