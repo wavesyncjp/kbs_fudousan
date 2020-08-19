@@ -284,7 +284,12 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         // 土地情報登録
+        //20200819 S_Update
+        /*
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
+        */
+        this.data.convertForSave(this.service.loginUser.userId, this.datepipe, true);
+        //20200819 E_Update
         const funcs = [];
         funcs.push(this.service.saveLand(this.data));
         Promise.all(funcs).then(values => {
