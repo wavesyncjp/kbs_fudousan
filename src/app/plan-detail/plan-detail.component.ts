@@ -120,7 +120,7 @@ export class PlanDetailComponent extends BaseComponent {
       funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
       //20200805 E_Add
     }
-    
+
 
     Promise.all(funcs).then(values => {
 
@@ -2654,7 +2654,14 @@ cal81_4() {
   // 20200518 E_Add
 */
 // 20200518 E_Add
-
+createHistory(row: Planinfo) {
+  this.dialog.open(PlanHistoryCreateComponent, {
+    width: '750px',
+    height: '400px',
+    data: row
+  });
+}
+/*
 createHistory() {
   const row = new Code();
   const dialogRef = this.dialog.open(PlanHistoryCreateComponent, {
@@ -2663,7 +2670,7 @@ createHistory() {
     data: row
   });
 }
-
+*/
 historyList() {
   const row = new Code();
   const dialogRef = this.dialog.open(PlanHistoryListComponent, {

@@ -18,7 +18,10 @@
             <td><span class="head">プラン種別</span>&nbsp;&nbsp;<app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus"></app-select-component></td>
             <td class="history">
                 <span *ngIf="plan.pid > 0">
+                    <!--
                     <button mat-raised-button (click)="createHistory()" color="warn" style="line-height: 30px;" >&nbsp;履歴登録&nbsp;</button>
+                    -->
+                    <button mat-raised-button (click)="createHistory(plan)" color="warn" style="line-height: 30px;" >&nbsp;履歴登録&nbsp;</button>
                 </span> 
             </td>
         </tr>

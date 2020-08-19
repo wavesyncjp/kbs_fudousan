@@ -5,7 +5,10 @@
     <table class="detail-tbl">
         <tr>
             <th style="width: 100px !important;">プラン種別</th>
-            <td><input type="text" [(ngModel)]="data.planStatus" [ngClass]="{'width150': true}" disabled="true"></td><!-- [ngModel]="plan.planStatus"-->
+            <!--
+            <td><input type="text" [(ngModel)]="data.planStatus" [ngClass]="{'width150': true}" disabled="true"></td> [ngModel]="plan.planStatus"-->
+            
+            <td><app-select-component [codes]="getCode('016')" [(ngModel)]="data.planStatus" [isDisabled]="data.planHistoryName == null||data.planHistoryName !== null"></app-select-component></td>
             <th style="width: 100px !important;">履歴作成日</th>
             <td>
                 <input type="text" [matDatepicker]="createHistoryDay" class="width100" [(ngModel)]="data.createHistoryDayMap">

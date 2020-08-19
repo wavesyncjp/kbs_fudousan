@@ -30,25 +30,35 @@ import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.com
 
 export class PlanHistoryCreateComponent extends BaseComponent {
   @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
-
+  public plan:any;// 20200818 Add
   constructor(
     public router: Router,
+    private route: ActivatedRoute,// 20200818 Add
     public service: BackendService,
     public dialogRef: MatDialogRef<PlanHistoryCreateComponent>,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     @Inject(MAT_DIALOG_DATA)
     public data: Planinfohistory,
-    public datepipe: DatePipe) {
-super(router, service,dialog);
-}
-    public plan:Planinfo;
+    public datepipe: DatePipe){
+      super(router, service,dialog);
+      // 20200818 S_Add
+      this.route.queryParams.subscribe(params => {
+        this.plan = params.plan;
+      });
+      // 20200818 E_Add
+  }
+//    public plan:Planinfo;// 20200818 Delete
+
+    //public plan:Planinfo;
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     const funcs = [];
-//    funcs.push(this.service.getCodes(['006']));
-    funcs.push(this.service.getCodeNameMsts(null));//getPlanHistory
+    funcs.push(this.service.getCodes(['016']));
+    /*
+        funcs.push(this.service.getCodeNameMsts(null));//getPlanHistory
+        */
     Promise.all(funcs).then(values => {
 
       // コード
@@ -62,12 +72,18 @@ super(router, service,dialog);
         });
       }
 
-      this.sysCodeNameMsts = values[0];
+      //this.sysCodeNameMsts = values[0];
 
+      if (this.plan != null) {
+        this.data = this.plan;
+        this.data.createHistoryDayMap = new Date();
+      }
+      /*
       if (this.data == null) {
         this.data = new Planinfohistory();
         //this.data.depCode = '1';
       } 
+      */ 
 
     });
   }
