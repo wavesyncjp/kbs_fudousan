@@ -33,7 +33,8 @@ export class PlanListComponent extends BaseComponent {
     address: '',
     planName: '',
     createDay: '',
-    createDayMap: ''
+    createDayMap: '',
+    clctResult: ['01', '02', '03']//20200815 Add
  };
   search = '0';
   selectedRowIndex = -1;
@@ -100,7 +101,8 @@ export class PlanListComponent extends BaseComponent {
       address: '',
       planName: '',
       createDay: '',
-      createDayMap: ''
+      createDayMap: '',
+      clctResult: ['01', '02', '03']//20200815 Add
    };
   }
 
