@@ -111,15 +111,24 @@ export class Templandinfo {
         //20200731 E_Update
     }
 
+    //20200819 S_Update
+    /*
     public convertForSave(userId: number, datePipe: DatePipe) {
+    */
+    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
         //20200731 S_Update
         /*
         this.infoStaff = this.infoStaffMap.join(',');
         this.infoOffer = this.infoOfferMap.join(',');
-        */
         this.infoStaff = this.infoStaffMap.map(me => me['userId']).join(',');
         this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');
+        */
         //20200731 E_Update
+        if(isJoin) {
+            this.infoStaff = this.infoStaffMap.map(me => me['userId']).join(',');
+            this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');
+        }
+        //20200819 E_Update
 
         /*
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
