@@ -76,7 +76,10 @@ export class PlanHistoryCreateComponent extends BaseComponent {
 
       if (this.plan != null) {
         this.data = this.plan;
-        this.data.createHistoryDayMap = new Date();
+        //this.data.createHistoryDayMap = new Date();
+        this.data.planPid = this.plan.pid;
+        this.data.createUserId = null;
+
       }
       /*
       if (this.data == null) {
