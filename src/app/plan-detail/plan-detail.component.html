@@ -386,7 +386,10 @@
             <td class="titlehead">金額(税抜)</td>
             <td class="titlehead">単価・坪</td>
             <td class="titlehead">算出根拠&nbsp;&nbsp;&nbsp;&nbsp;
-                <button mat-raised-button (click)="historyList()" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button></td>
+                <span *ngIf="plan.pid > 0">
+                    <button mat-raised-button (click)="historyList()" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button>
+                </span>
+            </td>
         </tr>
         <tr>
             <td><span class="head_plan">土地原価</span></td>

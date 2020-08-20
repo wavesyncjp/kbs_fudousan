@@ -77,8 +77,7 @@ export class PlanHistoryCreateComponent extends BaseComponent {
       if (this.plan != null) {
         this.data = this.plan;
         //this.data.createHistoryDayMap = new Date();
-        this.data.planPid = this.plan.pid;
-        this.data.createUserId = null;
+        
 
       }
       /*
@@ -89,6 +88,7 @@ export class PlanHistoryCreateComponent extends BaseComponent {
       */ 
 
     });
+    this.data.createHistoryDayMap = new Date();
   }
   /**追記
    * バリデーション
@@ -113,10 +113,13 @@ export class PlanHistoryCreateComponent extends BaseComponent {
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
+        this.data.planPid = this.data.pid;
+        this.data.createUserId = null;
+        this.data.updateUserId = 0;
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
         this.service.savePlanHistory(this.data).then(res => {
 
-          const finishDlg = new Dialog({ title: '完了', message: '事業収支情報を登録しました。' });
+          const finishDlg = new Dialog({ title: '完了', message: '事業収支情報履歴を登録しました。' });
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',

@@ -48,6 +48,7 @@ export class PlanDetailComponent extends BaseComponent {
   public rent: Planrentroll;
   plans: Planinfo[] = [];//20200805 Add
   planHistorys: Planinfohistory[] = [];
+  
 
   public payTypeGroup1 = [];
   public payTypeGroup2 = [];
@@ -2681,12 +2682,14 @@ historyList() {
 }
 //20200817 S_Edd
 showPlan(row: Planinfo) {
-  //20200805 S_Update
+  //20200820 S_Update
   /*
   this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
   */
- this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
- //20200805 E_Update
+ this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+ this.router.onSameUrlNavigation = 'reload';
+ this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
+ //20200820 E_Update
 }
   //20200805 S_Add
   //PJ原価
