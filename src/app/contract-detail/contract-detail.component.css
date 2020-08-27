@@ -3,6 +3,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;/*20200828 Add*/
 }
 .contact-div {
     width: 97vw;

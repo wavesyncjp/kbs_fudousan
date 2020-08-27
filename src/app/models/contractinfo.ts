@@ -95,6 +95,7 @@ export class Contractinfo {
     contractFiles: ContractFile[];
     sellers: ContractSellerInfo[];
     locations = []; // 所有地（保存しない）
+    contractStaffMap = [];//20200828 Add
 
     createUserId: number;
     updateUserId: number;
@@ -105,7 +106,12 @@ export class Contractinfo {
         }
     }
 
+    //20200828 S_Update
+    /*
     public convert() {
+    */
+    public convert(emps: any[]) {
+    //20200828 E_Update
         if (this.deliveryFixedDay) {
             this.deliveryFixedDayMap = parse(this.deliveryFixedDay, 'yyyyMMdd', new Date());
         }
@@ -154,9 +160,19 @@ export class Contractinfo {
         if (this.retainageDay) {
             this.retainageDayMap = parse(this.retainageDay, 'yyyyMMdd', new Date());
         }
+        //20200828 S_Add
+        if (this.contractStaff !== null && emps != null) {
+            this.contractStaffMap = emps.filter(me => this.contractStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
+        }
+        //20200828 E_Add
     }
 
+    //20200828 S_Update
+    /*
     public convertForSave(userId: number, datePipe: DatePipe) {
+    */
+    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
+    //20200828 E_Update
         if (this.pid > 0) {
             this.updateUserId = userId;
         } else {
@@ -182,7 +198,11 @@ export class Contractinfo {
         this.earnestPriceDay = this.earnestPriceDayMap != null ? datePipe.transform(this.earnestPriceDayMap, 'yyyyMMdd') : null;
         this.canncellDay = this.canncellDayMap != null ? datePipe.transform(this.canncellDayMap, 'yyyyMMdd') : null;
         this.retainageDay = this.retainageDayMap != null ? datePipe.transform(this.retainageDayMap, 'yyyyMMdd') : null;
-  
         
+        //20200828 E_Add
+        if(isJoin) {
+            this.contractStaff = this.contractStaffMap.map(me => me['userId']).join(',');
+        }
+        //20200828 E_Add
     }
 }

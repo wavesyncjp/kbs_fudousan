@@ -32,7 +32,10 @@ export class BukkenListComponent extends BaseComponent {
 
   public cond = {
     bukkenNo: '',
-    contractBukkenNo:'',
+    //20200828 S_Update
+//    contractBukkenNo:'',
+    contractBukkenNo_Like:'',
+    //20200828 E_Update
     bukkenName: '',
     residence: '',
     address: '',
@@ -66,6 +69,10 @@ export class BukkenListComponent extends BaseComponent {
   mapObj: any;
   infowindow: any;
   markers = [];
+  //20200828 S_Add
+  authority = '';
+  disableUser: boolean = false;
+  //20200828 E_Add
 
   constructor(private ngZone: NgZone,
               public router: Router,
@@ -83,6 +90,12 @@ export class BukkenListComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
+
+    //20200828 S_Add
+    this.authority = this.service.loginUser.authority;
+    this.disableUser = (this.authority === '03');
+    //20200828 E_Add
+
     // tslint:disable-next-line:no-string-literal
     window['angularComponentReference'] = { component: this, zone: this.ngZone, openDetailFromMap: (pid) => this.showDetail2(pid), };
 
@@ -136,7 +149,10 @@ export class BukkenListComponent extends BaseComponent {
   resetCondition() {
     this.cond = {
       bukkenNo: '',
-      contractBukkenNo:'',
+      //20200828 S_Update
+//      contractBukkenNo:'',
+      contractBukkenNo_Like:'',
+      //20200828 E_Update
       bukkenName: '',
       residence: '',
       address: '',

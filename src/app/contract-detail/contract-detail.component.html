@@ -11,7 +11,7 @@
     </ul>
     <br>
     <!--/土地情報契約-->
-    <table class="detail-tbl-min">  
+    <table class="detail-tbl-min">
         <tr>
             <td><span class="min">契約区分</span></td>
             
@@ -34,11 +34,29 @@
             <td>
                 <input type="text" class="width150"  [(ngModel)]="contract.contractFormNumber" maxlength="20">
             </td>
+        </tr>
+        <tr>
             <th>契約担当者</th>
-            <td>
+            <!-- 20200828 S_Update -->
+            <!--<td>-->
+            <td colspan="2">
+            <!-- 20200828 E_Update -->
+                <!-- 20200828 S_Delete -->
+                <!--
                 <app-select-component [codes]="getUsers()" [(ngModel)]="contract.contractStaff"></app-select-component>
-            </td> 
-        </tr>        
+                -->
+                <!-- 20200828 E_Delete -->
+                <!-- 20200828 S_Add -->
+                <ng-multiselect-dropdown class="width300"
+                    [placeholder]="'選択'"
+                    [data]="emps"
+                    [(ngModel)]="contract.contractStaffMap"
+                    [settings]="dropdownSettings"
+                    >
+                </ng-multiselect-dropdown>
+                <!-- 20200828 E_Add -->
+            </td>
+        </tr>
         <tr>
             <th>即決和解</th>
             <td>

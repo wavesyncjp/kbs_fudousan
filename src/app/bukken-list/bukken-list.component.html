@@ -13,7 +13,12 @@
 
           <th>契約物件番号</th>
           <td>
+            <!-- 20200828 S_Update -->
+            <!--
             <input type="text" [(ngModel)]="cond.contractBukkenNo" class="width100" maxlength="20">
+            -->
+            <input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width100" maxlength="20">
+            <!-- 20200828 E_Update -->
           </td>
           
           <th>物件名</th>
@@ -80,7 +85,7 @@
       <div style="margin: 10px 0px 10px 0px;">
         <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;
         <!--<button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>-->
-        <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn">&nbsp;新規登録&nbsp;</button>&nbsp;
+        <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn" [disabled]="disableUser">&nbsp;新規登録&nbsp;</button>&nbsp;
 
         <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>
 

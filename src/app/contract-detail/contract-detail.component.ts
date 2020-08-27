@@ -39,6 +39,7 @@ export class ContractDetailComponent extends BaseComponent {
   public pid: number;
   public bukkenid: number;
   delSellers = [];
+  dropdownSettings = {};//20200828 Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -90,13 +91,23 @@ export class ContractDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+      //20200828 S_Update
+      /*
       this.users = values[1];
+      */
+      this.emps = values[1];
+      //20200828 E_Update
 
       // 物件あり場合
       if ( values.length > 1) {
         if (this.pid > 0) {
           this.contract = new Contractinfo(values[2] as Contractinfo);
+          //20200828 S_Update
+          /*
           this.contract.convert();
+          */
+          this.contract.convert(this.emps);
+          //20200828 E_Update
           if (this.contract.sellers == null || this.contract.sellers.length === 0) {
             this.contract.sellers = [];
             this.contract.sellers.push(new ContractSellerInfo());
@@ -115,6 +126,17 @@ export class ContractDetailComponent extends BaseComponent {
 
     });
     
+    //20200731 S_Add
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'userId',
+      textField: 'userName',
+      searchPlaceholderText: '検索',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+      enableCheckAll: false
+    };
+    //20200731 E_Add
   }
   changeFlg(event: MatRadioChange) {
     if (event.value === '0') {
@@ -186,7 +208,12 @@ export class ContractDetailComponent extends BaseComponent {
 
         this.contract.tempLandInfoPid = this.data.pid;
         this.convertForSave(); // 契約詳細⊕不可分データ準備
+        //20200828 S_Update
+        /*
         this.contract.convertForSave(this.service.loginUser.userId, this.datepipe);
+        */
+        this.contract.convertForSave(this.service.loginUser.userId, this.datepipe, true);
+        //20200828 E_Update
         this.service.saveContract(this.contract).then(res => {
 
           const finishDlg = new Dialog({title: '完了', message: '契約情報を登録しました。'});
@@ -199,7 +226,12 @@ export class ContractDetailComponent extends BaseComponent {
             this.spinner.hide();
             this.contract = new Contractinfo(res);
             this.convertData();
+            //20200828 S_Update
+            /*
             this.contract.convert();
+            */
+            this.contract.convert(this.emps);
+            //20200828 S_Update
             this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contract.pid}});
           });
 
