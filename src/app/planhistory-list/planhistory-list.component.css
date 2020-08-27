@@ -273,19 +273,33 @@ span.head{
     margin:0px 10px 40px 10px;
     
 }
-span.head_plan{
-    font-size: 0.8em;
-    border-left:solid 5px rgba(193, 224, 188, 0.692);;
-    text-align: left;
+th.head_plan{
+    font-size: 0.6em;
+    /*border-left:solid 5px rgba(193, 224, 188, 0.692);;
+    text-align: left;*/
+    float: left;
     color:black;
     font-weight: bold;
     text-align: center;
-    width:100px !important;;
-    padding: 2px 0px 2px 10px;
+    width:80px !important;;
+    /*padding: 2px 0px 2px 10px;*/
     height: 25px;
     margin: 3px 0px 3px 0px;
     display: inline-flex;
     align-items: center;
+    margin-right: 20px;
+}
+
+td.yentitle{
+    min-height: 30px;
+    line-height: 30px;
+    /* min-width: 100px; */
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 0.6em;
+    float: left;
+    min-width: 100px;
 }
 /*//20200407_hirano src*/
 .detail-tbl-plan> tr > th.title{
@@ -311,14 +325,13 @@ span.head_plan{
 
 /*//20200407_hirano src*/
 .detail-tbl-plan> tr > th.main{
-    width:180px !important;
-    border-bottom:solid 1.5px rgba(193, 224, 188, 0.692);
+    width: 80px !important;
+    border-bottom: solid 1.5px rgba(193, 224, 188, 0.692);
     text-align: left;
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
-    font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    font-size: 0.5em;
+    border-top: solid 2px white;
     float: left;
     margin-right: 20px;
 }

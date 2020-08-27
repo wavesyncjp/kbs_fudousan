@@ -16,6 +16,7 @@ import { ContractSellerInfo } from './models/contractsellerinfo';
 import { Bukkenplaninfo } from './models/bukkenplaninfo';
 import { Bukkensalesinfo } from './models/bukkensalesinfo';
 import { Planinfohistory } from './models/Planinfohistory';
+import { Planhistorylist } from './models/Planhistorylist';
 
 @Injectable({
   providedIn: 'root'
@@ -684,6 +685,21 @@ export class BackendService {
     const req = this.http.post<Planinfohistory>(`${this.BaseUrl}/${saveApi}`, planhistory);
     return req.toPromise();
   }
+
+  /**
+   * 事業収支履歴取得 20200825_Edd
+   * @param id ：事業収支履歴
+   */
+  getPlanHistoryList(id: number): Promise<Planhistorylist[]> {
+    
+    const getApi = 'planhistorylistget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planhistorylist[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
   
   /**
    * 支払管理一覧取得
