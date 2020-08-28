@@ -75,7 +75,20 @@
               <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>              
             </section>
           </td>
-      </tr>        
+      </tr>      
+      <tr>
+        <th>物件担当者</th>
+        <td colspan="6">
+          <ng-multiselect-dropdown class="width300"
+                [placeholder]="'選択'"
+                [data]="emps"
+                [disabled]="disableUser"
+                [(ngModel)]="cond.clctInfoStaffMap"
+                [settings]="dropdownSettings"
+                >
+            </ng-multiselect-dropdown>
+        </td>
+      </tr>  
       </table>      
       <div style="margin: 10px 0px 10px 0px;">
         <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;
@@ -162,9 +175,9 @@
         </ng-container>
     
          <!-- 担当部署 Column -->
-         <ng-container matColumnDef="department">
-          <th mat-header-cell *matHeaderCellDef > 担当部署 </th>
-          <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+         <ng-container matColumnDef="staffName">
+          <th mat-header-cell *matHeaderCellDef > 物件担当者 </th>
+          <td mat-cell *matCellDef="let element"> {{element.staffName}} </td>
         </ng-container>
     
          <!-- 地目 Column -->
@@ -190,7 +203,7 @@
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念'}" (mouseover)="highlight(row)"></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
     </div>
