@@ -13,7 +13,12 @@
 
           <th>契約物件番号</th>
           <td>
+            <!-- 20200828 S_Update -->
+            <!--
             <input type="text" [(ngModel)]="cond.contractBukkenNo" class="width100" maxlength="20">
+            -->
+            <input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width100" maxlength="20">
+            <!-- 20200828 E_Update -->
           </td>
           
           <th>物件名</th>
@@ -64,9 +69,8 @@
           
         </tr>
         <tr>
-                
           <th>担当部署</th>
-          　<td colspan="3">           
+          　<td colspan="3">
                 <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>                              
             </td>
            <th>結果</th>
@@ -75,12 +79,27 @@
               <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>              
             </section>
           </td>
-      </tr>        
-      </table>      
+      </tr>
+      <!-- 20200828 S_Add -->
+      <tr>
+        <th>物件担当者</th>
+        <td colspan="6">
+          <ng-multiselect-dropdown class="width300"
+                [placeholder]="'選択'"
+                [data]="emps"
+                [disabled]="disableUser"
+                [(ngModel)]="cond.clctInfoStaffMap"
+                [settings]="dropdownSettings"
+                >
+            </ng-multiselect-dropdown>
+        </td>
+      </tr>
+      <!-- 20200828 E_Add -->
+      </table>
       <div style="margin: 10px 0px 10px 0px;">
         <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;
         <!--<button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>-->
-        <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn">&nbsp;新規登録&nbsp;</button>&nbsp;
+        <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn" [disabled]="disableUser">&nbsp;新規登録&nbsp;</button>&nbsp;
 
         <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>
 
@@ -121,22 +140,36 @@
           <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
         </ng-container>
 
-         <!-- 住居表示 -->
-         <ng-container matColumnDef="residence">
+        <!-- 20200828 S_Update -->
+        <!-- 住居表示 -->
+<!--
+        <ng-container matColumnDef="residence">
           <th mat-header-cell *matHeaderCellDef> 住居表示 </th>
           <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.residence}} </td>
         </ng-container>
-        
+-->
         <!--所在地-->
+<!--
         <ng-container matColumnDef="remark1">
           <th mat-header-cell *matHeaderCellDef> 所在地 </th>
           <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.remark1.split(',')[0]}} </td>
         </ng-container>
+-->
+        <!--住居表示 所在地-->
+        <ng-container matColumnDef="residence">
+          <th mat-header-cell *matHeaderCellDef> 住居表示 <br> 所在地 </th>
+          <th mat-header-cell *matHeaderCellDef>  <br> 地番 </th>
+          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.residence}} <br> {{element.remark1.split(',')[0]}}</td>
+        </ng-container>
+        <!-- 20200828 E_Update -->
 
         <!--地番-->
         <ng-container matColumnDef="remark2">
           <th mat-header-cell *matHeaderCellDef > 地番 </th>
-          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.remark2.split(',')[0]}} </td>
+          <!-- 20200828 S_Update -->
+          <!--<td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.remark2.split(',')[0]}} </td>-->
+          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> <br>{{element.remark2.split(',')[0]}} </td>
+          <!-- 20200828 E_Update -->
         </ng-container>
 
         <!--地図情報-->
@@ -160,12 +193,24 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 測量依頼日 </th>
           <td mat-cell *matCellDef="let element"> {{formatDay(element.surveyRequestedDay, 'yyyy/MM/dd')}} </td>
         </ng-container>
-    
-         <!-- 担当部署 Column -->
+        
+        <!-- 20200828 S_Delete -->
+        <!-- 担当部署 Column -->
+<!--
          <ng-container matColumnDef="department">
           <th mat-header-cell *matHeaderCellDef > 担当部署 </th>
           <td mat-cell *matCellDef="let element"> {{element.department}} </td>
         </ng-container>
+-->
+        <!-- 20200828 E_Delete -->
+        <!-- 20200828 S_Add -->
+        <!-- 物件担当者 Column -->
+        <ng-container matColumnDef="staffName">
+          <th mat-header-cell *matHeaderCellDef > 物件担当者 </th>
+          <!--<td mat-cell *matCellDef="let element"> {{element.staffName}} </td>-->
+          <td mat-cell *matCellDef="let element" title={{element.staffName}} class="person_width"> {{element.staffName}} </td>
+        </ng-container>
+        <!-- 20200828 E_Add -->
     
          <!-- 地目 Column -->
          <ng-container matColumnDef="result">
@@ -190,7 +235,13 @@
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+        <!-- 20200828 S_Update -->
+<!--
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
+-->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念' || row.result === '没'}" (mouseover)="highlight(row)"></tr>
+        <!-- 20200828 E_Update -->
       </table>
       <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
     </div>
@@ -198,6 +249,6 @@
 
   <mat-tab label="マップ">
     <div #mapContainer id="map"></div>
-  </mat-tab>  
+  </mat-tab>
 </mat-tab-group>
 
