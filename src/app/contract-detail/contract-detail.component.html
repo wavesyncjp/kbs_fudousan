@@ -315,7 +315,36 @@
                 &nbsp;&nbsp;&nbsp;<label>・名義</label>&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="contract.bankName" class="width150" maxlength="100">
             </td>
         </tr>
-        
+        <!-- 20200828 S_Add -->
+        <tr>
+            <th>仲介会社</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.intermediaryName" class="width300" maxlength="100">
+            </td>
+            <th>仲介会社住所</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.intermediaryAddress" class="width300" maxlength="100">
+            </td>
+            <th>仲介手数料</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.intermediaryPrice" maxlength="15">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th>業務委託先</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.outsourcingName" class="width300" maxlength="100">
+            </td>
+            <th>業務委託先住所</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.outsourcingAddress" class="width300" maxlength="100">
+            </td>
+            <th>業務委託料</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.outsourcingPrice" maxlength="15">&nbsp;円
+            </td>
+        </tr>
+        <!-- 20200828 E_Add -->
        <tr>
        <th>解約日</th>
        <td>

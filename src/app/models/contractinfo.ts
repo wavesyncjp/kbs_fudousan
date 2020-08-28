@@ -11,6 +11,7 @@ export class Contractinfo {
     contractNow: string;
     contractNumber = '';
     contractFormNumber: number;
+    contractStaff: string;
     contractType: string;
     promptDecideFlg: number;
     promptDecideContent: string;
@@ -40,19 +41,6 @@ export class Contractinfo {
     deliveryFixedDay: string;
     vacationDay: string;
     contractDay: string;
-    attachFilePath: string;
-    attachFileName: string;
-    siteArea: number;
-    totalFloorArea: number;
-    siteAvailableArea: number;
-    structure: string;
-    scale: string;
-    acquisitionConfirmDay: string;
-    startScheduledDay: string;
-    prioritySalesAgreementDay: string;
-    finishScheduledDay: string;
-    deliveryDay: string;
-    dependType: string;
     decisionPrice:number;
     decisionDay: string;
     decisionDayChk: string;
@@ -61,19 +49,38 @@ export class Contractinfo {
     settlementAfter: string;
     retainage: number;
     retainageDay: string;
-    canncellDay: string;
-    canncellDayChk: string;
-    canncell: string;
-    remarks: string;
-    contractStaff: string;
     supplierName: string;
     bank: string;
     branchName: string;
     accountType: string;
     accountName: string;
     bankName: string;
-
-
+    //20200828 S_Add
+    intermediaryName: string;
+    intermediaryAddress: string;
+    intermediaryPrice: number;
+    outsourcingName: string;
+    outsourcingAddress: string;
+    outsourcingPrice: number;
+    //20200828 E_Add
+    canncellDay: string;
+    canncellDayChk: string;
+    canncell: string;
+    remarks: string;
+    attachFilePath: string;
+    attachFileName: string;
+    siteArea: number;
+    siteAvailableArea: number;
+    structure: string;
+    scale: string;
+    totalFloorArea: number;
+    acquisitionConfirmDay: string;
+    startScheduledDay: string;
+    prioritySalesAgreementDay: string;
+    finishScheduledDay: string;
+    deliveryDay: string;
+    dependType: string;
+    
     deliveryFixedDayMap: Date = null;
     vacationDayMap: Date = null;
     contractDayMap: Date = null;
