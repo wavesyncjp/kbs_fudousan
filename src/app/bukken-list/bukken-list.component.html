@@ -69,9 +69,8 @@
           
         </tr>
         <tr>
-                
           <th>担当部署</th>
-          　<td colspan="3">           
+          　<td colspan="3">
                 <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>                              
             </td>
            <th>結果</th>
@@ -80,7 +79,8 @@
               <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>              
             </section>
           </td>
-      </tr>      
+      </tr>
+      <!-- 20200828 S_Add -->
       <tr>
         <th>物件担当者</th>
         <td colspan="6">
@@ -93,8 +93,9 @@
                 >
             </ng-multiselect-dropdown>
         </td>
-      </tr>  
-      </table>      
+      </tr>
+      <!-- 20200828 E_Add -->
+      </table>
       <div style="margin: 10px 0px 10px 0px;">
         <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;
         <!--<button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>-->
@@ -178,12 +179,23 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 測量依頼日 </th>
           <td mat-cell *matCellDef="let element"> {{formatDay(element.surveyRequestedDay, 'yyyy/MM/dd')}} </td>
         </ng-container>
-    
-         <!-- 担当部署 Column -->
-         <ng-container matColumnDef="staffName">
+        
+        <!-- 20200828 S_Delete -->
+        <!-- 担当部署 Column -->
+<!--
+         <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef > 担当部署 </th>
+          <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+        </ng-container>
+-->
+        <!-- 20200828 E_Delete -->
+        <!-- 20200828 S_Add -->
+        <!-- 物件担当者 Column -->
+        <ng-container matColumnDef="staffName">
           <th mat-header-cell *matHeaderCellDef > 物件担当者 </th>
           <td mat-cell *matCellDef="let element"> {{element.staffName}} </td>
         </ng-container>
+        <!-- 20200828 E_Add -->
     
          <!-- 地目 Column -->
          <ng-container matColumnDef="result">
@@ -208,7 +220,13 @@
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念'}" (mouseover)="highlight(row)"></tr>
+
+        <!-- 20200828 S_Update -->
+<!--
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
+-->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念' || row.result === '没'}" (mouseover)="highlight(row)"></tr>
+        <!-- 20200828 E_Update -->
       </table>
       <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
     </div>
@@ -216,6 +234,6 @@
 
   <mat-tab label="マップ">
     <div #mapContainer id="map"></div>
-  </mat-tab>  
+  </mat-tab>
 </mat-tab-group>
 
