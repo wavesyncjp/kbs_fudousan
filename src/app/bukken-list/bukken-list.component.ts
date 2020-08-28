@@ -51,12 +51,16 @@ export class BukkenListComponent extends BaseComponent {
 //    pickDate: '',
     department: [],
     result: ['01'],
-    mode: 1
+    mode: 1,
+    clctInfoStaff: [],
+    clctInfoStaffMap: []
  };
+ dropdownSettings = {};
+
   search = '0';
   searched = false;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail', 'csvCheck'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'csvCheck'];
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -113,6 +117,7 @@ export class BukkenListComponent extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getCodes(['001']));
     funcs.push(this.service.getDeps(null));
+    funcs.push(this.service.getEmps(null));
 
     Promise.all(funcs).then(values => {
 
@@ -127,6 +132,8 @@ export class BukkenListComponent extends BaseComponent {
       }
 
       this.deps = values[1];
+      // 社員
+      this.emps = values[2];
 
 //      this.cond.pickDateMap = null;
       this.spinner.hide();
@@ -137,6 +144,19 @@ export class BukkenListComponent extends BaseComponent {
     });
 
     this.mapInitializer();
+
+    //20200828 S_Add
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'userId',
+      textField: 'userName',
+      searchPlaceholderText: '検索',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+      enableCheckAll: false
+    };
+    //20200828 E_Add
+
   }
 
   highlight(row) {
@@ -168,7 +188,9 @@ export class BukkenListComponent extends BaseComponent {
   //    pickDate: '',
       department: [],
       result: ['01'],
-      mode: 1
+      mode: 1,
+      clctInfoStaff: [],
+      clctInfoStaffMap: []
    };
   }
 
@@ -189,13 +211,17 @@ export class BukkenListComponent extends BaseComponent {
     this.cond.pickDateSearch_To = this.cond.pickDate_To != null ? this.datepipe.transform(this.cond.pickDate_To, 'yyyyMMdd') : "";
     this.cond.surveyRequestedDaySearch_From = this.cond.surveyRequestedDay_From != null ? this.datepipe.transform(this.cond.surveyRequestedDay_From, 'yyyyMMdd') : "";
     this.cond.surveyRequestedDaySearch_To = this.cond.surveyRequestedDay_To != null ? this.datepipe.transform(this.cond.surveyRequestedDay_To, 'yyyyMMdd') : "";
+    this.cond.clctInfoStaff = this.cond.clctInfoStaffMap.map(me => me.userId);    
 
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         res.forEach(obj => {
+
+          /*
           if (obj.department !== null && obj.department !== '') {
             obj.department = this.deps.filter((c) => c.depCode === obj.department).map(c => c.depName)[0];
           }
+          */
           if (obj.result !== null && obj.result !== '') {
             const lst = obj.result.split(',');
             obj.result = this.getCode('001').filter((c) => lst.includes(c.codeDetail)).map(c => c.name).join(',');
@@ -203,6 +229,21 @@ export class BukkenListComponent extends BaseComponent {
 
           //CSVチェック
           obj['select'] = true;
+
+          //物件担当
+          let staff = [];
+          if(!this.isBlank(obj.infoStaff)) {
+            obj.infoStaff.split(',').forEach(me => {
+              let lst = this.emps.filter(us=>us.userId === me).map(me => me.userName);
+              if(lst.length > 0) {
+                staff.push(lst[0]);
+              }
+            });
+            obj['staffName'] = staff.join(',');
+          }
+          else {
+            obj['staffName'] = '';
+          }
 
         });
       }
