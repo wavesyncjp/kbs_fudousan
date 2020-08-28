@@ -77,6 +77,14 @@ th.mat-sort-header-sorted {
    overflow: hidden;
    text-overflow: ellipsis;
 }
+/*20200828 S_Add*/
+.person_width{
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*20200828 E_Add*/
 .left{
     float: left;
 }

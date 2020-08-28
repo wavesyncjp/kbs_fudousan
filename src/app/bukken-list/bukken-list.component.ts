@@ -65,7 +65,7 @@ export class BukkenListComponent extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail', 'csvCheck'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'csvCheck'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'csvCheck'];
   //20200828 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
