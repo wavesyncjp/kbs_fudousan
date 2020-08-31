@@ -10,6 +10,7 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-location-detail',
@@ -59,7 +60,6 @@ export class LocationDetailComponent extends BaseComponent {
 
       this.spinner.hide();
     });
-
     //20200811 S_Update
     /*
     if(this.data.pid == undefined) this.data.locationType = '01';
@@ -133,10 +133,26 @@ export class LocationDetailComponent extends BaseComponent {
       firstSharer.buysellFlg = this.data.buysellFlg;
   }
 
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
+
+  calTsubo(val) {
+    if (!isNullOrUndefined(this.data.areaMap)) {
+      return Math.floor(this.getNumber(this.removeComma(val)) * 0.3025 * 100) / 100;
+    } else {
+      return '0';
+    }
+  }
+
   changeArea(event) {
     const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      this.data.tsubo = Math.floor(Number(val) * 0.3025 * 100 ) / 100;
+    let ret = this.removeComma(val)
+    if (this.isNumberStr(ret)) {
+      this.data.tsubo = Math.floor(Number(ret) * 0.3025 * 100 ) / 100;
     }
   }
 
@@ -172,12 +188,14 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.structure = null;
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '02') {
       this.data.blockNumber = '';
       this.data.area = null;
       this.data.tsubo = null;
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '03') {
       this.data.buysellFlg = '0';
       this.data.owner = null;
@@ -190,6 +208,7 @@ export class LocationDetailComponent extends BaseComponent {
       }); 
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '04') {
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
@@ -316,7 +335,11 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     if (this.data.locationType !== '03') {
-    this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
+        this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
+    //20200831 S_Add
+    if (this.data.locationType === '04') {
+        this.checkBlank(this.data.ridgePid, `ridgePid`, '一棟の建物は必須です。');}
+    //20200831 E_Add
     if (this.errorMsgs.length > 0) {
       return false;
     }

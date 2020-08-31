@@ -14,6 +14,7 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { Paycontractinfo } from '../models/paycontractinfo';
 import { Paycontractdetailinfo } from '../models/paycontractdetailinfo';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-paycontract-detail',
@@ -171,6 +172,8 @@ export class PayContractDetailComponent extends BaseComponent {
 
     });
   }
+  
+  
 
   /**
    * 明細情報追加
@@ -305,30 +308,40 @@ export class PayContractDetailComponent extends BaseComponent {
       }
     }
   }
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
+  // 20200709 E_Add
 
-  /**
+/**
    * 税額を自動計算する
    */
   taxCalc(detail: Paycontractdetailinfo){
     
+    detail.payPrice = this.getNumber(this.removeComma(detail.payPriceMap));
+    //detail.payPriceTax = this.removeComma(detail.payPriceTaxMap);
     this.paycontract.taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
     if (detail.payPrice > 0) {
       this.taxRate = 0;
       if(!this.isBlank(this.paycontract.taxEffectiveDay)) {
         var taxtData =this.taxes.filter(me => me.effectiveDay <= this.paycontract.taxEffectiveDay).sort((a,b) => String(b.effectiveDay).localeCompare(a.effectiveDay))[0];
         this.taxRate = taxtData.taxRate;
-      }             
+      }
 
       let lst = this.payTypes.filter(me => me.paymentCode === detail.paymentCode && me.taxFlg === "1");
+      detail.payPriceTax = detail.payPrice;
       //taxFlgが1ではない場合
       if(lst.length == 0) {
-        detail.payPriceTax = detail.payPrice;
+        detail.payPriceTaxMap = this.numberFormat(detail.payPriceTax);
       }
       else {
-        detail.payPriceTax = Number(detail.payPrice) + Number(Math.floor(detail.payPrice * (this.taxRate / 100)));              
-      }      
-      detail.payTax = detail.payPriceTax  - detail.payPrice;
-      
+        detail.payPriceTax = Number(detail.payPrice) + Number(Math.floor(detail.payPrice * (this.taxRate / 100)));
+        detail.payPriceTaxMap =this.numberFormat(detail.payPriceTax);
+      }
+      detail.payTaxMap = this.numberFormat(detail.payPriceTax - detail.payPrice);
     }
     else
     {
@@ -338,10 +351,69 @@ export class PayContractDetailComponent extends BaseComponent {
   }
 
   taxOnlyCalc(event, detail: Paycontractdetailinfo) {
+    
+    detail.payPrice = this.getNumber(this.removeComma(detail.payPriceMap));
+    detail.payPriceTax = this.getNumber(this.removeComma(detail.payPriceTaxMap));
     if(detail.payPrice >= 0 && detail.payPriceTax >= 0) {
-      detail.payTax = detail.payPriceTax  - detail.payPrice;
+      detail.payTax = detail.payPriceTax - detail.payPrice;
+      detail.payTaxMap = this.numberFormat(detail.payTax);
+    }
+  }
+
+
+  /**20200714 S_Add
+   * 税額を自動計算する
+  
+  taxCalc(detail: Paycontractdetailinfo){
+    
+    this.paycontract.taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
+    this.removeComma(detail.payPriceMap);
+    this.removeComma(detail.payPriceTaxMap);
+    this.removeComma(detail.payTaxMap);
+    
+    if (!isNullOrUndefined(detail.payPriceMap)) {
+      this.taxRate = 0;
+      if(!this.isBlank(this.paycontract.taxEffectiveDay)) {
+        var taxtData =this.taxes.filter(me => me.effectiveDay <= this.paycontract.taxEffectiveDay).sort((a,b) => String(b.effectiveDay).localeCompare(a.effectiveDay))[0];
+        this.taxRate = taxtData.taxRate;
+      }             
+
+      let lst = this.payTypes.filter(me => me.paymentCode === detail.paymentCode && me.taxFlg === "1");
+      //taxFlgが1ではない場合
+      if(lst.length == 0) {
+
+        detail.payPriceTaxMap = detail.payPriceMap;
+      }
+      else {
+        const val = (this.getNumber(detail.payPriceMap)) + (Math.floor(this.getNumber(detail.payPriceMap) * (this.taxRate / 100)));
+        detail.payPriceTaxMap = this.numberFormat(val); 
+        return detail.payPriceTaxMap;              
+      }
+      this.removeComma(detail.payPriceTaxMap);      
+      const val = (this.getNumber(detail.payPriceTaxMap)  - this.getNumber(detail.payPriceMap));
+      detail.payTaxMap = this.numberFormat(val);
+      return detail.payTaxMap;
+      
+    }
+    else
+    {
+      detail.payPriceTaxMap = null;
+      detail.payTaxMap = null;
+    }
+  }
+  
+
+  taxOnlyCalc(event, detail: Paycontractdetailinfo) {
+    this.removeComma(detail.payPriceMap);
+    this.removeComma(detail.payPriceTaxMap);
+    this.removeComma(detail.payTaxMap);
+    if(!isNullOrUndefined(detail.payPriceMap) && !isNullOrUndefined(detail.payPriceTaxMap)) {
+      const val = this.getNumber(detail.payPriceTaxMap)  - this.getNumber(detail.payPriceMap);
+      detail.payTaxMap = this.numberFormat(val);
+      return detail.payTaxMap;
     }    
   }
+  //20200714 E_Add*/
 
   changeTaxEffectiveDay(event) {
     this.paycontract.details.forEach(detail => {

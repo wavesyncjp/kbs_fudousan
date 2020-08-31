@@ -144,8 +144,14 @@ export class ContractDetailComponent extends BaseComponent {
     }
   }
 
-
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
   // 20200709 E_Add
+
   /**
    * 契約情報＋所有地マージ
    */

@@ -154,7 +154,7 @@
                     <!--<input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100">-->
                     <input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
                     <!-- 20200731 E_Update -->
-                </td>
+                </td>      
             </tr>
             <tr>
                 <th>備考2</th>
@@ -163,7 +163,7 @@
                     <!--<input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100">-->
                     <input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
                     <!-- 20200731 E_Update -->
-                </td>
+                </td>      
             </tr>
         </table>
         <br>
@@ -265,7 +265,7 @@
                         <td class="text-left">{{loc.address}}</td>
                         <td class="text-left">{{loc.blockNumber}}</td>
                         <td class="text-left">{{loc.buildingNumber}}</td>
-                        <td class="text-left">{{loc.locationType === '01' ? (loc.area != null ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
+                        <td class="text-right">{{loc.locationType === '01' ? formatIntNumber(loc.area != null ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
                         <td class="text-left">{{loc.owner}}</td>
                         <td class="text-left">{{loc.ownerAdress}}</td>
                         <td>{{getCodeTitle('011', loc.rightsForm)}}</td>

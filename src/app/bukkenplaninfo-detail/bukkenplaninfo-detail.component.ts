@@ -106,14 +106,23 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     this.errors = {};    
     return true;
   }
+  //数値にカンマを付ける作業
+  // 20200709 S_Add
+  changeValue(val) {
+    val = this.numberFormat(val);
+    return val;
+  }
+
+
 
   calTsubo(val) {
-    if (!isNullOrUndefined(this.data.salesLandArea)) {
-      return Math.floor(val * 0.3025 * 100) / 100;
+    if (!isNullOrUndefined(val)) {
+      return Math.floor(this.getNumber(this.removeComma(val)) * 0.3025 * 100) / 100;
     } else {
-      return '0';
+      return '';
     }
   }
+
 
 
 
