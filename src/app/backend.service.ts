@@ -15,6 +15,8 @@ import { Tax } from './models/tax';
 import { ContractSellerInfo } from './models/contractsellerinfo';
 import { Bukkenplaninfo } from './models/bukkenplaninfo';
 import { Bukkensalesinfo } from './models/bukkensalesinfo';
+import { Planinfohistory } from './models/Planinfohistory';
+import { Planhistorylist } from './models/Planhistorylist';
 
 @Injectable({
   providedIn: 'root'
@@ -622,6 +624,18 @@ export class BackendService {
     return req.toPromise();
   }
 
+  //20200805 S_Add
+  /**
+   * 事業収支一覧取得（グリッド用）
+   */
+  searchPlanForGrid(cond: any): Promise<Planinfo[]> {
+    const searchApi = 'plansearchforgrid.php';
+    const req = this.http.post<Planinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+  //20200805 E_Add
+
+
   /**
    * 事業収支登録
    * @param plan ：事業収支
@@ -654,6 +668,39 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
+  /**
+   * 事業収支履歴一覧取得（グリッド用）
+   */
+  searchPlanHistoryForGrid(cond: any): Promise<Planinfohistory[]> {
+    const searchApi = 'planhistorysearchforgrid.php';
+    const req = this.http.post<Planinfohistory[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支履歴登録 20200818_Edd
+   * @param planhistory ：事業収支履歴
+   */
+  savePlanHistory(planhistory: Planinfohistory): Promise<Planinfohistory> {
+    const saveApi = 'planhistorysave.php'; 
+    const req = this.http.post<Planinfohistory>(`${this.BaseUrl}/${saveApi}`, planhistory);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支履歴取得 20200825_Edd
+   * @param id ：事業収支履歴
+   */
+  getPlanHistoryList(id: number): Promise<Planhistorylist[]> {
+    
+    const getApi = 'planhistorylistget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planhistorylist[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
   
   /**
    * 支払管理一覧取得

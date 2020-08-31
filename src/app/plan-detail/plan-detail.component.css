@@ -845,4 +845,126 @@ th.head_roll_1{
     border-bottom:solid 2px rgba(179, 176, 176, 0.692);
  
 }
+/*---------他プラン-------------*/
+.contact-div {
+    width: 86%;
+    height: 100%;
+    overflow-x: auto;
+    margin-left: 12px;
+}
+
+.contact-div > table{
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width:100%;
+}
+.list-header {
+    background-color: cadetblue;
+}
+.list-header > th {
+    height: 40px;
+    min-width: 120px;    
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+    border: solid 1px gainsboro;    
+}
+
+.list-body > tr {
+    height: 34px;
+}
+
+.list-body > tr > td {
+    text-align: center;
+    font-size: 12px;
+    border: solid 1px gainsboro;    
+}
+
+.contract-div {
+    display: grid;font-size: 14px;padding-top: 2px;
+}
+
+.contract-link {
+    cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
+}
+
+.export-button {
+    background: dimgray;
+    color: white;
+    width: 180px;
+}
+
+.contract-div {
+    display: grid;font-size: 14px;padding-top: 2px;
+}
+.contract-link {
+    cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
+}
+/* 20200805 E_Add */
+
+/*---------プラン履歴-------------*/
+.history-div {
+    width: 86%;
+    height: 100%;
+    overflow-x: auto;
+    margin-left: 12px;
+}
+
+.history-div > table{
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width:100%;
+}
+.history-header {
+    background-color: rgb(241, 175, 50);
+}
+.history-header > th {
+    height: 40px;
+    min-width: 120px;    
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+    border: solid 1px gainsboro;    
+}
+
+.history-body > tr {
+    height: 34px;
+}
+
+.history-body > tr > td {
+    text-align: center;
+    font-size: 12px;
+    border: solid 1px gainsboro;    
+}
+
+.history-div {
+    display: grid;font-size: 14px;padding-top: 2px;
+}
+
+.contract-link {
+    cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
+}
+
+.export-button {
+    background: dimgray;
+    color: white;
+    width: 180px;
+}
+/* 20200805 E_Add */
+/*履歴ボタン*/
+.historyLog {
+    background-color:#FFC000;
+    color: white;
+    line-height: 30px;
+    width:70px; 
+    padding: 0px 5px ;
+    font-size: 12px;
+
+}
+
+.detail-tbl-head > tr > td.history{
+    padding: 1px;
+    float: left;
+    margin-left: 57px;
+}
 
