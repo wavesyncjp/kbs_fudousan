@@ -201,6 +201,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.owner = null;
       this.data.ownerAdress = null;
       this.data.equity = null; 
+      this.data.ridgePid = '';//20200831 Add
       var index: number = 0;
       this.data.sharers.forEach(sharer => {
         this.deleteSharer(index);
@@ -335,10 +336,10 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     if (this.data.locationType !== '03') {
-        this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
+      this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
     //20200831 S_Add
     if (this.data.locationType === '04') {
-        this.checkBlank(this.data.ridgePid, `ridgePid`, '一棟の建物は必須です。');}
+      this.checkBlank(this.data.ridgePid, `ridgePid`, '一棟の建物は必須です。');}
     //20200831 E_Add
     if (this.errorMsgs.length > 0) {
       return false;
