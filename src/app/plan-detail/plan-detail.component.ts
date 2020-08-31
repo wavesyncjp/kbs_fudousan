@@ -31,6 +31,13 @@ import { PlanHistoryListComponent } from '../planhistory-list/planhistory-list.c
   ],
 })
 export class PlanDetailComponent extends BaseComponent {
+    //20200805 S_Add
+    public cond = {
+      tempLandInfoPid: null,
+      notPlanPid: null,
+      planPid:null
+    };
+    //20200805 E_Add
 
   public contract: Contractinfo;
   public data: Templandinfo;
@@ -168,6 +175,7 @@ export class PlanDetailComponent extends BaseComponent {
           // 20200527 E_Add
           */
           //20200813 E_Delete
+        }
         //20200805 S_Update
         /*
         const land = values[5];
