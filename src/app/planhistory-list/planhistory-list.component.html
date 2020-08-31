@@ -1,0 +1,324 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div  class="detail-div">
+    
+
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <br>  
+    
+<!--収支計算画面_S-->
+<table class ="plan_detail"> 
+    <table class = "detail-tbl-plan">
+        <tr>
+            <th class="title">事業収支過去分</th>
+            <td class="titlehead">金額(現状)</td>
+            <td class="titlehead">過去1</td>
+            <td class="titlehead">過去2</td>
+        </tr>
+        <tr>
+            <th class="head_plan">・土地原価</th>
+            <td class="yentitle">金額(現状)</td>
+        </tr>
+
+        <tr>
+            <th class="main">土地代</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[0].price" (ngModelChange)="changeValueDetail('price', 0)"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="history.price[0]"></td>
+            
+            
+        </tr>
+        <tr>
+            <th class="main">前払い地代</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[1].price" (ngModelChange)="changeValueDetail('price', 1)"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[1].priceMap" (ngModelChange)="changeValueDetail('price', 1)"></td>
+            
+            
+        </tr>
+        <tr>
+            <th class="main">仲介料</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[2].price" (ngModelChange)="changeValueDetail('price', 2)"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[2].priceMap" (ngModelChange)="changeValueDetail('price', 2)"></td>
+            
+            
+        </tr> 
+
+        <tr>
+            <th class="main">解体費</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[3].price" (ngModelChange)="changeValueDetail('price', 3)"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[3].priceMap" (ngModelChange)="changeValueDetail('price', 3)"></td>
+            
+        </tr>
+
+        <tr>
+            <th class="main">固都税精算金</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[4].price" [attr.disabled]="true"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[4].priceMap" [attr.disabled]="true"></td>
+            
+            
+        </tr>
+        <!--20200331 ADD-->
+        <tr>
+            <th class="main">その他</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15"  [value]="getNumber(cal28()) | number" [attr.disabled]="true"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [value]="getNumber(total(5, 9)) | number" [attr.disabled]="true"></td>
+        </tr>
+        
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[5].paymentCode"></app-select-component></th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[5].price" (ngModelChange)="changeValueDetail('price', 5)"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[5].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 5)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[6].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[6].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 6)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[7].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[7].priceMap" [attr.disabled]="true" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 7)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[8].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[8].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 8)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[9].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[9].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 9)"></td>
+        </tr>
+        <tr>
+            <th class="main">土地原価合計</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal29()) | number"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(total(0, 9)) | number"></td>
+        </tr>
+        <tr>
+            <th class="head_plan">・建物原価</th>
+            <td class="yen">　</td>
+        </tr>
+        <tr>
+            <th class="main">建築費</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[10].priceMap" (keypress)="numericOnly($event)"  [attr.disabled]="true" (ngModelChange)="changeValue('price10')"></td>
+            
+        </tr>
+        <tr>
+            <th class="main">設計料</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[11].priceMap" (keypress)="numericOnly($event)" [attr.disabled]="true" (ngModelChange)="changeValue('price11')"></td>
+            
+            
+        </tr>
+        <tr>
+            <th class="main">デザイン等</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[12].priceMap" (keypress)="numericOnly($event)" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 12)"></td>
+            
+        </tr>
+        <tr>
+            <th class="main">建築予備費</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[13].priceMap" (keypress)="numericOnly($event)" [attr.disabled]="true" (ngModelChange)="changeValue('price13')"></td>
+            
+            
+        </tr>
+        <tr>
+            <th class="main">デューデリ費用</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[14].priceMap" (ngModelChange)="changeValueDetail('price', 14)" [attr.disabled]="true"></td>
+            
+        </tr>
+        <tr>
+            <th class="main">近隣保障費等</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number"   [attr.disabled]="true" [value]="getNumber(cal32()) | number"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(total(15, 17)) | number"></td>
+        </tr>
+        <tr>
+            <th class="main">近隣委託費</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [attr.disabled]="true" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[15].priceMap" (ngModelChange)="changeValueDetail('price', 15)"></td>
+            
+        </tr>
+        <tr>
+            <th class="main">近隣補償費</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [attr.disabled]="true" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[16].priceMap" (ngModelChange)="changeValueDetail('price', 16)"></td>
+            
+        </tr>
+        <tr>
+            <th class="main">電波障害</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [attr.disabled]="true" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[17].priceMap" (ngModelChange)="changeValueDetail('price', 17)"></td>
+            
+        </tr>
+        <tr>
+            <th class="main">その他</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number"  [value]="getNumber(cal33()) | number" [attr.disabled]="true"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(total(18, 22)) | number" [attr.disabled]="true"></td>
+        </tr>
+        
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[18].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[18].priceMap" (ngModelChange)="changeValueDetail('price', 18)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[19].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[19].priceMap" (ngModelChange)="changeValueDetail('price', 19)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[20].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[20].priceMap" (ngModelChange)="changeValueDetail('price', 20)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[21].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[21].priceMap" (ngModelChange)="changeValueDetail('price', 21)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[22].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[22].priceMap" (ngModelChange)="changeValueDetail('price', 22)"></td>
+        </tr>
+        
+        <tr>
+            <th class="main">建物原価合計</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal34()) | number"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(total(10, 22)) | number"></td>
+        </tr>
+            
+        <tr>
+            <th class="head_plan">・その他費用</th>
+            <td class="yen"></td>
+        </tr>
+        <tr>
+            <th class="main">土地固都税</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[23].priceMap" [attr.disabled]="true"  [value]="getNumber(cal35())"></td>
+        </tr>
+    
+        <tr>
+            <th class="main">固都税</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[24].priceMap" [attr.disabled]="true" [value]="cal36()"></td>
+            
+        </tr>
+        <tr>
+            <th class="main">管理費</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[25].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 25)"></td>
+        </tr>
+        <tr>
+            <th class="main">水光熱費</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[26].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 26)"></td>
+        </tr>
+        <tr>
+            <th class="main">取得税</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal37(0.03)) | number">
+        </tr>
+        <tr>
+            <th class="main">登録免許税</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal37(0.02)) | number"></td>
+        </tr>
+        <tr>
+            <th class="main">滅失登記</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[27].priceMap" (ngModelChange)="changeValueDetail('price', 27)"></td>
+        </tr>
+        <tr>
+            <th class="main">予備費</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[28].priceMap" (ngModelChange)="changeValueDetail('price', 28)"></td>
+        </tr>
+   
+   
+
+        <tr>
+            <th class="main">司法書士費用</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[29].priceMap" (ngModelChange)="changeValueDetail('price', 29)"></td>
+        </tr>
+        <tr>
+            <th class="main">取得税</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeHang(plan.taxationMap,0.015) | number"></td>
+        </tr>
+        <tr>
+            <th class="main">登録税</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="changeHang(plan.taxationMap,0.02) | number"></td>
+        </tr>
+
+        <tr>
+            <th class="main">取得税</th><!--建物☆☆☆-->
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[30].priceMap" (ngModelChange)="changeValueDetail('price', 30)"></td>
+        </tr>
+
+        <tr>
+            <th class="main">登録税</th><!--建物-->
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[31].priceMap" (ngModelChange)="changeValueDetail('price', 31)">
+        </tr>
+    
+        <tr>
+            <th class="main">竣工前地代</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15"  [(ngModel)]="plan.details[32].priceMap" [attr.disabled]="true"></td>
+        </tr>
+        <tr>
+            <th class="main">保証金(解体費用)</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [attr.disabled]="true" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[33].priceMap" (ngModelChange)="changeValueDetail('price', 33)"></td>
+        </tr>
+        <tr>
+            <th class="main">その他</th>
+            <!--<td class="yen"><input type="text" class="Twidth100 number"   [value]="getNumber(cal42()) | number" [attr.disabled]="true"></td>-->
+            <td class="yen"><input type="text" class="Twidth100 number" [value]="getNumber(total(34, 38)) | number" [attr.disabled]="true"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[34].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[34].priceMap" (ngModelChange)="changeValueDetail('price', 34)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[35].paymentCode"></app-select-component></th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[35].priceMap" (ngModelChange)="changeValueDetail('price', 35)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main">融資手数料</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" [(ngModel)]="plan.details[36].priceMap" [attr.disabled]="true"  [value]="getNumber(cal43()) | number" (ngModelChange)="changeValueDetail('price', 36)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main">抵当権設定費用</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15"  [(ngModel)]="plan.details[37].priceMap"  [attr.disabled]="true" [value]="getNumber(cal44()) | number" (ngModelChange)="changeValueDetail('price', 37)"></td>
+        </tr>
+        <tr>
+            <!--20200407_hirano src-->
+            <th class="main">司法書士報酬</th>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[38].priceMap"  [attr.disabled]="true"(ngModelChange)="changeValueDetail('price', 38)"></td>
+            
+        </tr>
+        
+        <tr>
+            <th class="main">その他費用合計</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal45()) | number"></td>
+        </tr>
+
+        <tr>
+            <!--<th class="main">土地関係金利&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="par number" placeholder="金利" [(ngModel)]="plan.landInterest">&nbsp;%</th>-->
+            <th class="main">土地関係金利</th>
+            <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal46()) | number"></td>
+        </tr>
+        <tr>
+            <!--<th class="main">建物関係金利&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="par number" placeholder="金利" [(ngModel)]="plan.buildInterest">&nbsp;%</th>-->
+            <th class="main">建物関係金利</th>
+            <td class="yen"><input type="text" class="Twidth100 number"  [attr.disabled]="true" [value]="getNumber(cal47()) | number"></td>
+        </tr>
+        <tr>
+            <th class="main">金利合計</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal48()) | number"></td>            
+        </tr>
+            
+        <tr>
+            <th class="main">PJ原価</th>
+            <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal49()) | number"></td>            
+        </tr>
+
+    </table>
+<!--収支計算画面_E-->
+
+
+
+</table>
+<!--2020 07 30_edd-->
+
+        
