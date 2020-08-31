@@ -188,12 +188,14 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.structure = null;
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '02') {
       this.data.blockNumber = '';
       this.data.area = null;
       this.data.tsubo = null;
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '03') {
       this.data.buysellFlg = '0';
       this.data.owner = null;
@@ -206,6 +208,7 @@ export class LocationDetailComponent extends BaseComponent {
       }); 
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '04') {
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
