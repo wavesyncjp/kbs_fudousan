@@ -27,6 +27,7 @@ export class Bukkensalesinfo {
     salesBrokerageFee: number;
     salesLandArea: number;
     salesIntermediary: string;
+    salesIntermediaryAddress: string;//20200828 Add
     salesRemark: string;
 
     createUserId: number;

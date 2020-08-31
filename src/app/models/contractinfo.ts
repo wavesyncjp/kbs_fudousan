@@ -10,6 +10,7 @@ export class Contractinfo {
     contractNow: string;
     contractNumber = '';
     contractFormNumber: number;
+    contractStaff: string;
     contractType: string;
     promptDecideFlg: number;
     promptDecideContent: string;
@@ -39,19 +40,6 @@ export class Contractinfo {
     deliveryFixedDay: string;
     vacationDay: string;
     contractDay: string;
-    attachFilePath: string;
-    attachFileName: string;
-    siteArea: number;
-    totalFloorArea: number;
-    siteAvailableArea: number;
-    structure: string;
-    scale: string;
-    acquisitionConfirmDay: string;
-    startScheduledDay: string;
-    prioritySalesAgreementDay: string;
-    finishScheduledDay: string;
-    deliveryDay: string;
-    dependType: string;
     decisionPrice:number;
     decisionDay: string;
     decisionDayChk: string;
@@ -60,34 +48,54 @@ export class Contractinfo {
     settlementAfter: string;
     retainage: number;
     retainageDay: string;
-    canncellDay: string;
-    canncellDayChk: string;
-    canncell: string;
-    remarks: string;
-    contractStaff: string;
     supplierName: string;
     bank: string;
     branchName: string;
     accountType: string;
     accountName: string;
     bankName: string;
-
+    //20200828 S_Add
+    intermediaryName: string;
+    intermediaryAddress: string;
+    intermediaryPrice: number;
+    outsourcingName: string;
+    outsourcingAddress: string;
+    outsourcingPrice: number;
+    //20200828 E_Add
+    canncellDay: string;
+    canncellDayChk: string;
+    canncell: string;
+    remarks: string;
+    attachFilePath: string;
+    attachFileName: string;
+    siteArea: number;
+    siteAvailableArea: number;
+    structure: string;
+    scale: string;
+    totalFloorArea: number;
+    acquisitionConfirmDay: string;
+    startScheduledDay: string;
+    prioritySalesAgreementDay: string;
+    finishScheduledDay: string;
+    deliveryDay: string;
+    dependType: string;
+    
+    deposit1DayMap: Date = null;
+    deposit2DayMap: Date = null;
+    earnestPriceDayMap: Date = null;
     deliveryFixedDayMap: Date = null;
     vacationDayMap: Date = null;
     contractDayMap: Date = null;
+    decisionDayMap: Date = null;
+    settlementDayMap: Date = null;
+    settlementDayFinMap: Date = null;
+    retainageDayMap: Date = null;
+    canncellDayMap: Date = null;
     acquisitionConfirmDayMap: Date = null;
     startScheduledDayMap: Date = null;
     prioritySalesAgreementDayMap: Date = null;
     finishScheduledDayMap: Date = null;
     deliveryDayMap: Date = null;
-    decisionDayMap: Date = null;
-    settlementDayMap: Date = null;
-    settlementDayFinMap: Date = null;
-    deposit1DayMap: Date = null;
-    deposit2DayMap: Date = null;
-    earnestPriceDayMap: Date = null;
-    canncellDayMap: Date = null;
-    retainageDayMap: Date = null;
     
     // 20200709 S_Add
     tradingPriceMap: string = "";
@@ -99,21 +107,26 @@ export class Contractinfo {
     deposit2Map: string = "";
     earnestPriceMap: string = "";
     tradingBalanceMap: string = "";
+    prioritySalesAreaMap: string = "";
+    prioritySalesFloorMap: string = "";
+    prioritySalesPlanPriceMap: string = "";
     fixedTaxMap: string = "";
     decisionPriceMap: string = "";
     retainageMap: string = "";
-    prioritySalesPlanPriceMap: string = "";
-    prioritySalesAreaMap: string = "";
+    //20200828 S_Add
+    intermediaryPriceMap: string = "";
+    outsourcingPriceMap: string = "";
+    //20200828 E_Add
     siteAreaMap: string = "";
-    totalFloorAreaMap: string = "";
     siteAvailableAreaMap: string = "";
-    prioritySalesFloorMap: string = "";
+    totalFloorAreaMap: string = "";
     // 20200709 E_Add
    
     details: Contractdetailinfo[] = [];
     contractFiles: ContractFile[];
     sellers: ContractSellerInfo[];
     locations = []; // 所有地（保存しない）
+    contractStaffMap = [];//20200828 Add
 
     createUserId: number;
     updateUserId: number;
@@ -124,25 +137,30 @@ export class Contractinfo {
         }
     }
 
+    //20200828 S_Update
+    /*
     public convert() {
+    */
+    public convert(emps: any[]) {
+    //20200828 E_Update
         // 20200709 S_Add
         //カレンダー
+        this.deposit1DayMap = Converter.stringToDate(this.deposit1Day,'yyyyMMdd');
+        this.deposit2DayMap = Converter.stringToDate(this.deposit2Day,'yyyyMMdd');
+        this.earnestPriceDayMap = Converter.stringToDate(this.earnestPriceDay,'yyyyMMdd');
         this.deliveryFixedDayMap = Converter.stringToDate(this.deliveryFixedDay, 'yyyyMMdd');
         this.vacationDayMap = Converter.stringToDate(this.vacationDay,'yyyyMMdd');
         this.contractDayMap = Converter.stringToDate(this.contractDay,'yyyyMMdd');
+        this.decisionDayMap = Converter.stringToDate(this.decisionDay,'yyyyMMdd');
+        this.settlementDayMap = Converter.stringToDate(this.settlementDay,'yyyyMMdd');
+        this.settlementDayFinMap = Converter.stringToDate(this.settlementDayFin,'yyyyMMdd');
+        this.retainageDayMap = Converter.stringToDate(this.retainageDay,'yyyyMMdd');
+        this.canncellDayMap = Converter.stringToDate(this.canncellDay,'yyyyMMdd');
         this.acquisitionConfirmDayMap = Converter.stringToDate(this.acquisitionConfirmDay,'yyyyMMdd');
         this.startScheduledDayMap = Converter.stringToDate(this.startScheduledDay,'yyyyMMdd');
         this.prioritySalesAgreementDayMap = Converter.stringToDate(this.prioritySalesAgreementDay,'yyyyMMdd');
         this.finishScheduledDayMap = Converter.stringToDate(this.finishScheduledDay,'yyyyMMdd');
         this.deliveryDayMap = Converter.stringToDate(this.deliveryDay,'yyyyMMdd');
-        this.decisionDayMap = Converter.stringToDate(this.decisionDay,'yyyyMMdd');
-        this.settlementDayMap = Converter.stringToDate(this.settlementDay,'yyyyMMdd');
-        this.settlementDayFinMap = Converter.stringToDate(this.settlementDayFin,'yyyyMMdd');
-        this.deposit1DayMap = Converter.stringToDate(this.deposit1Day,'yyyyMMdd');
-        this.deposit2DayMap = Converter.stringToDate(this.deposit2Day,'yyyyMMdd');
-        this.earnestPriceDayMap = Converter.stringToDate(this.earnestPriceDay,'yyyyMMdd');
-        this.canncellDayMap = Converter.stringToDate(this.canncellDay,'yyyyMMdd');
-        this.retainageDayMap = Converter.stringToDate(this.retainageDay,'yyyyMMdd');
         //カンマ
         this.tradingPriceMap = Converter.numberToString(this.tradingPrice);
         this.tradingLandPriceMap = Converter.numberToString(this.tradingLandPrice);
@@ -153,19 +171,34 @@ export class Contractinfo {
         this.deposit2Map = Converter.numberToString(this.deposit2);
         this.earnestPriceMap = Converter.numberToString(this.earnestPrice);
         this.tradingBalanceMap = Converter.numberToString(this.tradingBalance);
+        this.prioritySalesAreaMap = Converter.numberToString(this.prioritySalesArea);
+        this.prioritySalesFloorMap = Converter.numberToString(this.prioritySalesFloor);
+        this.prioritySalesPlanPriceMap = Converter.numberToString(this.prioritySalesPlanPrice);
         this.fixedTaxMap = Converter.numberToString(this.fixedTax);
         this.decisionPriceMap = Converter.numberToString(this.decisionPrice);
         this.retainageMap = Converter.numberToString(this.retainage);
-        this.prioritySalesPlanPriceMap = Converter.numberToString(this.prioritySalesPlanPrice);
-        this.prioritySalesAreaMap = Converter.numberToString(this.prioritySalesArea);
+        //20200828 S_Add
+        this.intermediaryPriceMap = Converter.numberToString(this.intermediaryPrice);
+        this.outsourcingPriceMap = Converter.numberToString(this.outsourcingPrice);
+        //20200828 E_Add
         this.siteAreaMap = Converter.numberToString(this.siteArea);
-        this.totalFloorAreaMap = Converter.numberToString(this.totalFloorArea);
         this.siteAvailableAreaMap = Converter.numberToString(this.siteAvailableArea);
-        this.prioritySalesFloorMap = Converter.numberToString(this.prioritySalesFloor);
+        this.totalFloorAreaMap = Converter.numberToString(this.totalFloorArea);
         // 20200709 E_Add
+        
+        //20200828 S_Add
+        if (this.contractStaff !== null && emps != null) {
+            this.contractStaffMap = emps.filter(me => this.contractStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
+        }
+        //20200828 E_Add
     }
 
+    //20200828 S_Update
+    /*
     public convertForSave(userId: number, datePipe: DatePipe) {
+    */
+    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
+    //20200828 E_Update
         if (this.pid > 0) {
             this.updateUserId = userId;
         } else {
@@ -173,22 +206,22 @@ export class Contractinfo {
         }
         // 20200709 S_Add
         //カレンダー
+        this.deposit1Day = Converter.dateToString(this.deposit1DayMap,'yyyyMMdd',datePipe);
+        this.deposit2Day = Converter.dateToString(this.deposit2DayMap,'yyyyMMdd',datePipe);
+        this.earnestPriceDay = Converter.dateToString(this.earnestPriceDayMap,'yyyyMMdd',datePipe);
         this.deliveryFixedDay = Converter.dateToString(this.deliveryFixedDayMap,'yyyyMMdd',datePipe);
         this.vacationDay = Converter.dateToString(this.vacationDayMap,'yyyyMMdd',datePipe);
         this.contractDay = Converter.dateToString(this.contractDayMap,'yyyyMMdd',datePipe);
+        this.decisionDay = Converter.dateToString(this.decisionDayMap,'yyyyMMdd',datePipe);
+        this.settlementDay = Converter.dateToString(this.settlementDayMap,'yyyyMMdd',datePipe);
+        this.settlementDayFin = Converter.dateToString(this.settlementDayFinMap,'yyyyMMdd',datePipe);
+        this.retainageDay = Converter.dateToString(this.retainageDayMap,'yyyyMMdd',datePipe);
+        this.canncellDay = Converter.dateToString(this.canncellDayMap,'yyyyMMdd',datePipe);
         this.acquisitionConfirmDay = Converter.dateToString(this.acquisitionConfirmDayMap,'yyyyMMdd',datePipe);
         this.startScheduledDay = Converter.dateToString(this.startScheduledDayMap,'yyyyMMdd',datePipe);
         this.prioritySalesAgreementDay = Converter.dateToString(this.prioritySalesAgreementDayMap,'yyyyMMdd',datePipe);
         this.finishScheduledDay = Converter.dateToString(this.finishScheduledDayMap,'yyyyMMdd',datePipe);
         this.deliveryDay = Converter.dateToString(this.deliveryDayMap,'yyyyMMdd',datePipe);
-        this.decisionDay = Converter.dateToString(this.decisionDayMap,'yyyyMMdd',datePipe);
-        this.settlementDay = Converter.dateToString(this.settlementDayMap,'yyyyMMdd',datePipe);
-        this.settlementDayFin = Converter.dateToString(this.settlementDayFinMap,'yyyyMMdd',datePipe);
-        this.deposit1Day = Converter.dateToString(this.deposit1DayMap,'yyyyMMdd',datePipe);
-        this.deposit2Day = Converter.dateToString(this.deposit2DayMap,'yyyyMMdd',datePipe);
-        this.earnestPriceDay = Converter.dateToString(this.earnestPriceDayMap,'yyyyMMdd',datePipe);
-        this.canncellDay = Converter.dateToString(this.canncellDayMap,'yyyyMMdd',datePipe);
-        this.retainageDay = Converter.dateToString(this.retainageDayMap,'yyyyMMdd',datePipe);
         //カンマ
         this.tradingPrice = Converter.stringToNumber(this.tradingPriceMap);
         this.tradingLandPrice = Converter.stringToNumber(this.tradingLandPriceMap);
@@ -199,15 +232,25 @@ export class Contractinfo {
         this.deposit2 = Converter.stringToNumber(this.deposit2Map);
         this.earnestPrice = Converter.stringToNumber(this.earnestPriceMap);
         this.tradingBalance = Converter.stringToNumber(this.tradingBalanceMap);
+        this.prioritySalesArea = Converter.stringToNumber(this.prioritySalesAreaMap);
+        this.prioritySalesFloor = Converter.stringToNumber(this.prioritySalesFloorMap);
+        this.prioritySalesPlanPrice = Converter.stringToNumber(this.prioritySalesPlanPriceMap);
         this.fixedTax = Converter.stringToNumber(this.fixedTaxMap);
         this.decisionPrice = Converter.stringToNumber(this.decisionPriceMap);
         this.retainage = Converter.stringToNumber(this.retainageMap);
-        this.prioritySalesPlanPrice = Converter.stringToNumber(this.prioritySalesPlanPriceMap);
-        this.prioritySalesArea = Converter.stringToNumber(this.prioritySalesAreaMap);
+        //20200828 S_Add
+        this.intermediaryPrice = Converter.stringToNumber(this.intermediaryPriceMap);
+        this.outsourcingPrice = Converter.stringToNumber(this.outsourcingPriceMap);
+        //20200828 E_Add
         this.siteArea = Converter.stringToNumber(this.siteAreaMap);
-        this.totalFloorArea = Converter.stringToNumber(this.totalFloorAreaMap);
         this.siteAvailableArea = Converter.stringToNumber(this.siteAvailableAreaMap);
-        this.prioritySalesFloor = Converter.stringToNumber(this.prioritySalesFloorMap);
-       // 20200709 E_Add
+        this.totalFloorArea = Converter.stringToNumber(this.totalFloorAreaMap);
+        // 20200709 E_Add
+        
+        //20200828 E_Add
+        if(isJoin) {
+            this.contractStaff = this.contractStaffMap.map(me => me['userId']).join(',');
+        }
+        //20200828 E_Add
     }
 }

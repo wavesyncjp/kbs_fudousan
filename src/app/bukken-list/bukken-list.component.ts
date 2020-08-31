@@ -32,7 +32,10 @@ export class BukkenListComponent extends BaseComponent {
 
   public cond = {
     bukkenNo: '',
-    contractBukkenNo:'',
+    //20200828 S_Update
+//    contractBukkenNo:'',
+    contractBukkenNo_Like:'',
+    //20200828 E_Update
     bukkenName: '',
     residence: '',
     address: '',
@@ -48,12 +51,22 @@ export class BukkenListComponent extends BaseComponent {
 //    pickDate: '',
     department: [],
     result: ['01'],
-    mode: 1
+    mode: 1,
+    //20200828 S_Add
+    clctInfoStaff: [],
+    clctInfoStaffMap: []
+    //20200828 E_Add
  };
+  dropdownSettings = {};//20200828 Add
   search = '0';
   searched = false;
   selectedRowIndex = -1;
+  //20200828 S_Update
+  /*
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail', 'csvCheck'];
+  */
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'csvCheck'];
+  //20200828 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -66,6 +79,10 @@ export class BukkenListComponent extends BaseComponent {
   mapObj: any;
   infowindow: any;
   markers = [];
+  //20200828 S_Add
+  authority = '';
+  disableUser: boolean = false;
+  //20200828 E_Add
 
   constructor(private ngZone: NgZone,
               public router: Router,
@@ -83,6 +100,12 @@ export class BukkenListComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
+
+    //20200828 S_Add
+    this.authority = this.service.loginUser.authority;
+    this.disableUser = (this.authority === '03');
+    //20200828 E_Add
+
     // tslint:disable-next-line:no-string-literal
     window['angularComponentReference'] = { component: this, zone: this.ngZone, openDetailFromMap: (pid) => this.showDetail2(pid), };
 
@@ -100,6 +123,7 @@ export class BukkenListComponent extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getCodes(['001']));
     funcs.push(this.service.getDeps(null));
+    funcs.push(this.service.getEmps(null));//20200828 Add
 
     Promise.all(funcs).then(values => {
 
@@ -114,6 +138,10 @@ export class BukkenListComponent extends BaseComponent {
       }
 
       this.deps = values[1];
+      //20200828 S_Add
+      // 社員
+      this.emps = values[2];
+      //20200828 E_Add
 
 //      this.cond.pickDateMap = null;
       this.spinner.hide();
@@ -124,6 +152,18 @@ export class BukkenListComponent extends BaseComponent {
     });
 
     this.mapInitializer();
+
+    //20200828 S_Add
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'userId',
+      textField: 'userName',
+      searchPlaceholderText: '検索',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+      enableCheckAll: false
+    };
+    //20200828 E_Add
   }
 
   highlight(row) {
@@ -136,7 +176,10 @@ export class BukkenListComponent extends BaseComponent {
   resetCondition() {
     this.cond = {
       bukkenNo: '',
-      contractBukkenNo:'',
+      //20200828 S_Update
+//      contractBukkenNo:'',
+      contractBukkenNo_Like:'',
+      //20200828 E_Update
       bukkenName: '',
       residence: '',
       address: '',
@@ -152,7 +195,11 @@ export class BukkenListComponent extends BaseComponent {
   //    pickDate: '',
       department: [],
       result: ['01'],
-      mode: 1
+      mode: 1,
+      //20200828 S_Add
+      clctInfoStaff: [],
+      clctInfoStaffMap: []
+      //20200828 E_Add
    };
   }
 
@@ -173,13 +220,18 @@ export class BukkenListComponent extends BaseComponent {
     this.cond.pickDateSearch_To = this.cond.pickDate_To != null ? this.datepipe.transform(this.cond.pickDate_To, 'yyyyMMdd') : "";
     this.cond.surveyRequestedDaySearch_From = this.cond.surveyRequestedDay_From != null ? this.datepipe.transform(this.cond.surveyRequestedDay_From, 'yyyyMMdd') : "";
     this.cond.surveyRequestedDaySearch_To = this.cond.surveyRequestedDay_To != null ? this.datepipe.transform(this.cond.surveyRequestedDay_To, 'yyyyMMdd') : "";
+    this.cond.clctInfoStaff = this.cond.clctInfoStaffMap.map(me => me.userId);//20200828 Add
 
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         res.forEach(obj => {
+          //20200828 S_Delete
+          /*
           if (obj.department !== null && obj.department !== '') {
             obj.department = this.deps.filter((c) => c.depCode === obj.department).map(c => c.depName)[0];
           }
+          */
+          //20200828 E_Delete
           if (obj.result !== null && obj.result !== '') {
             const lst = obj.result.split(',');
             obj.result = this.getCode('001').filter((c) => lst.includes(c.codeDetail)).map(c => c.name).join(',');
@@ -188,6 +240,22 @@ export class BukkenListComponent extends BaseComponent {
           //CSVチェック
           obj['select'] = true;
 
+          //20200828 S_Add
+          //物件担当
+          let staff = [];
+          if(!this.isBlank(obj.infoStaff)) {
+            obj.infoStaff.split(',').forEach(me => {
+              let lst = this.emps.filter(us=>us.userId === me).map(me => me.userName);
+              if(lst.length > 0) {
+                staff.push(lst[0]);
+              }
+            });
+            obj['staffName'] = staff.join(',');
+          }
+          else {
+            obj['staffName'] = '';
+          }
+          //20200828 E_Add
         });
       }
       this.service.searchCondition = this.cond;
