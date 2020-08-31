@@ -269,7 +269,10 @@ export class BaseComponent implements OnInit {
         if(isNaN(Number(val))) val = val.toString().replace(/,/g, "").trim();
         // 整数部分を3桁カンマ区切りへ
         //val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        val = Number(val).toLocaleString();
+        //20200901 S_Update
+//        val = Number(val).toLocaleString();
+        val = isNaN(Number(val)) ? String(val) : Number(val).toLocaleString();
+        //20200901 E_Update
         return val;
     }
     
