@@ -188,12 +188,14 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.structure = null;
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '02') {
       this.data.blockNumber = '';
       this.data.area = null;
       this.data.tsubo = null;
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '03') {
       this.data.buysellFlg = '0';
       this.data.owner = null;
@@ -206,6 +208,7 @@ export class LocationDetailComponent extends BaseComponent {
       }); 
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
+      this.data.ridgePid = '';//20200831 Add
     } else if (this.data.locationType === '04') {
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
@@ -332,7 +335,11 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     if (this.data.locationType !== '03') {
-    this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
+      this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
+    //20200831 S_Add
+    if (this.data.locationType === '04') {
+      this.checkBlank(this.data.ridgePid, `ridgePid`, '一棟の建物は必須です。');}
+    //20200831 E_Add
     if (this.errorMsgs.length > 0) {
       return false;
     }
