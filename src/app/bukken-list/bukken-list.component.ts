@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 import { utils } from 'protractor';
 import { Util } from '../utils/util';
 import { CsvTemplateComponent } from '../csv-template/csv-template.component';
+import { stat } from 'fs';
 
 @Component({
   selector: 'app-bukken-list',
@@ -320,6 +321,7 @@ export class BukkenListComponent extends BaseComponent {
   }
 
   showMapMarker() {
+    /*
      this.dataSource.data.forEach(bk => {
       const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
       const geocoder = new google.maps.Geocoder();
@@ -338,7 +340,39 @@ export class BukkenListComponent extends BaseComponent {
       });
 
      });
+     */
+    if(this.dataSource.data.length > 0) {
+      this.showMaker(0);
+    }    
    }
+
+    showMaker(pos: number){
+      let bk = this.dataSource.data[pos];
+      const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
+      const geocoder = new google.maps.Geocoder();
+      const that = this;
+      geocoder.geocode({address : addr}, function(results: any, status: any) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          const latVal = results[0].geometry.location.lat(); // 緯度を取得
+          const lngVal = results[0].geometry.location.lng(); // 経度を取得
+          const mark = {
+              lat: latVal, // 緯度
+              lng: lngVal // 経度
+          };
+          that.setMarker(mark, bk);
+        }
+        else {
+          console.log(status);
+        }
+
+        if(pos < that.dataSource.data.length - 1) {
+          setTimeout(() => {
+            that.showMaker(pos+1);
+          }, 400);
+        }
+
+      });      
+    }
 
    /**
     * ピン追加
