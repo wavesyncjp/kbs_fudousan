@@ -381,7 +381,7 @@ export class BukkenListComponent extends BaseComponent {
     * @param bk ：物件情報
     */
    setMarker(latlng: any, bk: Templandinfo) {
-
+    const that = this;
     const result = this.getCodeDetail('001', bk.result);
     const pin = (result === '01' ? 'pin-blue2.png' : result === '02' ? 'pin-green.png' : 'pin-pink.png');
     const marker = new google.maps.Marker({
@@ -402,7 +402,7 @@ export class BukkenListComponent extends BaseComponent {
         const parseVal = new Date(bk.pickDate);
         dayStr = parseVal.toLocaleDateString();
         */
-        dayStr = this.formatDay(bk.pickDate, 'yyyy/MM/dd');
+        dayStr = that.formatDay(bk.pickDate, 'yyyy/MM/dd');
         //20200902 E_Update
       }
 
@@ -413,7 +413,7 @@ export class BukkenListComponent extends BaseComponent {
         const parseVal = new Date(bk.surveyRequestedDay);
         requestedStr = parseVal.toLocaleDateString();
         */
-        dayStr = this.formatDay(bk.surveyRequestedDay, 'yyyy/MM/dd');
+        dayStr = that.formatDay(bk.surveyRequestedDay, 'yyyy/MM/dd');
         //20200902 E_Update
       }
 
@@ -434,14 +434,14 @@ export class BukkenListComponent extends BaseComponent {
                       <tr><th><br></th><th></th></tr>
                       <tr><th class="label">情報収集日</th><th>${dayStr}</th></tr>
                       <tr><th class="label">測量依頼日</th><th>${requestedStr}</th></tr>
-                      <tr><th class="label"><物件担当者</th><th>${bk.infoStaff}</th></tr>
+                      <tr><th class="label">物件担当者</th><th>${bk['staffName']}</th></tr>
                       <tr><th class="label"></th><th><a href="javascript:openDetailFromMap(${bk.pid})">詳細</a></th></tr>
                     </table>
                   </div>`
       });
       infowindow.open(this.mapObj, marker);
     });
-    this.markers.push(marker);
+    that.markers.push(marker);
   }
 
   // マップエンド
