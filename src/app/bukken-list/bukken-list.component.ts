@@ -397,14 +397,24 @@ export class BukkenListComponent extends BaseComponent {
 
       let dayStr = '';
       if (!(bk.pickDate === undefined || bk.pickDate === '' || bk.pickDate == null)) {
+        //20200902 S_Update
+        /*
         const parseVal = new Date(bk.pickDate);
         dayStr = parseVal.toLocaleDateString();
+        */
+        dayStr = this.formatDay(bk.pickDate, 'yyyy/MM/dd');
+        //20200902 E_Update
       }
 
       let requestedStr = '';
       if (!(bk.surveyRequestedDay === undefined || bk.surveyRequestedDay === '' || bk.surveyRequestedDay == null)) {
+        //20200902 S_Update
+        /*
         const parseVal = new Date(bk.surveyRequestedDay);
         requestedStr = parseVal.toLocaleDateString();
+        */
+        dayStr = this.formatDay(bk.surveyRequestedDay, 'yyyy/MM/dd');
+        //20200902 E_Update
       }
 
       const linkStr = [];
@@ -424,7 +434,7 @@ export class BukkenListComponent extends BaseComponent {
                       <tr><th><br></th><th></th></tr>
                       <tr><th class="label">情報収集日</th><th>${dayStr}</th></tr>
                       <tr><th class="label">測量依頼日</th><th>${requestedStr}</th></tr>
-                      <tr><th class="label">担当部署</th><th>${bk.department}</th></tr>
+                      <tr><th class="label"><物件担当者</th><th>${bk.infoStaff}</th></tr>
                       <tr><th class="label"></th><th><a href="javascript:openDetailFromMap(${bk.pid})">詳細</a></th></tr>
                     </table>
                   </div>`
