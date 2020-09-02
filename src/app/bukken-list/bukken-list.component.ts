@@ -452,7 +452,7 @@ export class BukkenListComponent extends BaseComponent {
                       <tr><th class="label">情報収集日</th><th>${dayStr}</th></tr>
                       <tr><th class="label">測量依頼日</th><th>${requestedStr}</th></tr>
                       <tr><th class="label">物件担当者</th><th>${bk['staffName']}</th></tr>
-                      <tr><th class="label">結果</th><th>${that.getCodeTitle('001', bk.result)}</th></tr>
+                      <tr><th class="label">結果</th><th>${bk['result']}</th></tr>
                       <tr><th class="label"></th><th><a href="javascript:openDetailFromMap(${bk.pid})">詳細</a></th></tr>
                     </table>
                   </div>`
