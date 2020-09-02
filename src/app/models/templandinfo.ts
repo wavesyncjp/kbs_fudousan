@@ -8,7 +8,10 @@ import { Converter } from '../utils/converter';
 export class Templandinfo {
     pid: number;
     bukkenNo = '';
-    contractBukkenNo: number;
+    //20200902 S_Update
+//    contractBukkenNo: number;
+    contractBukkenNo = '';
+    //20200902 E_Update
     bukkenName = '';
     residence = '';
     pickDate = '';
