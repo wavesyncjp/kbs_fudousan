@@ -2720,6 +2720,7 @@ historyList() {
   const dialogRef = this.dialog.open(PlanHistoryListComponent, {
     width: '100%',
     height: '100%',
+    data: this.pid
   });
 }
 
@@ -2763,6 +2764,7 @@ backPlan(row: Planinfo) {
     //ret = this.cal29() + this.cal34() + this.cal45() + this.cal46() + this.cal47();
     
     for (let i = 0; i <= 38; i++) {
+      if(plan.details[i] == null) continue;
       let price = this.getNumber(this.removeComma(plan.details[i].price));
       ret += price;
     }

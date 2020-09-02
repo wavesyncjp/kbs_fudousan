@@ -6,18 +6,7 @@ export class Planhistorylist {
     costFlg : string;
     addFlg: string;
     price: number;
-    details: Planhistorydetaillist[];
+    details: Planhistorylist[];
 
 }
 
-export class Planhistorydetaillist {
-
-    paymentCode: number;
-    planHistoryPid: number;
-    paymentName: string;
-    costFlg : string;
-    addFlg: string;
-    price: number;
-    details: [];
-
-}
