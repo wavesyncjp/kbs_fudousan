@@ -251,25 +251,10 @@ export class BukkenListComponent extends BaseComponent {
                 staff.push(lst[0]);
               }
             });
-            //obj['staffName'] = staff.join(',');
-            //20200902 S_Add
-            //物件担当 11文字以上…表示&物件担当 11文字以上カーソル表示
-            let title = staff.join(',') ; 
-            if( title.length > 10 ) {
-              title = title.substring(0, 10)+'…';
-              obj['staffName'] = title;
-            }if( title.length >= 10 ) {
-              title =　staff.join(',');
-              obj['staffNameTitle'] = title;
-            }else{
-              obj['staffNameTitle'] = '';
-              title =　staff.join(',');
-              obj['staffName'] = title;
-            }
-          }
-          /*else {
+            obj['staffName'] = staff.join(',');
+          }else {
             obj['staffName'] = '';
-          }*/
+          }
           //20200902 E_Add
 
           //20200902 S_Add

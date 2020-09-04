@@ -17,7 +17,8 @@ import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
-import { SelectComponentComponent } from './uicomponent/select-component/select-component.component';
+import { SelectComponentComponent } from './uicomponent/select-component/select-component.component'; // 20200904
+import { MatcellComponentComponent } from './uicomponent/matcell-component/matcell-component.component';
 import { FileComponentComponent } from './uicomponent/file-component/file-component.component';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -63,7 +64,8 @@ import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.co
     BukkenDetailComponent,
     ContractListComponent,
     ContractDetailComponent,
-    SelectComponentComponent,
+    SelectComponentComponent, // 20200904
+    MatcellComponentComponent,
     FileComponentComponent,
     ConfirmDialogComponent,
     TopComponent,
