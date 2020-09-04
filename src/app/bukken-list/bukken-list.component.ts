@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 import { utils } from 'protractor';
 import { Util } from '../utils/util';
 import { CsvTemplateComponent } from '../csv-template/csv-template.component';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-bukken-list',
@@ -250,12 +251,47 @@ export class BukkenListComponent extends BaseComponent {
                 staff.push(lst[0]);
               }
             });
-            obj['staffName'] = staff.join(',');
+            //obj['staffName'] = staff.join(',');
+            //20200902 S_Add
+            //物件担当 11文字以上…表示&物件担当 11文字以上カーソル表示
+            let title = staff.join(',') ; 
+            if( title.length > 10 ) {
+              title = title.substring(0, 10)+'…';
+              obj['staffName'] = title;
+            }if( title.length >= 10 ) {
+              title =　staff.join(',');
+              obj['staffNameTitle'] = title;
+            }else{
+              obj['staffNameTitle'] = '';
+              title =　staff.join(',');
+              obj['staffName'] = title;
+            }
           }
-          else {
+          /*else {
             obj['staffName'] = '';
+          }*/
+          //20200902 E_Add
+
+          //20200902 S_Add
+          /*物件担当 11文字以上カーソル表示
+          let staffTitle = [];
+          if(!this.isBlank(obj.infoStaff)) {
+            obj.infoStaff.split(',').forEach(me => {
+              let lst = this.emps.filter(us=>us.userId === me).map(me => me.userName);
+              if(lst.length > 0) {
+                staffTitle.push(lst[0]);
+              }
+            });
+            let title = staffTitle.join(',') ; 
+            if( title.length <= 10 ) {
+              title = '';
+              obj['staffNameTitle'] = title;
+            }else{
+              title =  staffTitle.join(',');
+              obj['staffNameTitle'] = title;
+            } 
           }
-          //20200828 E_Add
+          //20200902 E_Add*/
         });
       }
       this.service.searchCondition = this.cond;
@@ -428,5 +464,28 @@ export class BukkenListComponent extends BaseComponent {
       }
     });
   }
+  /*20200901 S_Add
+  public static titleView(val: String){
+    if(val.length < 10){
+      val = '';
+    }else{
+      return val;
+    }
+    return val;
+  }
+  
+  
+  public static valueView(val: String){
+    if(val.length < 10){
+      return val;
+    }else{
+      val = val.substring(0, 10)+'…';
+    }
+    return val;
+  }
+  */
+   //20200901 E_Add
+
+   
 
 }

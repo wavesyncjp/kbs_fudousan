@@ -207,7 +207,7 @@
         <ng-container matColumnDef="staffName">
           <th mat-header-cell *matHeaderCellDef > 物件担当者 </th>
           <!--<td mat-cell *matCellDef="let element"> {{element.staffName}} </td>-->
-          <td mat-cell *matCellDef="let element" title={{element.staffName}} class="person_width"> {{element.staffName}} </td>
+          <td mat-cell *matCellDef="let element"><label-ex title="getValue({{element.staffName}},10)" [value]="getTitle({{element.staffName}},10)"></label-ex></td>
         </ng-container>
         <!-- 20200828 E_Add -->
     
