@@ -1,28 +1,35 @@
 mat-expansion-panel-header{
     height: 45px !important;
 }
+
 .main{
     width: 98%;
     margin: 10px;
 }
+
 .data{
-    max-height: calc(100% - 100px);    
+    max-height: calc(100% - 100px);
     overflow: auto;
     margin: 0px;
     width: 99.2%;
 }
+
 mat-form-field{
     margin-right: 10px;
 }
+
 table {
     width: 100%;
 }
+
 th.mat-column-detail, td.mat-column-detail {
     width: 100px;
 }
+
 th.mat-column-bukkenId, td.mat-column-bukkenId {
     width: 100px;
 }
+
 .mat-column-bukkenNo{
     width: 100px;
 }
@@ -37,19 +44,30 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
 td.mat-cell:last-of-type {
     padding-right: 0px;
 }
+
 .ct-list {
     height: 42px;
     display: flex;
-    align-items: center;   
-    /*background-color: ivory;*/     
+    align-items: center;
+    /*background-color: ivory;*/
 }
 
 .ct-list button {
     margin-left: 15px;
 }
+
 .contractlist_width{
     max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
- }
+}
+
+/*20200906 S_Add*/
+.person_width{
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*20200906 E_Add*/

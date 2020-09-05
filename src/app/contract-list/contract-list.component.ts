@@ -22,8 +22,12 @@ import { Templandinfo } from '../models/templandinfo';
 })
 export class ContractListComponent  extends BaseComponent {
 
-  displayedColumns: string[] = ['bukkenNo', 'bukkenName','contractBukkenNo', 'remark1', 'remark2',
-                                'contractNo', 'contractOwner', 'detail'];
+  //20200906 S_Update
+  /*
+  displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'contractBukkenNo', 'remark1', 'remark2', 'contractNo', 'contractOwner', 'detail'];
+  */
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractNo', 'date', 'contractOwner', 'detail'];
+  //20200906 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
