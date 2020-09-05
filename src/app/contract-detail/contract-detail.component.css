@@ -109,3 +109,24 @@ span.now{
     font-weight: bold;
     color: red;
 }
+  /*20200906 S_Add*/
+  ::ng-deep.multiselect-dropdown {
+    width: 275px !important;
+    margin-left: 3px;
+  }
+  
+  ::ng-deep.multiselect-dropdown .dropdown-btn {
+    height: 22px !important;
+    padding: 5px 12px !important;
+    border-color: #6495ED !important;
+    border-radius: 3px !important;
+    line-height: unset !important;
+    font-size: 13px !important;
+  }
+
+  ::ng-deep.multiselect-dropdown .dropdown-btn .dropdown-down {
+    border-top: 5px solid #adadad !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+  }
+  /*20200906 E_Add*/
