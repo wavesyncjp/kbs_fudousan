@@ -30,6 +30,8 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
     width: 100px;
 }
 
+/*20200906 S_Delete*/
+/*
 .mat-column-bukkenNo{
     width: 100px;
 }
@@ -40,6 +42,8 @@ th.mat-column-bukkenId, td.mat-column-bukkenId {
 .mat-column-contractOwner {
     width:150px;
 }
+*/
+/*20200906 E_Delete*/
 
 td.mat-cell:last-of-type {
     padding-right: 0px;
