@@ -37,21 +37,21 @@ import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.comp
 import { LocationDetailComponent } from './location-detail/location-detail.component';
 import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.component';
 import { PaymentTypeDetailComponent } from './paymentType-detail/paymentType-detail.component';
-// 20200213 test S_Add
+// 20200213 S_Add
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
-
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
-// 20200213 test E_Add
-// 20200226 test S_Add
+// 20200213 E_Add
+// 20200226 S_Add
 import { PlanListComponent } from './plan-list/plan-list.component';
-// 20200226 test E_Add
+// 20200226 E_Add
 import{ BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
 import { ContractTemplateComponent } from './contract-template/contract-template.component';
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
+import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';//20200907 Add
 
 @NgModule({
   declarations: [
@@ -79,21 +79,20 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731
     LocationDetailComponent,
     PaymentTypeListComponent,
     PaymentTypeDetailComponent,
-    // 20200213 test S_Add
+    // 20200213 S_Add
     PlanDetailComponent,
     PayContractListComponent,
     PayContractDetailComponent,
-    // 20200213 test E_Add
-    // 20200226 test S_Add
+    // 20200213 E_Add
+    // 20200226 S_Add
     PlanListComponent,
     BukkenplaninfoDetailComponent,
     BukkenplaninfoListComponent,
     ContractTemplateComponent,
     CsvTemplateComponent,
-    ErrorDialogComponent,    
-
-    
-    // 20200226 test E_Add
+    ErrorDialogComponent,
+    // 20200226 E_Add
+    LabelComponentComponent// 20200907 Add
   ],
   imports: [
     BrowserModule,
