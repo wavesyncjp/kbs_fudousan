@@ -40,7 +40,7 @@
             </td>
             <th>決済期</th>
             <td class="first">
-                <input type="text" class="Twidthy50" [(ngModel)]="plan.settlement">
+                <input type="text" class="Twidthy50" [(ngModel)]="plan.settlement" [attr.disabled]="planHistorys.pid > 0 ? '' : null">
                 <app-select-component [codes]="getCode('017')" [cusClass]="'Twidthy50'" [(ngModel)]="plan.period"></app-select-component>
             </td>
             <th>担当部署</th>
@@ -83,7 +83,7 @@
         <tr>
             <th>所有者</th>
             <td class="second">
-              <input type="text" style="width: 400px;" [(ngModel)]="plan.landOwner">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.landOwner" [attr.disabled]="planHistorys.pid > 0 ? '' : null">
             </td>
             
             <th>権利関係</th>
@@ -102,11 +102,11 @@
         <tr>
             <th>設計事務所</th>
             <td class="second">
-              <input type="text" style="width: 400px;" [(ngModel)]="plan.designOffice">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.designOffice" [attr.disabled]="planHistorys.pid > 0 ? '' : null">
             </td>
             <th>施工会社</th>
             <td class="second">
-              <input type="text" style="width: 400px;" [(ngModel)]="plan.construction">
+              <input type="text" style="width: 400px;" [(ngModel)]="plan.construction" [attr.disabled]="planHistorys.pid > 0 ? '' : null">
             </td>
         </tr>
         <tr>
@@ -165,7 +165,7 @@
         <tr>
             <th>敷地面積(売買)</th>
             <td class="first">
-              <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.siteAreaBuyMap" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('siteAreaBuy')">&nbsp;㎡&nbsp;&nbsp;
+              <input type="text" class="Twidthy50 number" maxlength="12" [(ngModel)]="plan.siteAreaBuyMap" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('siteAreaBuy')" [attr.disabled]="plan.createUserId > 0 ? '' : null">&nbsp;㎡&nbsp;&nbsp;
               <input type="text" class="Twidthy50 number" [attr.disabled]="true"  [value]="calTsubo(plan.siteAreaBuyMap)">&nbsp;坪&nbsp;&nbsp;
             </td>
             <th>敷地面積(確認)</th>
@@ -242,7 +242,7 @@
         <tr>
             <th>構造規模</th>
             <td class="first">
-                <app-select-component [codes]="getCode('018')" [(ngModel)]="plan.structureScale"></app-select-component>
+                <app-select-component [codes]="getCode('018')" [(ngModel)]="plan.structureScale" [isDisabled]="plan.createUserId > 0"></app-select-component>
             </td>
             <th>地上</th>
             <td class="first">
@@ -386,7 +386,7 @@
             <td class="titlehead">金額(税抜)</td>
             <td class="titlehead">単価・坪</td>
             <td class="titlehead">算出根拠&nbsp;&nbsp;&nbsp;&nbsp;
-                <span *ngIf="plan.pid > 0">
+                <span *ngIf="planHistorys.pid > 0">
                     <button mat-raised-button (click)="historyList()" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button>
                 </span>
             </td>

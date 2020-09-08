@@ -17,8 +17,7 @@ import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
-import { SelectComponentComponent } from './uicomponent/select-component/select-component.component'; // 20200904
-import { MatcellComponentComponent } from './uicomponent/matcell-component/matcell-component.component';
+import { SelectComponentComponent } from './uicomponent/select-component/select-component.component';
 import { FileComponentComponent } from './uicomponent/file-component/file-component.component';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -38,23 +37,23 @@ import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.comp
 import { LocationDetailComponent } from './location-detail/location-detail.component';
 import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.component';
 import { PaymentTypeDetailComponent } from './paymentType-detail/paymentType-detail.component';
-// 20200213 test S_Add
+// 20200213 S_Add
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
-
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
-// 20200213 test E_Add
-// 20200226 test S_Add
+// 20200213 E_Add
+// 20200226 S_Add
 import { PlanListComponent } from './plan-list/plan-list.component';
-// 20200226 test E_Add
+// 20200226 E_Add
 import{ BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
 import { ContractTemplateComponent } from './contract-template/contract-template.component';
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
-import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';//hirano0804
-import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';//hirano0804
+import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';//20200907 Add
+
+
 
 @NgModule({
   declarations: [
@@ -64,8 +63,7 @@ import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.co
     BukkenDetailComponent,
     ContractListComponent,
     ContractDetailComponent,
-    SelectComponentComponent, // 20200904
-    MatcellComponentComponent,
+    SelectComponentComponent,
     FileComponentComponent,
     ConfirmDialogComponent,
     TopComponent,
@@ -83,23 +81,20 @@ import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.co
     LocationDetailComponent,
     PaymentTypeListComponent,
     PaymentTypeDetailComponent,
-    // 20200213 test S_Add
+    // 20200213 S_Add
     PlanDetailComponent,
     PayContractListComponent,
     PayContractDetailComponent,
-    // 20200213 test E_Add
-    // 20200226 test S_Add
+    // 20200213 E_Add
+    // 20200226 S_Add
     PlanListComponent,
     BukkenplaninfoDetailComponent,
     BukkenplaninfoListComponent,
     ContractTemplateComponent,
     CsvTemplateComponent,
     ErrorDialogComponent,
-    PlanHistoryCreateComponent,//hirano0804
-    PlanHistoryListComponent ,  //hirano0804
-
-    
-    // 20200226 test E_Add
+    // 20200226 E_Add
+    LabelComponentComponent// 20200907 Add
   ],
   imports: [
     BrowserModule,
@@ -139,7 +134,7 @@ import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.co
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
     UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
     PaymentTypeDetailComponent, PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent,
-    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent,PlanHistoryCreateComponent,PlanHistoryListComponent
+    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent
   ],
 })
 export class AppModule { }

@@ -16,7 +16,6 @@ import { DatePipe } from '@angular/common';
 import { utils } from 'protractor';
 import { Util } from '../utils/util';
 import { CsvTemplateComponent } from '../csv-template/csv-template.component';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-bukken-list',
@@ -252,31 +251,11 @@ export class BukkenListComponent extends BaseComponent {
               }
             });
             obj['staffName'] = staff.join(',');
-          }else {
+          }
+          else {
             obj['staffName'] = '';
           }
-          //20200902 E_Add
-
-          //20200902 S_Add
-          /*物件担当 11文字以上カーソル表示
-          let staffTitle = [];
-          if(!this.isBlank(obj.infoStaff)) {
-            obj.infoStaff.split(',').forEach(me => {
-              let lst = this.emps.filter(us=>us.userId === me).map(me => me.userName);
-              if(lst.length > 0) {
-                staffTitle.push(lst[0]);
-              }
-            });
-            let title = staffTitle.join(',') ; 
-            if( title.length <= 10 ) {
-              title = '';
-              obj['staffNameTitle'] = title;
-            }else{
-              title =  staffTitle.join(',');
-              obj['staffNameTitle'] = title;
-            } 
-          }
-          //20200902 E_Add*/
+          //20200828 E_Add
         });
       }
       this.service.searchCondition = this.cond;
@@ -340,8 +319,10 @@ export class BukkenListComponent extends BaseComponent {
     this.mapObj = new google.maps.Map(this.gmap.nativeElement, mapOptions);
   }
 
+  //20200902 S_Update
+  /*
   showMapMarker() {
-     this.dataSource.data.forEach(bk => {
+    this.dataSource.data.forEach(bk => {
       const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
       const geocoder = new google.maps.Geocoder();
       const that = this;
@@ -350,16 +331,65 @@ export class BukkenListComponent extends BaseComponent {
           const latVal = results[0].geometry.location.lat(); // 緯度を取得
           const lngVal = results[0].geometry.location.lng(); // 経度を取得
           const mark = {
-              lat: latVal, // 緯度
-              lng: lngVal // 経度
+            lat: latVal, // 緯度
+            lng: lngVal // 経度
           };
           that.setMarker(mark, bk);
         }
-
       });
+    });
+  }
+  */
+  showMapMarker() {
+    //10件以下
+    if(this.dataSource.data.length <= 10) {
+      this.dataSource.data.forEach(bk => {
+        const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
+        const geocoder = new google.maps.Geocoder();
+        const that = this;
+        geocoder.geocode({address : addr}, function(results: any, status: any) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            const latVal = results[0].geometry.location.lat(); // 緯度を取得
+            const lngVal = results[0].geometry.location.lng(); // 経度を取得
+            const mark = {
+              lat: latVal, // 緯度
+              lng: lngVal // 経度
+            };
+            that.setMarker(mark, bk);
+          }
+        });
+      });
+    }
+    //10件以上
+    else {
+      this.showMaker(0);
+    }
+  }
 
-     });
-   }
+  showMaker(pos: number){
+    let bk = this.dataSource.data[pos];
+    const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
+    const geocoder = new google.maps.Geocoder();
+    const that = this;
+    geocoder.geocode({address : addr}, function(results: any, status: any) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const latVal = results[0].geometry.location.lat(); // 緯度を取得
+        const lngVal = results[0].geometry.location.lng(); // 経度を取得
+        const mark = {
+          lat: latVal, // 緯度
+          lng: lngVal // 経度
+        };
+        that.setMarker(mark, bk);
+      }
+
+      if(pos < that.dataSource.data.length - 1) {
+          setTimeout(() => {
+            that.showMaker(pos+1);
+          }, 400);
+      }
+    });
+  }
+  //20200902 E_Update
 
    /**
     * ピン追加
@@ -367,7 +397,7 @@ export class BukkenListComponent extends BaseComponent {
     * @param bk ：物件情報
     */
    setMarker(latlng: any, bk: Templandinfo) {
-
+    const that = this;//20200902 Add
     const result = this.getCodeDetail('001', bk.result);
     const pin = (result === '01' ? 'pin-blue2.png' : result === '02' ? 'pin-green.png' : 'pin-pink.png');
     const marker = new google.maps.Marker({
@@ -383,14 +413,24 @@ export class BukkenListComponent extends BaseComponent {
 
       let dayStr = '';
       if (!(bk.pickDate === undefined || bk.pickDate === '' || bk.pickDate == null)) {
+        //20200902 S_Update
+        /*
         const parseVal = new Date(bk.pickDate);
         dayStr = parseVal.toLocaleDateString();
+        */
+        dayStr = that.formatDay(bk.pickDate, 'yyyy/MM/dd');
+        //20200902 E_Update
       }
 
       let requestedStr = '';
       if (!(bk.surveyRequestedDay === undefined || bk.surveyRequestedDay === '' || bk.surveyRequestedDay == null)) {
+        //20200902 S_Update
+        /*
         const parseVal = new Date(bk.surveyRequestedDay);
         requestedStr = parseVal.toLocaleDateString();
+        */
+        dayStr = that.formatDay(bk.surveyRequestedDay, 'yyyy/MM/dd');
+        //20200902 E_Update
       }
 
       const linkStr = [];
@@ -403,6 +443,7 @@ export class BukkenListComponent extends BaseComponent {
                     <table>
                       <tr><th class="label">物件コード</th><th>${bk.bukkenNo}</th></tr>
                       <tr><th class="label">物件名</th><th>${bk.bukkenName}</th></tr>
+                      <tr><th class="label">契約物件番号</th><th>${bk.contractBukkenNo}</th></tr>
                       <tr><th class="label">住居表示</th><th>${bk.residence}</th></tr>
                       <tr><th class="label">所在地</th><th>${bk.remark1.split(',')[0]}</th></tr>
                       <tr><th class="label">地番</th><th>${bk.remark2.split(',')[0]}</th></tr>
@@ -410,14 +451,18 @@ export class BukkenListComponent extends BaseComponent {
                       <tr><th><br></th><th></th></tr>
                       <tr><th class="label">情報収集日</th><th>${dayStr}</th></tr>
                       <tr><th class="label">測量依頼日</th><th>${requestedStr}</th></tr>
-                      <tr><th class="label">担当部署</th><th>${bk.department}</th></tr>
+                      <tr><th class="label">物件担当者</th><th>${bk['staffName']}</th></tr>
+                      <tr><th class="label">結果</th><th>${bk['result']}</th></tr>
                       <tr><th class="label"></th><th><a href="javascript:openDetailFromMap(${bk.pid})">詳細</a></th></tr>
                     </table>
                   </div>`
       });
       infowindow.open(this.mapObj, marker);
     });
-    this.markers.push(marker);
+    //20200902 S_Update
+//    this.markers.push(marker);
+    that.markers.push(marker);
+    //20200902 E_Update
   }
 
   // マップエンド
@@ -440,37 +485,14 @@ export class BukkenListComponent extends BaseComponent {
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result['choose']) {    
+      if (result && result['choose']) {
         this.spinner.show();
         this.service.exportCsv(lst, result['csvCode']).then(ret => {
           Util.stringToCSV(ret['data'], result['csvName']);
           this.spinner.hide();
-        });    
+        });
       }
     });
   }
-  /*20200901 S_Add
-  public static titleView(val: String){
-    if(val.length < 10){
-      val = '';
-    }else{
-      return val;
-    }
-    return val;
-  }
-  
-  
-  public static valueView(val: String){
-    if(val.length < 10){
-      return val;
-    }else{
-      val = val.substring(0, 10)+'…';
-    }
-    return val;
-  }
-  */
-   //20200901 E_Add
-
-   
-
 }
+
