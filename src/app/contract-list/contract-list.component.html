@@ -10,7 +10,7 @@
                     <td>
                         <input type="text" [(ngModel)]="cond.bukkenNo" maxlength="10">
                     </td>
-                    <th>物件契約番号</th>
+                    <th>契約物件番号</th>
                     <td>
                         <input type="text" [(ngModel)]="cond.contractBukkenNo" maxlength="20">
                     </td>
@@ -77,9 +77,9 @@
                 <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
             </ng-container>
 　　　　　　　
-            <!--物件契約番号-->
+            <!--契約物件番号-->
             <ng-container matColumnDef="contractBukkenNo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件契約番号 </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約物件番号 </th>
                 <td mat-cell *matCellDef="let element" class="contractlist_width"> {{element.contractBukkenNo}} </td>
             </ng-container>
 
