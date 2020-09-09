@@ -3,6 +3,7 @@ import { Plandetail} from  './plandetail';
 import { Planrentroll } from '../models/Planrentroll';
 import { Planrentrolldetail } from '../models/Planrentrolldetail';
 import { Converter } from '../utils/converter';
+import { Planinfohistory } from './Planinfohistory';
 
 export class Planinfo {
 
@@ -115,6 +116,12 @@ export class Planinfo {
     details: Plandetail[];
     rent: Planrentroll;
     rentdetails: Planrentrolldetail[];
+
+    //プラン履歴用　20200909_S_Add
+    planPid: number;
+    planHistoryPid: number;
+    planHistoryName: string;
+
 
     public constructor(init?: Partial<Planinfo>) {
         Object.assign(this, init);

@@ -677,6 +677,8 @@ export class BackendService {
     return req.toPromise();
   }
 
+  
+
   /**
    * 事業収支履歴登録 20200818_Edd
    * @param planhistory ：事業収支履歴
@@ -687,8 +689,23 @@ export class BackendService {
     return req.toPromise();
   }
 
+  /** 20200909_Add
+   * 事業収支履歴取得 
+   * @param id ：事業収支履歴
+   */
+  getPlanHistory(id: number): Promise<Planinfohistory[]> {
+    
+    const getApi = 'planhistoryget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planinfohistory[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+  
+
   /**
-   * 事業収支履歴取得 20200825_Edd
+   * 事業収支履歴取得 20200825_Add
    * @param id ：事業収支履歴
    */
   getPlanHistoryList(id: number): Promise<Planhistorylist[]> {
