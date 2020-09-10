@@ -2692,14 +2692,18 @@ cal81_4() {
   }
   // 20200518 E_Add
 */
-// 20200518 E_Add
-createHistory(row: Planinfo) {
+// 20200910
+createHistory():void {
+  const loc = new Planinfohistory();
+  loc.pid = this.data.pid;
+  //loc.sharers = [];
   this.dialog.open(PlanHistoryCreateComponent, {
     width: '750px',
     height: '400px',
-    data: row
+    data: loc
   });
 }
+// 20200910
 /*
 createHistory() {
   const row = new Code();
@@ -2710,14 +2714,20 @@ createHistory() {
   });
 }
 */
+
 historyList() {
   const row = new Code();
   const dialogRef = this.dialog.open(PlanHistoryListComponent, {
     width: '100%',
     height: '100%',
-    data: row
   });
 }
+
+/*historyList(row: Planinfo){
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  this.router.onSameUrlNavigation = 'reload';
+  this.router.navigate(['/PlanHistoryListComponent'], {queryParams: {pid: row.pid}});
+}*/
 //20200817 S_Edd
 showPlan(row: Planinfo) {
   //20200820 S_Update
