@@ -7,6 +7,8 @@
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
+    <!-- 20200913 S_Delete -->
+    <!--
     <br>
     <div class="register-div1">
         <div><span class="must">消費税適用日</span>&nbsp;&nbsp;
@@ -16,10 +18,24 @@
         </div>
 
     </div>
+    -->
+    <!-- 20200913 E_Delete -->
     <!--/支払情報ヘッダー-->
     <table class="detail-tbl-min-pay">  
         <tr>
             <td colspan="10"><span class="min">契約区分</span></td>
+            <!-- 20200913 S_Add -->
+            <td colspan="5">
+                <div class="register-div1">
+                    <div><span class="must">消費税適用日</span>&nbsp;&nbsp;
+                            <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="paycontract.taxEffectiveDayMap" class="width100" (ngModelChange)="changeTaxEffectiveDay($event)">
+                            <mat-datepicker-toggle matSuffix [for]="taxEffectiveDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #taxEffectiveDay></mat-datepicker>
+                    </div>
+            
+                </div>
+            </td>
+            <!-- 20200913 E_Add -->
         </tr>
         <tr>
             <th rowspan="">物件名称</th>
@@ -32,7 +48,12 @@
                 </datalist>
                 <!--<button mat-raised-button class="searchbutton" (click)="bukkenSearch()">検索</button>-->
             </td>
+            <!-- 20200913 S_Update -->
+            <!--
             <th rowspan="3">取引先</th>
+            -->
+            <th rowspan="4">取引先</th>
+            <!-- 20200913 E_Update -->
             <td colspan="6"><label>取引先　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.supplierName" class="width85Per" maxlength="100"></td>
         </tr> 
         <tr>
@@ -41,8 +62,8 @@
                 <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
             </td>
             <td colspan="6">
-                <label>銀行　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width140" maxlength="100">
-                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.branchName" class="width100" maxlength="100">
+                <label>住所　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.supplierAddress" class="width400" maxlength="100">
+                &nbsp;&nbsp;<label>電話番号　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.supplierTel" class="width110" maxlength="25">
             </td> 
         </tr>   
         <tr>
@@ -51,11 +72,12 @@
                 <app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>
             </td>
             <td colspan="6">
-                <label>口座種別</label>&nbsp;<app-select-component [codes]="getCode('026')"  [(ngModel)]="paycontract.accountType"></app-select-component>
-                &nbsp;&nbsp;<label>口座　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.accountName" class="width100" maxlength="100">
-                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bankName" class="width100" maxlength="100">
-            </td>   
-        </tr>       
+                <label>銀行　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width140" maxlength="100">
+                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.branchName" class="width100" maxlength="100">
+            </td>
+        </tr>
+        <!-- 20200913 S_Update -->
+        <!--
         <tr>
             <th>契約予定日</th>
             <td colspan="2">
@@ -86,6 +108,45 @@
                 <input type="text" [(ngModel)]="paycontract.contractPriceTaxMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(paycontract.contractPriceTaxMap)">&nbsp;円
             </td>
         </tr>
+        -->
+        <tr>
+            <th>契約予定日</th>
+            <td colspan="2">
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="contractDayMap" [(ngModel)]="paycontract.contractDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="contractDayMap" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #contractDayMap></mat-datepicker>
+                </div>
+            </td>
+            <th>契約確定日</th>
+            <td colspan="2">
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="paycontract.contractFixDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="contractFixDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #contractFixDay></mat-datepicker>
+                </div>
+            </td>
+            <td colspan="6">
+                <label>口座種別</label>&nbsp;<app-select-component [codes]="getCode('026')"  [(ngModel)]="paycontract.accountType"></app-select-component>
+                &nbsp;&nbsp;<label>口座　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.accountName" class="width100" maxlength="100">
+                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.bankName" class="width100" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <th>契約金額(税抜)</th>
+            <td colspan="2">
+                <input type="text" [(ngModel)]="paycontract.contractPriceMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(paycontract.contractPriceMap)">&nbsp;円
+            </td>
+            <th>消費税</th>
+            <td colspan="2">
+                <input type="text" [(ngModel)]="paycontract.contractTaxMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(paycontract.contractTaxMap)">&nbsp;円
+            </td>
+            <th>契約金額(税込)</th>
+            <td colspan="2">
+                <input type="text" [(ngModel)]="paycontract.contractPriceTaxMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(paycontract.contractPriceTaxMap)">&nbsp;円
+            </td>
+        </tr>
+        <!-- 20200913 E_Update -->
         <tr>
             <th>備考</th>
             <td colspan="6">

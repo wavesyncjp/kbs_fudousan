@@ -9,7 +9,12 @@
                 <th>物件番号</th>
                 <td colspan="2">
                     <input type="text" class="width100" [(ngModel)]="cond.bukkenNo" maxlength="10">
+                    <!-- 20200913 S_Add -->
+                    &nbsp;&nbsp;&nbsp;&nbsp;<label>契約物件番号</label>
+                    &nbsp;<input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width100" maxlength="20">
+                    <!-- 20200913 E_Add -->
                 </td>
+
                 <th>物件名</th>
                 <td colspan="2">
                     <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
@@ -77,6 +82,24 @@
                 <mat-datepicker #payDayMap_To></mat-datepicker>
                 </div>
                 </td>
+                <!-- 20200913 S_Add -->
+                <th>支払確定日</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="payFixDayMap_From" [(ngModel)]="cond.payFixDayMap_From" class="width100" placeholder="開始日">
+                <mat-datepicker-toggle matSuffix [for]="payFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #payFixDayMap_From></mat-datepicker>
+                </div>&nbsp;&nbsp;～
+                </td>
+                
+                <td>
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="payFixDayMap_To" [(ngModel)]="cond.payFixDayMap_To" class="width100" placeholder="終了日">
+                <mat-datepicker-toggle matSuffix [for]="payFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #payFixDayMap_To></mat-datepicker>
+                </div>
+                </td>
+                <!-- 20200913 E_Add -->
             </tr>
         </table>
         <div style="margin: 10px 0px 10px 0px;">

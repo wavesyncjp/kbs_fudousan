@@ -47,6 +47,12 @@ export class BukkenListComponent extends BaseComponent {
     surveyRequestedDaySearch_From: '',
     surveyRequestedDay_To: '',
     surveyRequestedDaySearch_To: '',
+    //20200913 S_Add
+    finishDate_From: '',
+    finishDateSearch_From: '',
+    finishDate_To: '',
+    finishDateSearch_To: '',
+    //20200913 E_Add
 //    pickDateMap: new Date(),
 //    pickDate: '',
     department: [],
@@ -191,8 +197,14 @@ export class BukkenListComponent extends BaseComponent {
       surveyRequestedDaySearch_From: '',
       surveyRequestedDay_To: '',
       surveyRequestedDaySearch_To: '',
-  //    pickDateMap: new Date(),
-  //    pickDate: '',
+      //20200913 S_Add
+      finishDate_From: '',
+      finishDateSearch_From: '',
+      finishDate_To: '',
+      finishDateSearch_To: '',
+      //20200913 E_Add
+//      pickDateMap: new Date(),
+//      pickDate: '',
       department: [],
       result: ['01'],
       mode: 1,
@@ -220,6 +232,10 @@ export class BukkenListComponent extends BaseComponent {
     this.cond.pickDateSearch_To = this.cond.pickDate_To != null ? this.datepipe.transform(this.cond.pickDate_To, 'yyyyMMdd') : "";
     this.cond.surveyRequestedDaySearch_From = this.cond.surveyRequestedDay_From != null ? this.datepipe.transform(this.cond.surveyRequestedDay_From, 'yyyyMMdd') : "";
     this.cond.surveyRequestedDaySearch_To = this.cond.surveyRequestedDay_To != null ? this.datepipe.transform(this.cond.surveyRequestedDay_To, 'yyyyMMdd') : "";
+    //20200913 S_Add
+    this.cond.finishDateSearch_From = this.cond.finishDate_From != null ? this.datepipe.transform(this.cond.finishDate_From, 'yyyyMMdd') : "";
+    this.cond.finishDateSearch_To = this.cond.finishDate_To != null ? this.datepipe.transform(this.cond.finishDate_To, 'yyyyMMdd') : "";
+    //20200913 E_Add
     this.cond.clctInfoStaff = this.cond.clctInfoStaffMap.map(me => me.userId);//20200828 Add
 
     this.service.searchLand(this.cond).then(res => {

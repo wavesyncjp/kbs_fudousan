@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Locationinfo } from '../models/locationinfo';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BackendService } from '../backend.service';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SharerInfo } from '../models/sharer-info';
@@ -11,11 +11,21 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
 import { isNullOrUndefined } from 'util';
+//20200913 S_Add
+import { DatePipe } from '@angular/common';
+import { JPDateAdapter } from '../adapters/adapters';
+//20200913 E_Add
 
 @Component({
   selector: 'app-location-detail',
   templateUrl: './location-detail.component.html',
-  styleUrls: ['./location-detail.component.css']
+  styleUrls: ['./location-detail.component.css'],
+  //20200913 S_Add
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+    {provide: DateAdapter, useClass: JPDateAdapter}
+  ],
+  //20200913 E_Add
 })
 export class LocationDetailComponent extends BaseComponent {
 
@@ -29,6 +39,7 @@ export class LocationDetailComponent extends BaseComponent {
               private spinner: NgxSpinnerService,
               public dialogRef: MatDialogRef<Locationinfo>,
               public dialog: MatDialog,
+              public datepipe: DatePipe,//20200913 Add
               /*public sharer: SharerInfo,*/
               @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
       super(router, service,dialog);
@@ -199,6 +210,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.inheritanceNotyet = '0';
       this.data.buildingNotyet = '0';
       this.data.ridgePid = '';//20200831 Add
+      this.data.landCategory = '';//20200913 Add
     } else if (this.data.locationType === '03') {
       this.data.buysellFlg = '0';
       this.data.owner = null;
@@ -278,7 +290,10 @@ export class LocationDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         this.convertSharer();
-        this.data.convertForSave(this.service.loginUser.userId);
+        //20200913 S_Update
+//        this.data.convertForSave(this.service.loginUser.userId);
+        this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
+        //20200913 E_Update
         // 削除された所在地も送る
 
         this.service.saveLocation(this.data).then(values => {

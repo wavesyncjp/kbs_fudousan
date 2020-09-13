@@ -1,11 +1,12 @@
 import { Contractdetailinfo } from './contractdetailinfo';
 import { SharerInfo } from './sharer-info';
 import { Converter } from '../utils/converter';
-
+import { DatePipe } from '@angular/common';//20200913 Add
 
 export class Locationinfo {
     pid: number;
     tempLandInfoPid: number;
+    acquisitionDate: string;//20200913 Add
     //20200803 S_Delete
 //    registPosition: number;
 //    zipcode: string;
@@ -48,6 +49,8 @@ export class Locationinfo {
     buildingNotyet = '0';
     inheritanceNotyet = '0';
 
+    acquisitionDateMap: Date = null;//20200913 Add
+
     areaMap:string;
 
     contractDetail: Contractdetailinfo;
@@ -68,9 +71,13 @@ export class Locationinfo {
         if (this.dependType !== null && this.dependType !== undefined && this.dependType.length > 0) {
             this.dependTypeMap = this.dependType.split(',');
         }
+        this.acquisitionDateMap = Converter.stringToDate(this.acquisitionDate, 'yyyyMMdd');//20200913 Add
         this.areaMap = Converter.numberToString(this.area);
     }
-    public convertForSave(userId: number) {
+    //20200913 S_Update
+//    public convertForSave(userId: number) {
+    public convertForSave(userId: number, datePipe: DatePipe) {
+    //20200913 E_Update
         if (this.dependTypeMap != null && this.dependTypeMap.length > 0) {
             this.dependType = this.dependTypeMap.join(',');
         }
@@ -79,7 +86,7 @@ export class Locationinfo {
         } else {
             this.createUserId = userId;
         }
+        this.acquisitionDate = Converter.dateToString(this.acquisitionDateMap, 'yyyyMMdd', datePipe);//20200913 Add
         this.area = Converter.stringToNumber(this.areaMap);
     }
 }
-

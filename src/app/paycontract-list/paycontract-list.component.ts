@@ -29,6 +29,7 @@ import { CsvTemplateComponent } from '../csv-template/csv-template.component';
 export class PayContractListComponent extends BaseComponent {
   public cond = {
     bukkenNo: '',
+    contractBukkenNo_Like:'',//20200913 Add
     bukkenName: '',
     paymentCode: '',
     supplierName: '',
@@ -43,7 +44,13 @@ export class PayContractListComponent extends BaseComponent {
     payDay_From: '',
     payDayMap_From: '',
     payDay_To: '',
-    payDayMap_To: ''
+    payDayMap_To: '',
+    //20200913 S_Add
+    payFixDay_From: '',
+    payFixDayMap_From: '',
+    payFixDay_To: '',
+    payFixDayMap_To: '',
+    //20200913 E_Add
  };
   search = '0';
   searched = false;
@@ -99,6 +106,7 @@ export class PayContractListComponent extends BaseComponent {
     this.cond = {
       bukkenNo: '',
       bukkenName: '',
+      contractBukkenNo_Like:'',//20200913 Add
       paymentCode: '',
       supplierName: '',
       contractDay_From: '',
@@ -112,7 +120,13 @@ export class PayContractListComponent extends BaseComponent {
       payDay_From: '',
       payDayMap_From: '',
       payDay_To: '',
-      payDayMap_To: ''
+      payDayMap_To: '',
+      //20200913 S_Add
+      payFixDay_From: '',
+      payFixDayMap_From: '',
+      payFixDay_To: '',
+      payFixDayMap_To: '',
+      //20200913 E_Add
    };
   }
 
@@ -128,6 +142,10 @@ export class PayContractListComponent extends BaseComponent {
     this.cond.contractFixDay_To = this.cond.contractFixDayMap_To != null ? this.datepipe.transform(this.cond.contractFixDayMap_To, 'yyyyMMdd') : "";
     this.cond.payDay_From = this.cond.payDayMap_From != null ? this.datepipe.transform(this.cond.payDayMap_From, 'yyyyMMdd') : "";
     this.cond.payDay_To = this.cond.payDayMap_To != null ? this.datepipe.transform(this.cond.payDayMap_To, 'yyyyMMdd') : "";
+    //20200913 S_Add
+    this.cond.payFixDay_From = this.cond.payFixDayMap_From != null ? this.datepipe.transform(this.cond.payFixDayMap_From, 'yyyyMMdd') : "";
+    this.cond.payFixDay_To = this.cond.payFixDayMap_To != null ? this.datepipe.transform(this.cond.payFixDayMap_To, 'yyyyMMdd') : "";
+    //20200913 E_Add
 
     this.service.searchPayContract(this.cond).then(res => {
       //const lst = this.groupData(res);

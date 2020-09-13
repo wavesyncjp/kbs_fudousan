@@ -5,13 +5,20 @@
     </ul>
     <table class="detail-tbl-min">
         <tr> 
-            <td colspan="6">
+            <td colspan="4">
                 <span class="min">
                     <label>謄本情報　登録</label>
                     <!--<label class="contracted" *ngIf="data.isContracted">契約済み</label>-->
-
-                </span>                        
+                </span>
             </td>
+            <!-- 20200913 S_Add -->
+            <th>謄本取得日</th>
+            <td>
+                <input type="text" [matDatepicker]="acquisitionDate" class="width100" [(ngModel)]="data.acquisitionDateMap">
+                <mat-datepicker-toggle matSuffix [for]="acquisitionDate" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #acquisitionDate></mat-datepicker>
+            </td>
+            <!-- 20200913 E_Add -->
         </tr>
         <tr>
             <th><app-select-component  [codes]="getCode('007')" [(ngModel)]="data.locationType" [isError]="errors['locationType']" [noBlank]="true" (changed)="changeType($event)"></app-select-component></th>
@@ -71,13 +78,18 @@
 
         <tr>
             <th>地積</th>
-            <td><input type="text" [(ngModel)]="data.areaMap" [ngClass]="{'width80': true, 'number': true, 'error': errors['area']}" (keypress)="floatOnly($event)" [disabled]="data.locationType == '02'" maxlength="12" [value]="changeValue(data.areaMap)">&nbsp;㎡                    
+            <td><input type="text" [(ngModel)]="data.areaMap" [ngClass]="{'width80': true, 'number': true, 'error': errors['area']}" (keypress)="floatOnly($event)" [disabled]="data.locationType == '02'" maxlength="12" [value]="changeValue(data.areaMap)">&nbsp;㎡
             <input type="text" [(ngModel)]="data.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true" maxlength="15" [value]="calTsubo(data.areaMap)">&nbsp;坪</td>
             <th>権利形態</th>
             <td><app-select-component [codes]="getCode('011')" [(ngModel)]="data.rightsForm"></app-select-component></td>
             <th>地目</th>
             <td>
+                <!-- 20200913 S_Update -->
+                <!--
                 <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
+                -->
+                <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory" [isDisabled]="data.locationType == '02'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '02')}"></app-select-component>
+                <!-- 20200913 E_Update -->
             </td>
         </tr>
         <tr>
@@ -92,7 +104,7 @@
                 <input type="text" class="width100" [(ngModel)]="data.dependFloor" [disabled]="data.locationType == '01'" maxlength="2">&nbsp;階建
             </td>
         </tr>
-        <tr>            
+        <tr>
             <th>構造</th>
             <td><textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'" maxlength="128"></textarea></td>
     
@@ -121,5 +133,5 @@
                 </mat-dialog-actions>
             </td>
         </tr>
-    </table>    
+    </table>
 </div>

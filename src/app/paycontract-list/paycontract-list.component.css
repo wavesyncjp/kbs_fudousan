@@ -73,10 +73,21 @@ table {
     border-top: solid 2px white;
     /*border-left: solid 2px rgba(0,0,0,.12);*/
 }
-
 .bukkenlist_width{
     max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
- }
+}
+/* 20200913 S_Add */
+.search-tbl > tr > td > label{
+    width:100px !important;
+    background-color: #D9E1F2;
+    text-align: left;
+    padding: 8px;
+    padding-left: 2px;
+    font-size: 0.8em;
+    border-top: solid 2px white;
+    font-weight: bold;
+}
+/* 20200913 E_Add */

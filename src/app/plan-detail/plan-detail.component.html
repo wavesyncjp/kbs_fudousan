@@ -30,7 +30,7 @@
                     <mat-datepicker #createDate></mat-datepicker>
                 </div>
             </td>
-            <th>決済期</th>
+            <th>決算期</th><!--<th>決済期</th>--><!-- 20200913 Update -->
             <td class="first">
                 <input type="text" class="Twidthy50" [(ngModel)]="plan.settlement">
                 <app-select-component [codes]="getCode('017')" [cusClass]="'Twidthy50'" [(ngModel)]="plan.period"></app-select-component>

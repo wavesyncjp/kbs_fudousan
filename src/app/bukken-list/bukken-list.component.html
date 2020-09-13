@@ -83,7 +83,7 @@
       <!-- 20200828 S_Add -->
       <tr>
         <th>物件担当者</th>
-        <td colspan="6">
+        <td colspan="3">
           <ng-multiselect-dropdown class="width300"
                 [placeholder]="'選択'"
                 [data]="emps"
@@ -92,6 +92,23 @@
                 >
             </ng-multiselect-dropdown>
         </td>
+        <!-- 20200913 S_Add -->
+        <th>終了日</th>
+        <td style="width: 150px;"> 
+          <div class="picker-div">
+            <input type="text" [matDatepicker]="finishDate_From" [(ngModel)]="cond.finishDate_From" placeholder="開始日" class="width100">
+              <mat-datepicker-toggle matSuffix [for]="finishDate_From" class="picker-icon"></mat-datepicker-toggle>
+              <mat-datepicker #finishDate_From></mat-datepicker>
+          </div>&nbsp;&nbsp;～
+        </td>
+        <td>
+          <div class="picker-div">
+            <input type="text" [matDatepicker]="finishDate_To" [(ngModel)]="cond.finishDate_To" placeholder="終了日" class="width100">
+              <mat-datepicker-toggle matSuffix [for]="finishDate_To" class="picker-icon"></mat-datepicker-toggle>
+              <mat-datepicker #finishDate_To></mat-datepicker>
+          </div>
+        </td>
+        <!-- 20200913 E_Add -->
       </tr>
       <!-- 20200828 E_Add -->
       </table>
@@ -154,19 +171,19 @@
           <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.remark1.split(',')[0]}} </td>
         </ng-container>
 -->
-        <!--住居表示 所在地-->
+        <!--住居表示-->
         <ng-container matColumnDef="residence">
-          <th mat-header-cell *matHeaderCellDef> 住居表示 <br> 所在地 </th>
-          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.residence}} <br> {{element.remark1.split(',')[0]}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 住居表示 </th>
+          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.residence}} </td>
         </ng-container>
         <!-- 20200828 E_Update -->
 
-        <!--地番-->
+        <!--所在地 地番-->
         <ng-container matColumnDef="remark2">
-          <th mat-header-cell *matHeaderCellDef > 地番 </th>
+          <th mat-header-cell *matHeaderCellDef > 所在地 <br> 地番 </th>
           <!-- 20200828 S_Update -->
           <!--<td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.remark2.split(',')[0]}} </td>-->
-          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> <br>{{element.remark2.split(',')[0]}} </td>
+          <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.remark1.split(',')[0]}} <br> {{element.remark2.split(',')[0]}} </td>
           <!-- 20200828 E_Update -->
         </ng-container>
 
