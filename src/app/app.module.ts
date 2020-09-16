@@ -53,7 +53,7 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
 import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';//20200907 Add
 import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';//20200911 Add
-import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';//20200911 Add
+import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component'; //20200911 Add
 
 
 @NgModule({
