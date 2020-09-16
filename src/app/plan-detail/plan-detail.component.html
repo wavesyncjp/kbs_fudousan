@@ -392,7 +392,7 @@
             <td class="titlehead">単価・坪</td>
             <td class="titlehead">算出根拠&nbsp;&nbsp;&nbsp;&nbsp;
                 <span *ngIf="!plan.planHistoryPid > 0">
-                    <button mat-raised-button (click)="historyList()" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button>
+                    <button mat-raised-button (click)="historyList(plan)" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button>
                 </span>
             </td>
         </tr>
@@ -743,7 +743,7 @@
         <span class = "SUM">
             <tr>
                 <th class="main">金利合計</th>
-                <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="true" [value]="getNumber(cal48()) | number"></td>            
+                <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="planPid > 0" [value]="getNumber(cal48()) | number"></td>            
             </tr>
             
         </span>

@@ -326,12 +326,11 @@ td.yentitle{
 /*//20200407_hirano src*/
 .detail-tbl-plan> tr > th.main{
     width: 80px !important;
-    border-bottom: solid 1.5px rgba(193, 224, 188, 0.692);
     text-align: left;
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.5em;
-    border-top: solid 2px white;
+    border-top: solid 10px white;
     float: left;
     margin-right: 20px;
 }

@@ -1,6 +1,6 @@
 export class Planhistorylist {
 
-    paymentCode: number;
+    paymentCode: string;
     planHistoryPid: number;
     paymentName: string;
     costFlg : string;
@@ -12,12 +12,11 @@ export class Planhistorylist {
 
 export class Planhistorydetaillist {
 
-    paymentCode: number;
+    paymentCode: string;
     planHistoryPid: number;
     paymentName: string;
     costFlg : string;
     addFlg: string;
     price: number;
-    details: [];
 
 }

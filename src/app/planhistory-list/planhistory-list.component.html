@@ -1,7 +1,8 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div  class="detail-div">
-    
-
+    <div class="register-div">
+        <button mat-raised-button class="button" (click)="backPlan(plan)">戻る</button>
+    </div>
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
@@ -12,9 +13,6 @@
     <table class = "detail-tbl-plan">
         <tr>
             <th class="title">事業収支過去分</th>
-            <td class="titlehead">金額(現状)</td>
-            <td class="titlehead">過去1</td>
-            <td class="titlehead">過去2</td>
         </tr>
         <tr>
             <th class="head_plan">・土地原価</th>
@@ -24,7 +22,7 @@
         <tr>
             <th class="main">土地代</th>
             <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[0].price" (ngModelChange)="changeValueDetail('price', 0)"></td>-->
-            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="history.price[0]"></td>
+            <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true"></td><!--[(ngModel)]="history.price[0]"-->
             
             
         </tr>
@@ -66,28 +64,28 @@
         
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[5].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <!--<td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[5].price" (ngModelChange)="changeValueDetail('price', 5)"></td>-->
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[5].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 5)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[6].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[6].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 6)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[7].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[7].priceMap" [attr.disabled]="true" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 7)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[8].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[8].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 8)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup1" [(ngModel)]="plan.details[9].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [(ngModel)]="plan.details[9].priceMap" [attr.disabled]="true" (ngModelChange)="changeValueDetail('price', 9)"></td>
         </tr>
         <tr>
@@ -154,27 +152,27 @@
         
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[18].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[18].priceMap" (ngModelChange)="changeValueDetail('price', 18)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[19].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[19].priceMap" (ngModelChange)="changeValueDetail('price', 19)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[20].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[20].priceMap" (ngModelChange)="changeValueDetail('price', 20)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[21].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[21].priceMap" (ngModelChange)="changeValueDetail('price', 21)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup2" [(ngModel)]="plan.details[22].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[22].priceMap" (ngModelChange)="changeValueDetail('price', 22)"></td>
         </tr>
         
@@ -263,12 +261,12 @@
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[34].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[34].priceMap" (ngModelChange)="changeValueDetail('price', 34)"></td>
         </tr>
         <tr>
             <!--20200407_hirano src-->
-            <th class="main"><app-select-component [cusClass]="'Twidth180'" [codes]="payTypeGroup3" [(ngModel)]="plan.details[35].paymentCode"></app-select-component></th>
+            <th class="main"></th>
             <td class="yen"><input type="text" class="Twidth100 number" maxlength="15" (keypress)="numericOnly($event)" [attr.disabled]="true" [(ngModel)]="plan.details[35].priceMap" (ngModelChange)="changeValueDetail('price', 35)"></td>
         </tr>
         <tr>
@@ -315,6 +313,9 @@
 
     </table>
 <!--収支計算画面_E-->
+    <div class="register-div">
+        <button mat-raised-button class="button" (click)="backPlan(plan)">戻る</button>
+    </div>
 
 
 

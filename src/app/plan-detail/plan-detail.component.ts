@@ -19,6 +19,7 @@ import { Planrentrolldetail } from '../models/Planrentrolldetail';
 import { Planinfohistory } from '../models/Planinfohistory';
 import { PlanHistoryCreateComponent } from '../planhistory-create/planhistory-create.component';
 import { PlanHistoryListComponent } from '../planhistory-list/planhistory-list.component';
+import { AutofillMonitor } from '@angular/cdk/text-field';
 
 
 @Component({
@@ -2693,14 +2694,11 @@ cal81_4() {
   // 20200518 E_Add
 */
 // 20200910
-createHistory():void {
-  const loc = new Planinfohistory();
-  loc.pid = this.data.pid;
-  //loc.sharers = [];
+createHistory(plan: Planinfo) {
   this.dialog.open(PlanHistoryCreateComponent, {
-    width: '750px',
+    width: '900px',
     height: '400px',
-    data: loc
+    data: plan
   });
 }
 // 20200910
@@ -2715,11 +2713,11 @@ createHistory() {
 }
 */
 
-historyList() {
-  const row = new Code();
-  const dialogRef = this.dialog.open(PlanHistoryListComponent, {
-    width: '100%',
+historyList(plan: Planinfo) {
+  this.dialog.open(PlanHistoryListComponent,{
+    width: '1200px',
     height: '100%',
+    data: plan
   });
 }
 
