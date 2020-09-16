@@ -113,7 +113,6 @@ export class PlanHistoryListComponent extends BaseComponent {
       
       // チェック用変数に現在のplanHistoryPaymentCodeを設定
       paymentCodeChk = planhistorylist.paymentCode;
-      
     });
   }
 }
