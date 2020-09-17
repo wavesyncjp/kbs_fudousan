@@ -6,6 +6,7 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { Planhistorylist, Planhistorydetaillist } from '../models/planhistorylist';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Planinfo } from '../models/planinfo';
 
 @Component({
   selector: 'app-planhistory-list',
@@ -114,5 +115,8 @@ export class PlanHistoryListComponent extends BaseComponent {
       // チェック用変数に現在のplanHistoryPaymentCodeを設定
       paymentCodeChk = planhistorylist.paymentCode;
     });
+  }
+  backPlan(row: Planinfo) {
+    this.router.navigate(['/plandetail'], {queryParams: {pid:row.planPid,tempLandInfoPid: row.tempLandInfoPid}});
   }
 }
