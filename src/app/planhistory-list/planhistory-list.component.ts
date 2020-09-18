@@ -19,13 +19,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 export class PlanHistoryListComponent extends BaseComponent {
 
-  public planhistorylistsTemp: Planhistorylist[] = [];
-  public planhistorylists: Planhistorylist[] = [];
-  public planhistorylist: Planhistorylist;
-  public planhistorydetaillist: Planhistorydetaillist;
-  public planHistoryPid: number;
-  
-  public history: Planhistorylist;
+  public history: Planhistorylist[];
   public pid: number;
   
   constructor(public router: Router,
@@ -54,65 +48,47 @@ export class PlanHistoryListComponent extends BaseComponent {
     funcs.push(this.service.getPlanHistoryList(this.pid));
     
     Promise.all(funcs).then(values => {
-      this.planhistorylistsTemp = values[0];
-    });
-/*pid違いで右に増える配列
-    // planHistoryPidチェック用変数初期化
-    let planHistoryPidChk = '';
-    // 取得データをループ
-    this.planhistorylistsTemp.forEach(planhistorylist => {
-      // planHistoryPidチェック用変数と取得データのplanHistoryPidが異なる場合
-      if(planHistoryPidChk !== String(planhistorylist.planHistoryPid))
-      {
-        // 1周目以外なら
-        if(planHistoryPidChk.length > 0)
-        {
-          // 画面表示用データにグルーピングデータを設定
-          this.planhistorylists.push(this.planhistorylist);
-        }
-
-        // グルーピングデータを初期化
-        this.planhistorylist = new Planhistorylist();
-        // グルーピングデータに取得データを設定
-        this.planhistorylist = planhistorylist;
-      }
-      
-      // 取得データを子データの型に変換して設定
-      this.planhistorydetaillist = planhistorylist as Planhistorydetaillist;
-      // 子データを設定
-      this.planhistorylist.details.push(this.planhistorydetaillist);
-      
-      // チェック用変数に現在のplanHistoryPidを設定
-      planHistoryPidChk = String(planhistorylist.planHistoryPid);
-    });
-*/
-//paymentCode違いで縦に増える配列
-    // planHistoryPaymentCodeチェック用変数初期化
-    let paymentCodeChk = '';
-    // 取得データをループ
-    this.planhistorylistsTemp.forEach(planhistorylist => {
-      // planHistoryPaymentCodeチェック用変数と取得データのplanHistoryPaymentCodeが異なる場合
-      if(paymentCodeChk !== planhistorylist.paymentCode)
-      {
-        // 1周目以外なら
-        if(paymentCodeChk.length > 0)
-        {
-          // 画面表示用データにグルーピングデータを設定
-          this.planhistorylists.push(this.planhistorylist);
-        }
-        // グルーピングデータを初期化
-        this.planhistorylist = new Planhistorylist();
-        // グルーピングデータに取得データを設定
-        this.planhistorylist = planhistorylist;
-      }
-      
-      // 取得データを子データの型に変換して設定
-      this.planhistorydetaillist = planhistorylist as Planhistorydetaillist;
-      // 子データを設定
-      this.planhistorylist.details.push(this.planhistorydetaillist);
-      
-      // チェック用変数に現在のplanHistoryPaymentCodeを設定
-      paymentCodeChk = planhistorylist.paymentCode;
+      this.service.getPlanHistoryList(this.pid).then(ret => {
+        this.parseData(ret);        
+      }).catch(err => {
+        console.log(err);
+      }).finally(() => {
+        this.spinner.hide();
+      });
     });
   }
+
+  /**
+   * データ分析
+   * @param ret 検索結果
+   */
+  parseData(ret: Planhistorylist[]) {
+    if(ret.length == 0) return;
+
+    let map = new Map();
+    this.history = [];
+
+    ret.sort((a,b) => a.paymentCode > b.paymentCode ? 1 : a.paymentCode < b.paymentCode ? -1 : 0);
+
+    //検索結果ループ
+    ret.forEach(me => {
+      if(!map.has(me.paymentCode)){
+        map.set(me.paymentCode, true);
+
+        //まとめオブジェクト
+        let obj = new Planhistorylist();
+        obj.paymentCode = me.paymentCode;
+        obj.paymentName = me.paymentName;
+        let subList = ret.filter(cd => cd.paymentCode === me.paymentCode);
+        subList.sort((a,b) => a.planHistoryPid - b.planHistoryPid );
+        obj.details = subList;
+
+        this.history.push(obj);
+      }
+    });
+
+    //console.log(this.history);
+  }
+
+
 }
