@@ -379,14 +379,14 @@ export class PayContractDetailComponent extends BaseComponent {
         // 消費税=支払金額(税込)-支払金額(税抜)
         detail.payTax = payPriceTax - detail.payPrice;
       }
-      detail.payPriceMap = this.numberFormat(detail.payPrice);
-      detail.payTaxMap = this.numberFormat(detail.payTax);
     }
     else
     {
       detail.payPrice = null;
       detail.payTax = null;
     }
+    detail.payPriceMap = this.numberFormat(detail.payPrice);
+    detail.payTaxMap = this.numberFormat(detail.payTax);
   }
   // 20200921 E_Update
 
