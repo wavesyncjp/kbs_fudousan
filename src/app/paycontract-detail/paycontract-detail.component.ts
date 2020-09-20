@@ -316,9 +316,11 @@ export class PayContractDetailComponent extends BaseComponent {
   }
   // 20200709 E_Add
 
-/**
+  /**
    * 税額を自動計算する
    */
+  // 20200921 S_Update
+  /*
   taxCalc(detail: Paycontractdetailinfo){
     
     detail.payPrice = this.getNumber(this.removeComma(detail.payPriceMap));
@@ -349,7 +351,47 @@ export class PayContractDetailComponent extends BaseComponent {
       detail.payTax = null;
     }
   }
+  */
 
+  taxCalc(detail: Paycontractdetailinfo){
+    
+    let payPriceTax = this.getNumber(this.removeComma(detail.payPriceTaxMap));
+    let taxEffectiveDay = this.paycontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.paycontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
+    
+    if (payPriceTax > 0) {
+      // 支払金額(税抜)<-支払金額(税込)
+      detail.payPrice = payPriceTax;
+      detail.payTax = 0;
+      
+      // 税率
+      this.taxRate = 0;
+      if(!this.isBlank(taxEffectiveDay)) {
+        var tax = this.taxes.filter(me => me.effectiveDay <= taxEffectiveDay).sort((a,b) => String(b.effectiveDay).localeCompare(a.effectiveDay))[0];
+        this.taxRate = tax.taxRate;
+      }
+      // 支払種別
+      let lst = this.payTypes.filter(me => me.paymentCode === detail.paymentCode && me.taxFlg === "1");
+      
+      // 支払種別が課税対象の場合
+      if(lst.length > 0) {
+        // 支払金額(税抜)=支払金額(税込)÷(1+消費税率)
+        detail.payPrice = Math.floor(payPriceTax / (1 + this.taxRate / 100));
+        // 消費税=支払金額(税込)-支払金額(税抜)
+        detail.payTax = payPriceTax - detail.payPrice;
+      }
+      detail.payPriceMap = this.numberFormat(detail.payPrice);
+      detail.payTaxMap = this.numberFormat(detail.payTax);
+    }
+    else
+    {
+      detail.payPrice = null;
+      detail.payTax = null;
+    }
+  }
+  // 20200921 E_Update
+
+  // 20200921 S_Delete
+  /*
   taxOnlyCalc(event, detail: Paycontractdetailinfo) {
     
     detail.payPrice = this.getNumber(this.removeComma(detail.payPriceMap));
@@ -359,7 +401,8 @@ export class PayContractDetailComponent extends BaseComponent {
       detail.payTaxMap = this.numberFormat(detail.payTax);
     }
   }
-
+  */
+  // 20200921 S_Delete
 
   /**20200714 S_Add
    * 税額を自動計算する

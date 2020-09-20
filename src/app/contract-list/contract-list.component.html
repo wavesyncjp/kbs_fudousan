@@ -110,7 +110,26 @@
                 <th mat-header-cell *matHeaderCellDef> 所在地 <br> 地番 </th>
                 <td mat-cell *matCellDef="let element" class="contractlist_width"> {{element.remark1}} <br> {{element.remark2 != null ? element.remark2 : '　'}} </td>
             </ng-container>
-            <!-- 20200906 S_Update -->
+            <!-- 20200906 E_Update -->
+
+            <!-- 20200921 S_Add -->
+            <!--契約担当者-->
+            <ng-container matColumnDef="contractStaffName">
+                <th mat-header-cell *matHeaderCellDef > 契約担当者 </th>
+                <td mat-cell *matCellDef="let element">
+                    <!--<div *ngFor="let ct of element.contracts; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.contracts.length - 1)}">{{getContractStaffName(ct)}}</div>-->
+                    <app-label *ngFor="let ct of element.contracts; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.contracts.length - 1)}" [value]="getContractStaffName(ct)" [length]=10></app-label>
+                </td>
+            </ng-container>
+
+            <!--売買金額-->
+            <ng-container matColumnDef="tradingPrice">
+                <th mat-header-cell *matHeaderCellDef> 売買代金 </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngFor="let ct of element.contracts; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.contracts.length - 1)}">{{numberFormat(ct.tradingPrice)}}</div>
+                </td>
+            </ng-container>
+            <!-- 20200921 E_Add -->
 
             <!--契約書番号-->
             <ng-container matColumnDef="contractNo">
@@ -140,13 +159,14 @@
             </ng-container>
 -->
             <!--契約者-->
+<!--
             <ng-container matColumnDef="contractOwner">
                 <th mat-header-cell *matHeaderCellDef> 契約者 </th>
                 <td mat-cell *matCellDef="let element">
                     <div *ngFor="let ct of element.contracts; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.contracts.length - 1)}"> {{ct.sellers.length > 0 ? ct.sellers[0].contractorName : ''}} </div>
                 </td>
             </ng-container>
-
+-->
             <!--詳細-->
             <ng-container matColumnDef="detail">
                 <th mat-header-cell *matHeaderCellDef></th>

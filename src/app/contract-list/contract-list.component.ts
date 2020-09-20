@@ -26,7 +26,7 @@ export class ContractListComponent  extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'contractBukkenNo', 'remark1', 'remark2', 'contractNo', 'contractOwner', 'detail'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractNo', 'date', 'contractOwner', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'detail'];
   //20200906 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
@@ -77,6 +77,13 @@ export class ContractListComponent  extends BaseComponent {
       }
       this.searchContract();
     }
+    // 20200921 S_Add
+    const funcs = [];
+    funcs.push(this.service.getEmps(null));
+    Promise.all(funcs).then(values => {
+      this.emps = values[0];
+    });
+    // 20200921 E_Add
   }
 
   /**
@@ -138,5 +145,21 @@ export class ContractListComponent  extends BaseComponent {
       }
     }
     return '';
+  }
+
+  getContractStaffName(contractinfo: Contractinfo) {
+    // 契約担当者
+    let staff = [];
+    let contractStaffName = '';
+    if(!this.isBlank(contractinfo.contractStaff)) {
+      contractinfo.contractStaff.split(',').forEach(me => {
+        let lst = this.emps.filter(us=>us.userId === me).map(me => me.userName);
+        if(lst.length > 0) {
+          staff.push(lst[0]);
+        }
+      });
+      contractStaffName = staff.join(',');
+    }
+    return contractStaffName;
   }
 }

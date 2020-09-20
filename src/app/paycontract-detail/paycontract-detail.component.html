@@ -172,7 +172,7 @@
                 <th class="width130">支払方法</th>
                 <!--hiranomemo 契約者 追加-->
                 <th>契約者</th>
-                <th>備考</th>                
+                <th>備考</th>
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let detail of paycontract.details | slice:0:1; index as sharerPos">                        
@@ -182,50 +182,16 @@
                     <td>
                         <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_0'] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
                     </td>
+                    <!-- 20200921 S_Update -->
+                    <!--
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15"style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)"style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15"style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
-                    <td>
-                        <div class="picker-div">
-                            <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="closingDay" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #closingDay></mat-datepicker>
-                        </div>
-                    </td>
-                    <!--hiranomemo paymentSeason 追加-->
-                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason" maxlength="100"></td>
-                    <td>
-                        <div class="picker-div">
-                            <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #contractDay></mat-datepicker>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="picker-div">
-                            <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
-                            <mat-datepicker-toggle matSuffix [for]="contractFixDay" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #contractFixDay></mat-datepicker>
-                        </div>
-                    </td>
-                    <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
-                    <!--hiranomemo contractor 追加-->
-                    <td>
-                        <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
-                        <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
-                    </td>
-                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>         
-                </tr>
-                <tr *ngFor="let detail of paycontract.details | slice:1; index as sharerPos">                      
-                    <td>
-                        <button mat-raised-button (click)="deletePayContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
-                    </td>
-                    <td>
-                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + (sharerPos + 1)] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
-                    </td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
+                    -->
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
+                    <!-- 20200921 E_Update -->
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -257,9 +223,56 @@
                     </td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>
                 </tr>
+                <tr *ngFor="let detail of paycontract.details | slice:1; index as sharerPos">
+                    <td>
+                        <button mat-raised-button (click)="deletePayContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
+                    </td>
+                    <td>
+                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + (sharerPos + 1)] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
+                    </td>
+                    <!-- 20200921 S_Update -->
+                    <!--
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxOnlyCalc($event, detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
+                    -->
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
+                    <!-- 20200921 E_Update -->
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="closingDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #closingDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <!--hiranomemo paymentSeason 追加-->
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason" maxlength="100"></td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractFixDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractFixDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td><app-select-component class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
+                    <!--hiranomemo contractor 追加-->
+                    <td>
+                        <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
+                        <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
+                    </td>
+                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>
+                </tr>
             </tbody>
         </table>
     </div>
     <!--/支払情報明細-->
-
 </div>
