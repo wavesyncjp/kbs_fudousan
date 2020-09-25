@@ -1349,11 +1349,18 @@ export class PlanDetailComponent extends BaseComponent {
   }
   // 20200910
   createHistory(plan: Planinfo) {
-    this.dialog.open(PlanHistoryCreateComponent, {
-      width: '900px',
+    const dialogRef = this.dialog.open(PlanHistoryCreateComponent, {
+      width: '50%',
       height: '400px',
       data: plan
     });
+    //20200925 S_Add
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.isSave) {        
+        this.plan.historys.push(result.data);
+      }
+    });
+    //20200925 E_Add
   }
 
 

@@ -102,11 +102,12 @@ export class PlanHistoryCreateComponent extends BaseComponent {
     }
     return true;
   }
-  ok() {
+  ok(row: Planinfo) {
     if (!this.validate()) {
+      this.router.navigate(['/plandetail'], {queryParams: {pid:row.planPid,tempLandInfoPid: row.tempLandInfoPid}});
       return;
     }
-
+    
     // 登録
     const dlgObj = new Dialog({title: '確認', message: '登録しますが、よろしいですか？'});
     const dlg = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlgObj});
@@ -126,12 +127,15 @@ export class PlanHistoryCreateComponent extends BaseComponent {
             data: finishDlg
           });
           dlgVal.afterClosed().subscribe(val => {
+            this.data = new Planinfohistory(res);//20200925 Add
             this.spinner.hide();
             this.router.navigate(['/plandetailhistory'], {queryParams: {pid: this.data.pid}});
           });
         });
       }
-        this.dialogRef.close(true);  
+      //20200925 S_Update
+        this.dialogRef.close({data: this.data, isSave: true}) 
+      //20200925 E_Update
     });
   }
 
