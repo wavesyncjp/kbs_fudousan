@@ -51,7 +51,8 @@ import { ContractTemplateComponent } from './contract-template/contract-template
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
-import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';//20200907 Add
+import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';
+import { DndDirective } from './utils/dnd.directive';//20200907 Add
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { LabelComponentComponent } from './uicomponent/label-component/label-com
     CsvTemplateComponent,
     ErrorDialogComponent,
     // 20200226 E_Add
-    LabelComponentComponent// 20200907 Add
+    LabelComponentComponent,
+    DndDirective// 20200907 Add
   ],
   imports: [
     BrowserModule,

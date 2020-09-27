@@ -49,6 +49,14 @@ export class FileComponentComponent implements OnInit {
     this.file = files[0];
   }
 
+  /**
+   * ファイルドラッグアンドドロップ
+   * @param event イベント
+   */
+  uploadFile(event) {
+    this.file = event[0]; 
+  }
+
   upload(): void {
 
     const dlg = new Dialog({title: '確認', message: 'ファイルアップロードしますが、よろしいですか？'});
