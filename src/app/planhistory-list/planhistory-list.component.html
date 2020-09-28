@@ -1,7 +1,7 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div  class="detail-div">
     <div class="register-div">
-        <button mat-raised-button class="button" (click)="backPlan(plan)">戻る</button>
+        <button mat-raised-button class="button" (click)="backPlan()">戻る</button>
     </div>
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
@@ -29,7 +29,7 @@
     </table>
 <!--収支計算画面_E-->
     <div class="register-div">
-        <button mat-raised-button class="button" (click)="backPlan(plan)">戻る</button>
+        <button mat-raised-button class="button" (click)="backPlan()">戻る</button>
     </div>
 
 

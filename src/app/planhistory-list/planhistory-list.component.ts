@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { BaseComponent } from '../BaseComponent';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter,MatDialogRef } from '@angular/material';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Planhistorylist, Planhistorydetaillist } from '../models/planhistorylist';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Planinfo } from '../models/planinfo';//20200926
+
 
 @Component({
   selector: 'app-planhistory-list',
@@ -21,7 +23,8 @@ export class PlanHistoryListComponent extends BaseComponent {
 
   public history: Planhistorylist[];
   public pid: number;
-  
+  public dialogRef: MatDialogRef<PlanHistoryListComponent>;// 20200928Add
+
   constructor(public router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog,
@@ -90,5 +93,17 @@ export class PlanHistoryListComponent extends BaseComponent {
     //console.log(this.history);
   }
 
+  //20200926
+  /*backPlan() {
+    
+      return;
+    }*/
+    //20200926
+    //20200928 S_Add
+  backPlan() {
+    this.spinner.hide();
+    this.dialogRef.close();
+  }
+  //20200928 E_Add
 
 }

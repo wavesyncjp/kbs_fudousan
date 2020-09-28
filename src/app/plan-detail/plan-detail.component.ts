@@ -1357,7 +1357,7 @@ export class PlanDetailComponent extends BaseComponent {
     //20200925 S_Add
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {        
-        this.plan.historys.push(result.data);
+        this.planHistorys.push(result.data);
       }
     });
     //20200925 E_Add

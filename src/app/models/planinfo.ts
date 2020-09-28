@@ -116,8 +116,7 @@ export class Planinfo {
     details: Plandetail[];
     rent: Planrentroll;
     rentdetails: Planrentrolldetail[];
-    //プラン履歴グリッド用　　
-    historys:Planinfohistory[];//20200925_Add
+
 
     //プラン履歴用　20200909_Add
     planPid: number;
