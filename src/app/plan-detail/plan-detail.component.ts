@@ -1366,7 +1366,7 @@ export class PlanDetailComponent extends BaseComponent {
 
   historyList(plan: Planinfo) {
     this.dialog.open(PlanHistoryListComponent,{
-      width: '1200px',
+      width: '70%',
       height: '100%',
       data: plan
     });

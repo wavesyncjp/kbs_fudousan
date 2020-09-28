@@ -23,13 +23,14 @@ export class PlanHistoryListComponent extends BaseComponent {
 
   public history: Planhistorylist[];
   public pid: number;
-  public dialogRef: MatDialogRef<PlanHistoryListComponent>;// 20200928Add
+  //public dialogRef: MatDialogRef<PlanHistoryListComponent>;// 20200928Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog,
               public service: BackendService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService,
+              public dialogRef: MatDialogRef<PlanHistoryListComponent>) {
       super(router, service,dialog);
       this.route.queryParams.subscribe(params => {
         this.pid = params.pid;
