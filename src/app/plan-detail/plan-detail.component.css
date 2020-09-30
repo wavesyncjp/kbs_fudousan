@@ -864,7 +864,7 @@ th.head_roll_1{
 }
 .list-header > th {
     height: 40px;
-    min-width: 120px;    
+    min-width: 100px;     
     font-size: 12px;
     font-weight: 500;
     color:white;
@@ -876,7 +876,7 @@ th.head_roll_1{
 }
 
 .list-body > tr > td {
-    text-align: center;
+    padding-left: 10px;
     font-size: 12px;
     border: solid 1px gainsboro;    
 }
@@ -921,7 +921,7 @@ th.head_roll_1{
 }
 .history-header > th {
     height: 40px;
-    min-width: 120px;    
+    min-width: 113px;    
     font-size: 12px;
     font-weight: 500;
     color:white;
@@ -933,7 +933,7 @@ th.head_roll_1{
 }
 
 .history-body > tr > td {
-    text-align: center;
+    padding-left: 10px;
     font-size: 12px;
     border: solid 1px gainsboro;    
 }
