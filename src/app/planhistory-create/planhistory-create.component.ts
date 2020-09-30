@@ -106,12 +106,6 @@ export class PlanHistoryCreateComponent extends BaseComponent {
     if (!this.validate()) {
       return;
     }
-  
-  /*save(row: Planinfo) {
-    if (!this.validate()) {
-      this.router.navigate(['/plandetail'], {queryParams: {pid:row.planPid,tempLandInfoPid: row.tempLandInfoPid}});
-      return;
-    }*/
     
     // 登録
     const dlgObj = new Dialog({title: '確認', message: '登録しますが、よろしいですか？'});

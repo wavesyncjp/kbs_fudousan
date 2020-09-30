@@ -47,7 +47,6 @@ export class PlanDetailComponent extends BaseComponent {
   public plan: Planinfo;
   public rent: Planrentroll;
   public planHistoryPid: number;
-  public history: Planinfohistory;//20200929 Add
   plans: Planinfo[] = [];//20200805 Add
   planHistorys: Planinfohistory[] = [];
 
@@ -1350,7 +1349,8 @@ export class PlanDetailComponent extends BaseComponent {
   }
   // 20200910
   createHistory(plan: Planinfo) {
-    this.history.planHistoryName = '';//20200929 Add
+    //plan.planHistoryPid = null;//20200929 Add
+    plan.planHistoryName = '';//20200929 Add
     const dialogRef = this.dialog.open(PlanHistoryCreateComponent, {
       width: '50%',
       height: '400px',

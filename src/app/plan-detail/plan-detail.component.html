@@ -1259,9 +1259,9 @@
     <table>
         <thead class="list-header">
             <th class="width100">プラン種別</th>
-            <th class="width150">プラン名</th>
+            <th class="width100">プラン名</th>
             <th class="width100">PJ原価</th>
-            <th class="width150">履歴作成日</th>
+            <!--<th class="width150">履歴作成日</th>-->
         </thead>
         <tbody class="list-body">
             <tr *ngFor="let plan of plans">
@@ -1272,7 +1272,7 @@
                     </div>
                 </td>
                 <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
-                <td></td>
+                
             </tr>
         </tbody>
     </table>
@@ -1284,20 +1284,24 @@
     <span class="row">※プラン履歴　一覧</span>
     <table>
         <thead class="history-header">
-            <th class="width100">プラン番号</th>
-            <th class="width150">プラン種別</th>
+            <!--<th class="width100">プラン番号</th>-->
+            <th class="width100">プラン種別</th>
             <th class="width100">プラン履歴名</th>
-            <th class="width150">PJ原価</th>
+            <th class="width100">PJ原価</th>
         </thead>
         <tbody class="history-body">
             <tr *ngFor="let planHistory of planHistorys">
-                <td class="break-line">
+                <!--<td class="break-line">
                     <div class="contract-div">
                         <a (click)="showPlanHistory(planHistory)" class="contract-link">{{planHistory.planNumber}}</a>
                     </div>
-                </td>
+                </td>-->
                 <td>{{getCodeTitle('016', planHistory.planStatus)}}</td>
-                <td>{{planHistory.planHistoryName}}</td>
+                <td class="break-line">
+                    <div class="contract-div">
+                        <a (click)="showPlanHistory(planHistory)" class="contract-link">{{planHistory.planHistoryName}}</a>
+                    </div>
+                </td>
                 <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
             </tr>
         </tbody>
