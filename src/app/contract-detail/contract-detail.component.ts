@@ -466,6 +466,7 @@ export class ContractDetailComponent extends BaseComponent {
   }
 
   deleteContractSeller(sharerPos: number) {
+    sharerPos++;// 20201001 Add
     const seller = this.contract.sellers[sharerPos];
     if (seller.pid > 0) {
       if (this.delSellers == null) {
