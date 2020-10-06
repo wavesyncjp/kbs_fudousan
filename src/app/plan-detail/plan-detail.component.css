@@ -876,7 +876,7 @@ th.head_roll_1{
 }
 
 .list-body > tr > td {
-    padding-left: 10px;
+    padding-left: 7px;
     font-size: 12px;
     border: solid 1px gainsboro;    
 }
@@ -933,7 +933,7 @@ th.head_roll_1{
 }
 
 .history-body > tr > td {
-    padding-left: 10px;
+    padding-left: 7px;
     font-size: 12px;
     border: solid 1px gainsboro;    
 }
