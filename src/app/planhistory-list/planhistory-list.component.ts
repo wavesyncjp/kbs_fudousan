@@ -48,17 +48,12 @@ export class PlanHistoryListComponent extends BaseComponent {
 
     this.spinner.show();
 
-    const funcs = [];
-    funcs.push(this.service.getPlanHistoryList(this.pid));
-    
-    Promise.all(funcs).then(values => {
-      this.service.getPlanHistoryList(this.pid).then(ret => {
-        this.parseData(ret);        
-      }).catch(err => {
-        console.log(err);
-      }).finally(() => {
-        this.spinner.hide();
-      });
+    this.service.getPlanHistoryList(this.pid).then(ret => {
+      this.parseData(ret);
+    }).catch(err => {
+      console.log(err);
+    }).finally(() => {
+      this.spinner.hide();
     });
   }
 
