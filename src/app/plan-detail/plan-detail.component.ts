@@ -1361,8 +1361,16 @@ export class PlanDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {        
         this.planHistorys.push(result.data);
+        //20200930 S_Add
+        this.planHistorys.forEach(me => {
+          me['pjCost'] = this.getPjCost(me);
+        });
+        this.sortPlanHistory(this.planHistorys);
+        //20200930 E_Add
+        
       }
     });
+    
     //20200925 E_Add
   }
 
@@ -1434,6 +1442,25 @@ export class PlanDetailComponent extends BaseComponent {
     return Math.floor(ret);
   }
   //20200805 E_Add
+
+  //20200930 S_Add
+  //プラン履歴グリット表示順ソート
+  sortPlanHistory(locs : Planinfohistory[]) {
+    locs.sort((a,b) => {
+      let id1 = a.pid;
+      let id2 = b.pid;
+
+      if(a.pid !== null){
+        id1 = Number(a.pid);
+      }
+      if(b.pid !== null){
+        id2 = Number(b.pid);
+      }
+      
+      return id2 - id1;
+    });
+  }
+  //20200930 E_Add
 
 }
 

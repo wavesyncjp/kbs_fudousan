@@ -133,7 +133,7 @@ export class PlanHistoryCreateComponent extends BaseComponent {
           });
         });
       }
-      this.dialogRef.close(true);  
+     
     });
   }
 
