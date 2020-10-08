@@ -375,7 +375,7 @@ export class PayContractDetailComponent extends BaseComponent {
       // 支払種別が課税対象の場合
       if(lst.length > 0) {
         // 支払金額(税抜)=支払金額(税込)÷(1+消費税率)
-        detail.payPrice = Math.floor(payPriceTax / (1 + this.taxRate / 100));
+        detail.payPrice = Math.ceil(payPriceTax / (1 + this.taxRate / 100));
         // 消費税=支払金額(税込)-支払金額(税抜)
         detail.payTax = payPriceTax - detail.payPrice;
       }
