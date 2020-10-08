@@ -16,6 +16,10 @@ import { Planinfo } from '../models/planinfo';
 import { Plandetail } from '../models/plandetail';
 import { Planrentroll } from '../models/Planrentroll';
 import { Planrentrolldetail } from '../models/Planrentrolldetail';
+import { Planinfohistory } from '../models/Planinfohistory';
+import { PlanHistoryCreateComponent } from '../planhistory-create/planhistory-create.component';
+import { PlanHistoryListComponent } from '../planhistory-list/planhistory-list.component';
+import { AutofillMonitor } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-plan-detail',
@@ -27,10 +31,18 @@ import { Planrentrolldetail } from '../models/Planrentrolldetail';
   ],
 })
 export class PlanDetailComponent extends BaseComponent {
+  //20200805 S_Add
+  public cond = {
+    tempLandInfoPid: null,
+    notPlanPid: null,
+    planPid:null
+  };
+  //20200805 E_Add
 
   public contract: Contractinfo;
   public data: Templandinfo;
   public pid: number;
+  public tempLandInfoPid: number;
   public bukkenid: number;
   public plan: Planinfo;
   public rent: Planrentroll;

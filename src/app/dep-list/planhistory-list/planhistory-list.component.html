@@ -1,0 +1,41 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div  class="detail-div">
+    <div class="register-div">
+        <button mat-raised-button class="button" (click)="backPlan()">戻る</button>
+    </div>
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <br>  
+    
+    <!--収支計算画面_S-->
+    <table class ="plan_detail"> 
+        <table class = "detail-tbl-plan">
+            <tr>
+                <th class="title">事業収支過去分</th>
+            </tr>
+            <tr>
+                <th class="head_plan"></th>
+                <td class="yentitle">金額(現状)</td>
+            </tr>
+
+            <tr *ngFor="let item of history">
+                <th class="main">{{item.paymentName}}</th>
+                <td class="yen" *ngFor="let detail of item.details" nowrap>
+                    <label class="price_lbl">{{detail.price | number:'':'en'}}</label>
+                </td>
+            </tr>        
+
+        </table>
+            <!--収支計算画面_E-->
+            <div class="register-div">
+                <button mat-raised-button class="button" (click)="backPlan()">戻る</button>
+            </div>
+
+
+
+    </table>
+</div>
+<!--2020 07 30_edd-->
+
+        

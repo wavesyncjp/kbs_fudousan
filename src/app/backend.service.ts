@@ -15,6 +15,8 @@ import { Tax } from './models/tax';
 import { ContractSellerInfo } from './models/contractsellerinfo';
 import { Bukkenplaninfo } from './models/bukkenplaninfo';
 import { Bukkensalesinfo } from './models/bukkensalesinfo';
+import { Planinfohistory } from './models/Planinfohistory';
+import { Planhistorylist } from './models/Planhistorylist';
 
 @Injectable({
   providedIn: 'root'
@@ -664,6 +666,7 @@ export class BackendService {
     const deleteApi = 'plandelete.php';
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
+    
   }
   
   /**
@@ -672,6 +675,56 @@ export class BackendService {
   searchPayContract(cond: any): Promise<Paycontractinfo[]> {
     const searchApi = 'paycontractsearch.php';
     const req = this.http.post<Paycontractinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支履歴一覧取得（グリッド用）
+   */
+  searchPlanHistoryForGrid(cond: any): Promise<Planinfohistory[]> {
+    const searchApi = 'planhistorysearchforgrid.php';
+    const req = this.http.post<Planinfohistory[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  
+
+  /**
+   * 事業収支履歴登録 20200818_Edd
+   * @param planhistory ：事業収支履歴
+   */
+  savePlanHistory(planhistory: Planinfohistory): Promise<Planinfohistory> {
+    const saveApi = 'planhistorysave.php'; 
+    const req = this.http.post<Planinfohistory>(`${this.BaseUrl}/${saveApi}`, planhistory);
+    return req.toPromise();
+  }
+
+  /** 20200909_Add
+   * 事業収支履歴取得 
+   * @param id ：事業収支履歴
+   */
+  getPlanHistory(id: number): Promise<Planinfohistory[]> {
+    
+    const getApi = 'planhistoryget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planinfohistory[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+  
+
+  /**
+   * 事業収支履歴取得 20200825_Add
+   * @param id ：事業収支履歴
+   */
+  getPlanHistoryList(id: number): Promise<Planhistorylist[]> {
+    
+    const getApi = 'planhistorylistget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planhistorylist[]>(`${this.BaseUrl}/${getApi}`, body);
     return req.toPromise();
   }
 

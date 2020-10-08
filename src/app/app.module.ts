@@ -53,6 +53,8 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
 import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';
 import { DndDirective } from './utils/dnd.directive';//20200907 Add
+import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';//20200911 Add
+import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';//20200911 Add
 
 @NgModule({
   declarations: [
@@ -94,7 +96,9 @@ import { DndDirective } from './utils/dnd.directive';//20200907 Add
     ErrorDialogComponent,
     // 20200226 E_Add
     LabelComponentComponent,
-    DndDirective// 20200907 Add
+    DndDirective,// 20200907 Add
+    PlanHistoryCreateComponent,// 20200911 Add
+    PlanHistoryListComponent// 20200911 Add
   ],
   imports: [
     BrowserModule,
@@ -134,7 +138,7 @@ import { DndDirective } from './utils/dnd.directive';//20200907 Add
     ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
     UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
     PaymentTypeDetailComponent, PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent,
-    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent
+    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent,PlanHistoryCreateComponent,PlanHistoryListComponent
   ],
 })
 export class AppModule { }
