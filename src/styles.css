@@ -559,3 +559,9 @@ span.minDl{
 .select-disabled select {
     background: #EBEBE4;
 }
+
+/*検索ボタンポジション 20201007_Add*/
+.search-btns{
+    float: right !important;
+    margin: 0px 1px 10px 30px!important
+}

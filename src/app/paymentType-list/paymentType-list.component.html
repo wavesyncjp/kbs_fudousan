@@ -19,8 +19,12 @@
             </tr>
         </table>
         <div style="margin: 10px 0px 10px 0px;">
-            <button mat-raised-button (click)="searchPaymentType()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>&nbsp;&nbsp;
             <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>
+            <!--20201007_S Add-->
+            <div class = "search-btns">
+                <button mat-raised-button (click)="searchPaymentType()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+            </div>
+            <!--20201007_E Add-->
         </div>
         </div>                
     </mat-expansion-panel>
