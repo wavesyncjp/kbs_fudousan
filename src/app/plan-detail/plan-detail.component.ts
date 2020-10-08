@@ -42,10 +42,13 @@ export class PlanDetailComponent extends BaseComponent {
   public contract: Contractinfo;
   public data: Templandinfo;
   public pid: number;
-  public tempLandInfoPid: number;
+  public tempLandInfoPid: number;//20200805 Add
   public bukkenid: number;
   public plan: Planinfo;
   public rent: Planrentroll;
+  public planHistoryPid: number;
+  plans: Planinfo[] = [];//20200805 Add
+  planHistorys: Planinfohistory[] = [];
 
   public payTypeGroup1 = [];
   public payTypeGroup2 = [];
@@ -61,6 +64,8 @@ export class PlanDetailComponent extends BaseComponent {
     this.route.queryParams.subscribe(params => {
       this.pid = params.pid;
       this.bukkenid = params.bukkenid;
+      this.tempLandInfoPid = params.tempLandInfoPid;//20200805 Add
+      this.planHistoryPid =  params.planHistoryPid;//20200909 Add
     });
 
     this.data = new Templandinfo();
@@ -86,8 +91,22 @@ export class PlanDetailComponent extends BaseComponent {
     funcs.push(this.service.getPaymentTypes(null));
     if(this.bukkenid > 0){
       funcs.push(this.service.getLand(this.bukkenid));
+      //20200805 S_Add
+      this.cond.tempLandInfoPid = this.bukkenid;
+      funcs.push(this.service.searchPlanForGrid(this.cond));
+      //20200805 E_Add
+      //funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
     } else if(this.pid > 0) {
       funcs.push(this.service.getPlan(this.pid));
+      //20200805 S_Add
+      this.cond.tempLandInfoPid = this.tempLandInfoPid;
+      this.cond.notPlanPid = this.pid;
+      funcs.push(this.service.searchPlanForGrid(this.cond));
+      this.cond.planPid = this.pid;
+      funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
+      //20200805 E_Add
+    } else if(this.planHistoryPid > 0) {//20200909
+      funcs.push(this.service.getPlanHistory(this.planHistoryPid));//20200909
     }
 
     Promise.all(funcs).then(values => {
@@ -114,27 +133,51 @@ export class PlanDetailComponent extends BaseComponent {
         .map(tp => new Code({ codeDetail: tp.paymentCode, name: tp.paymentName }));
 
       // データが存在する場合
+      //20200909_S_Add
       if(values.length > 4){
-        if(this.pid > 0){
+        if(this.pid > 0 || this.planHistoryPid > 0){
           this.plan = new Planinfo(values[4] as Planinfo);
-          if(this.plan.rent == null || !this.plan.rent){
-            this.plan.rent = new Planrentroll();
+          if(this.pid > 0){
+            this.plans = values[5];
+              this.plans.forEach(me => {
+              me['pjCost'] = this.getPjCost(me);
+            });
+            //20200805 E_Update
+            if(values.length > 6){
+              this.planHistorys = values[6];
+      
+              this.planHistorys.forEach(me => {
+                me['pjCost'] = this.getPjCost(me);
+              });
+            }  
+
+          } else if(this.planHistoryPid > 0) {
+            //this.plan = new Planinfo(values[4] as Planinfo);
+            this.plan.planHistoryPid = this.plan.pid;
+            this.plan.pid = this.plan.planPid;
           }
-          this.plan.convert();
-          this.data = new Templandinfo(values[4].land as Templandinfo);
-          delete this.plan['land'];
-        } else {
+
+        }else{
           this.data = new Templandinfo(values[4] as Templandinfo);
           this.plan = new Planinfo();
           // 20200519 S_Add
           this.plan.landLoanMap = "0";
           this.plan.buildLoanMap = "0";
-          // 20200519 E_Add
+            // 20200519 E_Add
+          
         }
-      }
+        if(this.plan.rent == null || !this.plan.rent){
+          this.plan.rent = new Planrentroll();
+        }
+          
+        this.plan.convert();
+        this.data = new Templandinfo(values[4].land as Templandinfo);
+        delete this.plan['land'];
+        //20200909_E_Add
 
-      if(this.plan.rent == null){
-        this.plan.rent = new Planrentroll();
+        if(this.plan.rent == null){
+          this.plan.rent = new Planrentroll();
+        }
       }
 
       //明細情報が存在しない場合
@@ -1304,4 +1347,120 @@ export class PlanDetailComponent extends BaseComponent {
     }
     return ret;
   }
+  // 20200910
+  createHistory(plan: Planinfo) {
+    //plan.planHistoryPid = null;//20200929 Add
+    plan.planHistoryName = '';//20200929 Add
+    const dialogRef = this.dialog.open(PlanHistoryCreateComponent, {
+      width: '50%',
+      height: '400px',
+      data: plan
+      
+    });
+    //20200925 S_Add
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.isSave) {        
+        this.planHistorys.push(result.data);
+        //20200930 S_Add
+        this.planHistorys.forEach(me => {
+          me['pjCost'] = this.getPjCost(me);
+        });
+        this.sortPlanHistory(this.planHistorys);
+        //20200930 E_Add
+        
+      }
+    });
+    
+    //20200925 E_Add
+  }
+
+
+  historyList(plan: Planinfo) {
+    this.dialog.open(PlanHistoryListComponent,{
+      width: '70%',
+      height: '100%',
+      data: plan
+    });
+  }
+  //20200817 S_Edd
+  showPlan(row: Planinfo) {
+  //20200820 S_Update
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
+    //20200820 E_Update
+  }
+
+  //20200909 S_Edd
+  showPlanHistory(row: Planinfohistory) {
+    //20200820 S_Update
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/plandetail'], {queryParams: {planHistoryPid:row.pid}});
+    //20200909 E_Update
+  }
+
+  backPlan(row: Planinfo) {
+    this.router.navigate(['/plandetail'], {queryParams: {pid:row.planPid,tempLandInfoPid: row.tempLandInfoPid}});
+  }
+  //20200805 S_Add
+  //PJ原価
+  getPjCost(plan: any) {
+    let ret = 0;
+
+    //ret = this.cal29() + this.cal34() + this.cal45() + this.cal46() + this.cal47();
+    
+    for (let i = 0; i <= 38; i++) {
+      let price = this.getNumber(this.removeComma(plan.details[i].price));
+      ret += price;
+    }
+    ret += this.changeHang(plan.taxation, 0.015) + this.changeHang(plan.taxation, 0.02);
+
+    let buildValuation = this.getNumber(this.removeComma(plan.buildValuation));
+    
+    if(buildValuation > 0){
+      ret += Math.floor(buildValuation * 0.03);
+      ret += Math.floor(buildValuation * 0.02);
+    }
+
+    let landLoan = this.getNumber(this.removeComma(plan.landLoan));
+    let landInterest = this.getNumber(this.removeComma(plan.landInterest));
+    let landPeriod = this.getNumber(this.removeComma(plan.landPeriod));
+
+    if(landLoan > 0 && landInterest > 0 && landPeriod > 0){
+      ret += landLoan * landInterest / 12 * landPeriod / 100;
+    }
+
+    let buildLoan = this.getNumber(this.removeComma(plan.buildLoan));
+    let buildInterest = this.getNumber(this.removeComma(plan.buildInterest));
+    let buildPeriod = this.getNumber(this.removeComma(plan.buildPeriod));
+
+    if(buildLoan > 0 && buildInterest > 0 && buildPeriod > 0){
+      ret += buildLoan * buildInterest / 12 * buildPeriod / 100;
+    }
+
+    return Math.floor(ret);
+  }
+  //20200805 E_Add
+
+  //20200930 S_Add
+  //プラン履歴グリット表示順ソート
+  sortPlanHistory(locs : Planinfohistory[]) {
+    locs.sort((a,b) => {
+      let id1 = a.pid;
+      let id2 = b.pid;
+
+      if(a.pid !== null){
+        id1 = Number(a.pid);
+      }
+      if(b.pid !== null){
+        id2 = Number(b.pid);
+      }
+      
+      return id2 - id1;
+    });
+  }
+  //20200930 E_Add
+
 }
+
