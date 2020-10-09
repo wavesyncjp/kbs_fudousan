@@ -204,11 +204,30 @@ export class BukkenDetailComponent extends BaseComponent {
         // 更新
         if (result.isSave) {
           this.data.locations[pos] = new Locationinfo(result.data);
+          this.resetRegistrant(pos); //20201009 リセットRegistrant
           //loc = new Locationinfo(result.data);
         } else if (result.isDelete) {
           this.data.locations.splice(pos, 1);
         }
       }
+    });
+  }
+
+  /**
+   * Registrantリセット
+   * @param pos ロケーションポジション
+   */
+  resetRegistrant(pos: number) {
+    let sharers = this.data.locations[pos].sharers.map(me => me.pid);
+    let locId = this.data.locations[pos].pid;
+    //契約ループ
+    this.contracts.forEach(me => {
+
+      //契約明細ループ
+      me.details.filter(dt => dt.locationInfoPid === locId).forEach(dt => {
+        dt.registrants = dt.registrants.filter(rt => sharers.indexOf(rt.sharerInfoPid) >= 0);
+      });
+
     });
   }
 
