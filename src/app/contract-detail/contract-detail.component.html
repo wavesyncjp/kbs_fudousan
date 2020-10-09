@@ -130,7 +130,7 @@
                                 <td>{{item.buildingNumber}}</td>
                                 <td>{{item.owner}}</td>
                                 <td>
-                                    <label *ngIf="!(item.sharers.length > 1)">{{item.owner}}</label>
+                                    <label *ngIf="!(item.sharers.length > 1)">{{item.sharers.length === 1 ? item.sharers[0].sharer : ''}}</label>
                                     <button class="sharerBtn" *ngIf="item.sharers.length > 1" (click)="showSharer(item)" >表示</button> 
                                 </td>
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>

@@ -122,6 +122,16 @@ export class ContractDetailComponent extends BaseComponent {
         this.convertData();
       }
 
+      //20201009 - 登記名義人まとめ
+      this.data.locations.forEach(me => {
+
+        if(me.sharers != null && me.sharers.length > 1){
+          me.sharers = me.sharers.filter(fl => fl.buysellFlg === "1");          
+        }        
+
+      });
+      //20201009: END - 登記名義人まとめ
+
       this.spinner.hide();
 
     });
