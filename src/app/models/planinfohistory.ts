@@ -2,12 +2,18 @@ import { DatePipe } from '@angular/common';
 import { Plandetail} from  './plandetail';
 import { Planrentroll } from '../models/Planrentroll';
 import { Planrentrolldetail } from '../models/Planrentrolldetail';
+import { Plandetailhistory} from  './plandetailhistory';
+import { Planrentrollhistory } from '../models/Planrentrollhistory';
+import { Planrentrolldetailhistory } from '../models/Planrentrolldetailhistory';
 import { Converter } from '../utils/converter';
 
-export class Planinfo {
+export class Planinfohistory {
 
     pid: number;
     tempLandInfoPid: number;
+    planPid: number;
+    planHistoryName: string;
+    createHistoryDay: string;
     planNumber: string;
     planName: string;
     planStatus: string;
@@ -77,6 +83,7 @@ export class Planinfo {
     startDayMap: Date = null;
     upperWingDayMap: Date = null;
     completionDayMap: Date = null;
+    createHistoryDayMap: Date = null;
     
     siteAreaBuyMap: string = "";
     siteAreaCheckMap: string = "";
@@ -112,23 +119,18 @@ export class Planinfo {
     buildLoanMap: string = "";
     buildPeriodMap: string = "";
     
-    details: Plandetail[];
-    rent: Planrentroll;
-    rentdetails: Planrentrolldetail[];
+    
+    details: Plandetailhistory[];
+    rent: Planrentrollhistory;
+    rentdetails: Planrentrolldetailhistory[];
 
-    // 20200909 S_Add
-    //プラン履歴用　
-    planPid: number;
-    planHistoryPid: number;
-    planHistoryName: string;
-    // 20200909 E_Add
-
-    public constructor(init?: Partial<Planinfo>) {
+    public constructor(init?: Partial<Planinfohistory>) {
         Object.assign(this, init);
     }
 
     public convert() {
         //日付
+        this.createHistoryDayMap = Converter.stringToDate(this.createHistoryDay,'yyyyMMdd');
         this.createDayMap = Converter.stringToDate(this.createDay, 'yyyyMMdd');
         this.scheduledDayMap = Converter.stringToDate(this.scheduledDay, 'yyyyMMdd');
         this.startDayMap = Converter.stringToDate(this.startDay, 'yyyyMMdd');
@@ -226,6 +228,7 @@ export class Planinfo {
         this.startDay = Converter.dateToString(this.startDayMap, 'yyyyMMdd', datePipe);
         this.upperWingDay = Converter.dateToString(this.upperWingDayMap, 'yyyyMMdd', datePipe);
         this.completionDay = Converter.dateToString(this.completionDayMap, 'yyyyMMdd', datePipe);
+        this.createHistoryDay = Converter.dateToString(this.createHistoryDayMap,'yyyyMMdd',datePipe);
 
         //数値
         this.siteAreaBuy = Converter.stringToNumber(this.siteAreaBuyMap);

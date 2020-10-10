@@ -33,7 +33,8 @@ export class PlanListComponent extends BaseComponent {
     address: '',
     planName: '',
     createDay: '',
-    createDayMap: ''
+    createDayMap: '',
+    clctResult: ['01', '02', '03']//20200815 Add
  };
   search = '0';
   selectedRowIndex = -1;
@@ -100,7 +101,8 @@ export class PlanListComponent extends BaseComponent {
       address: '',
       planName: '',
       createDay: '',
-      createDayMap: ''
+      createDayMap: '',
+      clctResult: ['01', '02', '03']//20200815 Add
    };
   }
 
@@ -160,14 +162,18 @@ export class PlanListComponent extends BaseComponent {
         this.searchPlan();
       }
     });
-  }*/
+  }
+*/
   showDetail(row: Planinfo) {
+    //20200805 S_Update
+    /*
     this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid}});
+    */
+    this.router.navigate(['/plandetail'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
+    //20200805 E_Update
   }
   
-
   highlight(row) {
     this.selectedRowIndex = row.tempLandInfoPid;
   }
-  
 }

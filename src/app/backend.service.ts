@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User, Code, Department, Employee, CodeNameMst, PaymentType} from './models/bukken';
+import { HttpClient } from '@angular/common/http';
+import { User, Code, Department, CodeNameMst, PaymentType} from './models/bukken';
 import { Planinfo } from './models/planinfo';
 import { Templandinfo, LandPlanInfo } from './models/templandinfo';
 import { Information } from './models/information';
@@ -13,8 +13,9 @@ import { Contractdetailinfo } from './models/contractdetailinfo';
 import { Paycontractinfo } from './models/paycontractinfo';
 import { Tax } from './models/tax';
 import { ContractSellerInfo } from './models/contractsellerinfo';
-import { Bukkenplaninfo } from './models/bukkenplaninfo';
 import { Bukkensalesinfo } from './models/bukkensalesinfo';
+import { Planinfohistory } from './models/Planinfohistory';
+import { Planhistorylist } from './models/Planhistorylist';
 
 @Injectable({
   providedIn: 'root'
@@ -288,7 +289,6 @@ export class BackendService {
       });
 
       const convert = new Converter();
-
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = convert.formatDay(new Date(), 'yyyyMMddHHmmss') + '.xlsx';
@@ -337,13 +337,11 @@ export class BackendService {
 
     if(fileName !== '') {
       fileName = fileName.replace('.xlsx', '') + '_';
-    }    
+    }
 
     const convert = new Converter();
-
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    
     link.download = fileName + convert.formatDay(new Date(), 'yyyyMMddHHmmss') + '.xlsx';
     link.click();
     window.URL.revokeObjectURL(link.href);
@@ -355,9 +353,7 @@ export class BackendService {
    * @param file ：ファイル
    */
   uploadFile(bukkenId: number, file: File, hasComment = false, comment = ''): Promise<object> {
-
     const uploadApi = 'file_upload.php';
-
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('bukkenId', bukkenId.toString());
@@ -366,7 +362,6 @@ export class BackendService {
       formData.append('isAttach', '1');
     }
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
-
   }
 
   /**
@@ -375,9 +370,7 @@ export class BackendService {
    * @param file ；ファイル
    */
   uploadContractFile(contractInfoId: number, file: File): Promise<object> {
-
     const uploadApi = 'contractFileUpload.php';
-
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('contractInfoId', contractInfoId.toString());
@@ -392,7 +385,6 @@ export class BackendService {
    */
   uploadInfoFile(infoPid: number, file: File) {
     const uploadApi = 'infofile_upload.php';
-
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('infoId', infoPid.toString());
@@ -610,9 +602,6 @@ export class BackendService {
     return req.toPromise();
   }
 
-  
-
-
   /**
    * 事業収支一覧取得
    */
@@ -622,7 +611,7 @@ export class BackendService {
     return req.toPromise();
   }
 
-    //20200805 S_Add
+  //20200805 S_Add
   /**
    * 事業収支一覧取得（グリッド用）
    */
@@ -634,12 +623,31 @@ export class BackendService {
   //20200805 E_Add
 
   /**
+   * 事業収支履歴一覧取得（グリッド用）
+   */
+  searchPlanHistoryForGrid(cond: any): Promise<Planinfohistory[]> {
+    const searchApi = 'planhistorysearchforgrid.php';
+    const req = this.http.post<Planinfohistory[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
    * 事業収支登録
    * @param plan ：事業収支
    */
   savePlan(plan: Planinfo): Promise<Planinfo> {
     const saveApi = 'plansave.php'; 
     const req = this.http.post<Planinfo>(`${this.BaseUrl}/${saveApi}`, plan);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支履歴登録
+   * @param planhistory ：事業収支履歴
+   */
+  savePlanHistory(planhistory: Planinfohistory): Promise<Planinfohistory> {
+    const saveApi = 'planhistorysave.php'; 
+    const req = this.http.post<Planinfohistory>(`${this.BaseUrl}/${saveApi}`, planhistory);
     return req.toPromise();
   }
 
@@ -657,6 +665,33 @@ export class BackendService {
   }
 
   /**
+   * 事業収支履歴取得
+   * @param id ：事業収支情報履歴Id
+   */
+  getPlanHistory(id: number): Promise<Planinfohistory[]> {
+    const getApi = 'planhistoryget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planinfohistory[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 事業収支履歴取得（PopUp用）
+   * @param id ：事業収支情報履歴Id
+   */
+  getPlanHistoryList(id: number): Promise<Planhistorylist[]> {
+    
+    const getApi = 'planhistorylistget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Planhistorylist[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
    * 事業収支削除
    * @param id : 事業収支情報Id
    */
@@ -665,7 +700,7 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
-  
+
   /**
    * 支払管理一覧取得
    */
@@ -708,8 +743,7 @@ export class BackendService {
     return req.toPromise();
   }
 
-
-   /**
+  /**
    * 物件契約者取得
    * @param tempLandInfoPid 物件Id
    */
@@ -718,7 +752,6 @@ export class BackendService {
     const req = this.http.post<ContractSellerInfo[]>(`${this.BaseUrl}/${api}`, {tempLandInfoPid: tempLandInfoPid});
     return req.toPromise();
   }
-
 
   /**
    * プラン情報取得
@@ -753,15 +786,18 @@ export class BackendService {
     return req.toPromise();
   }
 
-
-  //契約書
+  /**
+   * 契約書
+   */
   loadContractTemplate(data: any):  Promise<any[]>{
     const api = 'contracttemplate.php'; 
     const req = this.http.post<any[]>(`${this.BaseUrl}/${api}`, data);
     return req.toPromise();
   }
 
-  //CSV選択
+  /**
+   * CSV選択
+   */
   loadCsvTemplate(data: any):  Promise<any[]>{
     const api = 'csvtemplate.php'; 
     const req = this.http.post<any[]>(`${this.BaseUrl}/${api}`, data);
@@ -782,7 +818,6 @@ export class BackendService {
     const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
     return req.toPromise();
   }
-
 }
 
  

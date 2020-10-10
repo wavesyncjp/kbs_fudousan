@@ -1,5 +1,4 @@
 /*事業収支全体_S*/
-
 .detail-div {
     margin: 0px;
     background-color: white;
@@ -10,8 +9,6 @@
 /*事業収支全体_E*/
 
 /*事業収支ヘッダー_S*/
-
-
 .detail-tbl-head{
     width: 100%;
     border-spacing: 0px;
@@ -20,7 +17,7 @@
     
 }
 .detail-tbl-head> tr{
-    height: 30px;    
+    height: 30px;
 }
 
 .detail-tbl-head> tr > th{
@@ -31,8 +28,8 @@
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -46,8 +43,8 @@
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -61,8 +58,8 @@
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -72,10 +69,9 @@
     border-spacing: 0px;
     border-collapse: collapse;
     margin:0px 10px 10px 10px;
-    
 }
 .fixed_asset> tr{
-    height: 30px;    
+    height: 30px;
 }
 
 .fixed_asset> tr > th{
@@ -116,14 +112,14 @@ span.fixed_asset_head{
     min-width: 110px;
     margin-right: 20px;
     float: left;
-} 
+}
 .first{
     height: 30px;
     line-height:30px;
     min-width: 180px;
     margin-right: 20px;
     float: left;
-} 
+}
 .second{
     min-width: 400px;
     height: 30px;
@@ -131,7 +127,7 @@ span.fixed_asset_head{
     margin-right: 117px;
     /*margin-right: 20px;*/
     float: left;
-} 
+}
 .second_tubo{
     min-width: 400px;
     height: 30px;
@@ -139,7 +135,7 @@ span.fixed_asset_head{
     margin-right: 25px;
     /*margin-right: 20px;*/
     float: left;
-} 
+}
 .third{
     min-width: 140px;
     height: 30px;
@@ -147,7 +143,7 @@ span.fixed_asset_head{
     margin-right: 20px;
     /*margin-right: 20px;*/
     float: left;
-} 
+}
 .force{
     min-width: 155px;
     height: 30px;
@@ -155,24 +151,23 @@ span.fixed_asset_head{
     margin-right: 20px;
     /*margin-right: 20px;*/
     float: left;
-} 
+}
 .etc{
     margin-right: 10px;
     float: left;
-} 
+}
 .etc2{
     margin-right: 120px;
     float: left;
-} 
+}
 .etc3{
     margin-right: 138px;
     float: left;
-} 
+}
 .etc4{
     margin-right: 125px;
     float: left;
 }
- 
 
 .detail-tbl-head > tr > th.sharer{
     background-color: rgba(219, 216, 166, 0.692);
@@ -188,7 +183,6 @@ span.fixed_asset_head{
     /*border: solid 1px rgba(0,0,0,.12);
     /*border-left: solid 1px rgba(0,0,0,.12); */
 }
-
 
 span.head{
     font-size: 0.8em;
@@ -210,7 +204,6 @@ span.head{
     min-width: 40px;
     width: 40px;
 }
-
 .Twidthy50{
     min-width: 50px;
     width: 50px;
@@ -227,15 +220,12 @@ span.head{
     min-width: 100px;
     width: 100px;
 }
-/*//20200407_hirano src*/
+/*20200407_hirano src*/
 ::ng-deep .Twidth180{
     min-width: 180px;
     width: 180px;
     font-size: 0.8em;
 }
-
-
-
 .Twidth150{
     min-width: 150px;
     width: 150px;
@@ -247,7 +237,6 @@ span.head{
 /*事業収支ヘッダー_E*/
 
 /*事業収支_S*/
-
 .plan_detail{
     width: 100%;
 }
@@ -274,7 +263,7 @@ span.head_plan{
     display: inline-flex;
     align-items: center;
 }
-/*//20200407_hirano src*/
+/*20200407_hirano src*/
 .detail-tbl-plan> tr > th.title{
     width:180px !important;
     height: 22px !important;
@@ -292,9 +281,7 @@ span.head_plan{
     margin:10px 10px 10px 0px;
     padding-left: 20px;
     float: left;
-    
-} 
- 
+}
 
 /*//20200407_hirano src*/
 .detail-tbl-plan> tr > th.main{
@@ -304,8 +291,8 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -316,8 +303,8 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 0px;
     font-size: 0.7em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -328,8 +315,8 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -339,15 +326,13 @@ span.head_plan{
     min-width: 105px;
     margin-right: 10px;
     float: left;
-    
-} 
+}
 /*各合計地CSS*/
 .detail-tbl-plan> span.SUM{
     display: block;
     width: 98%;
     border-bottom:double 3px rgba(193, 224, 188, 0.692);
     margin-bottom: 20px;
- 
 }
 /*//20200407_hirano src*/
 .detail-tbl-plan> span.SUM > tr > th.main{
@@ -356,8 +341,8 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -368,8 +353,8 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -379,8 +364,7 @@ span.head_plan{
     min-width: 105px;
     margin-right: 10px;
     float: left;
-    
-} 
+}
 /*各合計地CSS*/
 
 /* タイトル付枠*/
@@ -409,8 +393,8 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 15px;
 }
@@ -438,8 +422,8 @@ span.head_plan{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -449,14 +433,10 @@ span.head_plan{
     min-width: 105px;
     margin-right: 10px;
     float: left;
-    
-} 
-
+}
 /*総合計*/
 
 /*プラン_S*/
-
-
 .detail-tbl-roll{
     width: 48%;
     border-spacing: 0px;
@@ -497,10 +477,7 @@ span.head_roll{
     margin:10px 10px 10px 0px;
     padding-left: 20px;
     float: left;
-    
-} 
- 
-
+}
 
 .detail-tbl-roll> tr > th.main{
     width:100px !important;
@@ -509,8 +486,8 @@ span.head_roll{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -521,8 +498,8 @@ span.head_roll{
     min-height: 22px !important;
     padding: 2px 2px 2px 0px;
     font-size: 0.7em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -533,8 +510,7 @@ span.head_roll{
     min-width: 105px;
     margin-right: 10px;
     float: left;
-    
-} 
+}
 
 .detail-tbl-roll> tr > td.yen_plan{
     width:100px !important;
@@ -544,18 +520,14 @@ span.head_roll{
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
     font-weight: bold;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
-
 /*プラン_E*/
 
-
 /*レントロール_S*/
-
-
 .detail-tbl-rent{
     width: 48%;
     border-spacing: 0px;
@@ -572,7 +544,7 @@ span.head_rent{
     color:black;
     font-weight: bold;
     text-align: center;
-    width:100px !important;;
+    width:100px !important;
     padding: 2px 0px 2px 10px;
     height: 25px;
     margin: 3px 0px 3px 0px;
@@ -596,10 +568,7 @@ span.head_rent{
     margin:10px 10px 10px 0px;
     padding-left: 20px;
     float: left;
-    
-} 
- 
-
+}
 
 .detail-tbl-rent> tr > th.main{
     min-width: 45px;
@@ -615,22 +584,22 @@ span.head_rent{
     min-width: 70px !important;
     line-height:30px;
     margin-right: 10px;
-    float: left;    
-} 
+    float: left;
+}
 .detail-tbl-rent> tr > td.yen2{
     min-height: 30px;
     min-width: 90px !important;
     line-height:30px;
     margin-right: 10px;
-    float: left;    
-} 
+    float: left;
+}
 .detail-tbl-rent> tr > td.yen3{
     min-height: 30px;
     min-width: 105px !important;
     line-height:30px;
     margin-right: 10px;
-    float: left;    
-} 
+    float: left;
+}
 
 /*レントロール合計_S*/
 .detail-tbl-rent> span.SUM{
@@ -638,7 +607,6 @@ span.head_rent{
     width: 98%;
     border-bottom:double 3px rgba(147, 170, 212, 0.692);
     margin-bottom: 20px;
- 
 }
 
 .detail-tbl-rent> span.SUM > tr > th.main{
@@ -647,8 +615,8 @@ span.head_rent{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 10px;
 }
@@ -658,8 +626,7 @@ span.head_rent{
     line-height:30px;
     margin-right: 20px;
     float: left;
-   
-} 
+}
 .detail-tbl-rent> span.SUM > tr > th.main{
     min-width: 45px;
     min-height: 30px !important;
@@ -673,22 +640,22 @@ span.head_rent{
     min-width: 70px !important;
     line-height:30px;
     margin-right: 10px;
-    float: left;    
-} 
+    float: left;
+}
 .detail-tbl-rent> span.SUM > tr > td.yen2{
     min-height: 30px;
     min-width: 90px !important;
     line-height:30px;
     margin-right: 10px;
-    float: left;    
-} 
+    float: left;
+}
 .detail-tbl-rent> span.SUM > tr > td.yen3{
     min-height: 30px;
     min-width: 105px !important;
     line-height:30px;
     margin-right: 10px;
-    float: left;    
-} 
+    float: left;
+}
 
 .detail-tbl-rent> span.etcSUM > tr > th.main{
     width:100px !important;
@@ -697,12 +664,11 @@ span.head_rent{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
-
 
 .detail-tbl-rent> span.etcSUM > tr > td.yen{
     min-height: 30px;
@@ -710,8 +676,7 @@ span.head_rent{
     min-width: 105px;
     margin-right: 10px;
     float: left;
-    
-} 
+}
 .detail-tbl-rent> span.etcSUM > tr > td.yento{
     min-height: 30px;
     line-height:30px;
@@ -719,15 +684,13 @@ span.head_rent{
     margin-left: 7px;
     margin-right: 3px;
     float: left;
-    
-} 
+}
 /*総合計*/
 .detail-tbl-rent> span.profitSUM{
     display: block;
     width: 98%;
     border-bottom:solid 3px rgba(252, 255, 46, 0.692);
     margin-bottom: 20px;
- 
 }
 .detail-tbl-rent> span.profitSUM > tr > th.main{
     background-color:rgba(147, 170, 212, 0.692);
@@ -736,8 +699,8 @@ span.head_rent{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -747,8 +710,7 @@ span.head_rent{
     min-width: 105px;
     margin-right: 10px;
     float: left;
-    
-} 
+}
 
 /*総合計*/
 .detail-tbl-rent> span.finSUM{
@@ -757,7 +719,6 @@ span.head_rent{
     border-bottom:solid 3px rgba(252, 255, 46, 0.692);
     margin-bottom: 20px;
     margin-top: 70px;
- 
 }
 .detail-tbl-rent> span.finSUM > tr > th.main{
     background-color:rgba(252, 160, 160, 0.692);
@@ -766,8 +727,8 @@ span.head_rent{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
@@ -807,7 +768,7 @@ th.head_roll{
     color:black;
     font-weight: bold;
     text-align: center;
-    width:100px !important;;
+    width:100px !important;
     padding: 2px 0px 2px 10px;
     height: 25px;
     margin: 3px 0px 3px 0px;
@@ -822,7 +783,7 @@ th.head_roll_1{
     color:black;
     font-weight: bold;
     text-align: center;
-    width:150px !important;;
+    width:150px !important;
     padding: 2px 0px 2px 10px;
     height: 25px;
     margin: 3px 0px 3px 0px;
@@ -836,13 +797,147 @@ th.head_roll_1{
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
     font-size: 0.8em;
-    border-top: solid 2px white;   
-    /*border-left: solid 2px white;*/ 
+    border-top: solid 2px white;
+    /*border-left: solid 2px white;*/
     float: left;
     margin-right: 20px;
 }
 .rentline{
     border-bottom:solid 2px rgba(179, 176, 176, 0.692);
- 
 }
 
+/* 20201011 S_Add */
+/*---------他プラン-------------*/
+.contact-div {
+    width: 86%;
+    height: 100%;
+    overflow-x: auto;
+    margin-left: 12px;
+}
+
+.contact-div > table{
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width:98%;
+}
+.list-header {
+    background-color: cadetblue;
+}
+.list-header > th {
+    height: 40px;
+    min-width: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+    border: solid 1px gainsboro;
+}
+
+.list-body > tr {
+    height: 34px;
+}
+
+.list-body > tr > td {
+    padding-left: 7px;
+    font-size: 12px;
+    border: solid 1px gainsboro;
+}
+
+.contract-div {
+    display: grid;font-size: 14px;padding-top: 2px;
+}
+
+.contract-link {
+    cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
+}
+
+.export-button {
+    background: dimgray;
+    color: white;
+    width: 180px;
+}
+
+.contract-div {
+    display: grid;font-size: 14px;padding-top: 2px;
+}
+.contract-link {
+    cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
+}
+
+/*---------プラン履歴-------------*/
+.history-div {
+    width: 86%;
+    height: 100%;
+    overflow-x: auto;
+    margin-left: 12px;
+}
+
+.history-div > table{
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width:98%;
+}
+.history-header {
+    background-color: rgb(241, 175, 50);
+}
+.history-header > th {
+    height: 40px;
+    min-width: 113px;
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+    border: solid 1px gainsboro;
+}
+
+.history-body > tr {
+    height: 34px;
+}
+
+.history-body > tr > td {
+    padding-left: 7px;
+    font-size: 12px;
+    border: solid 1px gainsboro;
+}
+
+.history-div {
+    display: grid;font-size: 14px;padding-top: 2px;
+}
+
+.contract-link {
+    cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
+}
+
+.export-button {
+    background: dimgray;
+    color: white;
+    width: 180px;
+}
+
+/*履歴ボタン*/
+.historyLog {
+    background-color:#FFC000;
+    color: white;
+    line-height: 30px;
+    width:70px; 
+    padding: 0px 5px ;
+    font-size: 12px;
+}
+
+.detail-tbl-head > tr > td.history{
+    padding: 1px;
+    float: left;
+    margin-left: 57px;
+}
+
+span.row{
+    font-size: 1.0em;
+    text-align: left;
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px 0px 2px 10px;
+    height: 25px;
+    margin: 3px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+}
+/* 20201011 E_Add */

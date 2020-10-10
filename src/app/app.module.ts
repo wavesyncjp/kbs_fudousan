@@ -51,90 +51,107 @@ import { ContractTemplateComponent } from './contract-template/contract-template
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
-import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';
-import { DndDirective } from './utils/dnd.directive';//20200907 Add
+import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';// 20200907 Add
+// 20200911 S_Add
+import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';
+import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
+// 20200911 E_Add
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    BukkenListComponent,
-    BukkenDetailComponent,
-    ContractListComponent,
-    ContractDetailComponent,
-    SelectComponentComponent,
-    FileComponentComponent,
-    ConfirmDialogComponent,
-    TopComponent,
-    InfoDialogComponent,
-    InfoListComponent,
-    InfoDetailComponent,
-    DepListComponent,
-    DepDetailComponent,
-    UserListComponent,
-    UserDetailComponent,
-    CodeListComponent,
-    CodeDetailComponent,
-    FinishDialogComponent,
-    SharerDialogComponent,
-    LocationDetailComponent,
-    PaymentTypeListComponent,
-    PaymentTypeDetailComponent,
-    // 20200213 S_Add
-    PlanDetailComponent,
-    PayContractListComponent,
-    PayContractDetailComponent,
-    // 20200213 E_Add
-    // 20200226 S_Add
-    PlanListComponent,
-    BukkenplaninfoDetailComponent,
-    BukkenplaninfoListComponent,
-    ContractTemplateComponent,
-    CsvTemplateComponent,
-    ErrorDialogComponent,
-    // 20200226 E_Add
-    LabelComponentComponent,
-    DndDirective// 20200907 Add
+    AppComponent
+    , LoginComponent
+    , BukkenListComponent
+    , BukkenDetailComponent
+    , ContractListComponent
+    , ContractDetailComponent
+    , SelectComponentComponent
+    , FileComponentComponent
+    , ConfirmDialogComponent
+    , TopComponent
+    , InfoDialogComponent
+    , InfoListComponent
+    , InfoDetailComponent
+    , DepListComponent
+    , DepDetailComponent
+    , UserListComponent
+    , UserDetailComponent
+    , CodeListComponent
+    , CodeDetailComponent
+    , FinishDialogComponent
+    , SharerDialogComponent
+    , LocationDetailComponent
+    , PaymentTypeListComponent
+    , PaymentTypeDetailComponent
+    , PlanDetailComponent
+    , PayContractListComponent
+    , PayContractDetailComponent
+    , PlanListComponent
+    , BukkenplaninfoDetailComponent
+    , BukkenplaninfoListComponent
+    , ContractTemplateComponent
+    , CsvTemplateComponent
+    , ErrorDialogComponent
+    , LabelComponentComponent
+    , PlanHistoryCreateComponent
+    , PlanHistoryListComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NgxChartsModule,
-    FormsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCardModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatExpansionModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    MatGridListModule,
-    NgxSpinnerModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatCheckboxModule,
-    MatTabsModule,
-    MatSortModule,
-    NgMultiSelectDropDownModule.forRoot()//20200731 Add
+    BrowserModule
+    , AppRoutingModule
+    , HttpClientModule
+    , BrowserAnimationsModule
+    , NgxChartsModule
+    , FormsModule
+    , MatToolbarModule
+    , MatSidenavModule
+    , MatListModule
+    , MatCardModule
+    , MatTableModule
+    , MatPaginatorModule
+    , MatExpansionModule
+    , MatDividerModule
+    , MatFormFieldModule
+    , MatInputModule
+    , MatButtonModule
+    , MatIconModule
+    , MatDialogModule
+    , MatGridListModule
+    , NgxSpinnerModule
+    , MatDatepickerModule
+    , MatNativeDateModule
+    , MatRadioModule
+    , MatSelectModule
+    , MatSnackBarModule
+    , MatCheckboxModule
+    , MatTabsModule
+    , MatSortModule
+    , NgMultiSelectDropDownModule.forRoot()//20200731 Add
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
-  entryComponents: [BukkenDetailComponent, ContractDetailComponent,
-    ConfirmDialogComponent, InfoDialogComponent, InfoDetailComponent, DepDetailComponent,
-    UserDetailComponent, CodeDetailComponent, FinishDialogComponent, SharerDialogComponent, LocationDetailComponent,
-    PaymentTypeDetailComponent, PlanDetailComponent, PayContractDetailComponent,BukkenplaninfoDetailComponent,
-    ContractTemplateComponent, CsvTemplateComponent, ErrorDialogComponent
+  entryComponents: [
+    BukkenDetailComponent
+    , ContractDetailComponent
+    , ConfirmDialogComponent
+    , InfoDialogComponent
+    , InfoDetailComponent
+    , DepDetailComponent
+    , UserDetailComponent
+    , CodeDetailComponent
+    , FinishDialogComponent
+    , SharerDialogComponent
+    , LocationDetailComponent
+    , PaymentTypeDetailComponent
+    , PlanDetailComponent
+    , PayContractDetailComponent
+    , BukkenplaninfoDetailComponent
+    , ContractTemplateComponent
+    , CsvTemplateComponent
+    , ErrorDialogComponent
+    , PlanHistoryCreateComponent
+    , PlanHistoryListComponent
   ],
 })
 export class AppModule { }

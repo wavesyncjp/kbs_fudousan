@@ -1,4 +1,4 @@
-import { OnInit, AfterViewInit, LOCALE_ID, Inject } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
 import { Code, PaymentType } from './models/bukken';
@@ -28,21 +28,19 @@ export class BaseComponent implements OnInit {
     constructor(public router: Router,
                 public service: BackendService,
                 public dialog: MatDialog) {
-
     }
 
     ngOnInit(): void {
         this.service.isLoginPage(false);
 
-       if(!this.service.isLogin()) {
-        const dlg = new Dialog({title: 'エラー', message: '認証されていません。再度、ログインしてください。'});        
-        const dialogRef = this.dialog.open(ErrorDialogComponent, {width: '500px', height: '250px', data: dlg});
-    
-        dialogRef.afterClosed().subscribe(result => {
-            this.router.navigate(['/login']);
-        });        
-       
-       }
+        if(!this.service.isLogin()) {
+            const dlg = new Dialog({title: 'エラー', message: '認証されていません。再度、ログインしてください。'});
+            const dialogRef = this.dialog.open(ErrorDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+            dialogRef.afterClosed().subscribe(result => {
+                this.router.navigate(['/login']);
+            });
+        }
     }
 
     /**
@@ -59,22 +57,9 @@ export class BaseComponent implements OnInit {
         if (this.sysCodeNameMsts) {
             return this.sysCodeNameMsts.map(codeNameMst => new Code({codeDetail: codeNameMst.code, name: codeNameMst.name}));
         } else {
-        return [];
+            return [];
         }
     }
-
-/*
-*20191218 S_Add*/
-/*
-    getCodeForMaintain(code: string) {
-        if (this.codes) {
-            return this.codes.map(code => new Code({code: code.code, name: code.name}));
-        }else{
-        return [];
-        }
-    }
-    /*
-     *20191218 E_Add*/
 
     /**
      * コード名称
@@ -161,7 +146,6 @@ export class BaseComponent implements OnInit {
     }
 
     /**
-     * 
      * @param paymentCode 支払い名称取得
      */
     getPaymentName(paymentCode: string): string {
@@ -179,7 +163,7 @@ export class BaseComponent implements OnInit {
         if (this.taxes) {
             return this.taxes.map(Tax => new Code({codeDetail: Tax.pid, name: Tax.taxRate}));
         } else {
-        return [];
+            return [];
         }
     }
 
@@ -233,6 +217,7 @@ export class BaseComponent implements OnInit {
     inList(list: string[], val = '') {
         return list != null && list.includes(val);
     }
+
     changeCheck(list: string[], val = '', $event) {
         if ($event.checked) {
             if (!list.includes(val)) {
@@ -244,6 +229,7 @@ export class BaseComponent implements OnInit {
             }
         }
     }
+
     formatDay(val: string, format: string) {
         if (val === undefined || val === '' || val == null) {
             return '';
@@ -251,6 +237,7 @@ export class BaseComponent implements OnInit {
         const parseVal = parse(val, 'yyyyMMdd', new Date());
         return formatDate(parseVal, format, this.locale);
     }
+
     formatIntNumber(val: number, unit: string = null) {
         if (val === undefined || val == null) {
             return '';
@@ -270,22 +257,21 @@ export class BaseComponent implements OnInit {
         // 整数部分を3桁カンマ区切りへ
         //val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         //20200901 S_Update
-//        val = Number(val).toLocaleString();
+        //val = Number(val).toLocaleString();
         val = isNaN(Number(val)) ? String(val) : Number(val).toLocaleString();
         //20200901 E_Update
         return val;
     }
     
     removeComma(val: number | string) {
-        let ret;
-        if (isNullOrUndefined(val) || val === '')
-        {
+        if (isNullOrUndefined(val) || val === '') {
             return '';
         }
         val = val.toString().replace(/,/g, "").trim();
         return val;
     }
     //20200709 E_Add
+
     getNumber(val) {
         if (isNullOrUndefined(val) || val === '' || isNaN(val)) return 0;
         return Number(val);
