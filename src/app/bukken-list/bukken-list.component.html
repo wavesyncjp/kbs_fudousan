@@ -1,8 +1,13 @@
-<div class="mat-elevation-z8 main">
+<div class="mat-elevation-z8 main" (keydown.enter)="searchBukken()">
   <mat-expansion-panel expanded='true'>
     <mat-expansion-panel-header>
         <mat-panel-title>検索条件</mat-panel-title>
     </mat-expansion-panel-header>
+    <!-- 20201011 S_Add -->
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+      <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <!-- 20201011 E_Add -->
     <div class="search-div">
       <table class="search-tbl">
         <tr>
@@ -126,21 +131,17 @@
           <mat-radio-button [value]="1" [checked]="true">一覧表示&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
           <mat-radio-button [value]="2">MAP表示&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button> 
         </mat-radio-group>
-
       </div>
-    </div>    
-    
-  </mat-expansion-panel>  
-  
+    </div>
+  </mat-expansion-panel>
 </div>
+
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 
 <mat-tab-group class="bukken-tab">
   <mat-tab label="一覧">
-    <div class="mat-elevation-z8 main data">
-
+    <div class="mat-elevation-z8 main data" (keydown.enter)="searchBukken()">
       <table mat-table [dataSource]="dataSource" matSort>
-    
          <!-- bukkenId Column -->
          <ng-container matColumnDef="bukkenNo">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
@@ -274,4 +275,3 @@
     <div #mapContainer id="map"></div>
   </mat-tab>
 </mat-tab-group>
-

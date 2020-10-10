@@ -56,7 +56,10 @@ export class BukkenListComponent extends BaseComponent {
 //    pickDateMap: new Date(),
 //    pickDate: '',
     department: [],
-    result: ['01'],
+    // 20201011 S_Update
+//    result: ['01'],
+    result: [],
+    // 20201011 E_Update
     mode: 1,
     //20200828 S_Add
     clctInfoStaff: [],
@@ -89,6 +92,7 @@ export class BukkenListComponent extends BaseComponent {
   authority = '';
   disableUser: boolean = false;
   //20200828 E_Add
+  hasSearchItem: boolean = false;// 20201011 Add
 
   constructor(private ngZone: NgZone,
               public router: Router,
@@ -206,7 +210,10 @@ export class BukkenListComponent extends BaseComponent {
 //      pickDateMap: new Date(),
 //      pickDate: '',
       department: [],
-      result: ['01'],
+      // 20201011 S_Update
+//      result: ['01'],
+      result: [],
+      // 20201011 E_Update
       mode: 1,
       //20200828 S_Add
       clctInfoStaff: [],
@@ -219,6 +226,10 @@ export class BukkenListComponent extends BaseComponent {
    * 物件検索
    */
   searchBukken() {
+    // 20201011 S_Add
+    if (!this.validate()) return;
+    // 20201011 E_Add
+    
     this.spinner.show();
 
     this.markers.forEach(marker => {
@@ -510,5 +521,36 @@ export class BukkenListComponent extends BaseComponent {
       }
     });
   }
+
+  // 20201011 S_Add
+  /**
+   * バリデーション
+   */
+  validate(): boolean {
+    this.hasSearchItem = false;
+    this.errorMsgs = [];
+    
+    if(!this.isBlank(this.cond.bukkenNo)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.contractBukkenNo_Like)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.bukkenName)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.address)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.residence)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.pickDate_From)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.pickDate_To)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.surveyRequestedDay_From)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.surveyRequestedDay_To)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.finishDate_From)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.finishDate_To)) this.hasSearchItem = true;
+    if(this.cond.department.length > 0) this.hasSearchItem = true;
+    if(this.cond.result.length > 0) this.hasSearchItem = true;
+    if(this.cond.clctInfoStaffMap.length > 0) this.hasSearchItem = true;
+    
+    if (!this.hasSearchItem) {
+      this.errorMsgs.push('検索条件のいずれかを指定してください。');
+      return false;
+    }
+    return true;
+  }
+  // 20201011 E_Add
 }
 
