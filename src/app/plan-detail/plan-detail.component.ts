@@ -357,6 +357,7 @@ export class PlanDetailComponent extends BaseComponent {
       //固定資産税(土地)
       let fixedTaxLand = Math.floor(taxation * 0.014);
       this.plan.fixedTaxLandMap = this.numberFormat(fixedTaxLand);
+      this.cal27();// 20201013 Add
     }
 
     //【固定資産税(精算分)】.課税標準額(都市)
@@ -365,6 +366,7 @@ export class PlanDetailComponent extends BaseComponent {
       //都市計画税(土地)
       let cityPlanTaxLand = Math.floor(taxationCity * 0.03);
       this.plan.cityPlanTaxLandMap = this.numberFormat(cityPlanTaxLand);
+      this.cal27();// 20201013 Add
     }
     
     //【固定資産税(精算分)】.既存建物評価額
@@ -376,6 +378,7 @@ export class PlanDetailComponent extends BaseComponent {
       //都市計画税(建物)
       let cityPlanTaxBuild = Math.floor(buildValuation * 0.03);
       this.plan.cityPlanTaxBuildMap = this.numberFormat(cityPlanTaxBuild);
+      this.cal27();// 20201013 Add
     }
 
     //敷地面積(売買)・課税標準額(固定)・土地評価額・住宅用地の率
