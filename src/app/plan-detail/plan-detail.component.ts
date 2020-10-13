@@ -177,6 +177,15 @@ export class PlanDetailComponent extends BaseComponent {
           this.plan = new Planinfo();
           this.plan.landLoanMap = "0";
           this.plan.buildLoanMap = "0";
+          // 20201013 S_Add
+          if(values.length > 5) {
+            // 事業収支一覧設定
+            this.plans = values[5];
+            this.plans.forEach(me => {
+              me['pjCost'] = this.getPjCost(me);
+            });
+          }
+          // 20201013 E_Add
         }
         // 初期化
         if(this.plan.rent == null || !this.plan.rent) {
@@ -284,6 +293,10 @@ export class PlanDetailComponent extends BaseComponent {
           });
           dlgVal.afterClosed().subscribe(val => {
             this.spinner.hide();
+            // 20201013 S_Add
+            this.plan = new Planinfo(res);
+            this.plan.convert();
+            // 20201013 E_Add
             this.router.navigate(['/plandetail'], {queryParams: {pid: this.plan.pid}});
           });
         });
@@ -1374,7 +1387,7 @@ export class PlanDetailComponent extends BaseComponent {
         this.planHistorys.forEach(me => {
           me['pjCost'] = this.getPjCost(me);
         });
-        this.sortPlanHistory(this.planHistorys);
+        this.sortPlanHistorys(this.planHistorys);
         //20200930 E_Add
       }
     });
@@ -1391,11 +1404,17 @@ export class PlanDetailComponent extends BaseComponent {
     });
   }
   */
+  /**
+   * 履歴照会ボタン
+   */
   showPlanHistoryList(row: Planinfo) {
     this.router.navigate(['/planhistorylist'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
   }
   
   //20200817 S_Edd
+  /**
+   * 事業収支詳細ボタン
+   */
   showPlan(row: Planinfo) {
   //20200820 S_Update
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -1405,6 +1424,9 @@ export class PlanDetailComponent extends BaseComponent {
   }
 
   //20200909 S_Edd
+  /**
+   * 履歴詳細ボタン
+   */
   showPlanHistory(row: Planinfohistory) {
     //20200820 S_Update
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -1413,11 +1435,16 @@ export class PlanDetailComponent extends BaseComponent {
     //20200909 E_Update
   }
 
+  /**
+   * 戻るボタン
+   */
   backPlan(row: Planinfo) {
     this.router.navigate(['/plandetail'], {queryParams: {pid:row.planPid,tempLandInfoPid: row.tempLandInfoPid}});
   }
   //20200805 S_Add
-  //PJ原価
+  /**
+   * PJ原価（グリッド用）
+   */
   getPjCost(plan: any) {
     let ret = 0;
 
@@ -1457,9 +1484,11 @@ export class PlanDetailComponent extends BaseComponent {
   //20200805 E_Add
 
   //20200930 S_Add
-  //プラン履歴グリット表示順ソート
-  sortPlanHistory(locs : Planinfohistory[]) {
-    locs.sort((a,b) => {
+  /**
+   * 履歴一覧ソート
+   */
+  sortPlanHistorys(planHistorys : Planinfohistory[]) {
+    planHistorys.sort((a,b) => {
       let id1 = a.pid;
       let id2 = b.pid;
 
