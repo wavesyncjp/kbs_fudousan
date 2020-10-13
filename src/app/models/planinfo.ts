@@ -112,9 +112,9 @@ export class Planinfo {
     buildLoanMap: string = "";
     buildPeriodMap: string = "";
     
-    details: Plandetail[];
+    details: Plandetail[] = [];
     rent: Planrentroll;
-    rentdetails: Planrentrolldetail[];
+    rentdetails: Planrentrolldetail[] = [];
 
     // 20200909 S_Add
     //プラン履歴用　
