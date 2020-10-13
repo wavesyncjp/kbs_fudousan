@@ -1389,7 +1389,7 @@ export class PlanDetailComponent extends BaseComponent {
   }
   */
   showPlanHistoryList(row: Planinfo) {
-    this.router.navigate(['/planhistorylist'], {queryParams: {pid: row.pid}});
+    this.router.navigate(['/planhistorylist'], {queryParams: {pid: row.pid, tempLandInfoPid: row.tempLandInfoPid}});
   }
   
   //20200817 S_Edd
