@@ -21,7 +21,10 @@ export class PlanHistoryListComponent extends BaseComponent {
 
   public history: Planhistorylist[];
   public pid: number;
+  public tempLandInfoPid: number;// 20201013 Add
 
+  // 20201013 S_Update
+  /*
   constructor(public router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog,
@@ -31,6 +34,18 @@ export class PlanHistoryListComponent extends BaseComponent {
       super(router, service,dialog);
       this.route.queryParams.subscribe(params => {
         this.pid = params.pid;
+      });
+  }
+  */
+  constructor(public router: Router,
+              private route: ActivatedRoute,
+              public dialog: MatDialog,
+              public service: BackendService,
+              private spinner: NgxSpinnerService) {
+      super(router, service,dialog);
+      this.route.queryParams.subscribe(params => {
+        this.pid = params.pid;
+        this.tempLandInfoPid = params.tempLandInfoPid;
       });
   }
 
@@ -84,8 +99,15 @@ export class PlanHistoryListComponent extends BaseComponent {
     });
   }
 
+  // 20201013 S_Update
+  /*
   backPlan() {
     this.spinner.hide();
     this.dialogRef.close();
   }
+  */
+  backPlan() {
+    this.router.navigate(['/plandetail'], {queryParams: {pid: this.pid, tempLandInfoPid: this.tempLandInfoPid}});
+  }
+  // 20201013 E_Update
 }

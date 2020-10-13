@@ -1378,6 +1378,8 @@ export class PlanDetailComponent extends BaseComponent {
     //20200925 E_Add
   }
 
+  // 20201013 S_Update
+  /*
   historyList(plan: Planinfo) {
     this.dialog.open(PlanHistoryListComponent,{
       width: '70%',
@@ -1385,6 +1387,11 @@ export class PlanDetailComponent extends BaseComponent {
       data: plan
     });
   }
+  */
+  showPlanHistoryList(row: Planinfo) {
+    this.router.navigate(['/planhistorylist'], {queryParams: {pid: row.pid}});
+  }
+  
   //20200817 S_Edd
   showPlan(row: Planinfo) {
   //20200820 S_Update

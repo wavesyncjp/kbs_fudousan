@@ -16,6 +16,7 @@ import { PayContractDetailComponent } from './paycontract-detail/paycontract-det
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 import { PlanListComponent } from './plan-list/plan-list.component';
 import { BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
+import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -35,8 +36,8 @@ const routes: Routes = [
   { path: 'plans', component: PlanListComponent},
   { path: 'plandetail', component: PlanDetailComponent},
   { path: 'pays', component: PayContractListComponent},
-  { path: 'paydetail', component: PayContractDetailComponent}
-
+  { path: 'paydetail', component: PayContractDetailComponent},
+  { path: 'planhistorylist', component: PlanHistoryListComponent}
 ];
 
 @NgModule({
