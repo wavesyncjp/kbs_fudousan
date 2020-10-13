@@ -86,30 +86,35 @@ export class PlanDetailComponent extends BaseComponent {
     funcs.push(this.service.getCodes(['011', '016', '017', '018', '020']));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getEmps(null));
-
     funcs.push(this.service.getPaymentTypes(null));
-    if(this.bukkenid > 0){
+
+    // 新規登録の場合
+    if(this.bukkenid > 0) {
+      // 物件情報取得
       funcs.push(this.service.getLand(this.bukkenid));
-      //20200805 S_Add
+      // 事業収支一覧取得
       this.cond.tempLandInfoPid = this.bukkenid;
       funcs.push(this.service.searchPlanForGrid(this.cond));
-      //20200805 E_Add
-      //funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
-    } else if(this.pid > 0) {
+    }
+    // 詳細の場合
+    else if(this.pid > 0) {
+      // 事業収支取得
       funcs.push(this.service.getPlan(this.pid));
-      //20200805 S_Add
+      // 事業収支一覧取得
       this.cond.tempLandInfoPid = this.tempLandInfoPid;
       this.cond.notPlanPid = this.pid;
       funcs.push(this.service.searchPlanForGrid(this.cond));
+      // 事業収支履歴一覧取得
       this.cond.planPid = this.pid;
       funcs.push(this.service.searchPlanHistoryForGrid(this.cond));
-      //20200805 E_Add
-    } else if(this.planHistoryPid > 0) {//20200909
-      funcs.push(this.service.getPlanHistory(this.planHistoryPid));//20200909
+    }
+    // 履歴詳細の場合
+    else if(this.planHistoryPid > 0) {
+      // 事業収支履歴取得
+      funcs.push(this.service.getPlanHistory(this.planHistoryPid));
     }
 
     Promise.all(funcs).then(values => {
-
       const codes = values[0] as Code[];
       if(codes !== null && codes.length > 0){
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
@@ -120,10 +125,11 @@ export class PlanDetailComponent extends BaseComponent {
         });
       }
 
-      this.deps = values[1];
-      this.emps = values[2];
-      this.payTypes = values[3];
+      this.deps = values[1];    // 部署
+      this.emps = values[2];    // 社員
+      this.payTypes = values[3];// 支払種別
 
+      // 支払種別（コンボ用）
       this.payTypeGroup1 = this.payTypes.filter(tp => { return tp.costFlg === '01' && tp.addFlg === '1' })
         .map(tp => new Code({ codeDetail: tp.paymentCode, name: tp.paymentName }));
       this.payTypeGroup2 = this.payTypes.filter(tp => { return tp.costFlg === '02' && tp.addFlg === '1' })
@@ -132,54 +138,55 @@ export class PlanDetailComponent extends BaseComponent {
         .map(tp => new Code({ codeDetail: tp.paymentCode, name: tp.paymentName }));
 
       // データが存在する場合
-      //20200909_S_Add
-      if(values.length > 4){
-        if(this.pid > 0 || this.planHistoryPid > 0){
+      if(values.length > 4) {
+        // 詳細もしくは、履歴詳細の場合
+        if(this.pid > 0 || this.planHistoryPid > 0) {
+          // this.planにはPlanもしくは、PlanHistoryを設定
           this.plan = new Planinfo(values[4] as Planinfo);
-          if(this.pid > 0){
+          // 物件情報を設定
+          this.data = new Templandinfo(values[4].land as Templandinfo);
+          delete this.plan['land'];
+          // 詳細の場合
+          if(this.pid > 0) {
+            // 事業収支一覧設定
             this.plans = values[5];
-              this.plans.forEach(me => {
+            this.plans.forEach(me => {
               me['pjCost'] = this.getPjCost(me);
             });
-            //20200805 E_Update
-            if(values.length > 6){
+            
+            if(values.length > 6) {
+              // 事業収支履歴一覧設定
               this.planHistorys = values[6];
-      
               this.planHistorys.forEach(me => {
                 me['pjCost'] = this.getPjCost(me);
               });
-            }  
-
-          } else if(this.planHistoryPid > 0) {
-            //this.plan = new Planinfo(values[4] as Planinfo);
+            }
+          }
+          // 履歴詳細の場合
+          else if(this.planHistoryPid > 0) {
+            // 履歴の値を設定
             this.plan.planHistoryPid = this.plan.pid;
             this.plan.pid = this.plan.planPid;
           }
-
-        }else{
+        }
+        // 新規登録の場合
+        else {
+          // 物件情報を設定
           this.data = new Templandinfo(values[4] as Templandinfo);
+          // 事業収支を初期化
           this.plan = new Planinfo();
-          // 20200519 S_Add
           this.plan.landLoanMap = "0";
           this.plan.buildLoanMap = "0";
-            // 20200519 E_Add
-          
         }
-        if(this.plan.rent == null || !this.plan.rent){
+        // 初期化
+        if(this.plan.rent == null || !this.plan.rent) {
           this.plan.rent = new Planrentroll();
         }
-          
+        
         this.plan.convert();
-        this.data = new Templandinfo(values[4].land as Templandinfo);
-        delete this.plan['land'];
-        //20200909_E_Add
-
-        if(this.plan.rent == null){
-          this.plan.rent = new Planrentroll();
-        }
       }
 
-      //明細情報が存在しない場合
+      // 明細情報が存在しない場合
       if(this.plan.details == null || this.plan.details.length == 0){
         this.plan.details = [];
         const lst = ["1001", "1002", "1003", "1004", "1005", "", "", "", "", "", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008",
