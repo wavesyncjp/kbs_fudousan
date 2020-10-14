@@ -20,7 +20,7 @@
                 <span class="head">プラン種別</span>&nbsp;&nbsp;<app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
             </td>
             <!-- 20201011 S_一時コメントアウト -->
-            <!--
+            
             <td class="history">
                 <span *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0 ">
                     <button mat-raised-button (click)="createHistory(plan)" color="warn" style="line-height: 30px;" >&nbsp;履歴登録&nbsp;</button>
@@ -30,7 +30,7 @@
             <td class="second" *ngIf="plan.planHistoryPid > 0 ">
               <input type="text" class="Twidth400" [(ngModel)]="plan.planHistoryName" [attr.disabled]="plan.planHistoryPid > 0 ? '' : null">
             </td>
-            -->
+            
             <!-- 20201011 E_一時コメントアウト -->
         </tr>
         <tr>
@@ -387,11 +387,11 @@
             <td class="titlehead">単価・坪</td>
             <td class="titlehead">算出根拠&nbsp;&nbsp;&nbsp;&nbsp;
                 <!-- 20201011 S_一時コメントアウト -->
-                <!--
+                
                 <span *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0">
                     <button mat-raised-button (click)="showPlanHistoryList(plan)" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button>
                 </span>
-                -->
+                
                 <!-- 20201011 E_一時コメントアウト -->
             </td>
         </tr>
@@ -1226,57 +1226,84 @@
 </table>
 <!-- 20200805 S_Add -->
 <!-- 20201011 S_一時コメントアウト -->
-<!--
+
 <div class="contact-div" *ngIf="plans && plans.length > 0" style="width: 100%;">
     <span class="row">※事業収支　一覧</span>
     <table>
         <thead class="list-header">
             <th>プラン種別</th>
             <th>プラン名</th>
+            <!--20201014_S Add-->
+            <th>土地原価合計</th>
+            <th>建物原価合計</th>
+            <th>その他費用合計</th>
+            <!--20201014_E Add-->
             <th>PJ原価</th>
+            <th class="width40">詳細</th>
         </thead>
         <tbody class="list-body">
             <tr *ngFor="let plan of plans">
                 <td class="break-line">{{getCodeTitle('016', plan.planStatus)}}</td>
                 <td>
-                    <div class="contract-div">
-                        <a (click)="showPlan(plan)" class="contract-link">{{plan.planName}}</a>
-                    </div>
+                <!--20201014_S Add-->
+                    <div class="contract-div">{{plan.planName}}</div>
+                    
                 </td>
                 <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
+                <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
+                <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
+                <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
+                
+                <td class="button">
+                    <button mat-raised-button (click)="showPlan(plan)" style="background-color: #ff0000; color: white;">詳細</button>
+                </td>
+                <!--20201014_E Add-->
+                
             </tr>
         </tbody>
     </table>
 </div>
--->
+
 <!-- 20201011 E_一時コメントアウト -->
 <!-- 20200805 E_Add -->
 
 <!-- 20200808 S_Add -->
 <!-- 20201011 S_一時コメントアウト -->
-<!--
+
 <div class="history-div" *ngIf="planHistorys && planHistorys.length > 0"  style="width: 100%;">
     <span class="row">※プラン履歴　一覧</span>
     <table>
         <thead class="history-header">
             <th>プラン種別</th>
             <th>プラン履歴名</th>
+            <!--20201014_S Add-->
+            <th>土地原価合計</th>
+            <th>建物原価合計</th>
+            <th>その他費用合計</th>
+            <!--20201014_E Add-->
             <th>PJ原価</th>
+            <th style="width:20px !important">詳細</th>
         </thead>
         <tbody class="history-body">
             <tr *ngFor="let planHistory of planHistorys">
                 <td>{{getCodeTitle('016', planHistory.planStatus)}}</td>
                 <td class="break-line">
-                    <div class="contract-div">
-                        <a (click)="showPlanHistory(planHistory)" class="contract-link">{{planHistory.planHistoryName}}</a>
-                    </div>
+                <!--20201014_S Add-->
+                    <div class="contract-div">{{planHistory.planHistoryName}}</div>
                 </td>
                 <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
+                <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
+                <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
+                <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
+                <td class="button">
+                    <button mat-raised-button (click)="showPlanHistory(planHistory)" style="background-color: #ff0000; color: white;">詳細</button>
+                </td>
+                <!--20201014_E Add-->
             </tr>
         </tbody>
     </table>
 </div>
--->
+
 <!-- 20201011 E_一時コメントアウト -->
 <!-- 20200808 E_Add -->
 </table>

@@ -4,11 +4,18 @@
     </ul>
     <table class="detail-tbl">
         <tr>
-            <th style="width: 100px !important;">プラン種別</th>
+            <td>
+                <span class="title">
+                    <label>事業収支履歴　登録</label>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 100px !important; background-color:rgb(219, 216, 166, 0.692)!important; ">プラン種別</th>
             <td>
                 <app-select-component [codes]="getCode('016')" [(ngModel)]="data.planStatus" [isDisabled]="data.planHistoryName == null||data.planHistoryName !== null"></app-select-component>
             </td>
-            <th style="width: 100px !important;">履歴作成日</th>
+            <th style="width: 100px !important; background-color:rgb(219, 216, 166, 0.692)!important;">履歴作成日</th>
             <td>
                 <input type="text" [matDatepicker]="createHistoryDay" class="width100" [(ngModel)]="data.createHistoryDayMap">
                 <mat-datepicker-toggle matSuffix [for]="createHistoryDay" class="picker-icon"></mat-datepicker-toggle>
@@ -16,15 +23,15 @@
             </td>
         </tr>
         <tr>
-            <th style="width: 100px !important;">プラン履歴名</th>
+            <th style="width: 100px !important; background-color:rgb(219, 216, 166, 0.692)!important;">プラン履歴名</th>
             <td>
                 <input type="text" [(ngModel)]="data.planHistoryName" [ngClass]="{'width200': true, 'error': errors['planHistoryName']}" maxlength="100">
             </td>
         </tr>
        
     </table>
-    <mat-dialog-actions align="end">
-        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
-        <button mat-raised-button class="width80" color="primary" (click)="save()">OK</button>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
+        <button mat-raised-button class="width100" color="primary" (click)="save()">OK</button>
     </mat-dialog-actions>
 </div>

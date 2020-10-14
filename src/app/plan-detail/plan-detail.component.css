@@ -941,3 +941,10 @@ span.row{
     align-items: center;
 }
 /* 20201011 E_Add */
+/*20201014 S_Add*/
+td.button{
+    padding-left: 20px !important;
+    font-size: 12px;
+    border: solid 1px gainsboro;
+}
+/*20201014 E_Add*/

@@ -1,15 +1,48 @@
 .dialog-div{
-    padding-top: 30px;
-    margin: -20px;
-    width: 90%;
-    height: 90%;
+    margin: auto;
+    /*width: 90%;*/
+    height: 95%;
+
+    display: block;
+    padding-top: 10px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    min-height: inherit;
+    max-height: inherit;
 }
+
+/*20201014_S Del
 .detail-tbl{
     margin-left: 20px;
     margin-top: 50px;
 
-}
+}20201014_E Del*/
+/*20201014_S Del
 .mat-dialog-actions {
     margin: auto;
     margin-top: auto;
+    
+    padding-top: 200px;
+    padding-left: 20px;
+    margin-top: -20px;
+    
+}20201014_E Del*/
+
+/*20201014_S Add*/
+span.title{
+    font-size: 0.8em;
+    border-left:solid 5px rgb(219, 216, 166, 0.692);
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    width: 135px !important;
+    padding: 2px 0px 2px 10px;
+    height: 30px;
+    margin: 3px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
+/*20201014_E Add*/
