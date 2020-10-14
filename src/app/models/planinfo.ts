@@ -113,7 +113,7 @@ export class Planinfo {
     buildPeriodMap: string = "";
     
     details: Plandetail[] = [];
-    rent: Planrentroll;
+    rent: Planrentroll = new Planrentroll();
     rentdetails: Planrentrolldetail[] = [];
 
     // 20200909 S_Add

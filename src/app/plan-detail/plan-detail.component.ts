@@ -187,13 +187,13 @@ export class PlanDetailComponent extends BaseComponent {
           }
           // 20201013 E_Add
         }
-        // 初期化
-        if(this.plan.rent == null || !this.plan.rent) {
-          this.plan.rent = new Planrentroll();
-        }
-        
-        this.plan.convert();
       }
+      // 初期化
+      if(this.plan.rent == null || !this.plan.rent) {
+        this.plan.rent = new Planrentroll();
+      }
+      
+      this.plan.convert();
 
       // 明細情報が存在しない場合
       if(this.plan.details == null || this.plan.details.length == 0){
