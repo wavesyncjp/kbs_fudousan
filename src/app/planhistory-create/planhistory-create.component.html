@@ -2,7 +2,7 @@
     <ul *ngIf="errorMsgs.length > 0" class="error-span" style="margin-top: -5px;">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
-    <table class="detail-tbl">
+    <table class="detail-tbl-head">
         <tr>
             <td>
                 <span class="title">
@@ -10,20 +10,24 @@
                 </span>
             </td>
         </tr>
-        <tr>
-            <th style="width: 100px !important; background-color:rgb(219, 216, 166, 0.692)!important; ">プラン種別</th>
+    </table>
+    <table class="detail-tbl">    
+        <tr><!-- style="margin-left: 60px !important;"   style="margin-left: -5px !important;"-->
+            <th>プラン種別</th>
             <td>
                 <app-select-component [codes]="getCode('016')" [(ngModel)]="data.planStatus" [isDisabled]="data.planHistoryName == null||data.planHistoryName !== null"></app-select-component>
             </td>
-            <th style="width: 100px !important; background-color:rgb(219, 216, 166, 0.692)!important;">履歴作成日</th>
-            <td>
-                <input type="text" [matDatepicker]="createHistoryDay" class="width100" [(ngModel)]="data.createHistoryDayMap">
-                <mat-datepicker-toggle matSuffix [for]="createHistoryDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #createHistoryDay></mat-datepicker>
+            <th>履歴作成日</th>
+            <td style="margin-right:0px !important;">
+                <div class="picker-div" style="margin-top: 0px !important;"> 
+                    <input type="text" [matDatepicker]="createHistoryDay" class="width100" [(ngModel)]="data.createHistoryDayMap">
+                    <mat-datepicker-toggle matSuffix [for]="createHistoryDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #createHistoryDay></mat-datepicker>
+                </div>
             </td>
         </tr>
         <tr>
-            <th style="width: 100px !important; background-color:rgb(219, 216, 166, 0.692)!important;">プラン履歴名</th>
+            <th>プラン履歴名</th>
             <td>
                 <input type="text" [(ngModel)]="data.planHistoryName" [ngClass]="{'width200': true, 'error': errors['planHistoryName']}" maxlength="100">
             </td>
@@ -32,6 +36,6 @@
     </table>
     <mat-dialog-actions align="center">
         <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
-        <button mat-raised-button class="width100" color="primary" (click)="save()">OK</button>
+        <button mat-raised-button class="width100" color="primary" (click)="save()">登録</button>
     </mat-dialog-actions>
 </div>

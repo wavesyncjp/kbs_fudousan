@@ -45,4 +45,31 @@ span.title{
     align-items: center;
     margin-bottom: 20px;
 }
+
+.detail-tbl> tr > th{
+    width:100px !important;
+    background-color: rgba(219, 216, 166, 0.692);
+    text-align: left;
+    height: 22px !important;
+    padding: 2px;
+    font-size: 0.8em;
+    border-top: solid 2px white;
+    float: left;
+}
+.detail-tbl> tr > td{
+    height: 30px;
+    min-width: 110px;
+    margin-right: 10px;
+    float: left;
+}
+
+tr.head1{
+    margin-top: 20px;
+}
+
+table.detail-tbl{
+    margin-left: 40px;
+    width: 90%;
+
+}
 /*20201014_E Add*/

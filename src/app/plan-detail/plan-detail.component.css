@@ -842,9 +842,7 @@ th.head_roll_1{
     border: solid 1px gainsboro;
 }
 
-.contract-div {
-    display: grid;font-size: 14px;padding-top: 2px;
-}
+
 
 .contract-link {
     cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
@@ -858,6 +856,8 @@ th.head_roll_1{
 
 .contract-div {
     display: grid;font-size: 14px;padding-top: 2px;
+    min-width:350px !important;
+    width:350px !important;
 }
 .contract-link {
     cursor: pointer;color: #FF0000;margin-bottom: 3px;margin-top: 3px;
@@ -914,12 +914,13 @@ th.head_roll_1{
 
 /*履歴ボタン*/
 .historyLog {
-    background-color:#FFC000;
+    background-color: #FFC000;
     color: white;
     line-height: 30px;
-    width:70px; 
-    padding: 0px 5px ;
-    font-size: 12px;
+    width: 100px;
+    padding: 0px 5px;
+    font-size: 14px;
+    margin-left: 50px;
 }
 
 .detail-tbl-head > tr > td.history{
@@ -940,11 +941,23 @@ span.row{
     display: inline-flex;
     align-items: center;
 }
-/* 20201011 E_Add */
-/*20201014 S_Add*/
-td.button{
-    padding-left: 20px !important;
-    font-size: 12px;
-    border: solid 1px gainsboro;
+
+.Pwidth50{
+    min-width:50px !important;
+    max-width:50px !important;
+    text-align: center;
 }
-/*20201014 E_Add*/
+
+.Pwidth100{
+    min-width:100px !important;
+    max-width:100px !important;
+}
+
+.Pwidth350{
+    min-width:350px !important;
+    max-width:350px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* 20201011 E_Add */

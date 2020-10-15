@@ -1231,22 +1231,22 @@
     <span class="row">※事業収支　一覧</span>
     <table>
         <thead class="list-header">
-            <th>プラン種別</th>
-            <th>プラン名</th>
+            <th class="Pwidth50">プラン種別</th>
+            <th class="Pwidth350">プラン名</th>
             <!--20201014_S Add-->
-            <th>土地原価合計</th>
-            <th>建物原価合計</th>
-            <th>その他費用合計</th>
+            <th class="Pwidth100">土地原価合計</th>
+            <th class="Pwidth100">建物原価合計</th>
+            <th class="Pwidth100">その他費用合計</th>
             <!--20201014_E Add-->
-            <th>PJ原価</th>
+            <th class="Pwidth100">PJ原価</th>
             <th class="width40">詳細</th>
         </thead>
         <tbody class="list-body">
             <tr *ngFor="let plan of plans">
-                <td class="break-line">{{getCodeTitle('016', plan.planStatus)}}</td>
-                <td>
+                <td class="Pwidth50">{{getCodeTitle('016', plan.planStatus)}}</td>
+                <td class="Pwidth350">
                 <!--20201014_S Add-->
-                    <div class="contract-div">{{plan.planName}}</div>
+                    {{plan.planName}}
                     
                 </td>
                 <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
@@ -1254,8 +1254,8 @@
                 <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(plan.pjCost,'円')}}</td>
                 
-                <td class="button">
-                    <button mat-raised-button (click)="showPlan(plan)" style="background-color: #ff0000; color: white;">詳細</button>
+                <td>
+                    <button mat-raised-button (click)="showPlan(plan)" style="background-color: #ff0000; color: white; display:block; margin:auto;">詳細</button>
                 </td>
                 <!--20201014_E Add-->
                 
@@ -1270,33 +1270,33 @@
 <!-- 20200808 S_Add -->
 <!-- 20201011 S_一時コメントアウト -->
 
-<div class="history-div" *ngIf="planHistorys && planHistorys.length > 0"  style="width: 100%;">
+<div class="contact-div" *ngIf="planHistorys && planHistorys.length > 0"  style="width: 100%;">
     <span class="row">※プラン履歴　一覧</span>
     <table>
-        <thead class="history-header">
-            <th>プラン種別</th>
-            <th>プラン履歴名</th>
+        <thead class="list-header" style="background-color: rgb(241, 175, 50);">
+            <th class="Pwidth50">プラン種別</th>
+            <th class="Pwidth350">プラン履歴名</th>
             <!--20201014_S Add-->
-            <th>土地原価合計</th>
-            <th>建物原価合計</th>
-            <th>その他費用合計</th>
+            <th class="Pwidth100">土地原価合計</th>
+            <th class="Pwidth100">建物原価合計</th>
+            <th class="Pwidth100">その他費用合計</th>
             <!--20201014_E Add-->
-            <th>PJ原価</th>
-            <th style="width:20px !important">詳細</th>
+            <th class="Pwidth100">PJ原価</th>
+            <th class="width40">詳細</th>
         </thead>
-        <tbody class="history-body">
+        <tbody class="list-body">
             <tr *ngFor="let planHistory of planHistorys">
-                <td>{{getCodeTitle('016', planHistory.planStatus)}}</td>
-                <td class="break-line">
+                <td class="Pwidth50">{{getCodeTitle('016', planHistory.planStatus)}}</td>
+                <td class="Pwidth350">
                 <!--20201014_S Add-->
-                    <div class="contract-div">{{planHistory.planHistoryName}}</div>
+                    {{planHistory.planHistoryName}}
                 </td>
                 <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(planHistory.pjCost,'円')}}</td>
-                <td class="button">
-                    <button mat-raised-button (click)="showPlanHistory(planHistory)" style="background-color: #ff0000; color: white;">詳細</button>
+                <td>
+                    <button mat-raised-button (click)="showPlanHistory(planHistory)" style="background-color: #ff0000; color: white; display:block; margin:auto;">詳細</button>
                 </td>
                 <!--20201014_E Add-->
             </tr>
