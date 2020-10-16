@@ -4,10 +4,12 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow-x: auto;
 }
 
 .plan_detail{
     width: 100%;
+    
 }
 
 .detail-tbl-plan{
@@ -16,7 +18,7 @@
     border-collapse: collapse;
     margin:0px 10px 40px 10px;
     width: max-content;
-    overflow-x: auto;
+    
 }
 
 th.head_plan{
@@ -56,11 +58,11 @@ td.yentitle{
 }
 
 .detail-tbl-plan> tr > th.main{
-    width: 80px !important;
+    width: 200px !important;
     text-align: left;
     min-height: 22px !important;
     padding: 2px 2px 2px 5px;
-    font-size: 0.5em;
+    font-size: 0.8em;
     border-top: solid 10px white;
     float: left;
     margin-right: 20px;

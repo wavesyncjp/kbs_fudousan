@@ -1,15 +1,55 @@
 .dialog-div{
-    padding-top: 30px;
-    margin: -20px;
-    width: 90%;
-    height: 90%;
-}
-.detail-tbl{
-    margin-left: 20px;
-    margin-top: 50px;
-
-}
-.mat-dialog-actions {
     margin: auto;
-    margin-top: auto;
+    height: 95%;
+
+    display: block;
+    padding-top: 10px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    min-height: inherit;
+    max-height: inherit;
+}
+
+span.title{
+    font-size: 0.8em;
+    border-left:solid 5px rgb(219, 216, 166, 0.692);
+    color:black;
+    font-weight: bold;
+    text-align: center;
+    width: 135px !important;
+    padding: 2px 0px 2px 10px;
+    height: 30px;
+    margin: 3px 0px 3px 0px;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.detail-tbl> tr > th{
+    width:100px !important;
+    background-color: rgba(219, 216, 166, 0.692);
+    text-align: left;
+    height: 22px !important;
+    padding: 2px;
+    font-size: 0.8em;
+    border-top: solid 2px white;
+    float: left;
+}
+
+.detail-tbl> tr > td{
+    height: 30px;
+    min-width: 110px;
+    margin-right: 10px;
+    float: left;
+}
+
+tr.head1{
+    margin-top: 20px;
+}
+
+table.detail-tbl{
+    margin-left: 40px;
+    width: 90%;
 }
