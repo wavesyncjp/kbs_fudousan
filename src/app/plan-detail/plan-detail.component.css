@@ -811,7 +811,8 @@ th.head_roll_1{
 .contact-div {
     width: 86%;
     height: 100%;
-    overflow-x: auto;
+    /*overflow-x: auto;*/
+    overflow-x: hidden;
     margin-left: 12px;
 }
 
@@ -837,7 +838,8 @@ th.head_roll_1{
 }
 
 .list-body > tr > td {
-    padding-left: 7px;
+    /*padding-left: 7px;*/
+    text-align: center;
     font-size: 12px;
     border: solid 1px gainsboro;
 }
@@ -941,23 +943,12 @@ span.row{
     display: inline-flex;
     align-items: center;
 }
-
-.Pwidth50{
-    min-width:50px !important;
-    max-width:50px !important;
-    text-align: center;
-}
-
-.Pwidth100{
-    min-width:100px !important;
-    max-width:100px !important;
-}
-
-.Pwidth350{
-    min-width:350px !important;
-    max-width:350px !important;
+/* 20201011 E_Add */
+/* 20201017 S_Add */
+.planHistoryName{
+    max-width: 340px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 }
-/* 20201011 E_Add */
+/* 20201017 E_Add */

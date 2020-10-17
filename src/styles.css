@@ -23,8 +23,15 @@ textarea {
 }
 
 .width40{
+    min-width: 40px !important;
     width: 40px !important;
 }
+/* 20201017 S_Add */
+.width50{
+    min-width: 50px !important;
+    width: 50px !important;
+}
+/* 20201017 S_Add */
 .width60{
     min-width: 60px !important;
     width: 60px !important;
@@ -69,12 +76,18 @@ textarea {
     width: 200px !important;
     min-width: 200px !important;
 }
-.width300{
-    width: 300px !important;
-}
 .width250{
     width: 250px !important;
 }
+.width300{
+    width: 300px !important;
+}
+/* 20201017 S_Add */
+.width350{
+    min-width: 350px !important;
+    width: 350px !important;
+}
+/* 20201017 S_Add */
 .width400{
     width: 400px;
 }
@@ -144,6 +157,7 @@ textarea {
 }
 
 .text-left {
+    padding-left: 7px;
     text-align: left !important;
 }
 

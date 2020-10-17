@@ -1231,18 +1231,18 @@
     <span class="row">※事業収支　一覧</span>
     <table>
         <thead class="list-header">
-            <th class="Pwidth50">プラン種別</th>
-            <th class="Pwidth350">プラン名</th>
-            <th class="Pwidth100">土地原価合計</th>
-            <th class="Pwidth100">建物原価合計</th>
-            <th class="Pwidth100">その他費用合計</th>
-            <th class="Pwidth100">PJ原価</th>
+            <th class="width50">プラン種別</th>
+            <th class="width350">プラン名</th>
+            <th class="width100">土地原価合計</th>
+            <th class="width100">建物原価合計</th>
+            <th class="width100">その他費用合計</th>
+            <th class="width100">PJ原価</th>
             <th class="width40">詳細</th>
         </thead>
         <tbody class="list-body">
             <tr *ngFor="let plan of plans">
-                <td class="Pwidth50">{{getCodeTitle('016', plan.planStatus)}}</td>
-                <td class="Pwidth350">{{plan.planName}}</td>
+                <td class="break-line">{{getCodeTitle('016', plan.planStatus)}}</td>
+                <td class="text-left">{{plan.planName}}</td>
                 <td class="text-right">{{formatIntNumber(plan.landCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(plan.buildingCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(plan.otherCost,'円')}}</td>
@@ -1265,18 +1265,18 @@
     <span class="row">※プラン履歴　一覧</span>
     <table>
         <thead class="list-header" style="background-color: rgb(241, 175, 50);">
-            <th class="Pwidth50">プラン種別</th>
-            <th class="Pwidth350">プラン履歴名</th>
-            <th class="Pwidth100">土地原価合計</th>
-            <th class="Pwidth100">建物原価合計</th>
-            <th class="Pwidth100">その他費用合計</th>
-            <th class="Pwidth100">PJ原価</th>
+            <th class="width50">プラン種別</th>
+            <th class="width350">プラン履歴名</th>
+            <th class="width100">土地原価合計</th>
+            <th class="width100">建物原価合計</th>
+            <th class="width100">その他費用合計</th>
+            <th class="width100">PJ原価</th>
             <th class="width40">詳細</th>
         </thead>
         <tbody class="list-body">
             <tr *ngFor="let planHistory of planHistorys">
-                <td class="Pwidth50">{{getCodeTitle('016', planHistory.planStatus)}}</td>
-                <td class="Pwidth350">{{planHistory.planHistoryName}}</td>
+                <td class="break-line">{{getCodeTitle('016', planHistory.planStatus)}}</td>
+                <td class="text-left planHistoryName">{{planHistory.planHistoryName}}</td>
                 <td class="text-right">{{formatIntNumber(planHistory.landCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(planHistory.buildingCost,'円')}}</td>
                 <td class="text-right">{{formatIntNumber(planHistory.otherCost,'円')}}</td>
