@@ -13,7 +13,7 @@
                 <th class="title">事業収支履歴照会</th>
             </tr>
             <tr *ngFor="let item of history | slice:0:1;">
-                <th class="main"></th>
+                <th class="main">プラン名</th>
                 <td class="yen" *ngFor="let detail of item.details">
                     <label class="history_name">{{detail.planHistoryName}}</label>
                 </td>
