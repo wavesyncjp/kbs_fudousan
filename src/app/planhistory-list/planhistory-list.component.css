@@ -84,3 +84,12 @@ td.yentitle{
     display: inline-block;
     border: solid 1px lightgray;
 }
+/*20201016 S_Add*/
+.history_name {
+    width: 100px;
+    padding-right: 3px;
+    margin-right: 20px;
+    display: inline-block;
+
+}
+/*20201016 E_Add*/

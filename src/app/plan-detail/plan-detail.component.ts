@@ -1385,7 +1385,7 @@ export class PlanDetailComponent extends BaseComponent {
     //plan.planHistoryPid = null;//20200929 Add
     plan.planHistoryName = '';//20200929 Add
     const dialogRef = this.dialog.open(PlanHistoryCreateComponent, {
-      width: '40%',
+      width: '45%',
       height: '300px',
       data: plan
       

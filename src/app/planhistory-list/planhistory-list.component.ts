@@ -52,7 +52,7 @@ export class PlanHistoryListComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('事業収支詳細');
+    this.service.changeTitle('事業収支履歴照会');
 
     const elementList = document.querySelectorAll('.detail-div');
     const element = elementList[0] as HTMLElement;

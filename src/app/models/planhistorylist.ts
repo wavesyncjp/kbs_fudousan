@@ -7,6 +7,7 @@ export class Planhistorylist {
     addFlg: string;
     price: number;
     details: Planhistorydetaillist[];
+    planHistoryName: string;//20201016
 
 }
 
@@ -18,5 +19,6 @@ export class Planhistorydetaillist {
     costFlg : string;
     addFlg: string;
     price: number;
+    planHistoryName: string;//20201016
 
 }

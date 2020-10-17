@@ -12,9 +12,11 @@
             <tr>
                 <th class="title">事業収支履歴照会</th>
             </tr>
-            <tr>
+            <tr *ngFor="let item of history | slice:0:1;">
                 <th class="main"></th>
-                <td class="yen" style="text-align: center;">金額(現状)</td>
+                <td class="yen" *ngFor="let detail of item.details">
+                    <label class="history_name">{{detail.planHistoryName}}</label>
+                </td>
             </tr>
             <tr *ngFor="let item of history">
                 <th class="main">{{item.paymentName}}</th>
