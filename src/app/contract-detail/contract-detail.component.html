@@ -372,7 +372,7 @@
             <th>計画地の公図</th>
             <td colspan="9">
                 <label *ngIf="!(contract.pid > 0)" style="color:red">※契約情報を登録後に添付可能となります。</label>   
-                <app-file contractInfoId="{{contract.pid}}" *ngIf="contract.pid > 0" (uploaded)="uploaded($event)"></app-file> 
+                <app-file contractInfoId="{{contract.pid}}" *ngIf="contract.pid > 0" (uploaded)="uploaded($event)" [immediately]="true"></app-file> 
                 
                 <table style="margin-left: 5px;">
                     <tr *ngFor="let map of contract.contractFiles">
