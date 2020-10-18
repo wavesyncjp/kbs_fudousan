@@ -55,6 +55,7 @@ import { LabelComponentComponent } from './uicomponent/label-component/label-com
 // 20200911 S_Add
 import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';
 import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
+import { DndDirective } from './utils/dnd.directive';
 // 20200911 E_Add
 
 
@@ -96,6 +97,7 @@ import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.co
     , LabelComponentComponent
     , PlanHistoryCreateComponent
     , PlanHistoryListComponent
+    , DndDirective
   ],
   imports: [
     BrowserModule

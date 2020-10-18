@@ -26,6 +26,9 @@ export class FileComponentComponent implements OnInit {
   @Input()
   notButton = false;
 
+  @Input()
+  immediately = false;
+
   @Output() uploaded: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('fileInput', {static: true})
@@ -55,6 +58,9 @@ export class FileComponentComponent implements OnInit {
    */
   uploadFile(event) {
     this.file = event[0]; 
+    if(this.immediately) {
+      this.uploadWithoutConfirm();
+    }
   }
 
   upload(): void {
@@ -69,32 +75,36 @@ export class FileComponentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
 
-        // 物件アップロード
-        if (this.bukkenId !== undefined && this.bukkenId > 0) {
-          this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
-            this.snackBar.open('ファイルアップロード完了', null, {
-              duration: 1000,
-            });
-            this.file = null;
-            this.uploaded.emit(res);
-            
-          });
-          if(this.hasComment) this.comment = '';
-        }
-        // 契約ファイルアップロード
-        // tslint:disable-next-line:one-line
-        else if (this.contractInfoId !== undefined && this.contractInfoId > 0 ) {
-          this.service.uploadContractFile(this.contractInfoId, this.file).then(res => {
-            this.snackBar.open('ファイルアップロード完了', null, {
-              duration: 1000,
-            });
-            this.file = null;
-            this.uploaded.emit(res);
-          });
-        }
+       this.uploadWithoutConfirm();
 
       }
     });
+  }
+
+  uploadWithoutConfirm() {
+     // 物件アップロード
+     if (this.bukkenId !== undefined && this.bukkenId > 0) {
+      this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+        
+      });
+      if(this.hasComment) this.comment = '';
+    }
+    // 契約ファイルアップロード
+    // tslint:disable-next-line:one-line
+    else if (this.contractInfoId !== undefined && this.contractInfoId > 0 ) {
+      this.service.uploadContractFile(this.contractInfoId, this.file).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+      });
+    }
   }
 
   public uploadInfoFile(infoPid: number) {

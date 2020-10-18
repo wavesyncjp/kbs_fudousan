@@ -9,4 +9,4 @@
   <p class="file-name" appDnd  (onFileDropped)="uploadFile($event)">{{ file?.name }}</p>
 </ng-template>
 <input type="text" class="file-comment" *ngIf="hasComment" [(ngModel)]="comment">
-<button mat-raised-button (click)="upload()" *ngIf="!notButton && hasFile()">アップロード</button>
+<button mat-raised-button (click)="upload()" *ngIf="!notButton && file != null && !immediately">アップロード</button>
