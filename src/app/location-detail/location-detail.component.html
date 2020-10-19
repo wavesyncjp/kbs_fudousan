@@ -41,11 +41,17 @@
         </tr>
         <tr> 
             <th>所在地</th>
-            <td><input type="text" [(ngModel)]="data.address" [ngClass]="{'width250': true, 'error': errors['address']}" maxlength="100"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.address" [ngClass]="{'width250': true, 'error': errors['address']}" [disabled]="data.locationType == '04'" maxlength="100">
+            </td>
             <th>地番</th>
-            <td><input type="text" [(ngModel)]="data.blockNumber" [disabled]="data.locationType == '02'" class="width100" maxlength="15"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.blockNumber" [disabled]="data.locationType == '02' || data.locationType == '03' || data.locationType == '04'" class="width100" maxlength="15">
+            </td>
             <th>家屋番号</th>
-            <td><input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01'" class="width100" maxlength="30"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01' || data.locationType == '03'" class="width100" maxlength="30">
+            </td>
         </tr>
         <tr>
             <th class="sharer">所有者名
@@ -53,14 +59,19 @@
             </th>
             <td>&nbsp;<span class= "buysell">売買対象&nbsp;&nbsp;</span><mat-checkbox [checked]="data.buysellFlg === '1'" (change)="flgChange($event, data)" [disabled]="data.locationType == '03'"></mat-checkbox>
             <!--20200116_S_Add-->
-            <br><input type="text" [(ngModel)]="data.owner" [ngClass]="{'width300': true, 'error': errors['owner']}" [disabled]="data.locationType == '03'" maxlength="100" placeholder="スペースなし"></td>
+            <br><input type="text" [(ngModel)]="data.owner" [ngClass]="{'width300': true, 'error': errors['owner']}" [disabled]="data.locationType == '03'" maxlength="100" placeholder="スペースなし">
+            </td>
             <!--20200116_E_Add-->
             <th class="sharer">所有者住所</th>
-            <td><input type="text" [(ngModel)]="data.ownerAdress" class = "width300" [disabled]="data.locationType == '03'" maxlength="100"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.ownerAdress" class = "width300" [disabled]="data.locationType == '03'" maxlength="100">
+            </td>
             <th class="sharer">持ち分</th>
-            <td><input type="text" [(ngModel)]="data.equity" class = "width152" [disabled]="data.locationType == '03'" maxlength="100"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.equity" class = "width152" [disabled]="data.locationType == '03'" maxlength="100">
+            </td>
         </tr>
-        <!--共有者情報-->                
+        <!--共有者情報-->
         <tr *ngFor="let sharer of data.sharers | slice:1; index as sharerPos">
             <th class="sharer">所有者名
                 <button mat-raised-button class="deleteSharer" (click)="deleteSharer(sharerPos)" [disabled]="data.locationType == '03'">削除</button>
@@ -78,26 +89,30 @@
 
         <tr>
             <th>地積</th>
-            <td><input type="text" [(ngModel)]="data.areaMap" [ngClass]="{'width80': true, 'number': true, 'error': errors['area']}" (keypress)="floatOnly($event)" [disabled]="data.locationType == '02'" maxlength="12" [value]="changeValue(data.areaMap)">&nbsp;㎡
-            <input type="text" [(ngModel)]="data.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true" maxlength="15" [value]="calTsubo(data.areaMap)">&nbsp;坪</td>
+            <td>
+                <input type="text" [(ngModel)]="data.areaMap" [ngClass]="{'width80': true, 'number': true, 'error': errors['area']}" (keypress)="floatOnly($event)" [disabled]="data.locationType == '02' || data.locationType == '03' || data.locationType == '04'" maxlength="12" [value]="changeValue(data.areaMap)">&nbsp;㎡
+                <input type="text" [(ngModel)]="data.tsubo" class="width80 number" (keypress)="floatOnly($event)" [attr.disabled]="true" maxlength="15" [value]="calTsubo(data.areaMap)">&nbsp;坪
+            </td>
             <th>権利形態</th>
-            <td><app-select-component [codes]="getCode('011')" [(ngModel)]="data.rightsForm"></app-select-component></td>
+            <td>
+                <app-select-component [codes]="getCode('011')" [(ngModel)]="data.rightsForm" [isDisabled]="data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '03')}"></app-select-component>
+            </td>
             <th>地目</th>
             <td>
                 <!-- 20200913 S_Update -->
                 <!--
                 <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory"></app-select-component>
                 -->
-                <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory" [isDisabled]="data.locationType == '02'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '02')}"></app-select-component>
+                <app-select-component [codes]="getCode('002')" [(ngModel)]="data.landCategory" [isDisabled]="data.locationType == '02' || data.locationType == '03' || data.locationType == '04'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '02' || data.locationType == '03' || data.locationType == '04')}"></app-select-component>
                 <!-- 20200913 E_Update -->
             </td>
         </tr>
         <tr>
             <th>種類</th>
             <td>
-            <mat-select multiple [(ngModel)]="data.dependTypeMap" [disabled]="data.locationType == '01'"  [ngClass]="{'width300': true, 'disabled': data.locationType == '01'}">
-                <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
-            </mat-select>
+                <mat-select multiple [(ngModel)]="data.dependTypeMap" [disabled]="data.locationType == '01' || data.locationType == '03'" [ngClass]="{'width300': true, 'disabled': data.locationType == '01' || data.locationType == '03'}">
+                    <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
+                </mat-select>
             </td>
             <th>階建</th>
             <td colspan="3">
@@ -106,10 +121,13 @@
         </tr>
         <tr>
             <th>構造</th>
-            <td><textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'" maxlength="128"></textarea></td>
-    
+            <td>
+                <textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'" maxlength="128"></textarea>
+            </td>
             <th>床面積</th>
-            <td colspan="3"><textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace']}" [disabled]="data.locationType == '01'" maxlength="128"></textarea></td>
+            <td colspan="3">
+                <textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace']}" [disabled]="data.locationType == '01'" maxlength="128"></textarea>
+            </td>
         </tr>
         <tr>
             <th>入居者情報</th>
@@ -117,7 +135,6 @@
                 <input type="text" [(ngModel)]="data.liveInfo" class="width85Per" [disabled]="data.locationType == '01'" maxlength="255">
             </td>
         </tr>
-        
         <tr>
             <th>備考</th>
             <td colspan="5">

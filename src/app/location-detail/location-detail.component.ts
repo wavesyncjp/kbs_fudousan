@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Locationinfo } from '../models/locationinfo';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BackendService } from '../backend.service';
@@ -77,8 +77,9 @@ export class LocationDetailComponent extends BaseComponent {
     */
     if(this.data.pid == undefined && this.data.locationType == undefined) this.data.locationType = '01';
     //20200811 E_Update
-    else{
+    else {
       if (this.data.locationType === '04') {
+        // 一棟の建物を取得
         this.cond = {
           tempLandInfoPid: this.data.tempLandInfoPid,
           locationType: '03'
@@ -86,9 +87,7 @@ export class LocationDetailComponent extends BaseComponent {
         const funcs = [];
         funcs.push(this.service.searchLocation(this.cond));
         Promise.all(funcs).then(values => {
-          // 住所
-          this.locAdresses = values[0];
-          // this.spinner.hide();
+          this.locAdresses = values[0];// 住所
         });
       }
     }
@@ -123,25 +122,24 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.delSharers.push(sharer.pid);
     }
     this.data.sharers.splice(sharerPos, 1);
-    
   }
 
   /**
    * 共有者情報
    */
   convertSharer() {
-      if (this.data.sharers == null) {
-        this.data.sharers = [];
-      }
-      if (this.data.sharers.length === 0) {
-        this.data.sharers.push(new SharerInfo());
-      }
-      // 共通
-      const firstSharer = this.data.sharers[0];
-      firstSharer.sharer = this.data.owner;
-      firstSharer.sharerAdress = this.data.ownerAdress;
-      firstSharer.shareRatio = this.data.equity;
-      firstSharer.buysellFlg = this.data.buysellFlg;
+    if (this.data.sharers == null) {
+      this.data.sharers = [];
+    }
+    if (this.data.sharers.length === 0) {
+      this.data.sharers.push(new SharerInfo());
+    }
+    // 共通
+    const firstSharer = this.data.sharers[0];
+    firstSharer.sharer = this.data.owner;
+    firstSharer.sharerAdress = this.data.ownerAdress;
+    firstSharer.shareRatio = this.data.equity;
+    firstSharer.buysellFlg = this.data.buysellFlg;
   }
 
   //数値にカンマを付ける作業
@@ -159,6 +157,9 @@ export class LocationDetailComponent extends BaseComponent {
     }
   }
 
+  /**
+   * 地積変更
+   */
   changeArea(event) {
     const val = event.target.value;
     let ret = this.removeComma(val)
@@ -167,7 +168,9 @@ export class LocationDetailComponent extends BaseComponent {
     }
   }
 
-
+  /**
+   * 区分変更
+   */
   changeType(event) {
     if (event.target.value !== this.oldLocationType && this.oldLocationType != null && this.oldLocationType !== '') {
       const dlg = new Dialog({title: '確認', message: '区分を変更すると一部の項目は値がクリアされるます。よろしいですか？'});
@@ -182,52 +185,70 @@ export class LocationDetailComponent extends BaseComponent {
         } else {
           this.data.locationType = this.oldLocationType;
         }
-      });      
+      });
     } else {
       this.applyChangeType();
     }
   }
 
+  /**
+   * 区分変更時初期化処理
+   */
   applyChangeType() {
+    // 区分が01:土地の場合
     if (this.data.locationType === '01') {
-      this.data.buildingNumber = '';
-      this.data.floorSpace = null;
-      this.data.liveInfo = '';
-      this.data.dependTypeMap = null;
-      this.data.dependFloor = null;
-      this.data.liveInfo = null;
-      this.data.structure = null;
-      this.data.inheritanceNotyet = '0';
-      this.data.buildingNotyet = '0';
-      this.data.ridgePid = '';//20200831 Add
-    } else if (this.data.locationType === '02') {
-      this.data.blockNumber = '';
-      //20200913 S_Update
-//      this.data.area = null;
-      this.data.areaMap = null;
-      //20200913 E_Update
-      this.data.tsubo = null;
-      this.data.inheritanceNotyet = '0';
-      this.data.buildingNotyet = '0';
-      this.data.ridgePid = '';//20200831 Add
-      this.data.landCategory = '';//20200913 Add
-    } else if (this.data.locationType === '03') {
-      this.data.buysellFlg = '0';
-      this.data.owner = null;
-      this.data.ownerAdress = null;
-      this.data.equity = null; 
-      this.data.ridgePid = '';//20200831 Add
+      this.data.inheritanceNotyet = '0';// 相続未登記あり
+      this.data.buildingNotyet = '0';   // 建物未登記あり
+      this.data.ridgePid = null;        // 一棟の建物
+      this.data.buildingNumber = null;  // 家屋番号
+      this.data.dependTypeMap = null;   // 種類
+      this.data.dependFloor = null;     // 階建
+      this.data.structure = null;       // 構造
+      this.data.floorSpace = null;      // 床面積
+      this.data.liveInfo = null;        // 入居者情報
+    }
+    // 区分が02:建物の場合
+    else if (this.data.locationType === '02') {
+      this.data.inheritanceNotyet = '0';// 相続未登記あり
+      this.data.buildingNotyet = '0';   // 建物未登記あり
+      this.data.ridgePid = null;        // 一棟の建物
+      this.data.blockNumber = null;     // 地番
+      this.data.areaMap = null;         // 地積
+      this.data.tsubo = null;           // 坪
+      this.data.landCategory = null;    // 地目
+    }
+    // 区分が03:区分所有（一棟）の場合
+    else if (this.data.locationType === '03') {
+      this.data.inheritanceNotyet = '0';// 相続未登記あり
+      this.data.buildingNotyet = '0';   // 建物未登記あり
+      this.data.ridgePid = null;        // 一棟の建物
+      // 20201020 S_Add
+      this.data.blockNumber = null;     // 地番
+      this.data.buildingNumber = null;  // 家屋番号
+      // 20201020 E_Add
+      this.data.buysellFlg = '0';       // 売買対象
+      this.data.owner = null;           // 所有者
+      this.data.ownerAdress = null;     // 所有者住所
+      this.data.equity = null;          // 持ち分
+      // 所有者追加分を削除
       var index: number = 0;
       this.data.sharers.forEach(sharer => {
         this.deleteSharer(index);
         index++;
-      }); 
-      this.data.inheritanceNotyet = '0';
-      this.data.buildingNotyet = '0';
-      this.data.ridgePid = '';//20200831 Add
-    } else if (this.data.locationType === '04') {
-      this.data.inheritanceNotyet = '0';
-      this.data.buildingNotyet = '0';
+      });
+      // 20201020 S_Add
+      this.data.areaMap = null;         // 地積
+      this.data.tsubo = null;           // 坪
+      this.data.rightsForm = null;      // 権利形態
+      this.data.landCategory = null;    // 地目
+      this.data.dependTypeMap = null;   // 種類
+      // 20201020 E_Add
+    }
+    // 区分が04:区分所有（専有）の場合
+    else if (this.data.locationType === '04') {
+      this.data.inheritanceNotyet = '0';// 相続未登記あり
+      this.data.buildingNotyet = '0';   // 建物未登記あり
+      // 一棟の建物を取得
       this.cond = {
         tempLandInfoPid: this.data.tempLandInfoPid,
         locationType: '03'
@@ -235,16 +256,20 @@ export class LocationDetailComponent extends BaseComponent {
       const funcs = [];
       funcs.push(this.service.searchLocation(this.cond));
       Promise.all(funcs).then(values => {
-        // 住所
-        this.locAdresses = values[0];
-        // this.spinner.hide();
+        this.locAdresses = values[0];// 住所
       });
+      // 20201020 S_Add
+      this.data.address = null;         // 所在地
+      this.data.blockNumber = null;     // 地番
+      this.data.areaMap = null;         // 地積
+      this.data.tsubo = null;           // 坪
+      this.data.landCategory = null;    // 地目
+      // 20201020 E_Add
     }
     this.oldLocationType = this.data.locationType;
   }
 
   /**
-   * 20200124 S_Add
    * 一棟の建物　住所取得
    */
   getLocAdress() {
@@ -256,29 +281,37 @@ export class LocationDetailComponent extends BaseComponent {
   }
 
   /**
-   * チェックボックス変更
+   * 売買対象チェックボックス変更
    * @param event ：イベント
-   * @param flg ：フラグ
-   売買対象flgChange/相続未登記ありnotChange/建物未登記ありyetChange*/
-  flgChange(event, flg: any) {
-    flg.buysellFlg = (event.checked ? 1 : 0);
-   }
-   notChange(event, flg: any) {
-    flg.inheritanceNotyet = (event.checked ? 1 : 0);
-   }
-   yetChange(event, flg: any) {
-    flg.buildingNotyet = (event.checked ? 1 : 0);
-   }
-
-
-   
-
+   * @param data ：所有地
+  */
+  flgChange(event, data: any) {
+    data.buysellFlg = (event.checked ? 1 : 0);
+  }
+  /**
+   * 相続未登記ありチェックボックス変更
+   * @param event ：イベント
+   * @param data ：所有地
+  */
+  notChange(event, data: any) {
+    data.inheritanceNotyet = (event.checked ? 1 : 0);
+  }
+  /**
+   * 建物未登記ありチェックボックス変更
+   * @param event ：イベント
+   * @param data ：所有地
+  */
+  yetChange(event, data: any) {
+    data.buildingNotyet = (event.checked ? 1 : 0);
+  }
+  
+  /**
+   * 登録
+   */
   save() {
     if (!this.validate()) {
       return;
     }
-
-    
 
     const dlg = new Dialog({title: '確認', message: '謄本情報を登録しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -343,7 +376,6 @@ export class LocationDetailComponent extends BaseComponent {
         });
       }
     });
-
   }
 
   /**
@@ -365,6 +397,9 @@ export class LocationDetailComponent extends BaseComponent {
     return true;
   }
 
+  /**
+   * キャンセル
+   */
   cancel() {
     this.spinner.hide();
     this.dialogRef.close(false);
