@@ -34,12 +34,18 @@ export class LocationDetailComponent extends BaseComponent {
   public cond: any;
   public locAdresses =[];
 
+  // 20201021 S_Add
+  // 相続未登記あり
   @ViewChild('inheritanceNotyet', {static: true})
   inheritanceNotyet: MatCheckbox;
-
+  // 建物未登記あり
   @ViewChild('buildingNotyet', {static: true})
   buildingNotyet: MatCheckbox;
- 
+  // 売買対象
+  @ViewChild('buysellFlg', {static: true})
+  buysellFlg: MatCheckbox;
+  // 20201021 E_Add
+
   constructor(public router: Router,
               public service: BackendService,
               private spinner: NgxSpinnerService,
@@ -200,13 +206,18 @@ export class LocationDetailComponent extends BaseComponent {
   /**
    * 区分変更時初期化処理
    */
-  applyChangeType() {    
+  applyChangeType() {
+    // 20201021 S_Add
+    // 相続未登記あり
     this.inheritanceNotyet.checked = false;
+    this.data.inheritanceNotyet = '0';
+    // 建物未登記あり
     this.buildingNotyet.checked = false;
+    this.data.buildingNotyet = '0';
+    // 20201021 E_Add
+
     // 区分が01:土地の場合
     if (this.data.locationType === '01') {
-      this.data.inheritanceNotyet = '0';// 相続未登記あり
-      this.data.buildingNotyet = '0';   // 建物未登記あり
       this.data.ridgePid = null;        // 一棟の建物
       this.data.buildingNumber = null;  // 家屋番号
       this.data.dependTypeMap = null;   // 種類
@@ -217,8 +228,6 @@ export class LocationDetailComponent extends BaseComponent {
     }
     // 区分が02:建物の場合
     else if (this.data.locationType === '02') {
-      this.data.inheritanceNotyet = '0';// 相続未登記あり
-      this.data.buildingNotyet = '0';   // 建物未登記あり
       this.data.ridgePid = null;        // 一棟の建物
       this.data.blockNumber = null;     // 地番
       this.data.areaMap = null;         // 地積
@@ -227,14 +236,14 @@ export class LocationDetailComponent extends BaseComponent {
     }
     // 区分が03:区分所有（一棟）の場合
     else if (this.data.locationType === '03') {
-      this.data.inheritanceNotyet = '0';// 相続未登記あり
-      this.data.buildingNotyet = '0';   // 建物未登記あり
       this.data.ridgePid = null;        // 一棟の建物
       // 20201020 S_Add
       this.data.blockNumber = null;     // 地番
       this.data.buildingNumber = null;  // 家屋番号
       // 20201020 E_Add
-      this.data.buysellFlg = '0';       // 売買対象
+      // 売買対象
+      this.buysellFlg.checked = false;
+      this.data.buysellFlg = '0';
       this.data.owner = null;           // 所有者
       this.data.ownerAdress = null;     // 所有者住所
       this.data.equity = null;          // 持ち分
@@ -254,8 +263,6 @@ export class LocationDetailComponent extends BaseComponent {
     }
     // 区分が04:区分所有（専有）の場合
     else if (this.data.locationType === '04') {
-      this.data.inheritanceNotyet = '0';// 相続未登記あり
-      this.data.buildingNotyet = '0';   // 建物未登記あり
       // 一棟の建物を取得
       this.cond = {
         tempLandInfoPid: this.data.tempLandInfoPid,
@@ -311,10 +318,6 @@ export class LocationDetailComponent extends BaseComponent {
   */
   yetChange(event, data: any) {
     data.buildingNotyet = (event.checked ? 1 : 0);
-  }
-
-  isCheck(flg: string) {
-    return flg === '1';
   }
   
   /**

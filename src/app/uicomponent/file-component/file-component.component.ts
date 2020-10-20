@@ -50,9 +50,11 @@ export class FileComponentComponent implements OnInit {
   onChangeFileInput(): void {
     const files: { [key: string]: File } = this.fileInput.nativeElement.files;
     this.file = files[0];
+    // 20201021 S_Add
     if(this.immediately) {
       this.uploadWithoutConfirm();
     }
+    // 20201021 E_Add
   }
 
   /**

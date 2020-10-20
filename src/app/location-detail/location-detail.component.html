@@ -24,8 +24,14 @@
             <th><app-select-component  [codes]="getCode('007')" [(ngModel)]="data.locationType" [isError]="errors['locationType']" [noBlank]="true" (changed)="changeType($event)"></app-select-component></th>
             <td>
                 <!--<mat-checkbox *ngFor="let code of getCode('016')" [checked]="inList(data.notyetType, code.codeDetail)"  (change)="changeCheck(data.notyetType, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>-->
+                <!-- 20201021 S_Update -->
+                <!--
+                <mat-checkbox [checked]="data.inheritanceNotyet === '1'"  (change)="notChange($event, data)" ></mat-checkbox>&nbsp;相続未登記あり&nbsp;
+                <mat-checkbox [checked]="data.buildingNotyet === '1'"  (change)="yetChange($event, data)" ></mat-checkbox>&nbsp;建物未登記あり
+                -->
                 <mat-checkbox #inheritanceNotyet (change)="notChange($event, data)" ></mat-checkbox>&nbsp;相続未登記あり&nbsp;
                 <mat-checkbox #buildingNotyet (change)="yetChange($event, data)" ></mat-checkbox>&nbsp;建物未登記あり
+                <!-- 20201021 E_Update -->
             </td>
             
             <th>一棟の建物</th>
@@ -57,7 +63,12 @@
             <th class="sharer">所有者名
                 <button mat-raised-button class="addSharer" (click)="addSharer()" [disabled]="data.locationType == '03'">追加</button>
             </th>
+            <!-- 20201021 S_Update -->
+            <!--
             <td>&nbsp;<span class= "buysell">売買対象&nbsp;&nbsp;</span><mat-checkbox [checked]="data.buysellFlg === '1'" (change)="flgChange($event, data)" [disabled]="data.locationType == '03'"></mat-checkbox>
+            -->
+            <td>&nbsp;<span class= "buysell">売買対象&nbsp;&nbsp;</span><mat-checkbox #buysellFlg (change)="flgChange($event, data)" [disabled]="data.locationType == '03'"></mat-checkbox>
+            <!-- 20201021 E_Update -->
             <!--20200116_S_Add-->
             <br><input type="text" [(ngModel)]="data.owner" [ngClass]="{'width300': true, 'error': errors['owner']}" [disabled]="data.locationType == '03'" maxlength="100" placeholder="スペースなし">
             </td>
