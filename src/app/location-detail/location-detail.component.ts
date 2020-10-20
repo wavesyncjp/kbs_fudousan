@@ -103,6 +103,8 @@ export class LocationDetailComponent extends BaseComponent {
         });
       }
     }
+    this.inheritanceNotyet.checked = (this.data.inheritanceNotyet === '1');
+    this.buildingNotyet.checked = (this.data.buildingNotyet === '1');
   }
 
   /**
