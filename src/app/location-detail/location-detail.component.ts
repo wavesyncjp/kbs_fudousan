@@ -103,8 +103,12 @@ export class LocationDetailComponent extends BaseComponent {
         });
       }
     }
+    // 20201021 S_Add
+    // チェックボックス初期化
     this.inheritanceNotyet.checked = (this.data.inheritanceNotyet === '1');
     this.buildingNotyet.checked = (this.data.buildingNotyet === '1');
+    this.buysellFlg.checked = (this.data.buysellFlg === '1');
+    // 20201021 E_Add
   }
 
   /**
