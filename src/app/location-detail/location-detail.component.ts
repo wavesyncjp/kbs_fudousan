@@ -1,8 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { Locationinfo } from '../models/locationinfo';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BackendService } from '../backend.service';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatCheckbox } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SharerInfo } from '../models/sharer-info';
@@ -33,6 +33,12 @@ export class LocationDetailComponent extends BaseComponent {
   oldLocationType = '';
   public cond: any;
   public locAdresses =[];
+
+  @ViewChild('inheritanceNotyet', {static: true})
+  inheritanceNotyet: MatCheckbox;
+
+  @ViewChild('buildingNotyet', {static: true})
+  buildingNotyet: MatCheckbox;
  
   constructor(public router: Router,
               public service: BackendService,
@@ -194,7 +200,9 @@ export class LocationDetailComponent extends BaseComponent {
   /**
    * 区分変更時初期化処理
    */
-  applyChangeType() {
+  applyChangeType() {    
+    this.inheritanceNotyet.checked = false;
+    this.buildingNotyet.checked = false;
     // 区分が01:土地の場合
     if (this.data.locationType === '01') {
       this.data.inheritanceNotyet = '0';// 相続未登記あり
@@ -303,6 +311,10 @@ export class LocationDetailComponent extends BaseComponent {
   */
   yetChange(event, data: any) {
     data.buildingNotyet = (event.checked ? 1 : 0);
+  }
+
+  isCheck(flg: string) {
+    return flg === '1';
   }
   
   /**
