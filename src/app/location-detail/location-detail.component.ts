@@ -132,6 +132,7 @@ export class LocationDetailComponent extends BaseComponent {
    * @param loc ：所有地
    */
   deleteSharer(sharerPos: number) {
+    sharerPos++;// 20201031 Add
     const sharer = this.data.sharers[sharerPos];
     if (sharer.pid > 0) {
       if (this.data.delSharers == null) {
