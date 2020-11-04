@@ -4,11 +4,12 @@ export class Contractdetailinfo {
     pid: number;
     contractInfoPid: number;
     locationInfoPid: number;
-    contractDataType: string;
-    contractArea: number;
+    contractArea: string;
     contractHave: number;
+    contractDataType: string;
+    deleteUserId: number;
+
+    contractHaveMap: string = "";
 
     registrants: Contractregistrant[];
-
-    deleteUserId: number;
 }

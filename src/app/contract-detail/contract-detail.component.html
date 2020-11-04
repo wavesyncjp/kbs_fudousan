@@ -112,7 +112,7 @@
                             <th class="c_width80">地目</th>
                             <th>地積</th>
                             <th class="c_width250">地積のうち借地契約面積<br>または地上権持分</th>
-                            <th class="c_width250">地積のうち有効面積</th>
+                            <th>地積のうち有効面積</th>
                             <th>種類</th>
                             <th>構造</th>
                             <th class="c_width40">階建</th>
@@ -137,7 +137,7 @@
                                 <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
                                 <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractArea" maxlength="100"></span></td>
-                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="c_width250" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHave" maxlength="100"></span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)">&nbsp;㎡</span></td>
                                 <td>{{getCodeTitles('003',item.dependType)}}</td>
                                 <td style="white-space: pre;">{{item.structure}}</td>
                                 <td>{{item.dependFloor}}</td>

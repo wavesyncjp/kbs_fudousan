@@ -191,6 +191,11 @@ export class Contractinfo {
             this.contractStaffMap = emps.filter(me => this.contractStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
         }
         //20200828 E_Add
+
+        //詳細情報
+        this.details.forEach((detail) => {
+            detail.contractHaveMap = Converter.numberToString(detail.contractHave);
+        });
     }
 
     //20200828 S_Update
@@ -252,5 +257,10 @@ export class Contractinfo {
             this.contractStaff = this.contractStaffMap.map(me => me['userId']).join(',');
         }
         //20200828 E_Add
+
+        //詳細情報
+        this.details.forEach((detail) => {
+            detail.contractHave = Converter.stringToNumber(detail.contractHaveMap);
+        });
     }
 }
