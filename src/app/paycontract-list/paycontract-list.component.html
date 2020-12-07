@@ -124,6 +124,11 @@
         <td mat-cell *matCellDef="let element"> {{element.bukkenNo}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="contractBukkenNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約物件番号 </th>
+        <td mat-cell *matCellDef="let element"> {{element.contractBukkenNo}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="bukkenName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
         <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
