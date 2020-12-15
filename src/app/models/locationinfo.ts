@@ -61,6 +61,8 @@ export class Locationinfo {
     updateUserId: number;
     locations: Locationinfo[];
 
+    contractDetail02: string; //不可分
+
     public constructor(init?: Partial<Locationinfo>) {
         if (init) {
             Object.assign(this, init);

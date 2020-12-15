@@ -173,6 +173,7 @@ export class ContractDetailComponent extends BaseComponent {
       const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid);
       if (lst.length > 0) {
         newLoc.contractDetail = lst[0];
+        newLoc.contractDetail02 = lst.filter(me => me.contractDataType === '02').length > 0 ? '02' : ''; //不可分選択
       } else {
         newLoc.contractDetail = new Contractdetailinfo();
       }
@@ -262,29 +263,88 @@ export class ContractDetailComponent extends BaseComponent {
    */
   convertForSave() {
     const addList = [];
-    const types = ['01', '02', '03'];
+    //const types = ['01', '02', '03'];
     this.data.locations.forEach(loc => {
-      const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
 
+      //契約データ構成
+      let lst = [];
+      if(!this.isBlank(loc.contractDetail.contractDataType)) {
+        loc.contractDetail.locationInfoPid = loc.pid;
+        lst.push(loc.contractDetail);
+        //不可分、低地両方チェック
+        if(loc.contractDetail.contractDataType === '03' && loc.contractDetail02 === '02') {
+          let contract02 = JSON.parse(JSON.stringify(loc.contractDetail)) as Contractdetailinfo;
+          contract02.pid = 0;
+          contract02.contractDataType = '02';
+          contract02.contractArea = null;
+          contract02.contractHave = 0;
+          lst.push(contract02);
+        }
+      }
+
+      const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
+      //更新
+      if(detailList.length > 0) {
+        //削除
+        if(lst.length === 0) {
+          detailList.forEach(me => {
+            me.deleteUserId = this.service.loginUser.userId;
+          });
+        }
+
+        //上書き
+        if(detailList.length === lst.length) {
+          for(let index = 0 ; index < detailList.length; index++) {
+            detailList[index] = lst[index];
+          }
+        }
+        else {
+          detailList[0] = lst[0]; //1件目
+          //1件削除
+          if(detailList.length > lst.length) {
+            detailList[1].deleteUserId = this.service.loginUser.userId;
+          }
+          else {
+            addList.push(lst[1]);
+          }
+        }
+
+      }
+      //新規
+      else {
+        lst.forEach(data => {
+          addList.push(data);
+        });
+      }
+
+      /*
       // 削除
       if (detailList.length > 0) {
+
         if (types.indexOf(loc.contractDetail.contractDataType) < 0) {
           detailList[0].deleteUserId = this.service.loginUser.userId;
         } else {
           detailList[0] = loc.contractDetail;
-        }
-      } else {
+        }       
+      } 
+      //追加
+      else {
+
+        //選択あり
         if (types.indexOf(loc.contractDetail.contractDataType) >= 0) {
           loc.contractDetail.locationInfoPid = loc.pid;
-          addList.push(loc.contractDetail);
+          addList.push(loc.contractDetail);          
         }
       }
-    });
+      */
 
+    });
+    
     addList.forEach(data => {
       this.contract.details.push(data);
     });
-
+    
+    
     // 契約者
     if (this.delSellers.length > 0) {
       this.delSellers.forEach(del => {
@@ -312,15 +372,43 @@ export class ContractDetailComponent extends BaseComponent {
    * @param flg ：チェックフラグ
    */
   change(event, item: Locationinfo, flg) {
-    if (event.checked) {
-      item.contractDetail.contractDataType = flg;
-    } else {
-      item.contractDetail.contractDataType = '';
+
+    if (event.checked) {      
+      if(flg === '01') {
+        item.contractDetail.contractDataType = flg;
+        item.contractDetail02 = '';
+      }
+      else if(flg === '02') {
+        item.contractDetail02 = '02';
+        if( this.isBlank(item.contractDetail.contractDataType)) {
+          item.contractDetail.contractDataType = '02';
+        }
+        else if(item.contractDetail.contractDataType === '01') {
+          item.contractDetail.contractDataType = '';
+        }
+      }
+      else {
+        item.contractDetail.contractDataType = flg;
+      }
     }
+    else {
+      //不可分
+      if(flg === '02') {
+        item.contractDetail02 = '';
+        if(item.contractDetail.contractDataType === '02') {
+          item.contractDetail.contractDataType = '';
+        }
+      }
+      else {
+        item.contractDetail.contractDataType = '';
+      }      
+    } 
+
+
     if (item.contractDetail.contractDataType !== '03') {
       item.contractDetail.contractArea = null;
     }
-    if (item.contractDetail.contractDataType !== '03') {
+    if (item.contractDetail.contractDataType !== '01') {
       item.contractDetail.contractHave = null;
     }
 
