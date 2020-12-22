@@ -291,24 +291,25 @@ export class ContractDetailComponent extends BaseComponent {
             me.deleteUserId = this.service.loginUser.userId;
           });
         }
-
-        //上書き
-        if(detailList.length === lst.length) {
-          for(let index = 0 ; index < detailList.length; index++) {
-            detailList[index] = lst[index];
-          }
-        }
         else {
-          detailList[0] = lst[0]; //1件目
-          //1件削除
-          if(detailList.length > lst.length) {
-            detailList[1].deleteUserId = this.service.loginUser.userId;
+          //上書き
+          if(detailList.length === lst.length) {
+            for(let index = 0 ; index < detailList.length; index++) {
+              detailList[index] = lst[index];
+            }
           }
           else {
-            addList.push(lst[1]);
+            detailList[0] = lst[0]; //1件目
+            //1件削除
+            if(detailList.length > lst.length) {
+              detailList[1].deleteUserId = this.service.loginUser.userId;
+            }
+            else {
+              addList.push(lst[1]);
+            }
           }
         }
-
+        //上書き：End        
       }
       //新規
       else {
