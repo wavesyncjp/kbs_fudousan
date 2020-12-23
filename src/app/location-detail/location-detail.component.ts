@@ -216,6 +216,14 @@ export class LocationDetailComponent extends BaseComponent {
       });
       dlgRef.afterClosed().subscribe(result => {
         if (dlg.choose) {
+          // 20201224 S_Add
+          // 相続未登記あり
+          this.inheritanceNotyet.checked = false;
+          this.data.inheritanceNotyet = '0';
+          // 建物未登記あり
+          this.buildingNotyet.checked = false;
+          this.data.buildingNotyet = '0';
+          // 20201224 E_Add
           this.applyChangeType();
         } else {
           this.data.locationType = this.oldLocationType;
@@ -230,6 +238,7 @@ export class LocationDetailComponent extends BaseComponent {
    * 区分変更時初期化処理
    */
   applyChangeType() {
+    /*
     // 20201021 S_Add
     // 相続未登記あり
     this.inheritanceNotyet.checked = false;
@@ -238,6 +247,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.buildingNotyet.checked = false;
     this.data.buildingNotyet = '0';
     // 20201021 E_Add
+    */
 
     // 20201222 S_Add
     if (this.data.locationType !== '01'
