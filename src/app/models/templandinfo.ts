@@ -42,6 +42,8 @@ export class Templandinfo {
     public: string;
     surveyDeliveryDay: string;
     surveyRemark: string;
+    seller: string = '0';// 2001124 Add
+
     mapFiles: MapAttach[];
     attachFiles: AttachFile[];
     locations: Locationinfo[];

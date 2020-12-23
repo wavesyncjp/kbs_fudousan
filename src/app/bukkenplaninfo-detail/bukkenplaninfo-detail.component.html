@@ -9,79 +9,137 @@
                 <span class="min">
                     <label>売り契約情報 登録</label>
                     <!--<label class="contracted" *ngIf="data.isContracted">契約済み</label>-->
-
-                </span>                        
+                </span>
             </td>
         </tr>
-       
-        <tr> 
-            <th>売買区分</th>
-            <td colspan="3"><app-select-component [codes]="getCode('021')" [(ngModel)]="data.salesType" [noBlank]="true"></app-select-component></td>            
-            <th>売却先</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesName" class= "width250" maxlength="100"></td>
-                                    
-        </tr>
-        
-        
-
         <tr>
-            <th>売買対象<br>(所在地）</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesLocation" class="width400" maxlength="100"></td>
+            <th>売買区分</th>
+            <td colspan="3">
+                <app-select-component [codes]="getCode('021')" [(ngModel)]="data.salesType" [noBlank]="true"></app-select-component>
+            </td>
+            <th>売却先</th>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="data.salesName" class= "width250" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <th>売買対象<br>（所在地）</th>
+            <td colspan="3">
+                <!--<input type="text" [(ngModel)]="data.salesLocation" class="width400" maxlength="100">-->
+                <app-select-component [codes]="getLocAdress()" style="width: 400px;" [(ngModel)]="data.salesLocation" [exclass] = "true"></app-select-component>
+            </td>
             <th>売却先住所</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesAddress" class="width400" maxlength="100"></td>
-            
+            <td colspan="3">
+                <input type="text" [(ngModel)]="data.salesAddress" class="width400" maxlength="100">
+            </td>
         </tr>
         <tr>
             <th>契約日</th>
             <td>
-            <div class="picker-div">
-                <input type="text" [matDatepicker]="salesContractDay" [(ngModel)]="data.salesContractDayMap" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="salesContractDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #salesContractDay></mat-datepicker>
-            </div>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="salesContractDay" [(ngModel)]="data.salesContractDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="salesContractDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #salesContractDay></mat-datepicker>
+                </div>
             </td>
             <th>売買代金</th>
-            <td><input type="text" [(ngModel)]="data.salesTradingPriceMap" class="width100 number" maxlength="15" [value]="changeValue(data.salesTradingPriceMap)"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.salesTradingPriceMap" class="width100 number" maxlength="15" [value]="changeValue(data.salesTradingPriceMap)">
+            </td>
             <th>契約予定日</th>
             <td colspan="3">
-            <div class="picker-div">
-                <input type="text" [matDatepicker]="salesContractSchDay" [(ngModel)]="data.salesContractSchDayMap" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="salesContractSchDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #salesContractSchDay></mat-datepicker>
-            </div>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="salesContractSchDay" [(ngModel)]="data.salesContractSchDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="salesContractSchDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #salesContractSchDay></mat-datepicker>
+                </div>
             </td>
-            
         </tr>
+        <!-- 20201124 S_Add -->
+        <tr>
+            <th>売買代金（土地）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesTradingLandPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesTradingLandPriceMap)">
+            </td>
+            <th>売買代金（建物）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesTradingBuildingPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesTradingBuildingPriceMap)">
+            </td>
+            <th>売買代金（借地権）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesTradingLeasePriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesTradingLeasePriceMap)">
+            </td>
+            <th>売買代金（消費税）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesTradingTaxPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesTradingTaxPriceMap)">
+            </td>
+        </tr>
+        <tr>
+            <th>内金①</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesDeposit1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesDeposit1Map)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="salesDeposit1Day" class="width100" [(ngModel)]="data.salesDeposit1DayMap">
+                <mat-datepicker-toggle matSuffix [for]="salesDeposit1Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #salesDeposit1Day></mat-datepicker>
+            </td>
+            <th>内金②</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesDeposit2Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesDeposit2Map)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="salesDeposit2Day" class="width100" [(ngModel)]="data.salesDeposit2DayMap">
+                <mat-datepicker-toggle matSuffix [for]="salesDeposit2Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #salesDeposit2Day></mat-datepicker>
+            </td>
+            <th>手付金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesEarnestPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesEarnestPriceMap)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="salesEarnestPriceDay" class="width100" [(ngModel)]="data.salesEarnestPriceDayMap">
+                <mat-datepicker-toggle matSuffix [for]="salesEarnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #salesEarnestPriceDay></mat-datepicker>
+            </td>
+        </tr>
+        <!-- 20201124 E_Add -->
         <tr>
             <th>決済予定日</th>
             <td>
-            <div class="picker-div">
-                <input type="text" [matDatepicker]="salesDecisionSchDay" [(ngModel)]="data.salesDecisionSchDayMap" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="salesDecisionSchDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #salesDecisionSchDay></mat-datepicker>
-            </div>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="salesDecisionSchDay" [(ngModel)]="data.salesDecisionSchDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="salesDecisionSchDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #salesDecisionSchDay></mat-datepicker>
+                </div>
             </td>
             <th>決済代金</th>
-            <td><input type="text" [(ngModel)]="data.salesDecisionPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesDecisionPriceMap)"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.salesDecisionPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesDecisionPriceMap)">
+            </td>
             <th>決済日</th>
             <td colspan="3">
-            <div class="picker-div">
-                <input type="text" [matDatepicker]="salesDecisionDay" [(ngModel)]="data.salesDecisionDayMap" class="width100">
-                <mat-datepicker-toggle matSuffix [for]="salesDecisionDay" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #salesDecisionDay></mat-datepicker>
-            </div>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="salesDecisionDay" [(ngModel)]="data.salesDecisionDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="salesDecisionDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #salesDecisionDay></mat-datepicker>
+                </div>
             </td>
         </tr>
         <tr>
             <th>固都税清算金</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesFixedTaxMap)"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.salesFixedTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesFixedTaxMap)">
+            </td>
             <th>(固都税清算金)土地</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedLandTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedLandTaxMap)"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.salesFixedLandTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedLandTaxMap)">
+            </td>
             <th>(固都税清算金)建物</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedBuildingTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedBuildingTaxMap)"></td>
+            <td>
+                <input type="text" [(ngModel)]="data.salesFixedBuildingTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedBuildingTaxMap)">
+            </td>
             <th>(固都税清算金)消費</th>
-            <td><input type="text" [(ngModel)]="data.salesFixedConsumptionTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedConsumptionTaxMap)"></td>
-
+            <td>
+                <input type="text" [(ngModel)]="data.salesFixedConsumptionTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedConsumptionTaxMap)">
+            </td>
         </tr>
         <tr>
             <th>その他清算金</th>
@@ -90,40 +148,97 @@
             <td><input type="text" [(ngModel)]="data.salesLiquidation3Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation3Map)"></td>
             <td><input type="text" [(ngModel)]="data.salesLiquidation4Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation4Map)"></td>
             <td><input type="text" [(ngModel)]="data.salesLiquidation5Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesLiquidation5Map)"></td>
-           
         </tr>
         <tr>
-            <th>仲介手数料</th>
-            <td><input type="text" [(ngModel)]="data.salesBrokerageFeeMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesBrokerageFeeMap)"></td>
+            <!-- 20201218 S_Add -->
+            <th>留保金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesRetainageMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesRetainageMap)">
+            </td>
+            <th>留保金支払日</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="salesRetainageDay" [(ngModel)]="data.salesRetainageDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="salesRetainageDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #salesRetainageDay></mat-datepicker>
+                </div>
+            </td>
+            <!-- 20201218 E_Add -->
             <th>地積</th>
-            <td><input type="text" [(ngModel)]="data.salesLandAreaMap" class="width100 number" maxlength="15" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('salesLandAreaMap')">㎡</td>
-            <td style="width: 150px;"><input type="text" class="width100 number" (keypress)="floatOnly($event)" [value]="calTsubo(data.salesLandAreaMap)" [attr.disabled]="true" maxlength="15">&nbsp;坪</td>
+            <td>
+                <input type="text" [(ngModel)]="data.salesLandAreaMap" class="width100 number" maxlength="15" (keypress)="floatOnly($event)" (ngModelChange)="changeValue('salesLandAreaMap')">㎡
+            </td>
+            <td style="width: 150px;">
+                <input type="text" class="width100 number" (keypress)="floatOnly($event)" [value]="calTsubo(data.salesLandAreaMap)" [attr.disabled]="true" maxlength="15">&nbsp;坪
+            </td>
             <!--[value]="getNumber(data.salesLandArea) | number"--> 
         </tr>
+        <!-- 20201218 S_Add -->
+        <tr>
+            <th>仲介手数料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesBrokerageFeeMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesBrokerageFeeMap)">
+            </td>
+            <th>仲介手数料支払日</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="salesBrokerageFeePayDay" [(ngModel)]="data.salesBrokerageFeePayDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="salesBrokerageFeePayDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #salesBrokerageFeePayDay></mat-datepicker>
+                </div>
+            </td>
+            <th>業務委託料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.salesOutsourcingPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesOutsourcingPriceMap)">
+            </td>
+            <th>業務委託料支払日</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="salesOutsourcingPricePayDay" [(ngModel)]="data.salesOutsourcingPricePayDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="salesOutsourcingPricePayDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #salesOutsourcingPricePayDay></mat-datepicker>
+                </div>
+            </td>
+        </tr>
+        <!-- 20201218 E_Add -->
         <tr>
             <th>仲介会社</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesIntermediary" class="width400" maxlength="100"></td>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="data.salesIntermediary" class="width400" maxlength="100">
+            </td>
             <!-- 20200828 S_Add -->
             <th>仲介会社住所</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesIntermediaryAddress" class="width400" maxlength="100"></td>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="data.salesIntermediaryAddress" class="width400" maxlength="100">
+            </td>
             <!-- 20200828 E_Add -->
         </tr>
+        <!-- 20201124 S_Add -->
+        <tr>
+            <th>業務委託先</th>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="data.salesOutsourcingName" class="width400" maxlength="100">
+            </td>
+            <th>業務委託先住所</th>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="data.salesOutsourcingAddress" class="width400" maxlength="100">
+            </td>
+        </tr>
+        <!-- 20201124 E_Add -->
         <tr>
             <th>備考</th>
-            <td colspan="3"><input type="text" [(ngModel)]="data.salesRemark" class="width400" maxlength="100"></td>
-            
+            <td colspan="3">
+                <input type="text" [(ngModel)]="data.salesRemark" class="width400" maxlength="100">
+            </td>
         </tr>
-            
-      
-       
         <tr>
             <td colspan="6">
                 <mat-dialog-actions align="center">
-                    <button mat-raised-button class="attach-btn" *ngIf="data.pid > 0" (click)="delete()">削除</button>             
+                    <button mat-raised-button class="attach-btn" *ngIf="data.pid > 0" (click)="delete()">削除</button>
                     <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
                     <button mat-raised-button class="width80" color="primary" (click)="save()">登録</button>
                 </mat-dialog-actions>
             </td>
         </tr>
-    </table>    
+    </table>
 </div>

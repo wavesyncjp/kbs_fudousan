@@ -22,6 +22,7 @@ export class Contractinfo {
     tradingLandPrice: number;
     tradingBuildingPrice: number;
     tradingLeasePrice: number;
+    tradingTaxPrice: number;// 20201124 Add
     setlementPrice: number;
     deposit1: number;
     deposit1Day: string;
@@ -58,9 +59,11 @@ export class Contractinfo {
     intermediaryName: string;
     intermediaryAddress: string;
     intermediaryPrice: number;
+    intermediaryPricePayDay: string;// 20201218 Add
     outsourcingName: string;
     outsourcingAddress: string;
     outsourcingPrice: number;
+    outsourcingPricePayDay: string;// 20201218 Add
     //20200828 E_Add
     canncellDay: string;
     canncellDayChk: string;
@@ -90,6 +93,10 @@ export class Contractinfo {
     settlementDayMap: Date = null;
     settlementDayFinMap: Date = null;
     retainageDayMap: Date = null;
+    // 20201218 S_Add
+    intermediaryPricePayDayMap: Date = null;
+    outsourcingPricePayDayMap: Date = null;
+    // 20201218 E_Add
     canncellDayMap: Date = null;
     acquisitionConfirmDayMap: Date = null;
     startScheduledDayMap: Date = null;
@@ -102,6 +109,7 @@ export class Contractinfo {
     tradingLandPriceMap: string = "";
     tradingBuildingPriceMap: string = "";
     tradingLeasePriceMap: string = "";
+    tradingTaxPriceMap: string = "";// 20201124 Add
     setlementPriceMap: string = "";
     deposit1Map: string = "";
     deposit2Map: string = "";
@@ -155,6 +163,10 @@ export class Contractinfo {
         this.settlementDayMap = Converter.stringToDate(this.settlementDay,'yyyyMMdd');
         this.settlementDayFinMap = Converter.stringToDate(this.settlementDayFin,'yyyyMMdd');
         this.retainageDayMap = Converter.stringToDate(this.retainageDay,'yyyyMMdd');
+        // 20201218 S_Add
+        this.intermediaryPricePayDayMap = Converter.stringToDate(this.intermediaryPricePayDay,'yyyyMMdd');
+        this.outsourcingPricePayDayMap = Converter.stringToDate(this.outsourcingPricePayDay,'yyyyMMdd');
+        // 20201218 E_Add
         this.canncellDayMap = Converter.stringToDate(this.canncellDay,'yyyyMMdd');
         this.acquisitionConfirmDayMap = Converter.stringToDate(this.acquisitionConfirmDay,'yyyyMMdd');
         this.startScheduledDayMap = Converter.stringToDate(this.startScheduledDay,'yyyyMMdd');
@@ -166,6 +178,7 @@ export class Contractinfo {
         this.tradingLandPriceMap = Converter.numberToString(this.tradingLandPrice);
         this.tradingBuildingPriceMap = Converter.numberToString(this.tradingBuildingPrice);
         this.tradingLeasePriceMap = Converter.numberToString(this.tradingLeasePrice);
+        this.tradingTaxPriceMap = Converter.numberToString(this.tradingTaxPrice);// 20201124 Add
         this.setlementPriceMap = Converter.numberToString(this.setlementPrice);
         this.deposit1Map = Converter.numberToString(this.deposit1);
         this.deposit2Map = Converter.numberToString(this.deposit2);
@@ -221,6 +234,10 @@ export class Contractinfo {
         this.settlementDay = Converter.dateToString(this.settlementDayMap,'yyyyMMdd',datePipe);
         this.settlementDayFin = Converter.dateToString(this.settlementDayFinMap,'yyyyMMdd',datePipe);
         this.retainageDay = Converter.dateToString(this.retainageDayMap,'yyyyMMdd',datePipe);
+        // 20201218 S_Add
+        this.intermediaryPricePayDay = Converter.dateToString(this.intermediaryPricePayDayMap,'yyyyMMdd',datePipe);
+        this.outsourcingPricePayDay = Converter.dateToString(this.outsourcingPricePayDayMap,'yyyyMMdd',datePipe);
+        // 20201218 E_Add
         this.canncellDay = Converter.dateToString(this.canncellDayMap,'yyyyMMdd',datePipe);
         this.acquisitionConfirmDay = Converter.dateToString(this.acquisitionConfirmDayMap,'yyyyMMdd',datePipe);
         this.startScheduledDay = Converter.dateToString(this.startScheduledDayMap,'yyyyMMdd',datePipe);
@@ -232,6 +249,7 @@ export class Contractinfo {
         this.tradingLandPrice = Converter.stringToNumber(this.tradingLandPriceMap);
         this.tradingBuildingPrice = Converter.stringToNumber(this.tradingBuildingPriceMap);
         this.tradingLeasePrice = Converter.stringToNumber(this.tradingLeasePriceMap);
+        this.tradingTaxPrice = Converter.stringToNumber(this.tradingTaxPriceMap);// 20201124 Add
         this.setlementPrice = Converter.stringToNumber(this.setlementPriceMap);
         this.deposit1 = Converter.stringToNumber(this.deposit1Map);
         this.deposit2 = Converter.stringToNumber(this.deposit2Map);

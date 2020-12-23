@@ -26,7 +26,7 @@ export class ContractListComponent  extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'contractBukkenNo', 'remark1', 'remark2', 'contractNo', 'contractOwner', 'detail'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'decisionDay', 'detail'];
   //20200906 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
@@ -48,8 +48,12 @@ export class ContractListComponent  extends BaseComponent {
     contractDay_FromMap: null,
     contractDay_From: '',
     contractDay_ToMap: null,
-    contractDay_To: ''
+    contractDay_To: '',
     //20200730 E_Update
+    //20201223 S_Add
+    decisionDayMap: null,
+    decisionDay: ''
+    //20201223 E_Add
  };
  search = '0';
 
@@ -105,8 +109,12 @@ export class ContractListComponent  extends BaseComponent {
       contractDay_FromMap: null,
       contractDay_From: '',
       contractDay_ToMap: null,
-      contractDay_To: ''
+      contractDay_To: '',
       //20200730 E_Update
+      //20201223 S_Add
+      decisionDayMap: null,
+      decisionDay: ''
+      //20201223 E_Add
    };
   }
 
@@ -123,6 +131,9 @@ export class ContractListComponent  extends BaseComponent {
     this.cond.contractDay_From = this.cond.contractDay_FromMap != null ? this.datepipe.transform(this.cond.contractDay_FromMap, 'yyyyMMdd') : "";
     this.cond.contractDay_To = this.cond.contractDay_ToMap != null ? this.datepipe.transform(this.cond.contractDay_ToMap, 'yyyyMMdd') : "";
     //20200730 E_Update
+    //20201223 S_Add
+    this.cond.decisionDay = this.cond.decisionDayMap != null ? this.datepipe.transform(this.cond.decisionDayMap, 'yyyyMMdd') : null;
+    //20201223 E_Add
     this.service.searchContract(this.cond).then(res => {
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;

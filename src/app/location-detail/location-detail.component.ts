@@ -32,7 +32,8 @@ export class LocationDetailComponent extends BaseComponent {
   pid: number;
   oldLocationType = '';
   public cond: any;
-  public locAdresses =[];
+  public locAdresses = [];
+  public landAdresses = [];// 20201222 Add
 
   // 20201021 S_Add
   // 相続未登記あり
@@ -102,6 +103,21 @@ export class LocationDetailComponent extends BaseComponent {
           this.locAdresses = values[0];// 住所
         });
       }
+      // 20201222 S_Add
+      if (this.data.locationType !== '01'
+        && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
+        // 底地を取得
+        this.cond = {
+          tempLandInfoPid: this.data.tempLandInfoPid,
+          locationType: '01'
+        };
+        const funcs = [];
+        funcs.push(this.service.searchLocation(this.cond));
+        Promise.all(funcs).then(values => {
+          this.landAdresses = values[0];// 住所
+        });
+      }
+      // 20201222 E_Add
     }
     // 20201021 S_Add
     // チェックボックス初期化
@@ -223,12 +239,34 @@ export class LocationDetailComponent extends BaseComponent {
     this.data.buildingNotyet = '0';
     // 20201021 E_Add
 
+    // 20201222 S_Add
+    if (this.data.locationType !== '01'
+      && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
+      // 底地を取得
+      this.cond = {
+        tempLandInfoPid: this.data.tempLandInfoPid,
+        locationType: '01'
+      };
+      const funcs = [];
+      funcs.push(this.service.searchLocation(this.cond));
+      Promise.all(funcs).then(values => {
+        this.landAdresses = values[0];// 住所
+      });
+    }
+    else
+    {
+      this.data.bottomLandPid = null;// 底地
+      this.data.leasedAreaMap = null;// 借地対象面積
+    }
+    // 20201222 E_Add
+
     // 区分が01:土地の場合
     if (this.data.locationType === '01') {
       this.data.ridgePid = null;        // 一棟の建物
       this.data.buildingNumber = null;  // 家屋番号
       this.data.dependTypeMap = null;   // 種類
       this.data.dependFloor = null;     // 階建
+      this.data.grossFloorAreaMap = null;// 延床面積 20201222 Add
       this.data.structure = null;       // 構造
       this.data.floorSpace = null;      // 床面積
       this.data.liveInfo = null;        // 入居者情報
@@ -254,12 +292,6 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.owner = null;           // 所有者
       this.data.ownerAdress = null;     // 所有者住所
       this.data.equity = null;          // 持ち分
-      // 所有者追加分を削除
-      var index: number = 0;
-      this.data.sharers.forEach(sharer => {
-        this.deleteSharer(index);
-        index++;
-      });
       // 20201020 S_Add
       this.data.areaMap = null;         // 地積
       this.data.tsubo = null;           // 坪
@@ -267,6 +299,17 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.landCategory = null;    // 地目
       this.data.dependTypeMap = null;   // 種類
       // 20201020 E_Add
+      // 20201222 S_Add
+      this.data.grossFloorAreaMap = null;// 延床面積
+      this.data.bottomLandPid = null;// 底地
+      this.data.leasedAreaMap = null;// 借地対象面積
+      // 20201222 E_Add
+      // 所有者追加分を削除
+      var index: number = 0;
+      this.data.sharers.forEach(sharer => {
+        this.deleteSharer(index);
+        index++;
+      });
     }
     // 区分が04:区分所有（専有）の場合
     else if (this.data.locationType === '04') {
@@ -287,6 +330,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.tsubo = null;           // 坪
       this.data.landCategory = null;    // 地目
       // 20201020 E_Add
+      this.data.grossFloorAreaMap = null;// 延床面積 20201222 Add
     }
     this.oldLocationType = this.data.locationType;
   }
@@ -301,6 +345,19 @@ export class LocationDetailComponent extends BaseComponent {
       return [];
     }
   }
+
+  // 20201222 S_Add
+  /**
+   * 底地　住所取得
+  */
+  getLandAdress() {
+    if (this.landAdresses) {
+      return this.landAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+    } else {
+      return [];
+    }
+  }
+  // 20201222 E_Add
 
   /**
    * 売買対象チェックボックス変更
@@ -408,11 +465,22 @@ export class LocationDetailComponent extends BaseComponent {
     this.errors = {};
     this.checkBlank(this.data.locationType, 'locationType', '謄本種類は必須です。');
     if (this.data.locationType !== '03') {
-      this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');}
-    //20200831 S_Add
+      this.checkBlank(this.data.owner, `owner`, '所有者名は必須です。');
+    }
+    // 20200831 S_Add
     if (this.data.locationType === '04') {
-      this.checkBlank(this.data.ridgePid, `ridgePid`, '一棟の建物は必須です。');}
-    //20200831 E_Add
+      this.checkBlank(this.data.ridgePid, `ridgePid`, '一棟の建物は必須です。');
+    }
+    // 20200831 E_Add
+    // 20201221 S_Add
+    if (this.data.locationType !== '04') {
+      this.checkBlank(this.data.address, `address`, '所在地は必須です。');
+    }
+    if (this.data.locationType !== '01'
+      && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
+      this.checkBlank(this.data.bottomLandPid, `bottomLandPid`, '底地は必須です。');
+    }
+    // 20201221 E_Add
     if (this.errorMsgs.length > 0) {
       return false;
     }

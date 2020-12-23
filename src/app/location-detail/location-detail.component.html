@@ -4,7 +4,7 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <table class="detail-tbl-min">
-        <tr> 
+        <tr>
             <td colspan="4">
                 <span class="min">
                     <label>謄本情報　登録</label>
@@ -33,19 +33,18 @@
                 <mat-checkbox #buildingNotyet (change)="yetChange($event, data)" ></mat-checkbox>&nbsp;建物未登記あり
                 <!-- 20201021 E_Update -->
             </td>
-            
             <th>一棟の建物</th>
             <td colspan="3">
-            <!--<mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}">
-                <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
-            </mat-select>-->
-            <!-- 20200831 S_Update -->
-            <!--<app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.ridgePid" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>-->
-            <app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.ridgePid" [cusClass]="'width300 ' + (errors['ridgePid'] ? 'error' : '')" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>
-            <!-- 20200831 E_Update -->
+                <!--<mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}">
+                    <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
+                </mat-select>-->
+                <!-- 20200831 S_Update -->
+                <!--<app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.ridgePid" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>-->
+                <app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.ridgePid" [cusClass]="'width300 ' + (errors['ridgePid'] ? 'error' : '')" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>
+                <!-- 20200831 E_Update -->
             </td>
         </tr>
-        <tr> 
+        <tr>
             <th>所在地</th>
             <td>
                 <input type="text" [(ngModel)]="data.address" [ngClass]="{'width250': true, 'error': errors['address']}" [disabled]="data.locationType == '04'" maxlength="100">
@@ -106,7 +105,7 @@
             </td>
             <th>権利形態</th>
             <td>
-                <app-select-component [codes]="getCode('011')" [(ngModel)]="data.rightsForm" [isDisabled]="data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '03')}"></app-select-component>
+                <app-select-component [codes]="getCode('011')" [(ngModel)]="data.rightsForm" [isDisabled]="data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '03')}" (changed)="applyChangeType()"></app-select-component>
             </td>
             <th>地目</th>
             <td>
@@ -126,10 +125,28 @@
                 </mat-select>
             </td>
             <th>階建</th>
-            <td colspan="3">
+            <td>
                 <input type="text" class="width100" [(ngModel)]="data.dependFloor" [disabled]="data.locationType == '01'" maxlength="2">&nbsp;階建
             </td>
+            <!-- 20201124 S_Add -->
+            <th>延床面積</th>
+            <td>
+                <input type="text" [(ngModel)]="data.grossFloorAreaMap" (keypress)="floatOnly($event)" [disabled]="data.locationType == '01' || data.locationType == '03' || data.locationType == '04'" class="width80" maxlength="12" [value]="changeValue(data.grossFloorAreaMap)">&nbsp;㎡
+            </td>
+            <!-- 20201124 E_Add -->
         </tr>
+        <!-- 20201124 S_Add -->
+        <tr>
+            <th>底地</th>
+            <td>
+                <app-select-component [codes]="getLandAdress()" style="width: 300px;" [(ngModel)]="data.bottomLandPid" [cusClass]="'width300 ' + (errors['bottomLandPid'] ? 'error' : '')" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>
+            </td>
+            <th>借地対象面積</th>
+            <td>
+                <input type="text" [(ngModel)]="data.leasedAreaMap" (keypress)="floatOnly($event)" [disabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" class="width80" maxlength="12" [value]="changeValue(data.leasedAreaMap)">&nbsp;㎡
+            </td>
+        </tr>
+        <!-- 20201124 E_Add -->
         <tr>
             <th>構造</th>
             <td>
@@ -152,10 +169,18 @@
                 <input type="text" [(ngModel)]="data.ownerRemark" class="width85Per" maxlength="255">
             </td>
         </tr>
+        <!-- 20201124 S_Add -->
+        <tr>
+            <th>その他概況</th>
+            <td colspan="5">
+                <input type="text" [(ngModel)]="data.otherOverview" class="width85Per" maxlength="255" placeholder="賃貸借の条件、地代・・・">
+            </td>
+        </tr>
+        <!-- 20201124 E_Add -->
         <tr>
             <td colspan="6">
                 <mat-dialog-actions align="center">
-                    <button mat-raised-button class="attach-btn" *ngIf="data.pid > 0" (click)="deleteLoc()">削除</button>             
+                    <button mat-raised-button class="attach-btn" *ngIf="data.pid > 0" (click)="deleteLoc()">削除</button>
                     <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
                     <button mat-raised-button class="width80" color="primary" (click)="save()">登録</button>
                 </mat-dialog-actions>

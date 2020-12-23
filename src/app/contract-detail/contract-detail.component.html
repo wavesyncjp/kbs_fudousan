@@ -11,21 +11,22 @@
     </ul>
     <br>
     <!--/土地情報契約-->
-    <table class="detail-tbl-min">  
+    <table class="detail-tbl-min">
         <tr>
             <td><span class="min">契約区分</span></td>
-            
             <td colspan="9">
                 <span class="now">契約状況</span>&nbsp;&nbsp;<app-select-component [codes]="getCode('019')"  [(ngModel)]="contract.contractNow"></app-select-component>
             </td>
         </tr>
         <tr>
             <th>物件番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNo" maxlength="10"></td>
-            
+            <td>
+                <input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.bukkenNo" maxlength="10">
+            </td>
             <th>契約物件番号</th>
-            <td><input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.contractBukkenNo" maxlength="20"></td>
-
+            <td>
+                <input type="text" class="width150" [attr.disabled]="true" [ngModel]="data.contractBukkenNo" maxlength="20">
+            </td>
             <th>契約番号</th>
             <td>
                 <input type="text" class="width150" [attr.disabled]="true" value="{{data.bukkenNo + '-' + contract.contractNumber}}">
@@ -56,7 +57,7 @@
                 </ng-multiselect-dropdown>
                 <!-- 20200828 E_Add -->
             </td> 
-        </tr>        
+        </tr>
         <tr>
             <th>即決和解</th>
             <td>
@@ -68,27 +69,34 @@
             </td>
             <td colspan="4">
                 <mat-radio-group [(ngModel)]="contract.promptDecideContent">
-                    <mat-radio-button *ngFor="let code of getCode('008')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;</mat-radio-button>  
-                  </mat-radio-group>
+                    <mat-radio-button *ngFor="let code of getCode('008')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;</mat-radio-button>
+                </mat-radio-group>
                 <!--<mat-checkbox *ngFor="let code of getCode('008')" [ngModel]="contract.promptDecideContent"  (change)="change($event, item, '01')">{{code.name}}&nbsp;&nbsp;</mat-checkbox>-->
-            </td>  
-            
+            </td>
         </tr>
-        <tr>             
+        <tr>
             <th>不可分</th>
-            <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.indivisibleFlg"></app-select-component></td>
+            <td>
+                <app-select-component [codes]="getCode('006')" [(ngModel)]="contract.indivisibleFlg"></app-select-component>
+            </td>
             <th>三為</th>
-            <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.thirdPartyFlg"></app-select-component></td>
+            <td>
+                <app-select-component [codes]="getCode('006')" [(ngModel)]="contract.thirdPartyFlg"></app-select-component>
+            </td>
             <th>等価交換</th>
-            <td><app-select-component [codes]="getCode('006')" [(ngModel)]="contract.equiExchangeFlg"></app-select-component></td>
+            <td>
+                <app-select-component [codes]="getCode('006')" [(ngModel)]="contract.equiExchangeFlg"></app-select-component>
+            </td>
             <th>売買</th>
-            <td><app-select-component [codes]="getCode('009')" [(ngModel)]="contract.tradingType"></app-select-component></td>
-        </tr>       
+            <td>
+                <app-select-component [codes]="getCode('009')" [(ngModel)]="contract.tradingType"></app-select-component>
+            </td>
+        </tr>
     </table>
     <!--/土地情報契約-->
 
     <!--/建物情報契約-->
-    <table class="detail-tbl-min">  
+    <table class="detail-tbl-min">
         <tr>
             <td><span class="min">売主・不可分選択</span></td>
         </tr>
@@ -121,7 +129,10 @@
                         <tbody class="list-body">
                             <tr *ngFor="let item of data.locations; index as pos">
                                 <td [ngClass]="{'tderror': errors['contractDataType_01_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="hasSharer(item)" ></mat-checkbox></td>
+                                <!-- 20201218 S_Update -->
+                                <!--<td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '02'" (change)="change($event, item, '02')"></mat-checkbox></td>-->
                                 <td><mat-checkbox color="primary" [ngModel]="item.contractDetail02 === '02'" (change)="change($event, item, '02')"></mat-checkbox></td>
+                                <!-- 20201218 E_Update -->
                                 <td [ngClass]="{'tderror': errors['contractDataType_03_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" ></mat-checkbox></td>                                
                                 <td>{{getCodeTitle('007', item.locationType)}}</td>
                                 <td>{{getCodeTitle('011', item.rightsForm)}}</td>
@@ -148,7 +159,7 @@
                 </div>
             </td>
         </tr>
-    </table>        
+    </table>
 
     <table class="detail-tbl-min">
         <tr>
@@ -163,12 +174,11 @@
             <td colspan="3">
                 <input type="text" [(ngModel)]="seller.contractorName" class="width300" maxlength="100">
             </td>
-                <th class="sharer">契約者住所</th>
-                <td colspan="3">
-                    <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
-                </td>
-            
-        </tr>  
+            <th class="sharer">契約者住所</th>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
+            </td>
+        </tr>
         <tr *ngFor="let seller of contract.sellers | slice:1; index as sharerPos">
             <th class="sharer">契約者名
                 <button mat-raised-button class="deleteSharer" (click)="deleteContractSeller(sharerPos)">削除</button>
@@ -177,9 +187,9 @@
                 <input type="text" [(ngModel)]="seller.contractorName" class="width300" maxlength="100">
             </td>
             <th class="sharer">契約者住所</th>
-                <td colspan="3">
-                    <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
-                </td>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
+            </td>
         </tr>
         <tr>
             <th>契約日</th>
@@ -187,9 +197,8 @@
                 <input type="text" [matDatepicker]="contractDay" class="width100" [(ngModel)]="contract.contractDayMap">
                 <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #contractDay></mat-datepicker>
-                
             </td>
-        </tr> 
+        </tr>
         <tr>
             <th>売買代金</th>
             <td>
@@ -201,21 +210,33 @@
                 <input type="text" [(ngModel)]="contract.tradingLandPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingLandPriceMap)">&nbsp;円
             </td>
             <th>売買代金（建物）</th>
-            <td><input type="text" [(ngModel)]="contract.tradingBuildingPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingBuildingPriceMap)">&nbsp;円</td>
+            <td>
+                <input type="text" [(ngModel)]="contract.tradingBuildingPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingBuildingPriceMap)">&nbsp;円
+            </td>
             <th>売買代金（借地権）</th>
-            <td><input type="text" [(ngModel)]="contract.tradingLeasePriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingLeasePriceMap)">&nbsp;円</td>
+            <td>
+                <input type="text" [(ngModel)]="contract.tradingLeasePriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingLeasePriceMap)">&nbsp;円
+            </td>
         </tr>
         <tr>
+            <!-- 20201124 S_Add -->
+            <th>売買代金（消費税）</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.tradingTaxPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingTaxPriceMap)">&nbsp;円
+            </td>
+            <!-- 20201124 E_Add -->
             <th>実測精算単価</th>
-            <td colspan="7"><input type="text" [(ngModel)]="contract.setlementPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.setlementPriceMap)">&nbsp;万円</td> 
+            <td colspan="5">
+                <input type="text" [(ngModel)]="contract.setlementPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.setlementPriceMap)">&nbsp;万円
+            </td>
         </tr>
         <tr>
             <th>決済日(所有権移転日)</th>
             <td>
-            <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
-            <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
-            <mat-datepicker #decisionDay></mat-datepicker>
-            &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.decisionDayChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
+                <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="contract.decisionDayMap">
+                <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #decisionDay></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.decisionDayChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
             </td>
             <th>引渡期日</th>
             <td>
@@ -229,28 +250,29 @@
                 <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #vacationDay></mat-datepicker>
            </td>
-           
         </tr>
         <tr>
             <th>即決和解申請日</th>
-             <td>
-             <input type="text" [matDatepicker]="settlementDay" class="width100" [(ngModel)]="contract.settlementDayMap">
-             <mat-datepicker-toggle matSuffix [for]="settlementDay" class="picker-icon"></mat-datepicker-toggle>
-             <mat-datepicker #settlementDay></mat-datepicker>
-             </td>
-             <th>即決和解成立日</th>
-             <td>
-             <input type="text" [matDatepicker]="settlementDayFin" class="width100" [(ngModel)]="contract.settlementDayFinMap">
-             <mat-datepicker-toggle matSuffix [for]="settlementDayFin" class="picker-icon"></mat-datepicker-toggle>
-             <mat-datepicker #settlementDayFin></mat-datepicker>
-             </td>
-         
-             <th>和解成立後</th>
-             <td><input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter" maxlength="100"><span style="font-size: small;">以内に支払い</span></td>
+            <td>
+                <input type="text" [matDatepicker]="settlementDay" class="width100" [(ngModel)]="contract.settlementDayMap">
+                <mat-datepicker-toggle matSuffix [for]="settlementDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #settlementDay></mat-datepicker>
+            </td>
+            <th>即決和解成立日</th>
+            <td>
+                <input type="text" [matDatepicker]="settlementDayFin" class="width100" [(ngModel)]="contract.settlementDayFinMap">
+                <mat-datepicker-toggle matSuffix [for]="settlementDayFin" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #settlementDayFin></mat-datepicker>
+            </td>
+            <th>和解成立後</th>
+            <td>
+                <input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter" maxlength="100"><span style="font-size: small;">以内に支払い</span>
+            </td>
         </tr>
         <tr>
             <th>内金①</th>
-            <td><input type="text" [(ngModel)]="contract.deposit1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit1Map)">&nbsp;円
+            <td>
+                <input type="text" [(ngModel)]="contract.deposit1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit1Map)">&nbsp;円
                 <br>
                 <input type="text" [matDatepicker]="deposit1Day" class="width100" [(ngModel)]="contract.deposit1DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit1Day" class="picker-icon"></mat-datepicker-toggle>
@@ -258,7 +280,8 @@
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit1DayChk === '1'" (change)="flgChange1($event, data)"></mat-checkbox>
             </td>
             <th>内金②</th>
-            <td><input type="text" [(ngModel)]="contract.deposit2Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit2Map)">&nbsp;円
+            <td>
+                <input type="text" [(ngModel)]="contract.deposit2Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit2Map)">&nbsp;円
                 <br>
                 <input type="text" [matDatepicker]="deposit2Day" class="width100" [(ngModel)]="contract.deposit2DayMap">
                 <mat-datepicker-toggle matSuffix [for]="deposit2Day" class="picker-icon"></mat-datepicker-toggle>
@@ -266,7 +289,8 @@
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit2DayChk === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
             </td>
             <th>手付金</th>
-            <td><input type="text" [(ngModel)]="contract.earnestPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.earnestPriceMap)">&nbsp;円
+            <td>
+                <input type="text" [(ngModel)]="contract.earnestPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.earnestPriceMap)">&nbsp;円
                 <br>
                 <input type="text" [matDatepicker]="earnestPriceDay" class="width100" [(ngModel)]="contract.earnestPriceDayMap">
                 <mat-datepicker-toggle matSuffix [for]="earnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
@@ -274,29 +298,23 @@
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.earnestPriceDayChk === '1'" (change)="flgChange3($event, data)"></mat-checkbox>
             </td>
             <th>売買残代金</th>
-            <td><input type="text" [(ngModel)]="contract.tradingBalanceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingBalanceMap)">&nbsp;円</td> 
+            <td>
+                <input type="text" [(ngModel)]="contract.tradingBalanceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingBalanceMap)">&nbsp;円
+            </td>
         </tr>
-        
-       
-        
-
         <tr>
             <th>固都税清算金</th>
             <td>
-            <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTaxMap" maxlength="15" [value]="changeValue(contract.fixedTaxMap)">&nbsp;円
-            </td> 
-
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTaxMap" maxlength="15" [value]="changeValue(contract.fixedTaxMap)">&nbsp;円
+            </td>
             <th>決済代金</th>
             <td>
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.decisionPriceMap" maxlength="15" [value]="changeValue(contract.decisionPriceMap)">&nbsp;円
             </td>
-        
-        
             <th>留保金</th>
             <td>
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.retainageMap" maxlength="15" [value]="changeValue(contract.retainageMap)">&nbsp;円
             </td>
-        
             <th>留保金支払(明渡)日</th>
             <td>
                 <input type="text" [matDatepicker]="retainageDay" class="width100" [(ngModel)]="contract.retainageDayMap">
@@ -304,7 +322,6 @@
                 <mat-datepicker #retainageDay></mat-datepicker>
             </td>
         </tr>
-        
         <tr>
             <th>振込情報</th>
             <td colspan="7">
@@ -330,6 +347,14 @@
                 <!--<input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.intermediaryPrice" maxlength="15">&nbsp;円-->
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.intermediaryPriceMap" maxlength="15" [value]="changeValue(contract.intermediaryPriceMap)">&nbsp;円
             </td>
+            <!-- 20201218 S_Add -->
+            <th>仲介手数料支払日</th>
+            <td>
+                <input type="text" [matDatepicker]="intermediaryPricePayDay" class="width100" [(ngModel)]="contract.intermediaryPricePayDayMap">
+                <mat-datepicker-toggle matSuffix [for]="intermediaryPricePayDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #intermediaryPricePayDay></mat-datepicker>
+            </td>
+            <!-- 20201218 E_Add -->
         </tr>
         <tr>
             <th>業務委託先</th>
@@ -345,22 +370,30 @@
                 <!--<input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.outsourcingPrice" maxlength="15">&nbsp;円-->
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.outsourcingPriceMap" maxlength="15" [value]="changeValue(contract.outsourcingPriceMap)">&nbsp;円
             </td>
+            <!-- 20201218 S_Add -->
+            <th>業務委託料支払日</th>
+            <td>
+                <input type="text" [matDatepicker]="outsourcingPricePayDay" class="width100" [(ngModel)]="contract.outsourcingPricePayDayMap">
+                <mat-datepicker-toggle matSuffix [for]="outsourcingPricePayDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #outsourcingPricePayDay></mat-datepicker>
+            </td>
+            <!-- 20201218 E_Add -->
         </tr>
         <!-- 20200828 E_Add -->
-       <tr>
-       <th>解約日</th>
-       <td>
-           <input type="text" [matDatepicker]="canncellDay" class="width100" [(ngModel)]="contract.canncellDayMap">
-           <mat-datepicker-toggle matSuffix [for]="canncellDay" class="picker-icon"></mat-datepicker-toggle>
-           <mat-datepicker #canncellDay></mat-datepicker>
-           &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;等価交換の為</span><mat-checkbox [checked]="contract.canncellDayChk === '1'" (change)="flgCanncell($event, data)"></mat-checkbox>
-       </td>
-       </tr>
-       <tr>
-        <th>解約理由</th>
-        <td colspan="7">
-            <input type="text" class="width85Per" [(ngModel)]="contract.canncell" maxlength="100">
-        </td>
+        <tr>
+            <th>解約日</th>
+            <td>
+                <input type="text" [matDatepicker]="canncellDay" class="width100" [(ngModel)]="contract.canncellDayMap">
+                <mat-datepicker-toggle matSuffix [for]="canncellDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #canncellDay></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;等価交換の為</span><mat-checkbox [checked]="contract.canncellDayChk === '1'" (change)="flgCanncell($event, data)"></mat-checkbox>
+            </td>
+        </tr>
+        <tr>
+            <th>解約理由</th>
+            <td colspan="7">
+                <input type="text" class="width85Per" [(ngModel)]="contract.canncell" maxlength="100">
+            </td>
         </tr>
         <tr>
             <th>備考</th>
@@ -370,7 +403,7 @@
         </tr>
         <tr>
             <th>計画地の公図</th>
-            <td colspan="9">
+            <td colspan="7">
                 <label *ngIf="!(contract.pid > 0)" style="color:red">※契約情報を登録後に添付可能となります。</label>   
                 <app-file contractInfoId="{{contract.pid}}" *ngIf="contract.pid > 0" (uploaded)="uploaded($event)" [immediately]="true"></app-file> 
                 
@@ -379,11 +412,9 @@
                         <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
                         <td><button mat-flat-button class="attach-btn" (click)="deleteFile(map)">削除</button></td>
                     </tr>
-                   
                 </table>
-                
-            </td> 
-       </tr>
+            </td>
+        </tr>
     </table>
     <table class="detail-tbl-min">
         <tr>
@@ -397,10 +428,9 @@
             <th>優先分譲戸数（階）</th>
             <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesFloorMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="3" [value]="changeValue(contract.prioritySalesFloorMap)">&nbsp;階</td>
             <th>優先分譲予定価格</th>
-            <td  colspan="5"><input [(ngModel)]="contract.prioritySalesPlanPriceMap" type="text" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.prioritySalesPlanPriceMap)">&nbsp;円</td>      
+            <td  colspan="5"><input [(ngModel)]="contract.prioritySalesPlanPriceMap" type="text" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.prioritySalesPlanPriceMap)">&nbsp;円</td>
         </tr>
-    </table> 
-
+    </table>
     <table class="detail-tbl-min">
         <tr>
             <td colspan="8">
@@ -409,18 +439,27 @@
         </tr>
         <tr>
             <th>敷地面積</th>
-            <td><input type="text" [(ngModel)]="contract.siteAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.siteAreaMap)">&nbsp;㎡</td>
+            <td>
+                <input type="text" [(ngModel)]="contract.siteAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.siteAreaMap)">&nbsp;㎡
+            </td>
             <th>有効敷地面積</th>
-            <td><input type="text" [(ngModel)]="contract.siteAvailableAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.siteAvailableAreaMap)">&nbsp;㎡</td>
+            <td>
+                <input type="text" [(ngModel)]="contract.siteAvailableAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.siteAvailableAreaMap)">&nbsp;㎡
+            </td>
             <th>構造</th>
-            <td><input type="text" [(ngModel)]="contract.structure" class="width150" maxlength="100"></td>
+            <td>
+                <input type="text" [(ngModel)]="contract.structure" class="width150" maxlength="100">
+            </td>
             <th>規模</th>
-            <td><input type="text" [(ngModel)]="contract.scale" lass="width200" maxlength="100"></td> 
+            <td>
+                <input type="text" [(ngModel)]="contract.scale" lass="width200" maxlength="100">
+            </td>
             <th>延床面積</th>
-            <td><input type="text" [(ngModel)]="contract.totalFloorAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.totalFloorAreaMap)">&nbsp;㎡</td>
+            <td>
+                <input type="text" [(ngModel)]="contract.totalFloorAreaMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="15" [value]="changeValue(contract.totalFloorAreaMap)">&nbsp;㎡
+            </td>
         </tr>
-    </table> 
-    
+    </table>
     <table class="detail-tbl-min">
         <tr>
             <td colspan="8">
@@ -451,23 +490,20 @@
                 <input type="text" [matDatepicker]="finishScheduledDay" class="width100" [(ngModel)]="contract.finishScheduledDayMap">
                 <mat-datepicker-toggle matSuffix [for]="finishScheduledDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #finishScheduledDay></mat-datepicker>
-            </td> 
+            </td>
             <th>取得物件引渡</th>
             <td style="width: 120px;">
                 <input type="text" [matDatepicker]="deliveryDay" class="width100" [(ngModel)]="contract.deliveryDayMap">
                 <mat-datepicker-toggle matSuffix [for]="deliveryDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #deliveryDay></mat-datepicker>
-            </td> 
+            </td>
         </tr>
-    </table> 
-
+    </table>
     <!--/建物情報契約-->
     <br>
-    
     <div class="register-div" style="margin-top:10px">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
-
 </div>

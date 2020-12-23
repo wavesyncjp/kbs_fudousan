@@ -7,6 +7,9 @@ export class Locationinfo {
     pid: number;
     tempLandInfoPid: number;
     acquisitionDate: string;//20200913 Add
+    ridgePid: string;
+    inheritanceNotyet = '0';
+    buildingNotyet = '0';
     //20200803 S_Delete
 //    registPosition: number;
 //    zipcode: string;
@@ -15,13 +18,14 @@ export class Locationinfo {
     address: string;
     blockNumber: string;
     buildingNumber: string;
+    landCategory: string;
     area: number;
     tsubo: number;
     //20200803 S_Delete
 //    floorAreaRate: number;
 //    improveFlg: number;
     //20200803 E_Delete
-    buildingType: string;
+//    buildingType: string;//20201124 Delete
     floorSpace: string;
     structure: string;
 //    coverageRate: number;//20200803 Delete
@@ -36,32 +40,38 @@ export class Locationinfo {
     liveInfo: string;
     locationType: string;
 //    residence: string;//20200803 Delete
+    ownerRemark: string;
     buysellFlg = '0';
-    dependType: string;
     dependFloor: string;
+    dependType: string;
     //20200803 S_Delete
 //    bukkenName = '';
 //    floorAreaRatio: number = null;
     //20200803 E_Delete
-    landCategory: string;
-    ownerRemark: string;
-    ridgePid: string;
-    buildingNotyet = '0';
-    inheritanceNotyet = '0';
-
+    // 20201124 S_Add
+    grossFloorArea: number;
+    bottomLandPid: string;
+    leasedArea: number;
+    otherOverview: string;
+    // 20201124 E_Add
+    
     acquisitionDateMap: Date = null;//20200913 Add
 
-    areaMap:string;
+    areaMap: string;
+    // 20201124 S_Add
+    grossFloorAreaMap: string;
+    leasedAreaMap: string;
+    // 20201124 E_Add
 
-    contractDetail: Contractdetailinfo;
+    locations: Locationinfo[];
     sharers: SharerInfo[];
     delSharers: number[];
+    contractDetail: Contractdetailinfo;
+    contractDetail02: string; //不可分
     dependTypeMap: string[] = [];
+
     createUserId: number;
     updateUserId: number;
-    locations: Locationinfo[];
-
-    contractDetail02: string; //不可分
 
     public constructor(init?: Partial<Locationinfo>) {
         if (init) {
@@ -73,8 +83,14 @@ export class Locationinfo {
         if (this.dependType !== null && this.dependType !== undefined && this.dependType.length > 0) {
             this.dependTypeMap = this.dependType.split(',');
         }
+        //カレンダー
         this.acquisitionDateMap = Converter.stringToDate(this.acquisitionDate, 'yyyyMMdd');//20200913 Add
+        //カンマ
         this.areaMap = Converter.numberToString(this.area);
+        // 20201124 S_Add
+        this.grossFloorAreaMap = Converter.numberToString(this.grossFloorArea);
+        this.leasedAreaMap = Converter.numberToString(this.leasedArea);
+        // 20201124 E_Add
     }
     //20200913 S_Update
 //    public convertForSave(userId: number) {
@@ -88,7 +104,13 @@ export class Locationinfo {
         } else {
             this.createUserId = userId;
         }
+        //カレンダー
         this.acquisitionDate = Converter.dateToString(this.acquisitionDateMap, 'yyyyMMdd', datePipe);//20200913 Add
+        //カンマ
         this.area = Converter.stringToNumber(this.areaMap);
+        // 20201124 S_Add
+        this.grossFloorArea = Converter.stringToNumber(this.grossFloorAreaMap);
+        this.leasedArea = Converter.stringToNumber(this.leasedAreaMap);
+        // 20201124 E_Add
     }
 }

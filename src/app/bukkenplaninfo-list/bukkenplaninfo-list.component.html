@@ -31,23 +31,28 @@
 
     <table class="detail-tbl"  style="margin:10px;width:99%">
         <tr>
-            <td colspan="8" class="tab_bottom">                
+            <td colspan="8" class="tab_bottom">
                 <div class="tab-wrap">
                     <input id="tab01" type="radio" name="tab" class="tab-switch"><label (click)="gotoBukken()" class="tab-label" for="tab01">物件情報</label>
                     <input id="tab02" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab02">プラン</label>
-                </div>               
-            </td>                
+                </div>
+            </td>
         </tr>
     </table>
 
-       
     <table class ="block-status">
-        
+        <!-- 20201124 S_Add -->
+        <div *ngIf="authority !== '03'">
+            <mat-radio-group [(ngModel)]="data.land.seller">
+                <mat-radio-button *ngFor="let code of getCode('027')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <br>
+        <!-- 20201124 E_Add -->
         <tr>
-            <th class="block-title-statusNew">測量</th>            
+            <th class="block-title-statusNew">測量</th>
         </tr>
-
-        <table class="detail-tbl-status">  
+        <table class="detail-tbl-status">
             <tr>
                 <th>測量依頼日</th>
                 <td>
@@ -101,7 +106,7 @@
                 <td colspan="5">
                     <input type="text" [(ngModel)]="data.land.surveyRemark" class="width85Per" maxlength="100">
                 </td>
-            </tr>            
+            </tr>
         </table>
 
         <!--プラン-->
@@ -111,12 +116,10 @@
                 <button mat-raised-button (click)="addPlan()">追加</button>
             </div>
         </div>
-        
         <ng-container *ngFor="let plan of data.plans; index as pos">
             <table *ngIf="!plan.delete" class="detail-tbl-status" style="margin-bottom: 20px;">  
                 <tr>
-                    
-                    <td rowspan="3" style="width: 60px;"><div style="font-size: x-small;">プラン選択</div><br>&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>                            
+                    <td rowspan="3" style="width: 60px;"><div style="font-size: x-small;">プラン選択</div><br>&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>
                     <th>プラン検討先</th>
                     <td colspan="3">
                         <input type="text" [(ngModel)]="plan.planConsidered" class="width400" maxlength="100">
@@ -126,15 +129,14 @@
                     </ng-container>
                     <ng-container *ngIf="authority !== '03'">
                     <th>プラン価格</th>
-                    </ng-container>                    
+                    </ng-container>
                     <td>
                         <input *ngIf="authority !== '03'" type="text" [(ngModel)]="plan.planPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(plan.planPriceMap)">
                     </td>
                     <td rowspan="4">
                         <button *ngIf="pos > 0" mat-flat-button class="delete_btn" (click)="deletePlan(plan, pos)">削除</button>
-    
                         <button *ngIf="pos === 0" mat-flat-button class="attach-btn" style="background-color: white;"></button>
-                    </td>                            
+                    </td>
                 </tr>
                 <tr>
                     <th>プラン依頼</th>
@@ -163,11 +165,11 @@
                     <td colspan="5">
                         <input type="text" [(ngModel)]="plan.planRemark" class="width85Per" maxlength="100">
                     </td>
-                </tr>          
+                </tr>
             </table>
-        </ng-container>        
+        </ng-container>
         <!--プラン-->
-
+        
         <!--売り契約-->
         <div *ngIf="authority !== '03'">
             <span class="block-title-statusNew">売り契約</span>
@@ -186,10 +188,10 @@
                 <th class="width80">契約日</th>
                 <th class="width100">決済予定日</th>
                 <th class="width80">決済日</th>
-                <th class="width80">詳細</th>                       
+                <th class="width80">詳細</th>
             </thead>
             <tbody class="list-body">
-                <tr *ngFor="let sale of data.sales">                        
+                <tr *ngFor="let sale of data.sales">
                     <td class="text-left">{{sale.salesName}}</td>
                     <td class="text-left">{{sale.salesLocation}}</td>
                     <td class="text-right">{{formatIntNumber(sale.salesLandArea, '')}}</td>
@@ -198,13 +200,11 @@
                     <td>{{formatDay(sale.salesContractDay, 'yyyy/MM/dd')}}</td>
                     <td>{{formatDay(sale.salesDecisionSchDay, 'yyyy/MM/dd')}}</td>
                     <td>{{formatDay(sale.salesDecisionDay, 'yyyy/MM/dd')}}</td>
-                    <td><button mat-raised-button (click)="showLandSale(sale)" color="warn">詳細</button></td>               
+                    <td><button mat-raised-button (click)="showLandSale(sale)" color="warn">詳細</button></td>
                 </tr>
             </tbody>
         </table>
         </div>
         <!--/売り契約-->
-
     </table>
-    
 </div>

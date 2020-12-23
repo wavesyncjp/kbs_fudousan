@@ -29,7 +29,11 @@ import { isNullOrUndefined } from 'util';
 export class BukkenplaninfoDetailComponent extends BaseComponent {
 
   pid: number;
- 
+  // 20201221 S_Add
+  public cond: any;
+  public locAdresses =[];
+  // 20201221 E_Add
+
   constructor(public router: Router,
               public service: BackendService,
               private spinner: NgxSpinnerService,
@@ -48,6 +52,14 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
 
     const funcs = [];
     funcs.push(this.service.getCodes(null));
+    // 20201221 S_Add
+    // 売買対象（所在地）を取得
+    this.cond = {
+      tempLandInfoPid: this.data.tempLandInfoPid,
+      clctLocationType: ['01', '02']
+    };
+    funcs.push(this.service.searchLocation(this.cond));
+    // 20201221 E_Add
 
     Promise.all(funcs).then(values => {
 
@@ -61,6 +73,8 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+
+      this.locAdresses = values[1];// 住所 20201221 Add
     });
   }
 
@@ -103,7 +117,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
    */
   validate(): boolean {
     this.errorMsgs = [];
-    this.errors = {};    
+    this.errors = {};
     return true;
   }
   //数値にカンマを付ける作業
@@ -113,8 +127,6 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     return val;
   }
 
-
-
   calTsubo(val) {
     if (!isNullOrUndefined(val)) {
       return Math.floor(this.getNumber(this.removeComma(val)) * 0.3025 * 100) / 100;
@@ -123,8 +135,18 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     }
   }
 
-
-
+  // 20201221 S_Add
+  /**
+   * 売買対象（所在地）取得
+   */
+  getLocAdress() {
+    if (this.locAdresses) {
+      return this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+    } else {
+      return [];
+    }
+  }
+  // 20201221 E_Add
 
   /**
    * 売り契約削除

@@ -6,15 +6,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Templandinfo, LandPlanInfo } from '../models/templandinfo';
-import { Locationinfo } from '../models/locationinfo';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Code } from '../models/bukken';
 import { MapAttach, AttachFile } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
-import { Contractinfo } from '../models/contractinfo';
-import { SharerInfo } from '../models/sharer-info';
-import { LocationDetailComponent } from '../location-detail/location-detail.component';
 import { Bukkenplaninfo } from '../models/bukkenplaninfo';
 import { BukkenplaninfoDetailComponent} from '../bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 import { Bukkensalesinfo } from '../models/bukkensalesinfo';
@@ -29,6 +25,7 @@ import { DatePipe } from '@angular/common';
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
 })
+
 export class BukkenplaninfoListComponent extends BaseComponent {
   authority = '';
   public pid: number;
@@ -44,22 +41,41 @@ export class BukkenplaninfoListComponent extends BaseComponent {
 
     this.route.queryParams.subscribe(params => {
       this.pid = params.pid;
-    });    
+    });
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-    super.ngOnInit();    
+    super.ngOnInit();
     this.service.changeTitle('物件情報詳細');
     this.authority = this.service.loginUser.authority;
     this.spinner.show();
 
     const funcs = [];
+    // 20201124 S_Add
+    funcs.push(this.service.getCodes(['027']));
+
+    Promise.all(funcs).then(values => {
+      const codes = values[0] as Code[];
+      if (codes !== null && codes.length > 0) {
+        const uniqeCodes = [...new Set(codes.map(code => code.code))];
+        uniqeCodes.forEach(code => {
+          const lst = codes.filter(c => c.code === code);
+          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          this.sysCodes[code] = lst;
+        });
+      }
+    });
+    // 20201124 E_Add
+    // 20201124 S_Delete
+    /*
     if (this.pid > 0) {
       funcs.push(this.service.getLandPlan(this.pid));
     }
+    */
+    // 20201124 E_Delete
 
-    this.service.getLandPlan(this.pid).then(ret => {      
+    this.service.getLandPlan(this.pid).then(ret => {
       this.convertForDisplay(ret);
 
       if(this.data.plans == null || this.data.plans.length === 0) {
@@ -81,7 +97,6 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     this.data.land.convert(null);
     //20200731 E_Update
 
-
     let plans: Bukkenplaninfo[] = [];
     if(this.data.plans != null) {
       this.data.plans.forEach(me => {
@@ -89,7 +104,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
       });
     }
     this.data.plans = plans;
-      
+
     // プラン
     this.data.plans.forEach(me => {
       me.convert();
@@ -106,7 +121,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
    */
   addPlan(): void {
     let plan = new Bukkenplaninfo();
-    plan.tempLandInfoPid = this.data.land.pid;    
+    plan.tempLandInfoPid = this.data.land.pid;
     this.data.plans.push(plan);  
   }
 
@@ -131,16 +146,16 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     sale.tempLandInfoPid = this.data.land.pid;
     const dialogRef = this.dialog.open(BukkenplaninfoDetailComponent, {
       width: '98%',
-      height: '500px',
+      height: '620px',
       data: sale
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {          
+      if (result) {
         //保存
         if(result.isSave) {
-          this.data.sales.push(result.data);          
-        }       
+          this.data.sales.push(result.data);
+        }
       }
     });
   }
@@ -153,7 +168,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
 
     const dialogRef = this.dialog.open(BukkenplaninfoDetailComponent, {
       width: '98%',
-      height: '500px',
+      height: '620px',
       data: sale
     });
     // 再検索
@@ -176,11 +191,10 @@ export class BukkenplaninfoListComponent extends BaseComponent {
         //削除
         if(result.isDelete) {
           this.data.sales.splice(position, 1);
-        }      
+        }
       }
-    });    
+    });
   }
-
 
   /**
    * データ保存
@@ -209,7 +223,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
             height: '250px',
             data: finishDlg
           });
-          dlgVal.afterClosed().subscribe(res => {            
+          dlgVal.afterClosed().subscribe(res => {
             this.convertForDisplay(ret);
             this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.data.land.pid}});
           });
@@ -229,12 +243,10 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     });
   }
   //数値にカンマを付ける作業
-  // 20200709 S_Add
   changeValue(val) {
     val = this.numberFormat(val);
     return val;
   }
-
 
   /**
    * バリデーション
@@ -249,7 +261,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   }
 
   flgFinish(event, flg: string) {
-    this.data.land[flg] = (event.checked ? '1' : '0');    
+    this.data.land[flg] = (event.checked ? '1' : '0');
   }
 
   flgPlan(event,  plan: Bukkenplaninfo) {
@@ -262,26 +274,6 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   gotoBukken() {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: this.pid}});
   }
- /**
-   * 坪計算
-   *修正中/
-
-  
-  
-  changeArea(event) {
-    const val = event.target.value;
-    if (this.isNumberStr(val)) {
-      return Math.floor(this.getNumber(val) * 0.3025 * 100) / 100;
-    }
-    else {
-      return '';
-    }
-  }
-
-  getNumber(val) {
-    if (val == null || val === '' || isNaN(val)) return 0;
-    return Number(val);
-  }
 
   /**
    * 一覧へ戻る
@@ -290,5 +282,3 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
   }
 }
-
-
