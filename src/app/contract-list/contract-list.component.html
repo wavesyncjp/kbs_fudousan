@@ -62,11 +62,18 @@
                 <!-- 20201223 S_Add -->
                 <tr>
                     <th>決済日</th>
-                    <td>
+                    <td style="width: 150px;"> 
                         <div class="picker-div">
-                            <input type="text" [matDatepicker]="decisionDay" class="width100" [(ngModel)]="cond.decisionDayMap">
-                            <mat-datepicker-toggle matSuffix [for]="decisionDay" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #decisionDay></mat-datepicker>
+                            <input type="text" [matDatepicker]="decisionDay_From" [(ngModel)]="cond.decisionDay_FromMap" placeholder="開始日" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="decisionDay_From" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #decisionDay_From></mat-datepicker>
+                        </div>&nbsp;&nbsp;～
+                        </td>
+                        <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="decisionDay_To" [(ngModel)]="cond.decisionDay_ToMap" placeholder="終了日" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="decisionDay_To" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #decisionDay_To></mat-datepicker>
                         </div>
                     </td>
                 </tr>

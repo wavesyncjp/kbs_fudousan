@@ -131,7 +131,7 @@
             <!-- 20201124 S_Add -->
             <th>延床面積</th>
             <td>
-                <input type="text" [(ngModel)]="data.grossFloorAreaMap" (keypress)="floatOnly($event)" [disabled]="data.locationType == '01' || data.locationType == '03' || data.locationType == '04'" class="width80" maxlength="12" [value]="changeValue(data.grossFloorAreaMap)">&nbsp;㎡
+                <input type="text" [(ngModel)]="data.grossFloorAreaMap" (keypress)="floatOnly($event)" [disabled]="data.locationType == '01' || data.locationType == '04'" class="width80" maxlength="12" [value]="changeValue(data.grossFloorAreaMap)">&nbsp;㎡
             </td>
             <!-- 20201124 E_Add -->
         </tr>

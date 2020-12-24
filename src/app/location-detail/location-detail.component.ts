@@ -310,7 +310,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.dependTypeMap = null;   // 種類
       // 20201020 E_Add
       // 20201222 S_Add
-      this.data.grossFloorAreaMap = null;// 延床面積
+//      this.data.grossFloorAreaMap = null;// 延床面積
       this.data.bottomLandPid = null;// 底地
       this.data.leasedAreaMap = null;// 借地対象面積
       // 20201222 E_Add

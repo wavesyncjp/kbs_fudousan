@@ -51,8 +51,10 @@ export class ContractListComponent  extends BaseComponent {
     contractDay_To: '',
     //20200730 E_Update
     //20201223 S_Add
-    decisionDayMap: null,
-    decisionDay: ''
+    decisionDay_FromMap: null,
+    decisionDay_From: '',
+    decisionDay_ToMap: null,
+    decisionDay_To: ''
     //20201223 E_Add
  };
  search = '0';
@@ -112,8 +114,10 @@ export class ContractListComponent  extends BaseComponent {
       contractDay_To: '',
       //20200730 E_Update
       //20201223 S_Add
-      decisionDayMap: null,
-      decisionDay: ''
+      decisionDay_FromMap: null,
+      decisionDay_From: '',
+      decisionDay_ToMap: null,
+      decisionDay_To: ''
       //20201223 E_Add
    };
   }
@@ -132,7 +136,8 @@ export class ContractListComponent  extends BaseComponent {
     this.cond.contractDay_To = this.cond.contractDay_ToMap != null ? this.datepipe.transform(this.cond.contractDay_ToMap, 'yyyyMMdd') : "";
     //20200730 E_Update
     //20201223 S_Add
-    this.cond.decisionDay = this.cond.decisionDayMap != null ? this.datepipe.transform(this.cond.decisionDayMap, 'yyyyMMdd') : null;
+    this.cond.decisionDay_From = this.cond.decisionDay_FromMap != null ? this.datepipe.transform(this.cond.decisionDay_FromMap, 'yyyyMMdd') : "";
+    this.cond.decisionDay_To = this.cond.decisionDay_ToMap != null ? this.datepipe.transform(this.cond.decisionDay_ToMap, 'yyyyMMdd') : "";
     //20201223 E_Add
     this.service.searchContract(this.cond).then(res => {
       this.dataSource.data = res;
