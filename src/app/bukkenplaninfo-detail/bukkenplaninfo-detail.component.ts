@@ -34,6 +34,20 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   public locAdresses =[];
   // 20201221 E_Add
 
+  // 20201225 S_Add
+  selectAddresses = [];
+  dropdownSettings = {
+    singleSelection: false,
+    idField: 'codeDetail',
+    textField: 'name',
+    searchPlaceholderText: '検索',
+    itemsShowLimit: 3,
+    allowSearchFilter: true,
+    enableCheckAll: false
+  };
+  // 20201225 E_Add
+
+
   constructor(public router: Router,
               public service: BackendService,
               private spinner: NgxSpinnerService,
@@ -75,6 +89,12 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       }
 
       this.locAdresses = values[1];// 住所 20201221 Add
+
+      //20201225 S_Add
+      this.selectAddresses = this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+      this.data.salesLocationMap = this.selectAddresses.filter(me => this.data.salesLocation.split(',').indexOf(me.codeDetail) >= 0).map(me => {return {codeDetail: me.codeDetail, name: me.name}});
+      //20201225 E_Add
+      
     });
   }
 

@@ -101,6 +101,9 @@ export class Bukkensalesinfo {
     salesOutsourcingPriceMap: string = "";// 20201124 Add
     // 20200713 E_Add
 
+    salesLocationMap = [];// 20201224 Add
+    salesLocationStr: string = "";
+
     public constructor(init?: Partial<Bukkensalesinfo>) {
         Object.assign(this, init);
     }
@@ -222,6 +225,10 @@ export class Bukkensalesinfo {
         this.salesEarnestPrice = Converter.stringToNumber(this.salesEarnestPriceMap);
         this.salesOutsourcingPrice = Converter.stringToNumber(this.salesOutsourcingPriceMap);
         // 20201124 E_Add
+
+        //20201225 S_Add
+        this.salesLocation = this.salesLocationMap.map(me => me['codeDetail']).join(',');
+        //20201225 E_Add
     }
 }
 

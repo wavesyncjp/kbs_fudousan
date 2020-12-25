@@ -26,7 +26,14 @@
             <th>売買対象<br>（所在地）</th>
             <td colspan="3">
                 <!--<input type="text" [(ngModel)]="data.salesLocation" class="width400" maxlength="100">-->
-                <app-select-component [codes]="getLocAdress()" style="width: 400px;" [(ngModel)]="data.salesLocation" [exclass] = "true"></app-select-component>
+                <!--<app-select-component [codes]="getLocAdress()" style="width: 400px;" [(ngModel)]="data.salesLocation" [exclass] = "true"></app-select-component>-->
+                <ng-multiselect-dropdown
+                    [placeholder]="'選択'"
+                    [data]="selectAddresses"                    
+                    [(ngModel)]="data.salesLocationMap"
+                    [settings]="dropdownSettings"
+                >
+                </ng-multiselect-dropdown>
             </td>
             <th>売却先住所</th>
             <td colspan="3">

@@ -15,6 +15,7 @@ import { Bukkenplaninfo } from '../models/bukkenplaninfo';
 import { BukkenplaninfoDetailComponent} from '../bukkenplaninfo-detail/bukkenplaninfo-detail.component';
 import { Bukkensalesinfo } from '../models/bukkensalesinfo';
 import { DatePipe } from '@angular/common';
+import { Locationinfo } from '../models/locationinfo';
 
 @Component({
   selector: 'app-bukkenplaninfo-list',
@@ -30,6 +31,8 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   authority = '';
   public pid: number;
   public data: LandPlanInfo;
+
+  public locAdresses: Locationinfo[] = []; //20201225
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -90,6 +93,24 @@ export class BukkenplaninfoListComponent extends BaseComponent {
 
     this.data = new LandPlanInfo(ret);
     this.data.land = new Templandinfo(this.data.land);
+
+    //20201225 S_Add
+    if(this.data.land != null && this.data.land.pid > 0) {
+      let cond = {
+        tempLandInfoPid: this.data.land.pid,
+        clctLocationType: ['01', '02']
+      };
+      this.service.searchLocation(cond).then(ret => {
+        this.locAdresses = ret;
+
+        this.data.sales.forEach(me => {
+          this.loadSaleLocaction(me);                    
+        });
+
+      });
+    }
+    //20201225 E_Add
+
     //20200731 S_Update
     /*
     this.data.land.convert();
@@ -113,6 +134,18 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     // 売り契約
     if (this.data.sales == null || this.data.sales.length === 0) {
       this.data.sales = [];
+    }
+  }
+  
+  /**
+   * プランセールの売買対象（所在地）
+   * @param sale プランセール
+   */
+  loadSaleLocaction(sale: Bukkensalesinfo) {
+    if(this.locAdresses == null || this.locAdresses.length == 0) return;
+    if(!this.isBlank(sale.salesLocation)) {
+      let locs = sale.salesLocation.split(',');
+      sale.salesLocationStr = this.locAdresses.filter(loc => locs.indexOf(String(loc.pid)) >= 0).map(loc => loc.address + (loc.blockNumber != null ? loc.blockNumber : '')).join('\n');
     }
   }
 
@@ -154,6 +187,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
       if (result) {
         //保存
         if(result.isSave) {
+          this.loadSaleLocaction(result.data); //20201225 S_Add
           this.data.sales.push(result.data);
         }
       }
@@ -175,6 +209,8 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) { 
         
+        this.loadSaleLocaction(result.data); //20201225 S_Add
+
         let position;
         this.data.sales.forEach((me, pos) => {
           if(me.pid === result.data.pid) {

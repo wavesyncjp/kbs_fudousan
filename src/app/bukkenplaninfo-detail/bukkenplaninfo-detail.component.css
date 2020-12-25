@@ -45,3 +45,7 @@ mat-select {
 .left{
     float: left;
 }
+
+::ng-deep.multiselect-dropdown {
+    width: 410px !important;
+}
