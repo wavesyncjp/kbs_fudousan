@@ -78,15 +78,23 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     */
     // 20201124 E_Delete
 
-    this.service.getLandPlan(this.pid).then(ret => {
-      this.convertForDisplay(ret);
-
-      if(this.data.plans == null || this.data.plans.length === 0) {
-        this.data.plans = [new Bukkenplaninfo()];
-      }
-
+    if(this.pid != undefined && this.pid > 0) {
+      this.service.getLandPlan(this.pid).then(ret => {
+        this.convertForDisplay(ret);
+  
+        if(this.data.plans == null || this.data.plans.length === 0) {
+          this.data.plans = [new Bukkenplaninfo()];
+        }
+  
+        this.spinner.hide();
+      });
+    }
+    else {
+      this.data = new LandPlanInfo();
+      this.data.land = new Templandinfo();
       this.spinner.hide();
-    });
+    }
+    
   }
 
   convertForDisplay(ret) { 
