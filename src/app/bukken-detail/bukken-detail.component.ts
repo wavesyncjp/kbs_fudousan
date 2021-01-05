@@ -609,7 +609,7 @@ export class BukkenDetailComponent extends BaseComponent {
   gotoPlan() {
     if(this.pid != null && this.pid > 0) {
       this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
-    }    
+    }
   }
 
 

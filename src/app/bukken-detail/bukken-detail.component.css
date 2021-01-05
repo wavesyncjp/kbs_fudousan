@@ -302,7 +302,7 @@ mat-form-field > input {
 
   /*20200731 S_Add*/
   ::ng-deep.multiselect-dropdown {
-    width: 275px !important;
+    width: 300px !important;
     margin-left: 3px;
   }
   

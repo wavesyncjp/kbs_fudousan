@@ -143,16 +143,16 @@ export class ContractListComponent  extends BaseComponent {
     this.cond.decisionDay_To = this.cond.decisionDay_ToMap != null ? this.datepipe.transform(this.cond.decisionDay_ToMap, 'yyyyMMdd') : "";
     //20201223 E_Add
     this.service.searchContract(this.cond).then(res => {
-
+      // 20210103 S_Add
       res.forEach(me => {
         if(me['contracts'] != null) {
           me['contracts'].forEach(ct => {
             ct['select'] = true;
           });
-        }        
+        }
       });
-
-      this.dataSource.data = res;      
+      // 20210103 E_Add
+      this.dataSource.data = res;
       this.dataSource.sort = this.sort;
       this.spinner.hide();
       this.service.searchCondition = this.cond;
@@ -206,7 +206,7 @@ export class ContractListComponent  extends BaseComponent {
             lst.push(Number(ct['pid']));
           }
         });
-      }      
+      }
     });
     if(lst.length === 0) return;
 

@@ -47,16 +47,16 @@ mat-select {
 }
 
 ::ng-deep.address_select .dropdown-btn {
-    width: 400px !important;
+    width: 380px !important;
 }
 
 ::ng-deep.address_select .multiselect-dropdown .dropdown-btn .selected-item {
-    height: 22px;
-    padding-top: 5px !important;
-    margin-top: -4px !important;
+    height: 20px;
+    padding-top: 4px !important;
+    margin-top: -2px !important;
     font-size: 14px;
 }
 
 ::ng-deep.address_select .dropdown-list {
-    width: 400px !important;    
+    width: 380px !important;
 }
