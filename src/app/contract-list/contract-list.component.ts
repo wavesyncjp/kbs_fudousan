@@ -9,6 +9,8 @@ import { DatePipe } from '@angular/common';
 import { BaseComponent } from '../BaseComponent';
 import { Contractinfo } from '../models/contractinfo';
 import { Templandinfo } from '../models/templandinfo';
+import { Util } from '../utils/util';
+import { CsvTemplateComponent } from '../csv-template/csv-template.component';
 
 @Component({
   selector: 'app-contract-list',
@@ -26,7 +28,7 @@ export class ContractListComponent  extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'contractBukkenNo', 'remark1', 'remark2', 'contractNo', 'contractOwner', 'detail'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'decisionDay', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'decisionDay', 'detail', 'csvCheck'];
   //20200906 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
@@ -56,8 +58,9 @@ export class ContractListComponent  extends BaseComponent {
     decisionDay_ToMap: null,
     decisionDay_To: ''
     //20201223 E_Add
- };
- search = '0';
+  };
+  search = '0';
+  searched = false;// 20210103 Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -140,10 +143,20 @@ export class ContractListComponent  extends BaseComponent {
     this.cond.decisionDay_To = this.cond.decisionDay_ToMap != null ? this.datepipe.transform(this.cond.decisionDay_ToMap, 'yyyyMMdd') : "";
     //20201223 E_Add
     this.service.searchContract(this.cond).then(res => {
-      this.dataSource.data = res;
+
+      res.forEach(me => {
+        if(me['contracts'] != null) {
+          me['contracts'].forEach(ct => {
+            ct['select'] = true;
+          });
+        }        
+      });
+
+      this.dataSource.data = res;      
       this.dataSource.sort = this.sort;
       this.spinner.hide();
       this.service.searchCondition = this.cond;
+      this.searched = true;// 20210103 Add
     });
   }
 
@@ -178,4 +191,43 @@ export class ContractListComponent  extends BaseComponent {
     }
     return contractStaffName;
   }
+
+  // 20210103 S_Add
+  /**
+   * CSV出力
+   */
+  csvExport(){
+
+    let lst: number[] = [];
+    this.dataSource.data.forEach(me => {
+      if(me['contracts'] != null) {
+        me['contracts'].forEach(ct => {
+          if(ct['select']) {
+            lst.push(Number(ct['pid']));
+          }
+        });
+      }      
+    });
+    if(lst.length === 0) return;
+
+    //テンプレート選択
+    const dialogRef = this.dialog.open(CsvTemplateComponent, {
+      width: '450px',
+      height: '200px',
+      data: {
+        type: '03'
+      }
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['choose']) {
+        this.spinner.show();
+        this.service.exportCsv(lst, result['csvCode']).then(ret => {
+          Util.stringToCSV(ret['data'], result['csvName']);
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20210103 E_Add
 }

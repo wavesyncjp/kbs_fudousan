@@ -46,6 +46,17 @@ mat-select {
     float: left;
 }
 
-::ng-deep.multiselect-dropdown {
-    width: 410px !important;
+::ng-deep.address_select .dropdown-btn {
+    width: 400px !important;
+}
+
+::ng-deep.address_select .multiselect-dropdown .dropdown-btn .selected-item {
+    height: 22px;
+    padding-top: 5px !important;
+    margin-top: -4px !important;
+    font-size: 14px;
+}
+
+::ng-deep.address_select .dropdown-list {
+    width: 400px !important;    
 }

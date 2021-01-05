@@ -607,7 +607,9 @@ export class BukkenDetailComponent extends BaseComponent {
    * 物件プラン
    */
   gotoPlan() {
-    this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
+    if(this.pid != null && this.pid > 0) {
+      this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
+    }    
   }
 
 
