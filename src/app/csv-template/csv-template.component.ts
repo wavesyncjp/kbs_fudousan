@@ -28,15 +28,18 @@ export class CsvTemplateComponent extends BaseComponent {
     this.loadTemplate();
   }
 
-  loadTemplate() {    
+  loadTemplate() {
     this.service.loadCsvTemplate(this.data).then(ret => {
-      this.templates = ret;      
+      this.templates = ret;
       if(this.authority !== '03') {
-        this.list = ret.map(me => {return  {codeDetail: me['csvCode'], name: me['csvName']} });      
-      }      
+        this.list = ret.map(me => {return  {codeDetail: me['csvCode'], name: me['csvName']} });
+      }
       //営業権限の場合
       else {
-        this.list = ret.filter(me =>  me['csvCode'] !== '0104').map(me => {return  {codeDetail: me['csvCode'], name: me['csvName']} });      
+        // 20210106 S_Update
+        /*this.list = ret.filter(me => me['csvCode'] !== '0104').map(me => {return {codeDetail: me['csvCode'], name: me['csvName']} });*/
+        this.list = ret.filter(me => me['csvCode'] !== '0104' && me['csvCode'] !== '0105').map(me => {return {codeDetail: me['csvCode'], name: me['csvName']} });
+        // 20210106 E_Update
       }
     });
   }
