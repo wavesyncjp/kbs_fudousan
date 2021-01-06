@@ -55,7 +55,10 @@
             </td>
             <th>家屋番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01' || data.locationType == '03'" class="width100" maxlength="30">
+                <!-- 20210106 S_Update -->
+                <!--<input type="text" [(ngModel)]="data.buildingNumber" [disabled]="data.locationType == '01' || data.locationType == '03'" class="width100" maxlength="30">-->
+                <input type="text" [(ngModel)]="data.buildingNumber" [ngClass]="{'width100': true, 'error': errors['buildingNumber']}" [disabled]="data.locationType == '01' || data.locationType == '03'" class="width100" maxlength="30">
+                <!-- 20210106 E_Update -->
             </td>
         </tr>
         <tr>

@@ -106,13 +106,16 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     if(this.data.land != null && this.data.land.pid > 0) {
       let cond = {
         tempLandInfoPid: this.data.land.pid,
-        clctLocationType: ['01', '02']
+        // 20210106 S_Update
+        //clctLocationType: ['01', '02']
+        clctLocationType: ['01', '02', '04']
+        // 20210106 E_Update
       };
       this.service.searchLocation(cond).then(ret => {
         this.locAdresses = ret;
 
         this.data.sales.forEach(me => {
-          this.loadSaleLocaction(me);                    
+          this.loadSaleLocaction(me);
         });
 
       });
@@ -153,7 +156,10 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     if(this.locAdresses == null || this.locAdresses.length == 0) return;
     if(!this.isBlank(sale.salesLocation)) {
       let locs = sale.salesLocation.split(',');
-      sale.salesLocationStr = this.locAdresses.filter(loc => locs.indexOf(String(loc.pid)) >= 0).map(loc => loc.address + (loc.blockNumber != null ? loc.blockNumber : '')).join('\n');
+      // 20210106 S_Update
+      /*sale.salesLocationStr = this.locAdresses.filter(loc => locs.indexOf(String(loc.pid)) >= 0).map(loc => loc.address + (loc.blockNumber != null ? loc.blockNumber : '')).join('\n');*/
+      sale.salesLocationStr = this.locAdresses.filter(loc => locs.indexOf(String(loc.pid)) >= 0).map(loc => (loc.address != null ? loc.address : '') + (loc.blockNumber != null ? loc.blockNumber : '') + (loc.buildingNumber != null ? loc.buildingNumber : '')).join('\n');
+      // 20210106 E_Update
     }
   }
 

@@ -29,7 +29,7 @@
                 <!--<app-select-component [codes]="getLocAdress()" style="width: 400px;" [(ngModel)]="data.salesLocation" [exclass] = "true"></app-select-component>-->
                 <ng-multiselect-dropdown class="address_select"
                     [placeholder]="'選択'"
-                    [data]="selectAddresses"                    
+                    [data]="selectAddresses"
                     [(ngModel)]="data.salesLocationMap"
                     [settings]="dropdownSettings"
                 >
@@ -162,7 +162,7 @@
             <td>
                 <input type="text" [(ngModel)]="data.salesRetainageMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesRetainageMap)">
             </td>
-            <th>留保金支払日</th>
+            <th>留保金入金日</th>
             <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="salesRetainageDay" [(ngModel)]="data.salesRetainageDayMap" class="width100">

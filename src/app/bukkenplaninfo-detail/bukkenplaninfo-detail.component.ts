@@ -41,7 +41,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     idField: 'codeDetail',
     textField: 'name',
     searchPlaceholderText: '検索',
-    itemsShowLimit: 3,
+    // 20210106 S_Update
+//    itemsShowLimit: 3,
+    itemsShowLimit: 1,
+    // 20210106 E_Update
     allowSearchFilter: true,
     enableCheckAll: false
   };
@@ -70,7 +73,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     // 売買対象（所在地）を取得
     this.cond = {
       tempLandInfoPid: this.data.tempLandInfoPid,
-      clctLocationType: ['01', '02']
+      // 20210106 S_Update
+      //clctLocationType: ['01', '02']
+      clctLocationType: ['01', '02', '04']
+      // 20210106 E_Update
     };
     funcs.push(this.service.searchLocation(this.cond));
     // 20201221 E_Add
@@ -91,7 +97,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       this.locAdresses = values[1];// 住所 20201221 Add
 
       //20201225 S_Add
-      this.selectAddresses = this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+      // 20210106 S_Update
+      /*this.selectAddresses = this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));*/
+      this.selectAddresses = this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: (locAdress.address != null ? locAdress.address : '') + (locAdress.blockNumber != null ? locAdress.blockNumber : '') + (locAdress.buildingNumber != null ? locAdress.buildingNumber : '')}));
+      // 20210106 E_Update
       this.data.salesLocationMap = this.selectAddresses.filter(me => this.data.salesLocation.split(',').indexOf(me.codeDetail) >= 0).map(me => {return {codeDetail: me.codeDetail, name: me.name}});
       //20201225 E_Add
       

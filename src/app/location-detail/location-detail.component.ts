@@ -480,6 +480,7 @@ export class LocationDetailComponent extends BaseComponent {
     // 20200831 S_Add
     if (this.data.locationType === '04') {
       this.checkBlank(this.data.ridgePid, `ridgePid`, '一棟の建物は必須です。');
+      this.checkBlank(this.data.buildingNumber, `buildingNumber`, '家屋番号は必須です。');// 20210106 Add
     }
     // 20200831 E_Add
     // 20201221 S_Add
