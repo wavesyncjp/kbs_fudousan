@@ -99,7 +99,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       //20201225 S_Add
       // 20210106 S_Update
       /*this.selectAddresses = this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));*/
-      this.selectAddresses = this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: (locAdress.address != null ? locAdress.address : '') + (locAdress.blockNumber != null ? locAdress.blockNumber : '') + (locAdress.buildingNumber != null ? locAdress.buildingNumber : '')}));
+      this.selectAddresses = this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: (locAdress.address != null ? locAdress.address : '') + (locAdress.blockNumber != null ? locAdress.blockNumber : '') + " " + (locAdress.buildingNumber != null ? locAdress.buildingNumber : '')}));
       // 20210106 E_Update
       this.data.salesLocationMap = this.selectAddresses.filter(me => this.data.salesLocation.split(',').indexOf(me.codeDetail) >= 0).map(me => {return {codeDetail: me.codeDetail, name: me.name}});
       //20201225 E_Add
@@ -168,6 +168,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   /**
    * 売買対象（所在地）取得
    */
+  /*
   getLocAdress() {
     if (this.locAdresses) {
       return this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
@@ -175,6 +176,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       return [];
     }
   }
+  */
   // 20201221 E_Add
 
   /**

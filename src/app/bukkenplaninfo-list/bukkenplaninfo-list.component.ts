@@ -158,7 +158,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
       let locs = sale.salesLocation.split(',');
       // 20210106 S_Update
       /*sale.salesLocationStr = this.locAdresses.filter(loc => locs.indexOf(String(loc.pid)) >= 0).map(loc => loc.address + (loc.blockNumber != null ? loc.blockNumber : '')).join('\n');*/
-      sale.salesLocationStr = this.locAdresses.filter(loc => locs.indexOf(String(loc.pid)) >= 0).map(loc => (loc.address != null ? loc.address : '') + (loc.blockNumber != null ? loc.blockNumber : '') + (loc.buildingNumber != null ? loc.buildingNumber : '')).join('\n');
+      sale.salesLocationStr = this.locAdresses.filter(loc => locs.indexOf(String(loc.pid)) >= 0).map(loc => (loc.address != null ? loc.address : '') + (loc.blockNumber != null ? loc.blockNumber : '') + " " + (loc.buildingNumber != null ? loc.buildingNumber : '')).join('\n');
       // 20210106 E_Update
     }
   }
@@ -169,7 +169,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   addPlan(): void {
     let plan = new Bukkenplaninfo();
     plan.tempLandInfoPid = this.data.land.pid;
-    this.data.plans.push(plan);  
+    this.data.plans.push(plan);
   }
 
   /**
