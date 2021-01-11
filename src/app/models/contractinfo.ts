@@ -46,7 +46,7 @@ export class Contractinfo {
     decisionDayChk: string;
     settlementDay: string;
     settlementDayFin: string;
-    settlementAfter: string;
+    settlementAfter: string = '1か月';
     retainage: number;
     retainageDay: string;
     supplierName: string;

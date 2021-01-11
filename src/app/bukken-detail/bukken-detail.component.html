@@ -8,7 +8,7 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
 
-    <table class="detail-tbl"  style="margin:10px;width:99%">  
+    <table class="detail-tbl"  style="margin:10px;width:99%">
         <tr>
             <th>物件番号</th>
             <td>
@@ -27,12 +27,11 @@
                 <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" maxlength="100">
             </td>
         </tr>
-        <!--hirano_202004.15_edd-->
     </table>
-        
+
     <table class="detail-tbl"  style="margin:10px;width:99%">
         <tr>
-            <td colspan="8" class="tab_bottom">                
+            <td colspan="8" class="tab_bottom">
                 <div class="tab-wrap">
                     <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">物件情報</label>
                     <input id="tab02" type="radio" name="tab" [disabled]="pid == null || !(pid > 0)" class="tab-switch"><label (click)="gotoPlan()" class="tab-label" for="tab02">プラン</label>
@@ -41,16 +40,13 @@
                 <div class="switch-tab">
                     <span>物件情報</span>
                     <button mat-flat-button  style="background-color: pink;" (click)="gotoPlan()">ブラン</button>
-                </div>  
-                -->                  
-            </td>                
+                </div>
+                -->
+            </td>
         </tr>
-        <!--hirano_202004.15_edd-->
     </table>
-    <!--hirano_202004.15_edd
-    <mat-tab-group class="bukken-tab">-->
+
     <table class ="block-status">
-        
         <tr>
             <th class="block-title-statusNew">情報ステータス</th>
             <td>
@@ -60,8 +56,16 @@
                 <!-- 20200731 E_Update -->
             </td>
         </tr>
-
-        <table class="detail-tbl-status">  
+        <table class="detail-tbl-status">
+            <!-- 20210112 S_Add -->
+            <tr>
+                <th>物件管理表</th>
+                <td colspan="4">
+                    <mat-checkbox [checked]="data.bukkenListChk === '1'" (change)="changeFlg($event, 'bukkenListChk')" [disabled]="disableUser"></mat-checkbox>
+                </td>
+                <td><button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="sameClick()" [disabled]="disableUser">物件担当者と同じ</button></td>
+            </tr>
+            <!-- 20210112 E_Add -->
             <tr>
                 <th>物件担当部署</th>
                 <td style="width: 220px;">
@@ -90,32 +94,8 @@
                     </ng-multiselect-dropdown>
                     <!-- 20200731 E_Add -->
                 </td>
-                <th>着手日</th>
-                <td>
-                    <div class="picker-div">
-                        <!-- 20200731 S_Update -->
-                        <!--<input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">-->
-                        <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100" [disabled]="disableUser">
-                        <!-- 20200731 E_Update -->
-                        <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
-                        <mat-datepicker #startDate></mat-datepicker>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>情報収集日</th>
-                <td style="width: 220px;">
-                    <div class="picker-div">
-                        <!-- 20200731 S_Update -->
-                        <!--<input type="text" [matDatepicker]="pickDate" [(ngModel)]="data.pickDateMap"  class="width100">-->
-                        <input type="text" [matDatepicker]="pickDate" [(ngModel)]="data.pickDateMap" class="width100" [disabled]="disableUser">
-                        <!-- 20200731 E_Update -->
-                        <mat-datepicker-toggle matSuffix [for]="pickDate" class="picker-icon"></mat-datepicker-toggle>
-                        <mat-datepicker #pickDate></mat-datepicker>
-                    </div>
-                </td>
                 <th>情報提供者</th>
-                <td style="width: 360px;"> 
+                <td style="width: 360px;">
                     <!-- 20200731 S_Delete -->
                     <!--
                     <mat-select multiple class="width300" [(ngModel)]="data.infoOfferMap">
@@ -134,6 +114,30 @@
                     </ng-multiselect-dropdown>
                     <!-- 20200731 E_Add -->
                 </td>
+            </tr>
+            <tr>
+                <th>情報収集日</th>
+                <td style="width: 220px;">
+                    <div class="picker-div">
+                        <!-- 20200731 S_Update -->
+                        <!--<input type="text" [matDatepicker]="pickDate" [(ngModel)]="data.pickDateMap"  class="width100">-->
+                        <input type="text" [matDatepicker]="pickDate" [(ngModel)]="data.pickDateMap" class="width100" [disabled]="disableUser">
+                        <!-- 20200731 E_Update -->
+                        <mat-datepicker-toggle matSuffix [for]="pickDate" class="picker-icon"></mat-datepicker-toggle>
+                        <mat-datepicker #pickDate></mat-datepicker>
+                    </div>
+                </td>
+                <th>着手日</th>
+                <td>
+                    <div class="picker-div">
+                        <!-- 20200731 S_Update -->
+                        <!--<input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100">-->
+                        <input type="text" [matDatepicker]="startDate" [(ngModel)]="data.startDateMap" class="width100" [disabled]="disableUser">
+                        <!-- 20200731 E_Update -->
+                        <mat-datepicker-toggle matSuffix [for]="startDate" class="picker-icon"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                    </div>
+                </td>
                 <th>終了日</th>
                 <td>
                     <div class="picker-div">
@@ -146,7 +150,6 @@
                     </div>
                 </td>
             </tr>
-            
             <tr>
                 <th>備考1</th>
                 <td colspan="5">
@@ -154,7 +157,7 @@
                     <!--<input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100">-->
                     <input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
                     <!-- 20200731 E_Update -->
-                </td>      
+                </td>
             </tr>
             <tr>
                 <th>備考2</th>
@@ -163,178 +166,172 @@
                     <!--<input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100">-->
                     <input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
                     <!-- 20200731 E_Update -->
-                </td>      
+                </td>
             </tr>
         </table>
         <br>
         <span class="block-title-etc">物件概要</span>
-        <table class="detail-tbl-etc">  
+        <table class="detail-tbl-etc">
             <tr>
                 <th>不可分</th>
                 <td>
                     <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
                 </td>
                 <th>不可分子</th>
-                <td><input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15"></td>
+                <td>
+                    <!-- 20210112 S_Update -->
+                    <!--<input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15">-->
+                    <input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)">
+                    <!-- 20210112 E_Update -->
+                </td>
                 <th>不可分母</th>
-                <td><input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15"></td>
+                <td>
+                    <!-- 20210112 S_Update -->
+                    <!--<input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15">-->
+                    <input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)">
+                    <!-- 20210112 E_Update -->
+                </td>
+                <!-- 20210112 S_Add -->
+                <th>重要度</th>
+                <td>
+                    <app-select-component [codes]="getCode('028')" [(ngModel)]="data.importance"></app-select-component>
+                </td>
+            </tr>
+            <tr>
+                <!-- 20210112 E_Add -->
                 <th>容積率</th>
-<!--                
+<!--
                 <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width60': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%</td>
 -->
-                <td><input type="text" [(ngModel)]="data.floorAreaRatio" class = "width80" maxlength="20"></td>
+                <td>
+                    <input type="text" [(ngModel)]="data.floorAreaRatio" class = "width80" maxlength="20">
+                </td>
                 <th>建蔽率</th>
-                <td><input type="text" [(ngModel)]="data.coverageRate"  [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%</td>
+                <td>
+                    <input type="text" [(ngModel)]="data.coverageRate" [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%
+                </td>
             </tr>
-            <!--11/26修正-->
-            
-            <!--11/26修正-->
-    
             <tr>
                 <th>地図添付</th>
                 <td colspan="5">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
-                    <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>                                        
-               
+                    <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
                     <table style="margin-left: 5px;">
                         <tr *ngFor="let map of data.mapFiles">
                             <td class="min-width160"><a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a></td>
                             <td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button></td>
                         </tr>
                     </table>
-                    
-                    
-                </td> 
-            </tr> 
+                </td>
+            </tr>
             <tr>
                 <th>ファイル添付</th>
                 <td colspan="5" >
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
-                    <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>  
-
+                    <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
                     <table style="margin-left: 5px;">
                         <tr *ngFor="let map of data.attachFiles">
                             <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
                             <td><input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;" maxlength="100"></td>
                             <td><button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button></td>
                         </tr>
-                        
                     </table>
-                    
                 </td>
             </tr>
         </table>
     </table>
-<!--11/26修正-->
+
     <div class="button-div-left">
         <button mat-raised-button *ngIf="this.data.pid > 0" class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
         <button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract()">契約情報　登録</button>
         <button mat-raised-button *ngIf="this.data.pid > 0" class="button export-button"  (click)="export()">売買取引管理表　出力</button>
     </div>
-    <!--Tab group-->
-    <!--block-->
-<!--所有地-->
-        <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
-            <span class="min">謄本情報　一覧</span>
-            <table>
-                <thead class="list-header">
-                    
-                    <th class="width80">契約<br>ステータス</th>
 
-                    <th class="width100">区分</th>
-                    <th>所在</th>
-                    <th>地番</th>
-                    <th class="width80">家屋番号</th>
-                    <th>面積・床面積</th>
-                    <th>所有者（代表）</th>
-                    <th>所有者住所（代表）</th>
-                    <th class="width80">権利形態</th>
-                    <th>備考</th>
-                    <!--<th>契約者</th>-->
-                    <!--<th class="width100">決済日</th>-->
-                    <th class="width100">契約番号</th>
-                    <th class="width80">謄本詳細</th>
-                    <th class="width80">コピー</th>                       
-                </thead>
-                <tbody class="list-body">
-                    <tr *ngFor="let loc of data.locations; index as pos">                                             
-                        <td>
-                            {{showStatus(loc)}}                  
-                        </td>
-                        <td class="break-line">{{getCodeTitle('007', loc.locationType)}}</td>
-                        <td class="text-left">{{loc.address}}</td>
-                        <td class="text-left">{{loc.blockNumber}}</td>
-                        <td class="text-left">{{loc.buildingNumber}}</td>
-                        <td class="text-right">{{loc.locationType === '01' ? formatIntNumber(loc.area != null && loc.area !== '' && loc.area > 0 ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
-                        <td class="text-left">{{loc.owner}}</td>
-                        <td class="text-left">{{loc.ownerAdress}}</td>
-                        <td>{{getCodeTitle('011', loc.rightsForm)}}</td>
-                        <td>{{loc.ownerRemark}}</td>
-                        <!--<td></td>-->
-                        <td>
-                            <div class="contract-div">
-                                <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{ShowContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
-                            </div>
-                        </td>
-                        <td><button mat-raised-button (click)="showLocation(loc, pos)" color="warn">詳細</button></td>
-                        <td><button mat-raised-button (click)="copyLocation(loc)" color="primary">コピー</button></td>                        
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-<!--/所有地-->
+    <!--所有地-->
+    <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
+        <span class="min">謄本情報　一覧</span>
+        <table>
+            <thead class="list-header"> 
+                <th class="width80">契約<br>ステータス</th>
+                <th class="width100">区分</th>
+                <th>所在</th>
+                <th>地番</th>
+                <th class="width80">家屋番号</th>
+                <th>面積・床面積</th>
+                <th>所有者（代表）</th>
+                <th>所有者住所（代表）</th>
+                <th class="width80">権利形態</th>
+                <th>備考</th>
+                <th class="width100">契約番号</th>
+                <th class="width80">謄本詳細</th>
+                <th class="width80">コピー</th>
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let loc of data.locations; index as pos">
+                    <td>
+                        {{showStatus(loc)}}
+                    </td>
+                    <td class="break-line">{{getCodeTitle('007', loc.locationType)}}</td>
+                    <td class="text-left">{{loc.address}}</td>
+                    <td class="text-left">{{loc.blockNumber}}</td>
+                    <td class="text-left">{{loc.buildingNumber}}</td>
+                    <td class="text-right">{{loc.locationType === '01' ? formatIntNumber(loc.area != null && loc.area !== '' && loc.area > 0 ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
+                    <td class="text-left">{{loc.owner}}</td>
+                    <td class="text-left">{{loc.ownerAdress}}</td>
+                    <td>{{getCodeTitle('011', loc.rightsForm)}}</td>
+                    <td>{{loc.ownerRemark}}</td>
+                    <td>
+                        <div class="contract-div">
+                            <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{ShowContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
+                        </div>
+                    </td>
+                    <td><button mat-raised-button (click)="showLocation(loc, pos)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button (click)="copyLocation(loc)" color="primary">コピー</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--/所有地-->
 
-<!--契約情報-->
-
-        <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
-            <span class="min">契約一覧</span>
-            <table>
-                <thead class="list-header">
-                    <th class="width100">契約状況</th><!-- 20200730 Add -->
-                    <th class="width150">契約番号</th>
-                    <!--20200414hirano src_S-->
-                    <th class="width100">契約書番号</th>
-                    <!--20200414hirano src_E-->
-                    <th class="width100">契約日</th>
-                    <th>契約者</th>
-                    <th>所在</th>
-                    <th class="width80">地番</th>
-                    <th class="width80">家屋番号</th>
-                    <th>所有者</th>
-                    <th class="width100">売買代金</th>
-                    <th class="width100">決済日</th>
-                    <th class="width80">詳細</th>
-                </thead>
-                <tbody class="list-body">
-                    <tr *ngFor="let contract of contracts">
-                        <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
-                        <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
-                        <!--20200414hirano src_S-->
-                        <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
-                        <!--20200414hirano src_E-->
-                        <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
-                        <td style="white-space: pre;">{{displaySeller(contract)}}</td>
-                        <td style="white-space: pre;">{{displayAddress(contract)}}</td>
-                        <td style="white-space: pre;">{{displayBlockNumber(contract)}}</td>
-                        <td style="white-space: pre;">{{displayBuildingNumber(contract)}}</td>
-                        <td style="white-space: pre;">{{displayOwner(contract)}}</td>
-                        <td class="text-right">{{formatIntNumber(contract.tradingPrice, '円')}}</td>
-                        <td>{{formatDay(contract.decisionDay, 'yyyy/MM/dd')}}</td>
-                        <td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>               
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-       
-    
-        <!--/契約情報-->
-            
-    <!--11/26修正-->
-
-        <div class="register-div-bottom">
-            <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-            <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
-        </div>
-        <!--hirano_202004.15_edd
-    </mat-tab-group>-->
+    <!--契約情報-->
+    <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
+        <span class="min">契約一覧</span>
+        <table>
+            <thead class="list-header">
+                <th class="width100">契約状況</th><!-- 20200730 Add -->
+                <th class="width150">契約番号</th>
+                <th class="width100">契約書番号</th>
+                <th class="width100">契約日</th>
+                <th>契約者</th>
+                <th>所在</th>
+                <th class="width80">地番</th>
+                <th class="width80">家屋番号</th>
+                <th>所有者</th>
+                <th class="width100">売買代金</th>
+                <th class="width100">決済日</th>
+                <th class="width80">詳細</th>
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let contract of contracts">
+                    <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
+                    <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
+                    <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
+                    <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
+                    <td style="white-space: pre;">{{displaySeller(contract)}}</td>
+                    <td style="white-space: pre;">{{displayAddress(contract)}}</td>
+                    <td style="white-space: pre;">{{displayBlockNumber(contract)}}</td>
+                    <td style="white-space: pre;">{{displayBuildingNumber(contract)}}</td>
+                    <td style="white-space: pre;">{{displayOwner(contract)}}</td>
+                    <td class="text-right">{{formatIntNumber(contract.tradingPrice, '円')}}</td>
+                    <td>{{formatDay(contract.decisionDay, 'yyyy/MM/dd')}}</td>
+                    <td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--/契約情報-->
+    <div class="register-div-bottom">
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+    </div>
 </div>

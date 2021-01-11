@@ -60,6 +60,9 @@
                     <input type="text" [matDatepicker]="surveyRequestedDay" [(ngModel)]="data.land.surveyRequestedDayMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="surveyRequestedDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #surveyRequestedDay></mat-datepicker>
+                    <!-- 20210112 S_Add -->
+                    &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.land.surveyRequestedDayChk === '1'" (change)="flgFinish($event, 'surveyRequestedDayChk')"></mat-checkbox>
+                    <!-- 20210112 E_Add -->
                 </div>
                 </td>
                 <th>測量依頼先</th>

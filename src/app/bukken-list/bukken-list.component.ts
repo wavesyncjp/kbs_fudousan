@@ -53,6 +53,12 @@ export class BukkenListComponent extends BaseComponent {
     finishDate_To: '',
     finishDateSearch_To: '',
     //20200913 E_Add
+    //20210112 S_Add
+    salesDecisionDay_From: '',
+    salesDecisionDaySearch_From: '',
+    salesDecisionDay_To: '',
+    salesDecisionDaySearch_To: '',
+    //20210112 E_Add
 //    pickDateMap: new Date(),
 //    pickDate: '',
     department: [],
@@ -207,6 +213,12 @@ export class BukkenListComponent extends BaseComponent {
       finishDate_To: '',
       finishDateSearch_To: '',
       //20200913 E_Add
+      //20210112 S_Add
+      salesDecisionDay_From: '',
+      salesDecisionDaySearch_From: '',
+      salesDecisionDay_To: '',
+      salesDecisionDaySearch_To: '',
+      //20210112 E_Add
 //      pickDateMap: new Date(),
 //      pickDate: '',
       department: [],
@@ -247,6 +259,10 @@ export class BukkenListComponent extends BaseComponent {
     this.cond.finishDateSearch_From = this.cond.finishDate_From != null ? this.datepipe.transform(this.cond.finishDate_From, 'yyyyMMdd') : "";
     this.cond.finishDateSearch_To = this.cond.finishDate_To != null ? this.datepipe.transform(this.cond.finishDate_To, 'yyyyMMdd') : "";
     //20200913 E_Add
+    //20210112 S_Add
+    this.cond.salesDecisionDaySearch_From = this.cond.salesDecisionDay_From != null ? this.datepipe.transform(this.cond.salesDecisionDay_From, 'yyyyMMdd') : "";
+    this.cond.salesDecisionDaySearch_To = this.cond.salesDecisionDay_To != null ? this.datepipe.transform(this.cond.salesDecisionDay_To, 'yyyyMMdd') : "";
+    //20210112 E_Add
     this.cond.clctInfoStaff = this.cond.clctInfoStaffMap.map(me => me.userId);//20200828 Add
 
     this.service.searchLand(this.cond).then(res => {
@@ -541,6 +557,10 @@ export class BukkenListComponent extends BaseComponent {
     if(!this.isBlank(this.cond.surveyRequestedDay_To)) this.hasSearchItem = true;
     if(!this.isBlank(this.cond.finishDate_From)) this.hasSearchItem = true;
     if(!this.isBlank(this.cond.finishDate_To)) this.hasSearchItem = true;
+    // 20210112 S_Add
+    if(!this.isBlank(this.cond.salesDecisionDay_From)) this.hasSearchItem = true;
+    if(!this.isBlank(this.cond.salesDecisionDay_To)) this.hasSearchItem = true;
+    // 20210112 E_Add
     if(this.cond.department.length > 0) this.hasSearchItem = true;
     if(this.cond.result.length > 0) this.hasSearchItem = true;
     if(this.cond.clctInfoStaffMap.length > 0) this.hasSearchItem = true;

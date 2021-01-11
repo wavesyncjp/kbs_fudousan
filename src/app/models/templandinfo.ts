@@ -22,15 +22,18 @@ export class Templandinfo {
     startDate = '';
     finishDate = '';
     result = '';
+    bukkenListChk = '';// 20210111 Add
     remark1 = '';
     remark2 = '';
     indivisibleFlg: number;
     indivisibleNumerator: number;
     indivisibleDenominator: string;
+    importance: string;// 20210111 Add
 //    landCategory = '';//20200801 Delete
     floorAreaRatio: string;
     coverageRate: number = null;
     surveyRequestedDay: string;
+    surveyRequestedDayChk: string;// 20210111 Add
     surveyRequested: string;
     surveyStaff: string;
     surveyMapChk: string;

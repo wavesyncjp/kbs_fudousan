@@ -265,8 +265,8 @@
                 <mat-datepicker #settlementDayFin></mat-datepicker>
             </td>
             <th>和解成立後</th>
-            <td>
-                <input type="text" value="1か月以内"  class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter" maxlength="100"><span style="font-size: small;">以内に支払い</span>
+            <td colspan="2">
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter" maxlength="100"><span style="font-size: small;">以内に支払い</span>
             </td>
         </tr>
         <tr>

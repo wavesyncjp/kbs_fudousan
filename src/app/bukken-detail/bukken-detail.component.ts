@@ -629,4 +629,51 @@ export class BukkenDetailComponent extends BaseComponent {
     });
   }
 
+  // 20201006 S_Add
+  /**
+   * 事業収支画面遷移
+   * ※本番では未使用
+   */
+  navigatePlan() {
+    this.router.navigate(['/plandetail'], {queryParams: {bukkenid: this.data.pid}});
+  }
+  // 20201006 E_Add
+
+  // 20210112 S_Add
+  /**
+   * チェックボックスON/OFF
+   */
+  changeFlg(event, flgType: string) {
+    if(flgType === 'bukkenListChk') this.data.bukkenListChk = (event.checked ? '1' : '0');
+  }
+
+  /**
+   * 物件担当者と同じボタン
+   */
+  sameClick() {
+    this.data.infoOfferMap = this.data.infoStaffMap;
+  }
+
+  /**
+   * 重要度決定
+   */
+  setImportance(data: Templandinfo) {
+    let importance = '';
+    // 不可分分子
+    let indivisibleNumerator = this.getNumber(this.removeComma(data.indivisibleNumerator));
+    // 不可分分母
+    let indivisibleDenominator = this.getNumber(this.removeComma(data.indivisibleDenominator));
+    
+    if(indivisibleNumerator > 0 && indivisibleDenominator > 0) {
+      let rate = Math.floor(indivisibleNumerator / indivisibleDenominator * 100)
+      // 不可分子/不可分母≧50％
+      if(rate >= 50) importance = 'A';
+      // 不可分子≧2かつ不可分子/不可分母<50％
+      else if(indivisibleNumerator >= 2 && rate < 50) importance = 'B';
+      // 不可分子＝1
+      else if(indivisibleNumerator == 1) importance = 'C';
+    }
+    data.importance = importance;
+  }
+  // 20210112 E_Add
 }
