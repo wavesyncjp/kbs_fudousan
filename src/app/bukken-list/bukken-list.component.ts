@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatTabGroup, MatRadioChange } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatTabGroup, MatRadioChange, MatCheckbox } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
@@ -69,8 +69,13 @@ export class BukkenListComponent extends BaseComponent {
     mode: 1,
     //20200828 S_Add
     clctInfoStaff: [],
-    clctInfoStaffMap: []
+    clctInfoStaffMap: [],
     //20200828 E_Add
+    //20210113 S_Add
+    bukkenListChk: '',
+    importance: [],
+    surveyRequestedDayChk: ''
+    //20210113 E_Add
  };
   dropdownSettings = {};//20200828 Add
   search = '0';
@@ -88,6 +93,11 @@ export class BukkenListComponent extends BaseComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
+
+  // 20210113 S_Add
+  @ViewChild('cbxBukkenListChk', {static: true}) cbxBukkenListChk: MatCheckbox;
+  @ViewChild('cbxSurveyRequestedDayChk', {static: true}) cbxSurveyRequestedDayChk: MatCheckbox;
+  // 20210113 E_Add
 
   // マップ
   @ViewChild('mapContainer', {static: true}) gmap: ElementRef;
@@ -137,7 +147,7 @@ export class BukkenListComponent extends BaseComponent {
     }
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['001']));
+    funcs.push(this.service.getCodes(['001', '028']));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.getEmps(null));//20200828 Add
 
@@ -229,8 +239,13 @@ export class BukkenListComponent extends BaseComponent {
       mode: 1,
       //20200828 S_Add
       clctInfoStaff: [],
-      clctInfoStaffMap: []
+      clctInfoStaffMap: [],
       //20200828 E_Add
+      //20210113 S_Add
+      bukkenListChk: '',
+      importance: [],
+      surveyRequestedDayChk: ''
+      //20210113 E_Add
    };
   }
 
@@ -265,6 +280,10 @@ export class BukkenListComponent extends BaseComponent {
     //20210112 E_Add
     this.cond.clctInfoStaff = this.cond.clctInfoStaffMap.map(me => me.userId);//20200828 Add
 
+    //20210113 S_Add
+    this.cond.bukkenListChk = this.cbxBukkenListChk.checked ? '1' : '';
+    this.cond.surveyRequestedDayChk = this.cbxSurveyRequestedDayChk.checked ? '1' : '';
+    //20210113 E_Add
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         res.forEach(obj => {
@@ -560,6 +579,9 @@ export class BukkenListComponent extends BaseComponent {
     // 20210112 S_Add
     if(!this.isBlank(this.cond.salesDecisionDay_From)) this.hasSearchItem = true;
     if(!this.isBlank(this.cond.salesDecisionDay_To)) this.hasSearchItem = true;
+    if(this.cbxBukkenListChk.checked) this.hasSearchItem = true;
+    if(this.cond.importance.length > 0) this.hasSearchItem = true;
+    if(this.cbxSurveyRequestedDayChk.checked) this.hasSearchItem = true;
     // 20210112 E_Add
     if(this.cond.department.length > 0) this.hasSearchItem = true;
     if(this.cond.result.length > 0) this.hasSearchItem = true;

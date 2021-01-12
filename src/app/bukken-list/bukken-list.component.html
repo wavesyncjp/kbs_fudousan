@@ -12,35 +12,59 @@
       <table class="search-tbl">
         <tr>
           <th>物件番号</th>
-          <td>
+          <td colspan="2">
             <input type="text" [(ngModel)]="cond.bukkenNo" class="width100" maxlength="10">
           </td>
 
           <th>契約物件番号</th>
-          <td>
+          <td colspan="2">
             <!-- 20200828 S_Update -->
-            <!--
-            <input type="text" [(ngModel)]="cond.contractBukkenNo" class="width100" maxlength="20">
-            -->
+            <!--<input type="text" [(ngModel)]="cond.contractBukkenNo" class="width100" maxlength="20">-->
             <input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width100" maxlength="20">
             <!-- 20200828 E_Update -->
           </td>
-          
+
+          <!-- 20210112 S_Add -->
+          <th>物件管理表</th>
+          <td colspan="2">
+            <mat-checkbox #cbxBukkenListChk></mat-checkbox>
+          </td>
+          <!-- 20210112 E_Add -->
+        </tr>
+        <tr>
           <th>物件名</th>
           <td colspan="2">
             <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
           </td>
-          <tr>
-          <th>所在地</th>
-          <td colspan="3">
-            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.address" maxlength="100">
-          </td>
+
           <th>住居表示</th>
           <td colspan="2">
             <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.residence" maxlength="100">
           </td>
-          </tr>
-          <tr>
+
+          <th>所在地</th>
+          <td colspan="2">
+            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.address" maxlength="100">
+          </td>
+        </tr>
+        <tr>
+          <th>担当部署</th>
+          <td colspan="5">
+            <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>
+          </td>
+
+          <th>物件担当者</th>
+          <td colspan="2">
+            <ng-multiselect-dropdown class="width300"
+                [placeholder]="'選択'"
+                [data]="emps"
+                [(ngModel)]="cond.clctInfoStaffMap"
+                [settings]="dropdownSettings"
+                >
+            </ng-multiselect-dropdown>
+          </td>
+        </tr>
+        <tr>
           <th>情報収集日</th>
           <td style="width: 150px;">
             <div class="picker-div">
@@ -49,13 +73,15 @@
                 <mat-datepicker #pickDate_From></mat-datepicker>
             </div>&nbsp;&nbsp;～
           </td>
-          <td colspan="2">
+
+          <td>
             <div class="picker-div">
                 <input type="text" [matDatepicker]="pickDate_To" [(ngModel)]="cond.pickDate_To"  placeholder="終了日"class="width100">
                 <mat-datepicker-toggle matSuffix [for]="pickDate_To" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #pickDate_To></mat-datepicker>
             </div>
           </td>
+
           <th>測量依頼日</th>
           <td style="width: 150px;"> 
             <div class="picker-div">
@@ -64,6 +90,7 @@
                 <mat-datepicker #surveyRequestedDay_From></mat-datepicker>
             </div>&nbsp;&nbsp;～
           </td>
+
           <td>
             <div class="picker-div">
                 <input type="text" [matDatepicker]="surveyRequestedDay_To" [(ngModel)]="cond.surveyRequestedDay_To" placeholder="終了日" class="width100">
@@ -71,70 +98,69 @@
                 <mat-datepicker #surveyRequestedDay_To></mat-datepicker>
             </div>
           </td>
-          
+
+          <!-- 20210112 S_Add -->
+          <th>測量依頼日（済）</th>
+          <td colspan="2">
+            <mat-checkbox #cbxSurveyRequestedDayChk></mat-checkbox>
+          </td>
+          <!-- 20210112 E_Add -->
         </tr>
+        <!-- 20200828 S_Add -->
         <tr>
-          <th>担当部署</th>
-          　<td colspan="3">
-                <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>                              
-            </td>
-           <th>結果</th>
+          <!-- 20200913 S_Add -->
+          <th>終了日</th>
+          <td style="width: 150px;"> 
+            <div class="picker-div">
+              <input type="text" [matDatepicker]="finishDate_From" [(ngModel)]="cond.finishDate_From" placeholder="開始日" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="finishDate_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #finishDate_From></mat-datepicker>
+            </div>&nbsp;&nbsp;～
+          </td>
+
+          <td>
+            <div class="picker-div">
+              <input type="text" [matDatepicker]="finishDate_To" [(ngModel)]="cond.finishDate_To" placeholder="終了日" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="finishDate_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #finishDate_To></mat-datepicker>
+            </div>
+          </td>
+          <!-- 20200913 E_Add -->
+          <!-- 20210112 S_Add -->
+          <th>決済日</th>
+          <td style="width: 150px;"> 
+            <div class="picker-div">
+              <input type="text" [matDatepicker]="salesDecisionDay_From" [(ngModel)]="cond.salesDecisionDay_From" placeholder="開始日" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="salesDecisionDay_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #salesDecisionDay_From></mat-datepicker>
+            </div>&nbsp;&nbsp;～
+          </td>
+
+          <td>
+            <div class="picker-div">
+              <input type="text" [matDatepicker]="salesDecisionDay_To" [(ngModel)]="cond.salesDecisionDay_To" placeholder="終了日" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="salesDecisionDay_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #salesDecisionDay_To></mat-datepicker>
+            </div>
+          </td>
+
+          <th>重要度</th>
           <td colspan="2">
             <section>
-              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>              
+              <mat-checkbox *ngFor="let code of getCode('028')" [checked]="inList(cond.importance, code.codeDetail)"  (change)="changeCheck(cond.importance, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>
             </section>
           </td>
-      </tr>
-      <!-- 20200828 S_Add -->
-      <tr>
-        <th>物件担当者</th>
-        <td colspan="3">
-          <ng-multiselect-dropdown class="width300"
-                [placeholder]="'選択'"
-                [data]="emps"
-                [(ngModel)]="cond.clctInfoStaffMap"
-                [settings]="dropdownSettings"
-                >
-            </ng-multiselect-dropdown>
-        </td>
-        <!-- 20200913 S_Add -->
-        <th>終了日</th>
-        <td style="width: 150px;"> 
-          <div class="picker-div">
-            <input type="text" [matDatepicker]="finishDate_From" [(ngModel)]="cond.finishDate_From" placeholder="開始日" class="width100">
-              <mat-datepicker-toggle matSuffix [for]="finishDate_From" class="picker-icon"></mat-datepicker-toggle>
-              <mat-datepicker #finishDate_From></mat-datepicker>
-          </div>&nbsp;&nbsp;～
-        </td>
-        <td>
-          <div class="picker-div">
-            <input type="text" [matDatepicker]="finishDate_To" [(ngModel)]="cond.finishDate_To" placeholder="終了日" class="width100">
-              <mat-datepicker-toggle matSuffix [for]="finishDate_To" class="picker-icon"></mat-datepicker-toggle>
-              <mat-datepicker #finishDate_To></mat-datepicker>
-          </div>
-        </td>
-        <!-- 20200913 E_Add -->
-      </tr>
-      <!-- 20200828 E_Add -->
-      <!-- 20210112 S_Add -->
-      <tr>
-        <th>決済日</th>
-        <td style="width: 150px;"> 
-          <div class="picker-div">
-            <input type="text" [matDatepicker]="salesDecisionDay_From" [(ngModel)]="cond.salesDecisionDay_From" placeholder="開始日" class="width100">
-              <mat-datepicker-toggle matSuffix [for]="salesDecisionDay_From" class="picker-icon"></mat-datepicker-toggle>
-              <mat-datepicker #salesDecisionDay_From></mat-datepicker>
-          </div>&nbsp;&nbsp;～
-        </td>
-        <td>
-          <div class="picker-div">
-            <input type="text" [matDatepicker]="salesDecisionDay_To" [(ngModel)]="cond.salesDecisionDay_To" placeholder="終了日" class="width100">
-              <mat-datepicker-toggle matSuffix [for]="salesDecisionDay_To" class="picker-icon"></mat-datepicker-toggle>
-              <mat-datepicker #salesDecisionDay_To></mat-datepicker>
-          </div>
-        </td>
-      </tr>
-      <!-- 20210112 E_Add -->
+          <!-- 20210112 E_Add -->
+        </tr>
+        <!-- 20200828 E_Add -->
+        <tr>
+          <th>結果</th>
+          <td colspan="5">
+            <section>
+              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>
+            </section>
+          </td>
+        </tr>
       </table>
       <div style="margin: 10px 0px 10px 0px;">
         <!--<button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>-->
@@ -161,18 +187,18 @@
   <mat-tab label="一覧">
     <div class="mat-elevation-z8 main data" (keydown.enter)="searchBukken()">
       <table mat-table [dataSource]="dataSource" matSort>
-         <!-- bukkenId Column -->
-         <ng-container matColumnDef="bukkenNo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
-            <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
-          </ng-container>
+        <!-- bukkenId Column -->
+        <ng-container matColumnDef="bukkenNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
+          <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
+        </ng-container>
 
-           <!-- contractBukkenNo Column -->
-         <ng-container matColumnDef="contractBukkenNo">
+        <!-- contractBukkenNo Column -->
+        <ng-container matColumnDef="contractBukkenNo">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約物件番号 </th>
           <td mat-cell *matCellDef="let element" > {{element.contractBukkenNo}} </td>
         </ng-container>
-      
+
         <!-- bukkenName Column -->
         <ng-container matColumnDef="bukkenName">
           <th mat-header-cell *matHeaderCellDef> 物件名 </th>
@@ -216,10 +242,10 @@
           <td mat-cell *matCellDef="let element"> 
               <div *ngFor="let file of element.mapFiles" style="margin-top: 5px; margin-bottom: 10px;">
                   <a [attr.href]="file.mapFilePath + file.mapFileName" target="_blank">{{file.mapFileName}}</a> <br>
-              </div>              
+              </div>
           </td>
         </ng-container>
-      
+
         <!-- 情報収集日 Column -->
         <ng-container matColumnDef="pickDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 情報収集日 </th>
@@ -231,7 +257,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 測量依頼日 </th>
           <td mat-cell *matCellDef="let element"> {{formatDay(element.surveyRequestedDay, 'yyyy/MM/dd')}} </td>
         </ng-container>
-        
+
         <!-- 20200828 S_Delete -->
         <!-- 担当部署 Column -->
 <!--
@@ -254,35 +280,32 @@
           <!-- 20200907 E_Update -->
         </ng-container>
         <!-- 20200828 E_Add -->
-    
-         <!-- 地目 Column -->
-         <ng-container matColumnDef="result">
+
+        <!-- 地目 Column -->
+        <ng-container matColumnDef="result">
           <th mat-header-cell *matHeaderCellDef> 結果 </th>
           <td mat-cell *matCellDef="let element"> {{element.result}} </td>
         </ng-container>
-    
+
         <!-- 詳細 Column -->
         <ng-container matColumnDef="detail">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row"> 
-              <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
+            <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
           </td>
         </ng-container>
 
-        <!--CSV出力-->
+        <!-- CSV出力 -->
         <ng-container matColumnDef="csvCheck">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row">
-              <mat-checkbox  [(ngModel)]="row.select"></mat-checkbox>
+            <mat-checkbox  [(ngModel)]="row.select"></mat-checkbox>
           </td>
         </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
 
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <!-- 20200828 S_Update -->
-<!--
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
--->
+        <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>-->
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念' || row.result === '没'}" (mouseover)="highlight(row)"></tr>
         <!-- 20200828 E_Update -->
       </table>
