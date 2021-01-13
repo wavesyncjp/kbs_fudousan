@@ -27,7 +27,7 @@
           <!-- 20210112 S_Add -->
           <th>物件管理表</th>
           <td colspan="2">
-            <mat-checkbox #cbxBukkenListChk></mat-checkbox>
+            <mat-checkbox [checked]="cond.bukkenListChk === '1'" #cbxBukkenListChk></mat-checkbox>
           </td>
           <!-- 20210112 E_Add -->
         </tr>
@@ -102,7 +102,7 @@
           <!-- 20210112 S_Add -->
           <th>測量依頼日（済）</th>
           <td colspan="2">
-            <mat-checkbox #cbxSurveyRequestedDayChk></mat-checkbox>
+            <mat-checkbox [checked]="cond.surveyRequestedDayChk === '1'" #cbxSurveyRequestedDayChk></mat-checkbox>
           </td>
           <!-- 20210112 E_Add -->
         </tr>
