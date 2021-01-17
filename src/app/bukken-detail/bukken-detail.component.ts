@@ -18,6 +18,7 @@ import { LocationDetailComponent } from '../location-detail/location-detail.comp
 import { DatePipe } from '@angular/common';
 import { Util } from '../utils/util';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';//20200731 Add
+declare var google: any;
 
 @Component({
   selector: 'app-bukken-detail',
@@ -298,34 +299,53 @@ export class BukkenDetailComponent extends BaseComponent {
       width: '500px',
       height: '250px',
       data: dlg
-    });
+    });    
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        // 土地情報登録
-        //20200819 S_Update
-        /*
-        this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
-        */
-        this.data.convertForSave(this.service.loginUser.userId, this.datepipe, true);
-        //20200819 E_Update
-        const funcs = [];
-        funcs.push(this.service.saveLand(this.data));
-        Promise.all(funcs).then(values => {
 
-          const finishDlg = new Dialog({title: '完了', message: '土地情報を登録しました。'});
-          const dlgVal = this.dialog.open(FinishDialogComponent, {
-            width: '500px',
-            height: '250px',
-            data: finishDlg
+        this.spinner.show();
+
+        //20210117　保存する前緯度経度取得
+
+        const that = this;
+
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({address : this.data.residence}, function(results: any, status: any) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            that.data.latitude = results[0].geometry.location.lat(); // 緯度を取得
+            that.data.longitude = results[0].geometry.location.lng(); // 経度を取得              
+          }
+          else {
+            that.data.latitude = 0;
+            that.data.longitude = 0;
+          }
+
+          //--------------------------------------
+          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true);
+          //20200819 E_Update
+          const funcs = [];
+          funcs.push(that.service.saveLand(that.data));
+          Promise.all(funcs).then(values => {
+            that.spinner.hide();
+            const finishDlg = new Dialog({title: '完了', message: '土地情報を登録しました。'});
+            const dlgVal = that.dialog.open(FinishDialogComponent, {
+              width: '500px',
+              height: '250px',
+              data: finishDlg
+            });
+            dlgVal.afterClosed().subscribe(res => {
+              that.data = new Templandinfo(values[0]);
+              that.convertForDisplay();
+              that.router.navigate(['/bkdetail'], {queryParams: {pid: that.data.pid}});
+            });
           });
-          dlgVal.afterClosed().subscribe(res => {
-            this.data = new Templandinfo(values[0]);
-            this.convertForDisplay();
-            this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
-          });
-        });
-      }
+          //------------------------------------------
+
+        });                
+
+      }//保存完了
+
     });
 
   }

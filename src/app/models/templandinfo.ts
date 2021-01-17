@@ -68,6 +68,10 @@ export class Templandinfo {
 
     createUserId: number;
     updateUserId: number;
+
+    //20210117 緯度経度追加
+    latitude: number;
+    longitude: number;
     
     public constructor(init?: Partial<Templandinfo>) {
         if (init) {

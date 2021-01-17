@@ -402,30 +402,14 @@ export class BukkenListComponent extends BaseComponent {
     });
   }
   */
-  showMapMarker() {
-    //10件以下
-    if(this.dataSource.data.length <= 10) {
-      this.dataSource.data.forEach(bk => {
-        const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
-        const geocoder = new google.maps.Geocoder();
-        const that = this;
-        geocoder.geocode({address : addr}, function(results: any, status: any) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            const latVal = results[0].geometry.location.lat(); // 緯度を取得
-            const lngVal = results[0].geometry.location.lng(); // 経度を取得
-            const mark = {
-              lat: latVal, // 緯度
-              lng: lngVal // 経度
-            };
-            that.setMarker(mark, bk);
-          }
-        });
-      });
-    }
-    //10件以上
-    else {
-      this.showMaker(0);
-    }
+  showMapMarker() {    
+    //20210117: 検索じゃなく、DBの値を表示
+    this.dataSource.data.forEach(bk => {      
+      if(bk.latitude > 0) {
+        this.setMarker({lat: Number(bk.latitude), lng: Number(bk.longitude)}, bk);
+      }
+    });
+
   }
 
   showMaker(pos: number){
