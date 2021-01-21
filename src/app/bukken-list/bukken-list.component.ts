@@ -534,12 +534,77 @@ export class BukkenListComponent extends BaseComponent {
       if (result && result['choose']) {
         this.spinner.show();
         this.service.exportCsv(lst, result['csvCode']).then(ret => {
-          Util.stringToCSV(ret['data'], result['csvName']);
+          
+          //20210121緯度経度取得
+          if(result['csvName'] === '緯度経度取得') {
+            this.getLatLngList(ret['data']);
+          }
+          else {
+            Util.stringToCSV(ret['data'], result['csvName']);
+          }          
           this.spinner.hide();
         });
       }
     });
   }
+
+
+  //20210121緯度経度取得
+  latlngDataList = []; //緯度経度結果
+  latLngInterval: number; //監視タイマー
+  originalList: string[]; //取得元配列
+  pointer: number;
+  getLatLngList(csvData: string) {
+    this.pointer = 0;
+    this.latlngDataList = [];    
+    this.originalList = csvData.split('\\r\\n');// CSVデータを改行区切りで配列にする    
+    this.getLatLng();    
+      
+    let that = this;   
+    
+    //結果を監視する。全部終えたらConsoleに出力
+    this.latLngInterval = window.setInterval(() => {
+      if(that.latlngDataList.length === that.originalList.length) {
+        window.clearInterval(that.latLngInterval);
+        //console.log(JSON.stringify(that.latlngDataList));
+        Util.stringToCSV(that.latlngDataList.join('\\r\\n'), '緯度経度');
+      }
+    }, 1000);
+  }
+
+  getLatLng() {
+    let lineData = this.originalList[this.pointer];
+
+    //CSVデータをカンマで区切った時に2個以上であれば区切った2個目をjuukyoに入れる
+    let juukyo = lineData.split(',').length >= 2 ? lineData.split(',')[1]:'';
+    //juukyoの両端のダブルクォーテーションを削除してjuukyoNewに入れる
+    let juukyoNew = juukyo.replace('"', '').replace('"', '');
+
+    let that = this;
+    const geocoder = new google.maps.Geocoder();    
+    geocoder.geocode({address : juukyoNew}, function(results: any, status: any) {
+      //OK
+      if (status === google.maps.GeocoderStatus.OK) {
+          let latVal = results[0].geometry.location.lat(); // 緯度を取得
+          let lngVal = results[0].geometry.location.lng(); // 経度を取得                      
+          that.latlngDataList.push(lineData + ',"' + latVal + '","' + lngVal + '"');          
+      }
+      //エラー
+      else {
+        that.latlngDataList.push(lineData + ',NODATA');
+      }
+
+      //ポンタ―プラス
+      if(that.pointer < that.originalList.length - 1) {
+        that.pointer ++;
+        that.getLatLng();
+      }
+
+    });
+
+  }
+
+  //20210121:END 緯度経度取得
 
   // 20201011 S_Add
   /**
