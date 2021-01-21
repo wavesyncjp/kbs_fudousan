@@ -540,33 +540,34 @@ export class BukkenListComponent extends BaseComponent {
             this.getLatLngList(ret['data']);
           }
           else {
+            this.spinner.hide();
             Util.stringToCSV(ret['data'], result['csvName']);
-          }          
-          this.spinner.hide();
+          }
+//          this.spinner.hide();
         });
       }
     });
   }
 
-
-  //20210121緯度経度取得
+  // 20210121 S_Add 緯度経度取得
   latlngDataList = []; //緯度経度結果
   latLngInterval: number; //監視タイマー
   originalList: string[]; //取得元配列
   pointer: number;
   getLatLngList(csvData: string) {
     this.pointer = 0;
-    this.latlngDataList = [];    
-    this.originalList = csvData.split('\\r\\n');// CSVデータを改行区切りで配列にする    
-    this.getLatLng();    
-      
-    let that = this;   
+    this.latlngDataList = [];
+    this.originalList = csvData.split('\\r\\n');// CSVデータを改行区切りで配列にする
+    this.getLatLng();
+    
+    let that = this;
     
     //結果を監視する。全部終えたらConsoleに出力
     this.latLngInterval = window.setInterval(() => {
       if(that.latlngDataList.length === that.originalList.length) {
         window.clearInterval(that.latLngInterval);
         //console.log(JSON.stringify(that.latlngDataList));
+        this.spinner.hide();
         Util.stringToCSV(that.latlngDataList.join('\\r\\n'), '緯度経度');
       }
     }, 1000);
@@ -581,30 +582,31 @@ export class BukkenListComponent extends BaseComponent {
     let juukyoNew = juukyo.replace('"', '').replace('"', '');
 
     let that = this;
-    const geocoder = new google.maps.Geocoder();    
+    const geocoder = new google.maps.Geocoder();
     geocoder.geocode({address : juukyoNew}, function(results: any, status: any) {
       //OK
       if (status === google.maps.GeocoderStatus.OK) {
-          let latVal = results[0].geometry.location.lat(); // 緯度を取得
-          let lngVal = results[0].geometry.location.lng(); // 経度を取得                      
-          that.latlngDataList.push(lineData + ',"' + latVal + '","' + lngVal + '"');          
+        let latVal = results[0].geometry.location.lat(); // 緯度を取得
+        let lngVal = results[0].geometry.location.lng(); // 経度を取得
+//        that.latlngDataList.push(lineData + ',"' + latVal + '","' + lngVal + '"');
+        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","'  + latVal + '","' + lngVal + '"');
       }
       //エラー
       else {
-        that.latlngDataList.push(lineData + ',NODATA');
+        that.latlngDataList.push(lineData + ',"NODATA","0","0"');
       }
 
-      //ポンタ―プラス
+      //ポインタープラス
       if(that.pointer < that.originalList.length - 1) {
         that.pointer ++;
-        that.getLatLng();
+
+        setTimeout(() => {
+          that.getLatLng();
+        }, 1000);
       }
-
     });
-
   }
-
-  //20210121:END 緯度経度取得
+  // 20210121 E_Add 緯度経度取得
 
   // 20201011 S_Add
   /**
