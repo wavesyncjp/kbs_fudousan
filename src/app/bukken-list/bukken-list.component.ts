@@ -535,7 +535,9 @@ export class BukkenListComponent extends BaseComponent {
         this.spinner.show();
         this.service.exportCsv(lst, result['csvCode']).then(ret => {
           
-          //20210121緯度経度取得
+          // 20210125 S_Update 緯度経度取得停止
+          // 20210121 S_Add 緯度経度取得
+          /*
           if(result['csvName'] === '緯度経度取得') {
             this.getLatLngList(ret['data']);
           }
@@ -543,7 +545,13 @@ export class BukkenListComponent extends BaseComponent {
             this.spinner.hide();
             Util.stringToCSV(ret['data'], result['csvName']);
           }
+          */
 //          this.spinner.hide();
+          // 20210121 E_Add 緯度経度取得
+          this.spinner.hide();
+          Util.stringToCSV(ret['data'], result['csvName']);
+          // 20210125 E_Update 緯度経度取得停止
+
         });
       }
     });
@@ -589,20 +597,30 @@ export class BukkenListComponent extends BaseComponent {
         let latVal = results[0].geometry.location.lat(); // 緯度を取得
         let lngVal = results[0].geometry.location.lng(); // 経度を取得
 //        that.latlngDataList.push(lineData + ',"' + latVal + '","' + lngVal + '"');
-        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","'  + latVal + '","' + lngVal + '"');
+//        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","'  + latVal + '","' + lngVal + '"');
+        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","'  + latVal + '","' + lngVal + '","' + status + '"');
       }
       //エラー
       else {
-        that.latlngDataList.push(lineData + ',"NODATA","0","0"');
+//        that.latlngDataList.push(lineData + ',"NODATA","0","0"');
+        that.latlngDataList.push(lineData + ',"NODATA","0","0","' + status + '"');
       }
 
       //ポインタープラス
       if(that.pointer < that.originalList.length - 1) {
-        that.pointer ++;
-
-        setTimeout(() => {
-          that.getLatLng();
-        }, 1000);
+//        that.pointer ++;
+//        if (status === google.maps.GeocoderStatus.OK) that.pointer ++;
+        if (status === google.maps.GeocoderStatus.OK) {
+          that.pointer ++;
+          setTimeout(() => {
+            that.getLatLng();
+          }, 100);
+        }
+        else {
+          setTimeout(() => {
+            that.getLatLng();
+          }, 1000);
+        }
       }
     });
   }
