@@ -110,7 +110,10 @@ export class TopComponent  extends BaseComponent {
     this.emps.forEach(emp => {
       empData.push({
         name: emp.userName,
-        value: Math.round(Math.random() * 100)
+        // 20210207 S_デモ用修正
+//        value: Math.round(Math.random() * 100)
+        value: Math.round(Math.random() * 10)
+        // 20210207 E_デモ用修正
       });
     });
     this.empChart.chartData = empData;
