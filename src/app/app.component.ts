@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   //@ViewChild('snav', {static: true}) public snav: MatSidenav;
 
-  title = '不動産管理システム';
+  title = 'プロジェクト管理システム';
   subTitle = '';
   isLogin = false;
   isTop = false;
@@ -32,7 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.service.changeTitleEvent.subscribe(title => {
-      this.title = `プロジェクト管理システム　MetPro：${title}`;
+//      this.title = `プロジェクト管理システム　MetPro：${title}`;
+      this.title = `プロジェクト管理システム：${title}`;
       this.subTitle = title;
     });
 

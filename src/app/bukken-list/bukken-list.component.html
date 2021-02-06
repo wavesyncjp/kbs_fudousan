@@ -154,6 +154,12 @@
         </tr>
         <!-- 20200828 E_Add -->
         <tr>
+          <!-- 20210207 S_デモ用修正 -->
+          <th>情報提供者</th>
+          <td colspan="2">
+            <input type="text" class="Width300" [(ngModel)]="cond.infoOffer" maxlength="100">
+          </td>
+          <!-- 20210207 E_デモ用修正 -->
           <th>結果</th>
           <td colspan="5">
             <section>
@@ -309,7 +315,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念' || row.result === '没'}" (mouseover)="highlight(row)"></tr>
         <!-- 20200828 E_Update -->
       </table>
-      <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[50, 100, 200]" showFirstLastButtons></mat-paginator>
     </div>
   </mat-tab>
 

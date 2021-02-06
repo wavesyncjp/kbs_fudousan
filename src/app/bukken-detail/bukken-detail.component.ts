@@ -133,7 +133,12 @@ export class BukkenDetailComponent extends BaseComponent {
     /*
     this.data.convert();
     */
+    // 20210207 S_デモ用修正
+/*
     this.data.convert(this.emps);
+*/
+    this.data.convert(null);
+    // 20210207 E_デモ用修正
     //20200731 E_Update
     // 物件位置情報
     if (this.data.locations && this.data.locations.length > 0) {
@@ -322,7 +327,12 @@ export class BukkenDetailComponent extends BaseComponent {
           }
 
           //--------------------------------------
+          // 20210207 S_デモ用修正
+/*
           that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true);
+*/
+          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, false);
+          // 20210207 E_デモ用修正
           //20200819 E_Update
           const funcs = [];
           funcs.push(that.service.saveLand(that.data));

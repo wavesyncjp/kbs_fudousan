@@ -63,7 +63,9 @@
                 <td colspan="4">
                     <mat-checkbox [checked]="data.bukkenListChk === '1'" (change)="changeFlg($event, 'bukkenListChk')" [disabled]="disableUser"></mat-checkbox>
                 </td>
-                <td><button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="sameClick()" [disabled]="disableUser">物件担当者と同じ</button></td>
+                <!-- 20210207 S_デモ用修正 -->
+                <!--<td><button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="sameClick()" [disabled]="disableUser">物件担当者と同じ</button></td>-->
+                <!-- 20210207 E_デモ用修正 -->
             </tr>
             <!-- 20210112 E_Add -->
             <tr>
@@ -104,6 +106,8 @@
                     -->
                     <!-- 20200731 E_Delete -->
                     <!-- 20200731 S_Add -->
+                    <!-- 20210207 S_デモ用修正 -->
+<!--
                     <ng-multiselect-dropdown class="width300"
                         [placeholder]="'選択'"
                         [data]="emps"
@@ -112,6 +116,9 @@
                         [settings]="dropdownSettings"
                         >
                     </ng-multiselect-dropdown>
+-->
+                    <input type="text" [(ngModel)]="data.infoOffer" maxlength="100">
+                    <!-- 20210207 E_デモ用修正 -->
                     <!-- 20200731 E_Add -->
                 </td>
             </tr>
@@ -243,8 +250,13 @@
 
     <div class="button-div-left">
         <button mat-raised-button *ngIf="this.data.pid > 0" class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
-        <button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract()">契約情報　登録</button>
+        <!-- 20210207 S_デモ用修正 -->
+        <!--<button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract()">契約情報　登録</button>-->
         <button mat-raised-button *ngIf="this.data.pid > 0" class="button export-button"  (click)="export()">売買取引管理表　出力</button>
+        <!-- 20201006 S_Add -->
+        <!--<button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigatePlan()">事業収支　登録</button>-->
+        <!-- 20201006 E_Add -->
+        <!-- 20210207 E_デモ用修正 -->
     </div>
 
     <!--所有地-->

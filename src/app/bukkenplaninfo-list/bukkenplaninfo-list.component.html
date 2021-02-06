@@ -42,12 +42,16 @@
 
     <table class ="block-status">
         <!-- 20201124 S_Add -->
+        <!-- 20210207 S_デモ用修正 -->
+<!--
         <div *ngIf="authority !== '03'">
             <mat-radio-group [(ngModel)]="data.land.seller">
                 <mat-radio-button *ngFor="let code of getCode('027')" [value]="code.codeDetail">{{code.name}}&nbsp;&nbsp;</mat-radio-button>
             </mat-radio-group>
         </div>
         <br>
+-->
+        <!-- 20210207 E_デモ用修正 -->
         <!-- 20201124 E_Add -->
         <tr>
             <th class="block-title-statusNew">測量</th>
@@ -174,6 +178,8 @@
         <!--プラン-->
         
         <!--売り契約-->
+        <!-- 20210207 S_デモ用修正 -->
+<!--
         <div *ngIf="authority !== '03'">
             <span class="block-title-statusNew">売り契約</span>
             <div class="button-div-left">
@@ -208,6 +214,8 @@
             </tbody>
         </table>
         </div>
+-->
+        <!-- 20210207 E_デモ用修正 -->
         <!--/売り契約-->
     </table>
 </div>

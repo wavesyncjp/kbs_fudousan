@@ -13,9 +13,16 @@
             <li><a (click)="navigate('top')">&nbsp;ダッシュボード&nbsp;</a></li>
             <li><a (click)="navigate('bukkens')">&nbsp;物件情報&nbsp;</a></li>
             
+            <!-- 20210207 S_デモ用修正 -->
+<!--
             <li><a (click)="navigate('contracts')">&nbsp;仕入契約&nbsp;</a></li>
             <li *ngIf="authority !== '03'"><a (click)="navigate('plans')">&nbsp;事業収支&nbsp;</a></li>
             <li><a (click)="navigate('pays')">&nbsp;支払管理&nbsp;</a></li>
+-->
+            <li><a>&nbsp;仕入契約&nbsp;</a></li>
+            <li *ngIf="authority !== '03'"><a>&nbsp;事業収支&nbsp;</a></li>
+            <li><a>&nbsp;支払管理&nbsp;</a></li>
+            <!-- 20210207 E_デモ用修正 -->
             <li><a (click)="navigate('infos')">&nbsp;インフォメーション&nbsp;</a></li>
             <li *ngIf="authority !== '02' && authority !== '03'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>               
                 <div style="z-index: 999;">

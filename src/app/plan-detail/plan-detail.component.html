@@ -20,7 +20,7 @@
                 <span class="head">プラン種別</span>&nbsp;&nbsp;<app-select-component [codes]="getCode('016')" [(ngModel)]="plan.planStatus" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
             </td>
             <!-- 20201011 S_一時コメントアウト -->
-            <!--
+            
             <td class="history">
                 <span *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0 ">
                     <button mat-raised-button (click)="createHistory(plan)" color="warn" style="line-height: 30px;" >&nbsp;履歴登録&nbsp;</button>
@@ -30,7 +30,7 @@
             <td class="second" *ngIf="plan.planHistoryPid > 0 ">
               <input type="text" class="Twidth400" [(ngModel)]="plan.planHistoryName" [attr.disabled]="plan.planHistoryPid > 0 ? '' : null">
             </td>
-            -->
+            
             <!-- 20201011 E_一時コメントアウト -->
         </tr>
         <tr>
@@ -387,11 +387,11 @@
             <td class="titlehead">単価・坪</td>
             <td class="titlehead">算出根拠&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <!-- 20201011 S_一時コメントアウト -->
-                <!--
+                
                 <span *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0">
                     <button mat-raised-button (click)="showPlanHistoryList(plan)" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button>
                 </span>
-                -->
+                
                 <!-- 20201011 E_一時コメントアウト -->
             </td>
         </tr>
@@ -1226,7 +1226,7 @@
 </table>
 <!-- 20200805 S_Add -->
 <!-- 20201011 S_一時コメントアウト -->
-<!--
+
 <div class="contact-div" *ngIf="plans && plans.length > 0" style="width: 100%;">
     <span class="row">※事業収支　一覧</span>
     <table>
@@ -1254,13 +1254,13 @@
         </tbody>
     </table>
 </div>
--->
+
 <!-- 20201011 E_一時コメントアウト -->
 <!-- 20200805 E_Add -->
 
 <!-- 20200808 S_Add -->
 <!-- 20201011 S_一時コメントアウト -->
-<!--
+
 <div class="contact-div" *ngIf="planHistorys && planHistorys.length > 0"  style="width: 100%;">
     <span class="row">※プラン履歴　一覧</span>
     <table>
@@ -1288,7 +1288,7 @@
         </tbody>
     </table>
 </div>
--->
+
 <!-- 20201011 E_一時コメントアウト -->
 <!-- 20200808 E_Add -->
 </table>

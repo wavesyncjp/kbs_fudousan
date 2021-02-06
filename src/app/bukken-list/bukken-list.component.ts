@@ -76,6 +76,9 @@ export class BukkenListComponent extends BaseComponent {
     importance: [],
     surveyRequestedDayChk: ''
     //20210113 E_Add
+    // 20210207 S_デモ用修正
+    ,infoOffer: ''
+    // 20210207 E_デモ用修正
  };
   dropdownSettings = {};//20200828 Add
   search = '0';
@@ -246,6 +249,9 @@ export class BukkenListComponent extends BaseComponent {
       importance: [],
       surveyRequestedDayChk: ''
       //20210113 E_Add
+      // 20210207 S_デモ用修正
+      ,infoOffer: ''
+      // 20210207 E_デモ用修正
    };
   }
 
@@ -655,6 +661,9 @@ export class BukkenListComponent extends BaseComponent {
     if(this.cond.department.length > 0) this.hasSearchItem = true;
     if(this.cond.result.length > 0) this.hasSearchItem = true;
     if(this.cond.clctInfoStaffMap.length > 0) this.hasSearchItem = true;
+    // 20210207 S_デモ用修正
+    if(!this.isBlank(this.cond.infoOffer)) this.hasSearchItem = true;
+    // 20210207 E_デモ用修正
     
     if (!this.hasSearchItem) {
       this.errorMsgs.push('検索条件のいずれかを指定してください。');
