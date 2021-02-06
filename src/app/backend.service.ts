@@ -23,8 +23,8 @@ import { Planhistorylist } from './models/Planhistorylist';
 export class BackendService {  
 
   //private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
-  private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';// テスト環境
-  //private readonly BaseUrl = 'http://wavesync.site/backend/api';// デモ環境
+  //private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';// テスト環境
+  private readonly BaseUrl = 'http://wavesync.site/backend/api';// デモ環境
   //private readonly BaseUrl = 'https://metpro.jp/backend/api';// 本番環境
   public loginUser: User;
 
