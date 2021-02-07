@@ -306,11 +306,13 @@
     <!--/所有地-->
 
     <!--契約情報-->
+    <!-- 20210207 S_デモ用修正 -->
+<!--
     <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
         <span class="min">契約一覧</span>
         <table>
             <thead class="list-header">
-                <th class="width100">契約状況</th><!-- 20200730 Add -->
+                <th class="width100">契約状況</th>
                 <th class="width150">契約番号</th>
                 <th class="width100">契約書番号</th>
                 <th class="width100">契約日</th>
@@ -325,7 +327,7 @@
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let contract of contracts">
-                    <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
+                    <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td>
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                     <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
                     <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
@@ -341,6 +343,8 @@
             </tbody>
         </table>
     </div>
+-->
+    <!-- 20210207 E_デモ用修正 -->
     <!--/契約情報-->
     <div class="register-div-bottom">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
