@@ -287,7 +287,7 @@
                     <td class="text-left">{{loc.address}}</td>
                     <td class="text-left">{{loc.blockNumber}}</td>
                     <td class="text-left">{{loc.buildingNumber}}</td>
-                    <td class="text-right">{{loc.locationType === '01' ? formatIntNumber(loc.area != null && loc.area !== '' && loc.area > 0 ? loc.area + '㎡' : '')  : loc.floorSpace}}</td>
+                    <td class="text-right">{{loc.locationType === '01' ? ((loc.area != null && loc.area !== '' && loc.area > 0) ? formatIntNumber(loc.area) + '㎡' : '')  : loc.floorSpace}}</td>
                     <td class="text-left">{{loc.owner}}</td>
                     <td class="text-left">{{loc.ownerAdress}}</td>
                     <td>{{getCodeTitle('011', loc.rightsForm)}}</td>

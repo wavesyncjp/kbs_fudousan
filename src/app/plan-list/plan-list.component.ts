@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { PlanDetailComponent } from '../Plan-detail/Plan-detail.component';
+import { PlanDetailComponent } from '../plan-detail/plan-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
@@ -13,8 +13,6 @@ import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Paycontractinfo } from '../models/paycontractinfo';
 import { Paycontractdetailinfo } from '../models/paycontractdetailinfo';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-paycontract-detail',

@@ -1,9 +1,9 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div  class="detail-div">
     <div class="register-div">
-        <button mat-raised-button class="button" *ngIf="!plan.planHistoryPid > 0 " (click)="backToList()" >一覧へ</button>
-        <button mat-raised-button class="button export-button" *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0 " (click)="export()">帳票出力</button>
-        <button mat-raised-button color="primary" class="button" (click)="save()" *ngIf="!plan.planHistoryPid > 0 " >登録</button>
+        <button mat-raised-button class="button" *ngIf="!(plan.planHistoryPid > 0) " (click)="backToList()" >一覧へ</button>
+        <button mat-raised-button class="button export-button" *ngIf="plan.pid > 0 && !(plan.planHistoryPid > 0) " (click)="export()">帳票出力</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()" *ngIf="!(plan.planHistoryPid > 0) " >登録</button>
         <button mat-raised-button class="button" (click)="backPlan(plan)" *ngIf="plan.planHistoryPid > 0 ">戻る</button>
         
     </div>
@@ -22,7 +22,7 @@
             <!-- 20201011 S_一時コメントアウト -->
             
             <td class="history">
-                <span *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0 ">
+                <span *ngIf="plan.pid > 0 && !(plan.planHistoryPid > 0) ">
                     <button mat-raised-button (click)="createHistory(plan)" color="warn" style="line-height: 30px;" >&nbsp;履歴登録&nbsp;</button>
                 </span>
             </td>
@@ -57,7 +57,7 @@
             </td>
             <th>物件担当者</th>
             <td class="first">
-                <app-select-component [codes]="getEmps()" [cusClass]="Twidthy80" [(ngModel)]="plan.userId" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
+                <app-select-component [codes]="getEmps()" [cusClass]="'Twidthy80'" [(ngModel)]="plan.userId" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
             </td>
         </tr>
         <tr>
@@ -388,7 +388,7 @@
             <td class="titlehead">算出根拠&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <!-- 20201011 S_一時コメントアウト -->
                 
-                <span *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0">
+                <span *ngIf="plan.pid > 0 && !(plan.planHistoryPid > 0)">
                     <button mat-raised-button (click)="showPlanHistoryList(plan)" color="#FFC000" class = "historyLog">&nbsp;履歴照会&nbsp;</button>
                 </span>
                 
@@ -729,7 +729,7 @@
         <span class = "SUM">
             <tr>
                 <th class="main">金利合計</th>
-                <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="planPid > 0" [value]="getNumber(cal48(plan)) | number"></td>
+                <td class="yen"><input type="text" class="Twidth100 number" [attr.disabled]="plan.planPid > 0" [value]="getNumber(cal48(plan)) | number"></td>
             </tr>
         </span>
         <span class = "SUM">
@@ -1293,8 +1293,8 @@
 <!-- 20200808 E_Add -->
 </table>
 <div class="register-div-bottom">
-    <button mat-raised-button class="button" *ngIf="!plan.planHistoryPid > 0 " (click)="backToList()" >一覧へ</button>
-    <button mat-raised-button class="button export-button" *ngIf="plan.pid > 0 && !plan.planHistoryPid > 0 " (click)="export()">帳票出力</button>
-    <button mat-raised-button color="primary" class="button" (click)="save()" *ngIf="!plan.planHistoryPid > 0 " >登録</button>
+    <button mat-raised-button class="button" *ngIf="!(plan.planHistoryPid > 0) " (click)="backToList()" >一覧へ</button>
+    <button mat-raised-button class="button export-button" *ngIf="plan.pid > 0 && !(plan.planHistoryPid > 0) " (click)="export()">帳票出力</button>
+    <button mat-raised-button color="primary" class="button" (click)="save()" *ngIf="!(plan.planHistoryPid > 0) " >登録</button>
     <button mat-raised-button class="button" (click)="backPlan(plan)" *ngIf="plan.planHistoryPid > 0 ">戻る</button>
 </div>
