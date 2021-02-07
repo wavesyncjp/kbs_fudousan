@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { PayContractDetailComponent } from '../PayContract-detail/PayContract-detail.component';
+import { PayContractDetailComponent } from '../paycontract-detail/paycontract-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -178,7 +178,10 @@ export class PayContractListComponent extends BaseComponent {
     return lst;
   }
 
-  createNew(raw : PayContractDetailComponent) {
+  // 20210207 S_Update
+//  createNew(raw : PayContractDetailComponent) {
+  createNew() {
+  // 20210207 E_Update
     this.router.navigate(['/paydetail']);
   }
 
