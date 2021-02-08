@@ -14,7 +14,7 @@
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
-    border-top: solid 2px white;  
+    border-top: solid 2px white; 
 }
 
 
@@ -190,7 +190,7 @@ mat-form-field > input {
     font-size: 12px;
     font-weight: 500;
     color:white;
-    border: solid 1px gainsboro;    
+    /*border: solid 1px gainsboro; */  
 }
 
 .list-body > tr {
@@ -321,3 +321,25 @@ mat-form-field > input {
     border-right: 5px solid transparent !important;
   }
   /*20200731 E_Add*/
+
+  /* 20210208 S_デモ用修正 */
+
+.detail-tbl-status-BK > tr{
+    height: 30px;
+    background-color: white; 
+    width: 100%; 
+    border-bottom: solid 2px rgb(189 189 189);
+    padding-bottom: 10px;
+}
+.detail-tbl-status-BK > tr > th{
+    width:140px !important;
+    background-color: whitesmoke;
+    text-align: left;
+    height: 22px !important;
+    padding: 2px;
+    font-size: 0.8em;
+    margin-top: 10px;
+     
+}
+
+/* 20210208 E_デモ用修正 */

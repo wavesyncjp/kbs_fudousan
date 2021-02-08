@@ -102,6 +102,11 @@ textarea {
 .width85Per{
     width: 85%;
 }
+/* 20210208 S_デモ用修正 */
+.width96Per{
+    width: 96%;
+}
+/* 20210208 E_デモ用修正 */
 .width85PerR{
     width: 85%;
     background-color: rgb(141, 141, 141);
@@ -252,13 +257,24 @@ textarea {
     overflow-y: auto;
 }
 
-.detail-tbl,.detail-tbl-status,.detail-tbl-etc,.inDetail-tbl,.detail-tbl-info{
+.detail-tbl,.detail-tbl-status,.detail-tbl-etc,.inDetail-tbl,.detail-tbl-info,.detail-tbl-status-BK{
     width: 100%;   
     border-spacing: 0px;
     border-collapse: collapse;
 }
 
- 
+/* 20210208 S_デモ用修正 */
+.detail-tbl-status-BK{
+    width: 99%;   
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.detail-tbl-status-PL{
+    width: 99%;  
+    border-bottom: solid 2px rgb(189 189 189);
+}
+/* 20210208 E_デモ用修正 */
 
 .detail-tbl > tr{
     height: 30px;
