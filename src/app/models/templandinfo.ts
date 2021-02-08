@@ -121,9 +121,13 @@ export class Templandinfo {
         if (this.infoStaff !== null && emps != null) {
             this.infoStaffMap = emps.filter(me => this.infoStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
         }
+        // 20210207 S_デモ用修正
+/*
         if (this.infoOffer !== null && emps != null) {
             this.infoOfferMap = emps.filter(me => this.infoOffer.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
         }
+*/
+        // 20210207 E_デモ用修正
         //20200731 E_Update
     }
 
@@ -142,7 +146,9 @@ export class Templandinfo {
         //20200731 E_Update
         if(isJoin) {
             this.infoStaff = this.infoStaffMap.map(me => me['userId']).join(',');
-            this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');
+            // 20210207 S_デモ用修正
+            /*this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');*/
+            // 20210207 E_デモ用修正
         }
         //20200819 E_Update
         
