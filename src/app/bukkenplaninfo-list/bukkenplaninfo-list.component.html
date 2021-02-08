@@ -56,7 +56,7 @@
         <tr>
             <th class="block-title-statusNew">測量</th>
         </tr>
-        <table class="detail-tbl-status">
+        <table class="detail-tbl-status-BK">
             <tr>
                 <th>測量依頼日</th>
                 <td>
@@ -84,7 +84,7 @@
                     <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.surveyMapChk === '1'" (change)="flgFinish($event, 'surveyMapChk')"></mat-checkbox>
                 </td>
                 <th>官民申請書</th>
-                <td>
+                <td colspan="3">
                     <span style="font-size: 0.8em;">済</span><mat-checkbox [checked]="data.land.publicAndPrivateFormChk === '1'" (change)="flgFinish($event, 'publicAndPrivateFormChk')"></mat-checkbox>
                     &nbsp;&nbsp;<input type="text" [(ngModel)]="data.land.publicAndPrivateForm" class="width200" maxlength="100">
                 </td>
@@ -124,7 +124,7 @@
             </div>
         </div>
         <ng-container *ngFor="let plan of data.plans; index as pos">
-            <table *ngIf="!plan.delete" class="detail-tbl-status" style="margin-bottom: 20px;">  
+            <table *ngIf="!plan.delete" class="detail-tbl-status-PL" style="margin-bottom: 20px;">  
                 <tr>
                     <td rowspan="3" style="width: 60px;"><div style="font-size: x-small;">プラン選択</div><br>&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>
                     <th>プラン検討先</th>

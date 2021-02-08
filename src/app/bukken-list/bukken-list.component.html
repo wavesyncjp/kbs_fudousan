@@ -25,10 +25,12 @@
           </td>
 
           <!-- 20210112 S_Add -->
-          <th>物件管理表</th>
+          <!-- 20210208 S_デモ用修正 -->
+          <!--<th>物件管理表</th>
           <td colspan="2">
             <mat-checkbox [checked]="cond.bukkenListChk === '1'" #cbxBukkenListChk></mat-checkbox>
-          </td>
+          </td>-->
+          <!-- 20210208 E_デモ用修正 -->
           <!-- 20210112 E_Add -->
         </tr>
         <tr>
@@ -157,10 +159,12 @@
           <!-- 20210207 S_デモ用修正 -->
           <th>情報提供者</th>
           <td colspan="2">
-            <input type="text" class="Width300" [(ngModel)]="cond.infoOffer" maxlength="100">
+            <!-- 20210208 S_デモ用修正 -->
+            <input type="text" class="width300" [(ngModel)]="cond.infoOffer" maxlength="100">
+            <!-- 20210208 E_デモ用修正 -->
           </td>
           <!-- 20210207 E_デモ用修正 -->
-          <th>結果</th>
+          <th>情報ステータス</th>
           <td colspan="5">
             <section>
               <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>
@@ -171,8 +175,9 @@
       <div style="margin: 10px 0px 10px 0px;">
         <!--<button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>-->
         <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn" [disabled]="disableUser">&nbsp;新規登録&nbsp;</button>&nbsp;
-
-        <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>
+        <!-- 20210208 S_デモ用修正 -->
+        <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;CSV出力&nbsp;</button>
+        <!-- 20210208 E_デモ用修正 -->
         <!--20201007_S Add-->
         <div class = "search-btns">
           <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>

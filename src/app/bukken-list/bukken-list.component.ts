@@ -287,7 +287,9 @@ export class BukkenListComponent extends BaseComponent {
     this.cond.clctInfoStaff = this.cond.clctInfoStaffMap.map(me => me.userId);//20200828 Add
 
     //20210113 S_Add
-    this.cond.bukkenListChk = this.cbxBukkenListChk.checked ? '1' : '';
+    // 20210208 S_デモ用修正
+    //this.cond.bukkenListChk = this.cbxBukkenListChk.checked ? '1' : '';
+    // 20210208 E_デモ用修正
     this.cond.surveyRequestedDayChk = this.cbxSurveyRequestedDayChk.checked ? '1' : '';
     //20210113 E_Add
     this.service.searchLand(this.cond).then(res => {
@@ -654,7 +656,9 @@ export class BukkenListComponent extends BaseComponent {
     // 20210112 S_Add
     if(!this.isBlank(this.cond.salesDecisionDay_From)) this.hasSearchItem = true;
     if(!this.isBlank(this.cond.salesDecisionDay_To)) this.hasSearchItem = true;
-    if(this.cbxBukkenListChk.checked) this.hasSearchItem = true;
+    // 20210208 S_デモ用修正
+    //if(this.cbxBukkenListChk.checked) this.hasSearchItem = true;
+    // 20210208 E_デモ用修正
     if(this.cond.importance.length > 0) this.hasSearchItem = true;
     if(this.cbxSurveyRequestedDayChk.checked) this.hasSearchItem = true;
     // 20210112 E_Add

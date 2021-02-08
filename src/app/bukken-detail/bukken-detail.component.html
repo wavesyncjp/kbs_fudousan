@@ -56,18 +56,22 @@
                 <!-- 20200731 E_Update -->
             </td>
         </tr>
-        <table class="detail-tbl-status">
+        <table class="detail-tbl-status-BK">
             <!-- 20210112 S_Add -->
-            <tr>
+            <!-- 20210208 S_デモ用修正 -->
+            <!--<tr>
                 <th>物件管理表</th>
                 <td colspan="4">
                     <mat-checkbox [checked]="data.bukkenListChk === '1'" (change)="changeFlg($event, 'bukkenListChk')" [disabled]="disableUser"></mat-checkbox>
-                </td>
+                </td>-->
+                <!-- 20210208 E_デモ用修正 -->
                 <!-- 20210207 S_デモ用修正 -->
                 <!--<td><button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="sameClick()" [disabled]="disableUser">物件担当者と同じ</button></td>-->
                 <!-- 20210207 E_デモ用修正 -->
-            </tr>
+            <!-- 20210208 S_デモ用修正 -->
+            <!--</tr>-->
             <!-- 20210112 E_Add -->
+            <!-- 20210208 E_デモ用修正 -->
             <tr>
                 <th>物件担当部署</th>
                 <td style="width: 220px;">
@@ -97,7 +101,7 @@
                     <!-- 20200731 E_Add -->
                 </td>
                 <th>情報提供者</th>
-                <td style="width: 360px;">
+                <td>
                     <!-- 20200731 S_Delete -->
                     <!--
                     <mat-select multiple class="width300" [(ngModel)]="data.infoOfferMap">
@@ -117,7 +121,7 @@
                         >
                     </ng-multiselect-dropdown>
 -->
-                    <input type="text" [(ngModel)]="data.infoOffer" maxlength="100">
+                    <input type="text" [(ngModel)]="data.infoOffer" maxlength="100" class = "width300">
                     <!-- 20210207 E_デモ用修正 -->
                     <!-- 20200731 E_Add -->
                 </td>
@@ -162,7 +166,9 @@
                 <td colspan="5">
                     <!-- 20200731 S_Update -->
                     <!--<input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100">-->
-                    <input type="text" [(ngModel)]="data.remark1" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
+                    <!-- 20210208 S_デモ用修正 -->
+                    <input type="text" [(ngModel)]="data.remark1" class="width96Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
+                    <!-- 20210208 E_デモ用修正 -->
                     <!-- 20200731 E_Update -->
                 </td>
             </tr>
@@ -171,14 +177,16 @@
                 <td colspan="5">
                     <!-- 20200731 S_Update -->
                     <!--<input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100">-->
-                    <input type="text" [(ngModel)]="data.remark2" class="width85Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
+                    <!-- 20210208 S_デモ用修正 -->
+                    <input type="text" [(ngModel)]="data.remark2" class="width96Per" maxlength="100" [attr.disabled]="disableUser ? '': null">
+                    <!-- 20210208 E_デモ用修正 -->
                     <!-- 20200731 E_Update -->
                 </td>
             </tr>
         </table>
         <br>
         <span class="block-title-etc">物件概要</span>
-        <table class="detail-tbl-etc">
+        <table class="detail-tbl-status-BK">
             <tr>
                 <th>不可分</th>
                 <td>
@@ -214,13 +222,13 @@
                     <input type="text" [(ngModel)]="data.floorAreaRatio" class = "width80" maxlength="20">
                 </td>
                 <th>建蔽率</th>
-                <td>
+                <td colspan="5">
                     <input type="text" [(ngModel)]="data.coverageRate" [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%
                 </td>
             </tr>
             <tr>
                 <th>地図添付</th>
-                <td colspan="5">
+                <td colspan="7">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
                     <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
                     <table style="margin-left: 5px;">
@@ -233,7 +241,7 @@
             </tr>
             <tr>
                 <th>ファイル添付</th>
-                <td colspan="5" >
+                <td colspan="7" >
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
                     <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
                     <table style="margin-left: 5px;">
