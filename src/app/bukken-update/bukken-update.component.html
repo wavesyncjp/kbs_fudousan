@@ -1,0 +1,156 @@
+<div class="mat-elevation-z8 main" (keydown.enter)="searchBukken()">
+  <mat-expansion-panel expanded='true'>
+    <mat-expansion-panel-header>
+        <mat-panel-title>検索条件</mat-panel-title>
+    </mat-expansion-panel-header>
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+      <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <div class="search-div">
+      <table class="search-tbl">
+        <tr>
+          <th>担当部署</th>
+          <td colspan="5">
+            <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>
+          </td>
+          <th>物件担当者</th>
+          <td colspan="2">
+            <ng-multiselect-dropdown class="width300"
+                [placeholder]="'選択'"
+                [data]="emps"
+                [(ngModel)]="cond.clctInfoStaffMap"
+                [settings]="dropdownSettings"
+                (onSelect)="changeItem($event, 'clctInfoStaff')"
+                >
+            </ng-multiselect-dropdown>
+            <mat-checkbox [checked]="cond.notStaffChk === '1'" #cbxNotStaffChk (change)="changeFlg($event, 'notStaffChk')">担当なし</mat-checkbox>
+          </td>
+        </tr>
+
+        <tr>
+          <th>物件番号</th>
+          <td colspan="2">
+            <input type="text" [(ngModel)]="cond.bukkenNo" class="width150" maxlength="10">
+          </td>
+          <th>物件名</th>
+          <td colspan="2">
+            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
+          </td>
+          <th>住居表示</th>
+          <td colspan="2">
+            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.residence" maxlength="100">
+          </td>
+        </tr>
+
+        <tr>
+          <th>契約物件番号</th>
+          <td colspan="2">
+            <input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width150" maxlength="20">
+          </td>
+          <th>結果</th>
+          <td colspan="5">
+            <section>
+              <mat-checkbox *ngFor="let code of getCode('001')" [checked]="inList(cond.result, code.codeDetail)"  (change)="changeCheck(cond.result, code.codeDetail ,$event)">{{code.name}}&nbsp;</mat-checkbox>
+            </section>
+          </td>
+        </tr>
+      </table>
+
+      <table class="search-tbl">
+        <tr>
+          <th class="changelabel" *ngIf="searched">担当部署</th>
+          <td style="width: 190px;" *ngIf="searched">
+            <app-select-component [codes]="getDeps()" [(ngModel)]="param.depCode"></app-select-component>
+          </td>
+          <th class="changelabel" *ngIf="searched">物件担当者</th>
+          <td style="width: 360px;" *ngIf="searched">
+            <ng-multiselect-dropdown class="width300"
+                [placeholder]="'選択'"
+                [data]="emps"
+                [(ngModel)]="param.clctInfoStaffMap"
+                [settings]="dropdownSettings"
+                >
+            </ng-multiselect-dropdown>
+          </td>
+          <td *ngIf="searched">
+            <button mat-raised-button (click)="change()" color="warn">&nbsp;変更&nbsp;</button>
+          </td>
+          <td>
+            <div class = "search-btns">
+              <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-expansion-panel>
+</div>
+
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+
+<div class="mat-elevation-z8 main data" (keydown.enter)="searchBukken()">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- チェックボックス -->
+    <ng-container matColumnDef="checkBox">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox  [(ngModel)]="row.select"></mat-checkbox>
+      </td>
+    </ng-container>
+    <!-- 担当部署 -->
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef > 担当部署 </th>
+      <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+    </ng-container>
+    <!-- 物件担当者 -->
+    <ng-container matColumnDef="staffName">
+      <th mat-header-cell *matHeaderCellDef > 物件担当者 </th>
+      <td mat-cell *matCellDef="let element">
+        <app-label [value]="element.staffName" [length]=25></app-label>
+      </td>
+    </ng-container>
+    <!-- 物件番号 -->
+    <ng-container matColumnDef="bukkenNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
+      <td mat-cell *matCellDef="let element" > {{element.bukkenNo}} </td>
+    </ng-container>
+    <!-- 契約物件番号 -->
+    <ng-container matColumnDef="contractBukkenNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約物件番号 </th>
+      <td mat-cell *matCellDef="let element" > {{element.contractBukkenNo}} </td>
+    </ng-container>
+    <!-- 物件名 -->
+    <ng-container matColumnDef="bukkenName">
+      <th mat-header-cell *matHeaderCellDef> 物件名 </th>
+      <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
+    </ng-container>
+    <!-- 住居表示 -->
+    <ng-container matColumnDef="residence">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 住居表示 </th>
+      <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.residence}} </td>
+    </ng-container>
+    <!-- 結果 -->
+    <ng-container matColumnDef="result">
+      <th mat-header-cell *matHeaderCellDef> 結果 </th>
+      <td mat-cell *matCellDef="let element"> {{element.result}} </td>
+    </ng-container>
+    <!-- 情報収集日 -->
+    <ng-container matColumnDef="pickDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 情報収集日 </th>
+      <td mat-cell *matCellDef="let element"> {{formatDay(element.pickDate, 'yyyy/MM/dd')}} </td>
+    </ng-container>
+    <!-- 地図情報 -->
+    <ng-container matColumnDef="mapFiles">
+      <th mat-header-cell *matHeaderCellDef> 地図情報 </th>
+      <td mat-cell *matCellDef="let element"> 
+        <div *ngFor="let file of element.mapFiles" style="margin-top: 5px; margin-bottom: 10px;">
+          <a [attr.href]="file.mapFilePath + file.mapFileName" target="_blank">{{file.mapFileName}}</a> <br>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念' || row.result === '没'}" (mouseover)="highlight(row)"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>
+

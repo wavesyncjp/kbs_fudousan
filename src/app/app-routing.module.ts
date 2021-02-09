@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { BukkenListComponent } from './bukken-list/bukken-list.component';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
+import { BukkenUpdateComponent } from './bukken-update/bukken-update.component';// 20210207 Add
 import { TopComponent } from './top/top.component';
 import { InfoListComponent } from './info-list/info-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'top', component: TopComponent},
   { path: 'bukkens', component: BukkenListComponent},
   { path: 'bkdetail', component: BukkenDetailComponent},
+  { path: 'bkupdate', component: BukkenUpdateComponent},// 20210207 Add
   { path: 'contracts', component: ContractListComponent},
   { path: 'ctdetail', component: ContractDetailComponent},
   { path: 'infos', component: InfoListComponent},

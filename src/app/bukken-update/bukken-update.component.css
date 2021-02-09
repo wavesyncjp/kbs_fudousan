@@ -6,12 +6,10 @@ mat-expansion-panel-header{
     margin: 10px;
 }
 .data{
-    /* 20210208 S_Delete */
     /*
-    max-height: calc(100% - 100px);    
+    max-height: calc(100% - 100px);
     overflow: auto;
     */
-    /* 20210208 E_Delete */
     margin: 0px;
     width: 99.2%;
 }
@@ -21,40 +19,10 @@ mat-form-field{
 table {
     width: 100%;
 }
-
 mat-paginator{
     width: 100%;
 }
-
 .mat-raised-button{
-    margin-right: 10px;
-}
-
-/*----------Map------------*/
-#map {
-    min-height: 75vh;
-    width: 99%;
-}
-
-.map-equip {
-    width: 500px;
-    height: 240px;
-    text-align: left;
-    font-size: 12px;
-    font-weight: normal;
-}
-
-.map-equip > table > tbody > tr > th {
-    font-weight: normal;
-}
-
-.map-equip .label {
-    width: 80px;
-    text-align: left;
-}
-
-.bukken-tab {
-    margin-left: 10px;
     margin-right: 10px;
 }
 mat-tab-header{
@@ -62,9 +30,7 @@ mat-tab-header{
 }
 .mat-tab-body-content {
     min-height: 80vh;
-    /* 20210208 S_Delete */
     /*max-height: 90vh;*/
-    /* 20210208 E_Delete */
 }
 th.mat-sort-header-sorted {
     color: black;
@@ -72,37 +38,23 @@ th.mat-sort-header-sorted {
 .mat-sort-header-arrow {
     color: brown;
 }
-
-
 .bukkenlist_width{
    max-width: 200px;
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
 }
-/*20200828 S_Add*/
-.person_width{
-    max-width: 80px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/*20200828 E_Add*/
 .left{
     float: left;
 }
-
-/*20200828 S_Add*/
 .multiselect-dropdown {
     width: 275px !important;
     margin-left: 3px;
 }
-
 .dropdown-list {
     position: fixed !important;
     width: 300px !important;
 }
-  
 .multiselect-dropdown .dropdown-btn {
     height: 22px !important;
     padding: 5px 12px !important;
@@ -111,14 +63,18 @@ th.mat-sort-header-sorted {
     line-height: unset !important;
     font-size: 13px !important;
 }
-
 .multiselect-dropdown .dropdown-btn .dropdown-down {
     border-top: 5px solid #adadad !important;
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
 }
-
 .grayrow {
     background-color: #BFBFBF;
 }
-/*20200828 E_Add*/
+.changelabel {
+    font-size: 14px !important;
+    background-color: whitesmoke !important;
+}
+.search-div {
+    overflow: hidden;
+}

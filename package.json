@@ -27,6 +27,7 @@
     "encoding-japanese": "^1.0.30",
     "file-saver": "^2.0.2",
     "moment": "^2.24.0",
+    "ng-multiselect-dropdown": "^0.2.14",
     "ngx-spinner": "^8.0.3",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

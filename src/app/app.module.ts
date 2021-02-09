@@ -14,6 +14,7 @@ import { MatPaginatorModule, MatExpansionModule, MatCardModule, MatToolbarModule
        } from '@angular/material';
 import { BukkenListComponent } from './bukken-list/bukken-list.component';
 import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
+import { BukkenUpdateComponent } from './bukken-update/bukken-update.component';// 20210207 Add
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
@@ -65,6 +66,7 @@ import { DndDirective } from './utils/dnd.directive';
     , LoginComponent
     , BukkenListComponent
     , BukkenDetailComponent
+    , BukkenUpdateComponent// 20210207 Add
     , ContractListComponent
     , ContractDetailComponent
     , SelectComponentComponent
