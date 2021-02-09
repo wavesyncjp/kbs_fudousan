@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
 import { Code, PaymentType } from './models/bukken';
@@ -9,6 +9,7 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
 import { MatDialog } from '@angular/material';
 import { isNullOrUndefined } from 'util';
 
+@Directive()
 export class BaseComponent implements OnInit {
     public sysCodes = {};
     public deps = [];
