@@ -8,7 +8,7 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     
-    <table class="detail-tbl"  style="margin:10px;width:99%">  
+    <table class="detail-tbl-status" style="margin:5px !important; width:99% !important;">  
         <tr>
             <th>物件番号</th>
             <td>
@@ -56,7 +56,7 @@
         <tr>
             <th class="block-title-statusNew">測量</th>
         </tr>
-        <table class="detail-tbl-status-BK">
+        <table class="detail-tbl-status">
             <tr>
                 <th>測量依頼日</th>
                 <td>
@@ -124,7 +124,7 @@
             </div>
         </div>
         <ng-container *ngFor="let plan of data.plans; index as pos">
-            <table *ngIf="!plan.delete" class="detail-tbl-status-PL" style="margin-bottom: 20px;">  
+            <table *ngIf="!plan.delete" class="detail-tbl-status" style="margin-bottom: 20px;">  
                 <tr>
                     <td rowspan="3" style="width: 60px;"><div style="font-size: x-small;">プラン選択</div><br>&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox [checked]="plan.planFixFlg === '1'" (change)="flgPlan($event,  plan)"></mat-checkbox></td>
                     <th>プラン検討先</th>
@@ -140,9 +140,13 @@
                     <td>
                         <input *ngIf="authority !== '03'" type="text" [(ngModel)]="plan.planPriceMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(plan.planPriceMap)">
                     </td>
-                    <td rowspan="4">
+                    <!-- 20210209 S_デモ用修正 -->
+                    <td rowspan="3" *ngIf="pos > 0" style="border-left: 1px solid rgb(51, 49, 49); text-align:center;">
+                    <!-- 20210209 E_デモ用修正 -->
                         <button *ngIf="pos > 0" mat-flat-button class="delete_btn" (click)="deletePlan(plan, pos)">削除</button>
-                        <button *ngIf="pos === 0" mat-flat-button class="attach-btn" style="background-color: white;"></button>
+                        <!-- 20210209 S_デモ用削除 -->
+                        <!--<button *ngIf="pos === 0" mat-flat-button class="attach-btn" style="background-color: white;"></button>-->
+                        <!-- 20210209 E_デモ用削除 -->
                     </td>
                 </tr>
                 <tr>

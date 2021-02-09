@@ -257,24 +257,11 @@ textarea {
     overflow-y: auto;
 }
 
-.detail-tbl,.detail-tbl-status,.detail-tbl-etc,.inDetail-tbl,.detail-tbl-info,.detail-tbl-status-BK{
+.detail-tbl,.detail-tbl-status,.detail-tbl-etc,.inDetail-tbl,.detail-tbl-info{
     width: 100%;   
     border-spacing: 0px;
     border-collapse: collapse;
 }
-
-/* 20210208 S_デモ用修正 */
-.detail-tbl-status-BK{
-    width: 99%;   
-    border-spacing: 0px;
-    border-collapse: collapse;
-}
-
-.detail-tbl-status-PL{
-    width: 99%;  
-    border-bottom: solid 2px rgb(189 189 189);
-}
-/* 20210208 E_デモ用修正 */
 
 .detail-tbl > tr{
     height: 30px;
@@ -288,21 +275,30 @@ textarea {
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
-    border-top: solid 2px white;  
+    /*border-top: solid 2px white; */
+
+}
+.detail-tbl-status{
+    border: 1px solid rgb(51, 49, 49);
+    width: 99%;
+    padding: 5px;
 }
 .detail-tbl-status > tr{
     height: 30px;
-    background-color: white;    
+    background-color: white;
+    border-bottom: 1px solid rgb(51, 49, 49);   
 }
 .detail-tbl-status > tr > th{
     width:140px !important;
-    background-color: whitesmoke;
+    background-color: rgb(168, 207, 219);
     text-align: left;
     height: 22px !important;
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
-    border-top: solid 2px white;  
+    /*border-top: solid 2px white;  */
+    border-left: 1px solid rgb(51, 49, 49);
+    border-right: 1px solid rgb(51, 49, 49);
 }
 .detail-tbl-etc > tr{
     height: 30px;
