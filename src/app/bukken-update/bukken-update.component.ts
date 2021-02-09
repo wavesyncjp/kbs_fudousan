@@ -199,43 +199,38 @@ export class BukkenUpdateComponent extends BaseComponent {
       if (dlg.choose) {
         this.spinner.show();
 
-        const funcs = [];
-
-        // 【やりたいこと】
-        // ここで、画面でチェックしたデータの
-        // 担当部署(department)と物件担当者(infoStaff)とupdateUserIdだけ更新したいです。
-        // 現状ですと、対象以外のカラムがEmptyになってしまいます。
-
+        // 対象データを取得
+        const funcsGet = [];
         lst.forEach(pid => {
-          funcs.push(this.service.getLand(pid));
-
-          // 上記で取得したtblTempLandInfoのデータを
-          // this.dataにセットしたいです。
-
-          this.data = new Templandinfo();
-
-
-
-          this.data.pid = pid;
-          this.data.department = this.param.depCode;
-          this.data.infoStaff = this.param.clctInfoStaffMap.map(me => me['userId']).join(',');
-          this.data.updateUserId = this.service.loginUser.userId;
-
-          funcs.push(this.service.saveLand(this.data));
+          funcsGet.push(this.service.getLand(pid));
         });
 
-        Promise.all(funcs).then(values => {
-          this.spinner.hide();
-          const finishDlg = new Dialog({title: '完了', message: '担当を変更しました。'});
-          const dlgVal = this.dialog.open(FinishDialogComponent, {
-            width: '500px',
-            height: '250px',
-            data: finishDlg
-          });
+        const funcsSave = [];
 
-          dlgVal.afterClosed().subscribe(res => {
-            // 再検索
-            this.searchBukken();
+        Promise.all(funcsGet).then(values => {
+          // 対象データを更新
+          for (let i = 0; i < lst.length; i++) {
+            this.data = values[i];
+            this.data.department = this.param.depCode;
+            this.data.infoStaff = this.param.clctInfoStaffMap.map(me => me['userId']).join(',');
+            this.data.updateUserId = this.service.loginUser.userId;
+
+            funcsSave.push(this.service.saveLand(this.data));
+          }
+
+          Promise.all(funcsSave).then(values => {
+            this.spinner.hide();
+            const finishDlg = new Dialog({title: '完了', message: '担当を変更しました。'});
+            const dlgVal = this.dialog.open(FinishDialogComponent, {
+              width: '500px',
+              height: '250px',
+              data: finishDlg
+            });
+  
+            dlgVal.afterClosed().subscribe(res => {
+              // 再検索
+              this.searchBukken();
+            });
           });
         });
       }
