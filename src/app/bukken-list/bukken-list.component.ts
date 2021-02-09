@@ -676,5 +676,14 @@ export class BukkenListComponent extends BaseComponent {
     return true;
   }
   // 20201011 E_Add
+
+
+  /**
+   * 物件一覧.xlsxダウンロード
+   */
+  downloadBukkenList() {
+    document.getElementById('lnkDownload').click();    
+  }
+
 }
 

@@ -698,4 +698,12 @@ export class BukkenDetailComponent extends BaseComponent {
     data.importance = importance;
   }
   // 20210112 E_Add
+
+  /**
+   * 物件概要ダウンロード
+   */
+  downloadBukkenDetail() {
+    document.getElementById('lnkDownload').click(); 
+  }
+
 }

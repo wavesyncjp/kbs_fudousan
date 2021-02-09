@@ -122,3 +122,8 @@ th.mat-sort-header-sorted {
     background-color: #BFBFBF;
 }
 /*20200828 E_Add*/
+
+.csv-button {
+    background-color: #4472C4;
+    color: white;
+}

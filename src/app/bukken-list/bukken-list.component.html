@@ -176,7 +176,13 @@
         <!--<button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>-->
         <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn" [disabled]="disableUser">&nbsp;新規登録&nbsp;</button>&nbsp;
         <!-- 20210208 S_デモ用修正 -->
-        <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;CSV出力&nbsp;</button>
+        <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;CSV出力&nbsp;</button>&nbsp;
+
+        <!-- 20210209 物件一覧ダウンロード追加-->
+        <button mat-raised-button (click)="downloadBukkenList()" *ngIf="searched" class="csv-button">&nbsp;物件一覧　出力&nbsp;</button>
+        <a href="http://wavesync.site/backend/template/物件一覧.xls" id="lnkDownload" download="物件一覧.xls" style="display: none;">物件一覧　出力</a>
+        <!--/ 20210209 物件一覧ダウンロード追加-->
+
         <!-- 20210208 E_デモ用修正 -->
         <!--20201007_S Add-->
         <div class = "search-btns">

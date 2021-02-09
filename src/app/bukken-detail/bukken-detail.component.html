@@ -260,11 +260,17 @@
         <button mat-raised-button *ngIf="this.data.pid > 0" class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
         <!-- 20210207 S_デモ用修正 -->
         <!--<button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract()">契約情報　登録</button>-->
-        <button mat-raised-button *ngIf="this.data.pid > 0" class="button export-button"  (click)="export()">売買取引管理表　出力</button>
+        <!--<button mat-raised-button *ngIf="this.data.pid > 0" class="button export-button"  (click)="export()">売買取引管理表　出力</button>-->
         <!-- 20201006 S_Add -->
         <!--<button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigatePlan()">事業収支　登録</button>-->
         <!-- 20201006 E_Add -->
         <!-- 20210207 E_デモ用修正 -->
+
+         <!-- 20210209 物件一覧ダウンロード追加-->
+         <button mat-raised-button *ngIf="this.data.pid > 0" (click)="downloadBukkenDetail()" class="csv-button">物件概要書　出力</button>
+         <a href="http://wavesync.site/backend/template/物件概要.xls" id="lnkDownload" download="物件概要.xls" style="display: none;">物件一覧　出力</a>
+         <!--/ 20210209 物件一覧ダウンロード追加-->
+
     </div>
 
     <!--所有地-->
