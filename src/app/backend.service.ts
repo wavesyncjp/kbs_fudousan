@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Injectable, EventEmitter, Output, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +17,7 @@ import { Bukkensalesinfo } from './models/bukkensalesinfo';
 import { Planinfohistory } from './models/Planinfohistory';
 import { Planhistorylist } from './models/Planhistorylist';
 
+@Directive()
 @Injectable({
   providedIn: 'root'
 })

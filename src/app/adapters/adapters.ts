@@ -1,5 +1,7 @@
 import { NativeDateAdapter, MatPaginatorIntl, MAT_DATE_FORMATS } from '@angular/material';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class JPDateAdapter extends NativeDateAdapter {
     getDateNames(): string[] {
       return Array.from(Array(31), (v, k) => `${k + 1}`);
@@ -7,6 +9,7 @@ export class JPDateAdapter extends NativeDateAdapter {
 }
 
 
+@Injectable()
 export class MatPaginatorIntlJa extends MatPaginatorIntl {
     itemsPerPageLabel = '件数';
     nextPageLabel     = '次へ';

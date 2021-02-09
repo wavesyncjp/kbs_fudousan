@@ -3,7 +3,7 @@ import { BackendService } from '../backend.service';
 import { BaseComponent } from '../BaseComponent';
 import { MatDialog, MAT_DATE_LOCALE, DateAdapter,MatDialogRef } from '@angular/material';
 import { JPDateAdapter } from '../adapters/adapters';
-import { Planhistorylist } from '../models/planhistorylist';
+import { Planhistorylist } from '../models/Planhistorylist';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
