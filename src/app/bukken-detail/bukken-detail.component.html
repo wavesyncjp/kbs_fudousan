@@ -16,15 +16,15 @@
             </td>
             <th>契約物件番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80" maxlength="20">
+                <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80" maxlength="20" [disabled]="disableUser">
             </td>
             <th>物件名</th>
             <td>
-                <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" maxlength="100">
+                <input type="text" [(ngModel)]="data.bukkenName" [ngClass]="{'width400': true, 'error': errors['bukkenName']}" maxlength="100" [disabled]="disableUser">
             </td>
             <th>住居表示</th>
             <td>
-                <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" maxlength="100">
+                <input type="text" [(ngModel)]="data.residence" [ngClass]="{'width400': true, 'error': errors['residence']}" maxlength="100" [disabled]="disableUser">
             </td>
         </tr>
     </table>

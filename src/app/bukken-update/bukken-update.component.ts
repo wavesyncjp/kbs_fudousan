@@ -10,6 +10,7 @@ import { BackendService } from '../backend.service';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
+import { ErrorDialogComponent } from '../dialog/error-dialog/error-dialog.component';
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
@@ -188,6 +189,26 @@ export class BukkenUpdateComponent extends BaseComponent {
     let lst = this.dataSource.data.filter(me => me['select']).map(me => Number(me.pid));
     if(lst.length === 0) return;
 
+    if(this.isBlank(this.param.depCode) && this.param.clctInfoStaffMap.length == 0) {
+      const dlg = new Dialog({title: '警告', message: '担当部署もしくは、物件担当者を指定してください。'});
+      this.dialog.open(ErrorDialogComponent, {
+        width: '500px',
+        height: '250px',
+        data: dlg
+      });
+      return;
+    }
+
+    if(lst.length > 500) {
+      const dlg = new Dialog({title: '警告', message: '最大件数は500件となります。件数を減らして実行してください。'});
+      this.dialog.open(ErrorDialogComponent, {
+        width: '500px',
+        height: '250px',
+        data: dlg
+      });
+      return;
+    }
+
     const dlg = new Dialog({title: '確認', message: '担当を変更します。よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
@@ -211,10 +232,10 @@ export class BukkenUpdateComponent extends BaseComponent {
           // 対象データを更新
           for (let i = 0; i < lst.length; i++) {
             this.data = values[i];
-            this.data.department = this.param.depCode;
-            this.data.infoStaff = this.param.clctInfoStaffMap.map(me => me['userId']).join(',');
+            if(!this.isBlank(this.param.depCode)) this.data.department = this.param.depCode;
+            if(this.param.clctInfoStaffMap.length > 0) this.data.infoStaff = this.param.clctInfoStaffMap.map(me => me['userId']).join(',');
             this.data.updateUserId = this.service.loginUser.userId;
-
+            
             funcsSave.push(this.service.saveLand(this.data));
           }
 
