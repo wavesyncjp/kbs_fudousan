@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PlanHistoryListComponent } from './planhistory-list.component';
 
 describe('PlanHistoryListComponent', () => {
   let component: PlanHistoryListComponent;
   let fixture: ComponentFixture<PlanHistoryListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PlanHistoryListComponent ]
     })
