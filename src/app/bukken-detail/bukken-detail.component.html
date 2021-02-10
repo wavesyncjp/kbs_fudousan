@@ -277,8 +277,10 @@
     <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
         <span class="min">謄本情報　一覧</span>
         <table>
-            <thead class="list-header"> 
-                <th class="width80">契約<br>ステータス</th>
+            <thead class="list-header">
+                <!-- 20210210 S_Delete -->
+                <!--<th class="width80">契約<br>ステータス</th>-->
+                <!-- 20210210 E_Delete -->
                 <th class="width100">区分</th>
                 <th>所在</th>
                 <th>地番</th>
@@ -294,14 +296,18 @@
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let loc of data.locations; index as pos">
+                    <!-- 20210210 S_Delete -->
+                    <!--
                     <td>
                         {{showStatus(loc)}}
                     </td>
+                    -->
+                    <!-- 20210210 E_Delete -->
                     <td class="break-line">{{getCodeTitle('007', loc.locationType)}}</td>
                     <td class="text-left">{{loc.address}}</td>
                     <td class="text-left">{{loc.blockNumber}}</td>
                     <td class="text-left">{{loc.buildingNumber}}</td>
-                    <td class="text-right">{{loc.locationType === '01' ? ((loc.area != null && loc.area !== '' && loc.area > 0) ? formatIntNumber(loc.area) + '㎡' : '')  : loc.floorSpace}}</td>
+                    <td class="text-right break-line">{{loc.locationType === '01' ? ((loc.area != null && loc.area !== '' && loc.area > 0) ? formatIntNumber(loc.area) + '㎡' : '')  : loc.floorSpace}}</td>
                     <td class="text-left">{{loc.owner}}</td>
                     <td class="text-left">{{loc.ownerAdress}}</td>
                     <td>{{getCodeTitle('011', loc.rightsForm)}}</td>
