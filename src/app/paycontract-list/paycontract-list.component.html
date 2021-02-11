@@ -22,7 +22,7 @@
             
                 <th>支払種別</th>
                 <td colspan="2">
-                    <app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="cond.paymentCode"></app-select-component>
+                    <app-select-component  class="width158" [codes]="paymentTypes" [(ngModel)]="cond.paymentCode"></app-select-component>
                 </td>
             </tr>    
             <tr>

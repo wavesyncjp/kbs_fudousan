@@ -53,11 +53,11 @@
             </td>
             <th>担当部署</th>
             <td class="first">
-                <app-select-component [codes]="getDeps()" [cusClass]="'Twidthy70'" [(ngModel)]="plan.depCode" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
+                <app-select-component [codes]="depCodes" [cusClass]="'Twidthy70'" [(ngModel)]="plan.depCode" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
             </td>
             <th>物件担当者</th>
             <td class="first">
-                <app-select-component [codes]="getEmps()" [cusClass]="'Twidthy80'" [(ngModel)]="plan.userId" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
+                <app-select-component [codes]="userIds" [cusClass]="'Twidthy80'" [(ngModel)]="plan.userId" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
             </td>
         </tr>
         <tr>

@@ -6,7 +6,7 @@
     <table class="detail-tbl">
         <tr>
             <th>コード名</th>
-            <td calss="width300"><app-select-component [codes]="getCodeNameMst()" [(ngModel)]="data.code" [cusClass]="'width150  ' + (errors['code'] ? 'error' : '')" [isDisabled]="data.createUserId > 0 ? '' : null" ></app-select-component></td>
+            <td calss="width300"><app-select-component [codes]="codes" [(ngModel)]="data.code" [cusClass]="'width150  ' + (errors['code'] ? 'error' : '')" [isDisabled]="data.createUserId > 0 ? '' : null" ></app-select-component></td>
         </tr>
         <tr>
             <th>子コード</th>

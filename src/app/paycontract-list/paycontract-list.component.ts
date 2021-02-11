@@ -14,6 +14,7 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 import { Util } from '../utils/util';
 import { CsvTemplateComponent } from '../csv-template/csv-template.component';
+import { Code } from '../models/bukken';
 
 @Component({
   selector: 'app-paycontract-list',
@@ -77,6 +78,8 @@ export class PayContractListComponent extends BaseComponent {
     });
   }
 
+  paymentTypes: Code[];// 20210211 Add
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
@@ -90,9 +93,19 @@ export class PayContractListComponent extends BaseComponent {
       }
     }
 
+    // 20210211 S_Update
+    /*
     this.service.getPaymentTypes(null).then(ret => {
       this.payTypes = ret;
     });
+    */
+    const funcs = [];
+    funcs.push(this.service.getPaymentTypes(null));
+    Promise.all(funcs).then(values => {
+      this.payTypes = values[0];
+      this.paymentTypes = this.getPaymentTypes();
+    });
+    // 20210211 E_Update
 
     if (this.search === '1') {
       this.searchPayContract();

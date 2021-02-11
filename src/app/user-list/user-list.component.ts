@@ -39,6 +39,8 @@ export class UserListComponent extends BaseComponent {
     super(router, service,dialog);
   }
 
+  depCodes: Code[];// 20210211 Add
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
@@ -63,6 +65,7 @@ export class UserListComponent extends BaseComponent {
       }
 
       this.deps = values[1];
+      this.depCodes = this.getDeps();// 20210211 Add
     });
   }
 

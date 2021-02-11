@@ -13,7 +13,7 @@
             <th>社員コード</th>
             <td><input type="text" [(ngModel)]="data.employeeCode" maxlength="20"></td>
             <th>部署名</th>
-            <td><app-select-component [codes]="getDeps()" [(ngModel)]="data.depCode"></app-select-component></td>
+            <td><app-select-component [codes]="depCodes" [(ngModel)]="data.depCode"></app-select-component></td>
         </tr>
         <tr>
             <th>ログインID</th>

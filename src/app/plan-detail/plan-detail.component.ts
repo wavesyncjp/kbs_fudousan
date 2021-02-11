@@ -71,6 +71,11 @@ export class PlanDetailComponent extends BaseComponent {
     this.data = new Templandinfo();
   }
 
+  // 20210211 S_Add
+  userIds: Code[];
+  depCodes: Code[];
+  // 20210211 E_Add
+
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('事業収支詳細');
@@ -127,8 +132,16 @@ export class PlanDetailComponent extends BaseComponent {
       }
 
       this.deps = values[1];    // 部署
-      this.emps = values[2];    // 社員
+      // 20210211 S_Update
+//      this.emps = values[2];    // 社員
+      this.users = values[2];// 社員
+      // 20210211 E_Update
       this.payTypes = values[3];// 支払種別
+
+      // 20210211 S_Add
+      this.userIds = this.getUsers();
+      this.depCodes = this.getDeps();
+      // 20210211 E_Add
 
       // 支払種別（コンボ用）
       this.payTypeGroup1 = this.payTypes.filter(tp => { return tp.costFlg === '01' && tp.addFlg === '1' })
