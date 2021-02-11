@@ -64,6 +64,12 @@ export class PayContractDetailComponent extends BaseComponent {
       this.paycontract.taxEffectiveDayMap = new Date();
   }
 
+  // 20210211 S_Add
+  userIds: Code[];
+  depCodes: Code[];
+  paymentTypes: Code[];
+  // 20210211 E_Add
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
@@ -113,6 +119,12 @@ export class PayContractDetailComponent extends BaseComponent {
       this.payTypes = values[3];
       this.lands = values[4];
       this.taxes = values[5];
+
+      // 20210211 S_Add
+      this.userIds = this.getUsers();
+      this.depCodes = this.getDeps();
+      this.paymentTypes = this.getPaymentTypes();
+      // 20210211 E_Add
 
       //入力の際に表示される物件名称を取得するための処理
       this.bukkens = this.lands

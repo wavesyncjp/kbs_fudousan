@@ -58,6 +58,11 @@ export class LocationDetailComponent extends BaseComponent {
       super(router, service,dialog);
   }
 
+  // 20210211 S_Add
+  locAdress: Code[];
+  landAdress: Code[];
+  // 20210211 E_Add
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
@@ -101,6 +106,7 @@ export class LocationDetailComponent extends BaseComponent {
         funcs.push(this.service.searchLocation(this.cond));
         Promise.all(funcs).then(values => {
           this.locAdresses = values[0];// 住所
+          this.locAdress = this.getLocAdress();// 20210211 Add
         });
       }
       // 20201222 S_Add
@@ -115,6 +121,7 @@ export class LocationDetailComponent extends BaseComponent {
         funcs.push(this.service.searchLocation(this.cond));
         Promise.all(funcs).then(values => {
           this.landAdresses = values[0];// 住所
+          this.landAdress = this.getLandAdress();// 20210211 Add
         });
       }
       // 20201222 E_Add
@@ -261,6 +268,7 @@ export class LocationDetailComponent extends BaseComponent {
       funcs.push(this.service.searchLocation(this.cond));
       Promise.all(funcs).then(values => {
         this.landAdresses = values[0];// 住所
+        this.landAdress = this.getLandAdress();// 20210211 Add
       });
     }
     else
@@ -332,6 +340,7 @@ export class LocationDetailComponent extends BaseComponent {
       funcs.push(this.service.searchLocation(this.cond));
       Promise.all(funcs).then(values => {
         this.locAdresses = values[0];// 住所
+        this.locAdress = this.getLocAdress();// 20210211 Add
       });
       // 20201020 S_Add
       this.data.address = null;         // 所在地

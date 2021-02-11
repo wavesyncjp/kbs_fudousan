@@ -37,6 +37,8 @@ export class CodeDetailComponent extends BaseComponent {
     super(router, service,dialog);
   }
 
+  codes: Code[];// 20210211 Add
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     const funcs = [];
@@ -56,6 +58,7 @@ export class CodeDetailComponent extends BaseComponent {
       }
 
       this.sysCodeNameMsts = values[0];
+      this.codes = this.getCodeNameMst();// 20210211 Add
 
       if (this.data == null || !(this.data.codeDetail.length > 0)) {
         this.data = new Code();

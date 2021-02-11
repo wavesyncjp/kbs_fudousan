@@ -17,7 +17,10 @@
                 </tr>
                 <tr>
                     <th>部署名</th>
-                    <td><app-select-component [codes]="getDeps()" [(ngModel)]="cond.depCode"></app-select-component></td>
+                    <!-- 20210211 S_Update -->
+                    <!--<td><app-select-component [codes]="getDeps()" [(ngModel)]="cond.depCode"></app-select-component></td>-->
+                    <td><app-select-component [codes]="depCodes" [(ngModel)]="cond.depCode"></app-select-component></td>
+                    <!-- 20210211 E_Update -->
                     <th>権限</th>
                     <td><app-select-component [codes]="getCode('010')" [(ngModel)]="cond.authority"></app-select-component></td>
                 </tr>

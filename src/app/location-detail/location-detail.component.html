@@ -38,10 +38,10 @@
                 <!--<mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}">
                     <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
                 </mat-select>-->
-                <!-- 20200831 S_Update -->
+                <!-- 20210211 S_Update -->
                 <!--<app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.ridgePid" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>-->
-                <app-select-component [codes]="getLocAdress()" style="width: 300px;" [(ngModel)]="data.ridgePid" [cusClass]="'width300 ' + (errors['ridgePid'] ? 'error' : '')" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>
-                <!-- 20200831 E_Update -->
+                <app-select-component [codes]="locAdress" style="width: 300px;" [(ngModel)]="data.ridgePid" [cusClass]="'width300 ' + (errors['ridgePid'] ? 'error' : '')" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>
+                <!-- 20210211 E_Update -->
             </td>
         </tr>
         <tr>
@@ -142,7 +142,10 @@
         <tr>
             <th>底地</th>
             <td>
-                <app-select-component [codes]="getLandAdress()" style="width: 300px;" [(ngModel)]="data.bottomLandPid" [cusClass]="'width300 ' + (errors['bottomLandPid'] ? 'error' : '')" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>
+                <!-- 20210211 S_Update -->
+                <!--<app-select-component [codes]="getLandAdress()" style="width: 300px;" [(ngModel)]="data.bottomLandPid" [cusClass]="'width300 ' + (errors['bottomLandPid'] ? 'error' : '')" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>-->
+                <app-select-component [codes]="landAdress" style="width: 300px;" [(ngModel)]="data.bottomLandPid" [cusClass]="'width300 ' + (errors['bottomLandPid'] ? 'error' : '')" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>
+                <!-- 20210211 E_Update -->
             </td>
             <th>借地対象面積</th>
             <td>

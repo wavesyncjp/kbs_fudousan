@@ -63,6 +63,8 @@ export class BukkenDetailComponent extends BaseComponent {
     this.data.result = '01';
   }
 
+  depCodes: Code[];// 20210211 Add
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
@@ -96,6 +98,7 @@ export class BukkenDetailComponent extends BaseComponent {
 
       // 部署
       this.deps = values[1];
+      this.depCodes = this.getDeps();// 20210211 Add
 
       // 社員
       this.emps = values[2];

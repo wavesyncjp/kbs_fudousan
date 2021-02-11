@@ -59,7 +59,10 @@
         <tr>
             <th>契約担当部署</th>
             <td colspan="5">
-                <app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>
+                <!-- 20210211 S_Update -->
+                <!--<app-select-component [codes]="getDeps()" [(ngModel)]="paycontract.depCode"></app-select-component>-->
+                <app-select-component [codes]="depCodes" [(ngModel)]="paycontract.depCode"></app-select-component>
+                <!-- 20210211 E_Update -->
             </td>
             <td colspan="6">
                 <label>住所　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.supplierAddress" class="width400" maxlength="100">
@@ -69,7 +72,10 @@
         <tr>
             <th>契約担当者</th>
             <td colspan="5">
-                <app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>
+                <!-- 20210211 S_Update -->
+                <!--<app-select-component [codes]="getUsers()" [(ngModel)]="paycontract.userId"></app-select-component>-->
+                <app-select-component [codes]="userIds" [(ngModel)]="paycontract.userId"></app-select-component>
+                <!-- 20210211 E_Update -->
             </td>
             <td colspan="6">
                 <label>銀行　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.bank" class="width140" maxlength="100">
@@ -180,7 +186,10 @@
                         <button mat-raised-button (click)="addPayContractDetail()" style="background-color: #FFC000; color: white;">追加</button>
                     </td>
                     <td>
-                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_0'] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
+                        <!-- 20210211 S_Update -->
+                        <!--<app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_0'] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>-->
+                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_0'] ? 'error' : '')" [codes]="paymentTypes" [(ngModel)]="detail.paymentCode"></app-select-component>
+                        <!-- 20210211 E_Update -->
                     </td>
                     <!-- 20200921 S_Update -->
                     <!--
@@ -228,7 +237,10 @@
                         <button mat-raised-button (click)="deletePayContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
                     </td>
                     <td>
-                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + (sharerPos + 1)] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>
+                        <!-- 20210211 S_Update -->
+                        <!--<app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + (sharerPos + 1)] ? 'error' : '')" [codes]="getPaymentTypes()" [(ngModel)]="detail.paymentCode"></app-select-component>-->
+                        <app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + (sharerPos + 1)] ? 'error' : '')" [codes]="paymentTypes" [(ngModel)]="detail.paymentCode"></app-select-component>
+                        <!-- 20210211 E_Update -->
                     </td>
                     <!-- 20200921 S_Update -->
                     <!--

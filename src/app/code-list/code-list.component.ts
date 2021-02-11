@@ -39,6 +39,8 @@ export class CodeListComponent extends BaseComponent {
     super(router, service,dialog);
   }
 
+  codes: Code[];// 20210211 Add
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
@@ -73,6 +75,7 @@ export class CodeListComponent extends BaseComponent {
 
       // 20191202 valuesに取得値をセット
       this.sysCodeNameMsts = values[0];
+      this.codes = this.getCodeNameMst();// 20210211 Add
 
       this.cond.infoDateMap = null;
 

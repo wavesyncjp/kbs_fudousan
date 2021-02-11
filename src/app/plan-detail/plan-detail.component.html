@@ -60,14 +60,17 @@
             </td>
             <th>担当部署</th>
             <td class="first">
-                <app-select-component [codes]="getDeps()" [cusClass]="'Twidthy70'" [(ngModel)]="plan.depCode" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
+                <!-- 20210211 S_Update -->
+                <!--<app-select-component [codes]="getDeps()" [cusClass]="'Twidthy70'" [(ngModel)]="plan.depCode" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>-->
+                <app-select-component [codes]="depCodes" [cusClass]="'Twidthy70'" [(ngModel)]="plan.depCode" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
+                <!-- 20210211 E_Update -->
             </td>
             <th>物件担当者</th>
             <td class="first">
-                <!-- 20210207 S_Update -->
+                <!-- 20210211 S_Update -->
                 <!--<app-select-component [codes]="getEmps()" [cusClass]="Twidthy80" [(ngModel)]="plan.userId" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>-->
-                <app-select-component [codes]="getEmps()" [cusClass]="'Twidthy80'" [(ngModel)]="plan.userId" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
-                <!-- 20210207 E_Update -->
+                <app-select-component [codes]="userIds" [cusClass]="'Twidthy80'" [(ngModel)]="plan.userId" [isDisabled]="plan.planHistoryPid > 0"></app-select-component>
+                <!-- 20210211 E_Update -->
             </td>
         </tr>
         <tr>

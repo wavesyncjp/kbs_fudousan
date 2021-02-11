@@ -37,6 +37,8 @@ export class UserDetailComponent extends BaseComponent {
     super(router, service, dialog);
   }
 
+  depCodes: Code[];// 20210211 Add
+
   ngOnInit() {
     const funcs = [];
     funcs.push(this.service.getCodes(['010']));
@@ -61,6 +63,8 @@ export class UserDetailComponent extends BaseComponent {
       } else {
         this.data = new User(this.data);
       }
+
+      this.depCodes = this.getDeps();// 20210211 Add
     });
   }
 
