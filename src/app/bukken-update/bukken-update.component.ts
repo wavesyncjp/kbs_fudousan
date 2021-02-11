@@ -29,6 +29,8 @@ import { Code } from '../models/bukken';
 })
 export class BukkenUpdateComponent extends BaseComponent {
 
+  depCodes: Code[];
+
   // 検索条件
   public cond = {
     department: [],
@@ -98,6 +100,8 @@ export class BukkenUpdateComponent extends BaseComponent {
       this.deps = values[1];
       // ユーザー
       this.emps = values[2];
+
+      this.depCodes = this.getDeps();
 
       this.spinner.hide();
     });

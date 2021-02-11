@@ -59,8 +59,8 @@
       <table class="search-tbl">
         <tr>
           <th class="changelabel" *ngIf="searched">担当部署</th>
-          <td style="width: 190px;" *ngIf="searched">
-            <app-select-component [codes]="getDeps()" [(ngModel)]="param.depCode"></app-select-component>
+          <td style="width: 190px;" [ngClass]="{'hide-staff': !searched, 'show-staff': searched}">
+            <app-select-component [codes]="depCodes" [(ngModel)]="param.depCode"></app-select-component>
           </td>
           <th class="changelabel" *ngIf="searched">物件担当者</th>
           <td style="width: 360px;" [ngClass]="{'hide-staff': !searched, 'show-staff': searched}">
