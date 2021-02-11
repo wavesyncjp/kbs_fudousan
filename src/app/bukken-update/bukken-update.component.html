@@ -63,7 +63,7 @@
             <app-select-component [codes]="getDeps()" [(ngModel)]="param.depCode"></app-select-component>
           </td>
           <th class="changelabel" *ngIf="searched">物件担当者</th>
-          <td style="width: 360px;" *ngIf="searched">
+          <td style="width: 360px;" [ngClass]="{'hide-staff': !searched, 'show-staff': searched}">
             <ng-multiselect-dropdown class="width300"
                 [placeholder]="'選択'"
                 [data]="emps"

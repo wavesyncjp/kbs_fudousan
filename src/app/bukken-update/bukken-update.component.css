@@ -78,3 +78,10 @@ th.mat-sort-header-sorted {
 .search-div {
     overflow: hidden;
 }
+
+.hide-staff {
+    display: none;
+}
+.show-staff {
+    display: inline-block;
+}
