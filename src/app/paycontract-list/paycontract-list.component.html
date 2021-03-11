@@ -200,6 +200,16 @@
         </td>
         </ng-container>
 
+        <!-- 20210311 S_Add -->
+        <!-- コピー Column -->
+        <ng-container matColumnDef="copy">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button (click)="copyDetail(element)" color="primary">コピー</button>
+            </td>
+        </ng-container>
+        <!-- 20210311 E_Add -->
+
         <!--CSV出力-->
         <ng-container matColumnDef="csvCheck">
             <th mat-header-cell *matHeaderCellDef></th>

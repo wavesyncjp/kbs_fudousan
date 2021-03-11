@@ -60,7 +60,7 @@ export class PayContractListComponent extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail', 'csvCheck'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'csvCheck'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'copy', 'csvCheck'];
   //20200730 E_Update
   dataSource = new MatTableDataSource<Paycontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -250,4 +250,10 @@ export class PayContractListComponent extends BaseComponent {
       }
     });
   }
+
+  // 20210311 S_Add
+  copyDetail(row: Paycontractinfo) {
+    this.router.navigate(['/paydetail'], {queryParams: {bukkenid: row.tempLandInfoPid}});
+  }
+  // 20210311 E_Add
 }

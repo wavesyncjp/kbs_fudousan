@@ -140,6 +140,15 @@ export class PayContractDetailComponent extends BaseComponent {
           this.loadSellers(this.paycontract.tempLandInfoPid);
 
         }
+        // 20210311 S_Add
+        else if(this.bukkenid > 0) {
+          const templandinfo = new Templandinfo(values[6] as Templandinfo);
+          this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName;
+          this.paycontract.depCode = templandinfo.department;
+          var infoStaffs = templandinfo.infoStaff.split(",");
+          this.paycontract.userId = this.getNumber(infoStaffs[0]);
+        }
+        // 20210311 E_Add
         /* 
         else {
           this.paycontract = new Paycontractinfo();
