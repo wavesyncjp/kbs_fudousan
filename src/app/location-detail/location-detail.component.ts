@@ -515,7 +515,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.spinner.hide();
     // 20210311 S_Update
 //    this.dialogRef.close(false);
-    this.dialogRef.close({data: this.data, isSave: false});
+    this.dialogRef.close({data: this.data});
     // 20210311 E_Update
   }
 

@@ -205,7 +205,9 @@ export class BukkenDetailComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
+        // 20210311 S_Update
         // 更新
+        /*
         if (result.isSave) {
           this.data.locations[pos] = new Locationinfo(result.data);
           this.resetRegistrant(pos); //20201009 リセットRegistrant
@@ -213,13 +215,22 @@ export class BukkenDetailComponent extends BaseComponent {
         } else if (result.isDelete) {
           this.data.locations.splice(pos, 1);
         }
-        // 20210311 S_Add
+        */
+        if (result.isSave || result.isDelete) {
+          if (result.isSave) {
+            this.data.locations[pos] = new Locationinfo(result.data);
+            this.resetRegistrant(pos); //20201009 リセットRegistrant
+            //loc = new Locationinfo(result.data);
+          } else if (result.isDelete) {
+            this.data.locations.splice(pos, 1);
+          }
+        }
         // キャンセルで戻っても謄本添付ファイルは最新を設定
-        if(!result.isSave) {
+        else {
           const temp = new Locationinfo(result.data);
           this.data.locations[pos].attachFiles = temp.attachFiles;
         }
-        // 20210311 E_Add
+        // 20210311 E_Update
       }
     });
   }
