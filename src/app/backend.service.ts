@@ -377,8 +377,22 @@ export class BackendService {
     formData.append('file', file, file.name);
     formData.append('contractInfoId', contractInfoId.toString());
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
-
   }
+
+  // 20210311 S_Add
+  /**
+   * 謄本ファイルアップロード
+   * @param locationInfoId ：所在地情報ID
+   * @param file ；ファイル
+   */
+  uploadLocationFile(locationInfoId: number, file: File): Promise<object> {
+    const uploadApi = 'locationFileUpload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('locationInfoId', locationInfoId.toString());
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+  // 20210311 E_Add
 
   /**
    * インフォメーションファイルアップロード
@@ -413,6 +427,19 @@ export class BackendService {
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
+
+  // 20210311 S_Add
+  /**
+   * 謄本添付ファイル削除
+   * @param id : 所在地情報ID
+   */
+  deleteLocationFile(id: number): Promise<object> {
+    const deleteFileApi = 'deleteLocationFile.php';
+    const body = { pid: id };
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
+  }
+  // 20210311 E_Add
 
   /**
    *  インフォメーション情報検索

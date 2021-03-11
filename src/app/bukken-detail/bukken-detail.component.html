@@ -268,9 +268,17 @@
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let loc of data.locations; index as pos">
+                    <!-- 20210311 S_Update -->
+                    <!--
                     <td>
                         {{showStatus(loc)}}
                     </td>
+                    -->
+                    <td *ngIf="loc.attachFiles.length == 0">{{showStatus(loc)}}</td>
+                    <td *ngIf="loc.attachFiles.length > 0">
+                        <a [attr.href]="loc.attachFiles[0].attachFilePath + loc.attachFiles[0].attachFileName" target="_blank">{{showStatus(loc)}}</a>
+                    </td>
+                    <!-- 20210311 E_Update -->
                     <td class="break-line">{{getCodeTitle('007', loc.locationType)}}</td>
                     <td class="text-left">{{loc.address}}</td>
                     <td class="text-left">{{loc.blockNumber}}</td>

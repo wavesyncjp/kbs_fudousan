@@ -17,6 +17,11 @@ export class FileComponentComponent implements OnInit {
   @Input()
   contractInfoId: number;
 
+  // 20210311 S_Add
+  @Input()
+  locationInfoId: number;
+  // 20210311 E_Add
+
   @Input()
   comment = '';
 
@@ -110,6 +115,18 @@ export class FileComponentComponent implements OnInit {
         this.uploaded.emit(res);
       });
     }
+    // 20210311 S_Add
+    // 謄本ファイルアップロード
+    else if (this.locationInfoId !== undefined && this.locationInfoId > 0 ) {
+      this.service.uploadLocationFile(this.locationInfoId, this.file).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+      });
+    }
+    // 20210311 E_Add
   }
 
   public uploadInfoFile(infoPid: number) {

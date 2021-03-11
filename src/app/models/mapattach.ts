@@ -19,3 +19,10 @@ export class ContractFile {
     attachFileName = '';
     attachFilePath = '';
 }
+
+export class LocationAttach {
+    pid: number;
+    locationInfoPid: number;
+    attachFileName = '';
+    attachFilePath = '';
+}

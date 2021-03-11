@@ -2,6 +2,7 @@ import { Contractdetailinfo } from './contractdetailinfo';
 import { SharerInfo } from './sharer-info';
 import { Converter } from '../utils/converter';
 import { DatePipe } from '@angular/common';//20200913 Add
+import { LocationAttach } from './mapattach';// 20210311 Add
 
 export class Locationinfo {
     pid: number;
@@ -69,6 +70,7 @@ export class Locationinfo {
     contractDetail: Contractdetailinfo;
     contractDetail02: string; //不可分
     dependTypeMap: string[] = [];
+    attachFiles: LocationAttach[];// 20210311 Add
 
     createUserId: number;
     updateUserId: number;

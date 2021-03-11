@@ -213,6 +213,13 @@ export class BukkenDetailComponent extends BaseComponent {
         } else if (result.isDelete) {
           this.data.locations.splice(pos, 1);
         }
+        // 20210311 S_Add
+        // キャンセルで戻っても謄本添付ファイルは最新を設定
+        if(!result.isSave) {
+          const temp = new Locationinfo(result.data);
+          this.data.locations[pos].attachFiles = temp.attachFiles;
+        }
+        // 20210311 E_Add
       }
     });
   }

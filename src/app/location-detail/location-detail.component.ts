@@ -15,6 +15,7 @@ import { isNullOrUndefined } from 'util';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 //20200913 E_Add
+import { LocationAttach } from '../models/mapattach';// 20210311 Add
 
 @Component({
   selector: 'app-location-detail',
@@ -512,6 +513,40 @@ export class LocationDetailComponent extends BaseComponent {
    */
   cancel() {
     this.spinner.hide();
-    this.dialogRef.close(false);
+    // 20210311 S_Update
+//    this.dialogRef.close(false);
+    this.dialogRef.close({data: this.data, isSave: false});
+    // 20210311 E_Update
   }
+
+  // 20210311 S_Add
+  /**
+   * ファイルアップロード
+   * @param event ：ファイル
+   */
+  uploaded(event) {
+    if (this.data.attachFiles === null) {
+      this.data.attachFiles = [];
+    }
+    const attachFile: LocationAttach = JSON.parse(JSON.stringify(event));
+    this.data.attachFiles.push(attachFile);
+  }
+
+  /**
+   * ファイル削除
+   * @param map :　削除したいファイル
+   */
+  deleteFile(map: LocationAttach) {
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteLocationFile(map.pid).then(res => {
+          this.data.attachFiles.splice(this.data.attachFiles.indexOf(map), 1);
+        });
+      }
+    });
+  }
+  // 20210311 E_Add
 }

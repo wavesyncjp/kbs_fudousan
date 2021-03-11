@@ -1,7 +1,7 @@
-import { Mapattach } from './mapattach';
+import { MapAttach } from './mapattach';
 
-describe('Mapattach', () => {
+describe('MapAttach', () => {
   it('should create an instance', () => {
-    expect(new Mapattach()).toBeTruthy();
+    expect(new MapAttach()).toBeTruthy();
   });
 });
