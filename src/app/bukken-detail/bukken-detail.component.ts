@@ -266,6 +266,7 @@ export class BukkenDetailComponent extends BaseComponent {
       sh.pid = null
     });
     newLoc.pid = null;
+    newLoc.attachFiles = [];// 20210312 Add
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
       height: '550px',
