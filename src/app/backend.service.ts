@@ -21,7 +21,7 @@ import { Planhistorylist } from './models/Planhistorylist';
 @Injectable({
   providedIn: 'root'
 })
-export class BackendService {  
+export class BackendService {
 
   //private readonly BaseUrl = 'http://localhost/ksb-bds/kbs_backend/api';
   private readonly BaseUrl = 'http://wavesync.tokyo/backend/api';// テスト環境
@@ -771,6 +771,18 @@ export class BackendService {
     const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
     return req.toPromise();
   }
+
+  // 20210314 S_Add
+    /**
+   * 契約情報削除
+   * @param id 契約情報Id
+   */
+  deleteContracte(id: number): Promise<void> {
+    const deleteApi = 'contractdelete.php';
+    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
+    return req.toPromise();
+  }
+  // 20210314 E_Add
 
   /**
    * 物件契約者取得

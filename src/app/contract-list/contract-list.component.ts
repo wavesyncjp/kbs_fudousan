@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ContractDetailComponent } from '../contract-detail/contract-detail.component';
 import { JPDateAdapter, MatPaginatorIntlJa } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -11,6 +10,10 @@ import { Contractinfo } from '../models/contractinfo';
 import { Templandinfo } from '../models/templandinfo';
 import { Util } from '../utils/util';
 import { CsvTemplateComponent } from '../csv-template/csv-template.component';
+// 20210314 S_Add
+import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
+import { Dialog } from '../models/dialog';
+// 20210314 E_Add
 
 @Component({
   selector: 'app-contract-list',
@@ -28,7 +31,7 @@ export class ContractListComponent  extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'contractBukkenNo', 'remark1', 'remark2', 'contractNo', 'contractOwner', 'detail'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'decisionDay', 'detail', 'csvCheck'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'decisionDay', 'delete', 'detail', 'csvCheck'];
   //20200906 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
@@ -61,6 +64,10 @@ export class ContractListComponent  extends BaseComponent {
   };
   search = '0';
   searched = false;// 20210103 Add
+  // 20210314 S_Add
+  authority = '';
+  enableUser: boolean = false;
+  // 20210314 E_Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -77,6 +84,12 @@ export class ContractListComponent  extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
+
+    // 20210314 S_Add
+    this.authority = this.service.loginUser.authority;
+    this.enableUser = (this.authority === '01');
+    // 20210314 E_Add
+
     this.service.changeTitle('仕入契約一覧');
     this.dataSource.paginator = this.paginator;
     if (this.search === '1') {
@@ -230,4 +243,22 @@ export class ContractListComponent  extends BaseComponent {
     });
   }
   // 20210103 E_Add
+  // 20210314 S_Add
+  deleteRow(ct: Contractinfo) {
+    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteContracte(ct.pid).then(res => {
+          this.searchContract();
+        });
+      }
+    });
+  }
+  // 20210314 E_Add
 }
