@@ -579,3 +579,9 @@ span.minDl{
     float: right !important;
     margin: 0px 1px 10px 30px!important
 }
+
+.map-print {
+    margin-right: 10px;
+    background-color: #4472C4;
+    color: white;
+}

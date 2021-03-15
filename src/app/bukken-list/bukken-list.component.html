@@ -166,7 +166,10 @@
         <!--<button mat-raised-button (click)="export()">&nbsp;&nbsp;出力&nbsp;&nbsp;</button>-->
         <button mat-raised-button (click)="createNew()" *ngIf="searched" color="warn" [disabled]="disableUser">&nbsp;新規登録&nbsp;</button>&nbsp;
 
-        <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>
+        <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>&nbsp;
+
+        <button mat-raised-button (click)="printMap()" *ngIf="searched && cond.mode === 2" class="map-print">&nbsp;印刷&nbsp;</button>
+
         <!--20201007_S Add-->
         <div class = "search-btns">
           <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>

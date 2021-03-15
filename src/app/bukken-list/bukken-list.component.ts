@@ -1,4 +1,3 @@
-declare var google: any;
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
@@ -13,9 +12,11 @@ import { BaseComponent } from '../BaseComponent';
 import { Templandinfo } from '../models/templandinfo';
 import { Code } from '../models/bukken';
 import { DatePipe } from '@angular/common';
-import { utils } from 'protractor';
 import { Util } from '../utils/util';
 import { CsvTemplateComponent } from '../csv-template/csv-template.component';
+import html2canvas from 'html2canvas';
+
+declare var google: any;
 
 @Component({
   selector: 'app-bukken-list',
@@ -663,5 +664,33 @@ export class BukkenListComponent extends BaseComponent {
     return true;
   }
   // 20201011 E_Add
+
+  printMap() {
+    /*
+    var content = window.document.getElementById("map"); 
+    var newWindow = window.open();
+    newWindow.document.write(content.innerHTML); 
+    newWindow.print();
+    setTimeout(function () { newWindow.print(); newWindow.close(); }, 500);
+    */
+    
+    let printWin = window.open('', '');
+    let windowContent = '<!DOCTYPE html>';
+
+    html2canvas(document.querySelector("#map"), {useCORS: true}).then(canvas => {
+      windowContent += '<html>'
+      windowContent += '<head><title>Print canvas</title></head>';
+      windowContent += '<body>'
+      windowContent += '<img src="' + canvas.toDataURL() + '">';
+      windowContent += '</body>';
+      windowContent += '</html>';
+      printWin.document.open();
+      printWin.document.write(windowContent);
+      printWin.document.close();
+      printWin.focus();
+      setTimeout(function () { printWin.print(); printWin.close(); }, 500);
+    });
+    
+  }
 }
 
