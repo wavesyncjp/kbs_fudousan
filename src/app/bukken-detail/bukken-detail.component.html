@@ -175,26 +175,34 @@
             <tr>
                 <th>不可分</th>
                 <td>
-                    <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>
+                    <!-- 20210317 S_Update -->
+                    <!--<app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg"></app-select-component>-->
+                    <app-select-component [codes]="getCode('006')" [(ngModel)]="data.indivisibleFlg" [isDisabled]="normalUser"></app-select-component>
+                    <!-- 20210317 E_Update -->
                 </td>
                 <th>不可分子</th>
                 <td>
-                    <!-- 20210112 S_Update -->
+                    <!-- 20210317 S_Update -->
                     <!--<input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15">-->
-                    <input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)">
-                    <!-- 20210112 E_Update -->
+                    <!--<input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)">-->
+                    <input type="text" [(ngModel)]="data.indivisibleNumerator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)" [attr.disabled]="normalUser ? '': null">
+                    <!-- 20210317 E_Update -->
                 </td>
                 <th>不可分母</th>
                 <td>
-                    <!-- 20210112 S_Update -->
+                    <!-- 20210317 S_Update -->
                     <!--<input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15">-->
-                    <input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)">
-                    <!-- 20210112 E_Update -->
+                    <!--<input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)">-->
+                    <input type="text" [(ngModel)]="data.indivisibleDenominator" class="width60" maxlength="15" (ngModelChange)="setImportance(data)" [attr.disabled]="normalUser ? '': null">
+                    <!-- 20210317 E_Update -->
                 </td>
                 <!-- 20210112 S_Add -->
                 <th>重要度</th>
                 <td>
-                    <app-select-component [codes]="getCode('028')" [(ngModel)]="data.importance"></app-select-component>
+                    <!-- 20210317 S_Update -->
+                    <!--<app-select-component [codes]="getCode('028')" [(ngModel)]="data.importance"></app-select-component>-->
+                    <app-select-component [codes]="getCode('028')" [(ngModel)]="data.importance" [isDisabled]="normalUser"></app-select-component>
+                    <!-- 20210317 E_Update -->
                 </td>
             </tr>
             <tr>
@@ -204,22 +212,34 @@
                 <td><input type="text" [(ngModel)]="data.floorAreaRatio" [ngClass]="{'width60': true, 'number': true, 'error': errors['floorAreaRatio']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%</td>
 -->
                 <td>
-                    <input type="text" [(ngModel)]="data.floorAreaRatio" class = "width80" maxlength="20">
+                    <!-- 20210317 S_Update -->
+                    <!--<input type="text" [(ngModel)]="data.floorAreaRatio" class = "width80" maxlength="20">-->
+                    <input type="text" [(ngModel)]="data.floorAreaRatio" class = "width80" maxlength="20" [attr.disabled]="normalUser ? '': null">
+                    <!-- 20210317 E_Update -->
                 </td>
                 <th>建蔽率</th>
                 <td>
-                    <input type="text" [(ngModel)]="data.coverageRate" [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%
+                    <!-- 20210317 S_Update -->
+                    <!--<input type="text" [(ngModel)]="data.coverageRate" [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15">&nbsp;%-->
+                    <input type="text" [(ngModel)]="data.coverageRate" [ngClass]="{'width60': true, 'number': true, 'error': errors['coverageRate']}" maxlength="5" (keypress)="floatOnly($event)" maxlength="15" [attr.disabled]="normalUser ? '': null">&nbsp;%
+                    <!-- 20210317 E_Update -->
                 </td>
             </tr>
             <tr>
                 <th>地図添付</th>
                 <td colspan="5">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
-                    <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
+                    <!-- 20210317 S_Update -->
+                    <!--<app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>-->
+                    <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0 && !normalUser" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
+                    <!-- 20210317 E_Update -->
                     <table style="margin-left: 5px;">
                         <tr *ngFor="let map of data.mapFiles">
                             <td class="min-width160"><a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a></td>
-                            <td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button></td>
+                            <!-- 20210317 S_Update -->
+                            <!--<td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button></td>-->
+                            <td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)" *ngIf="!normalUser">削除</button></td>
+                            <!-- 20210317 E_Update -->
                         </tr>
                     </table>
                 </td>
@@ -228,12 +248,19 @@
                 <th>ファイル添付</th>
                 <td colspan="5" >
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
-                    <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
+                    <!-- 20210317 S_Update -->
+                    <!--<app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>-->
+                    <app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0 && !normalUser" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
+                    <!-- 20210317 E_Update -->
                     <table style="margin-left: 5px;">
                         <tr *ngFor="let map of data.attachFiles">
                             <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
-                            <td><input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;" maxlength="100"></td>
-                            <td><button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button></td>
+                            <!-- 20210317 S_Update -->
+                            <!--<td><input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;" maxlength="100"></td>
+                            <td><button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button></td>-->
+                            <td><input type="text" class="width400" [(ngModel)]="map.attachFileRemark" style ="margin-left:20px;" maxlength="100"[attr.disabled]="normalUser ? '': null"></td>
+                            <td><button mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)" *ngIf="!normalUser">削除</button></td>
+                            <!-- 20210317 E_Update -->
                         </tr>
                     </table>
                 </td>
@@ -251,7 +278,8 @@
     <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
         <span class="min">謄本情報　一覧</span>
         <table>
-            <thead class="list-header"> 
+            <thead class="list-header">
+                <th>謄本添付</th><!-- 20210317 Add -->
                 <th class="width80">契約<br>ステータス</th>
                 <th class="width100">区分</th>
                 <th>所在</th>
@@ -268,6 +296,7 @@
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let loc of data.locations; index as pos">
+                    <app-file locationInfoId="{{loc.pid}}" (uploaded)="uploadedLoc($event, loc)" [immediately]="true"></app-file><!-- 20210317 Add -->
                     <!-- 20210311 S_Update -->
                     <!--
                     <td>
@@ -321,9 +350,13 @@
                 <th class="width100">売買代金</th>
                 <th class="width100">決済日</th>
                 <th class="width80">詳細</th>
+                <th class="width80" *ngIf="enableUser">削除</th><!-- 20210317 Add -->
             </thead>
             <tbody class="list-body">
-                <tr *ngFor="let contract of contracts">
+                <!-- 20210317 S_Update -->
+                <!--<tr *ngFor="let contract of contracts">-->
+                <tr *ngFor="let contract of contracts; index as pos">
+                <!-- 20210317 E_Update -->
                     <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                     <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
@@ -336,6 +369,7 @@
                     <td class="text-right">{{formatIntNumber(contract.tradingPrice, '円')}}</td>
                     <td>{{formatDay(contract.decisionDay, 'yyyy/MM/dd')}}</td>
                     <td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button (click)="deleteContract(contract, pos)" color="button" *ngIf="enableUser">削除</button></td><!-- 20210317 Add -->
                 </tr>
             </tbody>
         </table>

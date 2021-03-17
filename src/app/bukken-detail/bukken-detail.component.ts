@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MAT_DATE_FORMATS, MatCheckbox,MatTabGroup,MatRadioChange} from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MatCheckbox,MatTabGroup,MatRadioChange} from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,11 +13,10 @@ import { Code } from '../models/bukken';
 import { MapAttach, AttachFile } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Contractinfo } from '../models/contractinfo';
-import { SharerInfo } from '../models/sharer-info';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
 import { DatePipe } from '@angular/common';
 import { Util } from '../utils/util';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';//20200731 Add
+import { LocationAttach } from '../models/mapattach';// 20210317 Add
 declare var google: any;
 
 @Component({
@@ -47,6 +46,10 @@ export class BukkenDetailComponent extends BaseComponent {
   authority = '';
   disableUser: boolean = false;
   //20200731 E_Add
+  //20210317 S_Add
+  enableUser: boolean = false;
+  normalUser: boolean = false;
+  //20210317 E_Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -72,6 +75,10 @@ export class BukkenDetailComponent extends BaseComponent {
     this.authority = this.service.loginUser.authority;
     this.disableUser = (this.authority === '03');
     //20200731 E_Add
+    //20210317 S_Add
+    this.enableUser = (this.authority === '01');
+    this.normalUser = (this.authority === '04');
+    //20210317 E_Add
     this.service.changeTitle('物件情報詳細');
     this.spinner.show();
 
@@ -718,4 +725,34 @@ export class BukkenDetailComponent extends BaseComponent {
     data.importance = importance;
   }
   // 20210112 E_Add
+  // 20210314 S_Add
+  deleteContract(contract: Contractinfo, pos: number) {
+    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteContract(contract.pid).then(res => {
+            this.contracts.splice(pos, 1);
+        });
+      }
+    });
+  }
+
+  /**
+   * 謄本ファイルアップロード
+   * @param event ：ファイル
+   */
+   uploadedLoc(event, loc: Locationinfo) {
+    if (loc.attachFiles === null) {
+      loc.attachFiles = [];
+    }
+    const attachFile: LocationAttach = JSON.parse(JSON.stringify(event));
+    loc.attachFiles.push(attachFile);
+  }
+  // 20210314 E_Add
 }

@@ -777,7 +777,7 @@ export class BackendService {
    * 契約情報削除
    * @param id 契約情報Id
    */
-  deleteContracte(id: number): Promise<void> {
+  deleteContract(id: number): Promise<void> {
     const deleteApi = 'contractdelete.php';
     const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
     return req.toPromise();

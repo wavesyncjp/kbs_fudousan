@@ -254,7 +254,7 @@ export class ContractListComponent  extends BaseComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-        this.service.deleteContracte(ct.pid).then(res => {
+        this.service.deleteContract(ct.pid).then(res => {
           this.searchContract();
         });
       }
