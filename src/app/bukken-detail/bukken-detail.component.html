@@ -16,7 +16,10 @@
             </td>
             <th>契約物件番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80" maxlength="20" [disabled]="disableUser">
+                <!-- 20210318 S_Update -->
+                <!--<input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80" maxlength="20" [disabled]="disableUser">-->
+                <input type="text" [(ngModel)]="data.contractBukkenNo" class = "width80" maxlength="20" [disabled]="disableUser || normalUser">
+                <!-- 20210318 E_Update -->
             </td>
             <th>物件名</th>
             <td>
