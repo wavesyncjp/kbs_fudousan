@@ -56,7 +56,8 @@ mat-select {
     margin-top: -2px !important;
     font-size: 14px;
 }
-
+/*
 ::ng-deep.address_select .dropdown-list {
     width: 380px !important;
 }
+*/

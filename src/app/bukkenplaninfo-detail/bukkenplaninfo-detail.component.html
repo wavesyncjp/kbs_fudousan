@@ -14,9 +14,18 @@
         </tr>
         <tr>
             <th>売買区分</th>
-            <td colspan="3">
+            <!-- 20210319 S_Update -->
+            <!--<td colspan="3">-->
+            <td>
+            <!-- 20210319 E_Update -->
                 <app-select-component [codes]="getCode('021')" [(ngModel)]="data.salesType" [noBlank]="true"></app-select-component>
             </td>
+            <!-- 20210319 S_Add -->
+            <th>契約書番号</th>
+            <td>
+                <input type="text" [(ngModel)]="data.contractFormNumber" class="width150" maxlength="32">
+            </td>
+            <!-- 20210319 E_Add -->
             <th>売却先</th>
             <td colspan="3">
                 <input type="text" [(ngModel)]="data.salesName" class= "width250" maxlength="100">
@@ -27,7 +36,7 @@
             <td colspan="3">
                 <!--<input type="text" [(ngModel)]="data.salesLocation" class="width400" maxlength="100">-->
                 <!--<app-select-component [codes]="getLocAdress()" style="width: 400px;" [(ngModel)]="data.salesLocation" [exclass] = "true"></app-select-component>-->
-                <ng-multiselect-dropdown class="address_select"
+                <ng-multiselect-dropdown
                     [placeholder]="'選択'"
                     [data]="selectAddresses"
                     [(ngModel)]="data.salesLocationMap"

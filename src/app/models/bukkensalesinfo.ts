@@ -52,6 +52,7 @@ export class Bukkensalesinfo {
     // 20201124 E_Add
     salesOutsourcingPricePayDay: string;// 20201218 Add
     salesRemark: string;
+    contractFormNumber: string;// 20210319 Add
 
     createUserId: number;
     updateUserId: number;
