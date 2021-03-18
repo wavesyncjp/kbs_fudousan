@@ -1,7 +1,7 @@
 <input type="file" style="display: none" #fileInput accept="" (change)="onChangeFileInput()" />
 <button mat-raised-button color="primary" class="file-select-button" (click)="onClickFileInputButton()" appDnd  (onFileDropped)="uploadFile($event)">
  <mat-icon>attach_file</mat-icon>
-  ファイルを選択
+  {{!simpleMode ? 'ファイルを選択' : ''}}
 </button>
 
 <p class="file-name" *ngIf="!file; else fileName"><!--ファイルが選択されていません--></p>

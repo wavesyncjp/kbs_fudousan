@@ -34,6 +34,9 @@ export class FileComponentComponent implements OnInit {
   @Input()
   immediately = false;
 
+  @Input()
+  simpleMode: boolean;
+
   @Output() uploaded: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('fileInput', {static: true})
