@@ -298,8 +298,10 @@
                 <th class="width80">コピー</th>
             </thead>
             <tbody class="list-body">
-                <tr *ngFor="let loc of data.locations; index as pos">
-                    <app-file locationInfoId="{{loc.pid}}" (uploaded)="uploadedLoc($event, loc)" [immediately]="true"></app-file><!-- 20210317 Add -->
+                <tr *ngFor="let loc of data.locations; index as pos">                    
+                    <td>
+                        <app-file locationInfoId="{{loc.pid}}" (uploaded)="uploadedLoc($event, loc)" [immediately]="true" [simpleMode]="true"></app-file><!-- 20210317 Add -->
+                    </td>
                     <!-- 20210311 S_Update -->
                     <!--
                     <td>
