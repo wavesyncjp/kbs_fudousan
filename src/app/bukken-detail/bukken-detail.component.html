@@ -232,17 +232,11 @@
                 <th>地図添付</th>
                 <td colspan="5">
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
-                    <!-- 20210317 S_Update -->
-                    <!--<app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>-->
-                    <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0 && !normalUser" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
-                    <!-- 20210317 E_Update -->
+                    <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
                     <table style="margin-left: 5px;">
                         <tr *ngFor="let map of data.mapFiles">
                             <td class="min-width160"><a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a></td>
-                            <!-- 20210317 S_Update -->
-                            <!--<td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button></td>-->
-                            <td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)" *ngIf="!normalUser">削除</button></td>
-                            <!-- 20210317 E_Update -->
+                            <td><button mat-flat-button class="attach-btn" (click)="deleteMapFile(map)">削除</button></td>
                         </tr>
                     </table>
                 </td>
