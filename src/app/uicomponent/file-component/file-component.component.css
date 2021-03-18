@@ -1,7 +1,16 @@
 .file-select-button, .file-name {
     display: inline-block;
     margin: 8px;
-  }
+}
+
+.noMargin {
+  margin: 0px;
+}
+
+.noMarginBtn {
+  margin: 2px;
+}
+
 .file-comment {
   border: solid 1px cornflowerblue;
   border-radius: 2px;

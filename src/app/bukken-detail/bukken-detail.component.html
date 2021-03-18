@@ -281,8 +281,8 @@
     <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
         <span class="min">謄本情報　一覧</span>
         <table>
-            <thead class="list-header">
-                <th>謄本添付</th><!-- 20210317 Add -->
+            <thead class="list-header">                
+                <th style="min-width: 60px;">謄本添付</th><!-- 20210317 Add -->
                 <th class="width80">契約<br>ステータス</th>
                 <th class="width100">区分</th>
                 <th>所在</th>
@@ -295,7 +295,7 @@
                 <th>備考</th>
                 <th class="width100">契約番号</th>
                 <th class="width80">謄本詳細</th>
-                <th class="width80">コピー</th>
+                <th class="width80">コピー</th>                
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let loc of data.locations; index as pos">                    
