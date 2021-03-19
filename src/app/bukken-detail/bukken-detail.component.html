@@ -296,18 +296,15 @@
                     <td>
                         <app-file locationInfoId="{{loc.pid}}" (uploaded)="uploadedLoc($event, loc)" [immediately]="true" [simpleMode]="true"></app-file><!-- 20210317 Add -->
                     </td>
-                    <!-- 20210311 S_Update -->
-                    <!--
                     <td>
                         {{showStatus(loc)}}
                     </td>
-                    -->
-                    <td *ngIf="loc.attachFiles.length == 0">{{showStatus(loc)}}</td>
+                    <!-- 20210319 S_Update -->
+                    <td class="break-line" *ngIf="loc.attachFiles.length == 0">{{getCodeTitle('007', loc.locationType)}}</td>
                     <td *ngIf="loc.attachFiles.length > 0">
-                        <a [attr.href]="loc.attachFiles[0].attachFilePath + loc.attachFiles[0].attachFileName" target="_blank">{{showStatus(loc)}}</a>
+                        <a [attr.href]="loc.attachFiles[0].attachFilePath + loc.attachFiles[0].attachFileName" target="_blank">{{getCodeTitle('007', loc.locationType)}}</a>
                     </td>
-                    <!-- 20210311 E_Update -->
-                    <td class="break-line">{{getCodeTitle('007', loc.locationType)}}</td>
+                    <!-- 20210319 E_Update -->
                     <td class="text-left">{{loc.address}}</td>
                     <td class="text-left">{{loc.blockNumber}}</td>
                     <td class="text-left">{{loc.buildingNumber}}</td>
