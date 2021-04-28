@@ -2,7 +2,10 @@
 <div class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+        <!-- 20210426 S_Update -->
+        <!--<button mat-raised-button color="primary" class="button" (click)="save()">登録</button>-->
+        <button mat-raised-button color="primary" class="button" (click)="save(copyFlg)">登録</button>
+        <!-- 20210426 E_Update -->
     </div>
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
@@ -37,7 +40,10 @@
             <td colspan="8" class="tab_bottom">
                 <div class="tab-wrap">
                     <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">物件情報</label>
-                    <input id="tab02" type="radio" name="tab" [disabled]="pid == null || !(pid > 0)" class="tab-switch"><label (click)="gotoPlan()" class="tab-label" for="tab02">プラン</label>
+                    <!-- 20210426 S_Update -->
+                    <!--<input id="tab02" type="radio" name="tab" [disabled]="pid == null || !(pid > 0)" class="tab-switch"><label (click)="gotoPlan()" class="tab-label" for="tab02">プラン</label>-->
+                    <input id="tab02" type="radio" name="tab" [disabled]="pid == null || !(pid > 0) || copyFlg" class="tab-switch"><label (click)="gotoPlan()" class="tab-label" for="tab02">プラン</label>
+                    <!-- 20210426 E_Update -->
                 </div>
                 <!--
                 <div class="switch-tab">
@@ -230,7 +236,10 @@
             </tr>
             <tr>
                 <th>地図添付</th>
-                <td colspan="5">
+                <!-- 20210426 S_Update -->
+                <!--<td colspan="5">-->
+                <td colspan="5" *ngIf="!copyFlg">
+                <!-- 20210426 E_Update -->
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
                     <app-file bukkenId="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>
                     <table style="margin-left: 5px;">
@@ -240,10 +249,22 @@
                         </tr>
                     </table>
                 </td>
+                <!-- 20210426 S_Add -->
+                <td colspan="5" *ngIf="copyFlg">
+                    <table style="margin-left: 5px;">
+                        <tr *ngFor="let map of data.mapFiles">
+                            <td class="min-width160"><a [attr.href]="map.mapFilePath + map.mapFileName" target="_blank">{{map.mapFileName}}</a></td>
+                        </tr>
+                    </table>
+                </td>
+                <!-- 20210426 E_Add -->
             </tr>
             <tr>
                 <th>ファイル添付</th>
-                <td colspan="5" >
+                <!-- 20210426 S_Update -->
+                <!--<td colspan="5" >-->
+                <td colspan="5" *ngIf="!copyFlg">
+                <!-- 20210426 E_Update -->
                     <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
                     <!-- 20210317 S_Update -->
                     <!--<app-file bukkenId="{{data.pid}}" hasComment="true" *ngIf="data.pid > 0" (uploaded)="mapUploaded($event)" [immediately]="true"></app-file>-->
@@ -261,11 +282,19 @@
                         </tr>
                     </table>
                 </td>
+                <!-- 20210426 S_Add -->
+                <td colspan="5" *ngIf="copyFlg">
+                    <label style="color:red">※土地情報を登録後に添付可能となります。</label>
+                </td>
+                <!-- 20210426 E_Add -->
             </tr>
         </table>
     </table>
 
-    <div class="button-div-left">
+    <!-- 20210426 S_Update -->
+    <!--<div class="button-div-left">-->
+    <div class="button-div-left" *ngIf="!copyFlg">
+    <!-- 20210426 E_Update -->
         <button mat-raised-button *ngIf="this.data.pid > 0" class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
         <button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract()">契約情報　登録</button>
         <button mat-raised-button *ngIf="this.data.pid > 0" class="button export-button"  (click)="export()">売買取引管理表　出力</button>
@@ -275,8 +304,11 @@
     <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
         <span class="min">謄本情報　一覧</span>
         <table>
-            <thead class="list-header">                
-                <th style="min-width: 60px;">謄本添付</th><!-- 20210317 Add -->
+            <thead class="list-header">
+                <!-- 20210426 S_Update -->
+                <!--<th style="min-width: 60px;">謄本添付</th>--><!-- 20210317 Add -->
+                <th style="min-width: 60px;" *ngIf="!copyFlg">謄本添付</th>
+                <!-- 20210426 E_Update -->
                 <th class="width80">契約<br>ステータス</th>
                 <th class="width100">区分</th>
                 <th>所在</th>
@@ -288,12 +320,19 @@
                 <th class="width80">権利形態</th>
                 <th>備考</th>
                 <th class="width100">契約番号</th>
-                <th class="width80">謄本詳細</th>
-                <th class="width80">コピー</th>                
+                <!-- 20210426 S_Update -->
+                <!--<th class="width80">謄本詳細</th>
+                <th class="width80">コピー</th>-->
+                <th class="width80" *ngIf="!copyFlg">謄本詳細</th>
+                <th class="width80" *ngIf="!copyFlg">コピー</th>
+                <!-- 20210426 E_Update -->
             </thead>
             <tbody class="list-body">
-                <tr *ngFor="let loc of data.locations; index as pos">                    
-                    <td>
+                <tr *ngFor="let loc of data.locations; index as pos">
+                    <!-- 20210426 S_Update -->
+                    <!--<td>-->
+                    <td *ngIf="!copyFlg">
+                    <!-- 20210426 E_Update -->
                         <app-file locationInfoId="{{loc.pid}}" (uploaded)="uploadedLoc($event, loc)" [immediately]="true" [simpleMode]="true"></app-file><!-- 20210317 Add -->
                     </td>
                     <td>
@@ -321,8 +360,12 @@
                             <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{ShowContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
                         </div>
                     </td>
-                    <td><button mat-raised-button (click)="showLocation(loc, pos)" color="warn">詳細</button></td>
-                    <td><button mat-raised-button (click)="copyLocation(loc)" color="primary">コピー</button></td>
+                    <!-- 20210426 S_Update -->
+                    <!--<td><button mat-raised-button (click)="showLocation(loc, pos)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button (click)="copyLocation(loc)" color="primary">コピー</button></td>-->
+                    <td *ngIf="!copyFlg"><button mat-raised-button (click)="showLocation(loc, pos)" color="warn">詳細</button></td>
+                    <td *ngIf="!copyFlg"><button mat-raised-button (click)="copyLocation(loc)" color="primary">コピー</button></td>
+                    <!-- 20210426 S_Update -->
                 </tr>
             </tbody>
         </table>
@@ -373,6 +416,9 @@
     <!--/契約情報-->
     <div class="register-div-bottom">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+        <!-- 20210426 S_Update -->
+        <!--<button mat-raised-button color="primary" class="button" (click)="save()">登録</button>-->
+        <button mat-raised-button color="primary" class="button" (click)="save(copyFlg)">登録</button>
+        <!-- 20210426 E_Update -->
     </div>
 </div>

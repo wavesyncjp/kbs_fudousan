@@ -36,6 +36,7 @@ export class BukkenDetailComponent extends BaseComponent {
   cbxBuysellFlg: MatCheckbox;
   public data: Templandinfo;
   public pid: number;
+  public copyFlg: boolean = false;// 20210426 Add
   removeLoc: Locationinfo[] = [];
   contracts: Contractinfo[] = []; // 契約情報
   public cond = {mode: 1
@@ -61,6 +62,7 @@ export class BukkenDetailComponent extends BaseComponent {
 
     this.route.queryParams.subscribe(params => {
       this.pid = params.pid;
+      this.copyFlg = params.copyFlg;// 20210426 Add
     });
     this.data = new Templandinfo();
     this.data.result = '01';
@@ -113,10 +115,21 @@ export class BukkenDetailComponent extends BaseComponent {
       // 物件あり場合
       if ( values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
+        // 20210426 S_Add
+        // コピーの場合
+        if(this.copyFlg)
+        {
+          this.data.bukkenNo = '';
+          this.data.attachFiles = [];
+        }
+        // 20210426 E_Add
       }
 
       // 土地の契約情報
-      if (values.length > 4) {
+      // 20210426 S_Update
+//      if (values.length > 4) {
+      if (values.length > 4 && !this.copyFlg) {
+      // 20210426 E_Update
         this.contracts = values[4];
       }
 
@@ -318,7 +331,10 @@ export class BukkenDetailComponent extends BaseComponent {
   /**
    * データ保存
    */
-  save() {
+  // 20210426 S_Update
+//  save() {
+  save(copyFlg: boolean) {
+  // 20210426 E_Update
     if (!this.validate()) {
       return;
     }
@@ -351,10 +367,17 @@ export class BukkenDetailComponent extends BaseComponent {
           }
 
           //--------------------------------------
-          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true);
+          // 20210426 S_Update
+//          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true);
+          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true, copyFlg);
+          // 20210426 E_Update
           //20200819 E_Update
           const funcs = [];
-          funcs.push(that.service.saveLand(that.data));
+          // 20210426 S_Update
+//          funcs.push(that.service.saveLand(that.data));
+          if(copyFlg) funcs.push(that.service.saveLandByCopy(that.data));
+          else funcs.push(that.service.saveLand(that.data));
+          // 20210426 E_Update
           Promise.all(funcs).then(values => {
             that.spinner.hide();
             const finishDlg = new Dialog({title: '完了', message: '土地情報を登録しました。'});
@@ -656,7 +679,10 @@ export class BukkenDetailComponent extends BaseComponent {
    * 物件プラン
    */
   gotoPlan() {
-    if(this.pid != null && this.pid > 0) {
+    // 20210426 S_Update
+//    if(this.pid != null && this.pid > 0) {
+    if(this.pid != null && this.pid > 0 && !this.copyFlg) {
+    // 20210426 E_Update
       this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
     }
   }

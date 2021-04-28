@@ -86,7 +86,7 @@ export class BukkenListComponent extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail', 'csvCheck'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'csvCheck'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'copy', 'csvCheck'];
   //20200828 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
@@ -109,6 +109,7 @@ export class BukkenListComponent extends BaseComponent {
   authority = '';
   disableUser: boolean = false;
   //20200828 E_Add
+  enableUser: boolean = false;// 20210425 Add
   hasSearchItem: boolean = false;// 20201011 Add
 
   constructor(private ngZone: NgZone,
@@ -132,6 +133,7 @@ export class BukkenListComponent extends BaseComponent {
     this.authority = this.service.loginUser.authority;
     this.disableUser = (this.authority === '03');
     //20200828 E_Add
+    this.enableUser = (this.authority === '01');// 20210425 Add
 
     // tslint:disable-next-line:no-string-literal
     window['angularComponentReference'] = { component: this, zone: this.ngZone, openDetailFromMap: (pid) => this.showDetail2(pid), };
@@ -692,5 +694,11 @@ export class BukkenListComponent extends BaseComponent {
     });
     
   }
+
+  // 20210425 S_Add
+  copyDetail(row: Templandinfo) {
+    this.router.navigate(['/bkdetail'], {queryParams: {pid: row.pid, copyFlg: true}});
+  }
+  // 20210425 E_Add
 }
 

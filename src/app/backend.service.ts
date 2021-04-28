@@ -174,6 +174,18 @@ export class BackendService {
     return req.toPromise();
   }
 
+  // 20210426 S_Add
+  /**
+   * 土地情報登録（コピー→保存）
+   * @param info ：土地情報
+   */
+   saveLandByCopy(info: Templandinfo): Promise<Templandinfo> {
+    const saveLandApi = 'landsavebycopy.php';
+    const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${saveLandApi}`, info);
+    return req.toPromise();
+  }
+  // 20210426 E_Add
+
   /**
    * 契約情報取得
    */

@@ -131,7 +131,10 @@ export class Templandinfo {
     /*
     public convertForSave(userId: number, datePipe: DatePipe) {
     */
-    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
+    // 20210426 S_Update
+//    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
+    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false, copyFlg: boolean = false) {
+    // 20210426 E_Update
         //20200731 S_Update
         /*
         this.infoStaff = this.infoStaffMap.join(',');
@@ -166,7 +169,10 @@ export class Templandinfo {
         this.surveyRequestedDay = Converter.dateToString(this.surveyRequestedDayMap, 'yyyyMMdd', datePipe);
         this.surveyDeliveryDay = Converter.dateToString(this.surveyDeliveryDayMap, 'yyyyMMdd', datePipe);
 
-        if (this.pid > 0) {
+        // 20210426 S_Update
+//        if (this.pid > 0) {
+        if (this.pid > 0 && !copyFlg) {
+        // 20210426 E_Update
             this.updateUserId = userId;
         } else {
             this.createUserId = userId;
