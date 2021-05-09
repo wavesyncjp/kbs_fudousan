@@ -30,6 +30,14 @@ export class Contractinfo {
     deposit2: number;
     deposit2Day: string;
     deposit2DayChk: string;
+    // 20210510 S_Add
+    deposit3: number;
+    deposit3Day: string;
+    deposit3DayChk: string;
+    deposit4: number;
+    deposit4Day: string;
+    deposit4DayChk: string;
+    // 20210510 E_Add
     earnestPrice: number;
     earnestPriceDay: string;
     earnestPriceDayChk: string;
@@ -85,6 +93,10 @@ export class Contractinfo {
     
     deposit1DayMap: Date = null;
     deposit2DayMap: Date = null;
+    // 20210510 S_Add
+    deposit3DayMap: Date = null;
+    deposit4DayMap: Date = null;
+    // 20210510 E_Add
     earnestPriceDayMap: Date = null;
     deliveryFixedDayMap: Date = null;
     vacationDayMap: Date = null;
@@ -113,6 +125,10 @@ export class Contractinfo {
     setlementPriceMap: string = "";
     deposit1Map: string = "";
     deposit2Map: string = "";
+    // 20210510 S_Add
+    deposit3Map: string = "";
+    deposit4Map: string = "";
+    // 20210510 E_Add
     earnestPriceMap: string = "";
     tradingBalanceMap: string = "";
     prioritySalesAreaMap: string = "";
@@ -155,6 +171,10 @@ export class Contractinfo {
         //カレンダー
         this.deposit1DayMap = Converter.stringToDate(this.deposit1Day,'yyyyMMdd');
         this.deposit2DayMap = Converter.stringToDate(this.deposit2Day,'yyyyMMdd');
+        // 20210510 S_Add
+        this.deposit3DayMap = Converter.stringToDate(this.deposit3Day,'yyyyMMdd');
+        this.deposit4DayMap = Converter.stringToDate(this.deposit4Day,'yyyyMMdd');
+        // 20210510 E_Add
         this.earnestPriceDayMap = Converter.stringToDate(this.earnestPriceDay,'yyyyMMdd');
         this.deliveryFixedDayMap = Converter.stringToDate(this.deliveryFixedDay, 'yyyyMMdd');
         this.vacationDayMap = Converter.stringToDate(this.vacationDay,'yyyyMMdd');
@@ -182,6 +202,10 @@ export class Contractinfo {
         this.setlementPriceMap = Converter.numberToString(this.setlementPrice);
         this.deposit1Map = Converter.numberToString(this.deposit1);
         this.deposit2Map = Converter.numberToString(this.deposit2);
+        // 20210510 S_Add
+        this.deposit3Map = Converter.numberToString(this.deposit3);
+        this.deposit4Map = Converter.numberToString(this.deposit4);
+        // 20210510 E_Add
         this.earnestPriceMap = Converter.numberToString(this.earnestPrice);
         this.tradingBalanceMap = Converter.numberToString(this.tradingBalance);
         this.prioritySalesAreaMap = Converter.numberToString(this.prioritySalesArea);
@@ -226,6 +250,10 @@ export class Contractinfo {
         //カレンダー
         this.deposit1Day = Converter.dateToString(this.deposit1DayMap,'yyyyMMdd',datePipe);
         this.deposit2Day = Converter.dateToString(this.deposit2DayMap,'yyyyMMdd',datePipe);
+        // 20210510 S_Add
+        this.deposit3Day = Converter.dateToString(this.deposit3DayMap,'yyyyMMdd',datePipe);
+        this.deposit4Day = Converter.dateToString(this.deposit4DayMap,'yyyyMMdd',datePipe);
+        // 20210510 E_Add
         this.earnestPriceDay = Converter.dateToString(this.earnestPriceDayMap,'yyyyMMdd',datePipe);
         this.deliveryFixedDay = Converter.dateToString(this.deliveryFixedDayMap,'yyyyMMdd',datePipe);
         this.vacationDay = Converter.dateToString(this.vacationDayMap,'yyyyMMdd',datePipe);
@@ -253,6 +281,10 @@ export class Contractinfo {
         this.setlementPrice = Converter.stringToNumber(this.setlementPriceMap);
         this.deposit1 = Converter.stringToNumber(this.deposit1Map);
         this.deposit2 = Converter.stringToNumber(this.deposit2Map);
+        // 20210510 S_Add
+        this.deposit3 = Converter.stringToNumber(this.deposit3Map);
+        this.deposit4 = Converter.stringToNumber(this.deposit4Map);
+        // 20210510 E_Add
         this.earnestPrice = Converter.stringToNumber(this.earnestPriceMap);
         this.tradingBalance = Converter.stringToNumber(this.tradingBalanceMap);
         this.prioritySalesArea = Converter.stringToNumber(this.prioritySalesAreaMap);

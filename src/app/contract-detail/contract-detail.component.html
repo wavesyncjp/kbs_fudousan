@@ -288,6 +288,28 @@
                 <mat-datepicker #deposit2Day></mat-datepicker>
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit2DayChk === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
             </td>
+            <!-- 20210510 S_Add -->
+            <th>内金③</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.deposit3Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit3Map)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="deposit3Day" class="width100" [(ngModel)]="contract.deposit3DayMap">
+                <mat-datepicker-toggle matSuffix [for]="deposit3Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deposit3Day></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit3DayChk === '1'" (change)="deposit3Change($event, data)"></mat-checkbox>
+            </td>
+            <th>内金④</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.deposit4Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit4Map)">&nbsp;円
+                <br>
+                <input type="text" [matDatepicker]="deposit4Day" class="width100" [(ngModel)]="contract.deposit4DayMap">
+                <mat-datepicker-toggle matSuffix [for]="deposit4Day" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #deposit4Day></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit4DayChk === '1'" (change)="deposit4Change($event, data)"></mat-checkbox>
+            </td>
+        </tr>
+        <tr>
+        <!-- 20210510 E_Add -->
             <th>手付金</th>
             <td>
                 <input type="text" [(ngModel)]="contract.earnestPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.earnestPriceMap)">&nbsp;円
@@ -336,11 +358,11 @@
         <tr>
             <th>仲介会社</th>
             <td>
-                <input type="text" [(ngModel)]="contract.intermediaryName" class="width300" maxlength="100">
+                <input type="text" [(ngModel)]="contract.intermediaryName" class="width250" maxlength="100">
             </td>
             <th>仲介会社住所</th>
             <td>
-                <input type="text" [(ngModel)]="contract.intermediaryAddress" class="width300" maxlength="100">
+                <input type="text" [(ngModel)]="contract.intermediaryAddress" class="width250" maxlength="100">
             </td>
             <th>仲介手数料</th>
             <td>
@@ -359,11 +381,11 @@
         <tr>
             <th>業務委託先</th>
             <td>
-                <input type="text" [(ngModel)]="contract.outsourcingName" class="width300" maxlength="100">
+                <input type="text" [(ngModel)]="contract.outsourcingName" class="width250" maxlength="100">
             </td>
             <th>業務委託先住所</th>
             <td>
-                <input type="text" [(ngModel)]="contract.outsourcingAddress" class="width300" maxlength="100">
+                <input type="text" [(ngModel)]="contract.outsourcingAddress" class="width250" maxlength="100">
             </td>
             <th>業務委託料</th>
             <td>

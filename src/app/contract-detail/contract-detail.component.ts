@@ -195,6 +195,16 @@ export class ContractDetailComponent extends BaseComponent {
     flg.deposit2DayChk = (event.checked ? 1 : 0);
     this.contract.deposit2DayChk = flg.deposit2DayChk;
    }
+   // 20210510 S_Add
+   deposit3Change(event, flg: any) {
+    flg.deposit3DayChk = (event.checked ? 1 : 0);
+    this.contract.deposit3DayChk = flg.deposit3DayChk;
+   }
+   deposit4Change(event, flg: any) {
+    flg.deposit4DayChk = (event.checked ? 1 : 0);
+    this.contract.deposit4DayChk = flg.deposit4DayChk;
+   }
+   // 20210510 E_Add
    flgChange3(event, flg: any) {
     flg.earnestPriceDayChk = (event.checked ? 1 : 0);
     this.contract.earnestPriceDayChk = flg.earnestPriceDayChk;
