@@ -147,6 +147,11 @@ export class PayContractDetailComponent extends BaseComponent {
           this.paycontract.depCode = templandinfo.department;
           var infoStaffs = templandinfo.infoStaff.split(",");
           this.paycontract.userId = this.getNumber(infoStaffs[0]);
+
+          // 20210513 S_Add
+          //Seller
+          this.loadSellers(templandinfo.pid);
+          // 20210513 E_Add
         }
         // 20210311 E_Add
         /* 
