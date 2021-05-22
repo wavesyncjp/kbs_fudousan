@@ -275,7 +275,7 @@ export class PayContractDetailComponent extends BaseComponent {
     }
 
     //入力された物件名称から物件pid
-    this.paycontract.tempLandInfoPid = this.bukkenMap[this.bukkenName]
+    this.paycontract.tempLandInfoPid = this.bukkenMap[this.bukkenName];
     if (this.paycontract.tempLandInfoPid == null || this.paycontract.tempLandInfoPid == 0){
       this.paycontract.tempLandInfoPid = null
     }
@@ -322,6 +322,7 @@ export class PayContractDetailComponent extends BaseComponent {
     const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
     if(lst.length === 1) {
       this.loadSellers(this.bukkenMap[this.bukkenName]);
+      this.paycontract.tempLandInfoPid = this.bukkenMap[this.bukkenName];// 20210523 Add
     }
     else {
       this.sellers = [];
@@ -330,6 +331,7 @@ export class PayContractDetailComponent extends BaseComponent {
           me.contractor = '';
         });
       }
+      this.paycontract.tempLandInfoPid = 0;// 20210523 Add
     }
   }
   //数値にカンマを付ける作業
@@ -487,4 +489,22 @@ export class PayContractDetailComponent extends BaseComponent {
       this.taxCalc(detail);
     });
   }
+
+  // 20210523 S_Add
+  export(tempLandInfoPid: number) {
+
+    const dlg = new Dialog({title: '確認', message: '売買取引管理表を出力しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportSale(tempLandInfoPid).then(data => {
+          this.service.writeToFile(data, "売買取引管理表");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20210523 E_Add
 }

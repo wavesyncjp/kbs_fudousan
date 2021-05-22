@@ -131,7 +131,7 @@ mat-expansion-panel-header{
     /*float: left;*/
     background: dimgray;
     color: white;
-    width: 120px;
+    width: 180px !important;
 }
 
 .attach-btn{
