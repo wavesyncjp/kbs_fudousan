@@ -344,6 +344,18 @@ export class BackendService {
     return res.toPromise();
   }
 
+  // 20210524 S_Add
+  /**
+   * 取引成立台帳　出力
+   * @param pid 物件
+   */
+  exportTransaction(pid: number): Promise<Blob> {
+    const downloadUrl = 'transactionexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: pid}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  // 20210524 E_Add
+
   writeToFile(data: any, fileName: string = '') {
     const blob = new Blob([data], {
       type: 'application/octet-stream'

@@ -216,6 +216,13 @@ mat-form-field > input {
     color: white;
     width: 180px;
 }
+/* 20210524 S_Add */
+.exportTransaction-button {
+    background: #00B050;
+    color: white;
+    width: 180px;
+}
+/* 20210524 E_Add */
 
 /*------------tab-------------*/
 .switch-tab {

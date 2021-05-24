@@ -704,6 +704,26 @@ export class BukkenDetailComponent extends BaseComponent {
     });
   }
 
+  // 20210524 S_Add
+  /**
+   * 取引成立台帳
+   */
+  exportTransaction() {
+    const dlg = new Dialog({title: '確認', message: '取引成立台帳を出力しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportTransaction(this.pid).then(data => {
+          this.service.writeToFile(data, "取引成立台帳");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20210524 E_Add
+
   // 20201006 S_Add
   /**
    * 事業収支画面遷移
