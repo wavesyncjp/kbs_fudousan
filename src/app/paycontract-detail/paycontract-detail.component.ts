@@ -56,7 +56,7 @@ export class PayContractDetailComponent extends BaseComponent {
     idField: 'codeDetail',
     textField: 'name',
     searchPlaceholderText: '検索',
-    itemsShowLimit: 3,
+    itemsShowLimit: 1,
     allowSearchFilter: true,
     enableCheckAll: false
   };
@@ -174,6 +174,10 @@ export class PayContractDetailComponent extends BaseComponent {
           this.loadSellers(templandinfo.pid);
           // 20210513 E_Add
         }
+        else {
+          this.initPayContract();
+          this.spinner.hide();
+        }
         // 20210311 E_Add
         /* 
         else {
@@ -181,17 +185,16 @@ export class PayContractDetailComponent extends BaseComponent {
         }
         */
       }
+      else {
+        this.initPayContract();
+        this.spinner.hide();
+      }
       
 
       //物件名称をキーにpidをmapに保持していく
       this.lands.forEach((land) => {
         this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
-      });
-      
-
-      this.spinner.hide();
-
-      $('.dropdown-multiselect__caret').on('click', () => {alert (123)});
+      });            
 
     });    
 
@@ -231,6 +234,8 @@ export class PayContractDetailComponent extends BaseComponent {
       this.paycontract.details = ctDetails;      
       this.convertContractor()     
       this.resetBinding();
+
+      this.spinner.hide();
     });
   }
   
@@ -240,9 +245,16 @@ export class PayContractDetailComponent extends BaseComponent {
   convertContractor() {
     this.paycontract.details.forEach(me => {
       if(me.contractorMap != null && me.contractorMap.length > 0) {
+
+        let lst = [];
+
         me.contractorMap.forEach(ct => {
-          ct.name = this.sellers.filter(sl => sl.codeDetail === ct.codeDetail).map(ct => ct.name)[0];
+          const names = this.sellers.filter(sl => sl.codeDetail === ct.codeDetail).map(ct => ct.name);
+          if(names.length > 0) {
+            lst.push(new Code({codeDetail: ct.codeDetail, name: names[0]}));
+          }          
         });
+        me.contractorMap = lst;
       }
     });
   }
