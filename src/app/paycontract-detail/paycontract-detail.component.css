@@ -203,3 +203,29 @@ button.bkRed {
     width: 40px;
     margin-left: 10px;
 }
+
+::ng-deep.contact-div .multiselect-dropdown {
+    width: 310px !important;
+    margin-right: 5px;
+    position: relative !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-btn {
+    width: 280px !important;
+    padding: 6px !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret {
+    height: 35px !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-btn .selected-item {
+    width: 250px !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-list {
+    position: fixed !important;
+    left: auto;
+    top: auto;
+    width: 290px !important;
+}

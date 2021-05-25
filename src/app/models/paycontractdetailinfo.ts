@@ -1,3 +1,6 @@
+import { Checklib } from "../utils/checklib";
+import { Code } from "./bukken";
+
 export class Paycontractdetailinfo {
     pid: number;
     tempLandInfoPid: number;
@@ -23,4 +26,21 @@ export class Paycontractdetailinfo {
     payPriceMap: string = "";
     payTaxMap: string = "";
     payPriceTaxMap: string = "";
+
+    contractorMap: Code[];
+
+    public constructor(init?: Partial<Paycontractdetailinfo>) {
+        Object.assign(this, init);
+        this.forDisplay();
+    }
+
+    forDisplay() {
+        this.contractorMap = [];
+        if(!Checklib.isBlank(this.contractor)) {            
+            this.contractor.split('|').forEach(me => {
+                let data = new Code({codeDetail: me.split(',').join('_'), name: ''});
+                this.contractorMap.push(data);
+            });
+        }
+    }
 }

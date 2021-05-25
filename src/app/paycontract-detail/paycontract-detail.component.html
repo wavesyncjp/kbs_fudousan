@@ -164,7 +164,7 @@
     <!--/支払情報ヘッダー-->
 
     <!--/支払情報明細-->
-    <div class="contact-div" style="width: 98vw;">
+    <div class="contact-div" style="width: 98vw;margin-bottom: 200px;">
         <table width="100%">
             <thead class="list-header">
                 <th class="width150" colspan="2">支払種別</th>
@@ -229,7 +229,16 @@
                     <!--hiranomemo contractor 追加-->
                     <td>
                         <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
-                        <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
+                        <!--<app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>-->
+                        <ng-multiselect-dropdown class="width280"
+                            [placeholder]="'選択'"
+                            [data]="sellers"
+                            [(ngModel)]="detail.contractorMap"
+                            [settings]="dropdownSettings"
+                            (click)="contractorClick($event)"
+                        >
+                        </ng-multiselect-dropdown>
+
                     </td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>
                 </tr>
@@ -280,7 +289,17 @@
                     <!--hiranomemo contractor 追加-->
                     <td>
                         <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
-                        <app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>
+                        <!--<app-select-component  [cusClass]="'width300'" [codes]="sellers" [(ngModel)]="detail.contractor"></app-select-component>-->
+
+                        <ng-multiselect-dropdown class="width280"
+                            [placeholder]="'選択'"
+                            [data]="sellers"
+                            [(ngModel)]="detail.contractorMap"
+                            [settings]="dropdownSettings"
+                            (click)="contractorClick($event)"
+                            >
+                        </ng-multiselect-dropdown>
+
                     </td>
                     <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>
                 </tr>

@@ -62,7 +62,8 @@ export class Paycontractinfo {
         }
         */
 
-        this.details.forEach((detail) => {
+        let lst = [];
+        this.details.forEach((detail) => {            
             //カレンダー
             detail.closingDayMap = Converter.stringToDate(detail.closingDay, 'yyyyMMdd');
             detail.contractDayMap = Converter.stringToDate(detail.contractDay, 'yyyyMMdd');
@@ -82,7 +83,10 @@ export class Paycontractinfo {
             detail.payPriceMap = Converter.numberToString(detail.payPrice);
             detail.payTaxMap = Converter.numberToString(detail.payTax);
             detail.payPriceTaxMap = Converter.numberToString(detail.payPriceTax);
+            let ct = new Paycontractdetailinfo(detail);
+            lst.push(ct);
         });
+        this.details = lst;
         //カンマ
         this.contractPriceMap = Converter.numberToString(this.contractPrice);
         this.contractTaxMap = Converter.numberToString(this.contractTax);
@@ -119,6 +123,14 @@ export class Paycontractinfo {
             detail.payPrice = Converter.stringToNumber(detail.payPriceMap);
             detail.payTax = Converter.stringToNumber(detail.payTaxMap);
             detail.payPriceTax = Converter.stringToNumber(detail.payPriceTaxMap);
+
+            if(detail.contractorMap != null && detail.contractorMap.length > 0) {
+                detail.contractor = detail.contractorMap.map(me => me['codeDetail'].split('_').join(',')).join('|');
+            }
+            else {
+                detail.contractor = null;
+            }
+
         });
         //カンマ
         this.contractPrice = Converter.stringToNumber(this.contractPriceMap);

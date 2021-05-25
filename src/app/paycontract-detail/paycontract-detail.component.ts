@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../BaseComponent';
@@ -13,6 +13,9 @@ import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Paycontractinfo } from '../models/paycontractinfo';
 import { Paycontractdetailinfo } from '../models/paycontractdetailinfo';
+import { MultiSelectComponent } from 'ng-multiselect-dropdown';
+
+declare var $: any;
 
 @Component({
   selector: 'app-paycontract-detail',
@@ -26,6 +29,8 @@ import { Paycontractdetailinfo } from '../models/paycontractdetailinfo';
 export class PayContractDetailComponent extends BaseComponent {
 
   @ViewChild('topElement', {static: true}) topElement: ElementRef;
+
+  @ViewChildren(MultiSelectComponent) selectors: QueryList<MultiSelectComponent>;
 
   public authority: string = '';
   public paycontract: Paycontractinfo;
@@ -44,6 +49,18 @@ export class PayContractDetailComponent extends BaseComponent {
   effectiveDay : String;
 
   sellers: Code[];
+
+  //S_Add 20210524
+  dropdownSettings = {
+    singleSelection: false,
+    idField: 'codeDetail',
+    textField: 'name',
+    searchPlaceholderText: '検索',
+    itemsShowLimit: 3,
+    allowSearchFilter: true,
+    enableCheckAll: false
+  };
+  //S_End 20210524
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -136,6 +153,8 @@ export class PayContractDetailComponent extends BaseComponent {
           this.paycontract.convert();
           this.bukkenName = `${values[6].land.bukkenNo}:${values[6].land.bukkenName}`;
 
+          this.initPayContract();
+
           //Seller
           this.loadSellers(this.paycontract.tempLandInfoPid);
 
@@ -147,6 +166,8 @@ export class PayContractDetailComponent extends BaseComponent {
           this.paycontract.depCode = templandinfo.department;
           var infoStaffs = templandinfo.infoStaff.split(",");
           this.paycontract.userId = this.getNumber(infoStaffs[0]);
+
+          this.initPayContract();
 
           // 20210513 S_Add
           //Seller
@@ -160,12 +181,7 @@ export class PayContractDetailComponent extends BaseComponent {
         }
         */
       }
-
-      //明細情報が存在しない場合
-      if (this.paycontract.details == null || this.paycontract.details.length == 0) {
-        this.paycontract.details = [];
-        this.paycontract.details.push(new Paycontractdetailinfo());
-      }
+      
 
       //物件名称をキーにpidをmapに保持していく
       this.lands.forEach((land) => {
@@ -175,7 +191,21 @@ export class PayContractDetailComponent extends BaseComponent {
 
       this.spinner.hide();
 
-    });
+      $('.dropdown-multiselect__caret').on('click', () => {alert (123)});
+
+    });    
+
+  }
+
+  /**
+   * 契約情報を初期化
+   */
+  initPayContract() {
+    //明細情報が存在しない場合
+    if (this.paycontract.details == null || this.paycontract.details.length == 0) {
+      this.paycontract.details = [];
+      this.paycontract.details.push(new Paycontractdetailinfo());
+    }    
   }
 
   loadSellers(landId: number) {
@@ -187,16 +217,35 @@ export class PayContractDetailComponent extends BaseComponent {
       ids.forEach(id => {
         const rt = ret.filter(data => data.contractInfoPid === id && data.contractorName != null && data.contractorName !== '').map(data => {return  { id: data.pid, name: data.contractorName} });
         if(rt.length > 0) {
-          lst.push(new Code({codeDetail: rt.map(cd => cd.id).join(','), name: rt.map(cd => cd.name).join(',') }))
+          lst.push(new Code({codeDetail: rt.map(cd => cd.id).join('_'), name: rt.map(cd => cd.name).join(',') }))
         }        
 
       });
 
-      this.sellers = lst;
-
+      this.sellers = lst;     
+      //契約者反映
+      let ctDetails = [];
+      this.paycontract.details.forEach(me => {
+        ctDetails.push(new Paycontractdetailinfo(me));
+      });
+      this.paycontract.details = ctDetails;      
+      this.convertContractor()     
+      this.resetBinding();
     });
   }
   
+  /**
+   * 契約者反映
+   */
+  convertContractor() {
+    this.paycontract.details.forEach(me => {
+      if(me.contractorMap != null && me.contractorMap.length > 0) {
+        me.contractorMap.forEach(ct => {
+          ct.name = this.sellers.filter(sl => sl.codeDetail === ct.codeDetail).map(ct => ct.name)[0];
+        });
+      }
+    });
+  }
   
 
   /**
@@ -207,6 +256,21 @@ export class PayContractDetailComponent extends BaseComponent {
       this.paycontract.details = [];
     }
     this.paycontract.details.push(new Paycontractdetailinfo());
+
+    this.resetBinding();  
+
+  }
+
+  /**
+   * 契約者のデータ再バインディング
+   */
+  resetBinding() {
+    window.setTimeout(() => {
+      this.selectors.forEach(element => {
+        element.settings = this.dropdownSettings;
+        element.data = this.sellers;
+      });
+    }, 500); 
   }
 
   /**
@@ -253,6 +317,8 @@ export class PayContractDetailComponent extends BaseComponent {
             this.paycontract = new Paycontractinfo(res);
             //this.convertData();
             this.paycontract.convert();
+            this.convertContractor();
+            this.resetBinding();
             this.router.navigate(['/paydetail'], {queryParams: {pid: this.paycontract.pid}});
           });
 
@@ -507,4 +573,11 @@ export class PayContractDetailComponent extends BaseComponent {
     });
   }
   // 20210523 E_Add
+
+  contractorClick(event) {    
+    let pr = $(event.target).closest('div.multiselect-dropdown');
+    let lst = pr.find('div.dropdown-list');    
+    lst.css({left: pr.offset().left + 10, top: pr.offset().top + 20});
+  }
+
 }
