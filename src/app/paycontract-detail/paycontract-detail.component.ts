@@ -411,6 +411,12 @@ export class PayContractDetailComponent extends BaseComponent {
       }
       this.paycontract.tempLandInfoPid = 0;// 20210523 Add
     }
+
+    //20210529 S_Add 物件名削除⇒契約者リセット
+    if(this.isBlank(this.bukkenName)) {
+      this.paycontract.details.forEach(me => me.contractorMap = []);
+    }
+
   }
   //数値にカンマを付ける作業
   // 20200709 S_Add
