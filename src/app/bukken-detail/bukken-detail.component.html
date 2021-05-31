@@ -298,7 +298,7 @@
         <button mat-raised-button *ngIf="this.data.pid > 0" class="addLocation" (click)="addLocation()" >謄本情報　登録</button>
         <button mat-stroked-button *ngIf="this.data.pid > 0" class="contractButton" (click)="navigateContract()">契約情報　登録</button>
         <button mat-raised-button *ngIf="this.data.pid > 0" class="button export-button" (click)="export()">売買取引管理表　出力</button>
-        <button mat-raised-button *ngIf="this.data.pid > 0" class="button exportTransaction-button" (click)="exportTransaction()">取引成立台帳　出力</button><!-- 20210524 Add -->
+        <button mat-raised-button *ngIf="this.data.pid > 0 && !disableUser" class="button exportTransaction-button" (click)="exportTransaction()">取引成立台帳　出力</button><!-- 20210524 Add -->
     </div>
 
     <!--所有地-->
