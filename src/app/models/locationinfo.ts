@@ -1,5 +1,6 @@
 import { Contractdetailinfo } from './contractdetailinfo';
 import { SharerInfo } from './sharer-info';
+import { BottomLandInfo } from './bottomLandInfo';// 20210614 Add
 import { Converter } from '../utils/converter';
 import { DatePipe } from '@angular/common';//20200913 Add
 import { LocationAttach } from './mapattach';// 20210311 Add
@@ -67,6 +68,10 @@ export class Locationinfo {
     locations: Locationinfo[];
     sharers: SharerInfo[];
     delSharers: number[];
+    // 20210614 S_Add
+    bottomLands: BottomLandInfo[];
+    delBottomLands: number[];
+    // 20210614 E_Add
     contractDetail: Contractdetailinfo;
     contractDetail02: string; //不可分
     dependTypeMap: string[] = [];
@@ -93,6 +98,12 @@ export class Locationinfo {
         this.grossFloorAreaMap = Converter.numberToString(this.grossFloorArea);
         this.leasedAreaMap = Converter.numberToString(this.leasedArea);
         // 20201124 E_Add
+        // 20210614 S_Add
+        // 底地情報
+        this.bottomLands.forEach((bottomLand) => {
+            bottomLand.leasedAreaMap = Converter.numberToString(bottomLand.leasedArea);
+        });
+        // 20210614 E_Add
     }
     //20200913 S_Update
 //    public convertForSave(userId: number) {
@@ -114,5 +125,11 @@ export class Locationinfo {
         this.grossFloorArea = Converter.stringToNumber(this.grossFloorAreaMap);
         this.leasedArea = Converter.stringToNumber(this.leasedAreaMap);
         // 20201124 E_Add
+        // 20210614 S_Add
+        // 底地情報
+        this.bottomLands.forEach((bottomLand) => {
+            bottomLand.leasedArea = Converter.stringToNumber(bottomLand.leasedAreaMap);
+        });
+        // 20210614 E_Add
     }
 }

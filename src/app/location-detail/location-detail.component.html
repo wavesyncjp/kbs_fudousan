@@ -138,21 +138,48 @@
             </td>
             <!-- 20201124 E_Add -->
         </tr>
+        <!-- 20210614 S_Update -->
         <!-- 20201124 S_Add -->
+        <!--
         <tr>
             <th>底地</th>
             <td>
-                <!-- 20210211 S_Update -->
-                <!--<app-select-component [codes]="getLandAdress()" style="width: 300px;" [(ngModel)]="data.bottomLandPid" [cusClass]="'width300 ' + (errors['bottomLandPid'] ? 'error' : '')" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>-->
                 <app-select-component [codes]="landAdress" style="width: 300px;" [(ngModel)]="data.bottomLandPid" [cusClass]="'width300 ' + (errors['bottomLandPid'] ? 'error' : '')" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>
-                <!-- 20210211 E_Update -->
             </td>
             <th>借地対象面積</th>
             <td>
                 <input type="text" [(ngModel)]="data.leasedAreaMap" (keypress)="floatOnly($event)" [disabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" class="width80" maxlength="12" [value]="changeValue(data.leasedAreaMap)">&nbsp;㎡
             </td>
         </tr>
+        -->
         <!-- 20201124 E_Add -->
+        <tr>
+            <th class="sharer">底地
+                <button mat-raised-button class="addSharer" (click)="addBottomLand()" [disabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))">追加</button>
+            </th>
+            <td>
+                <app-select-component [codes]="landAdress" style="width: 300px;" [(ngModel)]="data.bottomLandPid" [cusClass]="'width300 ' + (errors['bottomLandPid'] ? 'error' : '')" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>
+            </td>
+            <th class="sharer">借地対象面積</th>
+            <td>
+                <input type="text" [(ngModel)]="data.leasedAreaMap" (keypress)="floatOnly($event)" [disabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" class="width80" maxlength="12" [value]="changeValue(data.leasedAreaMap)">&nbsp;㎡
+            </td>
+        </tr>
+        <!--底地情報-->
+        <tr *ngFor="let bottomLand of data.bottomLands | slice:1; index as bottomLandPos">
+            <th class="sharer">底地
+                <button mat-raised-button class="deleteSharer" (click)="deleteBottomLand(bottomLandPos)" [disabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))">削除</button>
+            </th>
+            <td>
+                <app-select-component [codes]="landAdress" style="width: 300px;" [(ngModel)]="bottomLand.bottomLandPid" [isDisabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" [ngClass]="{'width300': true, 'select-disabled': !(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))}" [exclass] = "true"></app-select-component>
+            </td>
+            <th class="sharer">借地対象面積</th>
+            <td>
+                <input type="text" [(ngModel)]="bottomLand.leasedAreaMap" (keypress)="floatOnly($event)" [disabled]="!(data.locationType !== '01' && (data.rightsForm === '01' || data.rightsForm === '02' || data.rightsForm === '03'))" class="width80" maxlength="12" [value]="changeValue(bottomLand.leasedAreaMap)">&nbsp;㎡
+            </td>
+        </tr>
+        <!--/底地情報-->
+        <!-- 20210614 E_Update -->
         <tr>
             <th>構造</th>
             <td>
