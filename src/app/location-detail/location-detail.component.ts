@@ -157,7 +157,7 @@ export class LocationDetailComponent extends BaseComponent {
    * @param loc ：所有地
    */
   deleteSharer(sharerPos: number) {
-    sharerPos++;// 20201031 Add
+//    sharerPos++;// 20201031 Add
     const sharer = this.data.sharers[sharerPos];
     if (sharer.pid > 0) {
       if (this.data.delSharers == null) {
@@ -257,7 +257,7 @@ export class LocationDetailComponent extends BaseComponent {
     this.data.buildingNotyet = '0';
     // 20201021 E_Add
     */
-
+    /*
     // 20201222 S_Add
     if (this.data.locationType !== '01'
       && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
@@ -290,7 +290,7 @@ export class LocationDetailComponent extends BaseComponent {
       // 20210614 E_Add
     }
     // 20201222 E_Add
-
+    */
     // 区分が01:土地の場合
     if (this.data.locationType === '01') {
       this.data.ridgePid = null;        // 一棟の建物
@@ -301,14 +301,6 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.structure = null;       // 構造
       this.data.floorSpace = null;      // 床面積
       this.data.liveInfo = null;        // 入居者情報
-      // 20210614 S_Add
-      // 底地追加分を削除
-      var index: number = 0;
-      this.data.bottomLands.forEach(bottomLand => {
-        this.deleteBottomLand(index);
-        index++;
-      });
-      // 20210614 E_Add
     }
     // 区分が02:建物の場合
     else if (this.data.locationType === '02') {
@@ -340,8 +332,8 @@ export class LocationDetailComponent extends BaseComponent {
       // 20201020 E_Add
       // 20201222 S_Add
       this.data.grossFloorAreaMap = null;// 延床面積
-      this.data.bottomLandPid = null;// 底地
-      this.data.leasedAreaMap = null;// 借地対象面積
+//      this.data.bottomLandPid = null;// 底地
+//      this.data.leasedAreaMap = null;// 借地対象面積
       // 20201222 E_Add
       // 所有者追加分を削除
       var index: number = 0;
@@ -349,14 +341,11 @@ export class LocationDetailComponent extends BaseComponent {
         this.deleteSharer(index);
         index++;
       });
-      // 20210614 S_Add
-      // 底地追加分を削除
       index = 0;
-      this.data.bottomLands.forEach(bottomLand => {
-        this.deleteBottomLand(index);
+      this.data.sharers.forEach(sharer => {
+        this.deleteSharer(index);
         index++;
       });
-      // 20210614 E_Add
     }
     // 区分が04:区分所有（専有）の場合
     else if (this.data.locationType === '04') {
@@ -379,20 +368,44 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.landCategory = null;    // 地目
       // 20201020 E_Add
 //      this.data.grossFloorAreaMap = null;// 延床面積 20201222 Add
+    }
+    // 20201222 S_Add
+    if (this.data.locationType !== '01'
+      && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
+        
+      if(this.data.bottomLandPid === null || this.data.bottomLandPid === '') {
+        // 底地を取得
+        this.cond = {
+          tempLandInfoPid: this.data.tempLandInfoPid,
+          locationType: '01'
+        };
+        const funcs = [];
+        funcs.push(this.service.searchLocation(this.cond));
+        Promise.all(funcs).then(values => {
+          this.landAdresses = values[0];// 住所
+          this.landAdress = this.getLandAdress();// 20210211 Add
+        });
+      }
+    }
+    else
+    {
+      this.data.bottomLandPid = null;// 底地
+      this.data.leasedAreaMap = null;// 借地対象面積
       // 20210614 S_Add
       // 底地追加分を削除
-      /*
       var index: number = 0;
       this.data.bottomLands.forEach(bottomLand => {
         this.deleteBottomLand(index);
         index++;
       });
-      */
-      while(this.data.bottomLands.length > 1) {
-        this.deleteBottomLand(1);
-      }
+      index = 0;
+      this.data.bottomLands.forEach(bottomLand => {
+        this.deleteBottomLand(index);
+        index++;
+      });
       // 20210614 E_Add
     }
+    // 20201222 E_Add
     this.oldLocationType = this.data.locationType;
   }
 

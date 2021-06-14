@@ -87,7 +87,7 @@
         <!--共有者情報-->
         <tr *ngFor="let sharer of data.sharers | slice:1; index as sharerPos">
             <th class="sharer">所有者名
-                <button mat-raised-button class="deleteSharer" (click)="deleteSharer(sharerPos)" [disabled]="data.locationType == '03'">削除</button>
+                <button mat-raised-button class="deleteSharer" (click)="deleteSharer(sharerPos + 1)" [disabled]="data.locationType == '03'">削除</button>
             </th>
             <td>&nbsp;<span class= "buysell">売買対象&nbsp;&nbsp;</span><mat-checkbox [checked]="sharer.buysellFlg == 1"  (change)="flgChange($event, sharer)" [disabled]="data.locationType == '03'"></mat-checkbox>
             <!--20200116_S_Add-->
