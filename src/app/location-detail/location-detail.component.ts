@@ -381,11 +381,16 @@ export class LocationDetailComponent extends BaseComponent {
 //      this.data.grossFloorAreaMap = null;// 延床面積 20201222 Add
       // 20210614 S_Add
       // 底地追加分を削除
+      /*
       var index: number = 0;
       this.data.bottomLands.forEach(bottomLand => {
         this.deleteBottomLand(index);
         index++;
       });
+      */
+      while(this.data.bottomLands.length > 1) {
+        this.deleteBottomLand(1);
+      }
       // 20210614 E_Add
     }
     this.oldLocationType = this.data.locationType;
@@ -608,7 +613,7 @@ export class LocationDetailComponent extends BaseComponent {
    * @param loc ：所有地
   */
   deleteBottomLand(bottomLandPos: number) {
-    bottomLandPos++;
+    //bottomLandPos++;
     const bottomLand = this.data.bottomLands[bottomLandPos];
     if (bottomLand.pid > 0) {
       if (this.data.delBottomLands == null) {
