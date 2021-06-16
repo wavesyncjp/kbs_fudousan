@@ -69,7 +69,7 @@ export class Locationinfo {
     sharers: SharerInfo[];
     delSharers: number[];
     // 20210614 S_Add
-    bottomLands: BottomLandInfo[];
+    bottomLands: BottomLandInfo[] = [];
     delBottomLands: number[];
     // 20210614 E_Add
     contractDetail: Contractdetailinfo;
