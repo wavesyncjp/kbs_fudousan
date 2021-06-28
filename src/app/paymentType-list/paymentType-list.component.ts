@@ -26,7 +26,7 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 export class PaymentTypeListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['paymentCode', 'paymentName', 'costFlg', 'addFlg', 'taxFlg', 'utilityChargesFlg', 'createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['paymentCode', 'paymentName', 'costFlg', 'addFlg', 'taxFlg', 'utilityChargesFlg', 'categoryFlg', 'payContractEntryFlg', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<PaymentType>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -81,7 +81,7 @@ export class PaymentTypeListComponent extends BaseComponent {
     const row = new PaymentType();
     const dialogRef = this.dialog.open(PaymentTypeDetailComponent, {
       width: '840px',
-      height: '420px',
+      height: '500px',
       data: row
     });
     // 再検索

@@ -110,6 +110,9 @@ export class PaymentType {
     addFlg: string;
     taxFlg: string;
     utilityChargesFlg: string;
+    categoryFlg: string;
+    payContractEntryFlg: string;
+    displayOrder: number;
     createUserId: number;
     updateUserId: number;
     updateDate: Date;
