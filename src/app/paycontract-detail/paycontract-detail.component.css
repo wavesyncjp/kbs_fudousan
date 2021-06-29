@@ -204,6 +204,19 @@ button.bkRed {
     margin-left: 10px;
 }
 
+.payment-type {
+    width: 158px !important;
+    height: 25px !important;
+    min-width: 100px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+    margin-left: 3px;
+}
+
+.payment-type optgroup {
+    color: lightgray;
+}
+
 ::ng-deep.contact-div .multiselect-dropdown {
     width: 310px !important;
     margin-right: 5px;
