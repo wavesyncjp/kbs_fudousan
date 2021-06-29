@@ -203,7 +203,7 @@ button.bkRed {
     width: 40px;
     margin-left: 10px;
 }
-
+/* 20210629 S_Add */
 .payment-type {
     width: 158px !important;
     height: 25px !important;
@@ -216,7 +216,7 @@ button.bkRed {
 .payment-type optgroup {
     color: lightgray;
 }
-
+/* 20210629 E_Add */
 ::ng-deep.contact-div .multiselect-dropdown {
     width: 310px !important;
     margin-right: 5px;
