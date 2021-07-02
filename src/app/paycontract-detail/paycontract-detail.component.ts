@@ -107,7 +107,7 @@ export class PayContractDetailComponent extends BaseComponent {
     funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012','015','026']));
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));
-    funcs.push(this.service.getPaymentTypes(null));
+    funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
     funcs.push(this.service.getLands(null));   // 物件情報一覧の取得
     funcs.push(this.service.getTaxes(null));   // 消費税一覧の取得
 

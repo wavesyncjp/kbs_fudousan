@@ -100,7 +100,7 @@ export class PayContractListComponent extends BaseComponent {
     });
     */
     const funcs = [];
-    funcs.push(this.service.getPaymentTypes(null));
+    funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
     Promise.all(funcs).then(values => {
       this.payTypes = values[0];
       this.paymentTypes = this.getPaymentTypes();
