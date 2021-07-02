@@ -238,7 +238,7 @@
                 <mat-datepicker #decisionDay></mat-datepicker>
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.decisionDayChk === '1'" (change)="flgFinish($event, data)"></mat-checkbox>
             </td>
-            <th>引渡期日</th>
+            <th>決済予定日</th>
             <td>
                 <input type="text" [matDatepicker]="deliveryFixedDay" class="width100" [(ngModel)]="contract.deliveryFixedDayMap">
                 <mat-datepicker-toggle matSuffix [for]="deliveryFixedDay" class="picker-icon"></mat-datepicker-toggle>
