@@ -214,7 +214,7 @@ button.bkRed {
 }
 
 .payment-type optgroup {
-    color: lightgray;
+    color: black;
 }
 /* 20210629 E_Add */
 ::ng-deep.contact-div .multiselect-dropdown {
