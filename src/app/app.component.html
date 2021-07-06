@@ -4,11 +4,11 @@
         <button mat-icon-button *ngIf="!isLogin" (click)="snav.toggle()" class="menu"><mat-icon>menu</mat-icon></button>
         -->
         <h1 class="app-app-name">{{title}}</h1>
-        <!--        
-        <button *ngIf="!isLogin" mat-raised-button mat-raised-button color="basic" class="logout-btn" (click)="logout()">Logout</button>        
+        <!--
+        <button *ngIf="!isLogin" mat-raised-button mat-raised-button color="basic" class="logout-btn" (click)="logout()">Logout</button>
 　　　　　-->
-    </mat-toolbar>        
-        <div class="cp_navi" *ngIf="!isLogin">
+    </mat-toolbar>
+    <div class="cp_navi" *ngIf="!isLogin">
         <ul>
             <li><a (click)="navigate('top')">&nbsp;ダッシュボード&nbsp;</a></li>
             <li><a (click)="navigate('bukkens')">&nbsp;物件情報&nbsp;</a></li>
@@ -17,7 +17,7 @@
             <li *ngIf="authority !== '03'"><a (click)="navigate('plans')">&nbsp;事業収支&nbsp;</a></li>
             <li><a (click)="navigate('pays')">&nbsp;支払管理&nbsp;</a></li>
             <li><a (click)="navigate('infos')">&nbsp;インフォメーション&nbsp;</a></li>
-            <li *ngIf="authority !== '02' && authority !== '03'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>               
+            <li *ngIf="authority !== '02' && authority !== '03'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>
                 <div style="z-index: 999;">
                     <ul>       
                         <li><a (click)="navigate('deps')">部署マスタ</a></li>
@@ -25,15 +25,17 @@
                         <li><a (click)="navigate('codes')">コードマスタ</a></li>
                         <li><a (click)="navigate('paymentTypes')">支払種別マスタ</a></li>
                         <li><a (click)="navigate('bkupdate')">担当割付・変更</a></li><!-- 20210207 Add -->
+                        <li><a (click)="navigate('kanjyos')">勘定マスタ</a></li><!-- 20210628 Add -->
+                        <li><a (click)="navigate('kanjyoFixs')">貸方借方決定マスタ</a></li><!-- 20210628 Add -->
                     </ul>
                 </div>
             </li>
             <li class = "logout"><a (click)="logout()" *ngIf="!isLogin">&nbsp;ログアウト&nbsp;</a></li>
         </ul>
-        </div>
+    </div>
     <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">        
-        <!--
-        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+    <!--
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                         [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list>
             <button mat-raised-button mat-stroked-button (click)="navigate('top')">ダッシュボード</button><br>
@@ -46,14 +48,12 @@
             <button mat-raised-button mat-stroked-button (click)="navigate('paymentTypes')">支払種別マスタ</button><br>
             <button mat-raised-button mat-stroked-button (click)="navigate('plans')">事業収支</button><br>
             <button mat-raised-button mat-stroked-button (click)="navigate('pays')">支払管理</button>
-
         </mat-nav-list>
-        </mat-sidenav>
-        -->
+    </mat-sidenav>
+    -->
 
         <mat-sidenav-content>
-                <router-outlet></router-outlet>    
+            <router-outlet></router-outlet>
         </mat-sidenav-content>
-
     </mat-sidenav-container>
 </div>

@@ -1,0 +1,66 @@
+<div class="dialog-div">
+    <ul *ngIf="errorMsgs.length > 0" class="error-span" style="margin-top: -5px;">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <table class="detail-tbl">
+        <tr>
+            <th>支払コード</th>
+            <td>
+                <app-select-component [codes]="paymenttypes"[(ngModel)]="data.paymentCode" [ngClass]="'width150'" maxlength="30"></app-select-component>
+            </td>
+
+            <th>振替フラグ</th>
+            <td>
+                <app-select-component [codes]="getCode('029')" [(ngModel)]="data.transFlg"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <th>借方勘定科目コード</th>
+            <td>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.debtorKanjyoCode"></app-select-component>
+            </td>
+
+            <th>借方補助科目コード</th>
+            <td>
+                <input type="text" [(ngModel)]="data.debtorKanjyoDetailCode" maxlength="30">
+            </td>
+        </tr>
+        <tr>
+            <th>貸方勘定科目コード</th>
+            <td>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.creditorKanjyoCode"></app-select-component>
+            </td>
+
+            <th>貸方補助科目コード</th>
+            <td>
+                <input type="text" [(ngModel)]="data.creditorKanjyoDetailCode" maxlength="30">
+            </td>
+        </tr>
+        <tr>
+            <th>登録日</th>
+            <td>
+                <input type="text" [(ngModel)]="data.createDate" class="width150" disabled ="true">
+            </td>
+
+            <th>登録ユーザーID</th>
+            <td>
+                <input type="text" [(ngModel)]="data.createUserId" class="width150" disabled ="true">
+            </td>
+        </tr>
+        <tr>
+            <th>更新日</th>
+            <td>
+                <input type="text" [(ngModel)]="data.updateDate" class="width150" disabled ="true">
+            </td>
+
+            <th>更新ユーザーID</th>
+            <td>
+                <input type="text" [(ngModel)]="data.updateUserId"  class="width150" disabled ="true">
+            </td>
+        </tr>
+    </table>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>
+</div>

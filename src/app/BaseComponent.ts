@@ -20,7 +20,8 @@ export class BaseComponent implements OnInit {
 //    public codes = [];
     public sysCodeNameMsts = [];
     public taxes = [];
-    public paymenttypes= [];
+    public paymenttypes = [];
+    public kanjyos = []; // 20210628 Add
     public errorMsgs: string[] = [];
     public errors = {};
 
@@ -156,6 +157,30 @@ export class BaseComponent implements OnInit {
         }
         return '';
     }
+
+    // 20210628 S_Add
+    /**
+     * 勘定コード取得
+     */
+    getKanjyos() {
+        if (this.kanjyos) {
+            return this.kanjyos.map(kanjyo => new Code({codeDetail: kanjyo.kanjyoCode, name: kanjyo.kanjyoName}));
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * @param kanjyoCode 勘定科目名称取得
+     */
+    getKanjyoNames(kanjyoCode: string): string {
+        const lst = this.kanjyos.filter(data => data.kanjyoCode === kanjyoCode).map(data => data.kanjyoName);
+        if(lst.length > 0) {
+            return lst[0];
+        }
+        return '';
+    }
+    // 20210628 E_Add
 
     /**
      * 消費税取得

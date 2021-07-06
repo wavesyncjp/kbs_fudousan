@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Output, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { User, Code, Department, CodeNameMst, PaymentType} from './models/bukken';
+import { User, Code, Department, CodeNameMst, PaymentType, Kanjyo, KanjyoFix} from './models/bukken';// 20210628 Add
 import { Planinfo } from './models/planinfo';
 import { Templandinfo, LandPlanInfo } from './models/templandinfo';
 import { Information } from './models/information';
@@ -664,7 +664,7 @@ export class BackendService {
     return req.toPromise();
   }
 
-  //20200805 S_Add
+  // 20200805 S_Add
   /**
    * 事業収支一覧取得（グリッド用）
    */
@@ -673,7 +673,7 @@ export class BackendService {
     const req = this.http.post<Planinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
   }
-  //20200805 E_Add
+  // 20200805 E_Add
 
   /**
    * 事業収支履歴一覧取得（グリッド用）
@@ -883,6 +883,76 @@ export class BackendService {
     const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
     return req.toPromise();
   }
+
+  // 20210628 S_Add
+  /**
+   * 勘定科目取得
+   */
+  searchKanjyo(cond: any): Promise<Kanjyo[]> {
+    const searchApi = 'kanjyosearch.php';
+    const req = this.http.post<Kanjyo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 勘定科目登録
+   * @param kanjyo ：社員情報
+   */
+  saveKanjyo(kanjyo: Kanjyo): Promise<Kanjyo> {
+    const saveApi = 'kanjyosave.php';
+    const req = this.http.post<Kanjyo>(`${this.BaseUrl}/${saveApi}`, kanjyo);
+    return req.toPromise();
+  }
+  
+  /**
+   * 勘定科目削除
+   * @param kanjyoCode : 削除したいkanjyoCode
+   */
+  deleteKanjyo(kanjyoCode :string): Promise<void> {
+    const deleteApi = 'kanjyodelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { kanjyoCode: kanjyoCode, deleteUserId: this.loginUser.userId });
+    return req.toPromise();
+  }
+
+  /**
+   * 勘定コード取得
+   */
+   getKanjyos(kanjyoCode: string): Promise<Kanjyo[]> {
+    const getKanjyoApi = 'getkanjyo.php';
+    const body = { kanjyoCode: kanjyoCode };
+    const req = this.http.post<Kanjyo[]>(`${this.BaseUrl}/${getKanjyoApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 貸方借方決定マスタ取得
+   */
+   searchKanjyoFix(cond: any): Promise<KanjyoFix[]> {
+    const searchApi = 'kanjyofixsearch.php';
+    const req = this.http.post<KanjyoFix[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 貸方借方決定マスタ登録
+   * @param kanjyoFix
+   */
+  saveKanjyoFix(kanjyoFix: KanjyoFix): Promise<KanjyoFix> {
+    const saveApi = 'kanjyofixsave.php';
+    const req = this.http.post<KanjyoFix>(`${this.BaseUrl}/${saveApi}`, kanjyoFix);
+    return req.toPromise();
+  }
+  
+  /**
+   * 貸方借方決定マスタ削除
+   * @param id : 削除したいpid
+   */
+  deleteKanjyoFix(id :number): Promise<void> {
+    const deleteApi = 'kanjyofixdelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
+    return req.toPromise();
+  }
+  // 20210628 E_Add
 }
 
  

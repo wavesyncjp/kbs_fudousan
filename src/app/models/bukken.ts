@@ -131,4 +131,55 @@ export class PaymentType {
     }
 }
 
+// 20210628 S_Add
+export class Kanjyo {
 
+    kanjyoCode: string;
+    kanjyoName: string;
+    supplierName: string;
+    taxFlg: string;
+    createUserId: number;
+    updateUserId: number;
+    createDate: Date;
+    updateDate: Date;
+ 
+    public constructor(init?: Partial<Department>) {
+        Object.assign(this, init);
+    }
+
+    public convertForSave(userId: number) {
+        if (this.createUserId > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
+    }
+}
+
+export class KanjyoFix {
+
+    pid: number;
+    paymentCode: string;
+    debtorKanjyoCode: string;
+    debtorKanjyoDetailCode: string;
+    creditorKanjyoCode: string;
+    creditorKanjyoDetailCode: string;
+    transFlg: string;
+    createUserId: number;
+    updateUserId: number;
+    updateDate: Date;
+    createDate: Date;
+
+    public constructor(init?: Partial<KanjyoFix>) {
+        Object.assign(this, init);
+    }
+
+    public convertForSave(userId: number) {
+        if (this.createUserId > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
+    }
+}
+// 20210628 E_Add

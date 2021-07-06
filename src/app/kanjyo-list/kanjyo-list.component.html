@@ -1,0 +1,91 @@
+<div class="mat-elevation-z8 main" (keydown.enter)="searchKanjyo()">
+    <mat-expansion-panel expanded='true'>
+        <mat-expansion-panel-header>
+            <mat-panel-title>検索条件</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-div">
+            <table class="search-tbl">
+                <tr>
+                    <th>勘定科目コード</th>
+                    <td>
+                        <input type="text" class="Width400" [(ngModel)]="cond.kanjyoCode" maxlength="30">
+                    </td>
+
+                    <th>勘定科目名称</th>
+                    <td>
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.kanjyoName_Like" maxlength="100">
+                    </td>
+                </tr> 
+                <tr>
+                    <th>取引先名</th>
+                    <td>
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName_Like" maxlength="100">
+                    </td>
+
+                    <th>課税フラグ</th>
+                    <td>
+                        <app-select-component [codes]="getCode('014')" [(ngModel)]="cond.taxFlg"></app-select-component>
+                    </td>
+                </tr> 
+            </table>
+            <div style="margin: 10px 0px 10px 0px;">
+                <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>
+                <div class = "search-btns">
+                    <button mat-raised-button (click)="searchKanjyo()"  class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="mat-elevation-z8 main data">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="kanjyoCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 勘定科目コード </th>
+            <td mat-cell *matCellDef="let element"> {{element.kanjyoCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="kanjyoName">
+            <th mat-header-cell *matHeaderCellDef> 勘定科目名称</th>
+            <td mat-cell *matCellDef="let element"> {{element.kanjyoName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="supplierName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 取引先名 </th>
+            <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="taxFlg">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 課税フラグ </th>
+            <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.taxFlg)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 登録日 </th>
+            <td mat-cell *matCellDef="let element"> {{element.createDate | date:'yyyy/MM/dd HH:mm:ss'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updateDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 更新日 </th>
+            <td mat-cell *matCellDef="let element"> {{element.updateDate | date:'yyyy/MM/dd HH:mm:ss'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-raised-button (click)="deleteRow(row)" class="delete_btn">削除</button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="detail">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -51,14 +50,19 @@ import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo
 import { ContractTemplateComponent } from './contract-template/contract-template.component';
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';//20200731 Add
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';// 20200731 Add
 import { LabelComponentComponent } from './uicomponent/label-component/label-component.component';// 20200907 Add
 // 20200911 S_Add
 import { PlanHistoryCreateComponent } from './planhistory-create/planhistory-create.component';
 import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
 import { DndDirective } from './utils/dnd.directive';
 // 20200911 E_Add
-
+// 20210628 S_Add
+import { KanjyoListComponent } from './kanjyo-list/kanjyo-list.component';
+import { KanjyoDetailComponent } from './kanjyo-detail/kanjyo-detail.component';
+import { KanjyoFixListComponent } from './kanjyoFix-list/kanjyoFix-list.component';
+import { KanjyoFixDetailComponent } from './kanjyoFix-detail/kanjyoFix-detail.component';
+// 20210628 E_Add
 
 @NgModule({
   declarations: [
@@ -82,6 +86,12 @@ import { DndDirective } from './utils/dnd.directive';
     , UserDetailComponent
     , CodeListComponent
     , CodeDetailComponent
+    // 20210628 S_Add
+    , KanjyoListComponent
+    , KanjyoDetailComponent
+    , KanjyoFixListComponent
+    , KanjyoFixDetailComponent
+    // 20210628 E_Add
     , FinishDialogComponent
     , SharerDialogComponent
     , LocationDetailComponent
@@ -131,7 +141,7 @@ import { DndDirective } from './utils/dnd.directive';
     , MatCheckboxModule
     , MatTabsModule
     , MatSortModule
-    , NgMultiSelectDropDownModule.forRoot()//20200731 Add
+    , NgMultiSelectDropDownModule.forRoot()// 20200731 Add
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
@@ -144,6 +154,10 @@ import { DndDirective } from './utils/dnd.directive';
     , DepDetailComponent
     , UserDetailComponent
     , CodeDetailComponent
+    // 20210628 S_Add
+    , KanjyoDetailComponent
+    , KanjyoFixDetailComponent
+    // 20210628 E_Add
     , FinishDialogComponent
     , SharerDialogComponent
     , LocationDetailComponent
