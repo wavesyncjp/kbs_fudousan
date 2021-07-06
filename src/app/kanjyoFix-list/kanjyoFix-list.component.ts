@@ -52,7 +52,7 @@ export class KanjyoFixListComponent extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getCodes(['029']));
     funcs.push(this.service.getKanjyos(null));
-    funcs.push(this.service.getPaymentTypes(null));
+    funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
 
     Promise.all(funcs).then(values => {
       // コード

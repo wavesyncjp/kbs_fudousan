@@ -9,3 +9,12 @@
 .detail-tbl > tr {
     height: 45px;
 }
+
+.payment-type {
+    width: 140px !important;
+    height: 25px !important;
+    min-width: 100px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+    margin-left: 3px;
+}
