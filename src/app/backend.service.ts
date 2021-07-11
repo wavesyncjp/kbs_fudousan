@@ -233,9 +233,9 @@ export class BackendService {
   /**
    * 社員取得
    */
-  getEmps(employeeCode: string): Promise<User[]> {
+  getEmps(activeUser: string): Promise<User[]> {
     const getDepApi = 'getemployee.php';
-    const body = { employeeCode: employeeCode };
+    const body = { activeUser: activeUser };
     const req = this.http.post<User[]>(`${this.BaseUrl}/${getDepApi}`, body);
     return req.toPromise();
   }

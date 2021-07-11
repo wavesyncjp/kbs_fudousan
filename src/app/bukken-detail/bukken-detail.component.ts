@@ -87,7 +87,7 @@ export class BukkenDetailComponent extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getCodes(null));
     funcs.push(this.service.getDeps(null));
-    funcs.push(this.service.getEmps(null));
+    funcs.push(this.service.getEmps('1'));
     if (this.pid > 0) {
       funcs.push(this.service.getLand(this.pid));
       funcs.push(this.service.getLandContract(this.pid));
