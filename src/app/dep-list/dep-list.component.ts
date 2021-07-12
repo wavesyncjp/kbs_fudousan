@@ -1,11 +1,10 @@
-import { Component,OnInit,ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DepDetailComponent } from '../dep-detail/dep-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
-//import { Code } from '../models/bukken';
 import { Router } from '@angular/router';
 import { Department } from '../models/bukken';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -27,7 +26,7 @@ export class DepListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
 
-  displayedColumns: string[] = ['depCode', 'depName', 'createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['depCode', 'depName', 'displayOrder', 'createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Department>();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -42,25 +41,14 @@ export class DepListComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('部署マスタ');
     this.dataSource.paginator = this.paginator;
-    this.cond = {
-      infoDateMap: new Date(),
-      department: []
-    };
+    this.cond = {};
 
     const funcs = [];
-    /*funcs.push(this.service.getCodes(['005']));*/
 
-
-    // 20191202 funcsにgetdeps全件データを取得(null)//
     funcs.push(this.service.getDeps(null));
 
     Promise.all(funcs).then(values => {
-
-      // 20191202 valuesに取得値をセット
       this.deps = values[0];
-
-      this.cond.infoDateMap = null;
-
     });
   }
 
@@ -76,11 +64,12 @@ export class DepListComponent extends BaseComponent {
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
-
     });
-
   }
 
+  /**
+   * 新規
+   */
   createNew() {
     const row = new Department();
     const dialogRef = this.dialog.open(DepDetailComponent, {
@@ -96,6 +85,9 @@ export class DepListComponent extends BaseComponent {
     });
   }
 
+  /**
+   * 削除
+   */
   deleteRow(row: Department) {
     const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -114,6 +106,9 @@ export class DepListComponent extends BaseComponent {
 
   }
 
+  /**
+   * 詳細
+   */
   showDetail(row: Department) {
     const dialogRef = this.dialog.open(DepDetailComponent, {
       width: '750px',
@@ -127,7 +122,6 @@ export class DepListComponent extends BaseComponent {
         this.searchDep();
       }
     });
-
   }
 
   highlight(row) {

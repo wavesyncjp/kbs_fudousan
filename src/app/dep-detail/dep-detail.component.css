@@ -1,10 +1,11 @@
 .dialog-div{
     height: 50%;
     display: grid;
-    grid-template-rows: auto auto 40px;    
+    grid-template-rows: auto auto 40px;
     margin: -15px;
     padding: 10px;
 }
-.detail-tbl > tr {    
+
+.detail-tbl > tr {
     height: 45px;
 }

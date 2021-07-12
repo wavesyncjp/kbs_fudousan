@@ -1,11 +1,9 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox } from '@angular/material';
 import { Department } from '../models/bukken';
 import { BackendService } from '../backend.service';
-import { Code } from '../models/bukken';
 import { BaseComponent } from '../BaseComponent';
 import { Router } from '@angular/router';
-import { Checklib } from '../utils/checklib';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
@@ -38,32 +36,14 @@ export class DepDetailComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    const funcs = [];
-    funcs.push(this.service.getCodes(['006']));
-    Promise.all(funcs).then(values => {
-
-      // コード
-      const codes = values[0] as Code[];
-      if (codes !== null && codes.length > 0) {
-        const uniqeCodes = [...new Set(codes.map(code => code.code))];
-        uniqeCodes.forEach(code => {
-          const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
-          this.sysCodes[code] = lst;
-        });
-      }
-
-      if (this.data == null || !(this.data.depCode.length > 0)) {
-        this.data = new Department();
-      } else {
-        this.data = new Department(this.data);
-      }
-
-    });
+    if (this.data == null || this.data.depCode == null || this.data.depCode.length == 0) {
+      this.data = new Department();
+    } else {
+      this.data = new Department(this.data);
+    }
   }
 
-
-  /**11/25 追記
+  /**
    * バリデーション
    */
   validate(): boolean {
@@ -79,6 +59,9 @@ export class DepDetailComponent extends BaseComponent {
     return true;
   }
 
+  /**
+   * OK
+   */
   ok() {
     if (!this.validate()) {
       return;
@@ -98,16 +81,10 @@ export class DepDetailComponent extends BaseComponent {
     });
   }
 
+  /**
+   * 閉じる
+   */
   cancel() {
     this.dialogRef.close();
   }
-
-  /**
-   * ファイルアップロード
-   * @param event ：アップロード完了
-   */
-  uploaded(event) {
-    this.dialogRef.close(true);
-  }
 }
-

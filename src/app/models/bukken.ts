@@ -32,6 +32,7 @@ export class Department {
 
     depCode: string;
     depName: string;
+    displayOrder: number;
     createUserId: number;
     updateUserId: number;
     updateDate: Date;
