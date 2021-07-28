@@ -57,6 +57,7 @@ export class Contractinfo {
     settlementAfter: string = '1か月';
     retainage: number;
     retainageDay: string;
+    retainageDayChk: string;// 20210728 Add
     supplierName: string;
     bank: string;
     branchName: string;

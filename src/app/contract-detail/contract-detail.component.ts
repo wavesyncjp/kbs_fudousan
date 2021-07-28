@@ -217,6 +217,12 @@ export class ContractDetailComponent extends BaseComponent {
     flg.canncellDayChk = (event.checked ? 1 : 0);
     this.contract.canncellDayChk = flg.canncellDayChk;
    }
+   // 20210728 S_Add
+   retainageChange(event, flg: any) {
+    flg.retainageDayChk = (event.checked ? 1 : 0);
+    this.contract.retainageDayChk = flg.retainageDayChk;
+   }
+   // 20210728 E_Add
 
   /**
    * 登録
