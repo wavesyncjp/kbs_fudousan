@@ -63,6 +63,12 @@ import { KanjyoDetailComponent } from './kanjyo-detail/kanjyo-detail.component';
 import { KanjyoFixListComponent } from './kanjyoFix-list/kanjyoFix-list.component';
 import { KanjyoFixDetailComponent } from './kanjyoFix-detail/kanjyoFix-detail.component';
 // 20210628 E_Add
+// 20210719 S_Add
+import { FbListComponent } from './fb-list/fb-list.component';
+import { FbApprovalListComponent } from './fbApproval-list/fbApproval-list.component';
+import { SortingListComponent } from './sorting-list/sorting-list.component';
+import { SortingDetailComponent } from './sorting-detail/sorting-detail.component';
+// 20210719 E_Add
 
 @NgModule({
   declarations: [
@@ -92,6 +98,12 @@ import { KanjyoFixDetailComponent } from './kanjyoFix-detail/kanjyoFix-detail.co
     , KanjyoFixListComponent
     , KanjyoFixDetailComponent
     // 20210628 E_Add
+    // 20210719 S_Add
+    , FbApprovalListComponent
+    , FbListComponent
+    , SortingListComponent
+    , SortingDetailComponent
+    // 20210719 E_Add
     , FinishDialogComponent
     , SharerDialogComponent
     , LocationDetailComponent
@@ -158,6 +170,7 @@ import { KanjyoFixDetailComponent } from './kanjyoFix-detail/kanjyoFix-detail.co
     , KanjyoDetailComponent
     , KanjyoFixDetailComponent
     // 20210628 E_Add
+    , SortingDetailComponent // 20210719 Add
     , FinishDialogComponent
     , SharerDialogComponent
     , LocationDetailComponent

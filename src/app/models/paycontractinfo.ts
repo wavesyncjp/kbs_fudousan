@@ -8,6 +8,11 @@ export class Paycontractinfo {
     tempLandInfoPid: number;
     depCode: string;
     userId: number;
+    // 20210719 S_Add
+    contractInfoPid: number;
+    bukkenSalesInfoPid: number;
+    contractCategory: string;
+    // 20210719 E_Add
     supplierName: string;
     // 20200913 S_Add
     supplierAddress: string;

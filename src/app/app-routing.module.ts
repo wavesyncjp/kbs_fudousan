@@ -15,6 +15,9 @@ import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.co
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
+import { FbListComponent } from './fb-list/fb-list.component';
+import { FbApprovalListComponent } from './fbApproval-list/fbApproval-list.component';
+import { SortingListComponent } from './sorting-list/sorting-list.component';
 import { PlanListComponent } from './plan-list/plan-list.component';
 import { BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
 import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
@@ -40,6 +43,9 @@ const routes: Routes = [
   , { path: 'plandetail', component: PlanDetailComponent}
   , { path: 'pays', component: PayContractListComponent}
   , { path: 'paydetail', component: PayContractDetailComponent}
+  , { path: 'fb', component: FbListComponent}
+  , { path: 'fbApproval', component: FbApprovalListComponent}
+  , { path: 'sorting', component: SortingListComponent}
   , { path: 'planhistorylist', component: PlanHistoryListComponent}
   , { path: 'kanjyos', component: KanjyoListComponent}
   , { path: 'kanjyoFixs', component: KanjyoFixListComponent}

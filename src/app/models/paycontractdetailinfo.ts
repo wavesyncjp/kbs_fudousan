@@ -16,6 +16,13 @@ export class Paycontractdetailinfo {
     paymentMethod: string;
     contractor: string;
     detailRemarks: string;
+    // 20210719 S_Add
+    fbApprovalFlg: number = 0;
+    fbOutPutFlg: number = 0; 
+    fbOutPutDate: string;
+    fbOutPutTime: string;
+    sortCreatedFlg: number = 0;
+    // 20210719 E_Add
 
     closingDayMap: Date = null;
     contractDayMap: Date = null;
@@ -36,7 +43,7 @@ export class Paycontractdetailinfo {
 
     forDisplay() {
         this.contractorMap = [];
-        if(!Checklib.isBlank(this.contractor)) {            
+        if(!Checklib.isBlank(this.contractor)) {
             this.contractor.split('|').forEach(me => {
                 let data = new Code({codeDetail: me.split(',').join('_'), name: ''});
                 this.contractorMap.push(data);

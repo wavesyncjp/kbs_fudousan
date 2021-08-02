@@ -264,6 +264,17 @@ export class BaseComponent implements OnInit {
         return formatDate(parseVal, format, this.locale);
     }
 
+    formatDateTime(date: string, time: string) {
+        if (date === undefined || date === '' || date == null) {
+            return '';
+        }
+        if (time === undefined || time === '' || time == null) {
+            return '';
+        }
+        const parseVal = parse(date + time, 'yyyyMMddHHmmss', new Date());
+        return formatDate(parseVal, 'yyyy/MM/dd HH:mm:ss', this.locale);
+    }
+
     formatIntNumber(val: number, unit: string = null) {
         if (val === undefined || val == null) {
             return '';

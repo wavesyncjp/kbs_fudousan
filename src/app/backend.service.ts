@@ -16,6 +16,8 @@ import { ContractSellerInfo } from './models/contractsellerinfo';
 import { Bukkensalesinfo } from './models/bukkensalesinfo';
 import { Planinfohistory } from './models/Planinfohistory';
 import { Planhistorylist } from './models/Planhistorylist';
+import { Paycontractdetailinfo } from './models/paycontractdetailinfo';
+import { Sorting } from './models/sorting';
 
 @Directive()
 @Injectable({
@@ -896,7 +898,7 @@ export class BackendService {
 
   /**
    * 勘定科目登録
-   * @param kanjyo ：社員情報
+   * @param kanjyo ：勘定コード
    */
   saveKanjyo(kanjyo: Kanjyo): Promise<Kanjyo> {
     const saveApi = 'kanjyosave.php';
@@ -953,7 +955,38 @@ export class BackendService {
     return req.toPromise();
   }
   // 20210628 E_Add
+
+  // 20210719 S_Add
+  /**
+   * FB連携CSV発行データ取得
+   */
+  searchFb(cond: any): Promise<Paycontractdetailinfo[]> {
+    const searchApi = 'fbsearch.php';
+    const req = this.http.post<Paycontractdetailinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 会計連携用CSV出力データ取得
+   */
+  searchSorting(cond: any): Promise<Sorting[]> {
+    const searchApi = 'sortingsearch.php';
+    const req = this.http.post<Sorting[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * FB承認
+   * @param id 支払管理明細情報IdID
+   */
+  fbApproval(ids: Number[]) : Promise<any> {
+    const api = 'fbapproval.php';
+    const param = {
+      ids: ids
+      ,updateUserId: this.loginUser.userId
+    }
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
+    return req.toPromise();
+  }
+  // 20210719 E_Add
 }
-
- 
-

@@ -1,0 +1,155 @@
+<div class="dialog-div">
+    <ul *ngIf="errorMsgs.length > 0" class="error-span" style="margin-top: -5px;">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <table class="detail-tbl">
+        <tr>
+            <th>取引日付</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="transactionDate"  [(ngModel)]="data.transactionDateMap" [disabled]="true">
+                    <mat-datepicker-toggle matSuffix [for]="transactionDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #transactionDate></mat-datepicker>
+                </div>
+            </td>
+
+            <th>支払種別</th>
+            <td>
+                <select [(ngModel)]="data.paymentCode" class="payment-type" disabled>
+                    <option value=""></option>
+                    <ng-container *ngFor="let tp of payTypes">
+                        <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                        <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option>
+                    </ng-container>
+                </select>
+            </td>
+
+            <th>入出金区分</th>
+            <td>
+                <app-select-component [codes]="getCode('031')" [(ngModel)]="data.contractType"  [isDisabled]="true"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <th>識別コード</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.identificationCd" maxlength="20">
+            </td>
+
+            <th>伝票番号</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.slipNo" maxlength="20">
+            </td>
+
+            <th>決算</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.settlement" maxlength="20">
+            </td>
+        </tr>
+
+        <tr>
+            <th>借方勘定科目コード</th>
+            <td>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.debtorKanjyoCode" [isDisabled]="true"></app-select-component>
+            </td>
+
+            <th>借方補助科目名称</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.debtorKanjyoDetailName" maxlength="200">
+            </td>
+
+            <th>借方税区分</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.debtorTaxType" maxlength="30">
+            </td>
+        </tr>
+
+        <tr>
+            <th>借方金額</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.debtorPriceMap">
+            </td>
+
+            <th>借方金額（税込）</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.debtorTaxMap">
+            </td>
+        </tr>
+
+        <tr>
+            <th>貸方勘定科目コード</th>
+            <td>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.creditorKanjyoCode" [isDisabled]="true"></app-select-component>
+            </td>
+
+            <th>貸方補助科目名称</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.creditorKanjyoDetailName" maxlength="200">
+            </td>
+
+            <th>貸方税区分</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.creditorTaxType" maxlength="30">
+            </td>
+        </tr>
+
+        <tr>
+            <th>借方金額</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.creditorPriceMap">
+            </td>
+
+            <th>貸方金額（税込）</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.creditorTaxMap">
+            </td>
+        </tr>
+        
+        <tr>
+            <th>物件番号</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="templandInfo.bukkenNo" maxlength="10">
+            </td>
+
+            <th>契約物件番号</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="templandInfo.contractBukkenNo" maxlength="30">
+            </td>
+
+            <th>物件名称</th>
+            <td>
+                <input type="text" class ='width200' [attr.disabled]="true" [(ngModel)]="templandInfo.bukkenName" maxlength="256">
+            </td>
+        </tr>
+
+        <tr>
+            <th>取引タイプ</th>
+            <td>
+                <input type="text" [attr.disabled]="true" [(ngModel)]="data.transactionType" maxlength="30">
+            </td>
+
+            <th>摘要</th>
+            <td>
+                <input type="text" class ='width200' [attr.disabled]="true" [(ngModel)]="data.remark" maxlength="200">
+            </td>
+
+            <th>振替フラグ</th>
+            <td>
+                <app-select-component [codes]="getCode('029')" [(ngModel)]="data.transFlg"  [isDisabled]="true"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <th>出力済フラグ</th>
+            <td>
+                <app-select-component [codes]="getCode('030')" [(ngModel)]="data.outPutFlg" [isDisabled]="true"></app-select-component>
+            </td>
+
+            <th>出力日時</th>
+            <td>
+                <input type="text" [(ngModel)]="data.outPutDateTimeMap"  disabled ="true">
+            </td>
+        </tr>
+    </table>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
+    </mat-dialog-actions>
+</div>
