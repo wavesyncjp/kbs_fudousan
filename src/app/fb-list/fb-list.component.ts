@@ -154,7 +154,10 @@ export class FbListComponent extends BaseComponent {
         this.spinner.show();
         this.service.exportCsv(lst, result['csvCode']).then(ret => {
           Util.stringToCSV(ret['data'], result['csvName']);
-          this.spinner.hide();
+          this.service.setOutPutDate(lst, 'fbOutPutFlg').then(res => {
+            this.spinner.hide();
+            this.searchFb();
+          });
         });
       }
     });

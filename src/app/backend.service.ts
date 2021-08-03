@@ -977,12 +977,28 @@ export class BackendService {
 
   /**
    * FB承認
-   * @param id 支払管理明細情報IdID
+   * @param id 支払管理明細情報ID
    */
   fbApproval(ids: Number[]) : Promise<any> {
     const api = 'fbapproval.php';
     const param = {
       ids: ids
+      ,updateUserId: this.loginUser.userId
+    }
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
+    return req.toPromise();
+  }
+
+  /**
+   * 出力日時設定
+   * @param id 対象テーブルID
+   * @param id 対象カラム名
+   */
+  setOutPutDate(ids: Number[], target: string) : Promise<any> {
+    const api = 'setoutputdate.php';
+    const param = {
+      ids: ids
+      ,target: target
       ,updateUserId: this.loginUser.userId
     }
     const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
