@@ -21,7 +21,7 @@ export class Paycontractdetailinfo {
     fbOutPutFlg: number = 0; 
     fbOutPutDate: string;
     fbOutPutTime: string;
-    sortCreatedFlg: number = 0;
+    transferredFlg: number = 0;
     // 20210719 E_Add
 
     closingDayMap: Date = null;

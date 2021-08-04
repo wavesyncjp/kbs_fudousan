@@ -162,10 +162,12 @@ export class KanjyoFix {
     pid: number;
     paymentCode: string;
     debtorKanjyoCode: string;
-    debtorKanjyoDetailCode: string;
+    debtorKanjyoDetailName: string;
     creditorKanjyoCode: string;
-    creditorKanjyoDetailCode: string;
+    creditorKanjyoDetailName: string;
     transFlg: string;
+    transDebtorKanjyoCode : string;
+    transDebtorKanjyoDetailName : string;
     createUserId: number;
     updateUserId: number;
     updateDate: Date;

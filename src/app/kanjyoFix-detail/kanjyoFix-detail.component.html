@@ -15,11 +15,6 @@
                     </ng-container>
                 </select>
             </td>
-
-            <th>振替フラグ</th>
-            <td>
-                <app-select-component [codes]="getCode('029')" [(ngModel)]="data.transFlg"></app-select-component>
-            </td>
         </tr>
         <tr>
             <th>借方勘定科目コード</th>
@@ -27,9 +22,9 @@
                 <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.debtorKanjyoCode"></app-select-component>
             </td>
 
-            <th>借方補助科目コード</th>
+            <th>借方補助科目名称</th>
             <td>
-                <input type="text" [(ngModel)]="data.debtorKanjyoDetailCode" maxlength="30">
+                <input type="text" [(ngModel)]="data.debtorKanjyoDetailName" maxlength="30">
             </td>
         </tr>
         <tr>
@@ -38,9 +33,25 @@
                 <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.creditorKanjyoCode"></app-select-component>
             </td>
 
-            <th>貸方補助科目コード</th>
+            <th>貸方補助科目名称</th>
             <td>
-                <input type="text" [(ngModel)]="data.creditorKanjyoDetailCode" maxlength="30">
+                <input type="text" [(ngModel)]="data.creditorKanjyoDetailName" maxlength="30">
+            </td>
+        </tr>
+        <tr>
+            <th>振替フラグ</th>
+            <td>
+                <app-select-component [codes]="getCode('029')" [(ngModel)]="data.transFlg"></app-select-component>
+            </td>
+
+            <th>振替後借方勘定科目<br>コード</th>
+            <td>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transDebtorKanjyoCode"></app-select-component>
+            </td>
+
+            <th>振替後借方補助科目<br>名称</th>
+            <td>
+                <input type="text" [(ngModel)]="data.transDebtorKanjyoDetailName" maxlength="30">
             </td>
         </tr>
         <tr>
