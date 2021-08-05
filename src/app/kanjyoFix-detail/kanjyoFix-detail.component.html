@@ -49,9 +49,9 @@
                 <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transDebtorKanjyoCode"></app-select-component>
             </td>
 
-            <th>振替後借方補助科目<br>名称</th>
+            <th>振替後貸方勘定科目<br>コード</th>
             <td>
-                <input type="text" [(ngModel)]="data.transDebtorKanjyoDetailName" maxlength="30">
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transCreditorKanjyoCode"></app-select-component>
             </td>
         </tr>
         <tr>

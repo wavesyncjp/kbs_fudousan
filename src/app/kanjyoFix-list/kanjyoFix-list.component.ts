@@ -131,7 +131,7 @@ export class KanjyoFixListComponent extends BaseComponent {
   showDetail(row: KanjyoFix) {
     const dialogRef = this.dialog.open(KanjyoFixDetailComponent, {
       width: '1100px',
-      height: '380px',
+      height: '450px',
       data: row
     });
 

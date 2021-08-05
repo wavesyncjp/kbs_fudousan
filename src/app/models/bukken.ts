@@ -165,9 +165,9 @@ export class KanjyoFix {
     debtorKanjyoDetailName: string;
     creditorKanjyoCode: string;
     creditorKanjyoDetailName: string;
-    transFlg: string;
-    transDebtorKanjyoCode : string;
-    transDebtorKanjyoDetailName : string;
+    transFlg: string = "";
+    transDebtorKanjyoCode : string = "";
+    transCreditorKanjyoCode : string = "";
     createUserId: number;
     updateUserId: number;
     updateDate: Date;
