@@ -192,7 +192,7 @@
                         <!--<app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_0'] ? 'error' : '')" [codes]="paymentTypes" [(ngModel)]="detail.paymentCode"></app-select-component>--><!-- 20210629 Delete -->
                         <!-- 20210211 E_Update -->
                         <!-- 20210629 S_Add -->
-                        <select [(ngModel)]="detail.paymentCode" class="payment-type">
+                        <select [(ngModel)]="detail.paymentCode" class="payment-type" [ngClass]="{'width400': true, 'error': errors['detail.paymentCode_0']}">
                             <option value=""></option>
                             <ng-container *ngFor="let tp of payTypes">
                                 <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
@@ -261,7 +261,7 @@
                         <!--<app-select-component [cusClass]="'width158  ' + (errors['detail.paymentCode_' + (sharerPos + 1)] ? 'error' : '')" [codes]="paymentTypes" [(ngModel)]="detail.paymentCode"></app-select-component>--><!-- 20210629 Delete -->
                         <!-- 20210211 E_Update -->
                         <!-- 20210629 S_Add -->
-                        <select [(ngModel)]="detail.paymentCode" class="payment-type">
+                        <select [(ngModel)]="detail.paymentCode" class="payment-type" [ngClass]="{'width400': true, 'error': errors['detail.paymentCode_' + (sharerPos + 1)]}">
                             <option value=""></option>
                             <ng-container *ngFor="let tp of payTypes">
                                 <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>

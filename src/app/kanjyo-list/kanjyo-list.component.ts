@@ -84,7 +84,7 @@ export class KanjyoListComponent extends BaseComponent {
     const row = new Kanjyo();
     const dialogRef = this.dialog.open(KanjyoDetailComponent, {
       width: '750px',
-      height: '400px',
+      height: '350px',
       data: row
     });
     // 再検索

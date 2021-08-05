@@ -7,7 +7,7 @@
             <th>支払コード</th>
             <td>
                 <!--<app-select-component [codes]="paymenttypes"[(ngModel)]="data.paymentCode" [ngClass]="'width150'" maxlength="30"></app-select-component>-->
-                <select [(ngModel)]="data.paymentCode" class="payment-type">
+                <select [(ngModel)]="data.paymentCode" class="payment-type" [ngClass]="{'width400': true, 'error': errors['paymentCode']}">
                     <option value=""></option>
                     <ng-container *ngFor="let tp of payTypes">
                         <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
@@ -46,12 +46,12 @@
 
             <th>振替後借方勘定科目<br>コード</th>
             <td>
-                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transDebtorKanjyoCode"></app-select-component>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transDebtorKanjyoCode" [cusClass]="'width150  ' + (errors['transDebtorKanjyoCode'] ? 'error' : '')"></app-select-component>
             </td>
 
             <th>振替後貸方勘定科目<br>コード</th>
             <td>
-                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transCreditorKanjyoCode"></app-select-component>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transCreditorKanjyoCode" [cusClass]="'width150  ' + (errors['transCreditorKanjyoCode'] ? 'error' : '')"></app-select-component>
             </td>
         </tr>
         <tr>

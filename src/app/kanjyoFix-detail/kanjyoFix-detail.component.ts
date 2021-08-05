@@ -80,9 +80,8 @@ export class KanjyoFixDetailComponent extends BaseComponent {
     this.checkBlank(this.data.paymentCode, 'paymentCode', '支払コードは必須です。');
 
     if(this.data.transFlg !== '' && this.data.transFlg !== '00'){
-      if(this.data.transCreditorKanjyoCode == '' && this.data.transDebtorKanjyoCode == ''){
-        this.checkBlank(this.data.transDebtorKanjyoCode && this.data.transCreditorKanjyoCode, 'transDebtorKanjyoCode', '振替後勘定科目コードは必須です。');
-      }
+      this.checkBlank(this.data.transDebtorKanjyoCode, 'transDebtorKanjyoCode', '振替後借方勘定科目コードは必須です。');
+      this.checkBlank(this.data.transCreditorKanjyoCode, 'transCreditorKanjyoCode', '振替後貸方勘定科目コードは必須です。');
     }
     if (this.errorMsgs.length > 0) {
       return false;
