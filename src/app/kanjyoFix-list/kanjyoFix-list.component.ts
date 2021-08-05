@@ -26,7 +26,7 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 export class KanjyoFixListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['paymentCode', 'debtorKanjyoCode','debtorKanjyoDetailName','creditorKanjyoCode','creditorKanjyoDetailName','transFlg','createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['paymentCode', 'debtorKanjyoCode','creditorKanjyoCode','transFlg','createDate', 'updateDate', 'delete', 'detail'];
   dataSource = new MatTableDataSource<KanjyoFix>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -94,7 +94,7 @@ export class KanjyoFixListComponent extends BaseComponent {
     const row = new KanjyoFix();
     const dialogRef = this.dialog.open(KanjyoFixDetailComponent, {
       width: '1100px',
-      height: '450px',
+      height: '350px',
       data: row
     });
     // 再検索
@@ -131,7 +131,7 @@ export class KanjyoFixListComponent extends BaseComponent {
   showDetail(row: KanjyoFix) {
     const dialogRef = this.dialog.open(KanjyoFixDetailComponent, {
       width: '1100px',
-      height: '450px',
+      height: '350px',
       data: row
     });
 

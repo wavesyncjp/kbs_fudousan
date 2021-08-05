@@ -6,7 +6,6 @@
         <tr>
             <th>支払コード</th>
             <td>
-                <!--<app-select-component [codes]="paymenttypes"[(ngModel)]="data.paymentCode" [ngClass]="'width150'" maxlength="30"></app-select-component>-->
                 <select [(ngModel)]="data.paymentCode" class="payment-type" [ngClass]="{'width400': true, 'error': errors['paymentCode']}">
                     <option value=""></option>
                     <ng-container *ngFor="let tp of payTypes">
@@ -15,27 +14,15 @@
                     </ng-container>
                 </select>
             </td>
-        </tr>
-        <tr>
+
             <th>借方勘定科目コード</th>
             <td>
                 <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.debtorKanjyoCode"></app-select-component>
             </td>
 
-            <th>借方補助科目名称</th>
-            <td>
-                <input type="text" [(ngModel)]="data.debtorKanjyoDetailName" maxlength="30">
-            </td>
-        </tr>
-        <tr>
             <th>貸方勘定科目コード</th>
             <td>
                 <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.creditorKanjyoCode"></app-select-component>
-            </td>
-
-            <th>貸方補助科目名称</th>
-            <td>
-                <input type="text" [(ngModel)]="data.creditorKanjyoDetailName" maxlength="30">
             </td>
         </tr>
         <tr>
@@ -44,14 +31,14 @@
                 <app-select-component [codes]="getCode('029')" [(ngModel)]="data.transFlg"></app-select-component>
             </td>
 
-            <th>振替後借方勘定科目<br>コード</th>
+            <th>振替後<br>借方勘定科目コード</th>
             <td>
-                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transDebtorKanjyoCode" [cusClass]="'width150  ' + (errors['transDebtorKanjyoCode'] ? 'error' : '')"></app-select-component>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transDebtorKanjyoCode" [cusClass]="'width140  ' + (errors['transDebtorKanjyoCode'] ? 'error' : '')"></app-select-component>
             </td>
 
-            <th>振替後貸方勘定科目<br>コード</th>
+            <th>振替後<br>貸方勘定科目コード</th>
             <td>
-                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transCreditorKanjyoCode" [cusClass]="'width150  ' + (errors['transCreditorKanjyoCode'] ? 'error' : '')"></app-select-component>
+                <app-select-component [codes]="kanjyoCodes" [(ngModel)]="data.transCreditorKanjyoCode" [cusClass]="'width140  ' + (errors['transCreditorKanjyoCode'] ? 'error' : '')"></app-select-component>
             </td>
         </tr>
         <tr>

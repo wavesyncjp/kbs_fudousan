@@ -8,7 +8,6 @@
             <tr>
                 <th>支払コード</th>
                 <td>
-                    <!--<app-select-component class="width200" [codes]="paymenttypes" [(ngModel)]="cond.paymentCode" maxlength="30"></app-select-component>-->
                     <select [(ngModel)]="cond.paymentCode" class="payment-type">
                         <option value=""></option>
                         <ng-container *ngFor="let tp of payTypes">
@@ -23,25 +22,14 @@
                     <app-select-component [codes]="kanjyoCodes" [(ngModel)]="cond.debtorKanjyoCode" maxlength="30"></app-select-component>
                 </td>
 
-                <th>借方補助科目名称</th>
-                <td>
-                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.debtorKanjyoDetailName_Like" maxlength="30">
-                </td>
-            </tr>
-            <tr>
-                <th>振替フラグ</th>
-                <td>
-                    <app-select-component  class="width158" [codes]="getCode('029')" [(ngModel)]="cond.transFlg" maxlength="10"></app-select-component>
-                </td>
-
                 <th>貸方勘定科目コード</th>
                 <td>
                     <app-select-component [codes]="kanjyoCodes" [(ngModel)]="cond.creditorKanjyoCode" maxlength="30"></app-select-component>
                 </td>
 
-                <th>貸方補助科目名称</th>
+                <th>振替フラグ</th>
                 <td>
-                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.creditorKanjyoDetailName_Like" maxlength="30">
+                    <app-select-component  class="width158" [codes]="getCode('029')" [(ngModel)]="cond.transFlg" maxlength="10"></app-select-component>
                 </td>
             </tr>
             </table>
@@ -68,19 +56,9 @@
             <td mat-cell *matCellDef="let element"> {{getKanjyoNames(element.debtorKanjyoCode)}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="debtorKanjyoDetailName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> 借方補助科目名称 </th>
-            <td mat-cell *matCellDef="let element"> {{element.debtorKanjyoDetailName}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="creditorKanjyoCode">
             <th mat-header-cell *matHeaderCellDef> 貸方勘定科目コード </th>
             <td mat-cell *matCellDef="let element"> {{getKanjyoNames(element.creditorKanjyoCode)}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="creditorKanjyoDetailName">
-            <th mat-header-cell *matHeaderCellDef> 貸方補助科目名称 </th>
-            <td mat-cell *matCellDef="let element"> {{element.creditorKanjyoDetailName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="transFlg">
