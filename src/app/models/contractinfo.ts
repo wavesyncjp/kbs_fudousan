@@ -46,6 +46,10 @@ export class Contractinfo {
     prioritySalesFloor: number;
     prioritySalesPlanPrice: number;
     fixedTax: number;
+    // 20210805 S_Add
+    fixedLandTax: number;
+    fixedBuildingTax: number;
+    // 20210805 E_Add
     deliveryFixedDay: string;
     vacationDay: string;
     contractDay: string;
@@ -136,6 +140,10 @@ export class Contractinfo {
     prioritySalesFloorMap: string = "";
     prioritySalesPlanPriceMap: string = "";
     fixedTaxMap: string = "";
+    // 20210805 S_Add
+    fixedLandTaxMap: string = "";
+    fixedBuildingTaxMap: string = "";
+    // 20210805 E_Add
     decisionPriceMap: string = "";
     retainageMap: string = "";
     //20200828 S_Add
@@ -213,6 +221,10 @@ export class Contractinfo {
         this.prioritySalesFloorMap = Converter.numberToString(this.prioritySalesFloor);
         this.prioritySalesPlanPriceMap = Converter.numberToString(this.prioritySalesPlanPrice);
         this.fixedTaxMap = Converter.numberToString(this.fixedTax);
+        // 20210805 S_Add
+        this.fixedLandTaxMap = Converter.numberToString(this.fixedLandTax);
+        this.fixedBuildingTaxMap = Converter.numberToString(this.fixedBuildingTax);
+        // 20210805 E_Add
         this.decisionPriceMap = Converter.numberToString(this.decisionPrice);
         this.retainageMap = Converter.numberToString(this.retainage);
         //20200828 S_Add
@@ -292,6 +304,10 @@ export class Contractinfo {
         this.prioritySalesFloor = Converter.stringToNumber(this.prioritySalesFloorMap);
         this.prioritySalesPlanPrice = Converter.stringToNumber(this.prioritySalesPlanPriceMap);
         this.fixedTax = Converter.stringToNumber(this.fixedTaxMap);
+        // 20210805 S_Add
+        this.fixedLandTax = Converter.stringToNumber(this.fixedLandTaxMap);
+        this.fixedBuildingTax = Converter.stringToNumber(this.fixedBuildingTaxMap);
+        // 20210805 E_Add
         this.decisionPrice = Converter.stringToNumber(this.decisionPriceMap);
         this.retainage = Converter.stringToNumber(this.retainageMap);
         //20200828 S_Add
