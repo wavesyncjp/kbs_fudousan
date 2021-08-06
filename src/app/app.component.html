@@ -17,7 +17,7 @@
             <li *ngIf="authority !== '03'"><a (click)="navigate('plans')">&nbsp;事業収支&nbsp;</a></li>
             <li><a (click)="navigate('pays')">&nbsp;支払管理&nbsp;</a></li>
             <!-- 20210731 S_Add -->
-            <li><a>&nbsp;FB連携&nbsp;<span class="caret"></span></a>
+            <!-- 管理者のみ表示で確認中 --><li *ngIf="authority === '01'"><a>&nbsp;FB連携&nbsp;<span class="caret"></span></a>
                 <div style="z-index: 999;">
                     <ul>
                         <li><a (click)="navigate('fbApproval')">承認</a></li>
@@ -25,7 +25,7 @@
                     </ul>
                 </div>
             </li>
-            <li><a (click)="navigate('sorting')">&nbsp;会計連携用CSV出力&nbsp;</a></li>
+            <!-- リリースまでコメント --><!--<li><a (click)="navigate('sorting')">&nbsp;会計連携用CSV出力&nbsp;</a></li>-->
             <!-- 20210731 E_Add -->
             <li><a (click)="navigate('infos')">&nbsp;インフォメーション&nbsp;</a></li>
             <li *ngIf="authority !== '02' && authority !== '03'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>
@@ -36,8 +36,8 @@
                         <li><a (click)="navigate('codes')">コードマスタ</a></li>
                         <li><a (click)="navigate('paymentTypes')">支払種別マスタ</a></li>
                         <li><a (click)="navigate('bkupdate')">担当割付・変更</a></li><!-- 20210207 Add -->
-                        <li><a (click)="navigate('kanjyos')">勘定マスタ</a></li><!-- 20210628 Add -->
-                        <li><a (click)="navigate('kanjyoFixs')">貸方借方決定マスタ</a></li><!-- 20210628 Add -->
+                        <!-- リリースまでコメント --><!--<li><a (click)="navigate('kanjyos')">勘定マスタ</a></li>--><!-- 20210628 Add -->
+                        <!-- リリースまでコメント --><!--<li><a (click)="navigate('kanjyoFixs')">貸方借方決定マスタ</a></li>--><!-- 20210628 Add -->
                     </ul>
                 </div>
             </li>
