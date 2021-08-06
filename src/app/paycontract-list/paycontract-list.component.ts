@@ -162,6 +162,14 @@ export class PayContractListComponent extends BaseComponent {
 
     this.service.searchPayContract(this.cond).then(res => {
       //const lst = this.groupData(res);
+      // 20210806 S_Add
+      // CSVチェックの初期値ON
+      if (res !== null && res.length > 0) {
+        res.forEach(obj => {
+          obj['select'] = true;
+        });
+      }
+      // 20210806 E_Add
       this.service.searchCondition = this.cond;
       this.dataSource.data = res;
       this.dataSource.sort = this.sort;
