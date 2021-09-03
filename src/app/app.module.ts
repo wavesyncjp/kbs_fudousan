@@ -69,6 +69,11 @@ import { FbApprovalListComponent } from './fbApproval-list/fbApproval-list.compo
 import { SortingListComponent } from './sorting-list/sorting-list.component';
 import { SortingDetailComponent } from './sorting-detail/sorting-detail.component';
 // 20210719 E_Add
+// 20210831 S_Add
+import { BankListComponent } from './bank-list/bank-list.component';
+import { BankDetailComponent } from './bank-detail/bank-detail.component';
+// 20210831 E_Add
+
 
 @NgModule({
   declarations: [
@@ -104,6 +109,10 @@ import { SortingDetailComponent } from './sorting-detail/sorting-detail.componen
     , SortingListComponent
     , SortingDetailComponent
     // 20210719 E_Add
+    // 20210831 S_Add
+    , BankListComponent
+    , BankDetailComponent
+    // 20210831 E_Add
     , FinishDialogComponent
     , SharerDialogComponent
     , LocationDetailComponent
@@ -171,6 +180,7 @@ import { SortingDetailComponent } from './sorting-detail/sorting-detail.componen
     , KanjyoFixDetailComponent
     // 20210628 E_Add
     , SortingDetailComponent // 20210719 Add
+    , BankDetailComponent // 20210831 Add
     , FinishDialogComponent
     , SharerDialogComponent
     , LocationDetailComponent

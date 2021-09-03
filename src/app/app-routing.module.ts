@@ -23,6 +23,8 @@ import { BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninf
 import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.component';
 import { KanjyoListComponent } from './kanjyo-list/kanjyo-list.component';
 import { KanjyoFixListComponent } from './kanjyoFix-list/kanjyoFix-list.component';
+import { BankListComponent } from './bank-list/bank-list.component';
+import { BankDetailComponent } from './bank-detail/bank-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }
@@ -49,6 +51,8 @@ const routes: Routes = [
   , { path: 'planhistorylist', component: PlanHistoryListComponent}
   , { path: 'kanjyos', component: KanjyoListComponent}
   , { path: 'kanjyoFixs', component: KanjyoFixListComponent}
+  , { path: 'bank', component: BankListComponent}
+  , { path: 'bankdetail', component: BankDetailComponent}
 ];
 
 @NgModule({

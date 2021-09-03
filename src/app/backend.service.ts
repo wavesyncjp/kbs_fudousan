@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Output, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { User, Code, Department, CodeNameMst, PaymentType, Kanjyo, KanjyoFix} from './models/bukken';// 20210628 Add
+import { User, Code, Department, CodeNameMst, PaymentType, Kanjyo, KanjyoFix, Bank} from './models/bukken';// 20210831 Add
 import { Planinfo } from './models/planinfo';
 import { Templandinfo, LandPlanInfo } from './models/templandinfo';
 import { Information } from './models/information';
@@ -1005,4 +1005,36 @@ export class BackendService {
     return req.toPromise();
   }
   // 20210719 E_Add
+
+  // 20210831 S_Add
+  /**
+   * 銀行マスタ取得
+   */
+   searchBank(cond: any): Promise<Bank[]> {
+    const searchApi = 'banksearch.php';
+    const req = this.http.post<Bank[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 銀行マスタ登録
+   * @param kanjyoFix
+   */
+  saveBank(bank: Bank): Promise<Bank> {
+    const saveApi = 'banksave.php';
+    const req = this.http.post<Bank>(`${this.BaseUrl}/${saveApi}`, bank);
+    return req.toPromise();
+  }
+  
+  /**
+   * 銀行マスタ削除
+   * @param id : 削除したいpid
+   */
+  deleteBank(id :number): Promise<void> {
+    const deleteApi = 'bankdelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
+    return req.toPromise();
+  }
+
+  // 20210831 E_Add
 }

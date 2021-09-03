@@ -1,0 +1,71 @@
+<div class="dialog-div">
+    <ul *ngIf="errorMsgs.length > 0" class="error-span" style="margin-top: -5px;">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <table class="detail-tbl">
+        <tr>
+            <th>入出金区分</th>
+            <td>
+                <app-select-component [codes]="getCode('031')" [(ngModel)]="data.contractType" [cusClass]="'width150 ' + (errors['contractType'] ? 'error' : '')"></app-select-component>
+            </td>
+            <th>表示順序</th>
+            <td>
+                <input type="text" [(ngModel)]="data.displayOrder"  [ngClass]="'width100 ' + (errors['displayOrder'] ? 'error' : '')" maxlength="4">
+            </td>
+        </tr>
+        <tr>
+            <th>表示名称</th>
+            <td>
+                <input type="text" [(ngModel)]="data.displayName" [ngClass]="'width300 ' + (errors['displayName'] ? 'error' : '')" maxlength="100">
+            </td>
+            <th>預金種目</th>
+            <td>
+                <app-select-component [codes]="getCode('034')" [(ngModel)]="data.depositType"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <th>銀行名</th>
+            <td>
+                <input type="text" [(ngModel)]="data.bankName" [ngClass]="'width300'" maxlength="100">
+            </td>
+            <th>支店名</th>
+            <td>
+                <input type="text" [(ngModel)]="data.branchName" [ngClass]="'width300'" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <th>口座番号</th>
+            <td>
+                <input type="text" [(ngModel)]="data.accountNumber" [ngClass]="'width200'" maxlength="30">
+            </td>
+            <th>口座名義</th>
+            <td>
+                <input type="text" [(ngModel)]="data.accountHolder" [ngClass]="'width300'" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <th>登録日</th>
+            <td>
+                <input type="text" [(ngModel)]="data.createDate" class="width150" disabled ="true">
+            </td>
+            <th>登録ユーザーID</th>
+            <td>
+                <input type="text" [(ngModel)]="data.createUserId" class="width150" disabled ="true">
+            </td>
+        </tr>
+        <tr>
+            <th>更新日</th>
+            <td>
+                <input type="text" [(ngModel)]="data.updateDate" class="width150" disabled ="true">
+            </td>
+            <th>更新ユーザーID</th>
+            <td>
+                <input type="text" [(ngModel)]="data.updateUserId"  class="width150" disabled ="true">
+            </td>
+        </tr>
+    </table>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button class="width80" (click)="cancel()">閉じる</button>
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>
+</div>

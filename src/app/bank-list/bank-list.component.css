@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+}
+
+.delete_btn{
+    background-color: rgb(91, 91, 95);
+    color: whitesmoke;
+    height: 30px;
+    width: 60px;
+    margin-right: 20px;
+}
+
+.main {
+    width: 98%;
+    margin: 10px;
+}
+
+.payment-type {
+    width: 140px !important;
+    height: 25px !important;
+    min-width: 100px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+    margin-left: 3px;
+}

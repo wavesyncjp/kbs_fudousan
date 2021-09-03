@@ -186,3 +186,34 @@ export class KanjyoFix {
     }
 }
 // 20210628 E_Add
+
+// 20210831 S_Add
+export class Bank {
+
+    pid: number;
+    contractType: string;
+    displayName: string;
+    bankName: string;
+    branchName: string;
+    depositType: string;
+    accountNumber: string;
+    accountHolder: string;
+    displayOrder: string;
+    createUserId: number;
+    updateUserId: number;
+    updateDate: Date;
+    createDate: Date;
+
+    public constructor(init?: Partial<Bank>) {
+        Object.assign(this, init);
+    }
+
+    public convertForSave(userId: number) {
+        if (this.createUserId > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
+    }
+}
+// 20210831 E_Add
