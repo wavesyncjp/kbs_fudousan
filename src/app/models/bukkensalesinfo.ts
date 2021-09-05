@@ -40,6 +40,7 @@ export class Bukkensalesinfo {
     salesLiquidation3: number;
     salesLiquidation4: number;
     salesLiquidation5: number;
+    bankPid: string;// 20200904 Add
     salesBrokerageFee: number;
     salesBrokerageFeePayDay: string;// 20201218 Add
     salesLandArea: number;

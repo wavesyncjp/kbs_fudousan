@@ -171,11 +171,12 @@
                 <th class="width140">支払金額(税抜)</th>
                 <th class="width140">消費税</th>
                 <th class="width140">支払金額(税込)</th>
-                <th class="width80">〆日</th>
+                <!--<th class="width80">〆日</th>--><!-- 20210905 Delete -->
                 <!--hiranomemo 支払時期 追加-->
                 <th class="width80">支払時期</th>
                 <th class="width100">支払予定日</th>
                 <th class="width80">支払確定日</th>
+                <th class="width80">支払時間</th><!-- 20210905 Add -->
                 <th class="width130">支払方法</th>
                 <!--hiranomemo 契約者 追加-->
                 <th>契約者</th>
@@ -211,6 +212,8 @@
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
                     <!-- 20200921 E_Update -->
+                    <!-- 20210905 S_Delete -->
+                    <!--
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="closingDay" [(ngModel)]="detail.closingDayMap" class="width100">
@@ -218,6 +221,8 @@
                             <mat-datepicker #closingDay></mat-datepicker>
                         </div>
                     </td>
+                    -->
+                    <!-- 20210905 E_Delete -->
                     <!--hiranomemo paymentSeason 追加-->
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.paymentSeason" maxlength="100"></td>
                     <td>
@@ -234,6 +239,9 @@
                             <mat-datepicker #contractFixDay></mat-datepicker>
                         </div>
                     </td>
+                    <!-- 20210905 S_Add -->
+                    <td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>
+                    <!-- 20210905 E_Add -->
                     <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
                     <!--hiranomemo contractor 追加-->
                     <td>

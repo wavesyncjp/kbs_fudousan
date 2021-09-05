@@ -328,6 +328,9 @@
             <th>固都税清算金</th>
             <td>
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTaxMap" maxlength="15" [value]="changeValue(contract.fixedTaxMap)">&nbsp;円
+                <!-- 20210905 S_Add -->
+                &nbsp;&nbsp;&nbsp;&nbsp;<button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="calcKotozei()">計算</button>
+                <!-- 20210905 E_Add -->
             </td>
             <th>(固都税清算金)土地</th>
             <td>
@@ -337,6 +340,12 @@
             <td>
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedBuildingTaxMap" maxlength="15" [value]="changeValue(contract.fixedBuildingTaxMap)">&nbsp;円
             </td>
+            <!-- 20210905 S_Add -->
+            <th>建物分消費税</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedBuildingTaxOnlyTaxMap" maxlength="15" [value]="changeValue(contract.fixedBuildingTaxOnlyTaxMap)">&nbsp;円
+            </td>
+            <!-- 20210905 E_Add -->
         </tr>
         <tr>
             <th>決済代金</th>

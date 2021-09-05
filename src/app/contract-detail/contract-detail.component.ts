@@ -20,6 +20,7 @@ import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.com
 import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { ContractTemplateComponent } from '../contract-template/contract-template.component';
 import { isNullOrUndefined } from 'util';
+import { CalcKotozeiDetailComponent } from '../calcKotozei-detail/calcKotozei-detail.component';
 
 @Component({
   selector: 'app-contract-detail',
@@ -591,4 +592,17 @@ export class ContractDetailComponent extends BaseComponent {
     }
     this.contract.sellers.splice(sharerPos, 1);
   }
+
+  // 20210905 S_Add
+  /**
+   * 計算
+   */
+  calcKotozei(): void {
+    const dialogRef = this.dialog.open(CalcKotozeiDetailComponent, {
+      width: '98%',
+      height: '580px',
+      data: this.contract
+    });
+  }
+  // 20210905 E_Add
 }

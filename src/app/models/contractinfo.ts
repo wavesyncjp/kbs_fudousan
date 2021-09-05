@@ -50,6 +50,11 @@ export class Contractinfo {
     fixedLandTax: number;
     fixedBuildingTax: number;
     // 20210805 E_Add
+    // 20210904 S_Add
+    fixedBuildingTaxOnlyTax: number;
+    sharingStartDay: string;
+    sharingEndDay: string;
+    // 20210904 E_Add
     deliveryFixedDay: string;
     vacationDay: string;
     contractDay: string;
@@ -103,6 +108,11 @@ export class Contractinfo {
     deposit4DayMap: Date = null;
     // 20210510 E_Add
     earnestPriceDayMap: Date = null;
+    // 20210904 S_Add
+    sharingStartDayYYYY: string;
+    sharingStartDayMMDD: string;
+    sharingEndDayMap: Date = null;
+    // 20210904 E_Add
     deliveryFixedDayMap: Date = null;
     vacationDayMap: Date = null;
     contractDayMap: Date = null;
@@ -144,6 +154,7 @@ export class Contractinfo {
     fixedLandTaxMap: string = "";
     fixedBuildingTaxMap: string = "";
     // 20210805 E_Add
+    fixedBuildingTaxOnlyTaxMap: string = "";// 20210904 Add
     decisionPriceMap: string = "";
     retainageMap: string = "";
     //20200828 S_Add
@@ -178,30 +189,38 @@ export class Contractinfo {
     //20200828 E_Update
         // 20200709 S_Add
         //カレンダー
-        this.deposit1DayMap = Converter.stringToDate(this.deposit1Day,'yyyyMMdd');
-        this.deposit2DayMap = Converter.stringToDate(this.deposit2Day,'yyyyMMdd');
+        this.deposit1DayMap = Converter.stringToDate(this.deposit1Day, 'yyyyMMdd');
+        this.deposit2DayMap = Converter.stringToDate(this.deposit2Day, 'yyyyMMdd');
         // 20210510 S_Add
-        this.deposit3DayMap = Converter.stringToDate(this.deposit3Day,'yyyyMMdd');
-        this.deposit4DayMap = Converter.stringToDate(this.deposit4Day,'yyyyMMdd');
+        this.deposit3DayMap = Converter.stringToDate(this.deposit3Day, 'yyyyMMdd');
+        this.deposit4DayMap = Converter.stringToDate(this.deposit4Day, 'yyyyMMdd');
         // 20210510 E_Add
-        this.earnestPriceDayMap = Converter.stringToDate(this.earnestPriceDay,'yyyyMMdd');
+        this.earnestPriceDayMap = Converter.stringToDate(this.earnestPriceDay, 'yyyyMMdd');
+        // 20210904 S_Add
+        if(this.sharingStartDay != null && this.sharingStartDay.length == 8)
+        {
+            this.sharingStartDayYYYY = this.sharingStartDay.substring(0, 4);
+            this.sharingStartDayMMDD = this.sharingStartDay.substring(4);
+        }
+        this.sharingEndDayMap = Converter.stringToDate(this.sharingEndDay, 'yyyyMMdd');
+        // 20210904 E_Add
         this.deliveryFixedDayMap = Converter.stringToDate(this.deliveryFixedDay, 'yyyyMMdd');
-        this.vacationDayMap = Converter.stringToDate(this.vacationDay,'yyyyMMdd');
-        this.contractDayMap = Converter.stringToDate(this.contractDay,'yyyyMMdd');
-        this.decisionDayMap = Converter.stringToDate(this.decisionDay,'yyyyMMdd');
-        this.settlementDayMap = Converter.stringToDate(this.settlementDay,'yyyyMMdd');
-        this.settlementDayFinMap = Converter.stringToDate(this.settlementDayFin,'yyyyMMdd');
-        this.retainageDayMap = Converter.stringToDate(this.retainageDay,'yyyyMMdd');
+        this.vacationDayMap = Converter.stringToDate(this.vacationDay, 'yyyyMMdd');
+        this.contractDayMap = Converter.stringToDate(this.contractDay, 'yyyyMMdd');
+        this.decisionDayMap = Converter.stringToDate(this.decisionDay, 'yyyyMMdd');
+        this.settlementDayMap = Converter.stringToDate(this.settlementDay, 'yyyyMMdd');
+        this.settlementDayFinMap = Converter.stringToDate(this.settlementDayFin, 'yyyyMMdd');
+        this.retainageDayMap = Converter.stringToDate(this.retainageDay, 'yyyyMMdd');
         // 20201218 S_Add
-        this.intermediaryPricePayDayMap = Converter.stringToDate(this.intermediaryPricePayDay,'yyyyMMdd');
-        this.outsourcingPricePayDayMap = Converter.stringToDate(this.outsourcingPricePayDay,'yyyyMMdd');
+        this.intermediaryPricePayDayMap = Converter.stringToDate(this.intermediaryPricePayDay, 'yyyyMMdd');
+        this.outsourcingPricePayDayMap = Converter.stringToDate(this.outsourcingPricePayDay, 'yyyyMMdd');
         // 20201218 E_Add
-        this.canncellDayMap = Converter.stringToDate(this.canncellDay,'yyyyMMdd');
-        this.acquisitionConfirmDayMap = Converter.stringToDate(this.acquisitionConfirmDay,'yyyyMMdd');
-        this.startScheduledDayMap = Converter.stringToDate(this.startScheduledDay,'yyyyMMdd');
-        this.prioritySalesAgreementDayMap = Converter.stringToDate(this.prioritySalesAgreementDay,'yyyyMMdd');
-        this.finishScheduledDayMap = Converter.stringToDate(this.finishScheduledDay,'yyyyMMdd');
-        this.deliveryDayMap = Converter.stringToDate(this.deliveryDay,'yyyyMMdd');
+        this.canncellDayMap = Converter.stringToDate(this.canncellDay, 'yyyyMMdd');
+        this.acquisitionConfirmDayMap = Converter.stringToDate(this.acquisitionConfirmDay, 'yyyyMMdd');
+        this.startScheduledDayMap = Converter.stringToDate(this.startScheduledDay, 'yyyyMMdd');
+        this.prioritySalesAgreementDayMap = Converter.stringToDate(this.prioritySalesAgreementDay, 'yyyyMMdd');
+        this.finishScheduledDayMap = Converter.stringToDate(this.finishScheduledDay, 'yyyyMMdd');
+        this.deliveryDayMap = Converter.stringToDate(this.deliveryDay, 'yyyyMMdd');
         //カンマ
         this.tradingPriceMap = Converter.numberToString(this.tradingPrice);
         this.tradingLandPriceMap = Converter.numberToString(this.tradingLandPrice);
@@ -225,6 +244,7 @@ export class Contractinfo {
         this.fixedLandTaxMap = Converter.numberToString(this.fixedLandTax);
         this.fixedBuildingTaxMap = Converter.numberToString(this.fixedBuildingTax);
         // 20210805 E_Add
+        this.fixedBuildingTaxOnlyTaxMap = Converter.numberToString(this.fixedBuildingTaxOnlyTax);// 20210904 Add
         this.decisionPriceMap = Converter.numberToString(this.decisionPrice);
         this.retainageMap = Converter.numberToString(this.retainage);
         //20200828 S_Add
@@ -261,30 +281,36 @@ export class Contractinfo {
         }
         // 20200709 S_Add
         //カレンダー
-        this.deposit1Day = Converter.dateToString(this.deposit1DayMap,'yyyyMMdd',datePipe);
-        this.deposit2Day = Converter.dateToString(this.deposit2DayMap,'yyyyMMdd',datePipe);
+        this.deposit1Day = Converter.dateToString(this.deposit1DayMap, 'yyyyMMdd', datePipe);
+        this.deposit2Day = Converter.dateToString(this.deposit2DayMap, 'yyyyMMdd', datePipe);
         // 20210510 S_Add
-        this.deposit3Day = Converter.dateToString(this.deposit3DayMap,'yyyyMMdd',datePipe);
-        this.deposit4Day = Converter.dateToString(this.deposit4DayMap,'yyyyMMdd',datePipe);
+        this.deposit3Day = Converter.dateToString(this.deposit3DayMap, 'yyyyMMdd', datePipe);
+        this.deposit4Day = Converter.dateToString(this.deposit4DayMap, 'yyyyMMdd', datePipe);
         // 20210510 E_Add
-        this.earnestPriceDay = Converter.dateToString(this.earnestPriceDayMap,'yyyyMMdd',datePipe);
-        this.deliveryFixedDay = Converter.dateToString(this.deliveryFixedDayMap,'yyyyMMdd',datePipe);
-        this.vacationDay = Converter.dateToString(this.vacationDayMap,'yyyyMMdd',datePipe);
-        this.contractDay = Converter.dateToString(this.contractDayMap,'yyyyMMdd',datePipe);
-        this.decisionDay = Converter.dateToString(this.decisionDayMap,'yyyyMMdd',datePipe);
-        this.settlementDay = Converter.dateToString(this.settlementDayMap,'yyyyMMdd',datePipe);
-        this.settlementDayFin = Converter.dateToString(this.settlementDayFinMap,'yyyyMMdd',datePipe);
-        this.retainageDay = Converter.dateToString(this.retainageDayMap,'yyyyMMdd',datePipe);
+        this.earnestPriceDay = Converter.dateToString(this.earnestPriceDayMap, 'yyyyMMdd', datePipe);
+        // 20210904 S_Add
+        if(this.sharingStartDayYYYY != null && this.sharingStartDayMMDD != null) {
+            this.sharingStartDay = this.sharingStartDayYYYY.concat(this.sharingStartDayMMDD);
+        }
+        this.sharingEndDay = Converter.dateToString(this.sharingEndDayMap, 'yyyyMMdd', datePipe);
+        // 20210904 E_Add
+        this.deliveryFixedDay = Converter.dateToString(this.deliveryFixedDayMap, 'yyyyMMdd', datePipe);
+        this.vacationDay = Converter.dateToString(this.vacationDayMap, 'yyyyMMdd', datePipe);
+        this.contractDay = Converter.dateToString(this.contractDayMap, 'yyyyMMdd', datePipe);
+        this.decisionDay = Converter.dateToString(this.decisionDayMap, 'yyyyMMdd', datePipe);
+        this.settlementDay = Converter.dateToString(this.settlementDayMap, 'yyyyMMdd', datePipe);
+        this.settlementDayFin = Converter.dateToString(this.settlementDayFinMap, 'yyyyMMdd', datePipe);
+        this.retainageDay = Converter.dateToString(this.retainageDayMap, 'yyyyMMdd', datePipe);
         // 20201218 S_Add
-        this.intermediaryPricePayDay = Converter.dateToString(this.intermediaryPricePayDayMap,'yyyyMMdd',datePipe);
-        this.outsourcingPricePayDay = Converter.dateToString(this.outsourcingPricePayDayMap,'yyyyMMdd',datePipe);
+        this.intermediaryPricePayDay = Converter.dateToString(this.intermediaryPricePayDayMap, 'yyyyMMdd', datePipe);
+        this.outsourcingPricePayDay = Converter.dateToString(this.outsourcingPricePayDayMap, 'yyyyMMdd', datePipe);
         // 20201218 E_Add
-        this.canncellDay = Converter.dateToString(this.canncellDayMap,'yyyyMMdd',datePipe);
-        this.acquisitionConfirmDay = Converter.dateToString(this.acquisitionConfirmDayMap,'yyyyMMdd',datePipe);
-        this.startScheduledDay = Converter.dateToString(this.startScheduledDayMap,'yyyyMMdd',datePipe);
-        this.prioritySalesAgreementDay = Converter.dateToString(this.prioritySalesAgreementDayMap,'yyyyMMdd',datePipe);
-        this.finishScheduledDay = Converter.dateToString(this.finishScheduledDayMap,'yyyyMMdd',datePipe);
-        this.deliveryDay = Converter.dateToString(this.deliveryDayMap,'yyyyMMdd',datePipe);
+        this.canncellDay = Converter.dateToString(this.canncellDayMap, 'yyyyMMdd', datePipe);
+        this.acquisitionConfirmDay = Converter.dateToString(this.acquisitionConfirmDayMap, 'yyyyMMdd', datePipe);
+        this.startScheduledDay = Converter.dateToString(this.startScheduledDayMap, 'yyyyMMdd', datePipe);
+        this.prioritySalesAgreementDay = Converter.dateToString(this.prioritySalesAgreementDayMap, 'yyyyMMdd', datePipe);
+        this.finishScheduledDay = Converter.dateToString(this.finishScheduledDayMap, 'yyyyMMdd', datePipe);
+        this.deliveryDay = Converter.dateToString(this.deliveryDayMap, 'yyyyMMdd', datePipe);
         //カンマ
         this.tradingPrice = Converter.stringToNumber(this.tradingPriceMap);
         this.tradingLandPrice = Converter.stringToNumber(this.tradingLandPriceMap);
@@ -308,6 +334,7 @@ export class Contractinfo {
         this.fixedLandTax = Converter.stringToNumber(this.fixedLandTaxMap);
         this.fixedBuildingTax = Converter.stringToNumber(this.fixedBuildingTaxMap);
         // 20210805 E_Add
+        this.fixedBuildingTaxOnlyTax = Converter.stringToNumber(this.fixedBuildingTaxOnlyTaxMap);// 20210904 Add
         this.decisionPrice = Converter.stringToNumber(this.decisionPriceMap);
         this.retainage = Converter.stringToNumber(this.retainageMap);
         //20200828 S_Add

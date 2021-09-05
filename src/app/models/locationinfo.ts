@@ -56,6 +56,12 @@ export class Locationinfo {
     leasedArea: number;
     otherOverview: string;
     // 20201124 E_Add
+    // 20210904 S_Add
+    valuation: number;
+    reducedChk: string = '1';
+    propertyTax: number;
+    cityPlanningTax: number;
+    // 20210904 E_Add
     
     acquisitionDateMap: Date = null;//20200913 Add
 
@@ -64,6 +70,11 @@ export class Locationinfo {
     grossFloorAreaMap: string;
     leasedAreaMap: string;
     // 20201124 E_Add
+    // 20210904 S_Add
+    valuationMap: string;
+    propertyTaxMap: string;
+    cityPlanningTaxMap: string;
+    // 20210904 E_Add
 
     locations: Locationinfo[];
     sharers: SharerInfo[];
@@ -98,6 +109,11 @@ export class Locationinfo {
         this.grossFloorAreaMap = Converter.numberToString(this.grossFloorArea);
         this.leasedAreaMap = Converter.numberToString(this.leasedArea);
         // 20201124 E_Add
+        // 20210904 S_Add
+        this.valuationMap = Converter.numberToString(this.valuation);
+        this.propertyTaxMap = Converter.numberToString(this.propertyTax);
+        this.cityPlanningTaxMap = Converter.numberToString(this.cityPlanningTax);
+        // 20210904 E_Add
         // 20210614 S_Add
         // 底地情報
         this.bottomLands.forEach((bottomLand) => {
@@ -125,6 +141,11 @@ export class Locationinfo {
         this.grossFloorArea = Converter.stringToNumber(this.grossFloorAreaMap);
         this.leasedArea = Converter.stringToNumber(this.leasedAreaMap);
         // 20201124 E_Add
+        // 20210904 S_Add
+        this.valuation = Converter.stringToNumber(this.valuationMap);
+        this.propertyTax = Converter.stringToNumber(this.propertyTaxMap);
+        this.cityPlanningTax = Converter.stringToNumber(this.cityPlanningTaxMap);
+        // 20210904 E_Add
         // 20210614 S_Add
         // 底地情報
         this.bottomLands.forEach((bottomLand) => {

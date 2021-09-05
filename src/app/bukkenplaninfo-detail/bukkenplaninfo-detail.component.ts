@@ -33,6 +33,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   public cond: any;
   public locAdresses =[];
   // 20201221 E_Add
+  bankPids: Code[];// 20210905 Add
 
   // 20201225 S_Add
   selectAddresses = [];
@@ -80,6 +81,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     };
     funcs.push(this.service.searchLocation(this.cond));
     // 20201221 E_Add
+    funcs.push(this.service.getBanks('1'));// 20210905 Add
 
     Promise.all(funcs).then(values => {
 
@@ -95,6 +97,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       }
 
       this.locAdresses = values[1];// 住所 20201221 Add
+      // 20210905 S_Add
+      this.banks = values[2];
+      this.bankPids = this.getBanks();
+      // 20210905 E_Add
 
       //20201225 S_Add
       // 20210106 S_Update

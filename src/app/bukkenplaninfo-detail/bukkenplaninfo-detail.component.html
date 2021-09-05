@@ -12,6 +12,14 @@
                 </span>
             </td>
         </tr>
+        <!-- 20210905 S_Add -->
+        <tr>
+            <th>銀行名</th>
+            <td colspan="2">
+                <app-select-component [codes]="bankPids" [(ngModel)]="data.bankPid" [cusClass]="'width250'"></app-select-component>
+            </td>
+        </tr>
+        <!-- 20210905 E_Add -->
         <tr>
             <th>売買区分</th>
             <!-- 20210319 S_Update -->

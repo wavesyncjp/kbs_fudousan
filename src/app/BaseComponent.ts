@@ -22,6 +22,7 @@ export class BaseComponent implements OnInit {
     public taxes = [];
     public paymenttypes = [];
     public kanjyos = []; // 20210628 Add
+    public banks = [];// 20210905 Add
     public errorMsgs: string[] = [];
     public errors = {};
 
@@ -192,6 +193,19 @@ export class BaseComponent implements OnInit {
             return [];
         }
     }
+
+    // 20210905 S_Add
+    /**
+     * 銀行取得
+     */
+     getBanks() {
+        if (this.banks) {
+            return this.banks.map(bank => new Code({codeDetail: bank.pid, name: bank.displayName}));
+        } else {
+        return [];
+        }
+    }
+    // 20210905 E_Add
 
     numericOnly(event): boolean {
         const patt = /^([0-9])$/;

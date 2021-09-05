@@ -1035,6 +1035,16 @@ export class BackendService {
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
-
   // 20210831 E_Add
+  // 20210905 S_Add
+  /**
+   * 銀行マスタ取得
+   */
+   getBanks(contractType: string): Promise<Bank[]> {
+    const getDepApi = 'getbank.php';
+    const body = { contractType: contractType };
+    const req = this.http.post<Bank[]>(`${this.BaseUrl}/${getDepApi}`, body);
+    return req.toPromise();
+  }
+  // 20210905 E_Add
 }

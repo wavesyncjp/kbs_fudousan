@@ -73,7 +73,7 @@ import { SortingDetailComponent } from './sorting-detail/sorting-detail.componen
 import { BankListComponent } from './bank-list/bank-list.component';
 import { BankDetailComponent } from './bank-detail/bank-detail.component';
 // 20210831 E_Add
-
+import { CalcKotozeiDetailComponent } from './calcKotozei-detail/calcKotozei-detail.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +131,7 @@ import { BankDetailComponent } from './bank-detail/bank-detail.component';
     , PlanHistoryCreateComponent
     , PlanHistoryListComponent
     , DndDirective
+    , CalcKotozeiDetailComponent
   ],
   imports: [
     BrowserModule
@@ -193,6 +194,7 @@ import { BankDetailComponent } from './bank-detail/bank-detail.component';
     , ErrorDialogComponent
     , PlanHistoryCreateComponent
     , PlanHistoryListComponent
+    , CalcKotozeiDetailComponent
   ],
 })
 export class AppModule { }
