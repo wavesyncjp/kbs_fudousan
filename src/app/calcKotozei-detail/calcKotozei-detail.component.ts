@@ -1,17 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { Locationinfo } from '../models/locationinfo';
-import { Router } from '@angular/router';
+import { Router, ROUTER_CONFIGURATION } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Dialog } from '../models/dialog';
-import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Code } from '../models/bukken';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
-
 import { Contractinfo } from '../models/contractinfo';
 import { Templandinfo } from '../models/templandinfo';
 import { Converter } from '../utils/converter';
@@ -36,6 +32,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
   public oldFixedLandTaxMap: string;
   public oldFixedBuildingTaxMap: string;
   public oldFixedBuildingTaxOnlyTaxMap: string;
+  public reducedChk: string = '1';
 
   constructor(public router: Router,
               public service: BackendService,
@@ -54,7 +51,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     super.ngOnInit();
     const funcs = [];
 
-    funcs.push(this.service.getCodes(['007', '035']));
+    funcs.push(this.service.getCodes(['007', '035', '036']));
     funcs.push(this.service.getContract(this.contract.pid));
 
     Promise.all(funcs).then(values => {
@@ -84,6 +81,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01');
       if (lst.length > 0) {
         newLoc.convert();
+        this.reducedChk = newLoc.reducedChk;// 軽減有無
         locs.push(newLoc);
       }
     });
@@ -201,6 +199,20 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       }
       else this.sharingStartDayBuyerMap = null;
     }
+    // 20210906 S_Add
+    // 軽減有無
+    else if('reducedChk') {
+      const locs = [];
+      // 所在地情報の軽減有無をすべて更新
+      this.data.locations.forEach(location => {
+        const loc = new Locationinfo(location as Locationinfo);
+        loc.reducedChk = this.reducedChk;
+        locs.push(loc);
+      });
+      this.data.locations = locs;
+      return;
+    }
+    // 20210906 E_Add
     sharingStartDayMap = parse(this.contract.sharingStartDay, 'yyyyMMdd', new Date());
 
     if(this.sharingStartDayBuyerMap != null && this.sharingEndDayBuyerMap != null) {
@@ -271,46 +283,6 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     this.service.saveContract(this.contract);
 
     this.dialogRef.close({data: this.contract});
-
-    /*
-    if (!this.validate()) {
-      return;
-    }
-    */
-/*
-    const dlg = new Dialog({title: '確認', message: '謄本情報を登録しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '500px',
-      height: '250px',
-      data: dlg
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (dlg.choose) {
-//        this.convertSharer();
-//        this.convertBottomLand();// 20210614 Add
-        //20200913 S_Update
-//        this.data.convertForSave(this.service.loginUser.userId);
-        this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
-        //20200913 E_Update
-        // 削除された所在地も送る
-
-        this.service.saveLocation(this.data).then(values => {
-          const finishDlg = new Dialog({title: '完了', message: '謄本情報を登録しました。'});
-          const dlgVal = this.dialog.open(FinishDialogComponent, {
-            width: '500px',
-            height: '250px',
-            data: finishDlg
-          });
-          dlgVal.afterClosed().subscribe(res => {
-            this.data = new Locationinfo(values);
-            this.spinner.hide();
-            this.dialogRef.close({data: this.data, isSave: true});
-          });
-        });
-      }
-    });
-    */
   }
   
   /**

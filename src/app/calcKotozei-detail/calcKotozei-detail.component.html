@@ -4,6 +4,7 @@
         <tr>
             <td><span class="min">固都税清算金　計算</span></td>
         </tr>
+        <app-select-component [codes]="getCode('036')" [cusClass]="'width200'" [(ngModel)]="reducedChk" (ngModelChange)="changeValue('reducedChk')"></app-select-component>
         <tr>
             <td>
                 <div class="contact-div">
@@ -14,7 +15,7 @@
                             <th>地番</th>
                             <th>家屋番号</th>
                             <th>評価額</th>
-                            <th>軽減</th>
+                            <!--<th>軽減</th>--><!-- 20210906 Delete -->
                             <th>固定資産税</th>
                             <th>都市計画税</th>
                         </thead>
@@ -25,7 +26,7 @@
                                 <td>{{item.blockNumber}}</td>
                                 <td>{{item.buildingNumber}}</td>
                                 <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.valuationMap" maxlength="15" [value]="changeNumeric(item.valuationMap)" (focusout)="changeValueLoc(item, 'valuation')"></td>
-                                <td><mat-checkbox color="primary" [checked]="item.reducedChk === '1'" (change)="changeCheckboxLoc($event, item, 'reducedChk')" *ngIf="item.locationType === '01'"></mat-checkbox></td>
+                                <!--<td><mat-checkbox color="primary" [checked]="item.reducedChk === '1'" (change)="changeCheckboxLoc($event, item, 'reducedChk')" *ngIf="item.locationType === '01'"></mat-checkbox></td>--><!-- 20210906 Delete -->
                                 <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.propertyTaxMap" maxlength="15" [value]="changeNumeric(item.propertyTaxMap)"></td>
                                 <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.cityPlanningTaxMap" maxlength="15" [value]="changeNumeric(item.cityPlanningTaxMap)"></td>
                             </tr>
@@ -64,11 +65,11 @@
         <tr>
             <th colspan="2">固都税清算金（土地）</th>
             <td>
-                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedLandTaxMap" maxlength="15" [value]="changeNumeric(contract.fixedLandTaxMap)" (focusout)="changeValue('fixedLandTax')">&nbsp;円
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedLandTaxMap" maxlength="15" [value]="changeNumeric(contract.fixedLandTaxMap)">&nbsp;円
             </td>
             <th colspan="2">固都税清算金（建物）</th>
             <td>
-                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedBuildingTaxMap" maxlength="15" [value]="changeNumeric(contract.fixedBuildingTaxMap)" (focusout)="changeValue('fixedBuildingTax')">&nbsp;円
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedBuildingTaxMap" maxlength="15" [value]="changeNumeric(contract.fixedBuildingTaxMap)">&nbsp;円
             </td>
             <th colspan="2">建物分消費税</th>
             <td>
