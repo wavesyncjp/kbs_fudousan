@@ -58,7 +58,7 @@ export class Locationinfo {
     // 20201124 E_Add
     // 20210904 S_Add
     valuation: number;
-    reducedChk: string = '1';
+    reducedChk: string;
     propertyTax: number;
     cityPlanningTax: number;
     // 20210904 E_Add

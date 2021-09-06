@@ -81,7 +81,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01');
       if (lst.length > 0) {
         newLoc.convert();
-        this.reducedChk = newLoc.reducedChk;// 軽減有無
+        if(newLoc.reducedChk != null && newLoc.reducedChk.length > 0) this.reducedChk = newLoc.reducedChk;// 軽減有無
         locs.push(newLoc);
       }
     });
@@ -109,6 +109,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     this.oldFixedLandTaxMap = this.contract.fixedLandTaxMap;
     this.oldFixedBuildingTaxMap = this.contract.fixedBuildingTaxMap;
     this.oldFixedBuildingTaxOnlyTaxMap = this.contract.fixedBuildingTaxOnlyTaxMap;
+    this.changeValue('reducedChk');
   }
 
   /**
@@ -203,7 +204,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     }
     // 20210906 S_Add
     // 軽減有無
-    else if('reducedChk') {
+    else if(name === 'reducedChk') {
       const locs = [];
       // 所在地情報の軽減有無をすべて更新
       this.data.locations.forEach(location => {
@@ -212,6 +213,15 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
         locs.push(loc);
       });
       this.data.locations = locs;
+      return;
+    }
+    else if(name === 'fixedLandTax' || name === 'fixedBuildingTax') {
+      this.contract.fixedLandTax = Converter.stringToNumber(this.contract.fixedLandTaxMap);
+      this.contract.fixedBuildingTax = Converter.stringToNumber(this.contract.fixedBuildingTaxMap);
+      
+      // 固都税清算金=固都税清算金（土地）+固都税清算金（建物）+建物分消費税
+      this.contract.fixedTax = this.contract.fixedLandTax + this.contract.fixedBuildingTax + this.contract.fixedBuildingTaxOnlyTax;
+      this.contract.fixedTaxMap = Converter.numberToString(this.contract.fixedTax);
       return;
     }
     // 20210906 E_Add
