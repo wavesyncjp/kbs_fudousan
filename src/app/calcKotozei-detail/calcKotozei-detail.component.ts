@@ -117,12 +117,14 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
    * @param item ：所在地情報
    * @param name ：変更属性
    */
+  /*
   changeCheckboxLoc(event, item: Locationinfo, name: string) {
     // 軽減有無
     if(name === 'reducedChk') {
       item.reducedChk = (event.checked ? '1' : '0');
     }
   }
+  */
 
   /**
    * 値変更イベント
