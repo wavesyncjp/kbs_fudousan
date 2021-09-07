@@ -140,13 +140,13 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
         // 固定資産税が未設定の場合
         item.propertyTax = Converter.stringToNumber(item.propertyTaxMap);
         if(item.propertyTax == null || item.propertyTax == 0) {
-          item.propertyTax = Math.floor(item.valuation * 1.4);// 小数点以下切り捨て
+          item.propertyTax = Math.floor(item.valuation * 0.014);// 小数点以下切り捨て
           item.propertyTaxMap = Converter.numberToString(item.propertyTax);
         }
         // 都市計画税が未設定の場合
         item.cityPlanningTax = Converter.stringToNumber(item.cityPlanningTaxMap);
         if(item.cityPlanningTax == null || item.cityPlanningTax == 0) {
-          item.cityPlanningTax = item.valuation * 0.3;
+          item.cityPlanningTax = item.valuation * 0.003;
           // 区分が01：土地かつ、軽減有無が1:対象の場合
           if(item.locationType === '01' && item.reducedChk === '1') {
             item.cityPlanningTax = item.cityPlanningTax * 0.5;
