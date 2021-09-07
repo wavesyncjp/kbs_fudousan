@@ -228,11 +228,11 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     sharingStartDayMap = parse(this.contract.sharingStartDay, 'yyyyMMdd', new Date());
 
     if(this.sharingStartDayBuyerMap != null && this.sharingEndDayBuyerMap != null) {
-      this.sharingDayBuyerCnt = (this.sharingEndDayBuyerMap.getTime() - this.sharingStartDayBuyerMap.getTime()) / 86400000;
+      this.sharingDayBuyerCnt = ((this.sharingEndDayBuyerMap.getTime() - this.sharingStartDayBuyerMap.getTime()) / 86400000) + 1;
       // 分担期間（買主）の日数が0より大きい場合
       if(this.sharingDayBuyerCnt > 0) {
         // 1年の日数
-        let sharingYearDayCnt = (this.contract.sharingEndDayMap.getTime() - sharingStartDayMap.getTime()) / 86400000;
+        let sharingYearDayCnt = ((this.sharingEndDayBuyerMap.getTime() - sharingStartDayMap.getTime()) / 86400000) + 1;
         
         // 所在地情報から合計数を取得する
         let totalPropertyTaxLand = 0;         // 合計固定資産税（土地）
@@ -250,6 +250,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
             totalCityPlanningTaxBuilding += Converter.stringToNumber(loc.cityPlanningTaxMap);
           }
         });
+
         // 自動計算後固都税清算金（土地）=(合計固定資産税（土地）+合計都市計画税（土地）)*分担期間（買主）の日数/1年の日数
         let calcFixedLandTax = (totalPropertyTaxLand + totalCityPlanningTaxLand) * this.sharingDayBuyerCnt / sharingYearDayCnt;
         calcFixedLandTax = Math.floor(calcFixedLandTax);// 小数点以下切り捨て
