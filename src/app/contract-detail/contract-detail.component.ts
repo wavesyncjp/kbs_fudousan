@@ -601,7 +601,7 @@ export class ContractDetailComponent extends BaseComponent {
     const dialogRef = this.dialog.open(CalcKotozeiDetailComponent, {
       width: '98%',
       height: '580px',
-      data: this.contract
+      data: {contract: this.contract, land: this.data}
     });
   }
   // 20210905 E_Add

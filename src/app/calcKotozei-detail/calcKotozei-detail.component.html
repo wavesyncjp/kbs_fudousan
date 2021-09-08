@@ -20,7 +20,8 @@
                             <th>都市計画税</th>
                         </thead>
                         <tbody class="list-body">
-                            <tr *ngFor="let item of data.locations; index as pos">
+                            <!--<tr *ngFor="let item of data.locations; index as pos">-->
+                            <tr *ngFor="let item of locations; index as pos">
                                 <td>{{getCodeTitle('007', item.locationType)}}</td>
                                 <td class="width200 text-left">{{item.address}}</td>
                                 <td>{{item.blockNumber}}</td>

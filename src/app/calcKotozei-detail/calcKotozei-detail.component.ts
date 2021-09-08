@@ -9,6 +9,7 @@ import { Code } from '../models/bukken';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Contractinfo } from '../models/contractinfo';
+import { Contractdetailinfo } from '../models/contractdetailinfo';
 import { Templandinfo } from '../models/templandinfo';
 import { Converter } from '../utils/converter';
 import { parse } from 'date-fns';
@@ -25,6 +26,9 @@ import { parse } from 'date-fns';
 export class CalcKotozeiDetailComponent extends BaseComponent {
 
   public data: Templandinfo;
+  public contract: Contractinfo;
+  public locations: Locationinfo[];
+
   public sharingStartDayBuyerMap: Date;
   public sharingEndDayBuyerMap: Date;
   public sharingDayBuyerCnt: number;
@@ -40,11 +44,13 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
               public dialogRef: MatDialogRef<Contractinfo>,
               public dialog: MatDialog,
               public datepipe: DatePipe,
-              @Inject(MAT_DIALOG_DATA) public contract: Contractinfo) {
+              @Inject(MAT_DIALOG_DATA) public req: any) {
       super(router, service,dialog);
 
-      this.data = new Templandinfo();
-      this.data.locations = [];
+      this.contract = req.contract;
+      this.data = req.land;
+      //this.data = new Templandinfo();
+      //this.data.locations = [];
   }
 
   ngOnInit() {
@@ -52,7 +58,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     const funcs = [];
 
     funcs.push(this.service.getCodes(['007', '035', '036']));
-    funcs.push(this.service.getContract(this.contract.pid));
+//    funcs.push(this.service.getContract(this.contract.pid));
 
     Promise.all(funcs).then(values => {
       // コード
@@ -65,7 +71,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
-      this.data = new Templandinfo(values[1].land as Templandinfo);
+      //this.data = new Templandinfo(values[1].land as Templandinfo);
       this.convertData();
     });
   }
@@ -78,14 +84,16 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     const locs = [];
     this.data.locations.forEach(loc => {
       const newLoc = new Locationinfo(loc as Locationinfo);
-      const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01');
-      if (lst.length > 0) {
+      //const lst = this.contract.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01');
+      //if (lst.length > 0) {
+      if (loc.contractDetail.contractDataType  === '01') {
         newLoc.convert();
         if(newLoc.reducedChk != null && newLoc.reducedChk.length > 0) this.reducedChk = newLoc.reducedChk;// 軽減有無
         locs.push(newLoc);
       }
     });
-    this.data.locations = locs;
+    //this.data.locations = locs;
+    this.locations = locs;
 
     // 初期値設定
     if(this.contract.sharingStartDay == null || this.contract.sharingStartDay.length == 0) {
@@ -207,12 +215,14 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     else if(name === 'reducedChk') {
       const locs = [];
       // 所在地情報の軽減有無をすべて更新
-      this.data.locations.forEach(location => {
+      //this.data.locations.forEach(location => {
+      this.locations.forEach(location => {
         const loc = new Locationinfo(location as Locationinfo);
         loc.reducedChk = this.reducedChk;
         locs.push(loc);
       });
-      this.data.locations = locs;
+      //this.data.locations = locs;
+      this.locations = locs;
       return;
     }
     else if(name === 'fixedLandTax' || name === 'fixedBuildingTax') {
@@ -239,7 +249,8 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
         let totalCityPlanningTaxLand = 0;     // 合計都市計画税（土地）
         let totalPropertyTaxBuilding = 0;     // 合計固定資産税（建物）
         let totalCityPlanningTaxBuilding = 0; // 合計都市計画税（建物）
-        this.data.locations.forEach(location => {
+        //this.data.locations.forEach(location => {
+        this.locations.forEach(location => {
           const loc = new Locationinfo(location as Locationinfo);
           // 区分が01：土地の場合
           if(loc.locationType === '01') {
@@ -286,14 +297,28 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
    */
   save() {
     // 所在地情報を更新
-    this.data.locations.forEach(location => {
+    //this.data.locations.forEach(location => {
+    this.locations.forEach(location => {
       const loc = new Locationinfo(location as Locationinfo);
       loc.convertForSave(this.service.loginUser.userId, this.datepipe);
       this.service.saveLocation(loc);
     });
 
+    this.convertForSave();
     this.contract.convertForSave(this.service.loginUser.userId, this.datepipe, true);
     this.service.saveContract(this.contract);
+
+    // 所在地情報を更新
+    const locs = [];
+    this.data.locations.forEach(loc => {
+      let newLoc = new Locationinfo(loc as Locationinfo);
+      const lst = this.locations.filter(dt => dt.pid === loc.pid);
+      if (lst.length > 0) {
+        newLoc = lst[0];
+      }
+      locs.push(newLoc);
+    });
+    this.data.locations = locs;
 
     this.dialogRef.close({data: this.contract});
   }
@@ -308,5 +333,80 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     this.contract.fixedBuildingTaxMap = this.oldFixedBuildingTaxMap;
     this.contract.fixedBuildingTaxOnlyTaxMap = this.oldFixedBuildingTaxOnlyTaxMap;
     this.dialogRef.close({data: this.contract});
+  }
+
+  /**
+   * 登録の為の変換
+   */
+  convertForSave() {
+    const addList = [];
+    this.data.locations.forEach(loc => {
+      //契約データ構成
+      let lst = [];
+      if(!this.isBlank(loc.contractDetail.contractDataType)) {
+        loc.contractDetail.locationInfoPid = loc.pid;
+        lst.push(loc.contractDetail);
+        //不可分、低地両方チェック
+        if(loc.contractDetail.contractDataType === '03' && loc.contractDetail02 === '02') {
+          let contract02 = JSON.parse(JSON.stringify(loc.contractDetail)) as Contractdetailinfo;
+          contract02.pid = 0;
+          contract02.contractDataType = '02';
+          contract02.contractArea = null;
+          contract02.contractHave = 0;
+          lst.push(contract02);
+        }
+      }
+
+      const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
+      //更新
+      if(detailList.length > 0) {
+        //削除
+        if(lst.length === 0) {
+          detailList.forEach(me => {
+            me.deleteUserId = this.service.loginUser.userId;
+          });
+        }
+        else {
+          //上書き
+          if(detailList.length === lst.length) {
+            for(let index = 0 ; index < detailList.length; index++) {
+              detailList[index] = lst[index];
+            }
+          }
+          else {
+            detailList[0] = lst[0]; //1件目
+            //1件削除
+            if(detailList.length > lst.length) {
+              detailList[1].deleteUserId = this.service.loginUser.userId;
+            }
+            else {
+              addList.push(lst[1]);
+            }
+          }
+        }
+        //上書き：End
+      }
+      //新規
+      else {
+        lst.forEach(data => {
+          addList.push(data);
+        });
+      }
+    });
+    
+    addList.forEach(data => {
+      this.contract.details.push(data);
+    });
+
+    // 所有地 (仕入契約登記人情報登録のため)
+    this.data.locations.forEach(loc => {
+      if (loc.sharers.length > 0) {
+        const val = {
+          locationInfoPid: loc.pid,
+          sharerInfoPid: loc.sharers.map(sr => sr.pid)
+        };
+        this.contract.locations.push(val);
+      }
+    });
   }
 }
