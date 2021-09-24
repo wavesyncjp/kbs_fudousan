@@ -132,6 +132,33 @@ export class PaymentType {
     }
 }
 
+// 20210916 S_Add
+export class ReceiveType {
+
+    receiveCode: string;
+    receiveName: string;
+    categoryFlg: string;
+    displayOrder: number;
+    createUserId: number;
+    updateUserId: number;
+    updateDate: Date;
+    createDate: Date;
+
+    public constructor(init?: Partial<ReceiveType>) {
+        Object.assign(this, init);
+    }
+
+    public convertForSave(userId: number) {
+        if (this.createUserId > 0) {
+            this.updateUserId = userId;
+        } else {
+            this.createUserId = userId;
+        }
+    }
+}
+
+// 20210916 E_Add
+
 // 20210628 S_Add
 export class Kanjyo {
 

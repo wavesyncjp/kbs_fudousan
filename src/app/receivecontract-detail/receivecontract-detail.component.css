@@ -1,0 +1,234 @@
+mat-expansion-panel-header{
+    height: 45px !important;
+}
+/*登録ボタン*/
+.register-div1{
+    text-align: right;
+    float: right;
+    padding-right: 5px;
+    margin: 0px 0px 10px 10px;
+}
+.register-div1 > button{
+    margin-left:10px;
+    width:80px;
+}
+.register-div1-bottom{
+    text-align: right;
+    float: right;
+    padding-right: 5px;
+    margin: 50px 0px 10px 10px;
+}
+.register-div1-bottom > button{
+    margin-left:10px;
+    width:80px;
+}
+.must{
+    font-weight: bold;
+    color: red;
+}
+/*登録ボタン*/
+/*header*/
+.detail-tbl-min-receive{
+    width: 99%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    margin:0px 20px 40px 10px;
+    
+}
+.detail-tbl-min-receive > tr{
+    height: 30px;    
+}
+
+.detail-tbl-min-receive > tr > th{
+    width:120px !important;
+    background-color: rgba(194, 205, 240, 0.692);
+    text-align: left;
+    height: 22px !important;
+    padding: 2px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+}
+
+.detail-tbl-min-receive > tr > th.sharer{
+    background-color: rgba(226, 239, 218, 1);
+}
+
+.detail-tbl-min-receive > tr > th.min{
+    width: 20px !important;
+}
+
+.detail-tbl-min-receive > tr > td{
+    padding: 1px;
+}
+
+.money{
+    padding-left: 0px;
+}
+.detail-tbl-min-receive > tr > td > span.th{
+    width:100px;
+    background-color: rgba(194, 205, 240, 0.692);
+    text-align: left;
+    height: 22px !important;
+    padding: 2px;
+    font-size: 0.8em;
+    border-top: solid 2px white;   
+}
+/*header*/
+.detail-div {
+    margin: 0px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+.contact-div {
+    width: 89vw;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.contact-div > table{
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+.list-header {
+    background-color: cadetblue;
+}
+.list-header > th {
+    height: 40px;
+    min-width: 120px;    
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+    border: solid 1px gainsboro;    
+}
+
+.list-body > tr {
+    height: 34px;
+}
+
+.list-body > tr > td {
+    text-align: center;
+    font-size: 12px;
+    border: solid 1px gainsboro;    
+}
+
+.bukken-button {
+    /*float: left;*/
+    background: #00B050;
+    color: white;
+    width: 120px;
+}
+
+.export-button {
+    /*float: left;*/
+    background: dimgray;
+    color: white;
+    width: 180px !important;
+}
+
+.attach-btn{
+    background-color: red;
+    margin-left: 20px;
+    color: white;
+    height: 34px;
+    width: 80px;
+    font-size: 0.8em;
+}
+
+.sharerBtn {
+    background: coral;
+    width: 60px;
+    height: 28px;
+    border: solid 1px antiquewhite;
+    border-radius: 3px;
+    color: white;
+    text-decoration: none;    
+    padding-top: 4px;
+
+}
+
+.addSharer {
+    background-color: rgb(238, 187, 45);
+    color: white;
+    height: 34px;
+}
+.deleteSharer {
+    background-color: rgb(163, 158, 142);
+    color: black;
+    height: 34px;        
+}
+
+.tderror {
+    background-color: red;
+}
+
+.contact-div {
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    margin-left: 12px;
+}
+.width450{
+    width: 450px !important;
+}
+.width180{
+    width: 180px !important;
+}
+.button-div-left > .addPayInfo {
+    background-color:#FFC000;
+    color: white;
+}
+.button-div-left button {
+    margin: 10px 10px 10px 0px;
+}
+.button-div-left {
+    display: flex;
+    margin-left: 10px;
+}
+button.bkRed {
+    background-color: red;
+    color: white;
+}
+
+.searchbutton {
+    height: 32px;
+    width: 40px;
+    margin-left: 10px;
+}
+.receive-type {
+    width: 158px !important;
+    height: 25px !important;
+    min-width: 100px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+    margin-left: 3px;
+}
+
+.receive-type optgroup {
+    color: black;
+}
+::ng-deep.contact-div .multiselect-dropdown {
+    width: 310px !important;
+    margin-right: 5px;
+    position: relative !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-btn {
+    width: 280px !important;
+    padding: 6px !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret {
+    height: 35px !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-btn .selected-item {
+    width: 250px !important;
+}
+
+::ng-deep.contact-div .multiselect-dropdown .dropdown-list {
+    position: fixed !important;
+    left: auto;
+    top: auto;
+    width: 290px !important;
+}

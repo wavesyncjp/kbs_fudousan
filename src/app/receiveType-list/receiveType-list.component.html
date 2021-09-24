@@ -1,0 +1,82 @@
+<div class="mat-elevation-z8 main" (keydown.enter)="searchReceiveType()">
+    <mat-expansion-panel expanded='true'>
+        <mat-expansion-panel-header>
+            <mat-panel-title>検索条件</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-div">
+        <table class="search-tbl">
+            <tr>
+                <th>入金コード</th>
+                <td>
+                    <input type="text" class="fuzzyWidth200" [(ngModel)]="cond.receiveCode" maxlength="20">
+                </td>
+                <th>入金名称</th>
+                <td>
+                    <input type="text" class="fuzzyWidth200" [(ngModel)]="cond.receiveName"  maxlength="100">
+                </td>
+                <th>大分類フラグ</th>
+                <td>
+                    <app-select-component [codes]="getCode('014')" [(ngModel)]="cond.categoryFlg"></app-select-component>
+                </td>
+        </table>
+        <div style="margin: 10px 0px 10px 0px;">
+            <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>
+            <div class = "search-btns">
+                <button mat-raised-button (click)="searchReceiveType()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+            </div>
+        </div>
+        </div>                
+    </mat-expansion-panel>
+</div>        
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="mat-elevation-z8 main data">
+    <table mat-table [dataSource]="dataSource" matSort>
+    
+        <ng-container matColumnDef="receiveCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 入金コード </th>
+            <td mat-cell *matCellDef="let element"> {{element.receiveCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="receiveName">
+            <th mat-header-cell *matHeaderCellDef> 入金名称 </th>
+            <td mat-cell *matCellDef="let element"> {{element.receiveName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryFlg">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 大分類フラグ </th>
+            <td mat-cell *matCellDef="let element"> {{getCodeTitle('014',element.categoryFlg)}} </td>
+        </ng-container>
+        <ng-container matColumnDef="displayOrder">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 表示順序 </th>
+            <td mat-cell *matCellDef="let element"> {{element.displayOrder}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="createDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 登録日 </th>
+            <td mat-cell *matCellDef="let element"> {{element.createDate | date:'yyyy/MM/dd HH:mm:ss'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updateDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 更新日 </th>
+            <td mat-cell *matCellDef="let element"> {{element.updateDate | date:'yyyy/MM/dd HH:mm:ss'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-raised-button (click)="deleteRow(row)" class="delete_btn">削除</button>
+            </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="detail">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-raised-button (click)="showDetail(row)" color="warn">詳細</button>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

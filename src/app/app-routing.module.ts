@@ -24,6 +24,9 @@ import { PlanHistoryListComponent } from './planhistory-list/planhistory-list.co
 import { KanjyoListComponent } from './kanjyo-list/kanjyo-list.component';
 import { KanjyoFixListComponent } from './kanjyoFix-list/kanjyoFix-list.component';
 import { BankListComponent } from './bank-list/bank-list.component';
+import { ReceiveTypeListComponent } from './receiveType-list/receiveType-list.component'; // 20210916 Add
+import { ReceiveContractDetailComponent } from './receivecontract-detail/receivecontract-detail.component'; // 20210916 Add
+import { ReceiveContractListComponent } from './receivecontract-list/receivecontract-list.component'; // 20210916 Add
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }
@@ -51,6 +54,9 @@ const routes: Routes = [
   , { path: 'kanjyos', component: KanjyoListComponent}
   , { path: 'kanjyoFixs', component: KanjyoFixListComponent}
   , { path: 'bank', component: BankListComponent}
+  , { path: 'receiveTypes', component: ReceiveTypeListComponent} // 20210916 Add
+  , { path: 'receives', component: ReceiveContractListComponent} // 20210916 Add
+  , { path: 'receivedetail', component: ReceiveContractDetailComponent} // 20210916 Add
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Output, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { User, Code, Department, CodeNameMst, PaymentType, Kanjyo, KanjyoFix, Bank} from './models/bukken';// 20210831 Add
+import { User, Code, Department, CodeNameMst, PaymentType, ReceiveType, Kanjyo, KanjyoFix, Bank} from './models/bukken';// 20210916 Add
 import { Planinfo } from './models/planinfo';
 import { Templandinfo, LandPlanInfo } from './models/templandinfo';
 import { Information } from './models/information';
@@ -11,6 +11,7 @@ import { Converter } from './utils/converter';
 import { Locationinfo } from './models/locationinfo';
 import { Contractdetailinfo } from './models/contractdetailinfo';
 import { Paycontractinfo } from './models/paycontractinfo';
+import { Receivecontractinfo } from './models/receivecontractinfo';
 import { Tax } from './models/tax';
 import { ContractSellerInfo } from './models/contractsellerinfo';
 import { Bukkensalesinfo } from './models/bukkensalesinfo';
@@ -271,6 +272,18 @@ export class BackendService {
     const req = this.http.post<PaymentType[]>(`${this.BaseUrl}/${getDepApi}`, body);
     return req.toPromise();
   }
+
+  // 20210916 S_Add
+  /**
+   * 入金種別取得
+   */
+  getReceiveTypes(receiveCode: string): Promise<ReceiveType[]> {
+    const getDepApi = 'getpreceivetype.php';
+    const body = { receiveCode: receiveCode };
+    const req = this.http.post<ReceiveType[]>(`${this.BaseUrl}/${getDepApi}`, body);
+    return req.toPromise();
+  }
+  // 20210916 E_Add
 
   /**
    * 消費税マスタ取得
@@ -657,6 +670,37 @@ export class BackendService {
     return req.toPromise();
   }
 
+  // 20210916 S_Add
+  /**
+   * 入金種別取得
+   */
+  searchReceiveType(cond: any): Promise<ReceiveType[]> {
+    const searchApi = 'receivetypesearch.php';
+    const req = this.http.post<ReceiveType[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 入金種別登録
+   * @param receiveType ：入金種別
+   */
+  saveReceiveType(receiveType: ReceiveType): Promise<ReceiveType> {
+    const saveApi = 'receivetypesave.php';
+    const req = this.http.post<ReceiveType>(`${this.BaseUrl}/${saveApi}`, receiveType);
+    return req.toPromise();
+  }
+
+  /**
+   * 入金種別削除
+   * @param receiveCode : 入金コード
+   */
+  deleteReceiveType(receiveCode: string): Promise<void> {
+    const deleteApi = 'receivetypedelete.php';
+    const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { receiveCode: receiveCode, deleteUserId: this.loginUser.userId });
+    return req.toPromise();
+  }
+  // 20210916 E_Add
+
   /**
    * 事業収支一覧取得
    */
@@ -798,8 +842,50 @@ export class BackendService {
     return req.toPromise();
   }
 
+  /**
+   * 入金管理一覧取得
+   */
+  searchReceiveContract(cond: any): Promise<Receivecontractinfo[]> {
+    const searchApi = 'receivecontractsearch.php';
+    const req = this.http.post<Receivecontractinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 入金管理取得
+   * @param id 入金管理情報Id
+   */
+  getReceiveContract(id: number): Promise<Receivecontractinfo> {
+    const getApi = 'receivecontractget.php';
+    const body = {
+      pid: id
+    };
+    const req = this.http.post<Receivecontractinfo>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 入金管理登録
+   * @param ReceiveContract ：入金種別
+   */
+  saveReceiveContract(ReceiveContract: Receivecontractinfo): Promise<Receivecontractinfo> {
+    const saveApi = 'receivecontractsave.php';
+    const req = this.http.post<Receivecontractinfo>(`${this.BaseUrl}/${saveApi}`, ReceiveContract);
+    return req.toPromise();
+  }
+
+  /**
+   * 入金管理削除
+   * @param id 入金管理情報Id
+   */
+  deleteReceiveContracte(id: number): Promise<void> {
+    const deleteApi = 'receivecontractdelete.php';
+    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
+    return req.toPromise();
+  }
   // 20210314 S_Add
-    /**
+
+  /**
    * 契約情報削除
    * @param id 契約情報Id
    */

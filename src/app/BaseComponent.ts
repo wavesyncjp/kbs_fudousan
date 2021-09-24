@@ -1,7 +1,7 @@
 import { OnInit, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
-import { Code, PaymentType } from './models/bukken';
+import { Code, PaymentType, ReceiveType} from './models/bukken';
 import { formatDate } from '@angular/common';
 import { parse } from 'date-fns';
 import { Dialog } from './models/dialog';
@@ -16,11 +16,13 @@ export class BaseComponent implements OnInit {
     public emps = [];
     public users = [];
     public payTypes: PaymentType[]  = [];
+    public recTypes: ReceiveType[]  = []; // 20210916 Add
     public lands = [];
 //    public codes = [];
     public sysCodeNameMsts = [];
     public taxes = [];
     public paymenttypes = [];
+    public receivetypes = []; // 20210916 Add
     public kanjyos = []; // 20210628 Add
     public banks = [];// 20210905 Add
     public errorMsgs: string[] = [];
@@ -109,7 +111,7 @@ export class BaseComponent implements OnInit {
         if (this.deps) {
             return this.deps.map(dep => new Code({codeDetail: dep.depCode, name: dep.depName}));
         } else {
-        return [];
+            return [];
         }
     }
 
@@ -117,7 +119,7 @@ export class BaseComponent implements OnInit {
         if (this.users) {
             return this.users.map(user => new Code({codeDetail: user.userId, name: user.userName}));
         } else {
-        return [];
+            return [];
         }
     }
 
@@ -125,7 +127,7 @@ export class BaseComponent implements OnInit {
         if (this.emps) {
             return this.emps.map(user => new Code({codeDetail: user.employeeCode, name: user.userName}));
         } else {
-        return [];
+            return [];
         }
     }
 
@@ -133,7 +135,7 @@ export class BaseComponent implements OnInit {
         if (this.lands) {
             return this.lands.map(land => new Code({codeDetail: land.pid, name: land.bukkenName}));
         } else {
-        return [];
+            return [];
         }
     }
 
@@ -144,7 +146,7 @@ export class BaseComponent implements OnInit {
         if (this.payTypes) {
             return this.payTypes.map(PaymentType => new Code({codeDetail: PaymentType.paymentCode, name: PaymentType.paymentName}));
         } else {
-        return [];
+            return [];
         }
     }
 
@@ -158,6 +160,30 @@ export class BaseComponent implements OnInit {
         }
         return '';
     }
+
+    // 20210916 S_Add
+    /**
+     * 入金種別
+     */
+    getReceiveTypes() {
+        if (this.recTypes) {
+            return this.recTypes.map(ReceiveType => new Code({codeDetail: ReceiveType.receiveCode, name: ReceiveType.receiveName}));
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * @param receiveCode 入金名称取得
+     */
+    getReceiveName(receiveCode: string): string {
+        const lst = this.recTypes.filter(data => data.receiveCode === receiveCode).map(data => data.receiveName);
+        if(lst.length > 0) {
+            return lst[0];
+        }
+        return '';
+    }
+    // 20210916 E_Add
 
     // 20210628 S_Add
     /**

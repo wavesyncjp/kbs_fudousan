@@ -1,0 +1,214 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="detail-div">
+    <div class="register-div1">
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button *ngIf="authority !== '03'" mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+    </div>
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+
+    <!--/入金情報ヘッダー-->
+    <table class="detail-tbl-min-receive">  
+        <tr>
+            <td colspan="10"><span class="min">契約区分</span></td>
+            <td colspan="5">
+                <div class="register-div1">
+                    <div><span class="must">消費税適用日</span>&nbsp;&nbsp;
+                            <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="receivecontract.taxEffectiveDayMap" class="width100" (ngModelChange)="changeTaxEffectiveDay($event)">
+                            <mat-datepicker-toggle matSuffix [for]="taxEffectiveDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #taxEffectiveDay></mat-datepicker>
+                    </div>
+            
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="">物件名称</th>
+            <td colspan="5">
+                <input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" style="width: 400px">
+                <datalist id="data">
+                    <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option>
+                </datalist>
+            </td>
+            <th rowspan="4">取引先</th>
+            <td colspan="6"><label>取引先　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierName" class="width85Per" maxlength="100"></td>
+        </tr> 
+        <tr>
+            <th>契約担当部署</th>
+            <td colspan="5">
+                <app-select-component [codes]="depCodes" [(ngModel)]="receivecontract.depCode"></app-select-component>
+            <td colspan="6">
+                <label>住所　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierAddress" class="width400" maxlength="100">
+                &nbsp;&nbsp;<label>電話番号　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierTel" class="width110" maxlength="25">
+            </td> 
+        </tr>   
+        <tr>
+            <th>契約担当者</th>
+            <td colspan="5">
+                <app-select-component [codes]="userIds" [(ngModel)]="receivecontract.userId"></app-select-component>
+            </td>
+            <td colspan="6">
+                <label>銀行　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="receivecontract.bank" class="width140" maxlength="100">
+                &nbsp;&nbsp;<label>支店　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.branchName" class="width100" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <th>契約予定日</th>
+            <td colspan="2">
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="contractDayMap" [(ngModel)]="receivecontract.contractDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="contractDayMap" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #contractDayMap></mat-datepicker>
+                </div>
+            </td>
+            <th>契約確定日</th>
+            <td colspan="2">
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="receivecontract.contractFixDayMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="contractFixDay" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #contractFixDay></mat-datepicker>
+                </div>
+            </td>
+            <td colspan="6">
+                <label>口座種別</label>&nbsp;<app-select-component [codes]="getCode('026')"  [(ngModel)]="receivecontract.accountType"></app-select-component>
+                &nbsp;&nbsp;<label>口座　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.accountName" class="width100" maxlength="100">
+                &nbsp;&nbsp;<label>名義　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.bankName" class="width100" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <th>契約金額(税抜)</th>
+            <td colspan="2">
+                <input type="text" [(ngModel)]="receivecontract.contractPriceMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(receivecontract.contractPriceMap)">&nbsp;円
+            </td>
+            <th>消費税</th>
+            <td colspan="2">
+                <input type="text" [(ngModel)]="receivecontract.contractTaxMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(receivecontract.contractTaxMap)">&nbsp;円
+            </td>
+            <th>契約金額(税込)</th>
+            <td colspan="2">
+                <input type="text" [(ngModel)]="receivecontract.contractPriceTaxMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(receivecontract.contractPriceTaxMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th>備考</th>
+            <td colspan="6">
+                <input type="text" [(ngModel)]="receivecontract.remarks" class="width85Per" maxlength="100">
+            </td>
+        </tr>
+    </table>
+    <!--/入金情報ヘッダー-->
+
+    <!--/入金情報明細-->
+    <div class="contact-div" style="width: 98vw;margin-bottom: 200px;">
+        <table width="100%">
+            <thead class="list-header">
+                <th class="width150" colspan="2">入金種別</th>
+                <th class="width140">入金金額(税抜)</th>
+                <th class="width140">消費税</th>
+                <th class="width140">入金金額(税込)</th>
+                <th class="width80">入金時期</th>
+                <th class="width100">入金予定日</th>
+                <th class="width80">入金確定日</th>
+                <th class="width80">入金時間</th>
+                <th class="width130">入金方法</th>
+                <th>契約者</th>
+                <th>備考</th>
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let detail of receivecontract.details | slice:0:1; index as sharerPos">                        
+                    <td>
+                        <button mat-raised-button (click)="addReceiveContractDetail()" style="background-color: #FFC000; color: white;">追加</button>
+                    </td>
+                    <td>
+                        <select [(ngModel)]="detail.receiveCode" class="receive-type" [ngClass]="{'width400': true, 'error': errors['detail.receiveCode_0']}">
+                            <option value=""></option>
+                            <ng-container *ngFor="let tp of recTypes">
+                                <optgroup [label]="tp.receiveName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                                <option [value]="tp.receiveCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.receiveName}}</option>
+                            </ng-container>
+                        </select>
+                    </td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receivePriceMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receiveTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receiveTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.receiveSeason" maxlength="100"></td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractFixDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractFixDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>
+                    <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.receiveMethod"></app-select-component></td>
+                    <td>
+                        <ng-multiselect-dropdown class="width280"
+                            [placeholder]="'選択'"
+                            [data]="sellers"
+                            [(ngModel)]="detail.contractorMap"
+                            [settings]="dropdownSettings"
+                            (click)="contractorClick($event)"
+                        >
+                        </ng-multiselect-dropdown>
+
+                    </td>
+                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>
+                </tr>
+                <tr *ngFor="let detail of receivecontract.details | slice:1; index as sharerPos">
+                    <td>
+                        <button mat-raised-button (click)="deleteReceiveContractDetail(sharerPos)" style="background-color: red; color: white;">削除</button>
+                    </td>
+                    <td>
+                        <select [(ngModel)]="detail.receiveCode" class="receive-type" [ngClass]="{'width400': true, 'error': errors['detail.receiveCode_' + (sharerPos + 1)]}">
+                            <option value=""></option>
+                            <ng-container *ngFor="let tp of recTypes">
+                                <optgroup [label]="tp.receiveName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                                <option [value]="tp.receiveCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.receiveName}}</option>
+                            </ng-container>
+                        </select>
+                    </td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receivePriceMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receiveTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receiveTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td>
+                    <td><input class="width100 number" type="text" [(ngModel)]="detail.receiveSeason" maxlength="100"></td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractDay" [(ngModel)]="detail.contractDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="contractFixDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractFixDay></mat-datepicker>
+                        </div>
+                    </td>
+                    <td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>
+                    <td><app-select-component class="width150" [codes]="getCode('015')" [(ngModel)]="detail.receiveMethod"></app-select-component></td>
+                    <td>
+                        <ng-multiselect-dropdown class="width280"
+                            [placeholder]="'選択'"
+                            [data]="sellers"
+                            [(ngModel)]="detail.contractorMap"
+                            [settings]="dropdownSettings"
+                            (click)="contractorClick($event)"
+                            >
+                        </ng-multiselect-dropdown>
+
+                    </td>
+                    <td><input class="width450" type="text" [(ngModel)]="detail.detailRemarks" maxlength="100"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

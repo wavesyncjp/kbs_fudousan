@@ -1,0 +1,195 @@
+<div class="mat-elevation-z8 main" (keydown.enter)="searchReceiveContract()">
+    <mat-expansion-panel expanded='true'>
+        <mat-expansion-panel-header>
+            <mat-panel-title>検索条件</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-div">
+        <table class="search-tbl">
+            <tr>
+                <th>物件番号</th>
+                <td colspan="2">
+                    <input type="text" class="width100" [(ngModel)]="cond.bukkenNo" maxlength="10">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<label>契約物件番号</label>
+                    &nbsp;<input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width100" maxlength="20">
+                </td>
+
+                <th>物件名</th>
+                <td colspan="2">
+                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
+                </td>
+            
+                <th>入金種別</th>
+                <td colspan="2">
+                    <select [(ngModel)]="cond.receiveCode" class="receive-type">
+                        <option value=""></option>
+                        <ng-container *ngFor="let tp of recTypes">
+                            <optgroup [label]="tp.receiveName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                            <option [value]="tp.receiveCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.receiveName}}</option>
+                        </ng-container>
+                    </select>
+                </td>
+            </tr>    
+            <tr>
+                <th>取引先</th>
+                <td colspan="2">
+                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName" maxlength="100">
+                </td>
+                
+                <th>契約予定日</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="contractDayMap_From" [(ngModel)]="cond.contractDayMap_From" class="width100" placeholder="開始日">
+                <mat-datepicker-toggle matSuffix [for]="contractDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractDayMap_From></mat-datepicker>
+                </div>&nbsp;&nbsp;～
+                </td>
+
+                <td>
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="contractDayMap_To" [(ngModel)]="cond.contractDayMap_To" class="width100" placeholder="終了日">
+                <mat-datepicker-toggle matSuffix [for]="contractDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractDayMap_To></mat-datepicker>
+                </div>
+                </td>
+            
+                <th>契約確定日</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="contractFixDayMap_From" [(ngModel)]="cond.contractFixDayMap_From" class="width100"  placeholder="開始日">
+                <mat-datepicker-toggle matSuffix [for]="contractFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractFixDayMap_From></mat-datepicker>
+                </div>&nbsp;&nbsp;～
+                </td>
+
+                <td>
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="contractFixDayMap_To" [(ngModel)]="cond.contractFixDayMap_To" class="width100" placeholder="終了日">
+                <mat-datepicker-toggle matSuffix [for]="contractFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #contractFixDayMap_To></mat-datepicker>
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <th>入金予定日</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="receiveDayMap_From" [(ngModel)]="cond.receiveDayMap_From" class="width100" placeholder="開始日">
+                <mat-datepicker-toggle matSuffix [for]="receiveDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #receiveDayMap_From></mat-datepicker>
+                </div>&nbsp;&nbsp;～
+                </td>
+                
+                <td>
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="receiveDayMap_To" [(ngModel)]="cond.receiveDayMap_To" class="width100" placeholder="終了日">
+                <mat-datepicker-toggle matSuffix [for]="receiveDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #receiveDayMap_To></mat-datepicker>
+                </div>
+                </td>
+
+                <th>入金確定日</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="receiveFixDayMap_From" [(ngModel)]="cond.receiveFixDayMap_From" class="width100" placeholder="開始日">
+                <mat-datepicker-toggle matSuffix [for]="receiveFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #receiveFixDayMap_From></mat-datepicker>
+                </div>&nbsp;&nbsp;～
+                </td>
+                
+                <td>
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="receiveFixDayMap_To" [(ngModel)]="cond.receiveFixDayMap_To" class="width100" placeholder="終了日">
+                <mat-datepicker-toggle matSuffix [for]="receiveFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #receiveFixDayMap_To></mat-datepicker>
+                </div>
+                </td>
+            </tr>
+        </table>
+        <div style="margin: 10px 0px 10px 0px;">
+            <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>&nbsp;
+            <div class = "search-btns">
+                <button mat-raised-button (click)="searchReceiveContract()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+            </div>
+        </div>
+        </div>
+        
+    </mat-expansion-panel>
+</div>        
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="mat-elevation-z8 main data">
+    <table mat-table [dataSource]="dataSource" matSort>
+    
+        <ng-container matColumnDef="bukkenNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
+        <td mat-cell *matCellDef="let element"> {{element.bukkenNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contractBukkenNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約物件番号 </th>
+        <td mat-cell *matCellDef="let element"> {{element.contractBukkenNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bukkenName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
+        <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
+        </ng-container>
+       
+        <ng-container matColumnDef="supplierName">
+        <th mat-header-cell *matHeaderCellDef> 取引先 </th>
+        <td mat-cell *matCellDef="let element" class="bukkenlist_width">{{element.supplierName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="receiveCode">
+        <th mat-header-cell *matHeaderCellDef> 入金種別 </th>
+        <td mat-cell *matCellDef="let element">
+            <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{getReceiveName(detail.receiveCode)}}</div>
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contractDay">
+        <th mat-header-cell *matHeaderCellDef> 入金予定日 </th>
+        <td mat-cell *matCellDef="let element">
+            <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractDay , 'yyyy/MM/dd')}}</div>
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contractFixDay">
+            <th mat-header-cell *matHeaderCellDef> 入金確定日 </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractFixDay , 'yyyy/MM/dd')}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="receivePriceTax">
+            <th mat-header-cell *matHeaderCellDef> 入金金額(税込) </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{numberFormat(detail.receivePriceTax)}}</div>
+            </td>
+        </ng-container>
+   
+        <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-raised-button (click)="deleteRow(element)" class="delete_btn">削除</button>
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="detail">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-raised-button (click)="showDetail(element)" color="warn">詳細</button>
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="copy">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button (click)="copyDetail(element)" color="primary">コピー</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
+    </table>        
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

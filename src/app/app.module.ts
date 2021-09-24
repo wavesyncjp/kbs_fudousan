@@ -37,11 +37,19 @@ import { SharerDialogComponent } from './dialog/sharer-dialog/sharer-dialog.comp
 import { LocationDetailComponent } from './location-detail/location-detail.component';
 import { PaymentTypeListComponent } from './paymentType-list/paymentType-list.component';
 import { PaymentTypeDetailComponent } from './paymentType-detail/paymentType-detail.component';
+// 20210916 S_Add
+import { ReceiveTypeListComponent } from './receiveType-list/receiveType-list.component';
+import { ReceiveTypeDetailComponent } from './receiveType-detail/receiveType-detail.component';
+// 20210916 E_Add
 // 20200213 S_Add
 import { PlanDetailComponent } from './plan-detail/plan-detail.component';
 import { PayContractListComponent } from './paycontract-list/paycontract-list.component';
 import { PayContractDetailComponent } from './paycontract-detail/paycontract-detail.component';
 // 20200213 E_Add
+// 20210916 S_Add
+import { ReceiveContractListComponent } from './receivecontract-list/receivecontract-list.component';
+import { ReceiveContractDetailComponent } from './receivecontract-detail/receivecontract-detail.component';
+// 20210916 E_Add
 // 20200226 S_Add
 import { PlanListComponent } from './plan-list/plan-list.component';
 // 20200226 E_Add
@@ -118,9 +126,17 @@ import { CalcKotozeiDetailComponent } from './calcKotozei-detail/calcKotozei-det
     , LocationDetailComponent
     , PaymentTypeListComponent
     , PaymentTypeDetailComponent
+    // 20210916 S_Add
+    , ReceiveTypeListComponent
+    , ReceiveTypeDetailComponent
+    // 20210916 E_Add
     , PlanDetailComponent
     , PayContractListComponent
     , PayContractDetailComponent
+    // 20210916 S_Add
+    , ReceiveContractListComponent
+    , ReceiveContractDetailComponent
+    // 20210916 E_Add
     , PlanListComponent
     , BukkenplaninfoDetailComponent
     , BukkenplaninfoListComponent
@@ -186,8 +202,10 @@ import { CalcKotozeiDetailComponent } from './calcKotozei-detail/calcKotozei-det
     , SharerDialogComponent
     , LocationDetailComponent
     , PaymentTypeDetailComponent
+    , ReceiveTypeDetailComponent// 20210916 Add
     , PlanDetailComponent
     , PayContractDetailComponent
+    , ReceiveContractDetailComponent // 20210916 Add
     , BukkenplaninfoDetailComponent
     , ContractTemplateComponent
     , CsvTemplateComponent

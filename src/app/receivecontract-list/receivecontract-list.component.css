@@ -1,0 +1,95 @@
+table {
+    width: 100%;
+}
+.mat-column-infoDate{
+    width: 120px;
+}
+.mat-column-infoSubject{
+    width: 220px;
+}
+.mat-column-detailFlg{
+    width: 120px;
+}
+.mat-column-attachFileName{
+    width: 200px;
+}
+.mat-column-finishFlg{
+    width: 80px;
+}
+.mat-column-delete{
+    width: 80px;
+}
+.mat-column-detail{
+    width: 80px;
+}
+.delete_btn{
+    background-color: rgb(91, 91, 95);
+    color: whitesmoke;
+    height: 30px;
+    width: 60px;
+    margin-right: 20px;
+}
+.main {
+    width: 98%;
+    margin: 10px;
+}
+.infoDetail_width{    
+    height:35px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+.picker-div_1{
+    width: 150px;
+    margin-right: 0px;
+}
+.left{
+    width: 120px;
+    float: left;
+}
+
+.ct-list {
+    height: 42px;
+    display: flex;
+    align-items: center;
+}
+.search-tbl > tr > th{
+    width:100px !important;
+    background-color: #D9E1F2;
+    text-align: left;
+    padding: 2px;
+    font-size: 0.8em;
+    border-top: solid 2px white;
+
+}
+.bukkenlist_width{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-tbl > tr > td > label{
+    width:100px !important;
+    background-color: #D9E1F2;
+    text-align: left;
+    padding: 8px;
+    padding-left: 2px;
+    font-size: 0.8em;
+    border-top: solid 2px white;
+    font-weight: bold;
+}
+
+.receive-type {
+    width: 158px !important;
+    height: 25px !important;
+    min-width: 100px;
+    border: solid 1px cornflowerblue;
+    border-radius: 2px;
+    margin-left: 3px;
+}
+
+.receive-type optgroup {
+    color: black;
+}
