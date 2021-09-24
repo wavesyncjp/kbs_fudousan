@@ -95,7 +95,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
     this.spinner.show();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['015']));
+    funcs.push(this.service.getCodes(['015','026']));
     funcs.push(this.service.getEmps('1'));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.searchReceiveType(null));
