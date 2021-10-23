@@ -5,36 +5,37 @@
     flex-direction: column;
     overflow-y: hidden;/*20200828 Add*/
 }
+
 .contact-div {
     width: 97vw;
     height: 100%;
     overflow-x: auto;
     overflow-y: hidden;
 }
-.contact-div > table{
+.contact-div > table {
     border-spacing: 0px;
     border-collapse: collapse;
 }
+
 .list-header {
     background-color: cadetblue;
 }
 .list-header > th {
     height: 40px;
-    min-width: 120px;    
+    min-width: 120px;
     font-size: 12px;
     font-weight: 500;
     color:white;
-    border: solid 1px gainsboro;    
+    border: solid 1px gainsboro;
 }
 
 .list-body > tr {
     height: 34px;
 }
-
 .list-body > tr > td {
     text-align: center;
     font-size: 12px;
-    border: solid 1px gainsboro;    
+    border: solid 1px gainsboro;
 }
 
 .bukken-button {
@@ -51,7 +52,7 @@
     width: 120px;
 }
 
-.attach-btn{
+.attach-btn {
     background-color: red;
     margin-left: 20px;
     color: white;
@@ -67,9 +68,8 @@
     border: solid 1px antiquewhite;
     border-radius: 3px;
     color: white;
-    text-decoration: none;    
+    text-decoration: none;
     padding-top: 4px;
-
 }
 
 .addSharer {
@@ -77,56 +77,66 @@
     color: white;
     height: 34px;
 }
+
 .deleteSharer {
     background-color: rgb(163, 158, 142);
     color: black;
-    height: 34px;        
+    height: 34px;
 }
 
 .tderror {
     background-color: red;
 }
-.c_width40{
+
+.c_width40 {
     min-width: 40px !important;
     width: 40px !important;
 }
 
-.c_width80{
+.c_width80 {
     min-width: 80px !important;
     width: 80px !important;
 }
 
-.c_width250{
+.c_width250 {
     min-width: 250px !important;
     width: 250px !important;
 }
-.detail-tbl-min > tr > td{   
+
+.detail-tbl-min > tr > td {
     padding: 1px;
     min-width: 120px;
-
 }
-span.now{
+
+span.now {
     font-weight: bold;
     color: red;
 }
-  /*20200906 S_Add*/
-  ::ng-deep.multiselect-dropdown {
+
+/*20200906 S_Add*/
+::ng-deep.multiselect-dropdown {
     width: 275px !important;
     margin-left: 3px;
-  }
-  
-  ::ng-deep.multiselect-dropdown .dropdown-btn {
+}
+
+::ng-deep.multiselect-dropdown .dropdown-btn {
     height: 22px !important;
     padding: 5px 12px !important;
     border-color: #6495ED !important;
     border-radius: 3px !important;
     line-height: unset !important;
     font-size: 13px !important;
-  }
+}
 
-  ::ng-deep.multiselect-dropdown .dropdown-btn .dropdown-down {
+::ng-deep.multiselect-dropdown .dropdown-btn .dropdown-down {
     border-top: 5px solid #adadad !important;
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
-  }
-  /*20200906 E_Add*/
+}
+/*20200906 E_Add*/
+/*20211020 S_Add*/
+.buyInfoExport-button {
+    background-color: #c55a11;
+    color: white;
+    width: 120px;
+}

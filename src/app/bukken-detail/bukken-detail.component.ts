@@ -339,7 +339,7 @@ export class BukkenDetailComponent extends BaseComponent {
       return;
     }
 
-    const dlg = new Dialog({title: '確認', message: '土地情報を登録しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: '土地情報を登録します。よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -449,7 +449,7 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   deleteMapFile(map: MapAttach) {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除します。よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
@@ -467,7 +467,7 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   deleteAttachFile(map: AttachFile) {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除します。よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
@@ -690,7 +690,7 @@ export class BukkenDetailComponent extends BaseComponent {
 
   export() {
 
-    const dlg = new Dialog({title: '確認', message: '売買取引管理表を出力しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: '売買取引管理表を出力します。よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
@@ -709,7 +709,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * 取引成立台帳
    */
   exportTransaction() {
-    const dlg = new Dialog({title: '確認', message: '取引成立台帳を出力しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: '取引成立台帳を出力します。よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
