@@ -294,6 +294,7 @@ export class LocationDetailComponent extends BaseComponent {
     // 区分が01:土地の場合
     if (this.data.locationType === '01') {
       this.data.ridgePid = null;        // 一棟の建物
+      this.data.completionDayMap = null;// 建築時期（竣工日） 20211025 Add
       this.data.buildingNumber = null;  // 家屋番号
       this.data.dependTypeMap = null;   // 種類
       this.data.dependFloor = null;     // 階建
@@ -313,6 +314,7 @@ export class LocationDetailComponent extends BaseComponent {
     // 区分が03:区分所有（一棟）の場合
     else if (this.data.locationType === '03') {
       this.data.ridgePid = null;        // 一棟の建物
+      this.data.completionDayMap = null;// 建築時期（竣工日） 20211025 Add
       // 20201020 S_Add
       this.data.blockNumber = null;     // 地番
       this.data.buildingNumber = null;  // 家屋番号
