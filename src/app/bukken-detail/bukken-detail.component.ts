@@ -199,7 +199,7 @@ export class BukkenDetailComponent extends BaseComponent {
     loc.sharers = [];
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
-      height: '580px',
+      height: '600px',
       data: loc
     });
     // 再検索

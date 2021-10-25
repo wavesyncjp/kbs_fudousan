@@ -62,8 +62,10 @@ export class Locationinfo {
     propertyTax: number;
     cityPlanningTax: number;
     // 20210904 E_Add
+    completionDay: string;//20211025 Add
     
     acquisitionDateMap: Date = null;//20200913 Add
+    completionDayMap: Date = null;//20211025 Add
 
     areaMap: string;
     // 20201124 S_Add
@@ -103,6 +105,7 @@ export class Locationinfo {
         }
         //カレンダー
         this.acquisitionDateMap = Converter.stringToDate(this.acquisitionDate, 'yyyyMMdd');//20200913 Add
+        this.completionDayMap = Converter.stringToDate(this.completionDay, 'yyyyMMdd');//20211025 Add
         //カンマ
         this.areaMap = Converter.numberToString(this.area);
         // 20201124 S_Add
@@ -135,6 +138,7 @@ export class Locationinfo {
         }
         //カレンダー
         this.acquisitionDate = Converter.dateToString(this.acquisitionDateMap, 'yyyyMMdd', datePipe);//20200913 Add
+        this.completionDay = Converter.dateToString(this.completionDayMap, 'yyyyMMdd', datePipe);//20211025 Add
         //カンマ
         this.area = Converter.stringToNumber(this.areaMap);
         // 20201124 S_Add

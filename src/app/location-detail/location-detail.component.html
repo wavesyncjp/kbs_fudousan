@@ -34,7 +34,7 @@
                 <!-- 20201021 E_Update -->
             </td>
             <th>一棟の建物</th>
-            <td colspan="3">
+            <td>
                 <!--<mat-select multiple [(ngModel)]="data.oneBuilding" [disabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}">
                     <mat-option *ngFor="let code of sysCodes['003']" [value]="code.codeDetail">{{code.name}}</mat-option>
                 </mat-select>-->
@@ -43,6 +43,14 @@
                 <app-select-component [codes]="locAdress" style="width: 300px;" [(ngModel)]="data.ridgePid" [cusClass]="'width300 ' + (errors['ridgePid'] ? 'error' : '')" [isDisabled]="data.locationType == '01' || data.locationType == '02' || data.locationType == '03'" [ngClass]="{'width300': true, 'select-disabled': (data.locationType == '01' ||data.locationType == '02' || data.locationType == '03')}" [exclass] = "true"></app-select-component>
                 <!-- 20210211 E_Update -->
             </td>
+            <!-- 20211025 S_Add -->
+            <th>建築時期<br>（竣工日）</th>
+            <td>
+                <input type="text" [matDatepicker]="completionDay" class="width100" [(ngModel)]="data.completionDayMap">
+                <mat-datepicker-toggle matSuffix [for]="completionDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #completionDay></mat-datepicker>
+            </td>
+            <!-- 20211025 E_Add -->
         </tr>
         <tr>
             <th>所在地</th>
