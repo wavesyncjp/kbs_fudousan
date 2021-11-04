@@ -114,6 +114,7 @@ export class PaymentType {
     categoryFlg: string;
     payContractEntryFlg: string;
     displayOrder: number;
+    costReceiptFlg: string;// 20211104 Add
     createUserId: number;
     updateUserId: number;
     updateDate: Date;

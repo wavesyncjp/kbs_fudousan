@@ -3,5 +3,6 @@ export class ContractSellerInfo {
     contractInfoPid: number;
     contractorName: string;
     contractorAdress: string;
+    contractorType: string;// 20211104 Add
     deleteUserId: number;
 }

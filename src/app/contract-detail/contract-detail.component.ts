@@ -224,6 +224,13 @@ export class ContractDetailComponent extends BaseComponent {
     this.contract.retainageDayChk = flg.retainageDayChk;
    }
    // 20210728 E_Add
+   // 20211104 S_Add
+   flgChangeForSeller(event, seller: ContractSellerInfo, type) {
+     if(type == 'contractorType') {
+      seller.contractorType = String((event.checked ? 1 : 0));
+     }
+   }
+   // 20211104 E_Add
 
   /**
    * 登録

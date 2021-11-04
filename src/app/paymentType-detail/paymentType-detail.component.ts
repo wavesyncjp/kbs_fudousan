@@ -38,7 +38,7 @@ export class PaymentTypeDetailComponent extends BaseComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     const funcs = [];
-    funcs.push(this.service.getCodes(['014','020']));
+    funcs.push(this.service.getCodes(['014','020','037']));
 
     Promise.all(funcs).then(values => {
 
