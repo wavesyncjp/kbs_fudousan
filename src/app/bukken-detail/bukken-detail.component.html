@@ -373,6 +373,11 @@
     </div>
     <!--/所有地-->
 
+    <!-- 20211107 S_Add -->
+    <div class="button-div-left" *ngIf="!copyFlg">
+        <button mat-raised-button *ngIf="this.data.pid > 0 && contracts.length > 0" class="addLocation" (click)="buyInfoExport()">決済案内出力</button>
+    </div>
+    <!-- 20211107 E_Add -->
     <!--契約情報-->
     <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
         <span class="min">契約一覧</span>

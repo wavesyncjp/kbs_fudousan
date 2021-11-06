@@ -801,4 +801,34 @@ export class BukkenDetailComponent extends BaseComponent {
     loc.attachFiles.push(attachFile);
   }
   // 20210314 E_Add
+
+  // 20211107 S_Add
+  /**
+   * 決済案内出力
+   */
+   buyInfoExport() {
+
+    // 下記のようなイメージ
+    /*
+    let lst = this.dataSource.data.filter(me => me['select']).map(me => Number(me.pid));
+    if(lst.length === 0) return;
+    */
+
+    const dlg = new Dialog({title: '確認', message: '決済案内を出力します。よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        /*
+//        this.service.exportBuyInfo(this.contract.pid).then(data => {
+        this.service.exportBuyInfo(lst).then(data => {
+          this.service.writeToFile(data, "買取決済");
+          this.spinner.hide();
+        });
+        */
+      }
+    });
+  }
+  // 20211107 E_Add
 }
