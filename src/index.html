@@ -11,12 +11,48 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkA2nmhCPJVCzkAKmKvBQi0Zw0QvgLLSU" type="text/javascript"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="assets/js/jquery-1.11.1.min.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
+  <script src="assets/js/jquery.ui.datepicker-ja.min-1.10.4.js"></script>
   <script type="text/javascript">  
     function openDetailFromMap(pid) { 
       window.angularComponentReference.zone.run(() => { window.angularComponentReference.openDetailFromMap(pid); });  
     }  
+
+    function convert_wareki(year){
+      var tmp;
+      if (year > 2018) {      //令和
+          tmp = year - 2018;
+          tmp = `令和${tmp === 1 ? '元' : tmp}年`;
+          return tmp;
+      }
+      else if (year > 1988) {      //平成
+          tmp = year - 1988;
+          tmp = `平成${tmp}年`;
+          return tmp;
+      }
+      else if (year > 1925) {//昭和
+          tmp = year - 1925;
+          tmp = `昭和${tmp}年`;
+          return tmp;
+      }
+      else if (year > 1911) {//大正
+          tmp = year - 1911;
+          tmp = `大正${tmp}年`;
+          return tmp;
+      }
+      else if (year > 1867) {//明治
+          tmp = year - 1867;
+          tmp = `明治${tmp}年`;
+          return tmp;
+      }
+      else{               //該当なし
+          return '';
+      }
+    }
+
 </script>
 </head>
 <body>

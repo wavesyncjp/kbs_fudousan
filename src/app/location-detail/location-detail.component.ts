@@ -18,6 +18,8 @@ import { JPDateAdapter } from '../adapters/adapters';
 //20200913 E_Add
 import { LocationAttach } from '../models/mapattach';// 20210311 Add
 
+declare var $: any;
+
 @Component({
   selector: 'app-location-detail',
   templateUrl: './location-detail.component.html',
@@ -89,7 +91,7 @@ export class LocationDetailComponent extends BaseComponent {
 
       this.data.convert();
 
-      this.spinner.hide();
+      this.spinner.hide();      
     });
     //20200811 S_Update
     /*
@@ -134,6 +136,27 @@ export class LocationDetailComponent extends BaseComponent {
     this.buildingNotyet.checked = (this.data.buildingNotyet === '1');
     this.buysellFlg.checked = (this.data.buysellFlg === '1');
     // 20201021 E_Add
+
+    //20211107 S_Add カレンダーカスタマイズ
+    let _that = this;
+    $('#txtCompletionDay').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: `1950:${new Date().getFullYear() + 10}`,
+      dateFormat: 'yy/mm/dd',
+      onSelect: function (dataText) {
+        _that.data.completionDayMap = dataText;        
+      },
+      showButtonPanel: true,     
+      ignoreReadonly: true,
+      allowInputToggle: true,
+
+      buttonImage: "assets/img/calendar-icon2.png",  
+      buttonImageOnly: true,           // 画像として表示
+      showOn: "both"        
+    });
+    //20211107 S_End
+
   }
 
   /**

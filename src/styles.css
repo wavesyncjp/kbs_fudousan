@@ -585,3 +585,13 @@ span.minDl{
     background-color: #ffc000;
     color: white;
 }
+
+
+/*20211107 カレンダーアイコン*/
+.ui-datepicker-trigger {
+    position: absolute;
+    left: 88px;
+    width: 20px;
+    height: 20px;
+    top: 11px;
+}
