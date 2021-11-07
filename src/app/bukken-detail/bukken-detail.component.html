@@ -383,8 +383,9 @@
         <span class="min">契約一覧</span>
         <table>
             <thead class="list-header">
+                <th class="width80">出力</th><!-- 20211107 Add -->
                 <th class="width100">契約状況</th><!-- 20200730 Add -->
-                <th class="width150">契約番号</th>
+                <th class="width130">契約番号</th>
                 <th class="width100">契約書番号</th>
                 <th class="width100">契約日</th>
                 <th>契約者</th>
@@ -402,6 +403,9 @@
                 <!--<tr *ngFor="let contract of contracts">-->
                 <tr *ngFor="let contract of contracts; index as pos">
                 <!-- 20210317 E_Update -->
+                    <td>
+                        <mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox>
+                    </td><!--20211107 決済CSV-->
                     <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                     <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>

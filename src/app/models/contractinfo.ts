@@ -175,6 +175,8 @@ export class Contractinfo {
     createUserId: number;
     updateUserId: number;
 
+    csvSelected: boolean; //20211107 Add 決済出力用
+
     public constructor(init?: Partial<Contractinfo>) {
         if (init) {
             Object.assign(this, init);
