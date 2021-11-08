@@ -45,11 +45,18 @@
             </td>
             <!-- 20211025 S_Add -->
             <th>建築時期<br>（竣工日）</th>
+            <!-- 20211107 S_Update -->
+            <!--
             <td>
                 <input type="text" [matDatepicker]="completionDay" class="width100" [(ngModel)]="data.completionDayMap"  [disabled]="data.locationType == '01' || data.locationType == '03'">
                 <mat-datepicker-toggle matSuffix [for]="completionDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #completionDay></mat-datepicker>
             </td>
+            -->
+            <td class="calendar-cell">
+                <input type="text" id="txtCompletionDay" class="width100" [(ngModel)]="data.completionDayMap" [disabled]="data.locationType == '01' || data.locationType == '03'">
+            </td>
+            <!-- 20211107 E_Update -->
             <!-- 20211025 E_Add -->
         </tr>
         <tr>

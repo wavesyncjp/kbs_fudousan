@@ -10,13 +10,13 @@
 .addSharer {
     background-color: rgb(238, 187, 45);
     color: white;
-    height: 35px;   
+    height: 35px;
     margin: 2px 10px; 
 }
 .deleteSharer {
     background-color: rgb(163, 158, 142);
     color: black;
-    height: 35px;    
+    height: 35px;
     margin: 2px 10px;
 }
 
@@ -42,3 +42,9 @@ mat-select {
 .buysell{
     font-size: 0.6em;
 }
+
+/* 20211107 S_Add */
+.calendar-cell {
+    position: relative;
+}
+/* 20211107 E_Add */
