@@ -171,7 +171,8 @@ export class Contractinfo {
     sellers: ContractSellerInfo[];
     locations = []; // 所有地（保存しない）
     contractStaffMap = [];//20200828 Add
-
+    csvSelected: boolean; //20211107 Add
+    
     createUserId: number;
     updateUserId: number;
 

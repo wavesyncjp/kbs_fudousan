@@ -612,10 +612,11 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
   // 20210905 E_Add
-  // 20211020 S_Add
+  // 20211107 S_Delete
   /**
    * 決済案内出力
    */
+  /*
   buyInfoExport() {
     const dlg = new Dialog({title: '確認', message: '決済案内を出力します。よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
@@ -630,5 +631,6 @@ export class ContractDetailComponent extends BaseComponent {
       }
     });
   }
-  // 20211020 E_Add
+  */
+  // 20211107 E_Delete
 }

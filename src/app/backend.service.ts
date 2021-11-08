@@ -1136,11 +1136,18 @@ export class BackendService {
   // 20211020 S_Add
   /**
    * 決済案内出力
-   * @param contractPid 契約Pid
+   * @param ids 契約Pid
    */
-   exportBuyInfo(contractPid: number): Promise<Blob> {
+  /*
+  exportBuyInfo(contractPid: number): Promise<Blob> {
     const downloadUrl = 'buyinfoexport.php';
     const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: contractPid}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  */
+  exportBuyInfo(ids: number[]): Promise<Blob> {
+    const downloadUrl = 'buyinfoexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {ids: ids}, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
   // 20211020 E_Add
