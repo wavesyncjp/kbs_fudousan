@@ -1,12 +1,12 @@
-.detail-div{
+.detail-div {
     margin:0px;
     background-color:white;
     display: flex;
     flex-direction: column;
-    overflow-y: hidden;/*20200731 Add*/
+    overflow-y: hidden;/* 20200731 Add */
 }
 
-.detail-tbl > tr > th{
+.detail-tbl > tr > th {
     width:100px !important;
     background-color: whitesmoke;
     text-align: left;
@@ -14,11 +14,10 @@
     padding: 2px;
     /*padding-left:5px;*/
     font-size: 0.8em;
-    border-top: solid 2px white;  
+    border-top: solid 2px white;
 }
 
-
-input[type="text"], select, mat-select{
+input[type="text"], select, mat-select {
     min-width: 100px;
     height: 21px;
     border: solid 1px cornflowerblue;
@@ -26,20 +25,19 @@ input[type="text"], select, mat-select{
     margin-left: 3px;
 }
 
-select, mat-select{
+select, mat-select {
     height: 25px;
 }
-mat-form-field{
+mat-form-field {
     height: 23px;
     border: solid 1px cornflowerblue !important;
     border-radius: 2px !important;
     margin-left: 3px !important;
 }
-mat-form-field > input {       
+mat-form-field > input {
     margin-top: -20px !important;
 }
-.button-div
-{
+.button-div {
     position: relative;
     right: 20px;
     margin-bottom:5px;
@@ -52,22 +50,22 @@ mat-form-field > input {
     top:10px;
     width: 110px;
 }
-.iconbtn{
+.iconbtn {
     margin-left: 30px;
     background-color: black;
     color: white;
     width: 60px;
 }
 
-.iconDelete{
+.iconDelete {
     background-color: black;
     color: floralwhite;
     margin-left:10px;
 }
 
-.block-title-status{
+.block-title-status {
     font-size: 0.9em;
-    border-left:solid 5px  rgb(175, 173, 173);
+    border-left:solid 5px rgb(175, 173, 173);
     color:black;
     width: 142px !important;
     padding: 2px 0px 2px 10px;
@@ -76,11 +74,10 @@ mat-form-field > input {
     display: inline-flex;
     align-items: center;
     font-weight: bold;
-    
 }
-.block-title-statusNew{
+.block-title-statusNew {
     font-size: 0.9em;
-    border-left:solid 5px  rgb(175, 173, 173);
+    border-left:solid 5px rgb(175, 173, 173);
     color:black;
     width: 127px !important;
     padding: 2px 0px 2px 10px;
@@ -90,11 +87,10 @@ mat-form-field > input {
     align-items: center;
     font-weight: bold;
     float: left;
-    
 }
-.block-title-etc{
+.block-title-etc {
     font-size: 0.9em;
-    border-left:solid 5px  rgb(175, 173, 173);
+    border-left:solid 5px rgb(175, 173, 173);
     color:black;
     width: 142px !important;
     padding: 2px 0px 2px 10px;
@@ -103,9 +99,8 @@ mat-form-field > input {
     display: inline-flex;
     align-items: center;
     font-weight: bold;
-    
 }
-.block-status{
+.block-status {
     display: flex;
     flex-direction: column;
     margin: 10px 10px 20px 10px ;
@@ -119,7 +114,7 @@ mat-form-field > input {
   margin: 10px 10px 10px 0px;
 }
 
-.removeLocation{
+.removeLocation {
     background-color: rgb(91, 91, 95);
     color: whitesmoke;
     height: 34px;
@@ -132,13 +127,13 @@ mat-form-field > input {
 .button-div > .addLocation {
     right: 140px;
 }
-.button-div > .contractButton{
+.button-div > .contractButton {
     display: block;
     color: rgb(255, 255, 255);
     background-color:rgb(139, 111, 49);
     text-align: center;
 }
-.button-div > .contractButton{
+.button-div > .contractButton {
     display: block;
     color: rgb(255, 255, 255);
     background-color:rgb(139, 111, 49);
@@ -152,14 +147,14 @@ mat-form-field > input {
     background-color:#FFC000;
     color: white;
 }
-.button-div-left > .contractButton{
+.button-div-left > .contractButton {
     display: block;
     color: rgb(255, 255, 255);
     background-color:#C55A11;
     text-align: center;
 }
 
-.attach-btn{
+.attach-btn {
     background-color: red;
     margin-left: 20px;
     color: white;
@@ -173,10 +168,11 @@ mat-form-field > input {
     width: 86%;
     height: 100%;
     overflow-x: auto;
+    overflow-y: visible;/* 20211109 Add */
     margin-left: 12px;
 }
 
-.contact-div > table{
+.contact-div > table {
     border-spacing: 0px;
     border-collapse: collapse;
     width:100%;
@@ -186,11 +182,11 @@ mat-form-field > input {
 }
 .list-header > th {
     height: 40px;
-    min-width: 120px;    
+    min-width: 120px;
     font-size: 12px;
     font-weight: 500;
     color:white;
-    border: solid 1px gainsboro;    
+    border: solid 1px gainsboro;
 }
 
 .list-body > tr {
@@ -200,7 +196,7 @@ mat-form-field > input {
 .list-body > tr > td {
     text-align: center;
     font-size: 12px;
-    border: solid 1px gainsboro;    
+    border: solid 1px gainsboro;
 }
 
 .contract-div {
@@ -254,21 +250,21 @@ mat-form-field > input {
     margin-bottom: unset;
     margin-bottom: -5px;
     margin-left: -2px;
-  }
-  .tab-wrap:after {
+}
+.tab-wrap:after {
     content: '';
     width: 100%;
     height: 3px;
     /*background: #325A8C;*/
     display: block;
     order: -1;
-  }
+}
 
-  .tab_bottom {
-      border-bottom: solid 1px lightgray;
-  }
+.tab_bottom {
+    border-bottom: solid 1px lightgray;
+}
 
-  .tab-label {
+.tab-label {
     color: White;
     background: LightGray;
     font-weight: bold;
@@ -280,51 +276,51 @@ mat-form-field > input {
     z-index: 1;
     cursor: pointer;
     border-radius: 5px 5px 0 0;
-    flex: 1;    
-  }
-  .tab-label:not(:last-of-type) {
+    flex: 1;
+}
+.tab-label:not(:last-of-type) {
     margin-right: 5px;
-  }
-  .tab-content {
+}
+.tab-content {
     width: 100%;
     height: 0;
     overflow: hidden;
     opacity: 0;
-  }
-  .tab-switch:checked+.tab-label {
-    background: #325A8C;    
+}
+.tab-switch:checked+.tab-label {
+    background: #325A8C;
     cursor: default;
-  }
-  .tab-switch:checked+.tab-label+.tab-content {
+}
+.tab-switch:checked+.tab-label+.tab-content {
     height: auto;
     overflow: auto;
     padding: 15px;
     opacity: 1;
     transition: .5s opacity;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-  }
-  .tab-switch {
+}
+.tab-switch {
     display: none;
-  }
+}
 
-  /*20200731 S_Add*/
-  ::ng-deep.multiselect-dropdown {
+/* 20200731 S_Add */
+::ng-deep.multiselect-dropdown {
     width: 300px !important;
     margin-left: 3px;
-  }
-  
-  ::ng-deep.multiselect-dropdown .dropdown-btn {
+}
+
+::ng-deep.multiselect-dropdown .dropdown-btn {
     height: 22px !important;
     padding: 5px 12px !important;
     border-color: #6495ED !important;
     border-radius: 3px !important;
     line-height: unset !important;
     font-size: 13px !important;
-  }
+}
 
-  ::ng-deep.multiselect-dropdown .dropdown-btn .dropdown-down {
+::ng-deep.multiselect-dropdown .dropdown-btn .dropdown-down {
     border-top: 5px solid #adadad !important;
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
-  }
-  /*20200731 E_Add*/
+}
+/* 20200731 E_Add */
