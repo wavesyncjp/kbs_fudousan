@@ -155,6 +155,7 @@ export class LocationDetailComponent extends BaseComponent {
       buttonImageOnly: true,// 画像として表示
       showOn: "both"
     });
+    this.switchCalendar();
     // 20211107 S_End
   }
 
@@ -256,14 +257,30 @@ export class LocationDetailComponent extends BaseComponent {
           this.data.buildingNotyet = '0';
           // 20201224 E_Add
           this.applyChangeType();
+          this.switchCalendar(); //20211109
         } else {
           this.data.locationType = this.oldLocationType;
         }
       });
     } else {
       this.applyChangeType();
+      this.switchCalendar(); //20211109 
     }
+
+    
   }
+
+  //20211109 S_Add カレンダーアイコン
+  switchCalendar() {
+    if(this.data.locationType === '01' || this.data.locationType === '03') {
+      $('#txtCompletionDay').datepicker('disable');
+    }
+    else {
+      $('#txtCompletionDay').datepicker('enable');
+    }
+    
+  }
+  //20211109 S_Add カレンダーアイコン
 
   /**
    * 区分変更時初期化処理
