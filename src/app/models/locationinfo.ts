@@ -146,7 +146,7 @@ export class Locationinfo {
         this.acquisitionDate = Converter.dateToString(this.acquisitionDateMap, 'yyyyMMdd', datePipe);// 20200913 Add
         // 20211107 S_Update
 //        this.completionDay = Converter.dateToString(this.completionDayMap, 'yyyyMMdd', datePipe);// 20211025 Add
-        this.completionDay = this.completionDayMap.replace(/\//g, '');
+        this.completionDay = this.completionDayMap != null ? this.completionDayMap.replace(/\//g, '') : this.completionDay;
         // 20211107 E_Update
         //カンマ
         this.area = Converter.stringToNumber(this.areaMap);
