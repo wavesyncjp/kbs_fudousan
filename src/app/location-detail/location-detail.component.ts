@@ -155,8 +155,14 @@ export class LocationDetailComponent extends BaseComponent {
       buttonImageOnly: true,// 画像として表示
       showOn: "both"
     });
-    this.switchCalendar();
     // 20211107 S_End
+    // 20211109 S_Add
+    if(this.data.locationType === '01' || this.data.locationType === '03') {
+      this.switchCalendar('#txtCompletionDay', false);
+    } else {
+      this.switchCalendar('#txtCompletionDay', true);
+    }
+    // 20211109 E_Add
   }
 
   /**
@@ -257,30 +263,29 @@ export class LocationDetailComponent extends BaseComponent {
           this.data.buildingNotyet = '0';
           // 20201224 E_Add
           this.applyChangeType();
-          this.switchCalendar(); //20211109
         } else {
           this.data.locationType = this.oldLocationType;
         }
       });
     } else {
       this.applyChangeType();
-      this.switchCalendar(); //20211109 
     }
 
     
   }
 
-  //20211109 S_Add カレンダーアイコン
-  switchCalendar() {
-    if(this.data.locationType === '01' || this.data.locationType === '03') {
-      $('#txtCompletionDay').datepicker('disable');
+  // 20211109 S_Add
+  /**
+   * カレンダーアイコン 活性/非活性
+   */
+  switchCalendar(id: string, set: boolean) {
+    if(set) {
+      $(id).datepicker('enable');
+    } else {
+      $(id).datepicker('disable');
     }
-    else {
-      $('#txtCompletionDay').datepicker('enable');
-    }
-    
   }
-  //20211109 S_Add カレンダーアイコン
+  // 20211109 E_Add
 
   /**
    * 区分変更時初期化処理
@@ -447,6 +452,13 @@ export class LocationDetailComponent extends BaseComponent {
       // 20210614 E_Add
     }
     // 20201222 E_Add
+    // 20211109 S_Add
+    if(this.data.locationType === '01' || this.data.locationType === '03') {
+      this.switchCalendar('#txtCompletionDay', false);
+    } else {
+      this.switchCalendar('#txtCompletionDay', true);
+    }
+    // 20211109 E_Add
     this.oldLocationType = this.data.locationType;
   }
 
