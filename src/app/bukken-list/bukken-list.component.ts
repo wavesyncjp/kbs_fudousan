@@ -448,7 +448,10 @@ export class BukkenListComponent extends BaseComponent {
    setMarker(latlng: any, bk: Templandinfo) {
     const that = this;//20200902 Add
     const result = this.getCodeDetail('001', bk.result);
-    const pin = (result === '01' ? 'pin-blue2.png' : result === '02' ? 'pin-green.png' : 'pin-pink.png');
+    // 20211128 S_Update
+//    const pin = (result === '01' ? 'pin-blue2.png' : result === '02' ? 'pin-green.png' : 'pin-pink.png');
+    const pin = (result === '01' ? 'pin-blue.png' : result === '02' ? 'pin-green.png' : result === '03' ? 'pin-purple.png' : result === '04' ? 'pin-yellow.png' : 'pin-pink.png');
+    // 20211128 E_Update
     const marker = new google.maps.Marker({
       position: latlng,
       map: this.mapObj,
