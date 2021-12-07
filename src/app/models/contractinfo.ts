@@ -63,7 +63,10 @@ export class Contractinfo {
     decisionDayChk: string;
     settlementDay: string;
     settlementDayFin: string;
-    settlementAfter: string = '1か月';
+    // 20211207 S_Update
+    // settlementAfter: string = '1か月';
+    settlementAfter: string = '2か月';
+    // 20211207 E_Update
     retainage: number;
     retainageDay: string;
     retainageDayChk: string;// 20210728 Add
