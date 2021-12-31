@@ -1,31 +1,29 @@
 <div class="chart-content">
     <div class="bulletin-board">
         <label>Information</label>
-
         <div class="mat-elevation-z8 main-data">
-
             <table mat-table [dataSource]="dataSource">
                 <ng-container matColumnDef="infoDate">
-                    <td mat-cell *matCellDef="let element" > {{formatDay(element.infoDate, 'yyyy/MM/dd')}} </td>
+                    <td mat-cell *matCellDef="let element"> {{formatDay(element.infoDate, 'yyyy/MM/dd')}} </td>
                 </ng-container>
-            
+
                 <ng-container matColumnDef="infoSubject">
                     <td mat-cell *matCellDef="let element">
                         <a *ngIf="element.detailFlg == 1" class="action-link" (click)="openDialog(element)">{{element.infoSubject}}</a>
                         <label *ngIf="element.detailFlg == 0">{{element.infoSubject}}</label>
                     </td>
                 </ng-container>
-                            
-                <ng-container matColumnDef="attachFileName">  
+
+                <ng-container matColumnDef="attachFileName">
                     <td mat-cell *matCellDef="let element"><a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
                 </ng-container>
-                                                
-                
+
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-        </div>                
+        </div>
         <div class="more" *ngIf="hasInfo"><a (click)="navigate('infos')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
     </div>
+    <!-- 20211227 S_Update --><!-- リリースまで反映しない -->
     <div class="chart-top">
         <label>年月</label>
         <input type="text" [matDatepicker]="monthView" class="width150">
@@ -33,9 +31,43 @@
         <mat-datepicker #monthView ></mat-datepicker>
         <button mat-raised-button color="basic" class="button" style="margin-bottom: 10px;width: 70px;" >検索</button>
 
-
         <mat-divider></mat-divider>
     </div>
+    <!--
+    <br>
+    <div class="bulletin-notice" *ngIf="enableUser">
+        <label>お知らせ</label>
+        <div class="mat-elevation-z8 main-data">
+            <table mat-table [dataSource]="dataSourceForNotice">
+                <ng-container matColumnDef="infoDate">
+                    <td mat-cell *matCellDef="let element"> {{formatDay(element.infoDate, 'yyyy/MM/dd')}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="approvalFlg">
+                    <td mat-cell *matCellDef="let element">
+                        <a class="action-link" (click)="showNoticeDetail(element)">{{getCodeTitle('032',element.approvalFlg)}}</a>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="infoSubject">
+                    <td mat-cell *matCellDef="let element">
+                        <a *ngIf="element.detailFlg == 1" class="action-link" (click)="openDialog(element)">{{element.infoSubject}}</a>
+                        <label *ngIf="element.detailFlg == 0">{{element.infoSubject}}</label>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="attachFileName">
+                    <td mat-cell *matCellDef="let element"><a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
+                </ng-container>
+
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsForNotice;"></tr>
+            </table>
+        </div>
+        <div class="more" *ngIf="hasNotice"><a (click)="navigate('notices')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
+    </div>
+    -->
+    <!-- 20211227 E_Update -->
+
     <!--
     <div class="chart">
         <ngx-charts-bar-vertical

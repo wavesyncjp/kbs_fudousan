@@ -165,7 +165,7 @@ export class BukkenDetailComponent extends BaseComponent {
         const locFront = new Locationinfo(loc);
         locs.push(locFront);
       });
-      this.sortLocation(locs);
+      // this.sortLocation(locs);// 20211228 Delete
       this.data.locations = locs;
     } else {
       this.data.locations = [];

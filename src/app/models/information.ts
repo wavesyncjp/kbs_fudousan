@@ -3,6 +3,7 @@ import { parse } from 'date-fns';
 
 export class Information {
     pid: number;
+    infoType = 0;// 20211227 Add
     infoDate = '';
     infoSubject = '';
     detailFlg = '1';
@@ -10,6 +11,11 @@ export class Information {
     infoDetail = '';
     attachFileName = '';
     attachFilePath = '';
+    // 20211227 S_Add
+    approvalFlg = '';
+    approvalAttachFileName = '';
+    approvalAttachFilePath = '';
+    // 20211227 E_Add
     createUserId: number;
     updateUserId: number;
     createDate: Date;

@@ -446,6 +446,21 @@ export class BackendService {
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
 
+  // 20211227 S_Add
+    /**
+   * 承認済ファイルアップロード
+   * @param infoPid ：インフォメーションPid
+   * @param file ：ファイル
+   */
+  uploadApprovedInfoFile(infoPid: number, file: File) {
+    const uploadApi = 'approvedfile_upload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('infoId', infoPid.toString());
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+  // 20211227 E_Add
+
   /**
    * システムコード取得
    */

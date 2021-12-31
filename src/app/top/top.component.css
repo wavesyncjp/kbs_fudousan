@@ -3,8 +3,11 @@
     height: 100%;
     display: grid;
     align-items:center;
+    /* 20211227 S_Update *//* リリースまで反映しない */
     grid-template-rows: 150px 60px auto;
-    grid-template-columns: 50% 50%;   
+    /*grid-template-rows: 150px 20px 150px 60px auto;*/
+    /* 20211227 E_Update */
+    grid-template-columns: 50% 50%;
 }
 
 .bulletin-board{
@@ -23,7 +26,7 @@
 .bulletin-board > label {
     display: inline-block;
     position: absolute;
-    top: -2px;    
+    top: -2px;
     left: 40px;
     background-color: #FAFAFA;
     font-weight: bold;
@@ -31,20 +34,18 @@
 .bulletin-board .more {
     display: inline-block;
     position: absolute;
-    right: 40px;    
+    right: 40px;
     top: 120px;
     background-color: #FAFAFA;
     display: flex;
     align-items: center;
 }
-
 .bulletin-board .more > a {
     text-decoration: none;
     font-size: 0.8em;
     font-weight: bold;
     cursor: pointer;
 }
-
 .bulletin-board .main-data {
     margin: 10px;
     width:98%;
@@ -56,6 +57,7 @@
     width:100%;
     background-color: #FAFAFA;
 }
+
 .mat-row{
     height:35px;
 }
@@ -77,6 +79,63 @@
     cursor: pointer;
 }
 
+/* 20211227 S_Add */
+.bulletin-notice{
+    width:97%;
+    height:97%;
+    border: solid 1px black;
+    border-radius: 4px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 20px;
+    margin-top:50px;
+    margin-bottom: 40px;
+    background-color: #EBFFED;
+    overflow-y: auto;
+}
+.bulletin-notice > label {
+    display: inline-block;
+    position: absolute;
+    top: 168px;
+    left: 40px;
+    background-color: #EBFFED;
+    font-weight: bold;
+}
+.bulletin-notice .more {
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    top: 290px;
+    background-color: #EBFFED;
+    display: flex;
+    align-items: center;
+}
+.bulletin-notice .more > a {
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.bulletin-notice .main-data {
+    margin: 10px;
+    width:98%;
+    height:130px;
+    box-shadow: none;
+    background-color: #EBFFED;
+}
+.bulletin-notice .main-data .mat-table{
+    width:100%;
+    background-color: #EBFFED;
+}
+
+.bulletin-notice .main-data .mat-table .mat-column-infoDate{
+    width: 10%;
+}
+.mat-column-approvalFlg{
+    width: 5%;
+}
+/* 20211227 E_Add */
+
 .chart-top {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -91,14 +150,12 @@
     font-size: 0.9em;
     padding: 2px;
 }
-
 .chart {
     width: 80%;
     height: 80%;
     margin:10px;
     align-content: center;
 }
-
 input[type="text"]{
     min-width: 100px;
     height: 21px;

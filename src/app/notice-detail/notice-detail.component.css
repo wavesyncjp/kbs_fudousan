@@ -1,0 +1,14 @@
+.dialog-div{
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto 40px;
+    margin: -15px;
+    padding: 10px;
+}
+.detail-tbl > tr {
+    height: 45px;
+}
+
+.detail-tbl-info > tr > th.sharer{
+    background-color: rgb(255, 192, 203);
+}

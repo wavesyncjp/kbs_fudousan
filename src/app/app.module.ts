@@ -82,6 +82,10 @@ import { BankListComponent } from './bank-list/bank-list.component';
 import { BankDetailComponent } from './bank-detail/bank-detail.component';
 // 20210831 E_Add
 import { CalcKotozeiDetailComponent } from './calcKotozei-detail/calcKotozei-detail.component';
+// 20211227 S_Add
+import { NoticeListComponent } from './notice-list/notice-list.component';
+import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
+// 20211227 E_Add
 
 @NgModule({
   declarations: [
@@ -148,6 +152,10 @@ import { CalcKotozeiDetailComponent } from './calcKotozei-detail/calcKotozei-det
     , PlanHistoryListComponent
     , DndDirective
     , CalcKotozeiDetailComponent
+    // 20211227 S_Add
+    , NoticeListComponent
+    , NoticeDetailComponent
+    // 20211227 E_Add
   ],
   imports: [
     BrowserModule
@@ -213,6 +221,7 @@ import { CalcKotozeiDetailComponent } from './calcKotozei-detail/calcKotozei-det
     , PlanHistoryCreateComponent
     , PlanHistoryListComponent
     , CalcKotozeiDetailComponent
+    , NoticeDetailComponent// 20211227 Add
   ],
 })
 export class AppModule { }

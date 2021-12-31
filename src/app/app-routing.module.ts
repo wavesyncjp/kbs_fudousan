@@ -27,6 +27,7 @@ import { BankListComponent } from './bank-list/bank-list.component';
 import { ReceiveTypeListComponent } from './receiveType-list/receiveType-list.component'; // 20210916 Add
 import { ReceiveContractDetailComponent } from './receivecontract-detail/receivecontract-detail.component'; // 20210916 Add
 import { ReceiveContractListComponent } from './receivecontract-list/receivecontract-list.component'; // 20210916 Add
+import { NoticeListComponent } from './notice-list/notice-list.component';// 20211227 Add
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }
@@ -57,6 +58,7 @@ const routes: Routes = [
   , { path: 'receiveTypes', component: ReceiveTypeListComponent} // 20210916 Add
   , { path: 'receives', component: ReceiveContractListComponent} // 20210916 Add
   , { path: 'receivedetail', component: ReceiveContractDetailComponent} // 20210916 Add
+  , { path: 'notices', component: NoticeListComponent}// 20211227 Add
 ];
 
 @NgModule({

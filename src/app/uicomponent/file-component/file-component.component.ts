@@ -11,6 +11,11 @@ import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-di
 })
 export class FileComponentComponent implements OnInit {
 
+  // 20211231 S_Add
+  @Input()
+  id: string;
+  // 20211231 E_Add
+
   @Input()
   bukkenId: number;
 
@@ -141,6 +146,18 @@ export class FileComponentComponent implements OnInit {
       this.uploaded.emit(res);
     });
   }
+
+  // 20211227 S_Add
+  public uploadApprovedInfoFile(infoPid: number) {
+    this.service.uploadApprovedInfoFile(infoPid, this.file).then(res => {
+      this.snackBar.open('ファイルアップロード完了', null, {
+        duration: 1000,
+      });
+      this.file = null;
+      this.uploaded.emit(res);
+    });
+  }
+  // 20211227 E_Add
 
   public hasFile() {
     return (this.file != null);

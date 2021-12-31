@@ -1,5 +1,5 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
-import { InfoDetailComponent } from '../info-detail/info-detail.component';
+import { Component, ViewChild} from '@angular/core';
+import { NoticeDetailComponent } from '../notice-detail/notice-detail.component';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -15,25 +15,26 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 
 @Component({
-  selector: 'app-info-list',
-  templateUrl: './info-list.component.html',
-  styleUrls: ['./info-list.component.css'],
+  selector: 'app-notice-list',
+  templateUrl: './notice-list.component.html',
+  styleUrls: ['./notice-list.component.css'],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
 })
-export class InfoListComponent extends BaseComponent {
+export class NoticeListComponent extends BaseComponent {
   public cond = {
-    infoType: '0',// 20211227 Add
+    infoType: '1',
     infoSubject: '',
     infoDateMap: '',
     infoDate: '',
-    finishFlg: ['0']
+    finishFlg: ['0'],
+    approvalFlg: ''
   };
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['infoDate', 'infoSubject', 'detailFlg', 'infoDetail', 'attachFileName', 'finishFlg', 'delete', 'detail'];
+  displayedColumns: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName', 'approvalAttachFileName', 'finishFlg', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Information>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -45,26 +46,15 @@ export class InfoListComponent extends BaseComponent {
     super(router, service,dialog);
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     super.ngOnInit();
-    this.service.changeTitle('インフォメーション');
+    this.service.changeTitle('お知らせ');
     this.dataSource.paginator = this.paginator;
-    /*
-    this.cond = {
-      infoSubject: '',
-      infoDateMap: '',
-      infoDate: '',
-      finishFlg: ['0']
-    };
-    */
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['005', '006']));
-
+    // コード
+    funcs.push(this.service.getCodes(['005', '006', '032']));
     Promise.all(funcs).then(values => {
-
-      // コード
       const codes = values[0] as Code[];
       if (codes !== null && codes.length > 0) {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
@@ -74,9 +64,6 @@ export class InfoListComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
-
-      //this.cond.infoDateMap = null;
-
     });
   }
 
@@ -92,16 +79,14 @@ export class InfoListComponent extends BaseComponent {
       setTimeout(() => {
         this.spinner.hide();
       }, 500);
-
     });
-
   }
 
   createNew() {
     const row = new Information();
-    const dialogRef = this.dialog.open(InfoDetailComponent, {
+    const dialogRef = this.dialog.open(NoticeDetailComponent, {
       width: '60%',
-      height: '580px',
+      height: '680px',
       data: row
     });
     // 再検索
@@ -127,13 +112,12 @@ export class InfoListComponent extends BaseComponent {
         });
       }
     });
-
   }
 
   showDetail(row: Information) {
-    const dialogRef = this.dialog.open(InfoDetailComponent, {
+    const dialogRef = this.dialog.open(NoticeDetailComponent, {
       width: '60%',
-      height: '580px',
+      height: '680px',
       data: row
     });
 
@@ -143,7 +127,6 @@ export class InfoListComponent extends BaseComponent {
         this.searchInfo();
       }
     });
-
   }
 
   highlight(row) {
