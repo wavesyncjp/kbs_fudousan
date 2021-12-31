@@ -34,7 +34,7 @@
                 <div style="z-index: 999;">
                     <ul>
                         <li><a (click)="navigate('infos')">インフォメーション</a></li>
-                        <li><a (click)="navigate('notices')">お知らせ</a></li>
+                        <li *ngIf="authority === '01' || authority === '02'"><a (click)="navigate('notices')">お知らせ</a></li>
                     </ul>
                 </div>
             </li>-->

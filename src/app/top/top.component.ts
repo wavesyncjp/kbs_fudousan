@@ -108,7 +108,7 @@ export class TopComponent  extends BaseComponent {
 
     // 20211227 S_Add
     this.authority = this.service.loginUser.authority;
-    this.enableUser = (this.authority === '01' || this.authority === '03');
+    this.enableUser = (this.authority === '01' || this.authority === '02');
 
     // コード
     funcs.push(this.service.getCodes(['032']));
