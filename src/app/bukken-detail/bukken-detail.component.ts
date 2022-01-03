@@ -165,13 +165,18 @@ export class BukkenDetailComponent extends BaseComponent {
         const locFront = new Locationinfo(loc);
         locs.push(locFront);
       });
-      // this.sortLocation(locs);// 20211228 Delete
+      // 20220103 S_Update
+      // this.sortLocation(locs);
       this.data.locations = locs;
+      this.sortLocation();
+      // 20220103 E_Update
     } else {
       this.data.locations = [];
     }
   }
 
+  // 20220103 S_Update
+  /*
   sortLocation(locs : Locationinfo[]) {
     locs.sort((a,b) => {
       let id1 = a.pid;
@@ -189,6 +194,36 @@ export class BukkenDetailComponent extends BaseComponent {
       return id1 - id2;
     });
   }
+  */
+  sortLocation() {
+    let tempLocs: Locationinfo[] = [];
+    let tempLocsNot04 = this.data.locations.filter(loc => loc.locationType !== '04');
+    let tempLocs04 = this.data.locations.filter(loc => loc.locationType === '04');
+    let pids = [];
+    tempLocsNot04.forEach(locNot04 => {
+      tempLocs.push(locNot04);
+      if(locNot04.locationType === '03') {
+        tempLocs04.forEach(loc04 => {
+          
+          if(String(locNot04.pid) === loc04.ridgePid && !pids.includes(loc04.pid)) {
+            console.log('locNot04:' + locNot04.pid);
+            console.log('loc04:' + loc04.pid);
+            tempLocs.push(loc04);
+            pids.push(loc04.pid);
+          }
+        });
+      }
+    });
+    tempLocs04.forEach(loc04 => {
+      if(!pids.includes(loc04.pid)) {
+        console.log('test2:' + loc04.pid);
+        tempLocs.push(loc04);
+        pids.push(loc04.pid);
+      }
+    });
+    this.data.locations = tempLocs;
+  }
+  // 20220103 E_Update
 
   /**
    * 所有地追加
@@ -204,9 +239,12 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result.isSave) {        
+      if (result && result.isSave) {
         this.data.locations.push(result.data);
-        this.sortLocation(this.data.locations);
+        // 20220103 S_Update
+        // this.sortLocation(this.data.locations);
+        this.sortLocation();
+        // 20220103 E_Update
       }
     });
 
