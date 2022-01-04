@@ -145,7 +145,7 @@ export class NoticeDetailComponent extends BaseComponent {
           let fUpload = this.fFiles.filter(me => me.id === 'fUpload')[0];
           let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
 
-          if ((fUpload != null && !fUpload.hasFile()) && (fApprovedUpload != null && !fApprovedUpload.hasFile())) {
+          if ((fUpload == null || !fUpload.hasFile()) && (fApprovedUpload == null || !fApprovedUpload.hasFile())) {
             this.dialogRef.close(true);
           } else {
             if (fUpload != null && fUpload.hasFile()) fUpload.uploadInfoFile(res.pid);

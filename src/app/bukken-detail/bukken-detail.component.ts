@@ -196,6 +196,26 @@ export class BukkenDetailComponent extends BaseComponent {
   }
   */
   sortLocation() {
+    this.data.locations.sort((a,b) => {
+      let id1 = a.locationType != null ? a.locationType : '';
+      let id2 = b.locationType != null ? b.locationType : '';
+      if(id1 !== id2)  return id1.localeCompare(id2);
+
+      id1 = a.blockNumber != null ? a.blockNumber : '';
+      id2 = b.blockNumber != null ? b.blockNumber : '';
+      if(id1 !== id2)  return id1.localeCompare(id2);
+
+      id1 = a.buildingNumber != null ? a.buildingNumber : '';
+      id2 = b.buildingNumber != null ? b.buildingNumber : '';
+      if(id1 !== id2)  return id1.localeCompare(id2);
+
+      id1 = a.address != null ? a.address : '';
+      id2 = b.address != null ? b.address : '';
+      if(id1 !== id2)  return id1.localeCompare(id2);
+
+      return a.pid - b.pid;
+    });
+
     let tempLocs: Locationinfo[] = [];
     let tempLocsNot04 = this.data.locations.filter(loc => loc.locationType !== '04');
     let tempLocs04 = this.data.locations.filter(loc => loc.locationType === '04');
@@ -206,8 +226,6 @@ export class BukkenDetailComponent extends BaseComponent {
         tempLocs04.forEach(loc04 => {
           
           if(String(locNot04.pid) === loc04.ridgePid && !pids.includes(loc04.pid)) {
-            console.log('locNot04:' + locNot04.pid);
-            console.log('loc04:' + loc04.pid);
             tempLocs.push(loc04);
             pids.push(loc04.pid);
           }
@@ -216,7 +234,6 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     tempLocs04.forEach(loc04 => {
       if(!pids.includes(loc04.pid)) {
-        console.log('test2:' + loc04.pid);
         tempLocs.push(loc04);
         pids.push(loc04.pid);
       }
@@ -340,6 +357,7 @@ export class BukkenDetailComponent extends BaseComponent {
       */
       if (result && result.isSave) {
         this.data.locations.push(result.data);
+        this.sortLocation();// 20220104 Add
       }
       //20200811 E_Update
     });
