@@ -374,19 +374,16 @@
     <!--/所有地-->
 
     <!-- 20211107 S_Add -->
-    <!-- リリースまでコメント -->
-    <!--
     <div class="button-div-left" *ngIf="!copyFlg">
         <button mat-raised-button *ngIf="this.data.pid > 0 && contracts.length > 0" class="addLocation" (click)="buyInfoExport()">決済案内出力</button>
     </div>
-    -->
     <!-- 20211107 E_Add -->
     <!--契約情報-->
     <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
         <span class="min">契約一覧</span>
         <table>
             <thead class="list-header">
-                <!-- リリースまでコメント --><!--<th class="width40">出力</th>--><!-- 20211107 Add -->
+                <th class="width40">出力</th><!-- 20211107 Add -->
                 <th class="width100">契約状況</th><!-- 20200730 Add -->
                 <th class="width110">契約番号</th>
                 <th class="width100">契約書番号</th>
@@ -406,7 +403,7 @@
                 <!--<tr *ngFor="let contract of contracts">-->
                 <tr *ngFor="let contract of contracts; index as pos">
                 <!-- 20210317 E_Update -->
-                    <!-- リリースまでコメント --><!--<td><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td>--><!-- 20211107 Add -->
+                    <td><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td><!-- 20211107 Add -->
                     <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                     <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
