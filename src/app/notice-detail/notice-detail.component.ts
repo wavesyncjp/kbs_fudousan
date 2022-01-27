@@ -50,7 +50,10 @@ export class NoticeDetailComponent extends BaseComponent {
 
   ngOnInit() {
     this.authority = this.service.loginUser.authority;
-    this.enableUser = this.authority === '01';
+    // 20220118 S_update
+    // this.enableUser = this.authority === '01';
+    this.enableUser = (this.authority === '01' || this.authority === '02');
+    // 20220118 E_update
 
     const funcs = [];
     // コード
