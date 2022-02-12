@@ -1,7 +1,7 @@
 export class User {
 
     userId: number;
-    loginId: string;
+    loginId: string = "";
     password: string;
     userName: string;
     employeeCode: string;
