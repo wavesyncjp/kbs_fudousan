@@ -280,6 +280,18 @@ export class BaseComponent implements OnInit {
         }
     }
 
+    // 20220213 S_Add
+    checkMailAddress(str, propName, msg) {
+        var pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+        if (str != null && str !== '') {
+            if (!pattern.test(str)) {
+                this.errorMsgs.push(msg);
+                this.errors[propName] = true;
+            }
+        }
+    }
+    // 20220213 E_Add
+
     inList(list: string[], val = '') {
         return list != null && list.includes(val);
     }

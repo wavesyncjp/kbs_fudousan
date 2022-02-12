@@ -76,6 +76,7 @@ export class UserDetailComponent extends BaseComponent {
     this.errors = {};
 
     this.checkBlank(this.data.userName, 'userName', 'ユーザー名は必須です。');
+    this.checkMailAddress(this.data.mailAddress, 'mailAddress', 'メールアドレスが不正です。');// 20220213 Add
     
     if (this.errorMsgs.length > 0) {
       return false;

@@ -7,6 +7,7 @@ export class User {
     employeeCode: string;
     depCode: string;
     authority: string;
+    mailAddress: string;// 20220213 Add
     token: string;
     result: boolean;
     msg: string;

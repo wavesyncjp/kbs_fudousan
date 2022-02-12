@@ -28,6 +28,10 @@
         <tr>
             <th>権限</th>
             <td><app-select-component [codes]="getCode('010')" [(ngModel)]="data.authority"></app-select-component></td>
+            <!-- 20220213 S_Add -->
+            <th>メールアドレス</th>
+            <td><input type="text" [(ngModel)]="data.mailAddress" [ngClass]="{'width300': true, 'error': errors['mailAddress']}" maxlength="100"></td>
+            <!-- 20220213 E_Add -->
         </tr>
 
         <tr>
