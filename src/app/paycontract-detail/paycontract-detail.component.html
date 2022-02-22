@@ -2,7 +2,7 @@
 <div class="detail-div">
     <div class="register-div1">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button *ngIf="this.paycontract.tempLandInfoPid > 0" class="button export-button"  (click)="export(this.paycontract.tempLandInfoPid)">売買取引管理表　出力</button><!-- 20210523 Add -->
+        <button mat-raised-button *ngIf="this.paycontract.tempLandInfoPid > 0" class="button export-button" (click)="export(this.paycontract.tempLandInfoPid)">売買取引管理表　出力</button><!-- 20210523 Add -->
         <button *ngIf="authority !== '03'" mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
@@ -22,7 +22,7 @@
     -->
     <!-- 20200913 E_Delete -->
     <!--/支払情報ヘッダー-->
-    <table class="detail-tbl-min-pay">  
+    <table class="detail-tbl-min-pay">
         <tr>
             <td colspan="10"><span class="min">契約区分</span></td>
             <!-- 20200913 S_Add -->
@@ -68,8 +68,8 @@
             <td colspan="6">
                 <label>住所　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="paycontract.supplierAddress" class="width400" maxlength="100">
                 &nbsp;&nbsp;<label>電話番号　</label>&nbsp;<input type="text" [(ngModel)]="paycontract.supplierTel" class="width110" maxlength="25">
-            </td> 
-        </tr>   
+            </td>
+        </tr>
         <tr>
             <th>契約担当者</th>
             <td colspan="5">
@@ -176,14 +176,14 @@
                 <th class="width80">支払時期</th>
                 <th class="width100">支払予定日</th>
                 <th class="width80">支払確定日</th>
-                <!-- リリースまでコメント --><!--<th class="width80">支払時間</th>--><!-- 20210905 Add -->
+                <th class="width80">支払時間</th><!-- 20210905 Add -->
                 <th class="width130">支払方法</th>
                 <!--hiranomemo 契約者 追加-->
                 <th>契約者</th>
                 <th>備考</th>
             </thead>
             <tbody class="list-body">
-                <tr *ngFor="let detail of paycontract.details | slice:0:1; index as sharerPos">                        
+                <tr *ngFor="let detail of paycontract.details | slice:0:1; index as sharerPos">
                     <td>
                         <button mat-raised-button (click)="addPayContractDetail()" style="background-color: #FFC000; color: white;">追加</button>
                     </td>
@@ -240,9 +240,9 @@
                         </div>
                     </td>
                     <!-- 20210905 S_Add -->
-                    <!-- リリースまでコメント --><!--<td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>-->
+                    <td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>
                     <!-- 20210905 E_Add -->
-                    <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
+                    <td><app-select-component class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
                     <!--hiranomemo contractor 追加-->
                     <td>
                         <!--<input class="width300" type="text" [(ngModel)]="detail.contractor">-->
@@ -316,7 +316,7 @@
                         </div>
                     </td>
                     <!-- 20210905 S_Add -->
-                    <!-- リリースまでコメント --><!--<td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>-->
+                    <td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>
                     <!-- 20210905 E_Add -->
                     <td><app-select-component class="width150" [codes]="getCode('015')" [(ngModel)]="detail.paymentMethod"></app-select-component></td>
                     <!--hiranomemo contractor 追加-->

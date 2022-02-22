@@ -116,6 +116,9 @@ textarea {
 .min-width160 { 
     min-width: 160px !important;
 }
+.h100 {
+    height: 100px !important;
+}
 .h200 {
     height: 200px !important;
 }

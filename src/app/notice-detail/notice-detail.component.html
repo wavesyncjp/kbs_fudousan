@@ -30,6 +30,14 @@
                 <textarea [ngClass]="{'width600': true, 'error': errors['infoDetail']}" rows="18" [disabled]="data.detailFlg == '0'" [(ngModel)]="data.infoDetail" maxlength="1000"></textarea>
             </td>
         </tr>
+        <!-- 20220223 S_Add -->
+        <tr>
+            <th>回答</th>
+            <td>
+                <textarea [ngClass]="{'width600': true, 'h100': true}" rows="18" [(ngModel)]="data.answer" maxlength="1000"></textarea>
+            </td>
+        </tr>
+        <!-- 20220223 E_Add -->
         <tr>
             <th>添付ファイル</th>
             <td>

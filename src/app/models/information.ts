@@ -9,10 +9,11 @@ export class Information {
     detailFlg = '1';
     finishFlg = '0';
     infoDetail = '';
+    answer = '';// 20220223 Add
     attachFileName = '';
     attachFilePath = '';
     // 20211227 S_Add
-    approvalFlg = '';
+    approvalFlg = '0';
     approvalAttachFileName = '';
     approvalAttachFilePath = '';
     // 20211227 E_Add
