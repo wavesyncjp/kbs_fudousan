@@ -53,7 +53,7 @@ export class NoticeListComponent extends BaseComponent {
 
     const funcs = [];
     // コード
-    funcs.push(this.service.getCodes(['005', '006', '032']));
+    funcs.push(this.service.getCodes(['005', '006', '038']));
     Promise.all(funcs).then(values => {
       const codes = values[0] as Code[];
       if (codes !== null && codes.length > 0) {

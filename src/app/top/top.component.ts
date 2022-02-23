@@ -111,7 +111,7 @@ export class TopComponent  extends BaseComponent {
     this.enableUser = (this.authority === '01' || this.authority === '02');
 
     // コード
-    funcs.push(this.service.getCodes(['032']));
+    funcs.push(this.service.getCodes(['038']));
     Promise.all(funcs).then(values => {
       const codes = values[2] as Code[];
       if (codes !== null && codes.length > 0) {
