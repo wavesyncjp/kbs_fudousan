@@ -165,18 +165,19 @@ export class BukkenDetailComponent extends BaseComponent {
         const locFront = new Locationinfo(loc);
         locs.push(locFront);
       });
-      // 20220103 S_Update
-      // this.sortLocation(locs);
+      // 20220303 S_Update
+      this.sortLocation(locs);
+      /*
       this.data.locations = locs;
       this.sortLocation();
-      // 20220103 E_Update
+      */
+      // 20220303 E_Update
     } else {
       this.data.locations = [];
     }
   }
 
-  // 20220103 S_Update
-  /*
+  // 20220303 S_Update
   sortLocation(locs : Locationinfo[]) {
     locs.sort((a,b) => {
       let id1 = a.pid;
@@ -194,7 +195,7 @@ export class BukkenDetailComponent extends BaseComponent {
       return id1 - id2;
     });
   }
-  */
+  /*
   sortLocation() {
     this.data.locations.sort((a,b) => {
       let id1 = a.locationType != null ? a.locationType : '';
@@ -240,7 +241,8 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     this.data.locations = tempLocs;
   }
-  // 20220103 E_Update
+  */
+  // 20220303 E_Update
 
   /**
    * 所有地追加
@@ -258,10 +260,10 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {
         this.data.locations.push(result.data);
-        // 20220103 S_Update
-        // this.sortLocation(this.data.locations);
-        this.sortLocation();
-        // 20220103 E_Update
+        // 20220303 S_Update
+        this.sortLocation(this.data.locations);
+        // this.sortLocation();
+        // 20220303 E_Update
       }
     });
 
@@ -357,7 +359,10 @@ export class BukkenDetailComponent extends BaseComponent {
       */
       if (result && result.isSave) {
         this.data.locations.push(result.data);
-        this.sortLocation();// 20220104 Add
+        // 20220303 S_Update
+        this.sortLocation(this.data.locations);
+        // this.sortLocation();
+        // 20220303 E_Update
       }
       //20200811 E_Update
     });
