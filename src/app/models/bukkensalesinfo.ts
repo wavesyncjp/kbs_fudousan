@@ -5,6 +5,7 @@ export class Bukkensalesinfo {
 
     pid: number;
     tempLandInfoPid: number;
+    displayOrder: number = 0;// 20220308 Add
     salesType: string;
     salesName: string;
     salesLocation: string;

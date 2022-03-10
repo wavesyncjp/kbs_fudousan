@@ -193,7 +193,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     sale.tempLandInfoPid = this.data.land.pid;
     const dialogRef = this.dialog.open(BukkenplaninfoDetailComponent, {
       width: '98%',
-      height: '620px',
+      height: '650px',// 20220308 Update
       data: sale
     });
     // 再検索
@@ -216,7 +216,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
 
     const dialogRef = this.dialog.open(BukkenplaninfoDetailComponent, {
       width: '98%',
-      height: '620px',
+      height: '650px',// 20220308 Update
       data: sale
     });
     // 再検索

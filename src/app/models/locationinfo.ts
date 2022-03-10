@@ -8,6 +8,7 @@ import { LocationAttach } from './mapattach';// 20210311 Add
 export class Locationinfo {
     pid: number;
     tempLandInfoPid: number;
+    displayOrder: number = 0;// 20220308 Add
     acquisitionDate: string;// 20200913 Add
     ridgePid: string;
     inheritanceNotyet = '0';

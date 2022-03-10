@@ -253,7 +253,7 @@ export class BukkenDetailComponent extends BaseComponent {
     loc.sharers = [];
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
-      height: '600px',
+      height: '650px',// 20220308 Update
       data: loc
     });
     // 再検索
@@ -276,7 +276,7 @@ export class BukkenDetailComponent extends BaseComponent {
   showLocation(loc: Locationinfo, pos: number) {
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
-      height: '550px',
+      height: '650px',// 20220308 Update
       data:  <Locationinfo>Util.deepCopy(loc, 'Locationinfo')
     });
     // 再検索
