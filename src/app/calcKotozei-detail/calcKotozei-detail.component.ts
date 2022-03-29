@@ -409,4 +409,49 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       }
     });
   }
+  // 20220330 S_Add
+  /**
+   * 軽減有無の変更チェック
+   */
+  isChangeReducedChk(): boolean {
+    let ret = false;
+    this.locations.forEach(location => {
+      const loc = new Locationinfo(location as Locationinfo);
+      if(loc.reducedChk !== this.reducedChk) ret = true;
+    });
+    return ret;
+  }
+  /**
+   * 値変更イベント（すべて変更）
+   */
+  changeValueAll() {
+    // 軽減有無に変更がない場合、対象外
+    if(!this.isChangeReducedChk()) return;
+
+    // 軽減有無の値変更処理
+    this.changeValue('reducedChk');
+
+    // 固定資産税と都市計画税を再計算
+    let locs = [];
+    this.locations.forEach(location => {
+      let loc = new Locationinfo(location as Locationinfo);
+      loc.valuation = Converter.stringToNumber(loc.valuationMap);
+      // 評価額に指定がある場合
+      if(loc.valuation != null && loc.valuation > 0) {
+        loc.propertyTaxMap = null;    // 固定資産税を初期化
+        loc.cityPlanningTaxMap = null;// 都市計画税を初期化
+        this.changeValueLoc(loc, 'valuation');
+      }
+      locs.push(loc);
+    });
+    this.locations = locs;
+
+    // 固都税清算金（土地）と固都税清算金（建物）を再計算
+    if(this.sharingStartDayBuyerMap != null && this.sharingEndDayBuyerMap != null) {
+      this.contract.fixedLandTaxMap = null;// 固都税清算金（土地）を初期化
+      this.contract.fixedBuildingTaxMap = null;// 固都税清算金（建物）を初期化
+      this.changeValue('');
+    }
+  }
+  // 20220330 E_Add
 }

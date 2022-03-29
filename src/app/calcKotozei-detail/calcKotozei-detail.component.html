@@ -4,7 +4,10 @@
         <tr>
             <td><span class="min">固都税清算金　計算</span></td>
         </tr>
-        <app-select-component [codes]="getCode('036')" [cusClass]="'width200'" [(ngModel)]="reducedChk" (ngModelChange)="changeValue('reducedChk')"></app-select-component>
+        <!-- 20220330 S_Update -->
+        <!--<app-select-component [codes]="getCode('036')" [cusClass]="'width200'" [(ngModel)]="reducedChk" (ngModelChange)="changeValue('reducedChk')"></app-select-component>-->
+        <app-select-component [codes]="getCode('036')" [cusClass]="'width200'" [(ngModel)]="reducedChk" (ngModelChange)="changeValueAll()"></app-select-component>
+        <!-- 20220330 E_Update -->
         <tr>
             <td>
                 <div class="contact-div">
