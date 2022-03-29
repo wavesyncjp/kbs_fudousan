@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MatCheckbox,MatTabGroup,MatRadioChange} from '@angular/material';
+import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MatCheckbox, MatTabGroup, MatRadioChange } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -165,19 +165,20 @@ export class BukkenDetailComponent extends BaseComponent {
         const locFront = new Locationinfo(loc);
         locs.push(locFront);
       });
-      // 20220303 S_Update
-      this.sortLocation(locs);
+      // 20220329 S_Update
       /*
+      this.sortLocation(locs);
+      */
       this.data.locations = locs;
       this.sortLocation();
-      */
-      // 20220303 E_Update
+      // 20220329 E_Update
     } else {
       this.data.locations = [];
     }
   }
 
-  // 20220303 S_Update
+  // 20220329 S_Update
+  /*
   sortLocation(locs : Locationinfo[]) {
     locs.sort((a,b) => {
       let id1 = a.pid;
@@ -195,24 +196,29 @@ export class BukkenDetailComponent extends BaseComponent {
       return id1 - id2;
     });
   }
-  /*
+  */
   sortLocation() {
     this.data.locations.sort((a,b) => {
+      /*
       let id1 = a.locationType != null ? a.locationType : '';
       let id2 = b.locationType != null ? b.locationType : '';
-      if(id1 !== id2)  return id1.localeCompare(id2);
+      if(id1 !== id2) return id1.localeCompare(id2);
 
       id1 = a.blockNumber != null ? a.blockNumber : '';
       id2 = b.blockNumber != null ? b.blockNumber : '';
-      if(id1 !== id2)  return id1.localeCompare(id2);
+      if(id1 !== id2) return id1.localeCompare(id2);
 
       id1 = a.buildingNumber != null ? a.buildingNumber : '';
       id2 = b.buildingNumber != null ? b.buildingNumber : '';
-      if(id1 !== id2)  return id1.localeCompare(id2);
+      if(id1 !== id2) return id1.localeCompare(id2);
 
       id1 = a.address != null ? a.address : '';
       id2 = b.address != null ? b.address : '';
-      if(id1 !== id2)  return id1.localeCompare(id2);
+      if(id1 !== id2) return id1.localeCompare(id2);
+      */
+      let id1 = a.displayOrder != null ? a.displayOrder : 0;
+      let id2 = b.displayOrder != null ? b.displayOrder : 0;
+      if(id1 !== id2) return id1 - id2;
 
       return a.pid - b.pid;
     });
@@ -241,8 +247,7 @@ export class BukkenDetailComponent extends BaseComponent {
     });
     this.data.locations = tempLocs;
   }
-  */
-  // 20220303 E_Update
+  // 20220329 E_Update
 
   /**
    * 所有地追加
@@ -260,10 +265,10 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {
         this.data.locations.push(result.data);
-        // 20220303 S_Update
-        this.sortLocation(this.data.locations);
-        // this.sortLocation();
-        // 20220303 E_Update
+        // 20220329 S_Update
+        // this.sortLocation(this.data.locations);
+        this.sortLocation();
+        // 20220329 E_Update
       }
     });
 
@@ -301,6 +306,9 @@ export class BukkenDetailComponent extends BaseComponent {
           } else if (result.isDelete) {
             this.data.locations.splice(pos, 1);
           }
+          // 20220329 S_Add
+          this.sortLocation();
+          // 20220329 E_Add
         }
         // キャンセルで戻っても謄本添付ファイルは最新を設定
         else {
@@ -359,10 +367,10 @@ export class BukkenDetailComponent extends BaseComponent {
       */
       if (result && result.isSave) {
         this.data.locations.push(result.data);
-        // 20220303 S_Update
-        this.sortLocation(this.data.locations);
-        // this.sortLocation();
-        // 20220303 E_Update
+        // 20220329 S_Update
+        // this.sortLocation(this.data.locations);
+        this.sortLocation();
+        // 20220329 E_Update
       }
       //20200811 E_Update
     });

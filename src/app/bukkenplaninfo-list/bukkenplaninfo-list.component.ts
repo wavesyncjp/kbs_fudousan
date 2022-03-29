@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MAT_DATE_FORMATS, MatCheckbox,MatTabGroup,MatRadioChange} from '@angular/material';
+import { Component } from '@angular/core';
+import { DateAdapter, MAT_DATE_LOCALE, MatDialog } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,7 +9,6 @@ import { Templandinfo, LandPlanInfo } from '../models/templandinfo';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Code } from '../models/bukken';
-import { MapAttach, AttachFile } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Bukkenplaninfo } from '../models/bukkenplaninfo';
 import { BukkenplaninfoDetailComponent} from '../bukkenplaninfo-detail/bukkenplaninfo-detail.component';
@@ -117,6 +116,9 @@ export class BukkenplaninfoListComponent extends BaseComponent {
         this.data.sales.forEach(me => {
           this.loadSaleLocaction(me);
         });
+        // 20220329 S_Add
+        this.sortSale();
+        // 20220329 E_Add
 
       });
     }
@@ -203,6 +205,9 @@ export class BukkenplaninfoListComponent extends BaseComponent {
         if(result.isSave) {
           this.loadSaleLocaction(result.data); //20201225 S_Add
           this.data.sales.push(result.data);
+          // 20220329 S_Add
+          this.sortSale();
+          // 20220329 E_Add
         }
       }
     });
@@ -232,16 +237,29 @@ export class BukkenplaninfoListComponent extends BaseComponent {
             return false;
           }
         });
-        
+        // 20220329 S_Update
         //保存
+        /*
         if(result.isSave) {
           this.data.sales[position] = new Bukkensalesinfo(result.data);
-        } 
-
+        }
         //削除
         if(result.isDelete) {
           this.data.sales.splice(position, 1);
         }
+        */
+        if (result.isSave || result.isDelete) {
+          //保存
+          if(result.isSave) {
+            this.data.sales[position] = new Bukkensalesinfo(result.data);
+          }
+          //削除
+          else if(result.isDelete) {
+            this.data.sales.splice(position, 1);
+          }
+          this.sortSale();
+        }
+        // 20220329 E_Update
       }
     });
   }
@@ -331,4 +349,16 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   backToList() {
     this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
   }
+
+  // 20220329 S_Add
+  sortSale() {
+    this.data.sales.sort((a,b) => {
+      let id1 = a.displayOrder != null ? a.displayOrder : 0;
+      let id2 = b.displayOrder != null ? b.displayOrder : 0;
+      if(id1 !== id2) return id1 - id2;
+
+      return a.pid - b.pid;
+    });
+  }
+  // 20220329 E_Add
 }
