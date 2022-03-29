@@ -10,6 +10,7 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FileComponentComponent } from '../uicomponent/file-component/file-component.component';
+import { InfoAttach } from '../models/mapattach';// 20220329 Add
 
 @Component({
   selector: 'app-notice-detail',
@@ -164,11 +165,46 @@ export class NoticeDetailComponent extends BaseComponent {
     this.dialogRef.close();
   }
 
+  // 20220329 S_Delete
   /**
    * ファイルアップロード
    * @param event ：アップロード完了
    */
+  /*
   uploaded(event) {
     this.dialogRef.close(true);
   }
+  */
+
+  // 20220329 E_Delete
+  // 20220329 S_Add
+  /**
+   * ファイルアップロード
+   * @param event ：ファイル
+   */
+   uploaded(event) {
+    if (this.data.attachFiles === null) {
+      this.data.attachFiles = [];
+    }
+    const attachFile: InfoAttach = JSON.parse(JSON.stringify(event));
+    this.data.attachFiles.push(attachFile);
+  }
+
+  /**
+   * ファイル削除
+   * @param map :　削除したいファイル
+   */
+  deleteFile(map: InfoAttach) {
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteInfoAttachFile(map.pid).then(res => {
+          this.data.attachFiles.splice(this.data.attachFiles.indexOf(map), 1);
+        });
+      }
+    });
+  }
+  // 20220329 E_Add
 }

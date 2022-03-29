@@ -60,12 +60,14 @@
             <th mat-header-cell *matHeaderCellDef> 件名 </th>
             <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.infoSubject}} </td>
         </ng-container>
-
+        <!-- 20220329 S_Delete -->
+        <!--
         <ng-container matColumnDef="attachFileName">
             <th mat-header-cell *matHeaderCellDef> 添付ファイル </th>
             <td mat-cell *matCellDef="let element" class="bukkenlist_width"> <a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
         </ng-container>
-
+        -->
+        <!-- 20220329 E_Delete -->
         <ng-container matColumnDef="approvalAttachFileName">
             <th mat-header-cell *matHeaderCellDef> 添付ファイル（承認済） </th>
             <td mat-cell *matCellDef="let element" class="bukkenlist_width"> <a [attr.href]="element.approvalAttachFilePath + element.approvalAttachFileName"  target="_blank" class="action-link">{{element.approvalAttachFileName}}</a></td>

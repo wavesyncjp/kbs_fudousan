@@ -34,7 +34,7 @@ export class NoticeListComponent extends BaseComponent {
     approvalFlg: ''
   };
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName', 'approvalAttachFileName', 'finishFlg', 'delete', 'detail'];
+  displayedColumns: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'approvalAttachFileName', 'finishFlg', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Information>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

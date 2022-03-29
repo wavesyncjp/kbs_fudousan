@@ -12,3 +12,12 @@
 .detail-tbl-info > tr > th.sharer{
     background-color: rgb(255, 192, 203);
 }
+
+.delete-btn{
+    background-color: red;
+    margin-left: 20px;
+    color: white;
+    height: 34px;
+    width: 80px;
+    font-size: 1.0em;
+}

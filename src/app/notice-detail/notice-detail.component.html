@@ -40,16 +40,31 @@
         <!-- 20220223 E_Add -->
         <tr>
             <th>添付ファイル</th>
+            <!-- 20220329 S_Update -->
+            <!--
             <td>
                 <a *ngIf="hasFile()" [attr.href]="data.attachFilePath + data.attachFileName"  target="_blank" class="action-link">{{data.attachFileName}}</a>
                 <br *ngIf="hasFile()">
-                <!--<app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file>-->
+                <app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file>
                 <app-file [id]="'fUpload'" notButton="true" (uploaded)="uploaded($event)"></app-file>
             </td>
+            -->
+            <td>
+                <label *ngIf="!(data.pid > 0)" style="color:red">※お知らせを登録後に添付可能となります。</label>
+                <app-file infoPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="uploaded($event)" [immediately]="true"></app-file> 
+                
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let map of data.attachFiles">
+                        <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
+                        <td><button mat-flat-button class="delete-btn" (click)="deleteFile(map)">削除</button></td>
+                    </tr>
+                </table>
+            </td>
+            <!-- 20220329 E_Update -->
         <tr>
             <th class="sharer">承認フラグ</th>
             <td>
-                <app-select-component [codes]="getCode('038')" [(ngModel)]="data.approvalFlg" [isDisabled]="!enableUser"></app-select-component>
+                <app-select-component [codes]="getCode('038')" [(ngModel)]="data.approvalFlg" [isDisabled]="!enableUser" [noBlank]="true"></app-select-component>
             </td>
         </tr>
         <tr>

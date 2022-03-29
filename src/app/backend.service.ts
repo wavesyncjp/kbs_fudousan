@@ -433,6 +433,21 @@ export class BackendService {
   }
   // 20210311 E_Add
 
+  // 20220329 S_Add
+  /**
+   * インフォメーション添付ファイルアップロード
+   * @param infoPid ：インフォメーションPid
+   * @param file ；ファイル
+   */
+   uploadInfoAttachFile(infoPid: number, file: File): Promise<object> {
+    const uploadApi = 'infoAttachFileUpload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('infoPid', infoPid.toString());
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+  // 20220329 E_Add
+
   /**
    * インフォメーションファイルアップロード
    * @param infoPid ：インフォメーションPid
@@ -494,6 +509,19 @@ export class BackendService {
     return req.toPromise();
   }
   // 20210311 E_Add
+
+  // 20220329 S_Add
+  /**
+   * 掲示板添付ファイル削除
+   * @param id : 掲示板添付ファイルID
+   */
+   deleteInfoAttachFile(id: number): Promise<object> {
+    const deleteFileApi = 'deleteInfoAttachFile.php';
+    const body = { pid: id };
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
+  }
+  // 20220329 E_Add
 
   /**
    *  インフォメーション情報検索

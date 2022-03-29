@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
+import { InfoAttach } from './mapattach';// 20220329 Add
 
 export class Information {
     pid: number;
@@ -17,13 +18,20 @@ export class Information {
     approvalAttachFileName = '';
     approvalAttachFilePath = '';
     // 20211227 E_Add
+
+    attachFiles: InfoAttach[];// 20220329 Add
+
     createUserId: number;
     updateUserId: number;
     createDate: Date;
 
     infoDateMap: Date = null;
+    // 20220329 S_Delete
+    /*
   department: any;
   result: string;
+    */
+    // 20220329 E_Delete
 
     public constructor(init?: Partial<Information>) {
         Object.assign(this, init);
@@ -46,5 +54,4 @@ export class Information {
             this.createUserId = userId;
         }
     }
-
 }

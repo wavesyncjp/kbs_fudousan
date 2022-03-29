@@ -26,3 +26,11 @@ export class LocationAttach {
     attachFileName = '';
     attachFilePath = '';
 }
+// 20220329 S_Add
+export class InfoAttach {
+    pid: number;
+    infoPid: number;
+    attachFileName = '';
+    attachFilePath = '';
+}
+// 20220329 E_Add
