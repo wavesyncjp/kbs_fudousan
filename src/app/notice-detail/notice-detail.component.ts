@@ -126,7 +126,7 @@ export class NoticeDetailComponent extends BaseComponent {
 
     // 登録
     const dlgObj = new Dialog({title: '確認', message: '登録しますが、よろしいですか？'});
-    const dlg = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlgObj});
+    const dlg = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlgObj});
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
@@ -138,7 +138,7 @@ export class NoticeDetailComponent extends BaseComponent {
         }
         this.data.infoType = 1;// 掲示板タイプ<-1:お知らせ
         this.service.saveInfo(this.data).then(res => {
-          // 20211227 S_Update
+          // 20220330 S_Update
           /*
           if (this.fUpload != null && !this.fUpload.hasFile()) {
             this.dialogRef.close(true);
@@ -146,6 +146,7 @@ export class NoticeDetailComponent extends BaseComponent {
             this.fUpload.uploadInfoFile(res.pid);
           }
           */
+          /*
           let fUpload = this.fFiles.filter(me => me.id === 'fUpload')[0];
           let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
 
@@ -155,7 +156,15 @@ export class NoticeDetailComponent extends BaseComponent {
             if (fUpload != null && fUpload.hasFile()) fUpload.uploadInfoFile(res.pid);
             if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
           }
-          // 20211227 E_Update
+          */
+          let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
+
+          if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
+            this.dialogRef.close(true);
+          } else {
+            if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
+          }
+          // 20220330 E_Update
         });
       }
     });
@@ -192,11 +201,11 @@ export class NoticeDetailComponent extends BaseComponent {
 
   /**
    * ファイル削除
-   * @param map :　削除したいファイル
+   * @param map : 削除したいファイル
    */
   deleteFile(map: InfoAttach) {
     const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
