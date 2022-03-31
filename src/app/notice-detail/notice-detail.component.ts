@@ -174,16 +174,13 @@ export class NoticeDetailComponent extends BaseComponent {
     this.dialogRef.close();
   }
 
-  // 20220329 S_Delete
   /**
    * ファイルアップロード
    * @param event ：アップロード完了
    */
-  /*
   uploaded(event) {
     this.dialogRef.close(true);
   }
-  */
 
   // 20220329 E_Delete
   // 20220329 S_Add
@@ -191,7 +188,7 @@ export class NoticeDetailComponent extends BaseComponent {
    * ファイルアップロード
    * @param event ：ファイル
    */
-   uploaded(event) {
+   uploadedInfoAttach(event) {
     if (this.data.attachFiles === null) {
       this.data.attachFiles = [];
     }
@@ -203,7 +200,7 @@ export class NoticeDetailComponent extends BaseComponent {
    * ファイル削除
    * @param map : 削除したいファイル
    */
-  deleteFile(map: InfoAttach) {
+  deleteInfoAttachFile(map: InfoAttach) {
     const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 

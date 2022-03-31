@@ -51,12 +51,12 @@
             -->
             <td>
                 <label *ngIf="!(data.pid > 0)" style="color:red">※お知らせを登録後に添付可能となります。</label>
-                <app-file infoPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="uploaded($event)" [immediately]="true"></app-file> 
+                <app-file infoPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="uploadedInfoAttach($event)" [immediately]="true"></app-file> 
                 
                 <table style="margin-left: 5px;">
                     <tr *ngFor="let map of data.attachFiles">
                         <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
-                        <td><button mat-flat-button class="delete-btn" (click)="deleteFile(map)">削除</button></td>
+                        <td><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td>
                     </tr>
                 </table>
             </td>
