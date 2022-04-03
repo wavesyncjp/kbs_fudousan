@@ -23,7 +23,8 @@
         </div>
         <div class="more" *ngIf="hasInfo"><a (click)="navigate('infos')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
     </div>
-    <!-- 20211227 S_Update --><!-- リリースまで反映しない -->
+    <!-- 20211227 S_Update -->
+    <!--
     <div class="chart-top">
         <label>年月</label>
         <input type="text" [matDatepicker]="monthView" class="width150">
@@ -33,7 +34,7 @@
 
         <mat-divider></mat-divider>
     </div>
-    <!--
+    -->
     <br>
     <div class="bulletin-notice" *ngIf="enableUser">
         <label>お知らせ</label>
@@ -65,7 +66,6 @@
         </div>
         <div class="more" *ngIf="hasNotice"><a (click)="navigate('notices')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
     </div>
-    -->
     <!-- 20211227 E_Update -->
 
     <!--

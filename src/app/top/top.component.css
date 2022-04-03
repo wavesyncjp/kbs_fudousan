@@ -3,9 +3,9 @@
     height: 100%;
     display: grid;
     align-items:center;
-    /* 20211227 S_Update *//* リリースまで反映しない */
-    grid-template-rows: 150px 60px auto;
-    /*grid-template-rows: 150px 20px 150px 60px auto;*/
+    /* 20211227 S_Update */
+    /*grid-template-rows: 150px 60px auto;*/
+    grid-template-rows: 150px 20px 150px 60px auto;
     /* 20211227 E_Update */
     grid-template-columns: 50% 50%;
 }
