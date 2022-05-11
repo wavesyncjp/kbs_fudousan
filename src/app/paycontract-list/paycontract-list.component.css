@@ -39,7 +39,7 @@ table {
     width: 98%;
     margin: 10px;
 }
-.infoDetail_width{    
+.infoDetail_width{
     /*width: 250px;*/
     height:35px;
     /*max-width: 100px;*/
@@ -47,7 +47,6 @@ table {
     overflow: hidden;
     text-overflow: ellipsis;
     /*padding-bottom: 13px;*/
-
 }
 .picker-div_1{
     width: 150px;
@@ -57,7 +56,6 @@ table {
     width: 120px;
     float: left;
 }
-
 .ct-list {
     height: 42px;
     display: flex;
@@ -100,8 +98,15 @@ table {
     border-radius: 2px;
     margin-left: 3px;
 }
-
 .payment-type optgroup {
     color: black;
 }
 /* 20210629 E_Add */
+/* 20220511 S_Add */
+.costExport_btn{
+    background-color: rgb(255, 192, 0);
+    color: whitesmoke;
+    width: 140px;
+    margin-left:5px;
+}
+/* 20220511 E_Add */

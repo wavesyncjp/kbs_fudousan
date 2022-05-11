@@ -1194,4 +1194,15 @@ export class BackendService {
     return res.toPromise();
   }
   // 20211020 E_Add
+  // 20220511 S_Add
+  /**
+   * 支払依頼書出力
+   * @param ids 支払管理情報Id
+   */
+  exportCostRequest(ids: number[]): Promise<Blob> {
+    const downloadUrl = 'costrequestexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {ids: ids}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  // 20220511 E_Add
 }

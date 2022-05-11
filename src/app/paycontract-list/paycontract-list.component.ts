@@ -1,5 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
-import { PayContractDetailComponent } from '../paycontract-detail/paycontract-detail.component';
+import { Component, ViewChild } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -56,12 +55,16 @@ export class PayContractListComponent extends BaseComponent {
   search = '0';
   searched = false;
   selectedRowIndex = -1;
+  // 20220511 S_Update
   //20200730 S_Update
+  /*displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail', 'csvCheck'];*/
+  /* リリースまで反映しない */
   /*
-  displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail', 'csvCheck'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'copy', 'csvCheck', 'costCheck'];
   */
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'copy', 'csvCheck'];
   //20200730 E_Update
+  // 20220511 E_Update
   dataSource = new MatTableDataSource<Paycontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -195,7 +198,7 @@ export class PayContractListComponent extends BaseComponent {
     lst.forEach(data => {
       data['details'] = res.filter(me => me.payContractPid == data.pid)
                            .map(me => {return {paymentCode: me.paymentCode, contractDay: me.contractDay};});
-    });    
+    });
     return lst;
   }
 
@@ -254,7 +257,7 @@ export class PayContractListComponent extends BaseComponent {
         this.service.exportCsv(lst, result['csvCode']).then(ret => {
           Util.stringToCSV(ret['data'], result['csvName']);
           this.spinner.hide();
-        });    
+        });
       }
     });
   }
@@ -264,4 +267,39 @@ export class PayContractListComponent extends BaseComponent {
     this.router.navigate(['/paydetail'], {queryParams: {bukkenid: row.tempLandInfoPid}});
   }
   // 20210311 E_Add
+  // 20220511 S_Add
+  /**
+   * 支払依頼書出力
+   */
+  /* リリースまでコメント */
+  /*
+  costExport() {
+
+    let lst: number[] = [];
+    this.dataSource.data.forEach(me => {
+      if(me['details'] != null) {
+        me['details'].forEach(ct => {
+          if(ct['select']) {
+            lst.push(Number(ct['pid']));
+          }
+        });
+      }
+    });
+    if(lst.length === 0) return;
+
+    const dlg = new Dialog({title: '確認', message: '支払依頼書を出力します。よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportBuyInfo(lst).then(data => {
+          this.service.writeToFile(data, "諸経費等");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  */
+  // 20220511 E_Add
 }

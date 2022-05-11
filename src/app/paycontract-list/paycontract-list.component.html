@@ -4,178 +4,182 @@
             <mat-panel-title>検索条件</mat-panel-title>
         </mat-expansion-panel-header>
         <div class="search-div">
-        <table class="search-tbl">
-            <tr>
-                <th>物件番号</th>
-                <td colspan="2">
-                    <input type="text" class="width100" [(ngModel)]="cond.bukkenNo" maxlength="10">
-                    <!-- 20200913 S_Add -->
-                    &nbsp;&nbsp;&nbsp;&nbsp;<label>契約物件番号</label>
-                    &nbsp;<input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width100" maxlength="20">
-                    <!-- 20200913 E_Add -->
-                </td>
+            <table class="search-tbl">
+                <tr>
+                    <th>物件番号</th>
+                    <td colspan="2">
+                        <input type="text" class="width100" [(ngModel)]="cond.bukkenNo" maxlength="10">
+                        <!-- 20200913 S_Add -->
+                        &nbsp;&nbsp;&nbsp;&nbsp;<label>契約物件番号</label>
+                        &nbsp;<input type="text" [(ngModel)]="cond.contractBukkenNo_Like" class="width100" maxlength="20">
+                        <!-- 20200913 E_Add -->
+                    </td>
 
-                <th>物件名</th>
-                <td colspan="2">
-                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
-                </td>
-            
-                <th>支払種別</th>
-                <td colspan="2">
-                    <!-- 20210211 S_Update -->
-                    <!--<app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="cond.paymentCode"></app-select-component>-->
-                    <!--<app-select-component  class="width158" [codes]="paymentTypes" [(ngModel)]="cond.paymentCode"></app-select-component>-->
-                    <!-- 20210211 E_Update -->
-                    <!-- 20210629 S_Add -->
-                    <select [(ngModel)]="cond.paymentCode" class="payment-type">
-                        <option value=""></option>
-                        <ng-container *ngFor="let tp of payTypes">
-                            <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
-                            <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option>
-                        </ng-container>
-                    </select>
-                    <!-- 20210629 E_Add -->
-                </td>
-            </tr>    
-            <tr>
-                <th>取引先</th>
-                <td colspan="2">
-                    <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName" maxlength="100">
-                </td>
-                <!--hiranomemo 契約予定日はtblPayContractのcontractDayカラム-->
-                
-                <th>契約予定日</th>
-                <td class="picker-div_1">
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="contractDayMap_From" [(ngModel)]="cond.contractDayMap_From" class="width100" placeholder="開始日">
-                <mat-datepicker-toggle matSuffix [for]="contractDayMap_From" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #contractDayMap_From></mat-datepicker>
-                </div>&nbsp;&nbsp;～
-                </td>
-                <td>
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="contractDayMap_To" [(ngModel)]="cond.contractDayMap_To" class="width100" placeholder="終了日">
-                <mat-datepicker-toggle matSuffix [for]="contractDayMap_To" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #contractDayMap_To></mat-datepicker>
+                    <th>物件名</th>
+                    <td colspan="2">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.bukkenName" maxlength="100">
+                    </td>
+
+                    <th>支払種別</th>
+                    <td colspan="2">
+                        <!-- 20210211 S_Update -->
+                        <!--<app-select-component  class="width158" [codes]="getPaymentTypes()" [(ngModel)]="cond.paymentCode"></app-select-component>-->
+                        <!--<app-select-component  class="width158" [codes]="paymentTypes" [(ngModel)]="cond.paymentCode"></app-select-component>-->
+                        <!-- 20210211 E_Update -->
+                        <!-- 20210629 S_Add -->
+                        <select [(ngModel)]="cond.paymentCode" class="payment-type">
+                            <option value=""></option>
+                            <ng-container *ngFor="let tp of payTypes">
+                                <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                                <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option>
+                            </ng-container>
+                        </select>
+                        <!-- 20210629 E_Add -->
+                    </td>
+                </tr>
+                <tr>
+                    <th>取引先</th>
+                    <td colspan="2">
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName" maxlength="100">
+                    </td>
+                    <!--hiranomemo 契約予定日はtblPayContractのcontractDayカラム-->
+
+                    <th>契約予定日</th>
+                    <td class="picker-div_1">
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractDayMap_From" [(ngModel)]="cond.contractDayMap_From" class="width100" placeholder="開始日">
+                            <mat-datepicker-toggle matSuffix [for]="contractDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractDayMap_From></mat-datepicker>
+                        </div>&nbsp;&nbsp;～
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractDayMap_To" [(ngModel)]="cond.contractDayMap_To" class="width100" placeholder="終了日">
+                            <mat-datepicker-toggle matSuffix [for]="contractDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractDayMap_To></mat-datepicker>
+                        </div>
+                    </td>
+
+                    <th>契約確定日</th>
+                    <td class="picker-div_1">
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractFixDayMap_From" [(ngModel)]="cond.contractFixDayMap_From" class="width100"  placeholder="開始日">
+                            <mat-datepicker-toggle matSuffix [for]="contractFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractFixDayMap_From></mat-datepicker>
+                        </div>&nbsp;&nbsp;～
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="contractFixDayMap_To" [(ngModel)]="cond.contractFixDayMap_To" class="width100" placeholder="終了日">
+                            <mat-datepicker-toggle matSuffix [for]="contractFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #contractFixDayMap_To></mat-datepicker>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <!--hiranomemo 支払予定日はtblPayContractDetailのcontractDayカラム-->
+                    <th>支払予定日</th>
+                    <td class="picker-div_1">
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="payDayMap_From" [(ngModel)]="cond.payDayMap_From" class="width100" placeholder="開始日">
+                            <mat-datepicker-toggle matSuffix [for]="payDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #payDayMap_From></mat-datepicker>
+                        </div>&nbsp;&nbsp;～
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="payDayMap_To" [(ngModel)]="cond.payDayMap_To" class="width100" placeholder="終了日">
+                            <mat-datepicker-toggle matSuffix [for]="payDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #payDayMap_To></mat-datepicker>
+                        </div>
+                    </td>
+
+                    <!-- 20200913 S_Add -->
+                    <th>支払確定日</th>
+                    <td class="picker-div_1">
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="payFixDayMap_From" [(ngModel)]="cond.payFixDayMap_From" class="width100" placeholder="開始日">
+                            <mat-datepicker-toggle matSuffix [for]="payFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #payFixDayMap_From></mat-datepicker>
+                        </div>&nbsp;&nbsp;～
+                    </td>
+                    <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="payFixDayMap_To" [(ngModel)]="cond.payFixDayMap_To" class="width100" placeholder="終了日">
+                            <mat-datepicker-toggle matSuffix [for]="payFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #payFixDayMap_To></mat-datepicker>
+                        </div>
+                    </td>
+                    <!-- 20200913 E_Add -->
+                </tr>
+            </table>
+            <div style="margin: 10px 0px 10px 0px;">
+                <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>&nbsp;
+                <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>
+                <!-- 20220511 S_Add -->
+                <!-- リリースまでコメント -->
+                <!--
+                <button mat-raised-button (click)="costExport()" *ngIf="searched" class="costExport_btn">&nbsp;支払依頼書出力&nbsp;</button>
+                -->
+                <!-- 20220511 E_Add -->
+                <!--20201007_S Add-->
+                <div class = "search-btns">
+                    <button mat-raised-button (click)="searchPayContract()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
                 </div>
-                </td>
-            
-                <th>契約確定日</th>
-                <td class="picker-div_1">
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="contractFixDayMap_From" [(ngModel)]="cond.contractFixDayMap_From" class="width100"  placeholder="開始日">
-                <mat-datepicker-toggle matSuffix [for]="contractFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #contractFixDayMap_From></mat-datepicker>
-                </div>&nbsp;&nbsp;～
-                </td>
-                <td>
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="contractFixDayMap_To" [(ngModel)]="cond.contractFixDayMap_To" class="width100" placeholder="終了日">
-                <mat-datepicker-toggle matSuffix [for]="contractFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #contractFixDayMap_To></mat-datepicker>
-                </div>
-                </td>
-            </tr>
-            <tr>
-                <!--hiranomemo 支払予定日はtblPayContractDetailのcontractDayカラム-->
-                <th>支払予定日</th>
-                <td class="picker-div_1">
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="payDayMap_From" [(ngModel)]="cond.payDayMap_From" class="width100" placeholder="開始日">
-                <mat-datepicker-toggle matSuffix [for]="payDayMap_From" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #payDayMap_From></mat-datepicker>
-                </div>&nbsp;&nbsp;～
-                </td>
-                
-                <td>
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="payDayMap_To" [(ngModel)]="cond.payDayMap_To" class="width100" placeholder="終了日">
-                <mat-datepicker-toggle matSuffix [for]="payDayMap_To" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #payDayMap_To></mat-datepicker>
-                </div>
-                </td>
-                <!-- 20200913 S_Add -->
-                <th>支払確定日</th>
-                <td class="picker-div_1">
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="payFixDayMap_From" [(ngModel)]="cond.payFixDayMap_From" class="width100" placeholder="開始日">
-                <mat-datepicker-toggle matSuffix [for]="payFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #payFixDayMap_From></mat-datepicker>
-                </div>&nbsp;&nbsp;～
-                </td>
-                
-                <td>
-                <div class="picker-div">
-                <input type="text" [matDatepicker]="payFixDayMap_To" [(ngModel)]="cond.payFixDayMap_To" class="width100" placeholder="終了日">
-                <mat-datepicker-toggle matSuffix [for]="payFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
-                <mat-datepicker #payFixDayMap_To></mat-datepicker>
-                </div>
-                </td>
-                <!-- 20200913 E_Add -->
-            </tr>
-        </table>
-        <div style="margin: 10px 0px 10px 0px;">
-            <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>&nbsp;
-            <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>
-            <!--20201007_S Add-->
-            <div class = "search-btns">
-                <button mat-raised-button (click)="searchPayContract()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+                <!--20201007_E Add-->
             </div>
-            <!--20201007_E Add-->
         </div>
-        </div>
-        
     </mat-expansion-panel>
-</div>        
+</div>
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
 <div class="mat-elevation-z8 main data">
     <table mat-table [dataSource]="dataSource" matSort>
-    
+
         <ng-container matColumnDef="bukkenNo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
-        <td mat-cell *matCellDef="let element"> {{element.bukkenNo}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
+            <td mat-cell *matCellDef="let element"> {{element.bukkenNo}} </td>
         </ng-container>
 
         <ng-container matColumnDef="contractBukkenNo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約物件番号 </th>
-        <td mat-cell *matCellDef="let element"> {{element.contractBukkenNo}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約物件番号 </th>
+            <td mat-cell *matCellDef="let element"> {{element.contractBukkenNo}} </td>
         </ng-container>
 
         <ng-container matColumnDef="bukkenName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
-        <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件名 </th>
+            <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.bukkenName}} </td>
         </ng-container>
-       
+
         <ng-container matColumnDef="supplierName">
-        <th mat-header-cell *matHeaderCellDef> 取引先 </th>
-        <td mat-cell *matCellDef="let element" class="bukkenlist_width">{{element.supplierName}}</td>
+            <th mat-header-cell *matHeaderCellDef> 取引先 </th>
+            <td mat-cell *matCellDef="let element" class="bukkenlist_width">{{element.supplierName}}</td>
         </ng-container>
         <!-- 20200730 S_Delete -->
         <!--
         <ng-container matColumnDef="payContractDay">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約予定日 </th>
-        <td mat-cell *matCellDef="let element">{{formatDay(element.payContractDay, 'yyyy/MM/dd')}}</td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約予定日 </th>
+            <td mat-cell *matCellDef="let element">{{formatDay(element.payContractDay, 'yyyy/MM/dd')}}</td>
         </ng-container>
 
         <ng-container matColumnDef="payContractFixDay">
-        <th mat-header-cell *matHeaderCellDef> 契約確定日 </th>
-        <td mat-cell *matCellDef="let element">{{formatDay(element.payContractFixDay, 'yyyy/MM/dd')}}</td>
+            <th mat-header-cell *matHeaderCellDef> 契約確定日 </th>
+            <td mat-cell *matCellDef="let element">{{formatDay(element.payContractFixDay, 'yyyy/MM/dd')}}</td>
         </ng-container>
         -->
         <!-- 20200730 E_Delete -->
 
         <ng-container matColumnDef="paymentCode">
-        <th mat-header-cell *matHeaderCellDef> 支払種別 </th>
-        <td mat-cell *matCellDef="let element"> <!--{{element.paymentCode}} -->
-            <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{getPaymentName(detail.paymentCode)}}</div>
-        </td>
+            <th mat-header-cell *matHeaderCellDef> 支払種別 </th>
+            <td mat-cell *matCellDef="let element"> <!--{{element.paymentCode}} -->
+                <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{getPaymentName(detail.paymentCode)}}</div>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="contractDay">
-        <th mat-header-cell *matHeaderCellDef> 支払予定日 </th>
-        <td mat-cell *matCellDef="let element"> <!--{{element.contractDay}} -->
-            <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractDay , 'yyyy/MM/dd')}}</div>
-        </td>
+            <th mat-header-cell *matHeaderCellDef> 支払予定日 </th>
+            <td mat-cell *matCellDef="let element"> <!--{{element.contractDay}} -->
+                <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractDay , 'yyyy/MM/dd')}}</div>
+            </td>
         </ng-container>
 
         <!-- 20200730 S_Add -->
@@ -193,20 +197,20 @@
             </td>
         </ng-container>
         <!-- 20200730 E_Add -->
-   
+
         <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element"> 
-            <button mat-raised-button (click)="deleteRow(element)" class="delete_btn">削除</button>
-        </td>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button (click)="deleteRow(element)" class="delete_btn">削除</button>
+            </td>
         </ng-container>
-        
+
         <!-- 詳細 Column -->
         <ng-container matColumnDef="detail">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element"> 
-            <button mat-raised-button (click)="showDetail(element)" color="warn">詳細</button>
-        </td>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button (click)="showDetail(element)" color="warn">詳細</button>
+            </td>
         </ng-container>
 
         <!-- 20210311 S_Add -->
@@ -227,8 +231,23 @@
             </td>
         </ng-container>
 
+        <!-- 20220511 S_Add -->
+        <!--支払依頼書出力-->
+        <!-- リリースまでコメント -->
+        <!--
+        <ng-container matColumnDef="costCheck">
+            <th mat-header-cell *matHeaderCellDef>依頼書</th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">
+                    <mat-checkbox [(ngModel)]="detail.select"></mat-checkbox>
+                </div>
+            </td>
+        </ng-container>
+        -->
+        <!-- 20220511 E_Add -->
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid}" (mouseover)="highlight(row)"></tr>
-    </table>        
+    </table>
     <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 </div>
