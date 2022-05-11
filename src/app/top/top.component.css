@@ -129,10 +129,16 @@
 }
 
 .bulletin-notice .main-data .mat-table .mat-column-infoDate{
-    width: 10%;
+    /* 20220511 S_Update */
+    /*width: 10%;*/
+    width: 15%;
+    /* 20220511 E_Update */
 }
 .mat-column-approvalFlg{
-    width: 5%;
+    /* 20220511 S_Update */
+    /*width: 5%;*/
+    width: 50%;
+    /* 20220511 E_Update */
 }
 /* 20211227 E_Add */
 

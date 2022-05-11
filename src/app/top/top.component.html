@@ -44,22 +44,32 @@
                     <td mat-cell *matCellDef="let element"> {{formatDay(element.infoDate, 'yyyy/MM/dd')}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="approvalFlg">
-                    <td mat-cell *matCellDef="let element">
-                        <a class="action-link" (click)="showNoticeDetail(element)">{{getCodeTitle('038',element.approvalFlg)}}</a>
-                    </td>
-                </ng-container>
-
                 <ng-container matColumnDef="infoSubject">
                     <td mat-cell *matCellDef="let element">
-                        <a *ngIf="element.detailFlg == 1" class="action-link" (click)="openDialog(element)">{{element.infoSubject}}</a>
-                        <label *ngIf="element.detailFlg == 0">{{element.infoSubject}}</label>
+                        <!-- 20220511 S_Update -->
+                        <!--<a *ngIf="element.detailFlg == 1" class="action-link" (click)="openDialog(element)">{{element.infoSubject}}</a>
+                        <label *ngIf="element.detailFlg == 0">{{element.infoSubject}}</label>-->
+                        <a class="action-link" (click)="showNoticeDetail(element)">{{element.infoSubject}}</a>
+                        <!-- 20220511 E_Update -->
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="attachFileName">
-                    <td mat-cell *matCellDef="let element"><a [attr.href]="element.attachFilePath + element.attachFileName"  target="_blank" class="action-link">{{element.attachFileName}}</a></td>
+                <ng-container matColumnDef="approvalFlg">
+                    <td mat-cell *matCellDef="let element">
+                        <!-- 20220511 S_Update -->
+                        <!--<a class="action-link" (click)="showNoticeDetail(element)">{{getCodeTitle('038',element.approvalFlg)}}</a>-->
+                        {{getCodeTitle('038',element.approvalFlg)}}
+                        <!-- 20220511 E_Update -->
+                    </td>
                 </ng-container>
+
+                <!-- 20220511 S_Delete -->
+                <!--
+                <ng-container matColumnDef="attachFileName">
+                    <td mat-cell *matCellDef="let element"><a [attr.href]="element.approvalAttachFilePath + element.approvalAttachFileName"  target="_blank" class="action-link">{{element.approvalAttachFileName}}</a></td>
+                </ng-container>
+                -->
+                <!-- 20220511 E_Delete -->
 
                 <tr mat-row *matRowDef="let row; columns: displayedColumnsForNotice;"></tr>
             </table>

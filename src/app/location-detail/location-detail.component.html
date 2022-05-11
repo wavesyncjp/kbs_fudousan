@@ -245,7 +245,10 @@
         <tr>
             <th>表示順序</th>
             <td>
-                <input type="text" [(ngModel)]="data.displayOrder" class="width80 number" maxlength="6">
+                <!-- 20220511 S_Update -->
+                <!--<input type="text" [(ngModel)]="data.displayOrder" class="width80 number" maxlength="6">-->
+                <input type="text" [(ngModel)]="data.displayOrder" class="width80 number" [disabled]="data.locationType == '04'" maxlength="6">
+                <!-- 20220511 E_Update-->
             </td>
         </tr>
         <!-- 20220308 E_Add -->

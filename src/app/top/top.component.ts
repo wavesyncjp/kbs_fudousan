@@ -22,7 +22,10 @@ export class TopComponent  extends BaseComponent {
   hasInfo = false;
 
   // 20211227 S_Add
-  displayedColumnsForNotice: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName'];
+  // 20220511 S_Update
+  // displayedColumnsForNotice: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName'];
+  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'approvalFlg'];
+  // 20220511 E_Update
   dataSourceForNotice = new MatTableDataSource<Information>();
   hasNotice = false;
   authority = '';
