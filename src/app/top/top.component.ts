@@ -22,10 +22,10 @@ export class TopComponent  extends BaseComponent {
   hasInfo = false;
 
   // 20211227 S_Add
-  // 20220511 S_Update
+  // 20220517 S_Update
   // displayedColumnsForNotice: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName'];
-  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'approvalFlg'];
-  // 20220511 E_Update
+  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'approvalFlg', 'createUserId', 'createDate', 'answerTimeLimit', 'approvalDateTime'];
+  // 20220517 E_Update
   dataSourceForNotice = new MatTableDataSource<Information>();
   hasNotice = false;
   authority = '';
@@ -84,7 +84,10 @@ export class TopComponent  extends BaseComponent {
 
     const funcs = [];
     funcs.push(this.service.getDeps(null));
-    funcs.push(this.service.getEmps(null));
+    // 20220517 S_Update
+    // funcs.push(this.service.getEmps(null));
+    funcs.push(this.service.getEmps('9'));
+    // 20220517 E_Update
 
     Promise.all(funcs).then(values => {
       this.deps = values[0];

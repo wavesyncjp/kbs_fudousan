@@ -131,6 +131,19 @@ export class BaseComponent implements OnInit {
         }
     }
 
+    // 20220517 S_Add
+    /**
+     * @param userId ユーザー名称取得
+     */
+     getUserName(userId: string): string {
+        const lst = this.emps.filter(data => data.userId === userId).map(data => data.userName);
+        if(lst.length > 0) {
+            return lst[0];
+        }
+        return '';
+    }
+    // 20220517 E_Add
+
     getLands() {
         if (this.lands) {
             return this.lands.map(land => new Code({codeDetail: land.pid, name: land.bukkenName}));

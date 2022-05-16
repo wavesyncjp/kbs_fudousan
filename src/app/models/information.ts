@@ -11,6 +11,7 @@ export class Information {
     finishFlg = '0';
     infoDetail = '';
     answer = '';// 20220223 Add
+    answerTimeLimit = '';// 20220517 Add
     attachFileName = '';
     attachFilePath = '';
     // 20211227 S_Add
@@ -18,6 +19,7 @@ export class Information {
     approvalAttachFileName = '';
     approvalAttachFilePath = '';
     // 20211227 E_Add
+    approvalDateTime: Date;// 20220517 Add
 
     attachFiles: InfoAttach[];// 20220329 Add
 
@@ -28,8 +30,8 @@ export class Information {
     infoDateMap: Date = null;
     // 20220329 S_Delete
     /*
-  department: any;
-  result: string;
+    department: any;
+    result: string;
     */
     // 20220329 E_Delete
 

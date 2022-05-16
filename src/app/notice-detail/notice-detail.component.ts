@@ -38,6 +38,7 @@ export class NoticeDetailComponent extends BaseComponent {
 
   authority = '';
   enableUser: boolean = false;
+  isCreate: boolean = false;// 20220517 Add
 
   constructor(
               public router: Router,
@@ -74,6 +75,11 @@ export class NoticeDetailComponent extends BaseComponent {
       if (this.data == null || !(this.data.pid > 0)) {
         this.data = new Information();
         this.data.detailFlg = '1';
+        // 20220517 S_Add
+        this.data.infoDateMap = new Date();
+        this.data.convert();
+        this.isCreate = true;
+        // 20220517 E_Add
       } else {
         this.data = new Information(this.data);
         this.data.convert();
@@ -160,7 +166,10 @@ export class NoticeDetailComponent extends BaseComponent {
           let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
 
           if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
-            this.dialogRef.close(true);
+            // 20220517 S_Update
+            // this.dialogRef.close(true);
+            this.dialogRef.close({data: res, isCreate: this.isCreate});
+            // 20220517 E_Update
           } else {
             if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
           }
@@ -189,7 +198,10 @@ export class NoticeDetailComponent extends BaseComponent {
    * @param event ：ファイル
    */
    uploadedInfoAttach(event) {
-    if (this.data.attachFiles === null) {
+    // 20220517 S_Update
+    // if (this.data.attachFiles === null) {
+    if (this.data.attachFiles === null || this.data.attachFiles == undefined) {
+    // 20220517 E_Update
       this.data.attachFiles = [];
     }
     const attachFile: InfoAttach = JSON.parse(JSON.stringify(event));

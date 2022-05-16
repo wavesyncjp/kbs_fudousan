@@ -92,7 +92,11 @@ export class NoticeListComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.searchInfo();
+        // 20220517 S_Update
+        // this.searchInfo();
+        if (result.isCreate) this.showDetail(result.data);
+        else this.searchInfo();
+        // 20220517 E_Update
       }
     });
   }
