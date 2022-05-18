@@ -137,7 +137,7 @@
 /* 20211227 E_Add */
 /* 20220517 S_Add */
 .bulletin-notice .main-data .mat-table .mat-column-infoSubject {
-    width: 20%;
+    width: auto;
 }
 /* 20220517 E_Add */
 

@@ -7,11 +7,11 @@
             <table class="search-tbl">
                 <tr>
                     <th>物件番号</th>
-                    <td>
+                    <td colspan="2">
                         <input type="text" [(ngModel)]="cond.bukkenNo" maxlength="10">
                     </td>
                     <th>契約物件番号</th>
-                    <td>
+                    <td colspan="2">
                         <input type="text" [(ngModel)]="cond.contractBukkenNo" maxlength="20">
                     </td>
                     <th>物件名</th>
@@ -21,11 +21,11 @@
                 </tr>
                 <tr>
                     <th>契約番号</th>
-                    <td>
+                    <td colspan="2">
                         <input type="text" [(ngModel)]="cond.contractNumber" maxlength="30">
                     </td>
                     <th>明渡期日</th>
-                    <td>
+                    <td colspan="2">
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="vacationDay" class="width100" [(ngModel)]="cond.vacationDayMap">
                             <mat-datepicker-toggle matSuffix [for]="vacationDay" class="picker-icon"></mat-datepicker-toggle>
@@ -61,6 +61,12 @@
                 </tr>
                 <!-- 20201223 S_Add -->
                 <tr>
+                    <!-- 20220519 S_Add -->
+                    <th>担当部署</th>
+                    <td colspan="5">
+                        <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>
+                    </td>
+                    <!-- 20220519 E_Add -->
                     <th>決済日</th>
                     <td style="width: 150px;"> 
                         <div class="picker-div">

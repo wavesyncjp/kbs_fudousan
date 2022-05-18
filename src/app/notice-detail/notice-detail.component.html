@@ -67,6 +67,20 @@
                 </table>
             </td>
             <!-- 20220329 E_Update -->
+        <!-- 20220517 S_Add -->
+        <tr>
+            <th>追加ファイル送付</th>
+            <td>
+                <mat-checkbox [checked]="data.addedFileSendFlg === '1'" #cbxAddedFileSendFlg></mat-checkbox>
+            </td>
+        </tr>
+        <tr>
+            <th>確認フラグ</th>
+            <td>
+                <app-select-component [codes]="getCode('039')" [(ngModel)]="data.confirmFlg" [isDisabled]="!enableUser" [noBlank]="true"></app-select-component>
+            </td>
+        </tr>
+        <!-- 20220517 E_Add -->
         <tr>
             <th class="sharer">承認フラグ</th>
             <td>
@@ -79,7 +93,7 @@
                 <a *ngIf="hasApprovedFile()" [attr.href]="data.approvalAttachFilePath + data.approvalAttachFileName"  target="_blank" class="action-link">{{data.approvalAttachFileName}}</a>
                 <br *ngIf="hasApprovedFile()">
                 <!--<app-file #fApprovedUpload notButton="true" (uploaded)="uploaded($event)" *ngIf="enableUser && data.approvalFlg === '1'"></app-file>-->
-                <app-file [id]="'fApprovedUpload'" notButton="true" (uploaded)="uploaded($event)" *ngIf="enableUser && data.approvalFlg === '1'"></app-file>
+                <app-file [id]="'fApprovedUpload'" notButton="true" (uploaded)="uploaded($event)" *ngIf="enableUser && (data.approvalFlg === '1' || data.approvalFlg === '5')"></app-file>
             </td>
         </tr>
         <tr>

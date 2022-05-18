@@ -39,28 +39,29 @@ export class ContractListComponent  extends BaseComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   cond = {
-    bukkenNo: '',
-    contractBukkenNo:'',
-    bukkenName: '',
-    contractNumber: '',
-    vacationDayMap: null,
-    vacationDay: '',
+    bukkenNo: ''
+    , contractBukkenNo:''
+    , bukkenName: ''
+    , contractNumber: ''
+    , vacationDayMap: null
+    , vacationDay: ''
     //20200730 S_Update
     /*
     contractDay: '',
     contractDayMap: null
     */
-    contractDay_FromMap: null,
-    contractDay_From: '',
-    contractDay_ToMap: null,
-    contractDay_To: '',
+    , contractDay_FromMap: null
+    , contractDay_From: ''
+    , contractDay_ToMap: null
+    , contractDay_To: ''
     //20200730 E_Update
     //20201223 S_Add
-    decisionDay_FromMap: null,
-    decisionDay_From: '',
-    decisionDay_ToMap: null,
-    decisionDay_To: ''
+    , decisionDay_FromMap: null
+    , decisionDay_From: ''
+    , decisionDay_ToMap: null
+    , decisionDay_To: ''
     //20201223 E_Add
+    , department: []// 20220519 Add
   };
   search = '0';
   searched = false;// 20210103 Add
@@ -102,8 +103,10 @@ export class ContractListComponent  extends BaseComponent {
     // 20200921 S_Add
     const funcs = [];
     funcs.push(this.service.getEmps(null));
+    funcs.push(this.service.getDeps(null));// 20220519 Add
     Promise.all(funcs).then(values => {
       this.emps = values[0];
+      this.deps = values[1];// 20220519 Add
     });
     // 20200921 E_Add
   }
@@ -113,28 +116,29 @@ export class ContractListComponent  extends BaseComponent {
    */
   resetCondition() {
     this.cond = {
-      bukkenNo: '',
-      contractBukkenNo:'',
-      bukkenName: '',
-      contractNumber: '',
-      vacationDayMap: null,
-      vacationDay: '',
+      bukkenNo: ''
+      , contractBukkenNo:''
+      , bukkenName: ''
+      , contractNumber: ''
+      , vacationDayMap: null
+      , vacationDay: ''
       //20200730 S_Update
       /*
       contractDay: '',
       contractDayMap: null
       */
-      contractDay_FromMap: null,
-      contractDay_From: '',
-      contractDay_ToMap: null,
-      contractDay_To: '',
+      , contractDay_FromMap: null
+      , contractDay_From: ''
+      , contractDay_ToMap: null
+      , contractDay_To: ''
       //20200730 E_Update
       //20201223 S_Add
-      decisionDay_FromMap: null,
-      decisionDay_From: '',
-      decisionDay_ToMap: null,
-      decisionDay_To: ''
+      , decisionDay_FromMap: null
+      , decisionDay_From: ''
+      , decisionDay_ToMap: null
+      , decisionDay_To: ''
       //20201223 E_Add
+      , department: []// 20220519 Add
    };
   }
 

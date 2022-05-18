@@ -35,6 +35,10 @@ export class NoticeDetailComponent extends BaseComponent {
 
   @ViewChild('cbxFinishFlg', {static: true})
   cbxFinishFlg: MatCheckbox;
+  // 20220519 S_Add
+  @ViewChild('cbxAddedFileSendFlg', {static: true})
+  cbxAddedFileSendFlg: MatCheckbox;
+  // 20220519 E_Add
 
   authority = '';
   enableUser: boolean = false;
@@ -59,7 +63,7 @@ export class NoticeDetailComponent extends BaseComponent {
 
     const funcs = [];
     // コード
-    funcs.push(this.service.getCodes(['006', '038']));
+    funcs.push(this.service.getCodes(['006', '038', '039']));
     Promise.all(funcs).then(values => {
       const codes = values[0] as Code[];
 
@@ -142,6 +146,13 @@ export class NoticeDetailComponent extends BaseComponent {
         } else {
           this.data.finishFlg = '0';
         }
+        // 20220519 S_Add
+        if (this.cbxAddedFileSendFlg.checked) {
+          this.data.addedFileSendFlg = '1';
+        } else {
+          this.data.addedFileSendFlg = '0';
+        }
+        // 20220519 E_Add
         this.data.infoType = 1;// 掲示板タイプ<-1:お知らせ
         this.service.saveInfo(this.data).then(res => {
           // 20220330 S_Update
