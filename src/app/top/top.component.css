@@ -82,13 +82,19 @@
 /* 20211227 S_Add */
 .bulletin-notice{
     width:97%;
-    height:97%;
+    /* 20220520 S_Update */
+    /* height:97%; */
+    height:190%;
+    /* 20220520 E_Update */
     border: solid 1px black;
     border-radius: 4px;
     grid-column-start: 1;
     grid-column-end: 3;
     margin: 20px;
-    margin-top:50px;
+    /* 20220520 S_Update */
+    /* margin-top:50px; */
+    margin-top:190px;
+    /* 20220520 E_Update */
     margin-bottom: 40px;
     background-color: #EBFFED;
     overflow-y: auto;
@@ -105,7 +111,10 @@
     display: inline-block;
     position: absolute;
     right: 40px;
-    top: 290px;
+    /* 20220520 S_Update */
+    /* top: 290px; */
+    top: 430px;
+    /* 20220520 E_Update */
     background-color: #EBFFED;
     display: flex;
     align-items: center;
