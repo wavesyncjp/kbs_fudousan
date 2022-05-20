@@ -141,7 +141,7 @@ export class FileComponentComponent implements OnInit {
     }
     // 20210311 E_Add
     // 20220329 S_Add
-    // 謄本ファイルアップロード
+    // インフォメーション添付ファイルアップロード
     else if (this.infoPid !== undefined && this.infoPid > 0 ) {
       this.service.uploadInfoAttachFile(this.infoPid, this.file).then(res => {
         this.snackBar.open('ファイルアップロード完了', null, {
