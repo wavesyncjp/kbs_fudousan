@@ -141,6 +141,8 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
    * @param name 変更属性
    */
   changeValueLoc(item: Locationinfo, name: string) {
+    // 20220521 S_Update
+    /*
     // 評価額
     if(name === 'valuation') {
       item.valuation = Converter.stringToNumber(item.valuationMap);
@@ -164,6 +166,37 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
         }
       }
     }
+    */
+    // 固定資産税評価額
+    if(name === 'valuation') {
+      item.valuation = Converter.stringToNumber(item.valuationMap);
+      if(item.valuation != null && item.valuation > 0) {
+        // 固定資産税が未設定の場合
+        item.propertyTax = Converter.stringToNumber(item.propertyTaxMap);
+        if(item.propertyTax == null || item.propertyTax == 0) {
+          item.propertyTax = Math.floor(item.valuation * 0.014);// 小数点以下切り捨て
+          item.propertyTaxMap = Converter.numberToString(item.propertyTax);
+        }
+      }
+    }
+    // 都市計画税評価額
+    else if(name === 'cityValuation') {
+      item.cityValuation = Converter.stringToNumber(item.cityValuationMap);
+      if(item.cityValuation != null && item.cityValuation > 0) {
+        // 都市計画税が未設定の場合
+        item.cityPlanningTax = Converter.stringToNumber(item.cityPlanningTaxMap);
+        if(item.cityPlanningTax == null || item.cityPlanningTax == 0) {
+          item.cityPlanningTax = item.cityValuation * 0.003;
+          // 区分が01：土地かつ、軽減有無が1:対象の場合
+          if(item.locationType === '01' && item.reducedChk === '1') {
+            item.cityPlanningTax = item.cityPlanningTax * 0.5;
+          }
+          item.cityPlanningTax = Math.floor(item.cityPlanningTax);// 小数点以下切り捨て
+          item.cityPlanningTaxMap = Converter.numberToString(item.cityPlanningTax);
+        }
+      }
+    }
+    // 20220521 E_Update
   }
 
   /**
@@ -462,12 +495,20 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
     this.locations.forEach(location => {
       let loc = new Locationinfo(location as Locationinfo);
       loc.valuation = Converter.stringToNumber(loc.valuationMap);
-      // 評価額に指定がある場合
+      loc.cityValuation = Converter.stringToNumber(loc.cityValuationMap);// 20220521 Add
+      // 固定資産税評価額に指定がある場合
       if(loc.valuation != null && loc.valuation > 0) {
         loc.propertyTaxMap = null;    // 固定資産税を初期化
-        loc.cityPlanningTaxMap = null;// 都市計画税を初期化
+        // loc.cityPlanningTaxMap = null;// 都市計画税を初期化 20220521 Delete
         this.changeValueLoc(loc, 'valuation');
       }
+      // 20220521 S_Add
+      // 都市計画税評価額に指定がある場合
+      if(loc.cityValuation != null && loc.cityValuation > 0) {
+        loc.cityPlanningTaxMap = null;// 都市計画税を初期化
+        this.changeValueLoc(loc, 'cityValuation');
+      }
+      // 20220521 E_Add
       locs.push(loc);
     });
     this.locations = locs;

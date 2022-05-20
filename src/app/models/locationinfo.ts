@@ -59,6 +59,7 @@ export class Locationinfo {
     // 20201124 E_Add
     // 20210904 S_Add
     valuation: number;
+    cityValuation: number;// 20220521 Add
     reducedChk: string;
     propertyTax: number;
     cityPlanningTax: number;
@@ -78,6 +79,7 @@ export class Locationinfo {
     // 20201124 E_Add
     // 20210904 S_Add
     valuationMap: string;
+    cityValuationMap: string;// 20220521 Add
     propertyTaxMap: string;
     cityPlanningTaxMap: string;
     // 20210904 E_Add
@@ -121,6 +123,7 @@ export class Locationinfo {
         // 20201124 E_Add
         // 20210904 S_Add
         this.valuationMap = Converter.numberToString(this.valuation);
+        this.cityValuationMap = Converter.numberToString(this.cityValuation);// 20220521 Add
         this.propertyTaxMap = Converter.numberToString(this.propertyTax);
         this.cityPlanningTaxMap = Converter.numberToString(this.cityPlanningTax);
         // 20210904 E_Add
@@ -157,6 +160,7 @@ export class Locationinfo {
         // 20201124 E_Add
         // 20210904 S_Add
         this.valuation = Converter.stringToNumber(this.valuationMap);
+        this.cityValuation = Converter.stringToNumber(this.cityValuationMap);// 20220521 Add
         this.propertyTax = Converter.stringToNumber(this.propertyTaxMap);
         this.cityPlanningTax = Converter.stringToNumber(this.cityPlanningTaxMap);
         // 20210904 E_Add

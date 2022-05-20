@@ -24,7 +24,7 @@ export class TopComponent  extends BaseComponent {
   // 20211227 S_Add
   // 20220517 S_Update
   // displayedColumnsForNotice: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName'];
-  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'approvalFlg', 'createUserId', 'createDate', 'answerTimeLimit', 'approvalDateTime'];
+  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'createDate', 'answerTimeLimit', 'approvalDateTime'];
   // 20220517 E_Update
   dataSourceForNotice = new MatTableDataSource<Information>();
   hasNotice = false;
@@ -117,7 +117,7 @@ export class TopComponent  extends BaseComponent {
     this.enableUser = (this.authority === '01' || this.authority === '02');
 
     // コード
-    funcs.push(this.service.getCodes(['038']));
+    funcs.push(this.service.getCodes(['038', '039']));
     Promise.all(funcs).then(values => {
       const codes = values[2] as Code[];
       if (codes !== null && codes.length > 0) {
