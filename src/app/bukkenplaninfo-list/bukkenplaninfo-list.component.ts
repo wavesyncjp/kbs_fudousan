@@ -31,7 +31,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   public pid: number;
   public data: LandPlanInfo;
 
-  public locAdresses: Locationinfo[] = []; //20201225
+  public locAdresses: Locationinfo[] = [];// 20201225 Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -101,12 +101,12 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     this.data = new LandPlanInfo(ret);
     this.data.land = new Templandinfo(this.data.land);
 
-    //20201225 S_Add
+    // 20201225 S_Add
     if(this.data.land != null && this.data.land.pid > 0) {
       let cond = {
         tempLandInfoPid: this.data.land.pid,
         // 20210106 S_Update
-        //clctLocationType: ['01', '02']
+        // clctLocationType: ['01', '02']
         clctLocationType: ['01', '02', '04']
         // 20210106 E_Update
       };
@@ -122,14 +122,14 @@ export class BukkenplaninfoListComponent extends BaseComponent {
 
       });
     }
-    //20201225 E_Add
+    // 20201225 E_Add
 
-    //20200731 S_Update
+    // 20200731 S_Update
     /*
     this.data.land.convert();
     */
     this.data.land.convert(null);
-    //20200731 E_Update
+    // 20200731 E_Update
 
     let plans: Bukkenplaninfo[] = [];
     if(this.data.plans != null) {
@@ -203,7 +203,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
       if (result) {
         //保存
         if(result.isSave) {
-          this.loadSaleLocaction(result.data); //20201225 S_Add
+          this.loadSaleLocaction(result.data);// 20201225 S_Add
           this.data.sales.push(result.data);
           // 20220329 S_Add
           this.sortSale();
@@ -228,7 +228,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) { 
         
-        this.loadSaleLocaction(result.data); //20201225 S_Add
+        this.loadSaleLocaction(result.data);// 20201225 S_Add
 
         let position;
         this.data.sales.forEach((me, pos) => {
@@ -298,7 +298,6 @@ export class BukkenplaninfoListComponent extends BaseComponent {
         });
       }
     });
-
   }
 
   /**
@@ -310,7 +309,10 @@ export class BukkenplaninfoListComponent extends BaseComponent {
       me.convertForSave(this.service.loginUser.userId, this.datepipe);
     });
   }
-  //数値にカンマを付ける作業
+
+  /**
+   * 数値にカンマを付ける作業
+   */
   changeValue(val) {
     val = this.numberFormat(val);
     return val;
@@ -337,7 +339,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   }
 
   /**
-   * 物件戻す
+   * 物件に戻る
    */
   gotoBukken() {
     this.router.navigate(['/bkdetail'], {queryParams: {pid: this.pid}});
