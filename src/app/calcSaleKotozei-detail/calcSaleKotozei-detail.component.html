@@ -1,0 +1,84 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="dialog-div">
+    <table class="detail-tbl-min">
+        <tr>
+            <td><span class="min">固都税清算金　計算</span></td>
+        </tr>
+        <app-select-component [codes]="getCode('036')" [cusClass]="'width200'" [(ngModel)]="reducedChk" (ngModelChange)="changeValueAll()"></app-select-component>
+        <tr>
+            <td>
+                <div class="contact-div">
+                    <table>
+                        <thead class="list-header">
+                            <th>区分</th>
+                            <th><span style="display: inline-block;width: 200px;">所在</span></th>
+                            <th>地番</th>
+                            <th>家屋番号</th>
+                            <th>固定資産税評価額</th>
+                            <th>固定資産税</th>
+                            <th>都市計画税評価額</th>
+                            <th>都市計画税</th>
+                        </thead>
+                        <tbody class="list-body">
+                            <tr *ngFor="let item of locations; index as pos">
+                                <td>{{getCodeTitle('007', item.locationType)}}</td>
+                                <td class="width200 text-left">{{item.address}}</td>
+                                <td>{{item.blockNumber}}</td>
+                                <td>{{item.buildingNumber}}</td>
+                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.valuationMap" maxlength="15" [value]="changeNumeric(item.valuationMap)" (focusout)="changeValueLoc(item, 'valuation')"></td>
+                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.propertyTaxMap" maxlength="15" [value]="changeNumeric(item.propertyTaxMap)"></td>
+                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.cityValuationMap" maxlength="15" [value]="changeNumeric(item.cityValuationMap)" (focusout)="changeValueLoc(item, 'cityValuation')"></td><!-- 20220521 Add -->
+                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.cityPlanningTaxMap" maxlength="15" [value]="changeNumeric(item.cityPlanningTaxMap)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table class="detail-tbl-min">
+        <tr>
+            <th colspan="2">分担期間（売主）</th>
+            <td colspan="4">
+                <input type="text" class="width50" [(ngModel)]="sale.sharingStartDayYYYY" (ngModelChange)="changeValue('sharingStartDay')" maxlength="4">
+                <app-select-component [codes]="getCode('035')" [cusClass]="'width100'" [(ngModel)]="sale.sharingStartDayMMDD" (ngModelChange)="changeValue('sharingStartDay')"></app-select-component>
+                &nbsp;&nbsp;～&nbsp;&nbsp;
+                
+                <input type="text" [matDatepicker]="sharingEndDay" class="width100" [(ngModel)]="sale.sharingEndDayMap" (ngModelChange)="changeValue('sharingEndDay')">
+                <mat-datepicker-toggle matSuffix [for]="sharingEndDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #sharingEndDay></mat-datepicker>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">分担期間（買主）</th>
+            <td colspan="4">
+                <input type="text" [matDatepicker]="sharingStartDayBuyer" class="width100" [(ngModel)]="sharingStartDayBuyerMap" [disabled]=true>
+                <mat-datepicker-toggle matSuffix [for]="sharingStartDayBuyer" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #sharingStartDayBuyer></mat-datepicker>
+                &nbsp;&nbsp;～&nbsp;&nbsp;
+
+                <input type="text" [matDatepicker]="sharingEndDayBuyer" class="width100" [(ngModel)]="sharingEndDayBuyerMap" [disabled]=true>
+                <mat-datepicker-toggle matSuffix [for]="sharingEndDayBuyer" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #sharingEndDayBuyer></mat-datepicker>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">固都税清算金（土地）</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="sale.salesFixedLandTaxMap" maxlength="15" [value]="changeNumeric(sale.salesFixedLandTaxMap)" (focusout)="changeValue('fixedLandTax')">&nbsp;円
+            </td>
+            <th colspan="2">固都税清算金（建物）</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="sale.salesFixedBuildingTaxMap" maxlength="15" [value]="changeNumeric(sale.salesFixedBuildingTaxMap)" (focusout)="changeValue('fixedBuildingTax')">&nbsp;円
+            </td>
+            <th colspan="2">建物分消費税</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="sale.salesFixedBuildingTaxOnlyTaxMap" maxlength="15" [value]="changeNumeric(sale.salesFixedBuildingTaxOnlyTaxMap)" (focusout)="changeValue('fixedBuildingTaxOnlyTax')">&nbsp;円
+            </td>
+        </tr>
+    </table>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
+        <button mat-raised-button class="width80" color="primary" (click)="save()">登録</button>
+    </mat-dialog-actions>
+</div>

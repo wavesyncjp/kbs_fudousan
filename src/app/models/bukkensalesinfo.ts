@@ -36,6 +36,11 @@ export class Bukkensalesinfo {
     salesFixedLandTax: number;
     salesFixedBuildingTax: number;
     salesFixedConsumptionTax: number;
+    // 20220523 S_Add
+    salesFixedBuildingTaxOnlyTax: number;
+    sharingStartDay: string;
+    sharingEndDay: string;
+    // 20220523 E_Add
     salesLiquidation1: number;
     salesLiquidation2: number;
     salesLiquidation3: number;
@@ -76,6 +81,11 @@ export class Bukkensalesinfo {
     salesBrokerageFeePayDayMap: Date = null;
     salesOutsourcingPricePayDayMap: Date = null;
     // 20201218 E_Add
+    // 20220523 S_Add
+    sharingStartDayYYYY: string;
+    sharingStartDayMMDD: string;
+    sharingEndDayMap: Date = null;
+    // 20220523 E_Add
     
     // 20200713 S_Add
     salesTradingPriceMap: string = "";
@@ -103,6 +113,7 @@ export class Bukkensalesinfo {
     salesLandAreaMap: string = "";
     salesOutsourcingPriceMap: string = "";// 20201124 Add
     // 20200713 E_Add
+    salesFixedBuildingTaxOnlyTaxMap: string = "";// 20220523 Add
 
     salesLocationMap = [];// 20201224 Add
     salesLocationStr: string = "";
@@ -127,6 +138,14 @@ export class Bukkensalesinfo {
         this.salesBrokerageFeePayDayMap = Converter.stringToDate(this.salesBrokerageFeePayDay, 'yyyyMMdd');
         this.salesOutsourcingPricePayDayMap = Converter.stringToDate(this.salesOutsourcingPricePayDay, 'yyyyMMdd');
         // 20201218 E_Add
+        // 20220523 S_Add
+        if(this.sharingStartDay != null && this.sharingStartDay.length == 8)
+        {
+            this.sharingStartDayYYYY = this.sharingStartDay.substring(0, 4);
+            this.sharingStartDayMMDD = this.sharingStartDay.substring(4);
+        }
+        this.sharingEndDayMap = Converter.stringToDate(this.sharingEndDay, 'yyyyMMdd');
+        // 20220523 E_Add
         /*
         if (this.salesContractDay) {
             this.salesContractDayMap = parse(this.salesContractDay, 'yyyyMMdd', new Date());
@@ -169,6 +188,7 @@ export class Bukkensalesinfo {
         this.salesEarnestPriceMap = Converter.numberToString(this.salesEarnestPrice);
         this.salesOutsourcingPriceMap = Converter.numberToString(this.salesOutsourcingPrice);
         // 20201124 E_Add
+        this.salesFixedBuildingTaxOnlyTaxMap = Converter.numberToString(this.salesFixedBuildingTaxOnlyTax);// 20220523 Add
     }
 
     public convertForSave(userId: number , datePipe: DatePipe, isDelete: boolean) {
@@ -197,6 +217,12 @@ export class Bukkensalesinfo {
         this.salesBrokerageFeePayDay = Converter.dateToString(this.salesBrokerageFeePayDayMap, 'yyyyMMdd', datePipe);
         this.salesOutsourcingPricePayDay = Converter.dateToString(this.salesOutsourcingPricePayDayMap, 'yyyyMMdd', datePipe);
         // 20201218 E_Add
+        // 20220523 S_Add
+        if(this.sharingStartDayYYYY != null && this.sharingStartDayMMDD != null) {
+            this.sharingStartDay = this.sharingStartDayYYYY.concat(this.sharingStartDayMMDD);
+        }
+        this.sharingEndDay = Converter.dateToString(this.sharingEndDayMap, 'yyyyMMdd', datePipe);
+        // 20220523 E_Add
         /*
         this.salesContractDay = this.salesContractDayMap != null ? datePipe.transform(this.salesContractDayMap, 'yyyyMMdd') : null;
         this.salesContractSchDay = this.salesContractSchDayMap != null ? datePipe.transform(this.salesContractSchDayMap, 'yyyyMMdd') : null;
@@ -228,6 +254,7 @@ export class Bukkensalesinfo {
         this.salesEarnestPrice = Converter.stringToNumber(this.salesEarnestPriceMap);
         this.salesOutsourcingPrice = Converter.stringToNumber(this.salesOutsourcingPriceMap);
         // 20201124 E_Add
+        this.salesFixedBuildingTaxOnlyTax = Converter.stringToNumber(this.salesFixedBuildingTaxOnlyTaxMap);// 20220523 Add
 
         //20201225 S_Add
         this.salesLocation = this.salesLocationMap.map(me => me['codeDetail']).join(',');

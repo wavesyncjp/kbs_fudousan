@@ -82,6 +82,7 @@ import { BankListComponent } from './bank-list/bank-list.component';
 import { BankDetailComponent } from './bank-detail/bank-detail.component';
 // 20210831 E_Add
 import { CalcKotozeiDetailComponent } from './calcKotozei-detail/calcKotozei-detail.component';
+import { CalcSaleKotozeiDetailComponent } from './calcSaleKotozei-detail/calcSaleKotozei-detail.component';
 // 20211227 S_Add
 import { NoticeListComponent } from './notice-list/notice-list.component';
 import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
@@ -152,6 +153,7 @@ import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
     , PlanHistoryListComponent
     , DndDirective
     , CalcKotozeiDetailComponent
+    , CalcSaleKotozeiDetailComponent
     // 20211227 S_Add
     , NoticeListComponent
     , NoticeDetailComponent
@@ -221,6 +223,7 @@ import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
     , PlanHistoryCreateComponent
     , PlanHistoryListComponent
     , CalcKotozeiDetailComponent
+    , CalcSaleKotozeiDetailComponent
     , NoticeDetailComponent// 20211227 Add
   ],
 })
