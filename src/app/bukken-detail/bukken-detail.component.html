@@ -15,7 +15,10 @@
         <tr>
             <th>物件番号</th>
             <td>
-                <input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80" maxlength="10">
+                <!-- 20220522 S_Update -->
+                <!--<input type="text" [(ngModel)]="data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80" maxlength="10">-->
+                <input type="text" [(ngModel)]="copyFlg ? '' : data.bukkenNo" [attr.disabled]="data.pid < 0" class = "width80" maxlength="10">
+                <!-- 20220522 E_Update -->
             </td>
             <th>契約物件番号</th>
             <td>
@@ -320,7 +323,10 @@
                 <th>所有者住所（代表）</th>
                 <th class="width80">権利形態</th>
                 <th>備考</th>
-                <th class="width100">契約番号</th>
+                <!-- 20220522 S_Update -->
+                <!--<th class="width100">契約番号</th>-->
+                <th class="width100" *ngIf="!copyFlg">契約番号</th>
+                <!-- 20220522 E_Update -->
                 <!-- 20210426 S_Update -->
                 <!--<th class="width80">謄本詳細</th>
                 <th class="width80">コピー</th>-->
@@ -356,9 +362,12 @@
                     <td class="text-left">{{loc.ownerAdress}}</td>
                     <td>{{getCodeTitle('011', loc.rightsForm)}}</td>
                     <td>{{loc.ownerRemark}}</td>
-                    <td>
+                    <!-- 20220522 S_Update -->
+                    <!--<td>-->
+                    <td *ngIf="!copyFlg">
+                    <!-- 20220522 E_Update -->
                         <div class="contract-div">
-                            <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{ShowContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
+                            <a (click)="showContract(item)" class="contract-link" *ngFor="let item of getLandContract(loc)">{{showContractNo(loc, data.bukkenNo + "-" + item.contractNumber)}}</a>
                         </div>
                     </td>
                     <!-- 20210426 S_Update -->
@@ -383,7 +392,10 @@
         <span class="min">契約一覧</span>
         <table>
             <thead class="list-header">
-                <th class="width40">出力</th><!-- 20211107 Add -->
+                <!-- 20220522 S_Update -->
+                <!--<th class="width40">出力</th>--><!-- 20211107 Add -->
+                <th class="width40" *ngIf="!copyFlg">出力</th>
+                <!-- 20220522 E_Update -->
                 <th class="width100">契約状況</th><!-- 20200730 Add -->
                 <th class="width110">契約番号</th>
                 <th class="width100">契約書番号</th>
@@ -395,15 +407,22 @@
                 <th>所有者</th>
                 <th class="width100">売買代金</th>
                 <th class="width100">決済日</th>
-                <th class="width80">詳細</th>
-                <th class="width80" *ngIf="enableUser">削除</th><!-- 20210317 Add -->
+                <!-- 20220522 S_Update -->
+                <!--<th class="width80">詳細</th>
+                <th class="width80" *ngIf="enableUser">削除</th>--><!-- 20210317 Add -->
+                <th class="width80" *ngIf="!copyFlg">詳細</th>
+                <th class="width80" *ngIf="enableUser && !copyFlg">削除</th>
+                <!-- 20220522 E_Update -->
             </thead>
             <tbody class="list-body">
                 <!-- 20210317 S_Update -->
                 <!--<tr *ngFor="let contract of contracts">-->
                 <tr *ngFor="let contract of contracts; index as pos">
                 <!-- 20210317 E_Update -->
-                    <td><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td><!-- 20211107 Add -->
+                    <!-- 20220522 S_Update -->
+                    <!--<td><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td>--><!-- 20211107 Add -->
+                    <td *ngIf="!copyFlg"><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td>
+                    <!-- 20220522 E_Update -->
                     <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                     <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
@@ -415,8 +434,12 @@
                     <td style="white-space: pre;">{{displayOwner(contract)}}</td>
                     <td class="text-right">{{formatIntNumber(contract.tradingPrice, '円')}}</td>
                     <td>{{formatDay(contract.decisionDay, 'yyyy/MM/dd')}}</td>
-                    <td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>
-                    <td><button mat-raised-button (click)="deleteContract(contract, pos)" color="button" *ngIf="enableUser">削除</button></td><!-- 20210317 Add -->
+                    <!-- 20220522 S_Update -->
+                    <!--<td><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button (click)="deleteContract(contract, pos)" color="button" *ngIf="enableUser">削除</button></td>--><!-- 20210317 Add -->
+                    <td *ngIf="!copyFlg"><button mat-raised-button (click)="showContract(contract)" color="warn">詳細</button></td>
+                    <td *ngIf="enableUser && !copyFlg"><button mat-raised-button (click)="deleteContract(contract, pos)" color="button">削除</button></td>
+                    <!-- 20220522 E_Update -->
                 </tr>
             </tbody>
         </table>

@@ -28,6 +28,7 @@ declare var google: any;
     {provide: DateAdapter, useClass: JPDateAdapter}
   ],
 })
+
 export class BukkenDetailComponent extends BaseComponent {
   //hirano_202004.15_edd
   @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
@@ -38,7 +39,7 @@ export class BukkenDetailComponent extends BaseComponent {
   public pid: number;
   public copyFlg: boolean = false;// 20210426 Add
   removeLoc: Locationinfo[] = [];
-  contracts: Contractinfo[] = []; // 契約情報
+  contracts: Contractinfo[] = [];// 契約情報
   public cond = {mode: 1
   };
 
@@ -119,17 +120,18 @@ export class BukkenDetailComponent extends BaseComponent {
         // コピーの場合
         if(this.copyFlg)
         {
-          this.data.bukkenNo = '';
+          // this.data.bukkenNo = '';// 20220522 Delete
           this.data.attachFiles = [];
         }
         // 20210426 E_Add
       }
 
       // 土地の契約情報
-      // 20210426 S_Update
+      // 20220522 S_Update
 //      if (values.length > 4) {
-      if (values.length > 4 && !this.copyFlg) {
-      // 20210426 E_Update
+//      if (values.length > 4 && !this.copyFlg) {
+      if (values.length > 4) {
+      // 20220522 E_Update
         this.contracts = values[4];
       }
 
@@ -292,7 +294,7 @@ export class BukkenDetailComponent extends BaseComponent {
         /*
         if (result.isSave) {
           this.data.locations[pos] = new Locationinfo(result.data);
-          this.resetRegistrant(pos); //20201009 リセットRegistrant
+          this.resetRegistrant(pos);//20201009 リセットRegistrant
           //loc = new Locationinfo(result.data);
         } else if (result.isDelete) {
           this.data.locations.splice(pos, 1);
@@ -301,7 +303,7 @@ export class BukkenDetailComponent extends BaseComponent {
         if (result.isSave || result.isDelete) {
           if (result.isSave) {
             this.data.locations[pos] = new Locationinfo(result.data);
-            this.resetRegistrant(pos); //20201009 リセットRegistrant
+            this.resetRegistrant(pos);//20201009 リセットRegistrant
             //loc = new Locationinfo(result.data);
           } else if (result.isDelete) {
             this.data.locations.splice(pos, 1);
@@ -382,8 +384,8 @@ export class BukkenDetailComponent extends BaseComponent {
   backToList() {
     this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
   }
-//hirano_202004.15_edd
-/**
+
+  /**
    * プラン画面切り替え
    */
   switchTab(event: MatRadioChange) {
@@ -395,13 +397,12 @@ export class BukkenDetailComponent extends BaseComponent {
     this.cond.mode = event.value;
     this.service.searchCondition = this.cond;
   }
-//hirano_202004.15_edd
 
   /**
    * データ保存
    */
   // 20210426 S_Update
-//  save() {
+  // save() {
   save(copyFlg: boolean) {
   // 20210426 E_Update
     if (!this.validate()) {
@@ -413,34 +414,30 @@ export class BukkenDetailComponent extends BaseComponent {
       width: '500px',
       height: '250px',
       data: dlg
-    });    
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
-
         this.spinner.show();
 
-        //20210117　保存する前緯度経度取得
-
+        // 20210117 保存する前緯度経度取得
         const that = this;
 
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({address : this.data.residence}, function(results: any, status: any) {
           if (status === google.maps.GeocoderStatus.OK) {
             that.data.latitude = results[0].geometry.location.lat(); // 緯度を取得
-            that.data.longitude = results[0].geometry.location.lng(); // 経度を取得              
+            that.data.longitude = results[0].geometry.location.lng();// 経度を取得
           }
           else {
             that.data.latitude = 0;
             that.data.longitude = 0;
           }
 
-          //--------------------------------------
           // 20210426 S_Update
 //          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true);
           that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true, copyFlg);
           // 20210426 E_Update
-          //20200819 E_Update
           const funcs = [];
           // 20210426 S_Update
 //          funcs.push(that.service.saveLand(that.data));
@@ -458,17 +455,19 @@ export class BukkenDetailComponent extends BaseComponent {
             dlgVal.afterClosed().subscribe(res => {
               that.data = new Templandinfo(values[0]);
               that.convertForDisplay();
+              // 20220522 S_Add
+              if(copyFlg) {
+                that.service.getLandContract(that.data.pid).then(res => {
+                  that.contracts = res;
+                });
+              }
+              // 20220522 E_Add
               that.router.navigate(['/bkdetail'], {queryParams: {pid: that.data.pid}});
             });
           });
-          //------------------------------------------
-
-        });                
-
-      }//保存完了
-
+        });
+      }
     });
-
   }
 
   /**
@@ -480,7 +479,7 @@ export class BukkenDetailComponent extends BaseComponent {
 
     // this.checkBlank(this.data.bukkenName, 'bukkenName', '物件名は必須です。');
     this.checkBlank(this.data.residence, 'residence', '住居表示は必須です。');
-  　// this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
+    // this.checkNumber(this.data.floorAreaRatio, 'floorAreaRatio', '容積率は不正です。');
     // this.checkNumber(this.data.coverageRate, 'coverageRate', '建蔽率は不正です。');
 
     if (this.errorMsgs.length > 0) {
@@ -514,12 +513,12 @@ export class BukkenDetailComponent extends BaseComponent {
 
   /**
    * 地図削除
-   * @param map :　削除したい地図
+   * @param map : 削除したい地図
    */
   deleteMapFile(map: MapAttach) {
 
     const dlg = new Dialog({title: '確認', message: 'ファイルを削除します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -532,12 +531,12 @@ export class BukkenDetailComponent extends BaseComponent {
 
   /**
    * ファイル添付削除
-   * @param map :　削除したいファイル添付
+   * @param map : 削除したいファイル添付
    */
   deleteAttachFile(map: AttachFile) {
 
     const dlg = new Dialog({title: '確認', message: 'ファイルを削除します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -607,14 +606,14 @@ export class BukkenDetailComponent extends BaseComponent {
   /**
    * 所有地ー契約取得
    */
-  getLandContract(loc: Locationinfo) {    
+  getLandContract(loc: Locationinfo) {
     const ret = this.contracts.filter(ct => {
       return ct.details.filter(dt => dt.locationInfoPid === loc.pid && dt.contractDataType === '01').length > 0;
     });
     return ret;
   }
 
-  ShowContractNo(loc: Locationinfo, contractNo: string) {
+  showContractNo(loc: Locationinfo, contractNo: string) {
     const buysellCount = loc.sharers.filter(s => {
       return s.buysellFlg === '1';
     }).length;
@@ -629,7 +628,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param loc ：所有地
    */
   showStatus(loc: Locationinfo) {
-    let status = ''; // this.getCodeTitle('013', '01');
+    let status = '';// this.getCodeTitle('013', '01');
 
     // ①
     const buysellCount = loc.sharers.filter(s => {
@@ -668,7 +667,6 @@ export class BukkenDetailComponent extends BaseComponent {
           } else {
             return this.getCodeTitle('013', '09');
           }
-
         } else {
           if (contractDayCount === 0) {
             return this.getCodeTitle('013', '01');
@@ -695,7 +693,6 @@ export class BukkenDetailComponent extends BaseComponent {
         }
       });
     });
-
     return sellers.length;
   }
 
@@ -755,7 +752,6 @@ export class BukkenDetailComponent extends BaseComponent {
       this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
     }
   }
-
 
   export() {
 
@@ -827,7 +823,7 @@ export class BukkenDetailComponent extends BaseComponent {
     let indivisibleNumerator = this.getNumber(this.removeComma(data.indivisibleNumerator));
     // 不可分分母
     let indivisibleDenominator = this.getNumber(this.removeComma(data.indivisibleDenominator));
-    
+
     if(indivisibleNumerator > 0 && indivisibleDenominator > 0) {
       let rate = Math.floor(indivisibleNumerator / indivisibleDenominator * 100)
       // 不可分子/不可分母≧50％
@@ -848,7 +844,7 @@ export class BukkenDetailComponent extends BaseComponent {
       height: '250px',
       data: dlg
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         this.service.deleteContract(contract.pid).then(res => {
@@ -862,7 +858,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * 謄本ファイルアップロード
    * @param event ：ファイル
    */
-   uploadedLoc(event, loc: Locationinfo) {
+  uploadedLoc(event, loc: Locationinfo) {
     if (loc.attachFiles === null) {
       loc.attachFiles = [];
     }
@@ -875,7 +871,7 @@ export class BukkenDetailComponent extends BaseComponent {
   /**
    * 決済案内出力
    */
-   buyInfoExport() {
+  buyInfoExport() {
     let lst = this.contracts.filter(me => me.csvSelected).map(me => Number(me.pid));
     if(lst.length === 0) return;
 
