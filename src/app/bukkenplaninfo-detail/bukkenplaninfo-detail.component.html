@@ -151,7 +151,7 @@
             <th>固都税清算金</th>
             <td>
                 <!-- 20220522 S_Add -->
-                <!-- リリースまでコメント --><!--<button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="calcSaleKotozei()">計算</button><br>-->
+                <button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="calcSaleKotozei()">計算</button><br>
                 <!-- 20220522 E_Add -->
                 <input type="text" [(ngModel)]="data.salesFixedTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesFixedTaxMap)">&nbsp;円
             </td>
@@ -164,19 +164,16 @@
                 <input type="text" [(ngModel)]="data.salesFixedBuildingTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedBuildingTaxMap)">&nbsp;円
             </td>
             <!-- 20220523 S_Update -->
-            <!-- リリースまで反映しない -->
-            
+            <!--
             <th>(固都税清算金)消費</th>
             <td>
                 <input type="text" [(ngModel)]="data.salesFixedConsumptionTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedConsumptionTaxMap)">&nbsp;円
             </td>
-            
-            <!--
+            -->
             <th>建物分消費税</th>
             <td>
                 <input type="text" [(ngModel)]="data.salesFixedBuildingTaxOnlyTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)" [value]="changeValue(data.salesFixedBuildingTaxOnlyTaxMap)">&nbsp;円
             </td>
-            -->
             <!-- 20220523 E_Update -->
         </tr>
         <tr>
