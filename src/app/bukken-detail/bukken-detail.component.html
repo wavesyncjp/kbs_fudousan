@@ -384,7 +384,7 @@
 
     <!-- 20211107 S_Add -->
     <div class="button-div-left" *ngIf="!copyFlg">
-        <button mat-raised-button *ngIf="this.data.pid > 0 && contracts.length > 0" class="addLocation" (click)="buyInfoExport()">決済案内出力</button>
+        <button mat-raised-button *ngIf="this.data.pid > 0 && contracts.length > 0 && !disableUser" class="addLocation" (click)="buyInfoExport()">決済案内出力</button>
     </div>
     <!-- 20211107 E_Add -->
     <!--契約情報-->
@@ -394,7 +394,7 @@
             <thead class="list-header">
                 <!-- 20220522 S_Update -->
                 <!--<th class="width40">出力</th>--><!-- 20211107 Add -->
-                <th class="width40" *ngIf="!copyFlg">出力</th>
+                <th class="width40" *ngIf="!copyFlg && !disableUser">出力</th>
                 <!-- 20220522 E_Update -->
                 <th class="width100">契約状況</th><!-- 20200730 Add -->
                 <th class="width110">契約番号</th>
@@ -421,7 +421,7 @@
                 <!-- 20210317 E_Update -->
                     <!-- 20220522 S_Update -->
                     <!--<td><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td>--><!-- 20211107 Add -->
-                    <td *ngIf="!copyFlg"><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td>
+                    <td *ngIf="!copyFlg && !disableUser"><mat-checkbox [(ngModel)]="contract.csvSelected"></mat-checkbox></td>
                     <!-- 20220522 E_Update -->
                     <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>

@@ -24,7 +24,7 @@ export class TopComponent  extends BaseComponent {
   // 20211227 S_Add
   // 20220517 S_Update
   // displayedColumnsForNotice: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName'];
-  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'createDate', 'answerTimeLimit', 'approvalDateTime'];
+  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit', 'approvalDateTime'];
   // 20220517 E_Update
   dataSourceForNotice = new MatTableDataSource<Information>();
   hasNotice = false;

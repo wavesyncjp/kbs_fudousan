@@ -99,7 +99,10 @@
         <tr>
             <th>掲載終了</th>
             <td>
-                <mat-checkbox [checked]="data.finishFlg === '1'" #cbxFinishFlg></mat-checkbox>
+                <!-- 20220526 S_Update -->
+                <!--<mat-checkbox [checked]="data.finishFlg === '1'" #cbxFinishFlg></mat-checkbox>-->
+                <mat-checkbox [checked]="data.finishFlg === '1'" #cbxFinishFlg [ngClass]="{'error': errors['finishFlg']}"></mat-checkbox>
+                <!-- 20220526 E_Update -->
             </td>
         </tr>
     </table>

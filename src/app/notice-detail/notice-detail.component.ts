@@ -123,6 +123,13 @@ export class NoticeDetailComponent extends BaseComponent {
       this.checkBlank(this.data.infoDetail, 'infoDetail', '詳細は必須です。');
     }
 
+    // 20220526 S_Add
+    if (this.cbxAddedFileSendFlg.checked && this.cbxFinishFlg.checked) {
+      this.errorMsgs.push('追加ファイル送付の際は、掲載終了のチェックを外してください。');
+      this.errors['finishFlg'] = true;
+    }
+    // 20220526 E_Add
+
     if (this.errorMsgs.length > 0) {
       return false;
     }

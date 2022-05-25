@@ -45,7 +45,10 @@ table {
     /*padding-bottom: 13px;*/
 }
 .bukkenlist_width {
-    max-width: 200px;
+    /* 20220526 S_Update */
+    /*max-width: 200px;*/
+    max-width: 400px;
+    /* 20220526 E_Update */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
