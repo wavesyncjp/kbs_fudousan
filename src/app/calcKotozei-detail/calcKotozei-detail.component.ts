@@ -197,6 +197,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       }
     }
     // 20220521 E_Update
+    this.changeValue('changeValueLoc');// 20220603 Add
   }
 
   /**
@@ -212,14 +213,14 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
    * @param name 変更属性
    */
   changeValue(name: string) {
-    let isResetFixed = false;// 20220517 Add
+    let isRecalculationFixed = false;// 20220517 Add
     let sharingStartDayMap: Date;
     // 分担期間開始日
     if(name === 'sharingStartDay') {
       if(this.contract.sharingStartDayYYYY != null && this.contract.sharingStartDayYYYY.length > 0) {
         // 20220517 S_Add
         if(this.contract.sharingStartDay != this.contract.sharingStartDayYYYY.concat(this.contract.sharingStartDayMMDD)) {
-          isResetFixed = true;
+          isRecalculationFixed = true;
         }
         // 20220517 E_Add
         
@@ -243,7 +244,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       {
         // 20220517 S_Add
         if(this.contract.sharingEndDay != Converter.dateToString(this.contract.sharingEndDayMap, 'yyyyMMdd', this.datepipe)) {
-          isResetFixed = true;
+          isRecalculationFixed = true;
         }
         // 20220517 E_Add
 
@@ -271,6 +272,7 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       this.locations = locs;
       return;
     }
+    // 固都税清算金（土地）もしくは、固都税清算金（建物）
     else if(name === 'fixedLandTax' || name === 'fixedBuildingTax') {
       this.contract.fixedLandTax = Converter.stringToNumber(this.contract.fixedLandTaxMap);
       this.contract.fixedBuildingTax = Converter.stringToNumber(this.contract.fixedBuildingTaxMap);
@@ -281,6 +283,12 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
       return;
     }
     // 20210906 E_Add
+    // 20220603 S_Add
+    // 謄本情報の変更もしくは、建物分消費税
+    else if(name === 'changeValueLoc' || name === 'fixedBuildingTaxOnlyTax') {
+      isRecalculationFixed = true;
+    }
+    // 20220603 E_Add
     sharingStartDayMap = parse(this.contract.sharingStartDay, 'yyyyMMdd', new Date());
 
     if(this.sharingStartDayBuyerMap != null && this.sharingEndDayBuyerMap != null) {
@@ -318,6 +326,20 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
         // 建物分消費税
         this.contract.fixedBuildingTaxOnlyTax = Converter.stringToNumber(this.contract.fixedBuildingTaxOnlyTaxMap);
 
+        // 20220603 S_Add
+        // 【ノート】
+        // 再計算対象の場合、固都税清算金を初期化する
+
+        if(isRecalculationFixed) {
+          // 固都税清算金（土地）を初期化
+          this.contract.fixedLandTaxMap = null;
+          this.contract.fixedLandTax = null;
+          // 固都税清算金（建物）を初期化
+          this.contract.fixedBuildingTaxMap = null;
+          this.contract.fixedBuildingTax = null;
+        }
+        // 20220603 E_Add
+
         // 固都税清算金（土地）が未設定の場合
         this.contract.fixedLandTax = Converter.stringToNumber(this.contract.fixedLandTaxMap);
         if(this.contract.fixedLandTax == null || this.contract.fixedLandTax == 0) {
@@ -330,6 +352,8 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
           this.contract.fixedBuildingTax = calcFixedBuildingTax + this.contract.fixedBuildingTaxOnlyTax;
           this.contract.fixedBuildingTaxMap = Converter.numberToString(this.contract.fixedBuildingTax);
         }
+        // 20220603 S_Delete
+        /*
         // 20220517 S_Add
         // 【ノート】
         // 分担期間（売主）に変更があった場合、固都税清算金を初期化する
@@ -343,6 +367,8 @@ export class CalcKotozeiDetailComponent extends BaseComponent {
           this.contract.fixedBuildingTax = null;
         }
         // 20220517 E_Add
+        */
+        // 20220603 E_Delete
         
         // 固都税清算金=固都税清算金（土地）+固都税清算金（建物）+建物分消費税
         this.contract.fixedTax = this.contract.fixedLandTax + this.contract.fixedBuildingTax + this.contract.fixedBuildingTaxOnlyTax;

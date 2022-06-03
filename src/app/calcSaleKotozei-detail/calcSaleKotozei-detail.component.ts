@@ -153,6 +153,7 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
         }
       }
     }
+    this.changeValue('changeValueLoc');// 20220603 Add
   }
 
   /**
@@ -168,14 +169,14 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
    * @param name 変更属性
    */
   changeValue(name: string) {
-    let isResetFixed = false;// 20220517 Add
+    let isRecalculationFixed = false;// 20220517 Add
     let sharingStartDayMap: Date;
     // 分担期間開始日
     if(name === 'sharingStartDay') {
       if(this.sale.sharingStartDayYYYY != null && this.sale.sharingStartDayYYYY.length > 0) 
       {
         if(this.sale.sharingStartDay != this.sale.sharingStartDayYYYY.concat(this.sale.sharingStartDayMMDD)) {
-          isResetFixed = true;
+          isRecalculationFixed = true;
         }
 
         this.sale.sharingStartDay = this.sale.sharingStartDayYYYY.concat(this.sale.sharingStartDayMMDD);
@@ -197,7 +198,7 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
       if(this.sale.sharingEndDayMap != null)
       {
         if(this.sale.sharingEndDay != Converter.dateToString(this.sale.sharingEndDayMap, 'yyyyMMdd', this.datepipe)) {
-          isResetFixed = true;
+          isRecalculationFixed = true;
         }
 
         this.sale.sharingEndDay = Converter.dateToString(this.sale.sharingEndDayMap, 'yyyyMMdd', this.datepipe);
@@ -221,6 +222,7 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
       this.locations = locs;
       return;
     }
+    // 固都税清算金（土地）もしくは、固都税清算金（建物）
     else if(name === 'fixedLandTax' || name === 'fixedBuildingTax') {
       this.sale.salesFixedLandTax = Converter.stringToNumber(this.sale.salesFixedLandTaxMap);
       this.sale.salesFixedBuildingTax = Converter.stringToNumber(this.sale.salesFixedBuildingTaxMap);
@@ -230,6 +232,12 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
       this.sale.salesFixedTaxMap = Converter.numberToString(this.sale.salesFixedTax);
       return;
     }
+    // 20220603 S_Add
+    // 謄本情報の変更もしくは、建物分消費税
+    else if(name === 'changeValueLoc' || name === 'fixedBuildingTaxOnlyTax') {
+      isRecalculationFixed = true;
+    }
+    // 20220603 E_Add
     sharingStartDayMap = parse(this.sale.sharingStartDay, 'yyyyMMdd', new Date());
 
     if(this.sharingStartDayBuyerMap != null && this.sharingEndDayBuyerMap != null) {
@@ -267,6 +275,20 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
         // 建物分消費税
         this.sale.salesFixedBuildingTaxOnlyTax = Converter.stringToNumber(this.sale.salesFixedBuildingTaxOnlyTaxMap);
 
+        // 20220603 S_Add
+        // 【ノート】
+        // 再計算対象の場合、固都税清算金を初期化する
+
+        if(isRecalculationFixed) {
+          // 固都税清算金（土地）を初期化
+          this.sale.salesFixedLandTaxMap = null;
+          this.sale.salesFixedLandTax = null;
+          // 固都税清算金（建物）を初期化
+          this.sale.salesFixedBuildingTaxMap = null;
+          this.sale.salesFixedBuildingTax = null;
+        }
+        // 20220603 E_Add
+
         // 固都税清算金（土地）が未設定の場合
         this.sale.salesFixedLandTax = Converter.stringToNumber(this.sale.salesFixedLandTaxMap);
         if(this.sale.salesFixedLandTax == null || this.sale.salesFixedLandTax == 0) {
@@ -280,10 +302,12 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
           this.sale.salesFixedBuildingTaxMap = Converter.numberToString(this.sale.salesFixedBuildingTax);
         }
 
+        // 20220603 S_Delete
+        /*
         // 【ノート】
         // 分担期間（売主）に変更があった場合、固都税清算金を初期化する
 
-        if(isResetFixed) {
+        if(isRecalculationFixed) {
           // 固都税清算金（土地）を初期化
           this.sale.salesFixedLandTaxMap = null;
           this.sale.salesFixedLandTax = null;
@@ -291,6 +315,8 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
           this.sale.salesFixedBuildingTaxMap = null;
           this.sale.salesFixedBuildingTax = null;
         }
+        */
+        // 20220603 E_Delete
 
         // 固都税清算金=固都税清算金（土地）+固都税清算金（建物）+建物分消費税
         this.sale.salesFixedTax = this.sale.salesFixedLandTax + this.sale.salesFixedBuildingTax + this.sale.salesFixedBuildingTaxOnlyTax;

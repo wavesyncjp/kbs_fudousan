@@ -26,9 +26,15 @@
                                 <td>{{item.blockNumber}}</td>
                                 <td>{{item.buildingNumber}}</td>
                                 <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.valuationMap" maxlength="15" [value]="changeNumeric(item.valuationMap)" (focusout)="changeValueLoc(item, 'valuation')"></td>
-                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.propertyTaxMap" maxlength="15" [value]="changeNumeric(item.propertyTaxMap)"></td>
+                                <!-- 20220603 S_Update -->
+                                <!--<td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.propertyTaxMap" maxlength="15" [value]="changeNumeric(item.propertyTaxMap)"></td>-->
+                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.propertyTaxMap" maxlength="15" [value]="changeNumeric(item.propertyTaxMap)" (focusout)="changeValueLoc(item, '')"></td>
+                                <!-- 20220603 E_Update -->
                                 <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.cityValuationMap" maxlength="15" [value]="changeNumeric(item.cityValuationMap)" (focusout)="changeValueLoc(item, 'cityValuation')"></td><!-- 20220521 Add -->
-                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.cityPlanningTaxMap" maxlength="15" [value]="changeNumeric(item.cityPlanningTaxMap)"></td>
+                                <!-- 20220603 S_Update -->
+                                <!--<td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.cityPlanningTaxMap" maxlength="15" [value]="changeNumeric(item.cityPlanningTaxMap)"></td>-->
+                                <td><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.cityPlanningTaxMap" maxlength="15" [value]="changeNumeric(item.cityPlanningTaxMap)" (focusout)="changeValueLoc(item, '')"></td>
+                                <!-- 20220603 E_Update -->
                             </tr>
                         </tbody>
                     </table>
