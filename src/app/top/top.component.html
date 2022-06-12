@@ -56,12 +56,20 @@
 
                 <!-- 20220521 S_Add -->
                 <ng-container matColumnDef="confirmFlg">
-                    <td mat-cell *matCellDef="let element">{{getCodeTitle('039',element.confirmFlg)}}</td>
+                    <!-- 20220613 S_Update -->
+                    <!--<td mat-cell *matCellDef="let element">-->
+                    <td mat-cell *matCellDef="let element" [ngClass]="(element.confirmFlg == '0' && element.approvalFlg == '0' ? 'color-red' : '')">
+                    <!-- 20220613 E_Update -->
+                        {{getCodeTitle('039',element.confirmFlg)}}
+                    </td>
                 </ng-container>
                 <!-- 20220521 E_Add -->
 
                 <ng-container matColumnDef="approvalFlg">
-                    <td mat-cell *matCellDef="let element">
+                    <!-- 20220613 S_Update -->
+                    <!--<td mat-cell *matCellDef="let element">-->
+                    <td mat-cell *matCellDef="let element" [ngClass]="(element.confirmFlg == '0' && element.approvalFlg == '0' ? 'color-red' : '')">
+                    <!-- 20220613 E_Update -->
                         <!-- 20220511 S_Update -->
                         <!--<a class="action-link" (click)="showNoticeDetail(element)">{{getCodeTitle('038',element.approvalFlg)}}</a>-->
                         {{getCodeTitle('038',element.approvalFlg)}}
