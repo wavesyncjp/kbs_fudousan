@@ -48,3 +48,14 @@ mat-select {
     position: relative;
 }
 /* 20211107 E_Add */
+/* 20220614 S_Add */
+.detail-tbl-min > tr > td > label.sharer {
+    background-color: rgba(226, 239, 218, 1);
+    font-size: 0.8em;
+    text-align: left;
+    padding: 14px;
+    padding-left: 2px;
+    padding-right: 26px;
+    font-weight: bold;
+}
+/* 20220614 E_Add */

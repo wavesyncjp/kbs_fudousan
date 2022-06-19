@@ -7,6 +7,7 @@ import { BaseComponent } from '../BaseComponent';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SharerInfo } from '../models/sharer-info';
 import { BottomLandInfo } from '../models/bottomLandInfo';// 20210614 Add
+import { ResidentInfo } from '../models/residentInfo';// 20220614 Add
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
@@ -270,8 +271,6 @@ export class LocationDetailComponent extends BaseComponent {
     } else {
       this.applyChangeType();
     }
-
-    
   }
 
   // 20211109 S_Add
@@ -418,7 +417,7 @@ export class LocationDetailComponent extends BaseComponent {
     // 20201222 S_Add
     if (this.data.locationType !== '01'
       && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
-        
+
       if(this.data.bottomLandPid === null || this.data.bottomLandPid === '') {
         // 底地を取得
         this.cond = {
@@ -437,6 +436,7 @@ export class LocationDetailComponent extends BaseComponent {
     {
       this.data.bottomLandPid = null;// 底地
       this.data.leasedAreaMap = null;// 借地対象面積
+      this.data.landRentMap = null;// 地代 20220614 Add
       // 20210614 S_Add
       // 底地追加分を削除
       var index: number = 0;
@@ -452,6 +452,26 @@ export class LocationDetailComponent extends BaseComponent {
       // 20210614 E_Add
     }
     // 20201222 E_Add
+    // 20220615 S_Add
+    if (this.data.locationType !== '02' && this.data.locationType !== '04') {
+      this.data.roomNo = null;            // 部屋番号
+      this.data.borrowerName = null;      // 借主氏名
+      this.data.rentPriceMap = null;      // 賃料
+      this.data.expirationDateMap = null; // 契約期間満了日
+
+      // 入居者追加分を削除
+      var index: number = 0;
+      this.data.residents.forEach(resident => {
+        this.deleteResident(index);
+        index++;
+      });
+      index = 0;
+      this.data.residents.forEach(resident => {
+        this.deleteResident(index);
+        index++;
+      });
+    }
+    // 20220615 E_Add
     // 20211109 S_Add
     if(this.data.locationType === '01' || this.data.locationType === '03') {
       this.switchCalendar('#txtCompletionDay', false);
@@ -530,6 +550,7 @@ export class LocationDetailComponent extends BaseComponent {
       if (dlg.choose) {
         this.convertSharer();
         this.convertBottomLand();// 20210614 Add
+        this.convertResident();// 20220614 Add
         //20200913 S_Update
 //        this.data.convertForSave(this.service.loginUser.userId);
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
@@ -574,7 +595,7 @@ export class LocationDetailComponent extends BaseComponent {
           this.spinner.hide();
           if (res.status === 'NG') {
             this.dialog.open(FinishDialogComponent, {
-              width: '500px',　height: '250px',
+              width: '500px', height: '250px',
               data: new Dialog({title: 'エラー', message: '謄本情報を既に契約されています。'})
             });
           } else {
@@ -646,7 +667,7 @@ export class LocationDetailComponent extends BaseComponent {
    */
   deleteFile(map: LocationAttach) {
     const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -704,6 +725,57 @@ export class LocationDetailComponent extends BaseComponent {
     const firstBottomLand = this.data.bottomLands[0];
     firstBottomLand.bottomLandPid = this.data.bottomLandPid;
     firstBottomLand.leasedAreaMap = this.data.leasedAreaMap;
+    firstBottomLand.landRentMap = this.data.landRentMap;// 20220614 Add
   }
   // 20210614 E_Add
+  // 20220614 S_Add
+  /**
+   * 入居者追加
+   * @param loc ：所有地
+   */
+   addResident() {
+    if (this.data.residents == null) {
+      this.data.residents = [];
+    }
+    if (this.data.residents.length === 0) {
+      this.data.residents.push(new ResidentInfo());
+      this.data.residents.push(new ResidentInfo());
+    } else {
+      this.data.residents.push(new ResidentInfo());
+    }
+  }
+
+  /**
+   * 入居者削除
+   * @param loc ：所有地
+  */
+  deleteResident(residentPos: number) {
+    const resident = this.data.residents[residentPos];
+    if (resident.pid > 0) {
+      if (this.data.delResidents == null) {
+        this.data.delResidents = [];
+      }
+      this.data.delResidents.push(resident.pid);
+    }
+    this.data.residents.splice(residentPos, 1);
+  }
+
+  /**
+   * 入居者情報
+   */
+  convertResident() {
+    if (this.data.residents == null) {
+      this.data.residents = [];
+    }
+    if (this.data.residents.length === 0) {
+      this.data.residents.push(new ResidentInfo());
+    }
+    // 共通
+    const firstResident = this.data.residents[0];
+    firstResident.roomNo = this.data.roomNo;
+    firstResident.borrowerName = this.data.borrowerName;
+    firstResident.rentPriceMap = this.data.rentPriceMap;
+    firstResident.expirationDateMap = this.data.expirationDateMap;
+  }
+  // 20220614 E_Add
 }
