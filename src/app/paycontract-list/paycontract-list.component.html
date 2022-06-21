@@ -117,10 +117,7 @@
                 <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>&nbsp;
                 <button mat-raised-button (click)="csvExport()" *ngIf="searched" color="primary">&nbsp;出力&nbsp;</button>
                 <!-- 20220511 S_Add -->
-                <!-- リリースまでコメント -->
-                <!--
                 <button mat-raised-button (click)="costExport()" *ngIf="searched" class="costExport_btn">&nbsp;支払依頼書出力&nbsp;</button>
-                -->
                 <!-- 20220511 E_Add -->
                 <!--20201007_S Add-->
                 <div class = "search-btns">
@@ -170,14 +167,14 @@
 
         <ng-container matColumnDef="paymentCode">
             <th mat-header-cell *matHeaderCellDef> 支払種別 </th>
-            <td mat-cell *matCellDef="let element"> <!--{{element.paymentCode}} -->
+            <td mat-cell *matCellDef="let element">
                 <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{getPaymentName(detail.paymentCode)}}</div>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="contractDay">
             <th mat-header-cell *matHeaderCellDef> 支払予定日 </th>
-            <td mat-cell *matCellDef="let element"> <!--{{element.contractDay}} -->
+            <td mat-cell *matCellDef="let element">
                 <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractDay , 'yyyy/MM/dd')}}</div>
             </td>
         </ng-container>
@@ -205,7 +202,6 @@
             </td>
         </ng-container>
 
-        <!-- 詳細 Column -->
         <ng-container matColumnDef="detail">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element"> 
@@ -214,7 +210,6 @@
         </ng-container>
 
         <!-- 20210311 S_Add -->
-        <!-- コピー Column -->
         <ng-container matColumnDef="copy">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element"> 
@@ -233,8 +228,6 @@
 
         <!-- 20220511 S_Add -->
         <!--支払依頼書出力-->
-        <!-- リリースまでコメント -->
-        <!--
         <ng-container matColumnDef="costCheck">
             <th mat-header-cell *matHeaderCellDef>依頼書</th>
             <td mat-cell *matCellDef="let element">
@@ -243,7 +236,6 @@
                 </div>
             </td>
         </ng-container>
-        -->
         <!-- 20220511 E_Add -->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

@@ -58,11 +58,10 @@ export class PayContractListComponent extends BaseComponent {
   // 20220511 S_Update
   //20200730 S_Update
   /*displayedColumns: string[] = ['bukkenNo','bukkenName','supplierName','payContractDay','payContractFixDay', 'paymentCode','contractDay','delete', 'detail', 'csvCheck'];*/
-  /* リリースまで反映しない */
   /*
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'copy', 'csvCheck', 'costCheck'];
-  */
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'copy', 'csvCheck'];
+  */
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'paymentCode','contractDay','contractFixDay','payPriceTax','delete', 'detail', 'copy', 'csvCheck', 'costCheck'];
   //20200730 E_Update
   // 20220511 E_Update
   dataSource = new MatTableDataSource<Paycontractinfo>();
@@ -271,8 +270,6 @@ export class PayContractListComponent extends BaseComponent {
   /**
    * 支払依頼書出力
    */
-  /* リリースまでコメント */
-  /*
   costExport() {
 
     let lst: number[] = [];
@@ -293,13 +290,12 @@ export class PayContractListComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         this.spinner.show();
-        this.service.exportBuyInfo(lst).then(data => {
+        this.service.exportCostRequest(lst).then(data => {
           this.service.writeToFile(data, "諸経費等");
           this.spinner.hide();
         });
       }
     });
   }
-  */
   // 20220511 E_Add
 }
