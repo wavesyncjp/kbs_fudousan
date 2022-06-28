@@ -172,7 +172,11 @@
             </table>
         </ng-container>
         <!--プラン-->
-        
+        <!-- 20220627 S_Add -->
+        <div class="button-div-left">
+            <button mat-raised-button *ngIf="data.sales && data.sales.length > 0" class="contractButton" (click)="saleInfoExport()">売却決済案内出力</button>
+        </div>
+        <!-- 20220627 E_Add -->
         <!--売り契約-->
         <div *ngIf="authority !== '03'">
             <span class="block-title-statusNew">売り契約</span>
@@ -183,6 +187,7 @@
         <div class="contact-div" style="width: 98%;margin-left: -2px;" *ngIf="authority !== '03'"> 
         <table>
             <thead class="list-header">
+                <th class="width40">出力</th><!-- 20220627 Add -->
                 <th class="width200">売買先</th>
                 <th class="width200">売買対象（所在地）</th>
                 <th class="width100">地積（㎡、坪）</th>
@@ -195,6 +200,7 @@
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let sale of data.sales">
+                    <td><mat-checkbox [(ngModel)]="sale.csvSelected"></mat-checkbox></td><!-- 20220627 Add -->
                     <td class="text-left">{{sale.salesName}}</td>
                     <td class="text-left" style="white-space: pre-line;padding-top: 5px;padding-bottom: 5px;">{{sale.salesLocationStr}}</td>
                     <td class="text-right">{{formatIntNumber(sale.salesLandArea, '')}}</td>

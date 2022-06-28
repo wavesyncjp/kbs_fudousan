@@ -363,4 +363,26 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     });
   }
   // 20220329 E_Add
+  // 20220627 S_Add
+  /**
+   * 売却決済案内出力
+   */
+  saleInfoExport() {
+    let lst = this.data.sales.filter(me => me.csvSelected).map(me => Number(me.pid));
+    if(lst.length === 0) return;
+
+    const dlg = new Dialog({title: '確認', message: '売却決済案内を出力します。よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportSaleInfo(lst).then(data => {
+          this.service.writeToFile(data, "売却決済案内");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20220627 E_Add
 }

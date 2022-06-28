@@ -60,6 +60,7 @@ export class Bukkensalesinfo {
     salesOutsourcingPricePayDay: string;// 20201218 Add
     salesRemark: string;
     contractFormNumber: string;// 20210319 Add
+    csvSelected: boolean; //20220627 Add
 
     createUserId: number;
     updateUserId: number;

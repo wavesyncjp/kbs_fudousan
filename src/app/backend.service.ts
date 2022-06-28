@@ -1205,4 +1205,15 @@ export class BackendService {
     return res.toPromise();
   }
   // 20220511 E_Add
+  // 20220627 S_Add
+  /**
+   * 売却決済案内出力
+   * @param ids 物件売契約情報Pid
+   */
+  exportSaleInfo(ids: number[]): Promise<Blob> {
+    const downloadUrl = 'saleinfoexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {ids: ids}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  // 20220627 E_Add
 }
