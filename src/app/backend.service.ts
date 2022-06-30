@@ -402,6 +402,7 @@ export class BackendService {
       formData.append('comment', comment);
       formData.append('isAttach', '1');
     }
+    formData.append('createUserId', String(this.loginUser.userId));// 20220701 Add
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
 
@@ -415,6 +416,7 @@ export class BackendService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('contractInfoId', contractInfoId.toString());
+    formData.append('createUserId', String(this.loginUser.userId));// 20220701 Add
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
 
@@ -429,6 +431,7 @@ export class BackendService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('locationInfoId', locationInfoId.toString());
+    formData.append('createUserId', String(this.loginUser.userId));// 20220701 Add
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
   // 20210311 E_Add
@@ -443,7 +446,11 @@ export class BackendService {
     const uploadApi = 'infoAttachFileUpload.php';
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
-    formData.append('infoPid', infoPid.toString());
+    // 20220701 S_Update
+    // formData.append('infoPid', infoPid.toString());
+    formData.append('infoId', infoPid.toString());
+    formData.append('createUserId', String(this.loginUser.userId));
+    // 20220701 E_Update
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
   // 20220329 E_Add
@@ -458,6 +465,7 @@ export class BackendService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('infoId', infoPid.toString());
+    formData.append('createUserId', String(this.loginUser.userId));// 20220701 Add
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
 
@@ -472,16 +480,20 @@ export class BackendService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('infoId', infoPid.toString());
+    formData.append('createUserId', String(this.loginUser.userId));// 20220701 Add
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
   // 20211227 E_Add
 
   /**
-   * システムコード取得
+   * ファイル削除
    */
   deleteFile(id: number, attach: boolean): Promise<object> {
     const deleteFileApi = 'deletefile.php';
-    const body = { pid: id, isAttach: attach };
+    // 20220701 S_Update
+    // const body = { pid: id, isAttach: attach };
+    const body = { pid: id, isAttach: attach, deleteUserId: this.loginUser.userId};
+    // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
@@ -492,7 +504,10 @@ export class BackendService {
    */
   deleteContractFile(id: number): Promise<object> {
     const deleteFileApi = 'deleteContractFile.php';
-    const body = { pid: id };
+    // 20220701 S_Update
+    // const body = { pid: id };
+    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
@@ -504,7 +519,10 @@ export class BackendService {
    */
   deleteLocationFile(id: number): Promise<object> {
     const deleteFileApi = 'deleteLocationFile.php';
-    const body = { pid: id };
+    // 20220701 S_Update
+    // const body = { pid: id };
+    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
@@ -517,7 +535,10 @@ export class BackendService {
    */
    deleteInfoAttachFile(id: number): Promise<object> {
     const deleteFileApi = 'deleteInfoAttachFile.php';
-    const body = { pid: id };
+    // 20220701 S_Update
+    // const body = { pid: id };
+    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
