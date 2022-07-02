@@ -12,7 +12,10 @@ export class Receivecontractdetailinfo {
     receiveSeason: string;
     contractDay: string;
     contractFixDay: string;
-    contractFixTime: string = "0:00";
+    // 20220703 S_Update
+    // contractFixTime: string = "0:00";
+    contractFixTime: string;
+    // 20220703 E_Update
     receiveMethod: string;
     contractor: string;
     detailRemarks: string;

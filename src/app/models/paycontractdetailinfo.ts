@@ -13,7 +13,10 @@ export class Paycontractdetailinfo {
     paymentSeason: string;
     contractDay: string;
     contractFixDay: string;
-    contractFixTime: string = "0:00";// 20210904 Add
+    // 20220703 S_Update
+    // contractFixTime: string = "0:00";// 20210904 Add
+    contractFixTime: string;
+    // 20220703 E_Update
     paymentMethod: string;
     contractor: string;
     detailRemarks: string;
