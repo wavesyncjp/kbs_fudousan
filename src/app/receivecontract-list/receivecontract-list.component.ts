@@ -52,7 +52,8 @@ export class ReceiveContractListComponent extends BaseComponent {
   searched = false;
   selectedRowIndex = -1;
 
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'receiveCode','contractDay','contractFixDay','receivePriceTax','delete', 'detail', 'copy'];
+  // displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'receiveCode','contractDay','contractFixDay','receivePriceTax','delete', 'detail', 'copy'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'supplierName', 'receiveCode','contractFixDay','receivePriceTax','delete', 'detail', 'copy'];
 
   dataSource = new MatTableDataSource<Receivecontractinfo>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

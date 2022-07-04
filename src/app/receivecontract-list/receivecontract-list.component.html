@@ -34,7 +34,25 @@
                 <td colspan="2">
                     <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.supplierName" maxlength="100">
                 </td>
+
+                <th>入金日</th>
+                <td class="picker-div_1">
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="receiveFixDayMap_From" [(ngModel)]="cond.receiveFixDayMap_From" class="width100" placeholder="開始日">
+                <mat-datepicker-toggle matSuffix [for]="receiveFixDayMap_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #receiveFixDayMap_From></mat-datepicker>
+                </div>&nbsp;&nbsp;～
+                </td>
                 
+                <td>
+                <div class="picker-div">
+                <input type="text" [matDatepicker]="receiveFixDayMap_To" [(ngModel)]="cond.receiveFixDayMap_To" class="width100" placeholder="終了日">
+                <mat-datepicker-toggle matSuffix [for]="receiveFixDayMap_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #receiveFixDayMap_To></mat-datepicker>
+                </div>
+                </td>
+
+                <!--
                 <th>契約予定日</th>
                 <td class="picker-div_1">
                 <div class="picker-div">
@@ -68,7 +86,9 @@
                 <mat-datepicker #contractFixDayMap_To></mat-datepicker>
                 </div>
                 </td>
+                -->
             </tr>
+            <!--
             <tr>
                 <th>入金予定日</th>
                 <td class="picker-div_1">
@@ -104,6 +124,7 @@
                 </div>
                 </td>
             </tr>
+            -->
         </table>
         <div style="margin: 10px 0px 10px 0px;">
             <button mat-raised-button (click)="createNew()" color="warn">&nbsp;新規登録&nbsp;</button>&nbsp;
@@ -146,15 +167,17 @@
         </td>
         </ng-container>
 
+        <!--
         <ng-container matColumnDef="contractDay">
         <th mat-header-cell *matHeaderCellDef> 入金予定日 </th>
         <td mat-cell *matCellDef="let element">
             <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractDay , 'yyyy/MM/dd')}}</div>
         </td>
         </ng-container>
+        -->
 
         <ng-container matColumnDef="contractFixDay">
-            <th mat-header-cell *matHeaderCellDef> 入金確定日 </th>
+            <th mat-header-cell *matHeaderCellDef> 入金日 </th>
             <td mat-cell *matCellDef="let element">
                 <div *ngFor="let detail of element.details; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.details.length - 1)}">{{formatDay(detail.contractFixDay , 'yyyy/MM/dd')}}</div>
             </td>

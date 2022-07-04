@@ -31,7 +31,7 @@
                     <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option>
                 </datalist>
             </td>
-            <th rowspan="4">取引先</th>
+            <th rowspan="2">取引先</th>
             <td colspan="6"><label>取引先　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierName" class="width85Per" maxlength="100"></td>
         </tr> 
         <tr>
@@ -42,7 +42,8 @@
                 <label>住所　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierAddress" class="width400" maxlength="100">
                 &nbsp;&nbsp;<label>電話番号　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierTel" class="width110" maxlength="25">
             </td> 
-        </tr>   
+        </tr>
+        <!--
         <tr>
             <th>契約担当者</th>
             <td colspan="5">
@@ -90,6 +91,7 @@
                 <input type="text" [(ngModel)]="receivecontract.contractPriceTaxMap" class="width110 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(receivecontract.contractPriceTaxMap)">&nbsp;円
             </td>
         </tr>
+        -->
         <tr>
             <th>備考</th>
             <td colspan="6">
@@ -107,10 +109,12 @@
                 <th class="width140">入金金額(税抜)</th>
                 <th class="width140">消費税</th>
                 <th class="width140">入金金額(税込)</th>
+                <!--
                 <th class="width80">入金時期</th>
                 <th class="width100">入金予定日</th>
-                <th class="width80">入金確定日</th>
-                <th class="width80">入金時間</th>
+                -->
+                <th class="width80">入金日</th>
+                <!--<th class="width80">入金時間</th>-->
                 <th class="width130">入金方法</th>
                 <th>契約者</th>
                 <th>備考</th>
@@ -132,6 +136,7 @@
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receivePriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receiveTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receiveTaxMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td>
+                    <!--
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.receiveSeason" maxlength="100"></td>
                     <td>
                         <div class="picker-div">
@@ -140,6 +145,7 @@
                             <mat-datepicker #contractDay></mat-datepicker>
                         </div>
                     </td>
+                    -->
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
@@ -147,7 +153,7 @@
                             <mat-datepicker #contractFixDay></mat-datepicker>
                         </div>
                     </td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>
+                    <!--<td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>-->
                     <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.receiveMethod"></app-select-component></td>
                     <td>
                         <ng-multiselect-dropdown class="width280"
@@ -178,6 +184,7 @@
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receivePriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receiveTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receiveTaxMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td>
+                    <!--
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.receiveSeason" maxlength="100"></td>
                     <td>
                         <div class="picker-div">
@@ -186,6 +193,7 @@
                             <mat-datepicker #contractDay></mat-datepicker>
                         </div>
                     </td>
+                    -->
                     <td>
                         <div class="picker-div">
                             <input type="text" [matDatepicker]="contractFixDay" [(ngModel)]="detail.contractFixDayMap" class="width100">
@@ -193,7 +201,7 @@
                             <mat-datepicker #contractFixDay></mat-datepicker>
                         </div>
                     </td>
-                    <td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>
+                    <!--<td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>-->
                     <td><app-select-component class="width150" [codes]="getCode('015')" [(ngModel)]="detail.receiveMethod"></app-select-component></td>
                     <td>
                         <ng-multiselect-dropdown class="width280"

@@ -39,6 +39,7 @@ export class LocationDetailComponent extends BaseComponent {
   public cond: any;
   public locAdresses = [];
   public landAdresses = [];// 20201222 Add
+  buildingNotyetChar = '未登記建物あり';// 20220705 Add
 
   // 20201021 S_Add
   // 相続未登記あり
@@ -263,6 +264,10 @@ export class LocationDetailComponent extends BaseComponent {
           this.buildingNotyet.checked = false;
           this.data.buildingNotyet = '0';
           // 20201224 E_Add
+          // 20220705 S_Add
+          // 家屋番号を初期化
+          if(this.data.buildingNumber == this.buildingNotyetChar) this.data.buildingNumber = null;
+          // 20220705 E_Add
           this.applyChangeType();
         } else {
           this.data.locationType = this.oldLocationType;
@@ -529,6 +534,13 @@ export class LocationDetailComponent extends BaseComponent {
   */
   yetChange(event, data: any) {
     data.buildingNotyet = (event.checked ? 1 : 0);
+    // 20220705 S_Add
+    // 区分が01:土地の場合
+    if(this.data.locationType === '01') {
+      // 建物未登記ありにチェックがある場合、家屋番号に固定文言を設定する
+      this.data.buildingNumber = event.checked ? this.buildingNotyetChar : '';
+    }
+    // 20220705 E_Add
   }
   
   /**
