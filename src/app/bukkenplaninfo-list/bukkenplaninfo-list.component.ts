@@ -385,4 +385,15 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     });
   }
   // 20220627 E_Add
+  // 20220707 S_Add
+  /**
+   * チェックボックスON/OFF
+   */
+  changeData(sale: Bukkensalesinfo) {
+    // ほかのチェックボックスをOFFにする
+    if(sale.csvSelected) {
+      this.data.sales.filter(me => me.pid !== sale.pid && me.csvSelected).forEach(me => me.csvSelected = false);
+    }
+  }
+  // 20220707 E_Add
 }

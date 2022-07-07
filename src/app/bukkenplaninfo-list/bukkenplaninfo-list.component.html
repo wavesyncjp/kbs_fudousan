@@ -200,7 +200,10 @@
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let sale of data.sales">
-                    <td><mat-checkbox [(ngModel)]="sale.csvSelected"></mat-checkbox></td><!-- 20220627 Add -->
+                    <!-- 20220707 S_Update -->
+                    <!--<td><mat-checkbox [(ngModel)]="sale.csvSelected"></mat-checkbox></td>-->
+                    <td><mat-checkbox [(ngModel)]="sale.csvSelected" (ngModelChange)="changeData(sale)"></mat-checkbox></td>
+                    <!-- 20220707 E_Update -->
                     <td class="text-left">{{sale.salesName}}</td>
                     <td class="text-left" style="white-space: pre-line;padding-top: 5px;padding-bottom: 5px;">{{sale.salesLocationStr}}</td>
                     <td class="text-right">{{formatIntNumber(sale.salesLandArea, '')}}</td>
