@@ -27,7 +27,7 @@
     "encoding-japanese": "^1.0.30",
     "file-saver": "^2.0.2",
     "html2canvas": "^1.0.0-rc.7",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng-multiselect-dropdown": "^0.2.14",
     "ngx-spinner": "^8.0.3",
     "rxjs": "~6.6.3",
