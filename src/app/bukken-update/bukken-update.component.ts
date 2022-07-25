@@ -33,28 +33,35 @@ export class BukkenUpdateComponent extends BaseComponent {
 
   // 検索条件
   public cond = {
-    department: [],
-    clctInfoStaff: [],
-    clctInfoStaffMap: [],
-    notStaffChk: '',
-    bukkenNo: '',
-    bukkenName: '',
-    residence: '',
-    contractBukkenNo_Like:'',
-    result: []
+    department: []
+    , clctInfoStaff: []
+    , clctInfoStaffMap: []
+    , notStaffChk: ''
+    , bukkenNo: ''
+    , bukkenName: ''
+    , residence: ''
+    , contractBukkenNo_Like:''
+    , result: []
   };
 
   // 変更情報
   public param = {
-    depCode: '',
-    clctInfoStaffMap: []
+    depCode: ''
+    , clctInfoStaffMap: []
+    // 20220725 S_Add
+    , result: ''
+    , finishDateMap: null
+    // 20220725 E_Add
   };
 
   dropdownSettings = {};
   searched = false;
   selectedRowIndex = -1;
 
-  displayedColumns: string[] = ['checkBox', 'department', 'staffName', 'bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'result', 'pickDate', 'mapFiles'];
+  // 20220725 S_Update
+  // displayedColumns: string[] = ['checkBox', 'department', 'staffName', 'bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'result', 'pickDate', 'mapFiles'];
+  displayedColumns: string[] = ['checkBox', 'department', 'staffName', 'result', 'finishDate', 'bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'pickDate', 'mapFiles'];
+  // 20220725 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -193,8 +200,11 @@ export class BukkenUpdateComponent extends BaseComponent {
     let lst = this.dataSource.data.filter(me => me['select']).map(me => Number(me.pid));
     if(lst.length === 0) return;
 
-    if(this.isBlank(this.param.depCode) && this.param.clctInfoStaffMap.length == 0) {
-      const dlg = new Dialog({title: '警告', message: '担当部署もしくは、物件担当者を指定してください。'});
+    // 20220725 S_Update
+    //if(this.isBlank(this.param.depCode) && this.param.clctInfoStaffMap.length == 0) {
+    if(this.isBlank(this.param.depCode) && this.param.clctInfoStaffMap.length == 0 && this.param.finishDateMap == null && this.isBlank(this.param.result)) {
+    // 20220725 E_Update
+      const dlg = new Dialog({title: '警告', message: '担当部署もしくは、物件担当者もしくは、終了日もしくは、結果を指定してください。'});
       this.dialog.open(ErrorDialogComponent, {
         width: '500px',
         height: '250px',
@@ -238,6 +248,10 @@ export class BukkenUpdateComponent extends BaseComponent {
             this.data = values[i];
             if(!this.isBlank(this.param.depCode)) this.data.department = this.param.depCode;
             if(this.param.clctInfoStaffMap.length > 0) this.data.infoStaff = this.param.clctInfoStaffMap.map(me => me['userId']).join(',');
+            // 20220725 S_Add
+            if(this.param.finishDateMap != null) this.data.finishDate = this.datepipe.transform(this.param.finishDateMap, 'yyyyMMdd');
+            if(!this.isBlank(this.param.result)) this.data.result = this.param.result;
+            // 20220725 E_Add
             this.data.updateUserId = this.service.loginUser.userId;
             
             funcsSave.push(this.service.saveLand(this.data));

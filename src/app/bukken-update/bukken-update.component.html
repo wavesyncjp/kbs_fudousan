@@ -59,7 +59,7 @@
       <table class="search-tbl">
         <tr>
           <th class="changelabel" *ngIf="searched">担当部署</th>
-          <td style="width: 190px;" [ngClass]="{'hide-staff': !searched, 'show-staff': searched}">
+          <td [ngClass]="{'hide-staff': !searched, 'show-staff': searched}">
             <app-select-component [codes]="depCodes" [(ngModel)]="param.depCode"></app-select-component>
           </td>
           <th class="changelabel" *ngIf="searched">物件担当者</th>
@@ -72,16 +72,24 @@
                 >
             </ng-multiselect-dropdown>
           </td>
+          <th class="changelabel" *ngIf="searched">終了日</th>
           <td *ngIf="searched">
-            <button mat-raised-button (click)="change()" color="warn">&nbsp;変更&nbsp;</button>
-          </td>
-          <td>
-            <div class = "search-btns">
-              <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+            <div class="picker-div">
+              <input type="text" [matDatepicker]="finishDate" class="width100" [(ngModel)]="param.finishDateMap">
+              <mat-datepicker-toggle matSuffix [for]="finishDate" class="picker-icon"></mat-datepicker-toggle>
+              <mat-datepicker #finishDate></mat-datepicker>
             </div>
+          </td>
+          <th class="changelabel" *ngIf="searched">結果</th>
+          <td *ngIf="searched">
+            <app-select-component [codes]="getCode('001')" [(ngModel)]="param.result"></app-select-component>
           </td>
         </tr>
       </table>
+      <div class = "search-btns">
+        <button mat-raised-button (click)="change()" color="warn" *ngIf="searched">&nbsp;変更&nbsp;</button>&nbsp;&nbsp;
+        <button mat-raised-button (click)="searchBukken()" class="search-btn">&nbsp;&nbsp;検索&nbsp;&nbsp;</button>
+      </div>
     </div>
   </mat-expansion-panel>
 </div>
@@ -109,6 +117,16 @@
         <app-label [value]="element.staffName" [length]=25></app-label>
       </td>
     </ng-container>
+    <!-- 結果 -->
+    <ng-container matColumnDef="result">
+      <th mat-header-cell *matHeaderCellDef> 結果 </th>
+      <td mat-cell *matCellDef="let element"> {{element.result}} </td>
+    </ng-container>
+    <!-- 終了日 -->
+    <ng-container matColumnDef="finishDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 終了日 </th>
+      <td mat-cell *matCellDef="let element"> {{formatDay(element.finishDate, 'yyyy/MM/dd')}} </td>
+    </ng-container>
     <!-- 物件番号 -->
     <ng-container matColumnDef="bukkenNo">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件番号 </th>
@@ -128,11 +146,6 @@
     <ng-container matColumnDef="residence">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 住居表示 </th>
       <td mat-cell *matCellDef="let element" class="bukkenlist_width"> {{element.residence}} </td>
-    </ng-container>
-    <!-- 結果 -->
-    <ng-container matColumnDef="result">
-      <th mat-header-cell *matHeaderCellDef> 結果 </th>
-      <td mat-cell *matCellDef="let element"> {{element.result}} </td>
     </ng-container>
     <!-- 情報収集日 -->
     <ng-container matColumnDef="pickDate">

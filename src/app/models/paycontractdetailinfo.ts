@@ -9,6 +9,7 @@ export class Paycontractdetailinfo {
     payPrice: number;
     payTax: number;
     payPriceTax: number;
+    withholdingTax: number;// 20220725 Add
     closingDay: string;
     paymentSeason: string;
     contractDay: string;
@@ -37,6 +38,7 @@ export class Paycontractdetailinfo {
     payPriceMap: string = "";
     payTaxMap: string = "";
     payPriceTaxMap: string = "";
+    withholdingTaxMap: string = "";// 20220725 S_Add
 
     contractorMap: Code[];
 

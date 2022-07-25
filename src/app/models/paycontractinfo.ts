@@ -88,6 +88,7 @@ export class Paycontractinfo {
             detail.payPriceMap = Converter.numberToString(detail.payPrice);
             detail.payTaxMap = Converter.numberToString(detail.payTax);
             detail.payPriceTaxMap = Converter.numberToString(detail.payPriceTax);
+            detail.withholdingTaxMap = Converter.numberToString(detail.withholdingTax);// 20220725 Add
             let ct = new Paycontractdetailinfo(detail);
             lst.push(ct);
         });
@@ -128,6 +129,7 @@ export class Paycontractinfo {
             detail.payPrice = Converter.stringToNumber(detail.payPriceMap);
             detail.payTax = Converter.stringToNumber(detail.payTaxMap);
             detail.payPriceTax = Converter.stringToNumber(detail.payPriceTaxMap);
+            detail.withholdingTax = Converter.stringToNumber(detail.withholdingTaxMap);// 20220725 Add
 
             if(detail.contractorMap != null && detail.contractorMap.length > 0) {
                 detail.contractor = detail.contractorMap.map(me => me['codeDetail'].split('_').join(',')).join('|');
