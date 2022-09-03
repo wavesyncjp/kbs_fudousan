@@ -177,6 +177,17 @@ export class BackendService {
     return req.toPromise();
   }
 
+  // 20220903 S_Add
+  /**
+   * 土地情報一括登録
+   */
+  saveBulkLand(body: any): Promise<Templandinfo[]> {
+    const saveLandApi = 'landsavebulk.php';
+    const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${saveLandApi}`, body);
+    return req.toPromise();
+  }
+  // 20220903 E_Add
+
   // 20210426 S_Add
   /**
    * 土地情報登録（コピー→保存）

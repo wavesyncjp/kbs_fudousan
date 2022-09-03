@@ -234,6 +234,8 @@ export class BukkenUpdateComponent extends BaseComponent {
       if (dlg.choose) {
         this.spinner.show();
 
+        // 20220903 S_Update
+        /*
         // 対象データを取得
         const funcsGet = [];
         lst.forEach(pid => {
@@ -272,6 +274,46 @@ export class BukkenUpdateComponent extends BaseComponent {
             });
           });
         });
+        */
+        let pids = [];
+        lst.forEach(pid => {
+          pids.push(pid);
+        });
+
+        let body = {
+          pids: pids
+          , updateUserId: this.service.loginUser.userId
+          , department: ''
+          , infoStaff: ''
+          , finishDate: ''
+          , result: ''
+        }
+
+        // 入力されているパラメータのみ設定
+        if(!this.isBlank(this.param.depCode)) body.department = this.param.depCode;
+        else delete body.department;
+        if(this.param.clctInfoStaffMap.length > 0) body.infoStaff = this.param.clctInfoStaffMap.map(me => me['userId']).join(',');
+        else delete body.infoStaff;
+        if(this.param.finishDateMap != null) body.finishDate = this.datepipe.transform(this.param.finishDateMap, 'yyyyMMdd');
+        else delete body.finishDate;
+        if(!this.isBlank(this.param.result)) body.result = this.param.result;
+        else delete body.result;
+
+        this.service.saveBulkLand(body).then(values => {
+          this.spinner.hide();
+          const finishDlg = new Dialog({title: '完了', message: '担当を変更しました。'});
+          const dlgVal = this.dialog.open(FinishDialogComponent, {
+            width: '500px',
+            height: '250px',
+            data: finishDlg
+          });
+
+          dlgVal.afterClosed().subscribe(res => {
+            // 再検索
+            this.searchBukken();
+          });
+        });
+        // 20220903 E_Update
       }
     });
   }
