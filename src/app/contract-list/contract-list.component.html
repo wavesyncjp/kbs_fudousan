@@ -12,7 +12,10 @@
                     </td>
                     <th>契約物件番号</th>
                     <td colspan="2">
-                        <input type="text" [(ngModel)]="cond.contractBukkenNo" maxlength="20">
+                        <!-- 20220912 S_Update -->
+                        <!--<input type="text" [(ngModel)]="cond.contractBukkenNo" maxlength="20">-->
+                        <input type="text" class="fuzzy" [(ngModel)]="cond.contractBukkenNo_Like" maxlength="20">
+                        <!-- 20220912 E_Update -->
                     </td>
                     <th>物件名</th>
                     <td colspan="3">

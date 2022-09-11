@@ -40,7 +40,10 @@ export class ContractListComponent  extends BaseComponent {
 
   cond = {
     bukkenNo: ''
-    , contractBukkenNo:''
+    // 20220912 S_Update
+    // , contractBukkenNo:''
+    , contractBukkenNo_Like: ''
+    // 20220912 E_Update
     , bukkenName: ''
     , contractNumber: ''
     , vacationDayMap: null
@@ -117,7 +120,10 @@ export class ContractListComponent  extends BaseComponent {
   resetCondition() {
     this.cond = {
       bukkenNo: ''
-      , contractBukkenNo:''
+      // 20220912 S_Update
+      // , contractBukkenNo:''
+      , contractBukkenNo_Like: ''
+      // 20220912 E_Update
       , bukkenName: ''
       , contractNumber: ''
       , vacationDayMap: null
