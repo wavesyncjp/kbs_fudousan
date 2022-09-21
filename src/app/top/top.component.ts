@@ -131,7 +131,10 @@ export class TopComponent  extends BaseComponent {
     });
 
     // お知らせ
-    this.service.searchInfo({count: 10, finishFlg: ['0'], infoType: 1}).then(res => {
+    // 20220922 S_Update
+//    this.service.searchInfo({count: 10, finishFlg: ['0'], infoType: 1}).then(res => {
+    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 1}).then(res => {
+    // 20220922 E_Update
       this.dataSourceForNotice.data = res;
 
       if (res !== undefined && res.length > 0) {
