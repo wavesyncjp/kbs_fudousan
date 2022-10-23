@@ -80,10 +80,20 @@ export class FileComponentComponent implements OnInit {
    * @param event イベント
    */
   uploadFile(event) {
+    // 20221024 S_Update
+    /*
     this.file = event[0]; 
     if(this.immediately) {
       this.uploadWithoutConfirm();
     }
+    */
+    for (var i = 0; i < event.length; i++) {
+      this.file = event[i];
+      if(this.immediately) {
+        this.uploadWithoutConfirm();
+      }
+    }
+    // 20221024 E_Update
   }
 
   upload(): void {
