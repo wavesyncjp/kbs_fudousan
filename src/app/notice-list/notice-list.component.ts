@@ -70,7 +70,7 @@ export class NoticeListComponent extends BaseComponent {
   /**
    * 検索
    */
-  searchInfo() {
+  searchInfo(pid: any = null) {
     this.spinner.show();
     this.cond.infoDate = this.cond.infoDateMap != null ? this.datepipe.transform(this.cond.infoDateMap, 'yyyyMMdd') : null;
     this.service.searchInfo(this.cond).then(res => {
@@ -78,6 +78,14 @@ export class NoticeListComponent extends BaseComponent {
       this.dataSource.sort = this.sort;
       setTimeout(() => {
         this.spinner.hide();
+
+        if(pid != null) {
+          const detail = res.find(me => me.pid === pid);
+          if(detail != null) {
+            this.showDetail(detail);
+          }
+        }
+
       }, 500);
     });
   }
@@ -94,9 +102,10 @@ export class NoticeListComponent extends BaseComponent {
       if (result) {
         // 20220517 S_Update
         // this.searchInfo();
-        if (result.isCreate) this.showDetail(result.data);
-        else this.searchInfo();
+        //if (result.isCreate) this.showDetail(result.data);
+        //else this.searchInfo();
         // 20220517 E_Update
+        this.searchInfo(result.data.pid);
       }
     });
   }

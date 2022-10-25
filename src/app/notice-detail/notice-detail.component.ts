@@ -11,6 +11,7 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FileComponentComponent } from '../uicomponent/file-component/file-component.component';
 import { InfoAttach } from '../models/mapattach';// 20220329 Add
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-notice-detail',
@@ -33,6 +34,9 @@ export class NoticeDetailComponent extends BaseComponent {
   @ViewChildren(FileComponentComponent) fFiles: QueryList<FileComponentComponent>;
   // 20211227 E_Update
 
+  @ViewChild('attachFile', {static: true})
+  attachFile: FileComponentComponent;
+
   @ViewChild('cbxFinishFlg', {static: true})
   cbxFinishFlg: MatCheckbox;
   // 20220519 S_Add
@@ -50,6 +54,7 @@ export class NoticeDetailComponent extends BaseComponent {
               public dialogRef: MatDialogRef<NoticeDetailComponent>,
               public dialog: MatDialog,
               public datepipe: DatePipe,
+              private spinner: NgxSpinnerService,
               @Inject(MAT_DIALOG_DATA) public data: Information) {
     super(router, service,dialog);
   }
@@ -147,6 +152,7 @@ export class NoticeDetailComponent extends BaseComponent {
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
+        this.spinner.show();
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
         if (this.cbxFinishFlg.checked) {
           this.data.finishFlg = '1';
@@ -181,17 +187,42 @@ export class NoticeDetailComponent extends BaseComponent {
             if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
           }
           */
-          let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
 
-          if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
-            // 20220517 S_Update
-            // this.dialogRef.close(true);
-            this.dialogRef.close({data: res, isCreate: this.isCreate});
-            // 20220517 E_Update
-          } else {
-            if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
+          //登録の場合、添付ファイルがあれば、アップロード
+          if (this.isCreate && this.attachFile && this.attachFile.hasFile()) { 
+            this.attachFile.uploadInfoAttachFile(res.pid, () => {
+              this.spinner.hide();
+
+              let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
+    
+              if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
+                // 20220517 S_Update
+                // this.dialogRef.close(true);
+                this.dialogRef.close({data: res, isCreate: this.isCreate});
+                // 20220517 E_Update
+              } else {
+                if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
+              }
+              // 20220330 E_Update
+            });
           }
-          // 20220330 E_Update
+          else {
+            this.spinner.hide();
+
+            let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
+  
+            if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
+              // 20220517 S_Update
+              // this.dialogRef.close(true);
+              this.dialogRef.close({data: res, isCreate: this.isCreate});
+              // 20220517 E_Update
+            } else {
+              if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
+            }
+            // 20220330 E_Update
+          }
+
+          
         });
       }
     });
