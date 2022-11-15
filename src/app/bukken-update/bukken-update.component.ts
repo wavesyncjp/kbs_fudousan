@@ -42,6 +42,12 @@ export class BukkenUpdateComponent extends BaseComponent {
     , residence: ''
     , contractBukkenNo_Like:''
     , result: []
+    // 20221116 S_Add
+    , startDate_FromMap: null
+    , startDate_From: ''
+    , startDate_ToMap: null
+    , startDate_To: ''
+    // 20221116 E_Add
   };
 
   // 変更情報
@@ -58,10 +64,11 @@ export class BukkenUpdateComponent extends BaseComponent {
   searched = false;
   selectedRowIndex = -1;
 
-  // 20220725 S_Update
+  // 20221116 S_Update
   // displayedColumns: string[] = ['checkBox', 'department', 'staffName', 'bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'result', 'pickDate', 'mapFiles'];
-  displayedColumns: string[] = ['checkBox', 'department', 'staffName', 'result', 'finishDate', 'bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'pickDate', 'mapFiles'];
-  // 20220725 E_Update
+  // displayedColumns: string[] = ['checkBox', 'department', 'staffName', 'result', 'finishDate', 'bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'pickDate', 'mapFiles'];
+  displayedColumns: string[] = ['checkBox', 'department', 'staffName', 'result', 'startDate', 'finishDate', 'bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'pickDate', 'mapFiles'];
+  // 20221116 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -144,6 +151,10 @@ export class BukkenUpdateComponent extends BaseComponent {
 
     // 物件担当者
     this.cond.clctInfoStaff = this.cond.clctInfoStaffMap.map(me => me.userId);
+    // 20221116 S_Add
+    this.cond.startDate_From = this.cond.startDate_FromMap != null ? this.datepipe.transform(this.cond.startDate_FromMap, 'yyyyMMdd') : "";
+    this.cond.startDate_To = this.cond.startDate_ToMap != null ? this.datepipe.transform(this.cond.startDate_ToMap, 'yyyyMMdd') : "";
+    // 20221116 E_Add
 
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
@@ -333,6 +344,9 @@ export class BukkenUpdateComponent extends BaseComponent {
     if(!this.isBlank(this.cond.residence)) this.hasSearchItem = true;
     if(!this.isBlank(this.cond.contractBukkenNo_Like)) this.hasSearchItem = true;
     if(this.cond.result.length > 0) this.hasSearchItem = true;
+    // 20221116 S_Add
+    if(!this.isBlank(this.cond.startDate_FromMap) && !this.isBlank(this.cond.startDate_ToMap)) this.hasSearchItem = true;
+    // 20221116 E_Add
 
     if (!this.hasSearchItem) {
       this.errorMsgs.push('検索条件のいずれかを指定してください。');

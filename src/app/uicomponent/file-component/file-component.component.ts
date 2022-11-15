@@ -3,12 +3,13 @@ import { BackendService } from 'src/app/backend.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Dialog } from 'src/app/models/dialog';
 import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';// 20221116 Add
 
 @Component({
   selector: 'app-file',
   templateUrl: './file-component.component.html',
   styleUrls: ['./file-component.component.css'],
+  // 20221116 S_Add
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -16,6 +17,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
       useExisting: forwardRef(() => FileComponentComponent),
     },
   ],
+  // 20221116 E_Add
 })
 export class FileComponentComponent implements OnInit {
 
@@ -172,19 +174,21 @@ export class FileComponentComponent implements OnInit {
     // 20220329 E_Add
   }
 
+  // 20221116 S_Add
   public uploadInfoAttachFile(infoPid: number, afterFunc: any) {
     this.service.uploadInfoAttachFile(infoPid, this.file).then(res => {
       afterFunc();
     });
   }
+  // 20221116 E_Add
 
   public uploadInfoFile(infoPid: number) {
     this.service.uploadInfoFile(infoPid, this.file).then(res => {
       this.snackBar.open('ファイルアップロード完了', null, {
         duration: 1000,
-      });     
-      this.file = null;      
-      this.uploaded.emit(res);      
+      });
+      this.file = null;
+      this.uploaded.emit(res);
     });
   }
 

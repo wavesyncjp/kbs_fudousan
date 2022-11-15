@@ -70,7 +70,10 @@ export class NoticeListComponent extends BaseComponent {
   /**
    * 検索
    */
+  // 20221116 S_Update
+  // searchInfo() {
   searchInfo(pid: any = null) {
+  // 20221116 E_Update
     this.spinner.show();
     this.cond.infoDate = this.cond.infoDateMap != null ? this.datepipe.transform(this.cond.infoDateMap, 'yyyyMMdd') : null;
     this.service.searchInfo(this.cond).then(res => {
@@ -78,14 +81,14 @@ export class NoticeListComponent extends BaseComponent {
       this.dataSource.sort = this.sort;
       setTimeout(() => {
         this.spinner.hide();
-
+        // 20221116 S_Add
         if(pid != null) {
           const detail = res.find(me => me.pid === pid);
           if(detail != null) {
             this.showDetail(detail);
           }
         }
-
+        // 20221116 E_Add
       }, 500);
     });
   }
@@ -102,10 +105,14 @@ export class NoticeListComponent extends BaseComponent {
       if (result) {
         // 20220517 S_Update
         // this.searchInfo();
-        //if (result.isCreate) this.showDetail(result.data);
-        //else this.searchInfo();
+        // 20221116 S_Update
+        /*
+        if (result.isCreate) this.showDetail(result.data);
+        else this.searchInfo();
         // 20220517 E_Update
+        */
         this.searchInfo(result.data.pid);
+        // 20221116 E_Update
       }
     });
   }

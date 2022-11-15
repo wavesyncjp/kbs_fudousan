@@ -54,6 +54,27 @@
             </section>
           </td>
         </tr>
+
+        <!-- 20221116 S_Add -->
+        <tr>
+          <th>着手日</th>
+          <td style="width: 150px;">
+            <div class="picker-div">
+                <input type="text" [matDatepicker]="startDate_From" [(ngModel)]="cond.startDate_FromMap" placeholder="開始日" class="width100">
+                <mat-datepicker-toggle matSuffix [for]="startDate_From" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDate_From></mat-datepicker>
+            </div>&nbsp;&nbsp;～
+          </td>
+
+          <td>
+            <div class="picker-div">
+                <input type="text" [matDatepicker]="startDate_To" [(ngModel)]="cond.startDate_ToMap"  placeholder="終了日"class="width100">
+                <mat-datepicker-toggle matSuffix [for]="startDate_To" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #startDate_To></mat-datepicker>
+            </div>
+          </td>
+        </tr>
+        <!-- 20221116 E_Add -->
       </table>
 
       <table class="search-tbl">
@@ -122,6 +143,13 @@
       <th mat-header-cell *matHeaderCellDef> 結果 </th>
       <td mat-cell *matCellDef="let element"> {{element.result}} </td>
     </ng-container>
+    <!-- 20221116 S_Add -->
+    <!-- 着手日 -->
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 着手日 </th>
+      <td mat-cell *matCellDef="let element"> {{formatDay(element.startDate, 'yyyy/MM/dd')}} </td>
+    </ng-container>
+    <!-- 20221116 E_Add -->
     <!-- 終了日 -->
     <ng-container matColumnDef="finishDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> 終了日 </th>

@@ -11,7 +11,7 @@ import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FileComponentComponent } from '../uicomponent/file-component/file-component.component';
 import { InfoAttach } from '../models/mapattach';// 20220329 Add
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';// 20221116 Add
 
 @Component({
   selector: 'app-notice-detail',
@@ -34,8 +34,10 @@ export class NoticeDetailComponent extends BaseComponent {
   @ViewChildren(FileComponentComponent) fFiles: QueryList<FileComponentComponent>;
   // 20211227 E_Update
 
+  // 20221116 S_Add
   @ViewChild('attachFile', {static: true})
   attachFile: FileComponentComponent;
+  // 20221116 E_Add
 
   @ViewChild('cbxFinishFlg', {static: true})
   cbxFinishFlg: MatCheckbox;
@@ -54,7 +56,7 @@ export class NoticeDetailComponent extends BaseComponent {
               public dialogRef: MatDialogRef<NoticeDetailComponent>,
               public dialog: MatDialog,
               public datepipe: DatePipe,
-              private spinner: NgxSpinnerService,
+              private spinner: NgxSpinnerService,// 20221116 Add
               @Inject(MAT_DIALOG_DATA) public data: Information) {
     super(router, service,dialog);
   }
@@ -152,7 +154,7 @@ export class NoticeDetailComponent extends BaseComponent {
 
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
-        this.spinner.show();
+        this.spinner.show();// 20221116 Add
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
         if (this.cbxFinishFlg.checked) {
           this.data.finishFlg = '1';
@@ -187,14 +189,27 @@ export class NoticeDetailComponent extends BaseComponent {
             if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
           }
           */
+          // 20221116 S_Update
+          /*
+          let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
 
-          //登録の場合、添付ファイルがあれば、アップロード
+          if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
+            // 20220517 S_Update
+            // this.dialogRef.close(true);
+            this.dialogRef.close({data: res, isCreate: this.isCreate});
+            // 20220517 E_Update
+          } else {
+            if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
+          }
+          // 20220330 E_Update
+          */
+          // 登録の場合、添付ファイルがあれば、アップロード
           if (this.isCreate && this.attachFile && this.attachFile.hasFile()) { 
             this.attachFile.uploadInfoAttachFile(res.pid, () => {
               this.spinner.hide();
 
               let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
-    
+
               if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
                 // 20220517 S_Update
                 // this.dialogRef.close(true);
@@ -203,14 +218,13 @@ export class NoticeDetailComponent extends BaseComponent {
               } else {
                 if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
               }
-              // 20220330 E_Update
             });
           }
           else {
             this.spinner.hide();
 
             let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
-  
+
             if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
               // 20220517 S_Update
               // this.dialogRef.close(true);
@@ -219,10 +233,8 @@ export class NoticeDetailComponent extends BaseComponent {
             } else {
               if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
             }
-            // 20220330 E_Update
           }
-
-          
+          // 20221116 E_Update
         });
       }
     });

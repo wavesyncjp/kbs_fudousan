@@ -55,9 +55,14 @@
                 <app-file [id]="'fUpload'" notButton="true" (uploaded)="uploaded($event)"></app-file>
             </td>
             -->
-            <td>                
-                <!--<label *ngIf="!(data.pid > 0)" style="color:red">※お知らせを登録後に添付可能となります。</label>-->
-                <app-file #attachFile infoPid="{{data.pid}}" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file> 
+            <td>
+                <!-- 20221116 S_Update -->
+                <!--
+                <label *ngIf="!(data.pid > 0)" style="color:red">※お知らせを登録後に添付可能となります。</label>
+                <app-file infoPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="uploadedInfoAttach($event)" [immediately]="true"></app-file> 
+                -->
+                <app-file #attachFile infoPid="{{data.pid}}" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file>
+                <!-- 20221116 E_Update -->
                 
                 <table style="margin-left: 5px;">
                     <tr *ngFor="let map of data.attachFiles">
@@ -111,4 +116,4 @@
         <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
     </mat-dialog-actions>
 </div>
-<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner><!-- 20221116 Add -->
