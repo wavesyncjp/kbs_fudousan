@@ -87,6 +87,29 @@
                     </td>
                 </tr>
                 <!-- 20201223 E_Add -->
+                <!-- 20221122 S_Add -->
+                <tr>
+                    <th>契約状況</th>
+                    <td colspan="2">
+                        <app-select-component [codes]="getCode('019')" [(ngModel)]="cond.contractNow"></app-select-component>
+                    </td>
+                    <th>解約日</th>
+                    <td style="width: 150px;"> 
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="canncellDay_From" [(ngModel)]="cond.canncellDay_FromMap" placeholder="開始日" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="canncellDay_From" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #canncellDay_From></mat-datepicker>
+                        </div>&nbsp;&nbsp;～
+                        </td>
+                        <td>
+                        <div class="picker-div">
+                            <input type="text" [matDatepicker]="canncellDay_To" [(ngModel)]="cond.canncellDay_ToMap" placeholder="終了日" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="canncellDay_To" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #canncellDay_To></mat-datepicker>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 20221122 E_Add -->
             </table>
             <div style="margin: 10px 0px 10px 0px;">
                 <!--20210103 S_Add-->
@@ -176,7 +199,7 @@
 
             <!-- 20200906 S_Add -->
             <!--契約日-->
-            <ng-container matColumnDef="date">
+            <ng-container matColumnDef="contractDay">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約日 </th>
                 <td mat-cell *matCellDef="let element">
                     <div *ngFor="let ct of element.contracts; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.contracts.length - 1)}"> {{formatDay(ct.contractDay, 'yyyy/MM/dd')}} </div>
@@ -192,6 +215,22 @@
                 </td>
             </ng-container>
             <!-- 20201223 E_Add -->
+            <!-- 20221122 S_Add -->
+            <!--契約状況-->
+            <ng-container matColumnDef="contractNow">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 契約状況 </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngFor="let ct of element.contracts; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.contracts.length - 1)}"> {{getCodeTitle('019', ct.contractNow)}} </div>
+                </td>
+            </ng-container>
+            <!--解約日-->
+            <ng-container matColumnDef="canncellDay">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 解約日 </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngFor="let ct of element.contracts; index as pos" [ngClass]="{'ct-list': true, 'ct-notlast': (pos < element.contracts.length - 1)}"> {{formatDay(ct.canncellDay, 'yyyy/MM/dd')}} </div>
+                </td>
+            </ng-container>
+            <!-- 20221122 E_Add -->
             <!--区分-->
 <!--
             <ng-container matColumnDef="buildingType">

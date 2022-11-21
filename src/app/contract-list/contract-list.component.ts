@@ -14,6 +14,7 @@ import { CsvTemplateComponent } from '../csv-template/csv-template.component';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Dialog } from '../models/dialog';
 // 20210314 E_Add
+import { Code } from '../models/bukken';// 20221122 Add
 
 @Component({
   selector: 'app-contract-list',
@@ -27,12 +28,12 @@ import { Dialog } from '../models/dialog';
 })
 export class ContractListComponent  extends BaseComponent {
 
-  //20200906 S_Update
+  // 20221122 S_Update
   /*
   displayedColumns: string[] = ['bukkenNo', 'bukkenName', 'contractBukkenNo', 'remark1', 'remark2', 'contractNo', 'contractOwner', 'detail'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'date', 'decisionDay', 'delete', 'detail', 'csvCheck'];
-  //20200906 E_Update
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'remark1', 'contractStaffName', 'tradingPrice', 'contractNo', 'contractDay', 'decisionDay', 'contractNow', 'canncellDay', 'delete', 'detail', 'csvCheck'];
+  // 20221122 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -65,6 +66,13 @@ export class ContractListComponent  extends BaseComponent {
     , decisionDay_To: ''
     //20201223 E_Add
     , department: []// 20220519 Add
+    // 20221122 S_Add
+    , contractNow: ''
+    , canncellDay_FromMap: null
+    , canncellDay_From: ''
+    , canncellDay_ToMap: null
+    , canncellDay_To: ''
+    // 20221122 E_Add
   };
   search = '0';
   searched = false;// 20210103 Add
@@ -107,9 +115,22 @@ export class ContractListComponent  extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getEmps(null));
     funcs.push(this.service.getDeps(null));// 20220519 Add
+    funcs.push(this.service.getCodes(['019']));// 20221122 Add
     Promise.all(funcs).then(values => {
       this.emps = values[0];
       this.deps = values[1];// 20220519 Add
+      // 20221122 S_Add
+      // コード
+      const codes = values[2] as Code[];
+      if (codes !== null && codes.length > 0) {
+        const uniqeCodes = [...new Set(codes.map(code => code.code))];
+        uniqeCodes.forEach(code => {
+          const lst = codes.filter(c => c.code === code);
+          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          this.sysCodes[code] = lst;
+        });
+      }
+      // 20221122 E_Add
     });
     // 20200921 E_Add
   }
@@ -145,6 +166,13 @@ export class ContractListComponent  extends BaseComponent {
       , decisionDay_To: ''
       //20201223 E_Add
       , department: []// 20220519 Add
+      // 20221122 S_Add
+      , contractNow: ''
+      , canncellDay_FromMap: null
+      , canncellDay_From: ''
+      , canncellDay_ToMap: null
+      , canncellDay_To: ''
+      // 20221122 E_Add
    };
   }
 
@@ -165,6 +193,10 @@ export class ContractListComponent  extends BaseComponent {
     this.cond.decisionDay_From = this.cond.decisionDay_FromMap != null ? this.datepipe.transform(this.cond.decisionDay_FromMap, 'yyyyMMdd') : "";
     this.cond.decisionDay_To = this.cond.decisionDay_ToMap != null ? this.datepipe.transform(this.cond.decisionDay_ToMap, 'yyyyMMdd') : "";
     //20201223 E_Add
+    //20221122 S_Add
+    this.cond.canncellDay_From = this.cond.canncellDay_FromMap != null ? this.datepipe.transform(this.cond.canncellDay_FromMap, 'yyyyMMdd') : "";
+    this.cond.canncellDay_To = this.cond.canncellDay_ToMap != null ? this.datepipe.transform(this.cond.canncellDay_ToMap, 'yyyyMMdd') : "";
+    //20221122 E_Add
     this.service.searchContract(this.cond).then(res => {
       // 20210103 S_Add
       res.forEach(me => {
