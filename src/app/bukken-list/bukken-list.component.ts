@@ -82,12 +82,12 @@ export class BukkenListComponent extends BaseComponent {
   search = '0';
   searched = false;
   selectedRowIndex = -1;
-  //20200828 S_Update
+  //20221226 S_Update
   /*
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail', 'csvCheck'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'copy', 'csvCheck'];
-  //20200828 E_Update
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark2', 'mapFiles', 'startDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'copy', 'csvCheck'];
+  //20221226 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

@@ -298,7 +298,10 @@ export class CalcSaleKotozeiDetailComponent extends BaseComponent {
         // 固都税清算金（建物）が未設定の場合
         this.sale.salesFixedBuildingTax = Converter.stringToNumber(this.sale.salesFixedBuildingTaxMap);
         if(this.sale.salesFixedBuildingTax == null || this.sale.salesFixedBuildingTax == 0) {
-          this.sale.salesFixedBuildingTax = calcSalesFixedBuildingTax + this.sale.salesFixedBuildingTaxOnlyTax;
+          // 20221122 S_Update
+          // this.sale.salesFixedBuildingTax = calcSalesFixedBuildingTax + this.sale.salesFixedBuildingTaxOnlyTax;
+          this.sale.salesFixedBuildingTax = calcSalesFixedBuildingTax;
+          // 20221122 E_Update
           this.sale.salesFixedBuildingTaxMap = Converter.numberToString(this.sale.salesFixedBuildingTax);
         }
 

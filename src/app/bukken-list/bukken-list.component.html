@@ -249,11 +249,20 @@
           </td>
         </ng-container>
 
+        <!-- 20221226 S_Update -->
         <!-- 情報収集日 Column -->
+        <!--
         <ng-container matColumnDef="pickDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 情報収集日 </th>
           <td mat-cell *matCellDef="let element"> {{formatDay(element.pickDate, 'yyyy/MM/dd')}} </td>
         </ng-container>
+        -->
+        <!-- 着手日 Column -->
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 着手日 </th>
+          <td mat-cell *matCellDef="let element"> {{formatDay(element.startDate, 'yyyy/MM/dd')}} </td>
+        </ng-container>
+        <!-- 20221226 E_Update -->
 
         <!-- 測量依頼日 Column -->
         <ng-container matColumnDef="surveyRequestedDay">
@@ -273,7 +282,10 @@
         <!-- 20200828 S_Add -->
         <!-- 物件担当者 Column -->
         <ng-container matColumnDef="staffName">
-          <th mat-header-cell *matHeaderCellDef > 物件担当者 </th>
+          <!-- 20221226 S_Update -->
+          <!--<th mat-header-cell *matHeaderCellDef > 物件担当者 </th>-->
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 物件担当者 </th>
+          <!-- 20221226 E_Update -->
           <!--<td mat-cell *matCellDef="let element"> {{element.staffName}} </td>-->
           <!-- 20200907 S_Update -->
           <!--<td mat-cell *matCellDef="let element" title={{element.staffName}} class="person_width"> {{element.staffName}} </td>-->
