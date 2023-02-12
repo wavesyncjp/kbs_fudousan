@@ -19,7 +19,6 @@
                     <td>
                         <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoSubject" maxlength="100">
                     </td>
-                
 
                     <th>承認フラグ</th>
                     <td>
@@ -31,6 +30,13 @@
                     <td>
                         <mat-checkbox *ngFor="let code of getCode('005')" [checked]="inList(cond.finishFlg, code.codeDetail)" (change)="changeCheck(cond.finishFlg, code.codeDetail ,$event)">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
                     </td>
+
+                    <!-- 20230213 S_Add -->
+                    <th>支店</th>
+                    <td>
+                        <app-select-component [codes]="getCode('040')" [(ngModel)]="cond.infoType"></app-select-component>
+                    </td>
+                    <!-- 20230213 E_Add -->
                 </tr>
             </table>
             <div style="margin: 10px 0px 10px 0px;">
@@ -50,6 +56,13 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 日付 </th>
             <td mat-cell *matCellDef="let element" > {{formatDay(element.infoDate, 'yyyy/MM/dd')}} </td>
         </ng-container>
+
+        <!-- 20230213 S_Add -->
+        <ng-container matColumnDef="infoType">
+            <th mat-header-cell *matHeaderCellDef > 支店 </th>
+            <td mat-cell *matCellDef="let element"> {{getCodeTitle('040',element.infoType)}} </td>
+        </ng-container>
+        <!-- 20230213 E_Add -->
 
         <ng-container matColumnDef="approvalFlg">
             <th mat-header-cell *matHeaderCellDef > 承認フラグ </th>

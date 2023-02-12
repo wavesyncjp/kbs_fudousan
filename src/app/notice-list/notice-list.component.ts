@@ -26,7 +26,11 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 })
 export class NoticeListComponent extends BaseComponent {
   public cond = {
-    infoType: '1',
+    // 20230213 S_Update
+    // infoType: '1',
+    clctInfoType: ['1', '2'],
+    infoType: '',
+    // 20230213 E_Update
     infoSubject: '',
     infoDateMap: '',
     infoDate: '',
@@ -34,7 +38,7 @@ export class NoticeListComponent extends BaseComponent {
     approvalFlg: ''
   };
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'approvalAttachFileName', 'finishFlg', 'delete', 'detail'];
+  displayedColumns: string[] = ['infoDate', 'infoType', 'approvalFlg', 'infoSubject', 'approvalAttachFileName', 'finishFlg', 'delete', 'detail'];
   dataSource = new MatTableDataSource<Information>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -53,7 +57,7 @@ export class NoticeListComponent extends BaseComponent {
 
     const funcs = [];
     // コード
-    funcs.push(this.service.getCodes(['005', '006', '038']));
+    funcs.push(this.service.getCodes(['005', '006', '038', '040']));
     Promise.all(funcs).then(values => {
       const codes = values[0] as Code[];
       if (codes !== null && codes.length > 0) {

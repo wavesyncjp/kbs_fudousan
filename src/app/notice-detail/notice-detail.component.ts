@@ -70,7 +70,7 @@ export class NoticeDetailComponent extends BaseComponent {
 
     const funcs = [];
     // コード
-    funcs.push(this.service.getCodes(['006', '038', '039']));
+    funcs.push(this.service.getCodes(['006', '038', '039', '040']));
     Promise.all(funcs).then(values => {
       const codes = values[0] as Code[];
 
@@ -118,6 +118,10 @@ export class NoticeDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
+
+    // 20230213 S_Add
+    this.checkBlank(this.data.infoType, 'infoType', '支店は必須です。');
+    // 20230213 E_Add
 
     // 日付
     this.checkBlank(this.data.infoDateMap, 'infoDate', '日付は必須です。');
@@ -168,7 +172,9 @@ export class NoticeDetailComponent extends BaseComponent {
           this.data.addedFileSendFlg = '0';
         }
         // 20220519 E_Add
-        this.data.infoType = 1;// 掲示板タイプ<-1:お知らせ
+        // 20230213 S_Delete
+        // this.data.infoType = 1;// 掲示板タイプ<-1:お知らせ
+        // 20230213 E_Delete
         this.service.saveInfo(this.data).then(res => {
           // 20220330 S_Update
           /*

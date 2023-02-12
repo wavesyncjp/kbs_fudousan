@@ -31,6 +31,11 @@ export class TopComponent  extends BaseComponent {
   authority = '';
   enableUser: boolean = false;
   // 20211227 E_Add
+  // 20230213 S_Add
+  displayedColumnsForOsaka: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit', 'approvalDateTime'];
+  dataSourceForOsaka = new MatTableDataSource<Information>();
+  hasOsaka = false;
+  // 20230213 E_Add
 
   // view: any[] = ['50%', '100%'];
 
@@ -130,7 +135,7 @@ export class TopComponent  extends BaseComponent {
       }
     });
 
-    // お知らせ
+    // お知らせ（名古屋支店）
     // 20220922 S_Update
 //    this.service.searchInfo({count: 10, finishFlg: ['0'], infoType: 1}).then(res => {
     this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 1}).then(res => {
@@ -146,6 +151,20 @@ export class TopComponent  extends BaseComponent {
       }, 500);
     });
     // 20211227 E_Add
+    // 20230213 S_Add
+    // お知らせ（大阪支店）
+    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 2}).then(res => {
+      this.dataSourceForOsaka.data = res;
+
+      if (res !== undefined && res.length > 0) {
+        this.hasOsaka = true;
+      }
+
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500);
+    });
+    // 20230213 E_Add
   }
 
   buildDepChart() {
@@ -200,4 +219,20 @@ export class TopComponent  extends BaseComponent {
     });
   }
   // 20211227 E_Add
+  // 20230213 S_Add
+  showOsakaDetail(row: Information) {
+    const dialogRef = this.dialog.open(NoticeDetailComponent, {
+      width: '60%',
+      height: '580px',
+      data: row
+    });
+  
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ngOnInit();
+      }
+    });
+  }
+  // 20230213 E_Add
 }

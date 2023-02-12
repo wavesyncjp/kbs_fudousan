@@ -3,6 +3,14 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <table class="detail-tbl-info">
+        <!-- 20230213 S_Add -->
+        <tr>
+            <th>支店</th>
+            <td>
+                <app-select-component [codes]="getCode('040')" [(ngModel)]="data.infoType" [cusClass]="'width150  ' + (errors['infoType'] ? 'error' : '')"></app-select-component>
+            </td>
+        </tr>
+        <!-- 20230213 E_Add -->
         <tr>
             <th>日付</th>
             <td>
