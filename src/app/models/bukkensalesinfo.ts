@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Converter } from '../utils/converter';
+import { BukkenSalesAttach } from '../models/mapattach';
 
 export class Bukkensalesinfo {
 
@@ -118,6 +119,8 @@ export class Bukkensalesinfo {
 
     salesLocationMap = [];// 20201224 Add
     salesLocationStr: string = "";
+
+    salesAttaches: BukkenSalesAttach[];// 20230227 Add
 
     public constructor(init?: Partial<Bukkensalesinfo>) {
         Object.assign(this, init);

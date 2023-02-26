@@ -188,6 +188,7 @@
         <table>
             <thead class="list-header">
                 <th class="width40">出力</th><!-- 20220627 Add -->
+                <th class="width80">契約書番号</th><!-- 20230227 Add -->
                 <th class="width200">売買先</th>
                 <th class="width200">売買対象（所在地）</th>
                 <th class="width100">地積（㎡、坪）</th>
@@ -204,6 +205,7 @@
                     <!--<td><mat-checkbox [(ngModel)]="sale.csvSelected"></mat-checkbox></td>-->
                     <td><mat-checkbox [(ngModel)]="sale.csvSelected" (ngModelChange)="changeData(sale)"></mat-checkbox></td>
                     <!-- 20220707 E_Update -->
+                    <td>{{sale.contractFormNumber}}</td><!-- 20230227 Add -->
                     <td class="text-left">{{sale.salesName}}</td>
                     <td class="text-left" style="white-space: pre-line;padding-top: 5px;padding-bottom: 5px;">{{sale.salesLocationStr}}</td>
                     <td class="text-right">{{formatIntNumber(sale.salesLandArea, '')}}</td>

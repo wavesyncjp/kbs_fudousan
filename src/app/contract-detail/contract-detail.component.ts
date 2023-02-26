@@ -15,7 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Contractdetailinfo } from '../models/contractdetailinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
-import { ContractFile } from '../models/mapattach';
+import { ContractFile, ContractAttach } from '../models/mapattach';
 import { SharerDialogComponent } from '../dialog/sharer-dialog/sharer-dialog.component';
 import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { ContractTemplateComponent } from '../contract-template/contract-template.component';
@@ -41,6 +41,10 @@ export class ContractDetailComponent extends BaseComponent {
   public bukkenid: number;
   delSellers = [];
   dropdownSettings = {};//20200828 Add
+  // 20230227 S_Add
+  authority = '';
+  enableAttachUser: boolean = false;
+  // 20230227 E_Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -68,6 +72,10 @@ export class ContractDetailComponent extends BaseComponent {
     element.scrollIntoView();
 
     this.spinner.show();
+    // 20230227 S_Add
+    this.authority = this.service.loginUser.authority;
+    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // 20230227 E_Add
     this.contract = new Contractinfo();
 
     const funcs = [];
@@ -633,4 +641,35 @@ export class ContractDetailComponent extends BaseComponent {
   }
   */
   // 20211107 E_Delete
+  // 20230227 S_Add
+  /**
+   * 契約書等ファイルアップロード
+   * @param event ：ファイル
+   */
+  attachUploaded(event) {
+    if (this.contract.contractAttaches === null) {
+      this.contract.contractAttaches = [];
+    }
+    const contractAttach: ContractAttach = JSON.parse(JSON.stringify(event));
+    this.contract.contractAttaches.push(contractAttach);
+  }
+
+  /**
+   * 契約書等削除
+   * @param map :　削除したい契約書等
+   */
+  deleteAttach(map: ContractAttach) {
+
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteContractAttach(map.pid).then(res => {
+          this.contract.contractAttaches.splice(this.contract.contractAttaches.indexOf(map), 1);
+        });
+      }
+    });
+  }
+  // 20230227 E_Add
 }

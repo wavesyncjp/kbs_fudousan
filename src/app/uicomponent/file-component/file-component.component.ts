@@ -32,6 +32,11 @@ export class FileComponentComponent implements OnInit {
   @Input()
   contractInfoId: number;
 
+  // 20230227 S_Add
+  @Input()
+  attachFileType: number;
+  // 20230227 E_Add
+
   // 20210311 S_Add
   @Input()
   locationInfoId: number;
@@ -41,6 +46,11 @@ export class FileComponentComponent implements OnInit {
   @Input()
   infoPid: number;
   // 20220329 E_Add
+
+  // 20230227 S_Add
+  @Input()
+  bukkenSalesInfoPid: number;
+  // 20230227 E_Add
 
   @Input()
   comment = '';
@@ -137,6 +147,19 @@ export class FileComponentComponent implements OnInit {
       });
       if(this.hasComment) this.comment = '';
     }
+    // 20230227 S_Add
+    // 仕入契約添付ファイルアップロード
+    else if (this.contractInfoId !== undefined && this.contractInfoId > 0
+      && this.attachFileType !== undefined && this.attachFileType == 0) {
+      this.service.uploadContractAttach(this.contractInfoId, this.attachFileType, this.file).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+      });
+    }
+    // 20230227 E_Add
     // 契約ファイルアップロード
     // tslint:disable-next-line:one-line
     else if (this.contractInfoId !== undefined && this.contractInfoId > 0 ) {
@@ -172,6 +195,19 @@ export class FileComponentComponent implements OnInit {
       });
     }
     // 20220329 E_Add
+    // 20230227 S_Add
+    // 物件売契約添付ファイルアップロード
+    else if (this.bukkenSalesInfoPid !== undefined && this.bukkenSalesInfoPid > 0
+      && this.attachFileType !== undefined && this.attachFileType == 0) {
+      this.service.uploadBukkenSalesAttach(this.bukkenSalesInfoPid, this.attachFileType, this.file).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+      });
+    }
+    // 20230227 E_Add
   }
 
   // 20221116 S_Add

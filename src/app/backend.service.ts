@@ -466,6 +466,38 @@ export class BackendService {
   }
   // 20220329 E_Add
 
+  // 20230227 S_Add
+  /**
+   * 仕入契約添付ファイルアップロード
+   * @param contractInfoId ：仕入契約情報PID
+   * @param file ；ファイル
+   */
+  uploadContractAttach(contractInfoId: number, attachFileType: number, file: File): Promise<object> {
+    const uploadApi = 'contractAttachUpload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('contractInfoId', contractInfoId.toString());
+    formData.append('attachFileType', attachFileType.toString());
+    formData.append('createUserId', String(this.loginUser.userId));
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+
+  /**
+   * 物件売契約添付ファイルアップロード
+   * @param contractInfoId ：物件売契約情報ID
+   * @param file ；ファイル
+   */
+  uploadBukkenSalesAttach(bukkenSalesInfoPid: number, attachFileType: number, file: File): Promise<object> {
+    const uploadApi = 'bukkenSalesAttachUpload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('bukkenSalesInfoPid', bukkenSalesInfoPid.toString());
+    formData.append('attachFileType', attachFileType.toString());
+    formData.append('createUserId', String(this.loginUser.userId));// 20220701 Add
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+  // 20230227 E_Add
+
   /**
    * インフォメーションファイルアップロード
    * @param infoPid ：インフォメーションPid
@@ -554,6 +586,30 @@ export class BackendService {
     return req.toPromise();
   }
   // 20220329 E_Add
+
+  // 20230227 S_Add
+  /**
+   * 仕入契約添付ファイル削除
+   * @param id : 仕入契約情報ID
+   */
+  deleteContractAttach(id: number): Promise<object> {
+      const deleteFileApi = 'deleteContractAttach.php';
+      const body = { pid: id, deleteUserId: this.loginUser.userId};
+      const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+      return req.toPromise();
+  }
+
+  /**
+   * 物件売契約添付ファイル削除
+   * @param id : 物件売契約情報ID
+   */
+  deleteBukkenSalesAttach(id: number): Promise<object> {
+      const deleteFileApi = 'deleteBukkenSalesAttach.php';
+      const body = { pid: id, deleteUserId: this.loginUser.userId};
+      const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+      return req.toPromise();
+  }
+  // 20230227 E_Add
 
   /**
    *  インフォメーション情報検索

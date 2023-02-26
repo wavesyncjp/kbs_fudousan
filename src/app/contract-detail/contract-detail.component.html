@@ -466,6 +466,22 @@
                 </table>
             </td>
         </tr>
+        <!-- 20230227 S_Add -->
+        <tr *ngIf="enableAttachUser">
+            <th>契約書等</th>
+            <td colspan="7">
+                <label *ngIf="!(contract.pid > 0)" style="color:red">※契約情報を登録後に添付可能となります。</label>
+                <app-file contractInfoId="{{contract.pid}}" attachFileType="0" *ngIf="contract.pid > 0" (uploaded)="attachUploaded($event)" [immediately]="true"></app-file> 
+                
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let map of contract.contractAttaches">
+                        <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
+                        <td><button mat-flat-button class="attach-btn" (click)="deleteAttach(map)">削除</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- 20230227 E_Add -->
     </table>
     <table class="detail-tbl-min">
         <tr>

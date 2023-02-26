@@ -12,6 +12,7 @@ import { Bukkensalesinfo } from '../models/bukkensalesinfo';
 import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Code } from '../models/bukken';
+import { BukkenSalesAttach } from '../models/mapattach';
 import { isNullOrUndefined } from 'util';
 import { CalcSaleKotozeiDetailComponent } from '../calcSaleKotozei-detail/calcSaleKotozei-detail.component';
 
@@ -49,6 +50,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     , enableCheckAll: false
   };
   // 20201225 E_Add
+  // 20230227 S_Add
+  authority = '';
+  enableAttachUser: boolean = false;
+  // 20230227 E_Add
 
   constructor(public router: Router,
               public service: BackendService,
@@ -63,6 +68,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('物件情報詳細');
+    // 20230227 S_Add
+    this.authority = this.service.loginUser.authority;
+    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // 20230227 E_Add
     this.data = new Bukkensalesinfo(this.data);
     this.data.convert();
 
@@ -233,4 +242,36 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     });
   }
   // 20220522 E_Add
+
+  // 20230227 S_Add
+  /**
+   * 物件売契約添付ファイルアップロード
+   * @param event ：ファイル
+   */
+  attachUploaded(event) {
+    if (this.data.salesAttaches === null) {
+      this.data.salesAttaches = [];
+    }
+    const bukkenSalesAttach: BukkenSalesAttach = JSON.parse(JSON.stringify(event));
+    this.data.salesAttaches.push(bukkenSalesAttach);
+  }
+
+  /**
+   * 契約書等削除
+   * @param map :　削除したい契約書等
+   */
+  deleteAttach(map: BukkenSalesAttach) {
+
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteBukkenSalesAttach(map.pid).then(res => {
+          this.data.salesAttaches.splice(this.data.salesAttaches.indexOf(map), 1);
+        });
+      }
+    });
+  }
+  // 20230227 E_Add
 }

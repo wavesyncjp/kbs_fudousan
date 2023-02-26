@@ -1,6 +1,6 @@
 import { Contractdetailinfo } from './contractdetailinfo';
 import { DatePipe } from '@angular/common';
-import { ContractFile } from './mapattach';
+import { ContractFile, ContractAttach } from './mapattach';
 import { ContractSellerInfo } from './contractsellerinfo';
 import { Converter } from '../utils/converter';
 
@@ -171,6 +171,7 @@ export class Contractinfo {
    
     details: Contractdetailinfo[] = [];
     contractFiles: ContractFile[];
+    contractAttaches: ContractAttach[];// 20230227 Add
     sellers: ContractSellerInfo[];
     locations = []; // 所有地（保存しない）
     contractStaffMap = [];//20200828 Add
