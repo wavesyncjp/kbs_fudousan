@@ -7,6 +7,13 @@ export class Information {
     infoType = 0;// 20211227 Add
     infoDate = '';
     infoSubject = '';
+    // 20230301 S_Add
+    infoSubjectType = '';
+    tempLandInfoPid: number;
+    infoSubjectContractor = '';
+    infoSubjectDetail = '';
+    infoSubjectRemark = '';
+    // 20230301 E_Add
     detailFlg = '1';
     finishFlg = '0';
     infoDetail = '';

@@ -99,7 +99,11 @@
     <!--/建物情報契約-->
     <table class="detail-tbl-min">
         <tr>
-            <td><span class="min">売主・不可分選択</span></td>
+            <td><span class="min">売主・不可分選択</span>
+                <!-- 20230301 S_Add -->
+                <span style="font-size: small;">地積合計 </span>{{sumArea | number}}<span style="font-size: small;"> ㎡</span>
+                <!-- 20230301 E_Add -->
+            </td>
         </tr>
         <tr>
             <td>
@@ -149,7 +153,10 @@
                                 <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
                                 <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractArea" maxlength="100"></span></td>
-                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)">&nbsp;㎡</span></td>
+                                <!-- 20230301 S_Update -->
+                                <!-- <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)">&nbsp;㎡</span></td> -->
+                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)" (change)="sumAreaProcess()">&nbsp;㎡</span></td>
+                                <!-- 20230301 E_Update -->
                                 <td>{{getCodeTitles('003',item.dependType)}}</td>
                                 <td style="white-space: pre;">{{item.structure}}</td>
                                 <td>{{item.dependFloor}}</td>

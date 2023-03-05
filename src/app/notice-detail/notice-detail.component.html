@@ -19,10 +19,48 @@
                 <mat-datepicker #infoDate></mat-datepicker>
             </td>
         </tr>
+        <!-- 20230301 S_Update -->
+        <!--
         <tr>
             <th>件名</th>
             <td><input type="text"  [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" maxlength="100"></td>
         </tr>
+        -->
+        <tr>
+            <th rowspan="5">件名</th>
+            <td><input type="text" [(ngModel)]="data.infoSubject" [ngClass]="'width600'" [disabled]="true" maxlength="100"></td>
+        </tr>
+        <tr>
+            <td>
+                <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;種別&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</span>
+                <app-select-component [codes]="getCode('041')" [(ngModel)]="data.infoSubjectType" [noBlank]="false" [cusClass]="'width200 ' + (errors['infoSubjectType'] ? 'error' : '')"></app-select-component>
+                <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;※必須</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;物件名称：</span>
+                <!--<input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" [disabled]="data.infoSubjectDetail == '99'" style="width: 400px">-->
+                <input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" style="width: 400px">
+                <datalist id="data">
+                    <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option>
+                </datalist>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;契約相手：</span>
+                <input type="text" [(ngModel)]="data.infoSubjectContractor" [disabled]="data.infoSubjectDetail == '99'" class="width400" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;詳細&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</span>
+                <app-select-component [cusClass]="'width100'" [codes]="getCode('042')" [(ngModel)]="data.infoSubjectDetail" [noBlank]="false" (changed)="changeInfoSubjectDetail($event)"></app-select-component>
+                <input type="text" [(ngModel)]="data.infoSubjectRemark" [disabled]="data.infoSubjectDetail != '99'" class="width300" maxlength="100">
+            </td>
+        </tr>
+        <!-- 20230301 E_Update -->
         <tr>
             <th>詳細</th> 
             <td>

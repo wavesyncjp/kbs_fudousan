@@ -57,10 +57,10 @@
 
                 <!-- 20220521 S_Add -->
                 <ng-container matColumnDef="confirmFlg">
-                    <!-- 20220613 S_Update -->
+                    <!-- 20230305 S_Update -->
                     <!--<td mat-cell *matCellDef="let element">-->
-                    <td mat-cell *matCellDef="let element" [ngClass]="(element.confirmFlg == '0' && element.approvalFlg == '0' ? 'color-red' : '')">
-                    <!-- 20220613 E_Update -->
+                    <td mat-cell *matCellDef="let element" [ngClass]="((element.confirmFlg == '0' && element.approvalFlg == '0') || element.confirmFlg == '3' || element.confirmFlg == '4' ? 'color-red' : '')">
+                    <!-- 20230305 E_Update -->
                         {{getCodeTitle('039',element.confirmFlg)}}
                     </td>
                 </ng-container>
@@ -126,7 +126,10 @@
                 </ng-container>
 
                 <ng-container matColumnDef="confirmFlg">
-                    <td mat-cell *matCellDef="let element" [ngClass]="(element.confirmFlg == '0' && element.approvalFlg == '0' ? 'color-red' : '')">
+                    <!-- 20230305 S_Update -->
+                    <!--<td mat-cell *matCellDef="let element" [ngClass]="(element.confirmFlg == '0' && element.approvalFlg == '0' ? 'color-red' : '')">-->
+                    <td mat-cell *matCellDef="let element" [ngClass]="((element.confirmFlg == '0' && element.approvalFlg == '0') || element.confirmFlg == '3' || element.confirmFlg == '4' ? 'color-red' : '')">
+                    <!-- 20230305 E_Update -->
                         {{getCodeTitle('039',element.confirmFlg)}}
                     </td>
                 </ng-container>

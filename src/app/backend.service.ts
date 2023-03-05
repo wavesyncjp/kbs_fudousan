@@ -1304,4 +1304,18 @@ export class BackendService {
     return res.toPromise();
   }
   // 20220627 E_Add
+
+  // 20230302 S_Add
+  /**
+   * 添付ファイル取得
+   */
+  getFiles(parentPid: number, fileType: number, attachFileType: string): Promise<any[]> {
+    const getApi = 'attachfileget.php';
+    const body = {
+      parentPid, fileType, attachFileType
+    };
+    const req = this.http.post<any[]>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+  // 20230302 E_Add
 }

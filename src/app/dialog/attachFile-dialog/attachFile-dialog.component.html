@@ -1,0 +1,19 @@
+<div class="dialog-div">  
+    <table class="detail-tbl-info">
+        <tr>
+            <th> &nbsp; 添付ファイル</th>
+            <td colspan="7">
+                <app-file contractInfoId="{{parentPid}}" attachFileType="0" *ngIf="isCanAttach" (uploaded)="attachUploaded($event)" [immediately]="true"></app-file> 
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let map of files">
+                        <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
+                        <td><button *ngIf="isCanDelete" mat-flat-button class="attach-btn" (click)="deleteAttachFile(map)">削除</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>   
+    <mat-dialog-actions align="end">        
+        <button mat-raised-button class="width80" color="primary" (click)="ok()">OK</button>
+    </mat-dialog-actions>    
+</div>

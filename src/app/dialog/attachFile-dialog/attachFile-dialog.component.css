@@ -1,0 +1,10 @@
+.dialog-div{
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 40px;    
+    margin: -15px;
+    padding: 10px;
+}
+.detail-tbl > tr {    
+    height: 45px;
+}

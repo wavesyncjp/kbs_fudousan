@@ -205,7 +205,10 @@
                     <!--<td><mat-checkbox [(ngModel)]="sale.csvSelected"></mat-checkbox></td>-->
                     <td><mat-checkbox [(ngModel)]="sale.csvSelected" (ngModelChange)="changeData(sale)"></mat-checkbox></td>
                     <!-- 20220707 E_Update -->
-                    <td>{{sale.contractFormNumber}}</td><!-- 20230227 Add -->
+                    <!-- 20230302 S_Update -->
+                    <!-- <td>{{sale.contractFormNumber}}</td> -->
+                    <td><a *ngIf="sale.contractFormNumber != ''" href="javascript:void()" (click)="openAttachFileDialog(sale.pid, 2, '0')">{{sale.contractFormNumber}}</a></td>
+                    <!-- 20230302 E_Update -->
                     <td class="text-left">{{sale.salesName}}</td>
                     <td class="text-left" style="white-space: pre-line;padding-top: 5px;padding-bottom: 5px;">{{sale.salesLocationStr}}</td>
                     <td class="text-right">{{formatIntNumber(sale.salesLandArea, '')}}</td>

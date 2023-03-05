@@ -307,6 +307,9 @@
     <!--所有地-->
     <div class="contact-div" *ngIf="data.locations && data.locations.length > 0" style="width: 100%;">
         <span class="min">謄本情報　一覧</span>
+        <!-- 20230301 S_Add -->
+        <span style="font-size: small;">地積合計 </span>{{sumArea | number}}<span style="font-size: small;"> ㎡</span>
+        <!-- 20230301 E_Add -->
         <table>
             <thead class="list-header">
                 <!-- 20210426 S_Update -->
@@ -425,7 +428,10 @@
                     <!-- 20220522 E_Update -->
                     <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
-                    <td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>
+                    <!-- 20230302 S_Update -->
+                    <!--<td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>-->
+                    <td><a *ngIf="contract.contractFormNumber != ''" href="javascript:void()" (click)="openAttachFileDialog(contract.pid, 1, '0')">{{contract.contractFormNumber}}</a></td>
+                    <!-- 20230302 E_Update -->
                     <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
                     <td style="white-space: pre;">{{displaySeller(contract)}}</td>
                     <td style="white-space: pre;">{{displayAddress(contract)}}</td>

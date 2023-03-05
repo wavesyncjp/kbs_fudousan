@@ -12,6 +12,7 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 import { FileComponentComponent } from '../uicomponent/file-component/file-component.component';
 import { InfoAttach } from '../models/mapattach';// 20220329 Add
 import { NgxSpinnerService } from 'ngx-spinner';// 20221116 Add
+import { Templandinfo } from '../models/templandinfo';// 20230302 Add
 
 @Component({
   selector: 'app-notice-detail',
@@ -49,6 +50,11 @@ export class NoticeDetailComponent extends BaseComponent {
   authority = '';
   enableUser: boolean = false;
   isCreate: boolean = false;// 20220517 Add
+  // 20230301 S_Add
+  bukkens = [];
+  bukkenMap: { [key: string]: number; } = {};
+  public bukkenName : string;
+  // 20230301 E_Add
 
   constructor(
               public router: Router,
@@ -70,7 +76,13 @@ export class NoticeDetailComponent extends BaseComponent {
 
     const funcs = [];
     // コード
-    funcs.push(this.service.getCodes(['006', '038', '039', '040']));
+    funcs.push(this.service.getCodes(['006', '038', '039', '040', '041', '042']));
+    // 20230301 S_Add
+    funcs.push(this.service.getLands(null));// 物件情報一覧の取得
+    if (this.data.tempLandInfoPid > 0) {
+      funcs.push(this.service.getLand(this.data.tempLandInfoPid));
+    }
+    // 20230301 E_Add
     Promise.all(funcs).then(values => {
       const codes = values[0] as Code[];
 
@@ -82,6 +94,15 @@ export class NoticeDetailComponent extends BaseComponent {
           this.sysCodes[code] = lst;
         });
       }
+      // 20230301 S_Add
+      this.lands = values[1];
+      //入力の際に表示される物件名称を取得するための処理
+      this.bukkens = this.lands
+      //物件名称をキーにpidをmapに保持していく
+      this.lands.forEach((land) => {
+        this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
+      });
+      // 20230301 E_Add
 
       if (this.data == null || !(this.data.pid > 0)) {
         this.data = new Information();
@@ -93,6 +114,12 @@ export class NoticeDetailComponent extends BaseComponent {
         // 20220517 E_Add
       } else {
         this.data = new Information(this.data);
+        // 20230302 S_Add
+        if (this.data.tempLandInfoPid > 0) {
+          const templandinfo = new Templandinfo(values[2] as Templandinfo);
+          this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName;
+        }
+        // 20230302 E_Add
         this.data.convert();
       }
     });
@@ -126,8 +153,12 @@ export class NoticeDetailComponent extends BaseComponent {
     // 日付
     this.checkBlank(this.data.infoDateMap, 'infoDate', '日付は必須です。');
 
+    // 20230302 S_Update
     // 件名
-    this.checkBlank(this.data.infoSubject, 'infoSubject', '件名は必須です。');
+    // this.checkBlank(this.data.infoSubject, 'infoSubject', '件名は必須です。');
+    // 件名 種別
+    this.checkBlank(this.data.infoSubjectType, 'infoSubjectType', '種別は必須です。');
+    // 20230302 E_Update
 
     // 明細
     if (this.data.detailFlg === '1') {
@@ -172,6 +203,7 @@ export class NoticeDetailComponent extends BaseComponent {
           this.data.addedFileSendFlg = '0';
         }
         // 20220519 E_Add
+        this.convertSubject(this.data);// 20230302 Add
         // 20230213 S_Delete
         // this.data.infoType = 1;// 掲示板タイプ<-1:お知らせ
         // 20230213 E_Delete
@@ -292,4 +324,72 @@ export class NoticeDetailComponent extends BaseComponent {
     });
   }
   // 20220329 E_Add
+  // 20230301 S_Add
+  /**
+   * 入力の度に物件を検索する
+   */
+  bukkenSearch() {
+    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
+    const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
+    if(lst.length === 1) {
+      this.data.tempLandInfoPid = this.bukkenMap[this.bukkenName];
+    }
+    else {
+      this.data.tempLandInfoPid = 0;
+    }
+  }
+
+  /**
+   * お知らせ件名詳細変更
+   */
+  changeInfoSubjectDetail(event) {
+    // お知らせ件名詳細が99:その他の場合
+    if (this.data.infoSubjectDetail === '99') {
+      /*
+      // 物件名称初期化
+      this.bukkenName = '';
+      this.bukkenSearch();
+      */
+      this.data.infoSubjectContractor = ''; // お知らせ件名契約相手
+    }
+    else {
+      this.data.infoSubjectRemark = '';     // お知らせ件名備考
+    }
+  }
+
+  /**
+   * 件名編集
+   */
+  convertSubject(info: Information) {
+    // 種別に指定がある場合
+    if(info.infoSubjectType !== '') {
+      var infoSubject = '';
+      // infoSubject = this.getCodeTitle('041', info.infoSubjectType);
+      // 物件名称に指定がある場合
+      if(this.bukkenName !== undefined && this.bukkenName !== '') {
+        infoSubject += this.bukkenName;
+      }
+      // 契約相手に指定がある場合
+      if(info.infoSubjectContractor !== '') {
+        if(infoSubject !== '') infoSubject += '/';
+        infoSubject += info.infoSubjectContractor + '様';
+      }
+      // 詳細に指定がある場合
+      if(info.infoSubjectDetail !== '') {
+        // 詳細が99:その他の場合
+        if(info.infoSubjectDetail === '99') {
+          // お知らせ件名備考に指定がある場合
+          if(info.infoSubjectRemark !== '') {
+            if(infoSubject !== '') infoSubject += '/';
+            infoSubject += info.infoSubjectRemark;
+          }
+        } else {
+          if(infoSubject !== '') infoSubject += '/';
+          infoSubject += this.getCodeTitle('042', info.infoSubjectDetail);
+        }
+      }
+      info.infoSubject = this.getCodeTitle('041', info.infoSubjectType) + infoSubject;
+    }
+  }
+  // 20230301 E_Add
 }

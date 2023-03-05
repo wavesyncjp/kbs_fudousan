@@ -87,6 +87,9 @@ import { CalcSaleKotozeiDetailComponent } from './calcSaleKotozei-detail/calcSal
 import { NoticeListComponent } from './notice-list/notice-list.component';
 import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
 // 20211227 E_Add
+// 20230302 S_Add
+import { AttachFileDialogComponent } from './dialog/attachFile-dialog/attachFile-dialog.component';
+// 20230302 E_Add
 
 @NgModule({
   declarations: [
@@ -158,6 +161,7 @@ import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
     , NoticeListComponent
     , NoticeDetailComponent
     // 20211227 E_Add
+    , AttachFileDialogComponent// 20230302 Add
   ],
   imports: [
     BrowserModule
@@ -225,6 +229,7 @@ import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
     , CalcKotozeiDetailComponent
     , CalcSaleKotozeiDetailComponent
     , NoticeDetailComponent// 20211227 Add
+    , AttachFileDialogComponent// 20230302 Add
   ],
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ import { formatDate } from '@angular/common';
 import { parse } from 'date-fns';
 import { Dialog } from './models/dialog';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
+import { AttachFileDialogComponent } from './dialog/attachFile-dialog/attachFile-dialog.component';// 20230302 Add
 import { MatDialog } from '@angular/material';
 import { isNullOrUndefined } from 'util';
 
@@ -378,4 +379,14 @@ export class BaseComponent implements OnInit {
         if (isNullOrUndefined(val) || val === '' || isNaN(val)) return 0;
         return Number(val);
     }
+
+    // 20230302 S_Add
+    openAttachFileDialog(parentPid: number,fileType: number, attachFileType: string) {
+        const dialogRef = this.dialog.open(AttachFileDialogComponent, {
+        width: '60%',
+        height: '400px',
+        data: {parentPid, fileType, attachFileType}
+        });
+    }
+    // 20230302 E_Add
 }

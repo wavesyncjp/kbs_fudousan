@@ -45,6 +45,7 @@ export class ContractDetailComponent extends BaseComponent {
   authority = '';
   enableAttachUser: boolean = false;
   // 20230227 E_Add
+  public sumArea: number = 0;// 20230301 Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -140,6 +141,8 @@ export class ContractDetailComponent extends BaseComponent {
 
       });
       //20201009: END - 登記名義人まとめ
+
+      this.sumAreaProcess();// 20230301 Add
 
       this.spinner.hide();
 
@@ -398,6 +401,26 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
 
+  // 20230301 S_Add
+  /**
+   * 地積合計
+   */
+  sumAreaProcess() {
+    this.sumArea = 0;
+    this.data.locations.forEach(me => {
+      //土地
+      if(me.locationType == '01' && me.contractDetail.contractDataType == '01') {
+        if(me.contractDetail.contractHaveMap) {
+          this.sumArea += Number(this.removeComma(me.contractDetail.contractHaveMap));
+        }
+        else {
+          this.sumArea += Number(me.area);
+        }
+      }
+    });
+  }
+  // 20230301 E_Add
+
   /**
    * チェック
    * @param event チェックイベント
@@ -444,7 +467,7 @@ export class ContractDetailComponent extends BaseComponent {
     if (item.contractDetail.contractDataType !== '01') {
       item.contractDetail.contractHave = null;
     }
-
+    this.sumAreaProcess();// 20230301 Add
   }
 
   /**

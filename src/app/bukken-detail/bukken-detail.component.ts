@@ -52,6 +52,7 @@ export class BukkenDetailComponent extends BaseComponent {
   enableUser: boolean = false;
   normalUser: boolean = false;
   //20210317 E_Add
+  public sumArea: number = 0;// 20230301 Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -163,9 +164,17 @@ export class BukkenDetailComponent extends BaseComponent {
     // 物件位置情報
     if (this.data.locations && this.data.locations.length > 0) {
       const locs: Locationinfo[] = [];
+      this.sumArea = 0;// 20230305 Add
       this.data.locations.forEach(loc => {
         const locFront = new Locationinfo(loc);
         locs.push(locFront);
+
+        // 20230301 S_Add
+        //土地
+        if(loc.locationType == '01') {
+          this.sumArea += Number(loc.area);
+        }
+        // 20230301 E_Add
       });
       // 20220329 S_Update
       /*
@@ -267,10 +276,11 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {
         this.data.locations.push(result.data);
-        // 20220329 S_Update
+        // 20230305 S_Update
         // this.sortLocation(this.data.locations);
-        this.sortLocation();
-        // 20220329 E_Update
+        // this.sortLocation();
+        this.convertForDisplay();
+        // 20230305 E_Update
       }
     });
 
@@ -308,9 +318,10 @@ export class BukkenDetailComponent extends BaseComponent {
           } else if (result.isDelete) {
             this.data.locations.splice(pos, 1);
           }
-          // 20220329 S_Add
-          this.sortLocation();
-          // 20220329 E_Add
+          // 20230305 S_Update
+          // this.sortLocation();
+          this.convertForDisplay();
+          // 20230305 E_Update
         }
         // キャンセルで戻っても謄本添付ファイルは最新を設定
         else {
@@ -369,10 +380,11 @@ export class BukkenDetailComponent extends BaseComponent {
       */
       if (result && result.isSave) {
         this.data.locations.push(result.data);
-        // 20220329 S_Update
+        // 20230305 S_Update
         // this.sortLocation(this.data.locations);
-        this.sortLocation();
-        // 20220329 E_Update
+        // this.sortLocation();
+        this.convertForDisplay();
+        // 20230305 E_Update
       }
       //20200811 E_Update
     });
