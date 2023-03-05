@@ -207,7 +207,8 @@
                     <!-- 20220707 E_Update -->
                     <!-- 20230302 S_Update -->
                     <!-- <td>{{sale.contractFormNumber}}</td> -->
-                    <td><a *ngIf="sale.contractFormNumber != ''" href="javascript:void()" (click)="openAttachFileDialog(sale.pid, 2, '0')">{{sale.contractFormNumber}}</a></td>
+                    <td *ngIf="sale.contractFormNumber != '' && sale.salesAttaches != null && sale.salesAttaches.length > 0"><a href="javascript:void()" (click)="openAttachFileDialog(sale.pid, 2, '0')">{{sale.contractFormNumber}}</a></td>
+                    <td *ngIf="sale.contractFormNumber == '' || sale.salesAttaches == null || sale.salesAttaches.length == 0">{{sale.contractFormNumber}}</td>
                     <!-- 20230302 E_Update -->
                     <td class="text-left">{{sale.salesName}}</td>
                     <td class="text-left" style="white-space: pre-line;padding-top: 5px;padding-bottom: 5px;">{{sale.salesLocationStr}}</td>

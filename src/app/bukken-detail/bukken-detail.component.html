@@ -430,7 +430,8 @@
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
                     <!-- 20230302 S_Update -->
                     <!--<td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>-->
-                    <td><a *ngIf="contract.contractFormNumber != ''" href="javascript:void()" (click)="openAttachFileDialog(contract.pid, 1, '0')">{{contract.contractFormNumber}}</a></td>
+                    <td *ngIf="contract.contractFormNumber != '' && contract.contractAttaches != null && contract.contractAttaches.length > 0"><a href="javascript:void()" (click)="openAttachFileDialog(contract.pid, 1, '0')">{{contract.contractFormNumber}}</a></td>
+                    <td *ngIf="contract.contractFormNumber == '' || contract.contractAttaches == null || contract.contractAttaches.length == 0">{{contract.contractFormNumber}}</td>
                     <!-- 20230302 E_Update -->
                     <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
                     <td style="white-space: pre;">{{displaySeller(contract)}}</td>
