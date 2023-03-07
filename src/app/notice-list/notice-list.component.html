@@ -31,6 +31,13 @@
                         <mat-checkbox *ngFor="let code of getCode('005')" [checked]="inList(cond.finishFlg, code.codeDetail)" (change)="changeCheck(cond.finishFlg, code.codeDetail ,$event)">{{code.name}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
                     </td>
 
+                    <!-- 20230306 S_Add -->
+                    <th>詳細</th>
+                    <td>
+                        <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.infoDetail_Like" maxlength="1000">
+                    </td>
+                    <!-- 20230306 E_Add -->
+
                     <!-- 20230213 S_Add -->
                     <th>支店</th>
                     <td>

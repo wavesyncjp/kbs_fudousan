@@ -136,10 +136,10 @@ export class TopComponent  extends BaseComponent {
     });
 
     // お知らせ（名古屋支店）
-    // 20220922 S_Update
+    // 20230308 S_Update
 //    this.service.searchInfo({count: 10, finishFlg: ['0'], infoType: 1}).then(res => {
-    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 1}).then(res => {
-    // 20220922 E_Update
+    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 1, sortType: '1'}).then(res => {
+    // 20230308 E_Update
       this.dataSourceForNotice.data = res;
 
       if (res !== undefined && res.length > 0) {
@@ -153,7 +153,10 @@ export class TopComponent  extends BaseComponent {
     // 20211227 E_Add
     // 20230213 S_Add
     // お知らせ（大阪支店）
-    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 2}).then(res => {
+    // 20230308 S_Update
+//    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 2}).then(res => {
+    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 2, sortType: '1'}).then(res => {
+    // 20230308 E_Update
       this.dataSourceForOsaka.data = res;
 
       if (res !== undefined && res.length > 0) {
@@ -211,6 +214,8 @@ export class TopComponent  extends BaseComponent {
       data: row
     });
 
+    dialogRef.componentInstance.isHideSubjectDetail = true;// 20230306 Add
+    
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -226,7 +231,9 @@ export class TopComponent  extends BaseComponent {
       height: '580px',
       data: row
     });
-  
+
+    dialogRef.componentInstance.isHideSubjectDetail = true;// 20230306 Add
+    
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

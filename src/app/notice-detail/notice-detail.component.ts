@@ -56,6 +56,7 @@ export class NoticeDetailComponent extends BaseComponent {
   public bukkenName : string;
   // 20230301 E_Add
 
+  public isHideSubjectDetail: boolean = false;// 20230306 Add
   constructor(
               public router: Router,
               public service: BackendService,
@@ -203,7 +204,14 @@ export class NoticeDetailComponent extends BaseComponent {
           this.data.addedFileSendFlg = '0';
         }
         // 20220519 E_Add
-        this.convertSubject(this.data);// 20230302 Add
+        
+        // 20230306 S_Update
+        // this.convertSubject(this.data);// 20230302 Add
+        if(!this.isHideSubjectDetail){
+          this.convertSubject(this.data);
+        }
+        // 20230306 E_Update
+
         // 20230213 S_Delete
         // this.data.infoType = 1;// 掲示板タイプ<-1:お知らせ
         // 20230213 E_Delete
@@ -339,23 +347,25 @@ export class NoticeDetailComponent extends BaseComponent {
     }
   }
 
+  // 20230308 S_Delete
   /**
    * お知らせ件名詳細変更
    */
+  /*
   changeInfoSubjectDetail(event) {
     // お知らせ件名詳細が99:その他の場合
     if (this.data.infoSubjectDetail === '99') {
-      /*
       // 物件名称初期化
-      this.bukkenName = '';
-      this.bukkenSearch();
-      */
+      // this.bukkenName = '';
+      // this.bukkenSearch();
       this.data.infoSubjectContractor = ''; // お知らせ件名契約相手
     }
     else {
       this.data.infoSubjectRemark = '';     // お知らせ件名備考
     }
   }
+  */
+  // 20230308 E_Delete
 
   /**
    * 件名編集
@@ -367,7 +377,10 @@ export class NoticeDetailComponent extends BaseComponent {
       // infoSubject = this.getCodeTitle('041', info.infoSubjectType);
       // 物件名称に指定がある場合
       if(this.bukkenName !== undefined && this.bukkenName !== '') {
-        infoSubject += this.bukkenName;
+        // 20230306 S_Update
+        // infoSubject += this.bukkenName;
+        infoSubject += this.bukkenName.split(':')[1];
+        // 20230306 E_Update
       }
       // 契約相手に指定がある場合
       if(info.infoSubjectContractor !== '') {
@@ -376,6 +389,8 @@ export class NoticeDetailComponent extends BaseComponent {
       }
       // 詳細に指定がある場合
       if(info.infoSubjectDetail !== '') {
+        // 20230308 S_Update
+        /*
         // 詳細が99:その他の場合
         if(info.infoSubjectDetail === '99') {
           // お知らせ件名備考に指定がある場合
@@ -387,6 +402,18 @@ export class NoticeDetailComponent extends BaseComponent {
           if(infoSubject !== '') infoSubject += '/';
           infoSubject += this.getCodeTitle('042', info.infoSubjectDetail);
         }
+        */
+        // 詳細が99:その他ではない場合
+        if(info.infoSubjectDetail !== '99') {
+          if(infoSubject !== '') infoSubject += '/';
+          infoSubject += this.getCodeTitle('042', info.infoSubjectDetail);
+        }
+        // お知らせ件名備考に指定がある場合
+        if(info.infoSubjectRemark !== '') {
+          if(infoSubject !== '') infoSubject += '/';
+          infoSubject += info.infoSubjectRemark;
+        }
+        // 20230308 E_Update
       }
       info.infoSubject = this.getCodeTitle('041', info.infoSubjectType) + infoSubject;
     }

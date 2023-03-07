@@ -23,21 +23,30 @@
         <!--
         <tr>
             <th>件名</th>
-            <td><input type="text"  [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" maxlength="100"></td>
+            <td><input type="text" [(ngModel)]="data.infoSubject" [ngClass]="{'width600': true, 'error': errors['infoSubject']}" maxlength="100"></td>
         </tr>
         -->
         <tr>
-            <th rowspan="5">件名</th>
+            <!-- 20230306 S_Update -->
+            <!-- <th rowspan="5">件名</th> -->
+            <th [attr.rowspan]="isHideSubjectDetail ? 1 : 5">件名</th>
+            <!-- 20230306 E_Update -->
             <td><input type="text" [(ngModel)]="data.infoSubject" [ngClass]="'width600'" [disabled]="true" maxlength="100"></td>
         </tr>
-        <tr>
+        <!-- 20230306 S_Update -->
+        <!-- <tr> -->
+        <tr *ngIf="!isHideSubjectDetail">
+        <!-- 20230306 E_Update -->
             <td>
                 <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;種別&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</span>
                 <app-select-component [codes]="getCode('041')" [(ngModel)]="data.infoSubjectType" [noBlank]="false" [cusClass]="'width200 ' + (errors['infoSubjectType'] ? 'error' : '')"></app-select-component>
                 <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;※必須</span>
             </td>
         </tr>
-        <tr>
+        <!-- 20230306 S_Update -->
+        <!-- <tr> -->
+        <tr *ngIf="!isHideSubjectDetail">
+        <!-- 20230306 E_Update -->
             <td>
                 <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;物件名称：</span>
                 <!--<input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" [disabled]="data.infoSubjectDetail == '99'" style="width: 400px">-->
@@ -47,17 +56,30 @@
                 </datalist>
             </td>
         </tr>
-        <tr>
+        <!-- 20230306 S_Update -->
+        <!-- <tr> -->
+        <tr *ngIf="!isHideSubjectDetail">
+            <!-- 20230306 E_Update -->
             <td>
                 <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;契約相手：</span>
-                <input type="text" [(ngModel)]="data.infoSubjectContractor" [disabled]="data.infoSubjectDetail == '99'" class="width400" maxlength="100">
+                <!-- 20230306 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.infoSubjectContractor" [disabled]="data.infoSubjectDetail == '99'" class="width400" maxlength="100"> -->
+                <input type="text" [(ngModel)]="data.infoSubjectContractor" class="width400" maxlength="100">
+                <!-- 20230306 E_Update -->
             </td>
         </tr>
-        <tr>
+        <!-- 20230306 S_Update -->
+        <!-- <tr> -->
+        <tr *ngIf="!isHideSubjectDetail">
+        <!-- 20230306 E_Update -->
             <td>
                 <span style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;詳細&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</span>
-                <app-select-component [cusClass]="'width100'" [codes]="getCode('042')" [(ngModel)]="data.infoSubjectDetail" [noBlank]="false" (changed)="changeInfoSubjectDetail($event)"></app-select-component>
-                <input type="text" [(ngModel)]="data.infoSubjectRemark" [disabled]="data.infoSubjectDetail != '99'" class="width300" maxlength="100">
+                <!-- 20230308 S_Update -->
+                <!-- <app-select-component [cusClass]="'width100'" [codes]="getCode('042')" [(ngModel)]="data.infoSubjectDetail" [noBlank]="false" (changed)="changeInfoSubjectDetail($event)"></app-select-component>
+                <input type="text" [(ngModel)]="data.infoSubjectRemark" [disabled]="data.infoSubjectDetail != '99'" class="width300" maxlength="100"> -->
+                <app-select-component [cusClass]="'width100'" [codes]="getCode('042')" [(ngModel)]="data.infoSubjectDetail" [noBlank]="false"></app-select-component>
+                <input type="text" [(ngModel)]="data.infoSubjectRemark" class="width300" maxlength="100">
+                <!-- 20230308 E_Update -->
             </td>
         </tr>
         <!-- 20230301 E_Update -->

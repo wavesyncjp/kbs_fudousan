@@ -35,6 +35,7 @@ export class NoticeListComponent extends BaseComponent {
     infoDateMap: '',
     infoDate: '',
     finishFlg: ['0'],
+    infoDetail_Like: '',// 20230306 Add
     approvalFlg: ''
   };
   selectedRowIndex = -1;
