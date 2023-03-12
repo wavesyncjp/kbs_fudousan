@@ -15,6 +15,7 @@ import { BukkenplaninfoDetailComponent} from '../bukkenplaninfo-detail/bukkenpla
 import { Bukkensalesinfo } from '../models/bukkensalesinfo';
 import { DatePipe } from '@angular/common';
 import { Locationinfo } from '../models/locationinfo';
+import { AttachFileDialogComponent } from '../dialog/attachFile-dialog/attachFile-dialog.component';// 20230309 Add
 
 @Component({
   selector: 'app-bukkenplaninfo-list',
@@ -28,6 +29,7 @@ import { Locationinfo } from '../models/locationinfo';
 
 export class BukkenplaninfoListComponent extends BaseComponent {
   authority = '';
+  enableAttachUser: boolean = false;// 20230313 Add
   public pid: number;
   public data: LandPlanInfo;
 
@@ -51,6 +53,9 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('物件情報詳細');
     this.authority = this.service.loginUser.authority;
+    // 20230313 S_Add
+    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // 20230313 E_Add
     this.spinner.show();
 
     const funcs = [];
@@ -396,4 +401,14 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     }
   }
   // 20220707 E_Add
+
+  // 20230309 S_Add
+  openAttachFileDialog(parentPid: number,fileType: number, attachFileType: string) {
+    const dialogRef = this.dialog.open(AttachFileDialogComponent, {
+    width: '60%',
+    height: '400px',
+    data: {parentPid, fileType, attachFileType}
+    });
+  }
+  // 20230309 E_Add
 }

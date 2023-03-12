@@ -1,3 +1,5 @@
+import { Information } from '../../models/information'
+import { NoticeDetailComponent } from '../../notice-detail/notice-detail.component';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { BackendService } from 'src/app/backend.service';
@@ -29,6 +31,10 @@ export class AttachFileDialogComponent implements OnInit {
     this.fileType = this.data.fileType;
     this.service.getFiles(this.parentPid,this.fileType,this.data.attachFileType).then(ret => {
       this.files = ret;
+
+      this.files.forEach(me => {
+        // me.isSelected = true;
+      });
     });
   }
   ok() {
@@ -46,6 +52,35 @@ export class AttachFileDialogComponent implements OnInit {
   attachUploaded(event) {
     //TODO
   }
+
+  /**
+   * お知らせ作成
+   */
+  createNotice(){
+    const row = new Information();
+    row.attachFiles = []; 
+    this.files.forEach(el => {
+      if(el.isSelected){
+          row.attachFiles.push({
+            pid: 0,
+            infoPid: 0,
+            attachFileName : el.attachFileName,
+            attachFilePath : el.attachFilePath
+        });
+      }
+    });
+
+    const dialogRef = this.dialog.open(NoticeDetailComponent, {
+      width: '60%',
+      height: '680px',
+      data: row
+    });
+    dialogRef.componentInstance.bukkenName = this.data.bukkenNo + ':' + this.data.bukkenName;
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        
+      }
+    });
+  }
 }
-
-

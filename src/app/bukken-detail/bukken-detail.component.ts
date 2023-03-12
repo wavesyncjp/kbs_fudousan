@@ -17,6 +17,7 @@ import { LocationDetailComponent } from '../location-detail/location-detail.comp
 import { DatePipe } from '@angular/common';
 import { Util } from '../utils/util';
 import { LocationAttach } from '../models/mapattach';// 20210317 Add
+import { AttachFileDialogComponent } from '../dialog/attachFile-dialog/attachFile-dialog.component';// 20230309 Add
 declare var google: any;
 
 @Component({
@@ -52,7 +53,9 @@ export class BukkenDetailComponent extends BaseComponent {
   enableUser: boolean = false;
   normalUser: boolean = false;
   //20210317 E_Add
+  enableAttachUser: boolean = false;// 20230313 Add
   public sumArea: number = 0;// 20230301 Add
+  public sumAreaContract: number = 0;// 20230309 Add
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -83,6 +86,9 @@ export class BukkenDetailComponent extends BaseComponent {
     this.enableUser = (this.authority === '01');
     this.normalUser = (this.authority === '04');
     //20210317 E_Add
+    // 20230313 S_Add
+    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // 20230313 E_Add
     this.service.changeTitle('物件情報詳細');
     this.spinner.show();
 
@@ -186,7 +192,47 @@ export class BukkenDetailComponent extends BaseComponent {
     } else {
       this.data.locations = [];
     }
+    this.sumAreaContractProcess();// 20230309 Add
   }
+
+  // 20230309 S_Add
+  /**
+   * 地積合計 契約
+   */
+  sumAreaContractProcess() {
+    this.sumAreaContract = 0;
+    if (this.data.locations && this.data.locations.length > 0) {
+      this.contracts.forEach (ct=>{
+        const details = ct.details.filter(dt => dt.contractDataType === '01');
+
+        details.forEach(dt=>{
+            this.data.locations.forEach(me => {
+              //土地
+              if(me.locationType == '01' && me.pid == dt.locationInfoPid) {
+                if(dt.contractHave && dt.contractHave > 0) {
+                  this.sumAreaContract += Number(dt.contractHave);
+                }
+                else {
+                  this.sumAreaContract += Number(me.area);
+                }
+              }
+            });
+        });
+      });
+    }
+  }
+
+  openAttachFileDialog(parentPid: number,fileType: number, attachFileType: string) {
+    let bukkenNo = this.data.bukkenNo;
+    let bukkenName = this.data.bukkenName;
+    
+    const dialogRef = this.dialog.open(AttachFileDialogComponent, {
+    width: '60%',
+    height: '400px',
+    data: {parentPid, fileType, attachFileType,bukkenNo,bukkenName}
+    });
+  }
+  // 20230309 E_Add
 
   // 20220329 S_Update
   /*

@@ -135,7 +135,10 @@
                 <table style="margin-left: 5px;">
                     <tr *ngFor="let map of data.attachFiles">
                         <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
-                        <td><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td>
+                        <!-- 20230309 S_Update -->
+                        <!-- <td><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td> -->
+                        <td *ngIf="map.pid > 0"><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td>
+                        <!-- 20230309 E_Update -->
                     </tr>
                 </table>
             </td>

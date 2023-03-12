@@ -106,6 +106,13 @@ export class NoticeDetailComponent extends BaseComponent {
       // 20230301 E_Add
 
       if (this.data == null || !(this.data.pid > 0)) {
+        // 20230309 S_Add
+        let attachFiles: InfoAttach[];
+        if(this.data != null && this.data.attachFiles != null && this.data.attachFiles.length > 0) {
+          attachFiles = this.data.attachFiles;
+        }
+        // 20230309 E_Add
+
         this.data = new Information();
         this.data.detailFlg = '1';
         // 20220517 S_Add
@@ -113,6 +120,15 @@ export class NoticeDetailComponent extends BaseComponent {
         this.data.convert();
         this.isCreate = true;
         // 20220517 E_Add
+
+        // 20230309 S_Add
+        if(this.bukkenName != null &&  this.bukkenName != '') {
+          this.bukkenSearch();
+        }
+        if(attachFiles != null && attachFiles.length > 0) {
+          this.data.attachFiles = attachFiles;
+        }
+        // 20230309 E_Add
       } else {
         this.data = new Information(this.data);
         // 20230302 S_Add

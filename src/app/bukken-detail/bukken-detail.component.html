@@ -393,6 +393,9 @@
     <!--契約情報-->
     <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
         <span class="min">契約一覧</span>
+        <!-- 20230309 S_Add -->
+        <span style="font-size: small;">地積合計 </span>{{sumAreaContract | number}}<span style="font-size: small;"> ㎡</span>
+        <!-- 20230309 E_Add -->
         <table>
             <thead class="list-header">
                 <!-- 20220522 S_Update -->
@@ -428,11 +431,11 @@
                     <!-- 20220522 E_Update -->
                     <td class="break-line">{{getCodeTitle('019', contract.contractNow)}}</td><!-- 20200730 Add -->
                     <td>{{data.bukkenNo + "-" + contract.contractNumber}}</td>
-                    <!-- 20230302 S_Update -->
+                    <!-- 20230313 S_Update -->
                     <!--<td>{{!isBlank(contract.contractFormNumber) ? contract.contractFormNumber : ""}}</td>-->
-                    <td *ngIf="contract.contractFormNumber != '' && contract.contractAttaches != null && contract.contractAttaches.length > 0"><a href="javascript:void()" (click)="openAttachFileDialog(contract.pid, 1, '0')">{{contract.contractFormNumber}}</a></td>
-                    <td *ngIf="contract.contractFormNumber == '' || contract.contractAttaches == null || contract.contractAttaches.length == 0">{{contract.contractFormNumber}}</td>
-                    <!-- 20230302 E_Update -->
+                    <td *ngIf="enableAttachUser && contract.contractFormNumber != '' && contract.contractAttaches != null && contract.contractAttaches.length > 0"><a href="javascript:void()" (click)="openAttachFileDialog(contract.pid, 1, '0')">{{contract.contractFormNumber}}</a></td>
+                    <td *ngIf="!enableAttachUser || contract.contractFormNumber == '' || contract.contractAttaches == null || contract.contractAttaches.length == 0">{{contract.contractFormNumber}}</td>
+                    <!-- 20230313 E_Update -->
                     <td>{{formatDay(contract.contractDay, 'yyyy/MM/dd')}}</td>
                     <td style="white-space: pre;">{{displaySeller(contract)}}</td>
                     <td style="white-space: pre;">{{displayAddress(contract)}}</td>
