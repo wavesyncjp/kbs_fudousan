@@ -388,23 +388,23 @@ export class NoticeDetailComponent extends BaseComponent {
    */
   convertSubject(info: Information) {
     // 種別に指定がある場合
-    if(info.infoSubjectType !== '') {
+    if(info.infoSubjectType != null && info.infoSubjectType !== '') {
       var infoSubject = '';
       // infoSubject = this.getCodeTitle('041', info.infoSubjectType);
       // 物件名称に指定がある場合
-      if(this.bukkenName !== undefined && this.bukkenName !== '') {
+      if(this.bukkenName != null && this.bukkenName !== undefined && this.bukkenName !== '') {
         // 20230306 S_Update
         // infoSubject += this.bukkenName;
         infoSubject += this.bukkenName.split(':')[1];
         // 20230306 E_Update
       }
       // 契約相手に指定がある場合
-      if(info.infoSubjectContractor !== '') {
+      if(info.infoSubjectContractor != null && info.infoSubjectContractor !== undefined && info.infoSubjectContractor !== '') {
         if(infoSubject !== '') infoSubject += '/';
         infoSubject += info.infoSubjectContractor + '様';
       }
       // 詳細に指定がある場合
-      if(info.infoSubjectDetail !== '') {
+      if(info.infoSubjectDetail != null && info.infoSubjectDetail !== undefined && info.infoSubjectDetail !== '') {
         // 20230308 S_Update
         /*
         // 詳細が99:その他の場合
@@ -425,7 +425,7 @@ export class NoticeDetailComponent extends BaseComponent {
           infoSubject += this.getCodeTitle('042', info.infoSubjectDetail);
         }
         // お知らせ件名備考に指定がある場合
-        if(info.infoSubjectRemark !== '') {
+        if(info.infoSubjectRemark != null && info.infoSubjectRemark !== undefined && info.infoSubjectRemark !== '') {
           if(infoSubject !== '') infoSubject += '/';
           infoSubject += info.infoSubjectRemark;
         }
