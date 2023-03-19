@@ -32,6 +32,7 @@ export class PayContractListComponent extends BaseComponent {
     contractBukkenNo_Like:'',//20200913 Add
     bukkenName: '',
     paymentCode: '',
+    paymentCodeFilter: '',//20230314 Add
     supplierName: '',
     contractDay_From: '',
     contractDayMap_From: '',
@@ -123,6 +124,7 @@ export class PayContractListComponent extends BaseComponent {
       bukkenName: '',
       contractBukkenNo_Like:'',//20200913 Add
       paymentCode: '',
+      paymentCodeFilter: '',//20230314 Add
       supplierName: '',
       contractDay_From: '',
       contractDayMap_From: '',
@@ -161,6 +163,7 @@ export class PayContractListComponent extends BaseComponent {
     this.cond.payFixDay_From = this.cond.payFixDayMap_From != null ? this.datepipe.transform(this.cond.payFixDayMap_From, 'yyyyMMdd') : "";
     this.cond.payFixDay_To = this.cond.payFixDayMap_To != null ? this.datepipe.transform(this.cond.payFixDayMap_To, 'yyyyMMdd') : "";
     //20200913 E_Add
+    this.cond.paymentCodeFilter = this.cond.paymentCode;//20230314 Add
 
     this.service.searchPayContract(this.cond).then(res => {
       //const lst = this.groupData(res);

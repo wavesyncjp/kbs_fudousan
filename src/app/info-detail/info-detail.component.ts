@@ -29,6 +29,11 @@ export class InfoDetailComponent extends BaseComponent {
   @ViewChild('cbxFinishFlg', {static: true})
   cbxFinishFlg: MatCheckbox;
 
+  // 20230317 S_Add
+  authority = '';
+  disableUser: boolean = false;
+  // 20230317 E_Add
+
   constructor(
               public router: Router,
               public service: BackendService,
@@ -41,6 +46,11 @@ export class InfoDetailComponent extends BaseComponent {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
+    //20230317 S_Add
+    this.authority = this.service.loginUser.authority;
+    this.disableUser = (this.authority === '03');
+    //20230317 E_Add
+
     const funcs = [];
     funcs.push(this.service.getCodes(['006']));
     Promise.all(funcs).then(values => {

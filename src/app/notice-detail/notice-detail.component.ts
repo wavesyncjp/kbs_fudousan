@@ -50,6 +50,8 @@ export class NoticeDetailComponent extends BaseComponent {
   authority = '';
   enableUser: boolean = false;
   isCreate: boolean = false;// 20220517 Add
+  disableUser: boolean = false;// 20230317 Add
+
   // 20230301 S_Add
   bukkens = [];
   bukkenMap: { [key: string]: number; } = {};
@@ -74,6 +76,7 @@ export class NoticeDetailComponent extends BaseComponent {
     // this.enableUser = this.authority === '01';
     this.enableUser = (this.authority === '01' || this.authority === '02');
     // 20220118 E_Update
+    this.disableUser = (this.authority === '03');//20230317 Add
 
     const funcs = [];
     // コード

@@ -54,6 +54,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   authority = '';
   enableAttachUser: boolean = false;
   // 20230227 E_Add
+  disableUser: boolean = false;// 20230317 Add
 
   constructor(public router: Router,
               public service: BackendService,
@@ -72,6 +73,7 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     this.authority = this.service.loginUser.authority;
     this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
     // 20230227 E_Add
+    this.disableUser = (this.authority === '03');//20230317 Add
     this.data = new Bukkensalesinfo(this.data);
     this.data.convert();
 

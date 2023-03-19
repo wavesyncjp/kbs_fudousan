@@ -38,8 +38,12 @@
             <th>添付ファイル</th>
             <td>
                 <a *ngIf="hasFile()" [attr.href]="data.attachFilePath + data.attachFileName"  target="_blank" class="action-link">{{data.attachFileName}}</a>
-                <br *ngIf="hasFile()">
-                <app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file>
+                <!-- 20230317 S_Update -->
+                <!-- <br *ngIf="hasFile()">
+                <app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file> -->
+                <br *ngIf="hasFile() && !disableUser">
+                <app-file #fUpload notButton="true" *ngIf="!disableUser" (uploaded)="uploaded($event)"></app-file>
+                <!-- 20230317 E_Update -->
             </td>
         </tr> 
         <tr>

@@ -124,21 +124,18 @@
             </td>
             -->
             <td>
-                <!-- 20221116 S_Update -->
-                <!--
-                <label *ngIf="!(data.pid > 0)" style="color:red">※お知らせを登録後に添付可能となります。</label>
-                <app-file infoPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="uploadedInfoAttach($event)" [immediately]="true"></app-file> 
-                -->
-                <app-file #attachFile infoPid="{{data.pid}}" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file>
-                <!-- 20221116 E_Update -->
+                <!-- 20230317 S_Update -->
+                <!-- <app-file #attachFile infoPid="{{data.pid}}" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file> -->
+                <app-file #attachFile infoPid="{{data.pid}}" *ngIf="!disableUser" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file>
+                <!-- 20230317 E_Update -->
                 
                 <table style="margin-left: 5px;">
                     <tr *ngFor="let map of data.attachFiles">
                         <td class="min-width160"><a [attr.href]="map.attachFilePath + map.attachFileName" target="_blank">{{map.attachFileName}}</a></td>
-                        <!-- 20230309 S_Update -->
-                        <!-- <td><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td> -->
-                        <td *ngIf="map.pid > 0"><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td>
-                        <!-- 20230309 E_Update -->
+                        <!-- 20230317 S_Update -->
+                        <!-- <td *ngIf="map.pid > 0"><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td> -->
+                        <td *ngIf="map.pid > 0 && !disableUser"><button mat-flat-button class="delete-btn" (click)="deleteInfoAttachFile(map)">削除</button></td>
+                        <!-- 20230317 E_Update -->
                     </tr>
                 </table>
             </td>
