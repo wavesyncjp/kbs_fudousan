@@ -52,6 +52,16 @@ export class PayContractListComponent extends BaseComponent {
     payFixDay_To: '',
     payFixDayMap_To: '',
     //20200913 E_Add
+    // 20230331 S_Add
+    payDay_FromFilter: '',
+    payDayMap_FromFilter: '',
+    payDay_ToFilter: '',
+    payDayMap_ToFilter: '',
+    payFixDay_FromFilter: '',
+    payFixDayMap_FromFilter: '',
+    payFixDay_ToFilter: '',
+    payFixDayMap_ToFilter: '',
+    // 20230331 E_Add
  };
   search = '0';
   searched = false;
@@ -144,6 +154,16 @@ export class PayContractListComponent extends BaseComponent {
       payFixDay_To: '',
       payFixDayMap_To: '',
       //20200913 E_Add
+      // 20230331 S_Add
+      payDay_FromFilter: '',
+      payDayMap_FromFilter: '',
+      payDay_ToFilter: '',
+      payDayMap_ToFilter: '',
+      payFixDay_FromFilter: '',
+      payFixDayMap_FromFilter: '',
+      payFixDay_ToFilter: '',
+      payFixDayMap_ToFilter: '',
+      // 20230331 E_Add
    };
   }
 
@@ -164,6 +184,12 @@ export class PayContractListComponent extends BaseComponent {
     this.cond.payFixDay_To = this.cond.payFixDayMap_To != null ? this.datepipe.transform(this.cond.payFixDayMap_To, 'yyyyMMdd') : "";
     //20200913 E_Add
     this.cond.paymentCodeFilter = this.cond.paymentCode;//20230314 Add
+    // 20230331 S_Add
+    this.cond.payDay_FromFilter = this.cond.payDay_From;
+    this.cond.payDay_ToFilter = this.cond.payDay_To;
+    this.cond.payFixDay_FromFilter = this.cond.payFixDay_From;
+    this.cond.payFixDay_ToFilter = this.cond.payFixDay_To;
+    // 20230331 E_Add
 
     this.service.searchPayContract(this.cond).then(res => {
       //const lst = this.groupData(res);

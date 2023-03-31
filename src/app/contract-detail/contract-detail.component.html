@@ -480,7 +480,10 @@
             </td>
         </tr>
         <!-- 20230227 S_Add -->
-        <tr *ngIf="enableAttachUser">
+        <!-- 20230331 S_Update -->
+        <!-- <tr *ngIf="enableAttachUser"> -->
+        <tr>
+        <!-- 20230331 E_Update -->
             <th>契約書等</th>
             <td colspan="7">
                 <label *ngIf="!(contract.pid > 0)" style="color:red">※契約情報を登録後に添付可能となります。</label>
