@@ -15,8 +15,8 @@ import { Receivecontractinfo } from './models/receivecontractinfo';
 import { Tax } from './models/tax';
 import { ContractSellerInfo } from './models/contractsellerinfo';
 import { Bukkensalesinfo } from './models/bukkensalesinfo';
-import { Planinfohistory } from './models/Planinfohistory';
-import { Planhistorylist } from './models/Planhistorylist';
+import { Planinfohistory } from './models/planinfohistory';
+import { Planhistorylist } from './models/planhistorylist';
 import { Paycontractdetailinfo } from './models/paycontractdetailinfo';
 import { Sorting } from './models/sorting';
 
