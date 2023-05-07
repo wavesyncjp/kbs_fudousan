@@ -1318,4 +1318,15 @@ export class BackendService {
     return req.toPromise();
   }
   // 20230302 E_Add
+  // 20230506 S_Add
+  /**
+   * 契約精算申請書作成
+   * @param id 契約Pid
+   */
+  exportContractCalculate(contractPid: number): Promise<Blob> {
+    const downloadUrl = 'contractCalculateExport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: contractPid}, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  // 20230506 E_Add
 }

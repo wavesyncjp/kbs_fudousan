@@ -138,7 +138,7 @@ export class ContractDetailComponent extends BaseComponent {
       this.data.locations.forEach(me => {
 
         if(me.sharers != null && me.sharers.length > 1){
-          me.sharers = me.sharers.filter(fl => fl.buysellFlg === "1");          
+          me.sharers = me.sharers.filter(fl => fl.buysellFlg === "1");
         }        
 
       });
@@ -231,6 +231,24 @@ export class ContractDetailComponent extends BaseComponent {
     flg.canncellDayChk = (event.checked ? 1 : 0);
     this.contract.canncellDayChk = flg.canncellDayChk;
    }
+   //  20230501 S_Add
+   flgChangeFixedTaxDay(event, flg: any) {
+    flg.fixedTaxDayChk = (event.checked ? 1 : 0);
+    this.contract.fixedTaxDayChk = flg.fixedTaxDayChk;
+   }
+   //  20230501 E_Add
+
+   //  20230418 S_Add
+   flgCanncellDayChkAgree(event, flg: any) {
+    flg.canncellDayChkAgree = (event.checked ? 1 : 0);
+    this.contract.canncellDayChkAgree = flg.canncellDayChkAgree;
+   }
+   flgCanncellDayChkApproval(event, flg: any) {
+    flg.canncellDayChkApproval = (event.checked ? 1 : 0);
+    this.contract.canncellDayChkApproval = flg.canncellDayChkApproval;
+   }
+   //  20230418 E_Add
+
    // 20210728 S_Add
    retainageChange(event, flg: any) {
     flg.retainageDayChk = (event.checked ? 1 : 0);
@@ -431,7 +449,7 @@ export class ContractDetailComponent extends BaseComponent {
    */
   change(event, item: Locationinfo, flg) {
 
-    if (event.checked) {      
+    if (event.checked) {
       if(flg === '01') {
         item.contractDetail.contractDataType = flg;
         item.contractDetail02 = '';
@@ -459,8 +477,8 @@ export class ContractDetailComponent extends BaseComponent {
       }
       else {
         item.contractDetail.contractDataType = '';
-      }      
-    } 
+      }
+    }
 
 
     if (item.contractDetail.contractDataType !== '03') {
@@ -479,6 +497,15 @@ export class ContractDetailComponent extends BaseComponent {
     this.errorMsgs = [];
     this.errors = {};
 
+    // 20230418 S_Add
+    //03:解除済04:解除済(等価交換)
+    if(this.contract.contractNow == "03" || this.contract.contractNow == "04") {
+      if(!(this.contract.canncellDayChkAgree == "1" || this.contract.canncellDayChkApproval == "1")) {
+        this.errorMsgs.push('合意書締結済みもしくは、口頭・稟議取得済みに指定がない場合、契約状況に解除済は指定できません。');
+      }
+    }
+    // 20230418 E_Add
+    
     this.data.locations.forEach((loc, pos) => {
       if(loc.sharers == null || loc.sharers.length == 1) {
         return;
@@ -492,7 +519,7 @@ export class ContractDetailComponent extends BaseComponent {
           else {
             this.errorMsgs.push('底地選択のデータで登記人が選択されていません。');
             this.errors['contractDataType_03_' + pos] = true;
-          }          
+          }
       }
     });
 
@@ -697,4 +724,23 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
   // 20230227 E_Add
+  // 20230506 S_Add
+  /**
+   * 契約精算申請書作成
+   */
+  contractCalculateExport() {
+    const dlg = new Dialog({title: '確認', message: '契約精算申請書を出力します。よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportContractCalculate(this.contract.pid).then(data => {
+          this.service.writeToFile(data, "契約精算申請書");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20230506 E_Add
 }

@@ -88,6 +88,10 @@ export class Contractinfo {
     //20200828 E_Add
     canncellDay: string;
     canncellDayChk: string;
+    // 20230418 S_Add
+    canncellDayChkAgree: string;
+    canncellDayChkApproval: string;
+    // 20230418 E_Add
     canncell: string;
     remarks: string;
     attachFilePath: string;
@@ -153,6 +157,13 @@ export class Contractinfo {
     prioritySalesFloorMap: string = "";
     prioritySalesPlanPriceMap: string = "";
     fixedTaxMap: string = "";
+
+    // 20230501 S_Add
+    fixedTaxDay: string;
+    fixedTaxDayMap: Date = null;
+    fixedTaxDayChk: string;
+    // 20230501 E_Add
+
     // 20210805 S_Add
     fixedLandTaxMap: string = "";
     fixedBuildingTaxMap: string = "";
@@ -201,6 +212,8 @@ export class Contractinfo {
         this.deposit4DayMap = Converter.stringToDate(this.deposit4Day, 'yyyyMMdd');
         // 20210510 E_Add
         this.earnestPriceDayMap = Converter.stringToDate(this.earnestPriceDay, 'yyyyMMdd');
+        this.fixedTaxDayMap = Converter.stringToDate(this.fixedTaxDay, 'yyyyMMdd');// 20230501 Add
+
         // 20210904 S_Add
         if(this.sharingStartDay != null && this.sharingStartDay.length == 8)
         {
@@ -293,6 +306,7 @@ export class Contractinfo {
         this.deposit4Day = Converter.dateToString(this.deposit4DayMap, 'yyyyMMdd', datePipe);
         // 20210510 E_Add
         this.earnestPriceDay = Converter.dateToString(this.earnestPriceDayMap, 'yyyyMMdd', datePipe);
+        this.fixedTaxDay = Converter.dateToString(this.fixedTaxDayMap, 'yyyyMMdd', datePipe);// 20230501 Add
         // 20210904 S_Add
         if(this.sharingStartDayYYYY != null && this.sharingStartDayMMDD != null) {
             this.sharingStartDay = this.sharingStartDayYYYY.concat(this.sharingStartDayMMDD);

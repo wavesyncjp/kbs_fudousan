@@ -95,6 +95,13 @@ export class LocationDetailComponent extends BaseComponent {
 
       this.spinner.hide();
     });
+
+    // 20230501 S_Add
+    if(this.data.pid == undefined){
+      this.data.displayOrder = 0;
+    }
+    // 20230501 E_Add
+
     //20200811 S_Update
     /*
     if(this.data.pid == undefined) this.data.locationType = '01';
