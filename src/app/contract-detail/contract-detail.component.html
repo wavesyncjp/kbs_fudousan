@@ -2,7 +2,7 @@
 <div  class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <!--<button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()">契約精算申請書作成</button>--><!-- 20230506 Add -->
+        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()">契約精算申請書作成</button><!-- 20230506 Add -->
         <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
         <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button export-button" (click)="export()">契約書出力</button>
         <!--<button mat-raised-button *ngIf="this.contract.pid > 0" class="button buyInfoExport-button" (click)="buyInfoExport()">決済案内出力</button>--><!-- 20211107 Delete -->
