@@ -143,7 +143,7 @@ export class ContractDetailComponent extends BaseComponent {
 
       });
       //20201009: END - 登記名義人まとめ
-
+      this.sortLocation();// 20230509 Add
       this.sumAreaProcess();// 20230301 Add
 
       this.spinner.hide();
@@ -162,6 +162,41 @@ export class ContractDetailComponent extends BaseComponent {
     };
     //20200731 E_Add
   }
+  // 20230509 S_Add
+  sortLocation() {
+    this.data.locations.sort((a,b) => {
+      let id1 = a.displayOrder != null ? a.displayOrder : 0;
+      let id2 = b.displayOrder != null ? b.displayOrder : 0;
+      if(id1 !== id2) return id1 - id2;
+
+      return a.pid - b.pid;
+    });
+
+    let tempLocs: Locationinfo[] = [];
+    let tempLocsNot04 = this.data.locations.filter(loc => loc.locationType !== '04');
+    let tempLocs04 = this.data.locations.filter(loc => loc.locationType === '04');
+    let pids = [];
+    tempLocsNot04.forEach(locNot04 => {
+      tempLocs.push(locNot04);
+      if(locNot04.locationType === '03') {
+        tempLocs04.forEach(loc04 => {
+          
+          if(String(locNot04.pid) === loc04.ridgePid && !pids.includes(loc04.pid)) {
+            tempLocs.push(loc04);
+            pids.push(loc04.pid);
+          }
+        });
+      }
+    });
+    tempLocs04.forEach(loc04 => {
+      if(!pids.includes(loc04.pid)) {
+        tempLocs.push(loc04);
+        pids.push(loc04.pid);
+      }
+    });
+    this.data.locations = tempLocs;
+  }
+  // 20230509 E_Add
   changeFlg(event: MatRadioChange) {
     if (event.value === '0') {
       this.contract.promptDecideContent = '';
