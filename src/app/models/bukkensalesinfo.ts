@@ -116,6 +116,15 @@ export class Bukkensalesinfo {
     salesOutsourcingPriceMap: string = "";// 20201124 Add
     // 20200713 E_Add
     salesFixedBuildingTaxOnlyTaxMap: string = "";// 20220523 Add
+    // 20230510 S_Add
+    salesDeposit1DayChk: string;
+    salesDeposit2DayChk: string;
+    salesEarnestPriceDayChk: string;
+    salesDecisionDayChk: string;
+    salesFixedTaxDayChk: string;
+    salesFixedTaxDay: string;
+    salesFixedTaxDayMap: Date = null;
+    // 20230510 E_Add
 
     salesLocationMap = [];// 20201224 Add
     salesLocationStr: string = "";
@@ -132,6 +141,7 @@ export class Bukkensalesinfo {
         this.salesContractSchDayMap = Converter.stringToDate(this.salesContractSchDay, 'yyyyMMdd');
         this.salesDecisionSchDayMap = Converter.stringToDate(this.salesDecisionSchDay, 'yyyyMMdd');
         this.salesDecisionDayMap = Converter.stringToDate(this.salesDecisionDay, 'yyyyMMdd');
+        this.salesFixedTaxDayMap = Converter.stringToDate(this.salesFixedTaxDay, 'yyyyMMdd');// 20230510 Add
         // 20201124 S_Add
         this.salesDeposit1DayMap = Converter.stringToDate(this.salesDeposit1Day, 'yyyyMMdd');
         this.salesDeposit2DayMap = Converter.stringToDate(this.salesDeposit2Day, 'yyyyMMdd');
@@ -211,6 +221,7 @@ export class Bukkensalesinfo {
         this.salesContractSchDay = Converter.dateToString(this.salesContractSchDayMap, 'yyyyMMdd', datePipe);
         this.salesDecisionSchDay = Converter.dateToString(this.salesDecisionSchDayMap, 'yyyyMMdd', datePipe);
         this.salesDecisionDay = Converter.dateToString(this.salesDecisionDayMap, 'yyyyMMdd', datePipe);
+        this.salesFixedTaxDay = Converter.dateToString(this.salesFixedTaxDayMap, 'yyyyMMdd', datePipe);// 20230510 Add
         // 20201124 S_Add
         this.salesDeposit1Day = Converter.dateToString(this.salesDeposit1DayMap, 'yyyyMMdd', datePipe);
         this.salesDeposit2Day = Converter.dateToString(this.salesDeposit2DayMap, 'yyyyMMdd', datePipe);

@@ -121,7 +121,33 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
       
     });
   }
-
+  // 20230510 S_Add
+  // 内金①
+  flgChangeSalesDeposit1DayChk(event, flg: any) {
+    flg.salesDeposit1DayChk = (event.checked ? 1 : 0);
+    this.data.salesDeposit1DayChk = flg.salesDeposit1DayChk;
+  }
+  // 内金②
+  flgChangeSalesDeposit2DayChk(event, flg: any) {
+    flg.salesDeposit2DayChk = (event.checked ? 1 : 0);
+    this.data.salesDeposit2DayChk = flg.salesDeposit2DayChk;
+  }
+  // 手付金
+  flgChangeSalesEarnestPriceDayChk(event, flg: any) {
+    flg.salesEarnestPriceDayChk = (event.checked ? 1 : 0);
+    this.data.salesEarnestPriceDayChk = flg.salesEarnestPriceDayChk;
+  }
+  // 決済日
+  flgChangeSalesDecisionDayChk(event, flg: any) {
+    flg.salesDecisionDayChk = (event.checked ? 1 : 0);
+    this.data.salesDecisionDayChk = flg.salesDecisionDayChk;
+  }
+  // 固都税清算金
+  flgChangeSalesFixedTaxDayChk(event, flg: any) {
+    flg.salesFixedTaxDayChk = (event.checked ? 1 : 0);
+    this.data.salesFixedTaxDayChk = flg.salesFixedTaxDayChk;
+  }
+  // 20230510 E_Add
   save() {
     if (!this.validate()) {
       return;

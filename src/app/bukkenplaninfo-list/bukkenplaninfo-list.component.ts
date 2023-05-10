@@ -199,6 +199,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     const sale = new Bukkensalesinfo();
     sale.tempLandInfoPid = this.data.land.pid;
     const dialogRef = this.dialog.open(BukkenplaninfoDetailComponent, {
+      maxWidth: '96vw',// 20230510 Add
       width: '98%',
       height: '650px',// 20220308 Update
       data: sale
@@ -225,6 +226,7 @@ export class BukkenplaninfoListComponent extends BaseComponent {
   showLandSale(sale: Bukkensalesinfo) {
 
     const dialogRef = this.dialog.open(BukkenplaninfoDetailComponent, {
+      maxWidth: '96vw',// 20230510 Add
       width: '98%',
       height: '650px',// 20220308 Update
       data: sale

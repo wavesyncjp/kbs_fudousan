@@ -106,6 +106,9 @@
                 <input type="text" [matDatepicker]="salesDeposit1Day" class="width100" [(ngModel)]="data.salesDeposit1DayMap">
                 <mat-datepicker-toggle matSuffix [for]="salesDeposit1Day" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #salesDeposit1Day></mat-datepicker>
+                <!-- 20230510 S_Add -->
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.salesDeposit1DayChk === '1'" (change)="flgChangeSalesDeposit1DayChk($event, data)"></mat-checkbox>
+                <!-- 20230510 E_Add -->
             </td>
             <th>内金②</th>
             <td>
@@ -114,14 +117,23 @@
                 <input type="text" [matDatepicker]="salesDeposit2Day" class="width100" [(ngModel)]="data.salesDeposit2DayMap">
                 <mat-datepicker-toggle matSuffix [for]="salesDeposit2Day" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #salesDeposit2Day></mat-datepicker>
+                <!-- 20230510 S_Add -->
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.salesDeposit2DayChk === '1'" (change)="flgChangeSalesDeposit2DayChk($event, data)"></mat-checkbox>
+                <!-- 20230510 E_Add -->
             </td>
             <th>手付金</th>
-            <td>
+            <!-- 20230510 S_Update -->
+            <!-- <td> -->
+            <td colspan="3">
+            <!-- 20230510 E_Update -->
                 <input type="text" [(ngModel)]="data.salesEarnestPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.salesEarnestPriceMap)">&nbsp;円
                 <br>
                 <input type="text" [matDatepicker]="salesEarnestPriceDay" class="width100" [(ngModel)]="data.salesEarnestPriceDayMap">
                 <mat-datepicker-toggle matSuffix [for]="salesEarnestPriceDay" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #salesEarnestPriceDay></mat-datepicker>
+                <!-- 20230510 S_Add -->
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.salesEarnestPriceDayChk === '1'" (change)="flgChangeSalesEarnestPriceDayChk($event, data)"></mat-checkbox>
+                <!-- 20230510 E_Add -->
             </td>
         </tr>
         <!-- 20201124 E_Add -->
@@ -144,6 +156,9 @@
                     <input type="text" [matDatepicker]="salesDecisionDay" [(ngModel)]="data.salesDecisionDayMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="salesDecisionDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #salesDecisionDay></mat-datepicker>
+                    <!-- 20230510 S_Add -->
+                    &nbsp;&nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.salesDecisionDayChk === '1'" (change)="flgChangeSalesDecisionDayChk($event, data)"></mat-checkbox>
+                    <!-- 20230510 E_Add -->
                 </div>
             </td>
         </tr>
@@ -154,6 +169,13 @@
                 <button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="calcSaleKotozei()">計算</button><br>
                 <!-- 20220522 E_Add -->
                 <input type="text" [(ngModel)]="data.salesFixedTaxMap" class="width100 number" maxlength="15" (keypress)="numericOnly($event)"[value]="changeValue(data.salesFixedTaxMap)">&nbsp;円
+                <!-- 20230510 S_Add -->
+                <br>
+                <input type="text" [matDatepicker]="salesFixedTaxDay" class="width100" [(ngModel)]="data.salesFixedTaxDayMap">
+                <mat-datepicker-toggle matSuffix [for]="salesFixedTaxDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #salesFixedTaxDay></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="data.salesFixedTaxDayChk === '1'" (change)="flgChangeSalesFixedTaxDayChk($event, data)"></mat-checkbox>
+                <!-- 20230510 E_Add -->
             </td>
             <th>(固都税清算金)土地</th>
             <td>
