@@ -131,6 +131,7 @@ export class ContractDetailComponent extends BaseComponent {
           this.contract.sellers = [];
           this.contract.sellers.push(new ContractSellerInfo());
         }
+        this.sortLocationContract();// 20230509 Add
         this.convertData();
       }
 
@@ -143,7 +144,6 @@ export class ContractDetailComponent extends BaseComponent {
 
       });
       //20201009: END - 登記名義人まとめ
-      this.sortLocation();// 20230509 Add
       this.sumAreaProcess();// 20230301 Add
 
       this.spinner.hide();
@@ -163,7 +163,7 @@ export class ContractDetailComponent extends BaseComponent {
     //20200731 E_Add
   }
   // 20230509 S_Add
-  sortLocation() {
+  sortLocationContract() {
     this.data.locations.sort((a,b) => {
       let id1 = a.displayOrder != null ? a.displayOrder : 0;
       let id2 = b.displayOrder != null ? b.displayOrder : 0;
