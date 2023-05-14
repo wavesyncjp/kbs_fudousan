@@ -203,6 +203,14 @@ export class Bukkensalesinfo {
         this.salesOutsourcingPriceMap = Converter.numberToString(this.salesOutsourcingPrice);
         // 20201124 E_Add
         this.salesFixedBuildingTaxOnlyTaxMap = Converter.numberToString(this.salesFixedBuildingTaxOnlyTax);// 20220523 Add
+        
+        // 20230511 S_Add
+        if(this.salesAttaches != null){
+            this.salesAttaches.forEach((salesAttach) => {
+                salesAttach.attachFileDayMap = Converter.stringToDate(salesAttach.attachFileDay, 'yyyyMMdd');
+            });
+        }
+        // 20230511 E_Add
     }
 
     public convertForSave(userId: number , datePipe: DatePipe, isDelete: boolean) {
@@ -274,6 +282,14 @@ export class Bukkensalesinfo {
         //20201225 S_Add
         this.salesLocation = this.salesLocationMap.map(me => me['codeDetail']).join(',');
         //20201225 E_Add
+
+        // 20230511 S_Add
+        if(this.salesAttaches != null){
+            this.salesAttaches.forEach((salesAttach) => {
+                salesAttach.attachFileDay = Converter.dateToString(salesAttach.attachFileDayMap, 'yyyyMMdd', datePipe);
+            });
+        }
+        // 20230511 E_Add
     }
 }
 

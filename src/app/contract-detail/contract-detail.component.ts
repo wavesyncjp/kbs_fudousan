@@ -244,6 +244,12 @@ export class ContractDetailComponent extends BaseComponent {
     flg.deposit2DayChk = (event.checked ? 1 : 0);
     this.contract.deposit2DayChk = flg.deposit2DayChk;
    }
+  // 20230511 S_Add
+   flgChangeAttachFileChk(event, map: ContractAttach) {
+    map.attachFileChk = (event.checked ? "1" : "0");
+   }
+  // 20230511 E_Add
+
    // 20210510 S_Add
    deposit3Change(event, flg: any) {
     flg.deposit3DayChk = (event.checked ? 1 : 0);

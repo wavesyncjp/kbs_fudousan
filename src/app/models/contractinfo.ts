@@ -284,6 +284,14 @@ export class Contractinfo {
         this.details.forEach((detail) => {
             detail.contractHaveMap = Converter.numberToString(detail.contractHave);
         });
+
+        // 20230511 S_Add
+        if(this.contractAttaches != null){
+            this.contractAttaches.forEach((contractAttach) => {
+                contractAttach.attachFileDayMap = Converter.stringToDate(contractAttach.attachFileDay, 'yyyyMMdd');
+            });
+        }
+        // 20230511 E_Add
     }
 
     //20200828 S_Update
@@ -375,5 +383,12 @@ export class Contractinfo {
         this.details.forEach((detail) => {
             detail.contractHave = Converter.stringToNumber(detail.contractHaveMap);
         });
+        // 20230511 S_Add
+        if(this.contractAttaches != null){
+            this.contractAttaches.forEach((contractAttach) => {
+                contractAttach.attachFileDay = Converter.dateToString(contractAttach.attachFileDayMap, 'yyyyMMdd', datePipe);
+            });
+        }
+        // 20230511 E_Add
     }
 }

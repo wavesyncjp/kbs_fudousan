@@ -148,6 +148,11 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     this.data.salesFixedTaxDayChk = flg.salesFixedTaxDayChk;
   }
   // 20230510 E_Add
+  // 20230511 S_Add
+    flgChangeAttachFileChk(event, map: BukkenSalesAttach) {
+      map.attachFileChk = (event.checked ? "1" : "0");
+     }
+  // 20230511 E_Add
   save() {
     if (!this.validate()) {
       return;

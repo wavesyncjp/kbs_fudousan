@@ -41,6 +41,12 @@ export class ContractAttach {
     attachFileType: number;
     attachFileName = '';
     attachFilePath = '';
+    // 20230511 S_Add
+    attachFileChk: string;
+    attachFileDay: string;
+    attachFileDayMap: Date = null;;
+    attachFileDisplayName: string;
+    // 20230511 E_Add
 }
 
 export class BukkenSalesAttach {
@@ -49,5 +55,11 @@ export class BukkenSalesAttach {
     attachFileType: number;
     attachFileName = '';
     attachFilePath = '';
+    // 20230511 S_Add
+    attachFileChk: string;
+    attachFileDay: string;
+    attachFileDayMap: Date = null;;
+    attachFileDisplayName: string;
+    // 20230511 E_Add
 }
 // 20230227 E_Add
