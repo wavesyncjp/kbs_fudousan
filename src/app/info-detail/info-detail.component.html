@@ -42,7 +42,10 @@
                 <!-- <br *ngIf="hasFile()">
                 <app-file #fUpload notButton="true" (uploaded)="uploaded($event)"></app-file> -->
                 <br *ngIf="hasFile() && !disableUser">
-                <app-file #fUpload notButton="true" *ngIf="!disableUser" (uploaded)="uploaded($event)"></app-file>
+                <!-- 20230515 S_Update -->
+                <!-- <app-file #fUpload notButton="true" *ngIf="!disableUser" (uploaded)="uploaded($event)"></app-file> -->
+                <app-file notButton="true" *ngIf="!disableUser" (uploaded)="uploaded($event)"></app-file>
+                <!-- 20230515 E_Update -->
                 <!-- 20230317 E_Update -->
             </td>
         </tr> 

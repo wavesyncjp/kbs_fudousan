@@ -1,4 +1,7 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+// 20230515 S_Update
+// import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ViewChildren, QueryList } from '@angular/core';
+// 20230515 E_Update
 import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE, DateAdapter, MatDialog, MatCheckbox, MatRadioChange } from '@angular/material';
 import { Information } from '../models/information';
 import { BackendService } from '../backend.service';
@@ -23,8 +26,11 @@ import { FileComponentComponent } from '../uicomponent/file-component/file-compo
 })
 export class InfoDetailComponent extends BaseComponent {
 
-  @ViewChild('fUpload', {static: true})
-  fUpload: FileComponentComponent;
+  // 20230515 S_Update
+  // @ViewChild('fUpload', {static: true})
+  // fUpload: FileComponentComponent;
+  @ViewChildren(FileComponentComponent) fFiles: QueryList<FileComponentComponent>;
+  // 20230515 E_Update
 
   @ViewChild('cbxFinishFlg', {static: true})
   cbxFinishFlg: MatCheckbox;
@@ -129,11 +135,19 @@ export class InfoDetailComponent extends BaseComponent {
           this.data.finishFlg = '0';
         }
         this.service.saveInfo(this.data).then(res => {
-          if (this.fUpload != null && !this.fUpload.hasFile()) {
-            this.dialogRef.close(true);
-          } else {
-            this.fUpload.uploadInfoFile(res.pid);
+          // 20230515 S_Update
+          // if (this.fUpload != null && !this.fUpload.hasFile()) {
+          //   this.dialogRef.close(true);
+          // } else {
+          //   this.fUpload.uploadInfoFile(res.pid);
+          // }
+          if(this.fFiles !=null && this.fFiles.length > 0 && this.fFiles.first != null && this.fFiles.first.file != null){
+            this.fFiles.first.uploadInfoFile(res.pid);
           }
+          else{
+            this.dialogRef.close(true);
+          }
+          // 20230515 E_Update
         });
       }
     });
