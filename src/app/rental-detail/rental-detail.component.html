@@ -1,0 +1,141 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div  class="detail-div">
+    <div class="register-div">
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button class="button bukken-button" (click)="toContract()">契約詳細</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+    </div>
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <!--/賃貸情報-->
+    <table class="detail-tbl"  style="margin:10px;width:99%">
+        <tr>
+            <th>所有者名</th>
+            <td>
+                <app-select-component [codes]="contractSellerInfoPids" [(ngModel)]="rental.contractSellerInfoPid" [cusClass]="'width250'"></app-select-component>
+            </td>
+            <th>地番 家屋番号</th>
+            <td>
+                <app-select-component [codes]="locationInfoPids" [(ngModel)]="rental.locationInfoPid"  [ngClass]="{'width250': true, 'error-select': errors['locationInfoPid']}"></app-select-component>
+            </td>
+            <th>建物名</th>
+            <td colspan="3">
+                <input type="text" [(ngModel)]="rental.apartmentName" [ngClass]="{'width400': true, 'error': errors['apartmentName']}" maxlength="128">
+            </td>
+            
+
+        </tr>
+        <tr>
+            <th>入金口座</th>
+            <td>
+                <app-select-component [codes]="bankPids" [(ngModel)]="rental.bankPid"></app-select-component>
+            </td>
+            <th>有効区分</th>
+            <td>
+                <app-select-component [codes]="getCode('005')" [(ngModel)]="rental.validType"></app-select-component>
+            </td>
+            <th>総戸数</th>
+            <td>
+                <input type="text" [(ngModel)]="rental.totalUnitsMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(rental.totalUnitsMap)">
+            </td>
+            <th>所有権移転日</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="ownershipRelocationDate" [(ngModel)]="rental.ownershipRelocationDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="ownershipRelocationDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #ownershipRelocationDate></mat-datepicker>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--/賃貸情報-->
+
+    <!--賃貸契約一覧-->
+    <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
+        <span class="min">賃貸契約</span>
+        <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addRentalContract()" >賃貸契約　登録</button>
+        <table>
+            <thead class="list-header">
+                <th>部屋番号</th>
+                <th>賃借人名</th>
+                <th>契約期間</th>
+                <th>契約方法</th>
+                <th>支払方法</th>
+                <th>賃料</th>
+                <th>共益費・管理費</th>
+                <th class="width80">詳細</th>
+                <th class="width80">削除</th>
+                <th class="width80">コピー</th>
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let rcon of rentalContracts; index as pos">
+                    <td class="text-left">{{rcon.roomNo}}</td>
+                    <td class="text-left">{{rcon.borrowerName}}</td>
+                    <td [noWrap]="true">{{formatDay(rcon.loanPeriodStartDate, 'yyyy/MM/dd')}}～{{formatDay(rcon.loanPeriodEndDate, 'yyyy/MM/dd')}}</td>
+                    <td class="text-left">{{getCodeTitle('043',rcon.contractMethod)}}</td>
+                    <td class="text-left">{{getCodeTitle('045',rcon.paymentMethod)}}</td>
+                    <td class="text-right">{{numberFormat(rcon.rentPrice)}}</td>
+                    <td class="text-right">{{numberFormat(getNumber(rcon.condoFee) + getNumber(rcon.managementFee)) }}</td>
+                    <td><button mat-raised-button (click)="showRentalContract(rcon,pos)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button (click)="deleteRentalContract(rcon,pos)" class="delete_btn">削除</button></td>
+                    <td><button mat-raised-button (click)="copyRentalContract(rcon)" color="primary">コピー</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--/賃貸契約一覧-->
+    <br>
+    <!--賃貸入金一覧-->
+    <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
+        <span class="min">賃貸入金</span>
+        <table>
+            <thead class="list-header">
+                
+            </thead>
+            <tbody class="list-body">
+                <tr>
+                    <th rowspan="3" class="header2">一括
+                        <br/>
+                        <mat-checkbox [checked]="receiveAllFlg === '1'" (change)="changeReceiveAllFlg($event)"></mat-checkbox>
+                        <br/>
+                        (その月の全員分<br/>にチェック)
+                    </th>
+                    <th class="header2">部屋番号</th>
+                    <th  class="header2" *ngFor="let rcon of rentalContracts; index as pos">
+                        {{rcon.roomNo}}
+                    </th>
+                </tr>
+                <tr>
+                    <td class="header2">貸借人名</td>
+                    <td *ngFor="let rcon of rentalContracts; index as pos">
+                        {{rcon.borrowerName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="header2">賃料</td>
+                    <td *ngFor="let rcon of rentalContracts; index as pos">
+                        {{numberFormat(rcon.rentPrice)}}
+                    </td>
+                </tr>
+                <tr *ngFor="let rev of rentalReceives; index as pos">
+                    <td class="text-center"><mat-checkbox [checked]="rev.receiveFlgGroup === '1'" (change)="changeReceiveFlgGroup($event,rev)"></mat-checkbox></td>
+                    <td>{{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}</td>
+                    <td *ngFor="let con of rentalContracts; index as posSub" [ngClass]="{'row-disabled':isExistRenContract(rev.details,con.pid) && isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)}">
+                        <span *ngIf="isExistRenContract(rev.details,con.pid)">{{formatDay(getReceiveDay(rev.details,con.pid),'MM/dd')}}</span>
+                        &nbsp;
+                        <mat-checkbox *ngIf="isExistRenContract(rev.details,con.pid)" [disabled]="isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)" [checked]="getReceiveFlg(rev.details,con.pid) === '1'" (change)="changeReceiveFlg($event,rev.details,con.pid)"></mat-checkbox>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--/賃貸入金一覧-->
+
+    <br>
+    <div class="register-div" style="margin-top:10px">
+        <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button class="button bukken-button" (click)="toContract()">契約詳細</button>
+        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+    </div>
+</div>

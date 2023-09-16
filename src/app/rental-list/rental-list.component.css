@@ -1,0 +1,46 @@
+mat-expansion-panel-header {
+    height: 45px !important;
+}
+
+.main {
+    width: 98%;
+    margin: 10px;
+}
+
+.data {
+    max-height: calc(100% - 100px);
+    overflow: auto;
+    margin: 0px;
+    width: 99.2%;
+}
+
+mat-form-field {
+    margin-right: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+th.mat-column-detail, td.mat-column-detail {
+    width: 100px;
+}
+
+th.mat-column-bukkenId, td.mat-column-bukkenId {
+    width: 100px;
+}
+
+td.mat-cell:last-of-type {
+    padding-right: 0px;
+}
+
+.rentallist_width {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fuzzy {
+    background-color: rgb(255, 249, 197);
+}

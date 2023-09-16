@@ -28,6 +28,12 @@ import { ReceiveTypeListComponent } from './receiveType-list/receiveType-list.co
 import { ReceiveContractDetailComponent } from './receivecontract-detail/receivecontract-detail.component'; // 20210916 Add
 import { ReceiveContractListComponent } from './receivecontract-list/receivecontract-list.component'; // 20210916 Add
 import { NoticeListComponent } from './notice-list/notice-list.component';// 20211227 Add
+// 20230917 S_Add
+import { RentalInfoListComponent } from './rental-list/rental-list.component';
+import { RentalInfoDetailComponent } from './rental-detail/rental-detail.component';
+import { RentalContractDetailComponent } from './rentalContract-detail/rentalContract-detail.component';
+import { EvictionInfoDetailComponent } from './eviction-detail/eviction-detail.component';
+// 20230917 E_Add
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }
@@ -59,6 +65,12 @@ const routes: Routes = [
   , { path: 'receives', component: ReceiveContractListComponent} // 20210916 Add
   , { path: 'receivedetail', component: ReceiveContractDetailComponent} // 20210916 Add
   , { path: 'notices', component: NoticeListComponent}// 20211227 Add
+  // 20230917 S_Add
+  , { path: 'rentals', component: RentalInfoListComponent}
+  , { path: 'rendetail', component: RentalInfoDetailComponent}
+  , { path: 'rencontractdetail', component: RentalContractDetailComponent}
+  , { path: 'evicdetail', component: EvictionInfoDetailComponent}
+  // 20230917 E_Add
 ];
 
 @NgModule({

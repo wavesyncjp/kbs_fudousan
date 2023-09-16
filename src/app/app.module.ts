@@ -90,6 +90,12 @@ import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
 // 20230302 S_Add
 import { AttachFileDialogComponent } from './dialog/attachFile-dialog/attachFile-dialog.component';
 // 20230302 E_Add
+// 20230917 S_Add
+import { RentalInfoListComponent } from './rental-list/rental-list.component';
+import { RentalInfoDetailComponent } from './rental-detail/rental-detail.component';
+import { RentalContractDetailComponent } from './rentalContract-detail/rentalContract-detail.component';
+import { EvictionInfoDetailComponent } from './eviction-detail/eviction-detail.component';
+// 20230917 E_Add
 
 @NgModule({
   declarations: [
@@ -162,6 +168,12 @@ import { AttachFileDialogComponent } from './dialog/attachFile-dialog/attachFile
     , NoticeDetailComponent
     // 20211227 E_Add
     , AttachFileDialogComponent// 20230302 Add
+    // 20230917 S_Add
+    , RentalInfoListComponent
+    , RentalInfoDetailComponent
+    , RentalContractDetailComponent
+    , EvictionInfoDetailComponent
+    // 20230917 E_Add
   ],
   imports: [
     BrowserModule

@@ -395,4 +395,21 @@ export class BaseComponent implements OnInit {
     // 20230302 E_Add
      */
     // 20230309 E_Delete
+    // 20230917 S_Add
+    /**
+     * コード
+     * @param codes 
+     */
+    processCodes(codes:Code[]) {
+        // コード
+        if (codes !== null && codes.length > 0) {
+            const uniqeCodes = [...new Set(codes.map(code => code.code))];
+            uniqeCodes.forEach(code => {
+                const lst = codes.filter(c => c.code === code);
+                lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+                this.sysCodes[code] = lst;
+            });
+        }
+    }
+    // 20230917 E_Add
 }

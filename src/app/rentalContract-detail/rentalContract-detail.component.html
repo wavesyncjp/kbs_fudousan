@@ -1,0 +1,191 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="dialog-div">  
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="4">
+                <span class="min">
+                    <label>賃貸契約　登録</label>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>所有者名</th>
+            <td>
+                <app-select-component [codes]="contractSellerInfoPids" [(ngModel)]="rental.contractSellerInfoPid" [cusClass]="'width250'" [isDisabled]="true"></app-select-component>
+            </td>
+            <th>建物名</th>
+            <td>
+                <input type="text" [(ngModel)]="rental.apartmentName" [ngClass]="{'width400': true, 'error': errors['apartmentName']}" maxlength="128" disabled="true">
+            </td>
+        </tr>
+        <tr>
+            <th>入金口座</th>
+            <td>
+                <app-select-component [codes]="bankPids" [(ngModel)]="rental.bankPid" [isDisabled]="true"></app-select-component>
+            </td>
+            <th>入金コード</th>
+            <td>
+                <app-select-component [codes]="receiveTypes" [(ngModel)]="data.receiveCode"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <th>振込名義人</th>
+            <td>
+                <input type="text" [(ngModel)]="data.banktransferName" [ngClass]="{'width250': true, 'error': errors['banktransferName']}" maxlength="128">
+            </td>
+            <th>振込名義人カナ</th>
+            <td>
+                <input type="text" [(ngModel)]="data.banktransferNameKana" [ngClass]="{'width250': true, 'error': errors['banktransferNameKana']}" maxlength="128">
+            </td>
+        </tr>
+        <tr>
+            <th>部屋番号</th>
+            <td>
+                <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <th>貸借人名</th>
+            <td>
+                <input type="text" [(ngModel)]="data.borrowerName" [ngClass]="{'width250': true, 'error': errors['borrowerName']}" maxlength="128" disabled="true">
+            </td>
+
+            <th>契約期間</th>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="loanPeriodStartDate" [(ngModel)]="data.loanPeriodStartDateMap" placeholder="開始日" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="loanPeriodStartDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #loanPeriodStartDate></mat-datepicker>
+                </div>
+                &nbsp;&nbsp;～
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="loanPeriodEndDate" [(ngModel)]="data.loanPeriodEndDateMap" placeholder="終了日" [ngClass]="{'width100':true,'error': errors['loanPeriodEndDate']}">
+                    <mat-datepicker-toggle matSuffix [for]="loanPeriodEndDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #loanPeriodEndDate></mat-datepicker>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>契約方法</th>
+            <td>
+                <app-select-component [codes]="getCode('043')" [(ngModel)]="data.contractMethod"></app-select-component>
+            </td>
+            <th>契約終了通知をすべき期間</th>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="contractEndNotificationStartDate" [(ngModel)]="data.contractEndNotificationStartDateMap" placeholder="開始日" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="contractEndNotificationStartDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #contractEndNotificationStartDate></mat-datepicker>
+                </div>&nbsp;&nbsp;～
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="contractEndNotificationEndDate" [(ngModel)]="data.contractEndNotificationEndDateMap" placeholder="終了日"  [ngClass]="{'width100':true,'error': errors['contractEndNotificationEndDate']}">
+                    <mat-datepicker-toggle matSuffix [for]="contractEndNotificationEndDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #contractEndNotificationEndDate></mat-datepicker>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>支払方法</th>
+            <td>
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="data.paymentMethod"></app-select-component>
+            </td>
+            <th>支払期限</th>
+            <td> 
+                <app-select-component [codes]="getCode('044')" [(ngModel)]="data.usance"></app-select-component>&nbsp;分
+                &nbsp;&nbsp;
+                <input type="text" [(ngModel)]="data.paymentDayMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.paymentDayMap)">&nbsp;日まで
+            </td>
+        </tr>
+        <tr>
+            <th>賃料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.rentPriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.rentPriceMap)">&nbsp;円
+            </td>
+            <th>賃料（消費税）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.rentPriceTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.rentPriceTaxMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th>共益費</th>
+            <td>
+                <input type="text" [(ngModel)]="data.condoFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeMap)">&nbsp;円
+            </td>
+            <th>共益費（消費税）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.condoFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeTaxMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th>管理費</th>
+            <td>
+                <input type="text" [(ngModel)]="data.managementFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeMap)">&nbsp;円
+            </td>
+            <th>管理費（消費税）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.managementFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeTaxMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th>付属施設料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.attachedFacilityFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.attachedFacilityFeeMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th>礼金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.keyMoneyMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.keyMoneyMap)">&nbsp;円
+            </td>
+            <th>敷金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.depositMap)">&nbsp;円
+                &nbsp;<mat-checkbox [checked]="data.depositConvertedFlg === '1'" (change)="changeDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+            </td>
+        </tr>
+        <tr>
+            <th>駐車場使用料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.parkingFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.parkingFeeMap)">&nbsp;円
+            </td>
+            <th>駐車場敷金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.parkingDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.parkingDepositMap)">&nbsp;円
+                &nbsp;<mat-checkbox [checked]="data.parkingDepositConvertedFlg === '1'" (change)="changeParkingDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+            </td>
+        </tr>
+        <tr>
+            <th>保険料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.InsuranceFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.InsuranceFeeMap)">&nbsp;円
+            </td>
+            <th>賃貸保証料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.roomRentGuaranteeFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.roomRentGuaranteeFeeMap)">&nbsp;円
+                &nbsp;<mat-checkbox [checked]="data.roomRentGuaranteeFeeConvertedFlg === '1'" (change)="changeRoomRentGuaranteeFeeConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+            </td>
+        </tr>
+        <tr>
+            <th>賃貸免除開始日</th>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="roomRentExemptionStartDate" [(ngModel)]="data.roomRentExemptionStartDateMap" placeholder="開始日" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="roomRentExemptionStartDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #roomRentExemptionStartDate></mat-datepicker>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <mat-dialog-actions align="center">
+                    <button mat-raised-button class="delete-btn" *ngIf="data.pid > 0" (click)="deleteRentalContract()">削除</button>
+                    <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
+                    <button mat-raised-button class="width80" color="primary" (click)="save()">登録</button>
+                </mat-dialog-actions>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,18 @@
+.delete-btn {
+    background-color: red;
+    margin-left: 20px;
+    color: white;
+    height: 34px;
+    width: 80px;
+    font-size: 1.0em;
+}
+
+.detail-tbl-min > tr > td > label {
+    background-color: rgba(226, 239, 218, 1);
+    font-size: 0.8em;
+    text-align: left;
+    padding: 14px;
+    padding-left: 2px;
+    padding-right: 26px;
+    font-weight: bold;
+}

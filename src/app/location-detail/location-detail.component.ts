@@ -465,7 +465,10 @@ export class LocationDetailComponent extends BaseComponent {
     }
     // 20201222 E_Add
     // 20220615 S_Add
-    if (this.data.locationType !== '02' && this.data.locationType !== '04') {
+    // 20230914 S_Update
+    // if (this.data.locationType !== '02' && this.data.locationType !== '04') {
+    if (this.isDisableResident(this.data)) {
+    // 20230914 E_Update
       this.data.roomNo = null;            // 部屋番号
       this.data.borrowerName = null;      // 借主氏名
       this.data.rentPriceMap = null;      // 賃料
@@ -797,4 +800,14 @@ export class LocationDetailComponent extends BaseComponent {
     firstResident.expirationDateMap = this.data.expirationDateMap;
   }
   // 20220614 E_Add
+  // 20230914 S_Add
+  /**
+   * 入居者制御
+   * @param data 
+   * @returns 
+   */
+  isDisableResident(data) {
+    return data.locationType !== '01' && data.locationType !== '02' && data.locationType !== '04';
+  }
+  // 20230914 E_Add
 }

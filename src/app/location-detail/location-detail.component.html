@@ -226,16 +226,28 @@
         <!-- 20220614 S_Add -->
         <tr>
             <th class="sharer">部屋番号
-                <button mat-raised-button class="addSharer" (click)="addResident()" [disabled]="data.locationType !== '02' && data.locationType !== '04'">追加</button>
+                <!-- 20230914 S_Update -->
+                <!-- <button mat-raised-button class="addSharer" (click)="addResident()" [disabled]="data.locationType !== '02' && data.locationType !== '04'">追加</button> -->
+                <button mat-raised-button class="addSharer" (click)="addResident()" [disabled]="isDisableResident(data)">追加</button>
+                <!-- 20230914 E_Update -->
             </th>
             <td>
-                <input type="text" [(ngModel)]="data.roomNo" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" maxlength="10">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.roomNo" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" maxlength="10"> -->
+                <input type="text" [(ngModel)]="data.roomNo" [disabled]="isDisableResident(data)" class="width100" maxlength="10">
+                <!-- 20230914 E_Update -->
                 &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料</label>
-                <input type="text" [(ngModel)]="data.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width80" maxlength="12" [value]="changeValue(data.rentPriceMap)">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width80" maxlength="12" [value]="changeValue(data.rentPriceMap)"> -->
+                <input type="text" [(ngModel)]="data.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="isDisableResident(data)" class="width80" maxlength="12" [value]="changeValue(data.rentPriceMap)">
+                <!-- 20230914 E_Update -->
             </td>
             <th class="sharer">借主氏名</th>
             <td>
-                <input type="text" [(ngModel)]="data.borrowerName" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width300" maxlength="100">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.borrowerName" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width300" maxlength="100"> -->
+                <input type="text" [(ngModel)]="data.borrowerName" [disabled]="isDisableResident(data)" class="width300" maxlength="100">
+                <!-- 20230914 E_Update -->
             </td>
             <!--
             <th class="sharer">賃料</th>
@@ -245,7 +257,10 @@
             -->
             <th class="sharer">契約期間満了日</th>
             <td>
-                <input type="text" [matDatepicker]="expirationDate" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" [(ngModel)]="data.expirationDateMap">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [matDatepicker]="expirationDate" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" [(ngModel)]="data.expirationDateMap"> -->
+                <input type="text" [matDatepicker]="expirationDate" [disabled]="isDisableResident(data)" class="width100" [(ngModel)]="data.expirationDateMap">
+                <!-- 20230914 E_Update -->
                 <mat-datepicker-toggle matSuffix [for]="expirationDate" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #expirationDate></mat-datepicker>
             </td>
@@ -253,16 +268,28 @@
         <!--入居者情報-->
         <tr *ngFor="let resident of data.residents | slice:1; index as residentPos">
             <th class="sharer">部屋番号
-                <button mat-raised-button class="deleteSharer" (click)="deleteResident(residentPos + 1)" [disabled]="data.locationType !== '02' && data.locationType !== '04'">削除</button>
+                <!-- 20230914 S_Update -->
+                <!-- <button mat-raised-button class="deleteSharer" (click)="deleteResident(residentPos + 1)" [disabled]="data.locationType !== '02' && data.locationType !== '04'">削除</button> -->
+                <button mat-raised-button class="deleteSharer" (click)="deleteResident(residentPos + 1)" [disabled]="isDisableResident(data)">削除</button>
+                <!-- 20230914 E_Update -->
             </th>
             <td>
-                <input type="text" [(ngModel)]="resident.roomNo" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" maxlength="10">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [(ngModel)]="resident.roomNo" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" maxlength="10"> -->
+                <input type="text" [(ngModel)]="resident.roomNo" [disabled]="isDisableResident(data)" class="width100" maxlength="10">
+                <!-- 20230914 E_Update -->
                 &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料</label>
-                <input type="text" [(ngModel)]="resident.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width80" maxlength="12" [value]="changeValue(resident.rentPriceMap)">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [(ngModel)]="resident.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width80" maxlength="12" [value]="changeValue(resident.rentPriceMap)"> -->
+                <input type="text" [(ngModel)]="resident.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="isDisableResident(data)" class="width80" maxlength="12" [value]="changeValue(resident.rentPriceMap)">
+                <!-- 20230914 E_Update -->
             </td>
             <th class="sharer">借主氏名</th>
             <td>
-                <input type="text" [(ngModel)]="resident.borrowerName" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width300" maxlength="100">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [(ngModel)]="resident.borrowerName" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width300" maxlength="100"> -->
+                <input type="text" [(ngModel)]="resident.borrowerName" [disabled]="isDisableResident(data)" class="width300" maxlength="100">
+                <!-- 20230914 E_Update -->
             </td>
             <!--
             <th class="sharer">賃料</th>
@@ -272,7 +299,10 @@
             -->
             <th class="sharer">契約期間満了日</th>
             <td>
-                <input type="text" [matDatepicker]="expirationDate" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" [(ngModel)]="resident.expirationDateMap">
+                <!-- 20230914 S_Update -->
+                <!-- <input type="text" [matDatepicker]="expirationDate" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" [(ngModel)]="resident.expirationDateMap"> -->
+                <input type="text" [matDatepicker]="expirationDate" [disabled]="isDisableResident(data)" class="width100" [(ngModel)]="resident.expirationDateMap">
+                <!-- 20230914 E_Update -->
                 <mat-datepicker-toggle matSuffix [for]="expirationDate" class="picker-icon"></mat-datepicker-toggle>
                 <mat-datepicker #expirationDate></mat-datepicker>
             </td>

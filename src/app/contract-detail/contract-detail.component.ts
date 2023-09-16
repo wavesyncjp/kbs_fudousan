@@ -21,6 +21,12 @@ import { ContractSellerInfo } from '../models/contractsellerinfo';
 import { ContractTemplateComponent } from '../contract-template/contract-template.component';
 import { isNullOrUndefined } from 'util';
 import { CalcKotozeiDetailComponent } from '../calcKotozei-detail/calcKotozei-detail.component';
+// 20230917 S_Add
+import { EvictionInfo } from '../models/evictioninfo';
+import { RentalInfo } from '../models/rentalinfo';
+import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.component';
+import { Util } from '../utils/util';
+// 20230917 E_Add
 
 @Component({
   selector: 'app-contract-detail',
@@ -37,6 +43,10 @@ export class ContractDetailComponent extends BaseComponent {
 
   public contract: Contractinfo;
   public data: Templandinfo;
+  // 20230917 S_Add
+  public rentals: RentalInfo[];// 賃貸一覧
+  public evictions: EvictionInfo[];// 立退き一覧
+  // 20230917 E_Add
   public pid: number;
   public bukkenid: number;
   delSellers = [];
@@ -125,6 +135,10 @@ export class ContractDetailComponent extends BaseComponent {
             this.contract.sellers.push(new ContractSellerInfo());
           }
           this.data = values[2].land;
+          // 20230917 S_Add
+          this.rentals = values[2].rentalsMap;
+          this.evictions = values[2].evictionsMap;
+          // 20230917 E_Add
         } else {
           this.data = new Templandinfo(values[2] as Templandinfo);
           this.contract = new Contractinfo();
@@ -784,4 +798,78 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
   // 20230506 E_Add
+
+  // 20230917 S_Add
+  /**
+   * 賃貸画面遷移
+   * @param contractInfoPid: 仕入契約情報PID
+   * @param tempLandInfoPid:土地情報PID
+   */
+  navigateRental() {
+    this.router.navigate(['/rendetail'], {queryParams: {contractInfoPid: this.pid, tempLandInfoPid:this.data.pid}});
+  }
+
+  /**
+   * 賃貸情報詳細
+   * @param row: 賃貸データ
+   */
+  showDetailRental(row: RentalInfo) {
+    this.router.navigate(['/rendetail'], {queryParams: {pid: row.pid,contractInfoPid: row.contractInfoPid}});
+  }
+
+  /**
+   * 立ち退き追加
+   */
+  addEvictionInfo(): void {
+    const data = new EvictionInfo();
+    data.contractInfoPid = this.contract.pid;
+    data.tempLandInfoPid = this.contract.tempLandInfoPid;
+
+    const dialogRef = this.dialog.open(EvictionInfoDetailComponent, {
+      width: '98%',
+      height: '550px',
+      data: data
+    });
+
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.isSave) {
+        this.evictions.push(result.data);
+        // this.convertForDisplay();
+      }
+    });
+  }
+
+  /**
+   * 立ち退き詳細
+   * @param loc : 立ち退き
+   */
+  showEvictionInfo(loc: EvictionInfo, pos: number) {
+    const dialogRef = this.dialog.open(EvictionInfoDetailComponent, {
+      width: '98%',
+      height: '550px',
+      data:  <EvictionInfo>Util.deepCopy(loc, 'EvictionInfo')
+    });
+
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        if (result.isSave || result.isDelete) {
+          if (result.isSave) {
+            this.evictions[pos] = new EvictionInfo(result.data);
+            // this.resetRegistrant(pos);
+          } else if (result.isDelete) {
+            this.evictions.splice(pos, 1);
+          }
+          // this.convertForDisplay();
+        }
+        // キャンセルで戻っても謄本添付ファイルは最新を設定
+        else {
+          // const temp = new Locationinfo(result.data);
+          // this.data.locations[pos].attachFiles = temp.attachFiles;
+        }
+      }
+    });
+  }
+  // 20230917 E_Add
 }

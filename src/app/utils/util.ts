@@ -1,6 +1,11 @@
 declare var google: any;// 20210121 Add
 import { Converter } from './converter';
 import { Locationinfo } from '../models/locationinfo';
+// 20230917 S_Add
+import { RentalContract } from '../models/rentalcontract';
+import { EvictionInfo } from '../models/evictioninfo';
+import { RentalReceive } from '../models/rentalreceive';
+// 20230917 E_Add
 
 const Encoding = require('encoding-japanese');
 
@@ -98,5 +103,16 @@ export class Util {
         if(className === 'Locationinfo'){
             return new Locationinfo();
         }
+        // 20230917 S_Add
+        else if(className === 'RentalContract') {
+            return new RentalContract();
+        }
+        else if(className === 'EvictionInfo') {
+            return new EvictionInfo();
+        }
+        else if(className === 'RentalReceive') {
+            return new RentalReceive();
+        }
+        // 20230917 E_Add
     }
 }

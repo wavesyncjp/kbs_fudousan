@@ -3,7 +3,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    overflow-y: hidden;/*20200828 Add*/
+    overflow-y: hidden;
 }
 
 .contact-div {
@@ -12,6 +12,7 @@
     overflow-x: auto;
     overflow-y: hidden;
 }
+
 .contact-div > table {
     border-spacing: 0px;
     border-collapse: collapse;
@@ -20,6 +21,7 @@
 .list-header {
     background-color: cadetblue;
 }
+
 .list-header > th {
     height: 40px;
     min-width: 120px;
@@ -32,6 +34,7 @@
 .list-body > tr {
     height: 34px;
 }
+
 .list-body > tr > td {
     text-align: center;
     font-size: 12px;
@@ -103,9 +106,15 @@
     width: 250px !important;
 }
 
-.detail-tbl-min > tr > td {
-    padding: 1px;
-    min-width: 120px;
+.detail-tbl > tr > th {
+    width:100px !important;
+    background-color: whitesmoke;
+    text-align: left;
+    height: 22px !important;
+    padding: 2px;
+    /*padding-left:5px;*/
+    font-size: 0.8em;
+    border-top: solid 2px white;
 }
 
 span.now {
@@ -113,7 +122,6 @@ span.now {
     color: red;
 }
 
-/*20200906 S_Add*/
 ::ng-deep.multiselect-dropdown {
     width: 275px !important;
     margin-left: 3px;
@@ -133,40 +141,28 @@ span.now {
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
 }
-/*20200906 E_Add*/
-/*20211020 S_Add*/
-/*
-.buyInfoExport-button {
-    background-color: #c55a11;
-    color: white;
-    width: 120px;
-}
-*/
-/*20230506 S_Add*/
-.contractCalculateExport-button {
-    background-color: #c55a11;
-    color: white;
-    width: 160px;
-}
-/*20230506 E_Add*/
 
-/* 20230917 S_Add */
 .register-btn {
     background-color:#45a4f7;
     color: white;
 }
 
-.output-btn {
-    background-color:#bf5d14;
-    color: white;
+.header2 {
+    background-color: cadetblue;
+    height: 40px;
+    min-width: 120px;
+    font-size: 12px;
+    font-weight: 500;
+    color:white;
+    border: solid 1px gainsboro;
 }
 
-.output-btn2 {
-    background-color:#ffc005;
-    color: white;
+.delete_btn {
+    background-color: rgb(91, 91, 95);
+    color: whitesmoke;
+    text-align: center;
 }
 
-.font-bold {
-    font-weight: bold;
+.row-disabled {
+    background-color: #959595;
 }
-/* 20230917 E_Add */

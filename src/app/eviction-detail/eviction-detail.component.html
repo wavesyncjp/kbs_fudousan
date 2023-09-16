@@ -1,0 +1,138 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="dialog-div">  
+    <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+    </ul>
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="4">
+                <span class="min">
+                    <label>立退き　登録</label>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>部屋番号</th>
+            <td>
+                <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
+            </td>
+            <th>貸借人名</th>
+            <td>
+                <input type="text" [(ngModel)]="data.borrowerName" [ngClass]="{'error': errors['borrowerName']}" maxlength="128" disabled="true">
+            </td>
+            <th>明渡予定日</th>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="surrenderScheduledDate" [(ngModel)]="data.surrenderScheduledDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="surrenderScheduledDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #surrenderScheduledDate></mat-datepicker>
+                </div>
+            </td>
+        </tr> 
+        <tr>
+            <th>明渡日</th>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="surrenderDate" [(ngModel)]="data.surrenderDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="surrenderDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #surrenderDate></mat-datepicker>
+                </div>
+            </td>
+            <th>立退料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.evictionFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.evictionFeeMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="3">内金①</th>
+            <td>
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="data.depositType1"></app-select-component>
+            </td>
+            <th rowspan="3">内金②</th>
+            <td>
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="data.depositType2"></app-select-component>
+            </td>
+            <th rowspan="3">内金③</th>
+            <td>
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="data.remainingType"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <td> 
+                <input type="text" [(ngModel)]="data.deposit1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.deposit1Map)">&nbsp;円
+            </td>
+            <td> 
+                <input type="text" [(ngModel)]="data.deposit2Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.deposit2Map)">&nbsp;円
+            </td>
+            <td> 
+                <input type="text" [(ngModel)]="data.remainingFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.remainingFeeMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="depositPayedDate1" [(ngModel)]="data.depositPayedDate1Map" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="depositPayedDate1" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #depositPayedDate1></mat-datepicker>
+                </div>
+            </td>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="depositPayedDate2" [(ngModel)]="data.depositPayedDate2Map" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="depositPayedDate2" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #depositPayedDate2></mat-datepicker>
+                </div>
+            </td>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="remainingPayedDate" [(ngModel)]="data.remainingPayedDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="remainingPayedDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #remainingPayedDate></mat-datepicker>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>合意書取得日</th>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="getAgreementDate" [(ngModel)]="data.getAgreementDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="getAgreementDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #getAgreementDate></mat-datepicker>
+                </div>
+            </td>
+            <th>合意書添付日</th>
+            <td> 
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="attachmentAgreementDate" [(ngModel)]="data.attachmentAgreementDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="attachmentAgreementDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #attachmentAgreementDate></mat-datepicker>
+                </div>
+            </td>
+            <th>ファイル添付</th>
+            <td>
+                <app-file evictionInfoPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="evictionUploaded($event)" [immediately]="true"></app-file>
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let f of data.evictionFiles">
+                        <td><a [attr.href]="f.eictionInfoFilePath + f.evictionInfoFileName" target="_blank">{{f.evictionInfoFileName}}</a></td>
+                        <td><button mat-flat-button class="delete-btn" (click)="deleteEvictionAttach(f)">削除</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th>合意書取得済</th>
+            <td>
+                <mat-checkbox [checked]="data.acquiredAgreementFlg === '1'" (change)="changeAcquiredAgreementFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;済</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7">
+                <mat-dialog-actions align="center">
+                    <button mat-raised-button class="delete-btn" *ngIf="data.pid > 0" (click)="deleteEviction()">削除</button>
+                    <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
+                    <button mat-raised-button class="width80" color="primary" (click)="save()">登録</button>
+                </mat-dialog-actions>
+            </td>
+        </tr>
+    </table>
+</div>

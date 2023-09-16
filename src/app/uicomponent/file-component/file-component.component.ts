@@ -52,6 +52,11 @@ export class FileComponentComponent implements OnInit {
   bukkenSalesInfoPid: number;
   // 20230227 E_Add
 
+  // 20230917 S_Add
+  @Input()
+  evictionInfoPid: number;
+  // 20230917 E_Add
+
   @Input()
   comment = '';
 
@@ -208,6 +213,18 @@ export class FileComponentComponent implements OnInit {
       });
     }
     // 20230227 E_Add
+    // 20230917 S_Add
+    // 立ち退き添付ファイルアップロード
+    else if (this.evictionInfoPid !== undefined && this.evictionInfoPid > 0) {
+      this.service.evictionAttachUpload(this.evictionInfoPid, this.file).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+      });
+    }
+    // 20230917 E_Add
   }
 
   // 20221116 S_Add

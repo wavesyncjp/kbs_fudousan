@@ -19,6 +19,12 @@ import { Planinfohistory } from './models/planinfohistory';
 import { Planhistorylist } from './models/planhistorylist';
 import { Paycontractdetailinfo } from './models/paycontractdetailinfo';
 import { Sorting } from './models/sorting';
+// 20230917 S_Add
+import { RentalInfo } from './models/rentalinfo';
+import { RentalContract } from './models/rentalcontract';
+import { EvictionInfo } from './models/evictioninfo';
+import { EvictionInfoAttach } from './models/evictioninfoattach';
+// 20230917 E_Add
 
 @Directive()
 @Injectable({
@@ -1329,4 +1335,127 @@ export class BackendService {
     return res.toPromise();
   }
   // 20230506 E_Add
+
+  // 20230917 S_Add
+  /**
+   * 賃貸情報検索
+   */
+  searchRental(body: any): Promise<RentalInfo[]> {
+    const api = 'rentalsearch.php';
+    const req = this.http.post<RentalInfo[]>(`${this.BaseUrl}/${api}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 賃貸情報取得
+   */
+  rentalGet(id: number,getIts: boolean = false): Promise<RentalInfo> {
+    const getApi = 'rentalget.php';
+    const body = {
+      pid: id
+      ,getIts : getIts ? '1' : '0'
+    };
+    const req = this.http.post<RentalInfo>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 賃貸情報登録
+   * @param info ：賃貸情報
+   */
+  rentalSave(info: RentalInfo): Promise<RentalInfo> {
+    const saveApi = 'rentalsave.php';
+    const req = this.http.post<RentalInfo>(`${this.BaseUrl}/${saveApi}`, info);
+    return req.toPromise();
+  }
+
+  /**
+   * 賃貸契約登録
+   * @param info ：賃貸契約
+   */
+  rentalContractSave(info: RentalContract): Promise<RentalContract> {
+    const saveApi = 'rentalcontractsave.php';
+    const req = this.http.post<RentalContract>(`${this.BaseUrl}/${saveApi}`, info);
+    return req.toPromise();
+  }
+
+  /**
+   * 賃貸契約削除
+   * @param data ：賃貸契約
+   */
+  deleteRentalContract(data: RentalContract) {
+    const api = 'rentalcontractdelete.php';
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    return req.toPromise();
+  }
+
+  /**
+   * 立退き情報登録
+   * @param info 立退き情報
+   */
+  evictionSave(info: EvictionInfo): Promise<EvictionInfo> {
+    const saveApi = 'evictionsave.php';
+    const req = this.http.post<EvictionInfo>(`${this.BaseUrl}/${saveApi}`, info);
+    return req.toPromise();
+  }
+
+  /**
+   * 立退き情報削除
+   * @param data 立退き情報
+   * @returns 
+   */
+  deleteEviction(data: EvictionInfo) {
+    const api = 'evictiondelete.php';
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    return req.toPromise();
+  }
+
+  /**
+   * 共有検索
+   * @param cond 共有条件
+   */
+  commonSearch(cond: any): Promise<any[]> {
+    const searchApi = 'commonsearch.php';
+    const req = this.http.post<any[]>(`${this.BaseUrl}/${searchApi}`, cond);
+    return req.toPromise();
+  }
+
+  /**
+   * 立ち退き添付ファイルアップロード
+   * @param evictionInfoPid ：立退き情報PID
+   * @param file ；ファイル
+   */
+  evictionAttachUpload(evictionInfoPid: number, file: File): Promise<object> {
+    const uploadApi = 'evictionattachupload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('evictionInfoPid', evictionInfoPid.toString());
+    formData.append('createUserId', String(this.loginUser.userId));
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+
+  /**
+   * 立ち退きのファイル取得
+   * @param evictionInfoPid 立ち退きPID
+   * @returns 
+   */
+  evictionAttachSearch(evictionInfoPid: number): Promise<EvictionInfoAttach> {
+    const getApi = 'evictionattachsearch.php';
+    const body = {
+      evictionInfoPid: evictionInfoPid
+    };
+    const req = this.http.post<EvictionInfoAttach>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * ファイル削除
+   */
+  deleteEvictionAttach(id: number): Promise<object> {
+    const deleteFileApi = 'evictionattachdelete.php';
+    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
+  }
+  // 20230917 E_Add
 }

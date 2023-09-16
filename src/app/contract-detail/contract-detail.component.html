@@ -170,6 +170,80 @@
         </tr>
     </table>
 
+    <!-- 20230917 S_Add -->
+    <!--賃貸一覧-->
+    <table class="detail-tbl-min">
+        <tr>
+            <td><span class="min">賃貸一覧</span>
+                <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="navigateRental()" >賃貸情報　登録</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="contact-div">
+                    <table>
+                        <thead class="list-header">
+                            <th>建物名</th>
+                            <th>賃借人数</th>
+                            <th>総戸数</th>
+                            <th>詳細</th>
+                            <th>台帳作成</th>
+                            <th>入金管理表作成</th>
+                        </thead>
+                        <tbody class="list-body">
+                            <tr *ngFor="let item of rentals; index as pos">
+                                <td class="text-left">{{item.apartmentName}}</td>
+                                <td class="text-right">{{numberFormat(item.countContract)}}</td>
+                                <td class="text-right">{{numberFormat(item.totalUnits)}}</td>
+                                <td><button mat-raised-button (click)="showDetailRental(item)" color="warn">詳細</button></td>
+                                <td><button mat-raised-button class="output-btn">台帳作成</button></td>
+                                <td><button mat-raised-button class="output-btn2">入金管理表作成</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!--立退き一覧-->
+    <table class="detail-tbl-min">
+        <tr>
+            <td><span class="min">立退き一覧</span>
+                <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addEvictionInfo()" >立退き情報　登録</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="contact-div">
+                    <table>
+                        <thead class="list-header">
+                            <th>部屋番号</th>
+                            <th>賃借人名</th>
+                            <th>明渡日</th>
+                            <th>明渡予定日</th>
+                            <th>詳細</th>
+                            <th>合意書</th>
+                            <th>預り金一覧作成</th>
+                        </thead>
+                        <tbody class="list-body">
+                            <tr *ngFor="let item of evictions; index as pos">
+                                <td class="text-left">{{item.roomNo}}</td>
+                                <td class="text-left">{{item.borrowerName}}</td>
+                                <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
+                                <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
+                                <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
+                                <!-- ??? -->
+                                <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">済</span></td>
+                                <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>    
+    <!-- 20230917 E_Add -->
     <table class="detail-tbl-min">
         <tr>
             <td colspan="8">
@@ -532,7 +606,8 @@
         </tr>
         <!-- 20230227 E_Add -->
     </table>
-    <table class="detail-tbl-min">
+    <!-- 20230917 S_Delete -->
+    <!-- <table class="detail-tbl-min">
         <tr>
             <td colspan="8">
                 <span class="min" style="width: 155px !important;">優先分譲特約内容</span>
@@ -546,7 +621,8 @@
             <th>優先分譲予定価格</th>
             <td  colspan="5"><input [(ngModel)]="contract.prioritySalesPlanPriceMap" type="text" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.prioritySalesPlanPriceMap)">&nbsp;円</td>
         </tr>
-    </table>
+    </table> -->
+    <!-- 20230917 E_Delete -->
     <table class="detail-tbl-min">
         <tr>
             <td colspan="8">
@@ -615,6 +691,23 @@
             </td>
         </tr>
     </table>
+    <!-- 20230917 S_Add -->
+    <table class="detail-tbl-min">
+        <tr>
+            <td colspan="8">
+                <span class="min" style="width: 155px !important;">優先分譲特約内容</span>
+            </td>
+        </tr>
+        <tr>
+            <th>優先分譲面積<br>（専有面積）</th>
+            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesAreaMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="12" [value]="changeValue(contract.prioritySalesAreaMap)">&nbsp;㎡</td>
+            <th>優先分譲戸数（階）</th>
+            <td style="width: 136px;"><input type="text" [(ngModel)]="contract.prioritySalesFloorMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="3" [value]="changeValue(contract.prioritySalesFloorMap)">&nbsp;階</td>
+            <th>優先分譲予定価格</th>
+            <td  colspan="5"><input [(ngModel)]="contract.prioritySalesPlanPriceMap" type="text" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.prioritySalesPlanPriceMap)">&nbsp;円</td>
+        </tr>
+    </table>
+    <!-- 20230917 E_Add -->
     <!--/建物情報契約-->
     <br>
     <div class="register-div" style="margin-top:10px">

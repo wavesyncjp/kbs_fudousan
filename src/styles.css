@@ -147,6 +147,12 @@ textarea {
     border: solid 1px red !important;
 }
 
+/* 20230917 S_Add */
+.error-select > select {
+    border: solid 1px red !important;
+}
+/* 20230917 E_Add */
+
 .number {
     text-align: right;
 }
