@@ -34,6 +34,7 @@ export class EvictionInfoDetailComponent extends BaseComponent {
   bankPids: Code[];
   locationInfoPids:Code[];
   residentInfoPids:Code[];// 入居者情報
+  rentalInfoPids:Code[];// 賃貸Pids
   contractSellerInfoPids:Code[];
 
   constructor(public router: Router,
@@ -62,7 +63,13 @@ export class EvictionInfoDetailComponent extends BaseComponent {
       ,tempLandInfoPid: this.tempLandInfoPid
     };
     funcs.push(this.service.commonSearch(cond));
-    
+
+    let cond2 = {
+      searchFor: 'searchRentalApartment'
+      ,contractInfoPid: this.contractInfoPid
+    };
+    funcs.push(this.service.commonSearch(cond2));
+
     if(this.data.pid > 0){
       funcs.push(this.service.evictionAttachSearch(this.data.pid));
     }
@@ -73,9 +80,12 @@ export class EvictionInfoDetailComponent extends BaseComponent {
 
       this.residentInfos = values[1];
       this.residentInfoPids = this.residentInfos.map(loc => new Code({codeDetail: loc.pid, name: loc.roomNo}));
-      
-      if(this.data.pid > 0){
-        this.data.evictionFiles = values[2];
+
+      let rentalApartments = values[2];
+      this.rentalInfoPids = rentalApartments.map(item => new Code({codeDetail: item.pid, name: item.apartmentName}));
+
+      if (this.data.pid > 0) {
+        this.data.evictionFiles = values[3];
       }
       
       this.data.convert();
@@ -102,7 +112,7 @@ export class EvictionInfoDetailComponent extends BaseComponent {
       return;
     }
 
-    const dlg = new Dialog({title: '確認', message: '立退きを登録しますが、よろしいですか？'});
+    const dlg = new Dialog({title: '確認', message: '立退き情報を登録しますが、よろしいですか？'});
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -118,7 +128,7 @@ export class EvictionInfoDetailComponent extends BaseComponent {
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe, true);
 
         this.service.evictionSave(this.data).then(values => {
-          const finishDlg = new Dialog({title: '完了', message: '立退きを登録しました。'});
+          const finishDlg = new Dialog({title: '完了', message: '立退き情報を登録しました。'});
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',
@@ -164,7 +174,8 @@ export class EvictionInfoDetailComponent extends BaseComponent {
   validate(): boolean {
     this.errorMsgs = [];
     this.errors = {};
-    
+
+    this.checkBlank(this.data.rentalInfoPid, 'rentalInfoPid', '建物名は必須です。');
     this.checkBlank(this.data.residentInfoPid, 'residentInfoPid', '部屋番号は必須です。');
 
     if (this.errorMsgs.length > 0) {

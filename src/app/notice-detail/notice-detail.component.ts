@@ -10,7 +10,10 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { FileComponentComponent } from '../uicomponent/file-component/file-component.component';
-import { InfoAttach } from '../models/mapattach';// 20220329 Add
+// 20230927 S_Update
+// import { InfoAttach } from '../models/mapattach';// 20220329 Add
+import { InfoApprovalAttach, InfoAttach } from '../models/mapattach';// 20220329 Add
+// 20230927 E_Update
 import { NgxSpinnerService } from 'ngx-spinner';// 20221116 Add
 import { Templandinfo } from '../models/templandinfo';// 20230302 Add
 
@@ -269,6 +272,8 @@ export class NoticeDetailComponent extends BaseComponent {
           // 20220330 E_Update
           */
           // 登録の場合、添付ファイルがあれば、アップロード
+          // 20230927 S_Update
+          /*
           if (this.isCreate && this.attachFile && this.attachFile.hasFile()) { 
             this.attachFile.uploadInfoAttachFile(res.pid, () => {
               this.spinner.hide();
@@ -299,6 +304,42 @@ export class NoticeDetailComponent extends BaseComponent {
               if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadApprovedInfoFile(res.pid);
             }
           }
+          */
+          if (this.isCreate) {
+            let fAttachUpload = this.fFiles.filter(me => me.id === 'fAttachUpload')[0];
+            if (fAttachUpload && fAttachUpload.hasFile()) { 
+              fAttachUpload.uploadInfoAttachFile(res.pid, () => {
+                this.spinner.hide();
+                
+                let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
+                if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
+                  this.dialogRef.close({data: res, isCreate: this.isCreate});
+                } else {
+                  if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadInfoApprovalAttach(res.pid, () => {
+                    this.dialogRef.close({data: res, isCreate: this.isCreate});
+                  });
+                }
+              });
+            }
+            else{
+              this.spinner.hide();
+              
+              let fApprovedUpload = this.fFiles.filter(me => me.id === 'fApprovedUpload')[0];
+              
+              if (fApprovedUpload == null || !fApprovedUpload.hasFile()) {
+                this.dialogRef.close({data: res, isCreate: this.isCreate});
+              } else {
+                if (fApprovedUpload != null && fApprovedUpload.hasFile()) fApprovedUpload.uploadInfoApprovalAttach(res.pid, () => {
+                  this.dialogRef.close({data: res, isCreate: this.isCreate});
+                });
+              }
+            }
+          }
+          else{
+            this.spinner.hide();
+            this.dialogRef.close({data: res, isCreate: this.isCreate});
+          }
+          // 202309NOTICE E_Update
           // 20221116 E_Update
         });
       }
@@ -438,4 +479,34 @@ export class NoticeDetailComponent extends BaseComponent {
     }
   }
   // 20230301 E_Add
+
+  // 20230927 S_Add
+  /**
+   * 承認済ファイルアップロード
+   * @param event ：ファイル
+   */
+  uploadedInfoApprovalAttach(event) {
+    if (this.data.approvalFilesMap === null || this.data.approvalFilesMap == undefined) {
+      this.data.approvalFilesMap = [];
+    }
+    const attachFile: InfoApprovalAttach = JSON.parse(JSON.stringify(event));
+    this.data.approvalFilesMap.push(attachFile);
+  }
+  /**
+   * 承認済ファイル削除
+   * @param map : 削除したいファイル
+   */
+  deleteInfoApprovalAttach(map: InfoApprovalAttach) {
+    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteInfoApprovalAttach(map.pid).then(res => {
+          this.data.approvalFilesMap.splice(this.data.approvalFilesMap.indexOf(map), 1);
+        });
+      }
+    });
+  }
+  // 20230927 E_Add
 }

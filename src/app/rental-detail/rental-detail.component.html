@@ -29,7 +29,7 @@
         <tr>
             <th>入金口座</th>
             <td>
-                <app-select-component [codes]="bankPids" [(ngModel)]="rental.bankPid"></app-select-component>
+                <app-select-component [codes]="bankPids" [(ngModel)]="rental.bankPid" [cusClass]="'width250'"></app-select-component>
             </td>
             <th>有効区分</th>
             <td>
@@ -95,13 +95,13 @@
             </thead>
             <tbody class="list-body">
                 <tr>
-                    <th rowspan="3" class="header2">一括
+                    <th rowspan="3" class="header2 width100">一括
                         <br/>
                         <mat-checkbox [checked]="receiveAllFlg === '1'" (change)="changeReceiveAllFlg($event)"></mat-checkbox>
                         <br/>
                         (その月の全員分<br/>にチェック)
                     </th>
-                    <th class="header2">部屋番号</th>
+                    <th class="header2 width100">部屋番号</th>
                     <th  class="header2" *ngFor="let rcon of rentalContracts; index as pos">
                         {{rcon.roomNo}}
                     </th>

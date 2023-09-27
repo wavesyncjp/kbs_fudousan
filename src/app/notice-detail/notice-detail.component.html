@@ -126,8 +126,15 @@
             <td>
                 <!-- 20230317 S_Update -->
                 <!-- <app-file #attachFile infoPid="{{data.pid}}" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file> -->
-                <app-file #attachFile infoPid="{{data.pid}}" *ngIf="!disableUser" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file>
+                <!-- 20230927 S_Delete -->
+                <!-- <app-file #attachFile infoPid="{{data.pid}}" *ngIf="!disableUser" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file> -->
+                <!-- 20230927 E_Delete -->
                 <!-- 20230317 E_Update -->
+                
+                <!-- 20230927 S_Add -->
+                <app-file [id]="'fAttachUpload'" notButton="true" (uploaded)="uploaded($event)" *ngIf="!disableUser && isCreate"></app-file>
+                <app-file #attachFile infoPid="{{data.pid}}" *ngIf="!disableUser && !isCreate" (uploaded)="uploadedInfoAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file>
+                <!-- 20230927 E_Add -->
                 
                 <table style="margin-left: 5px;">
                     <tr *ngFor="let map of data.attachFiles">
@@ -163,10 +170,23 @@
         <tr>
             <th class="sharer">添付ファイル<br>（承認済）</th>
             <td>
-                <a *ngIf="hasApprovedFile()" [attr.href]="data.approvalAttachFilePath + data.approvalAttachFileName"  target="_blank" class="action-link">{{data.approvalAttachFileName}}</a>
-                <br *ngIf="hasApprovedFile()">
+                <!-- 20230927 S_Delete -->
+                <!-- <a *ngIf="hasApprovedFile()" [attr.href]="data.approvalAttachFilePath + data.approvalAttachFileName"  target="_blank" class="action-link">{{data.approvalAttachFileName}}</a>
+                <br *ngIf="hasApprovedFile()"> -->
+                <!-- 20230927 E_Delete -->
                 <!--<app-file #fApprovedUpload notButton="true" (uploaded)="uploaded($event)" *ngIf="enableUser && data.approvalFlg === '1'"></app-file>-->
-                <app-file [id]="'fApprovedUpload'" notButton="true" (uploaded)="uploaded($event)" *ngIf="enableUser && (data.approvalFlg === '1' || data.approvalFlg === '5')"></app-file>
+                <!-- 20230927 S_Update -->
+                <!-- <app-file [id]="'fApprovedUpload'" notButton="true" (uploaded)="uploaded($event)" *ngIf="enableUser && (data.approvalFlg === '1' || data.approvalFlg === '5')"></app-file> -->
+                <app-file [id]="'fApprovedUpload'" notButton="true" (uploaded)="uploaded($event)" *ngIf="enableUser && isCreate && (data.approvalFlg === '1' || data.approvalFlg === '5')"></app-file>
+                <app-file infoPid2="{{data.pid}}" *ngIf="enableUser && !isCreate && (data.approvalFlg === '1' || data.approvalFlg === '5')" (uploaded)="uploadedInfoApprovalAttach($event)" [immediately]="!isCreate" [notButton]="isCreate"></app-file>
+            
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let map of data.approvalFilesMap">
+                        <td class="min-width160"><a [attr.href]="map.approvalAttachFilePath + map.approvalAttachFileName" target="_blank">{{map.approvalAttachFileName}}</a></td>
+                        <td *ngIf="map.pid > 0 && enableUser"><button mat-flat-button class="delete-btn" (click)="deleteInfoApprovalAttach(map)">削除</button></td>
+                    </tr>
+                </table>
+                <!-- 20230927 E_Update -->
             </td>
         </tr>
         <tr>

@@ -871,5 +871,28 @@ export class ContractDetailComponent extends BaseComponent {
       }
     });
   }
+  /**
+   * 賃貸削除
+   * @param obj 賃貸契約
+   * @param pos 
+   */
+  deleteRentalInfo(obj: RentalInfo, pos: number) {
+    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.rentalDelete(obj).then(res => {
+          this.rentals.splice(pos, 1);
+
+          this.evictions = this.evictions.filter(item=>item.rentalInfoPid != obj.pid);
+        });
+      }
+    });
+  }
   // 20230917 E_Add
 }

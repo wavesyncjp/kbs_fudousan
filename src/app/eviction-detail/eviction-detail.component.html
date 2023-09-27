@@ -7,11 +7,15 @@
         <tr>
             <td colspan="4">
                 <span class="min">
-                    <label>立退き　登録</label>
+                    <label>立退き情報</label>
                 </span>
             </td>
         </tr>
         <tr>
+            <th>建物名</th>
+            <td>
+                <app-select-component [codes]="rentalInfoPids" [(ngModel)]="data.rentalInfoPid" [ngClass]="{'error-select': errors['rentalInfoPid']}"></app-select-component>
+            </td>
             <th>部屋番号</th>
             <td>
                 <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
@@ -20,6 +24,8 @@
             <td>
                 <input type="text" [(ngModel)]="data.borrowerName" [ngClass]="{'error': errors['borrowerName']}" maxlength="128" disabled="true">
             </td>
+        </tr>
+        <tr>
             <th>明渡予定日</th>
             <td> 
                 <div class="picker-div">
@@ -28,8 +34,6 @@
                     <mat-datepicker #surrenderScheduledDate></mat-datepicker>
                 </div>
             </td>
-        </tr> 
-        <tr>
             <th>明渡日</th>
             <td> 
                 <div class="picker-div">
@@ -110,6 +114,7 @@
             </td>
             <th>ファイル添付</th>
             <td>
+                <span *ngIf="!(data.pid > 0)" style="color:red">※立退き情報を登録後に添付可能となります。</span>
                 <app-file evictionInfoPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="evictionUploaded($event)" [immediately]="true"></app-file>
                 <table style="margin-left: 5px;">
                     <tr *ngFor="let f of data.evictionFiles">

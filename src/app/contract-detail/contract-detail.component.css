@@ -169,4 +169,13 @@ span.now {
 .font-bold {
     font-weight: bold;
 }
+
+.button-div-left button {
+    margin: 10px 10px 10px 0px;
+}
+
+.button-div-left {
+    display: flex;
+    margin-left: 10px;
+} 
 /* 20230917 E_Add */

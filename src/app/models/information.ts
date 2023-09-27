@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
-import { InfoAttach } from './mapattach';// 20220329 Add
+import { InfoApprovalAttach, InfoAttach } from './mapattach';// 20220329 Add
 
 export class Information {
     pid: number;
@@ -30,6 +30,7 @@ export class Information {
     approvalDateTime: Date;// 20220517 Add
 
     attachFiles: InfoAttach[];// 20220329 Add
+    approvalFilesMap: InfoApprovalAttach[];// 20230927 Add
 
     createUserId: number;
     updateUserId: number;

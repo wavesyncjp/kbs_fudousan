@@ -6,3 +6,8 @@ select{
     border-radius: 2px;
     margin-left: 3px;
 }
+/* 20230926 S_Add */
+select:disabled {
+    background-color: #EBEBE4;
+}
+/* 20230926 E_Add */

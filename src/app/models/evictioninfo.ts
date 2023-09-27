@@ -4,6 +4,7 @@ import { EvictionInfoAttach } from './evictioninfoattach';
 
 export class EvictionInfo {
     pid: number;
+    rentalInfoPid: number;
     residentInfoPid: number;
     contractInfoPid: number;
     locationInfoPid: number;

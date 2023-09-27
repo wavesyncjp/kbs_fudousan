@@ -103,7 +103,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
       this.bankPids = this.getBanks();
 
       this.locationInfos = values[2];
-      this.locationInfoPids = this.locationInfos.map(loc => new Code({codeDetail: loc.locationInfoPid, name: loc.blockNumber??'' + ' ' + loc.buildingNumber??''}));
+      this.locationInfoPids = this.locationInfos.filter(loc=>(loc.blockNumber != null && loc.blockNumber != '') || (loc.buildingNumber != null && loc.buildingNumber != '')).map(loc => new Code({codeDetail: loc.locationInfoPid, name: loc.blockNumber??'' + ' ' + loc.buildingNumber??''}));
 
       this.contractSellerInfos = values[3];
       this.contractSellerInfoPids = this.contractSellerInfos.map(loc => new Code({codeDetail: loc.pid, name: loc.contractorName}));
@@ -165,12 +165,14 @@ export class RentalInfoDetailComponent extends BaseComponent {
         }
         else if (this.locationInfoPidDB != this.rental.locationInfoPid) {
           isNeedReload = true;
-        }  
+        }
         this.rental.convertForSave(this.service.loginUser.userId, this.datepipe, true);
         
         if (this.rental.pid > 0) {
           this.rental.rentalReceivesChanged = this.getReceivesChanged();
         }
+        
+        console.log(JSON.stringify(this.rental));
         
         this.service.rentalSave(this.rental).then(res => {
           const finishDlg = new Dialog({title: '完了', message: '賃貸情報を登録しました。'});

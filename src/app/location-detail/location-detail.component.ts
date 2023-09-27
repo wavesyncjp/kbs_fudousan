@@ -255,7 +255,10 @@ export class LocationDetailComponent extends BaseComponent {
    */
   changeType(event) {
     if (event.target.value !== this.oldLocationType && this.oldLocationType != null && this.oldLocationType !== '') {
-      const dlg = new Dialog({title: '確認', message: '区分を変更すると一部の項目は値がクリアされるます。よろしいですか？'});
+      // 20230926 S_Update
+      // const dlg = new Dialog({title: '確認', message: '区分を変更すると一部の項目は値がクリアされるます。よろしいですか？'});
+      const dlg = new Dialog({title: '確認', message: '区分を変更すると一部の項目は値がクリアされます。よろしいですか？'});
+      // 20230926 E_Update
       const dlgRef = this.dialog.open(ConfirmDialogComponent, {
         width: '500px',
         height: '250px',

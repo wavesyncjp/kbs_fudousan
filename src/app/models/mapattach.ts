@@ -63,3 +63,12 @@ export class BukkenSalesAttach {
     // 20230511 E_Add
 }
 // 20230227 E_Add
+
+// 20230927 S_Add
+export class InfoApprovalAttach {
+    pid: number;
+    infoPid: number;
+    approvalAttachFileName = '';
+    approvalAttachFilePath = '';
+}
+// 20230927 E_Add

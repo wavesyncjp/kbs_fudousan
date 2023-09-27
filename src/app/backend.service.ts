@@ -1368,6 +1368,17 @@ export class BackendService {
     const req = this.http.post<RentalInfo>(`${this.BaseUrl}/${saveApi}`, info);
     return req.toPromise();
   }
+  // 20230927 S_Add
+  /**
+   * 賃貸削除
+   * @param data ：賃貸情報
+   */
+  rentalDelete(data: RentalInfo) {
+    const api = 'rentaldelete.php';
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    return req.toPromise();
+  }
+  // 20230927 E_Add
 
   /**
    * 賃貸契約登録
@@ -1458,4 +1469,30 @@ export class BackendService {
     return req.toPromise();
   }
   // 20230917 E_Add
+  // 20230927 S_Add
+  /**
+   * 承認済添付ファイルアップロード
+   * @param infoPid ：インフォメーションPid
+   * @param file ；承認済ファイル
+   */
+  uploadInfoApprovalAttach(infoPid: number, file: File): Promise<object> {
+    const uploadApi = 'infoapprovalattachupload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('infoId', infoPid.toString());
+    formData.append('createUserId', String(this.loginUser.userId));
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+
+  /**
+   * 掲示板承認済添付ファイル削除
+   * @param id : 掲示板承認済添付ファイルID
+   */
+  deleteInfoApprovalAttach(id: number): Promise<object> {
+    const deleteFileApi = 'infoapprovalattachdelete.php';
+    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
+  }
+  // 20230927 E_Add
 }

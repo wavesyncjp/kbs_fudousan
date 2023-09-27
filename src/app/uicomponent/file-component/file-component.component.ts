@@ -47,6 +47,12 @@ export class FileComponentComponent implements OnInit {
   infoPid: number;
   // 20220329 E_Add
 
+  // 20230927 S_Add
+  // 掲示板承認済添付ファイル用
+  @Input()
+  infoPid2: number;
+  // 20230927 E_Add
+
   // 20230227 S_Add
   @Input()
   bukkenSalesInfoPid: number;
@@ -200,6 +206,18 @@ export class FileComponentComponent implements OnInit {
       });
     }
     // 20220329 E_Add
+    // 20230927 S_Add
+    // 承認済添付ファイルアップロード
+    else if (this.infoPid2 !== undefined && this.infoPid2 > 0 ) {
+      this.service.uploadInfoApprovalAttach(this.infoPid2, this.file).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+      });
+    }
+    // 20230927 E_Add
     // 20230227 S_Add
     // 物件売契約添付ファイルアップロード
     else if (this.bukkenSalesInfoPid !== undefined && this.bukkenSalesInfoPid > 0
@@ -234,6 +252,14 @@ export class FileComponentComponent implements OnInit {
     });
   }
   // 20221116 E_Add
+
+  // 20230927 S_Add
+  public uploadInfoApprovalAttach(infoPid: number, afterFunc: any) {
+    this.service.uploadInfoApprovalAttach(infoPid, this.file).then(res => {
+      afterFunc();
+    });
+  }
+  // 20230927 E_Add
 
   public uploadInfoFile(infoPid: number) {
     this.service.uploadInfoFile(infoPid, this.file).then(res => {
