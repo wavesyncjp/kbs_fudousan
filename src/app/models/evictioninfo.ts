@@ -27,8 +27,6 @@ export class EvictionInfo {
 
     createUserId: number;
     updateUserId: number;
-    deleteUserId: number;
-
 
     // 開発用の例↓
     roomNo: string;
@@ -63,7 +61,7 @@ export class EvictionInfo {
         this.remainingPayedDateMap = Converter.stringToDate(this.remainingPayedDate, 'yyyyMMdd');
         this.getAgreementDateMap = Converter.stringToDate(this.getAgreementDate, 'yyyyMMdd');
         this.attachmentAgreementDateMap = Converter.stringToDate(this.attachmentAgreementDate, 'yyyyMMdd');
-        
+
         // 数字
         this.evictionFeeMap = Converter.numberToString(this.evictionFee);
         this.deposit1Map = Converter.numberToString(this.deposit1);

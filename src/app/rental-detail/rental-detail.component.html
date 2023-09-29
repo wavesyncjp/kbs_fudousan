@@ -74,7 +74,7 @@
                     <td class="text-left">{{rcon.borrowerName}}</td>
                     <td [noWrap]="true">{{formatDay(rcon.loanPeriodStartDate, 'yyyy/MM/dd')}}～{{formatDay(rcon.loanPeriodEndDate, 'yyyy/MM/dd')}}</td>
                     <td class="text-left">{{getCodeTitle('043',rcon.contractMethod)}}</td>
-                    <td class="text-left">{{getCodeTitle('046',rcon.paymentMethod)}}</td>
+                    <td class="text-left">{{getCodeTitle('015',rcon.paymentMethod)}}</td>
                     <td class="text-right">{{numberFormat(rcon.rentPrice)}}</td>
                     <td class="text-right">{{numberFormat(getNumber(rcon.condoFee) + getNumber(rcon.managementFee)) }}</td>
                     <td><button mat-raised-button (click)="showRentalContract(rcon,pos)" color="warn">詳細</button></td>

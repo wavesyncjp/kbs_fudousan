@@ -59,7 +59,7 @@ export class RentalContractDetailComponent extends BaseComponent {
     this.spinner.show();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['043', '044', '046']));
+    funcs.push(this.service.getCodes(['043', '044', '015']));
     funcs.push(this.service.getBanks('1'));
     let cond = {
       searchFor: 'searchSellerName'

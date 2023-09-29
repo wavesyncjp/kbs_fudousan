@@ -16,7 +16,6 @@ export class RentalReceive {
 
     createUserId: number;
     updateUserId: number;
-    deleteUserId: number;
 
     public constructor(init?: Partial<RentalReceive>) {
         if (init) {
@@ -26,7 +25,7 @@ export class RentalReceive {
 
     public convert(emps: any[]) {
         //カレンダー
-        
+
         // 数字
     }
 

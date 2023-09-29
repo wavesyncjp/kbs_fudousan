@@ -39,7 +39,6 @@ export class RentalContract {
 
     createUserId: number;
     updateUserId: number;
-    deleteUserId: number;
 
     // 開発用の例↓
     roomNo: string;

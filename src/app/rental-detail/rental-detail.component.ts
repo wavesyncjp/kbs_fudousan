@@ -77,7 +77,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
     const funcs = [];
 
-    funcs.push(this.service.getCodes(['005', '043', '046']));
+    funcs.push(this.service.getCodes(['005', '043', '015']));
     funcs.push(this.service.getBanks('1'));
 
     //地番　家屋番号を取得
