@@ -15,7 +15,7 @@
             
             <li><a (click)="navigate('contracts')">&nbsp;仕入契約&nbsp;</a></li>
             <!-- 20230917 S_Add -->
-            <!-- 管理者のみ表示で確認中 --><li *ngIf="authority === '01'"><a (click)="navigate('rentals')">&nbsp;賃貸情報&nbsp;</a></li>
+            <li><a (click)="navigate('rentals')">&nbsp;賃貸情報&nbsp;</a></li>
             <!-- 20230917 E_Add -->
             <li *ngIf="authority !== '03'"><a (click)="navigate('plans')">&nbsp;事業収支&nbsp;</a></li>
             <li *ngIf="authority !== '03'"><a (click)="navigate('pays')">&nbsp;支払管理&nbsp;</a></li>
