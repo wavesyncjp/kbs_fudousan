@@ -1,5 +1,5 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
-<div class="dialog-div">  
+<div class="dialog-div">
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
@@ -24,7 +24,7 @@
         <tr>
             <th>入金口座</th>
             <td>
-                <app-select-component [codes]="bankPids" [(ngModel)]="rental.bankPid" [isDisabled]="true"></app-select-component>
+                <app-select-component [codes]="bankPids" [(ngModel)]="rental.bankPid" [cusClass]="'width250'" [isDisabled]="true"></app-select-component>
             </td>
             <th>入金コード</th>
             <td>
@@ -54,7 +54,7 @@
             </td>
 
             <th>契約期間</th>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="loanPeriodStartDate" [(ngModel)]="data.loanPeriodStartDateMap" placeholder="開始日" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="loanPeriodStartDate" class="picker-icon"></mat-datepicker-toggle>
@@ -74,14 +74,14 @@
                 <app-select-component [codes]="getCode('043')" [(ngModel)]="data.contractMethod"></app-select-component>
             </td>
             <th>契約終了通知をすべき期間</th>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="contractEndNotificationStartDate" [(ngModel)]="data.contractEndNotificationStartDateMap" placeholder="開始日" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="contractEndNotificationStartDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #contractEndNotificationStartDate></mat-datepicker>
                 </div>&nbsp;&nbsp;～
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="contractEndNotificationEndDate" [(ngModel)]="data.contractEndNotificationEndDateMap" placeholder="終了日"  [ngClass]="{'width100':true,'error': errors['contractEndNotificationEndDate']}">
+                    <input type="text" [matDatepicker]="contractEndNotificationEndDate" [(ngModel)]="data.contractEndNotificationEndDateMap" placeholder="終了日" [ngClass]="{'width100':true,'error': errors['contractEndNotificationEndDate']}">
                     <mat-datepicker-toggle matSuffix [for]="contractEndNotificationEndDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #contractEndNotificationEndDate></mat-datepicker>
                 </div>
@@ -90,10 +90,10 @@
         <tr>
             <th>支払方法</th>
             <td>
-                <app-select-component [codes]="getCode('045')" [(ngModel)]="data.paymentMethod"></app-select-component>
+                <app-select-component [codes]="getCode('046')" [(ngModel)]="data.paymentMethod"></app-select-component>
             </td>
             <th>支払期限</th>
-            <td> 
+            <td>
                 <app-select-component [codes]="getCode('044')" [(ngModel)]="data.usance"></app-select-component>&nbsp;分
                 &nbsp;&nbsp;
                 <input type="text" [(ngModel)]="data.paymentDayMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.paymentDayMap)">&nbsp;日まで
@@ -170,7 +170,7 @@
         </tr>
         <tr>
             <th>賃貸免除開始日</th>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="roomRentExemptionStartDate" [(ngModel)]="data.roomRentExemptionStartDateMap" placeholder="開始日" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="roomRentExemptionStartDate" class="picker-icon"></mat-datepicker-toggle>

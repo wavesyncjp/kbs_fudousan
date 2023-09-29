@@ -22,13 +22,13 @@ declare var $: any;
   templateUrl: './receivecontract-detail.component.html',
   styleUrls: ['./receivecontract-detail.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
 export class ReceiveContractDetailComponent extends BaseComponent {
 
-  @ViewChild('topElement', {static: true}) topElement: ElementRef;
+  @ViewChild('topElement', { static: true }) topElement: ElementRef;
 
   @ViewChildren(MultiSelectComponent) selectors: QueryList<MultiSelectComponent>;
 
@@ -41,14 +41,15 @@ export class ReceiveContractDetailComponent extends BaseComponent {
   delDetails = [];
   bukkens = [];
   bukkenMap: { [key: string]: number; } = {};
-  public bukkenName : string;
-  public receiveTax : number;
-  maxDate : number;
-  taxRate : number;
-  taxEffectiveDay : String;
-  effectiveDay : String;
+  public bukkenName: string;
+  public receiveTax: number;
+  maxDate: number;
+  taxRate: number;
+  taxEffectiveDay: String;
+  effectiveDay: String;
 
   sellers: Code[];
+  bankPids: Code[];// 20230928 Add
 
   dropdownSettings = {
     singleSelection: false,
@@ -61,22 +62,22 @@ export class ReceiveContractDetailComponent extends BaseComponent {
   };
 
   constructor(public router: Router,
-              private route: ActivatedRoute,
-              public dialog: MatDialog,
-              public service: BackendService,
-              private spinner: NgxSpinnerService,
-              public datepipe: DatePipe) {
-      super(router, service,dialog);
-      this.route.queryParams.subscribe(params => {
-        this.pid = params.pid;
-        this.bukkenid = params.bukkenid;
-      });
-      /*
-      this.data = new Templandinfo();
-      this.data.locations = [];
-      */
-      this.receivecontract = new Receivecontractinfo();
-      this.receivecontract.taxEffectiveDayMap = new Date();
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    public service: BackendService,
+    private spinner: NgxSpinnerService,
+    public datepipe: DatePipe) {
+    super(router, service, dialog);
+    this.route.queryParams.subscribe(params => {
+      this.pid = params.pid;
+      this.bukkenid = params.bukkenid;
+    });
+    /*
+    this.data = new Templandinfo();
+    this.data.locations = [];
+    */
+    this.receivecontract = new Receivecontractinfo();
+    this.receivecontract.taxEffectiveDayMap = new Date();
   }
 
   userIds: Code[];
@@ -95,12 +96,13 @@ export class ReceiveContractDetailComponent extends BaseComponent {
     this.spinner.show();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['015','026']));
+    funcs.push(this.service.getCodes(['015', '026']));
     funcs.push(this.service.getEmps('1'));
     funcs.push(this.service.getDeps(null));
     funcs.push(this.service.searchReceiveType(null));
     funcs.push(this.service.getLands(null));   // 物件情報一覧の取得
     funcs.push(this.service.getTaxes(null));   // 消費税一覧の取得
+    funcs.push(this.service.getBanks('1'));// 20230928 Add
 
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
@@ -116,7 +118,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          lst.sort((a, b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
           this.sysCodes[code] = lst;
         });
       }
@@ -127,27 +129,43 @@ export class ReceiveContractDetailComponent extends BaseComponent {
       this.lands = values[4];
       this.taxes = values[5];
 
+      // 20230928 S_Add
+      this.banks = values[6];
+      this.bankPids = this.getBanks();
+      // 20230928 E_Add
+
       this.userIds = this.getUsers();
       this.depCodes = this.getDeps();
       this.receiveTypes = this.getReceiveTypes();
 
       //入力の際に表示される物件名称を取得するための処理
       this.bukkens = this.lands
-      
+
       // データが存在する場合
-      if ( values.length > 6) {
+      // 20230928 S_Update
+      // if (values.length > 6) {
+      if (values.length > 7) {
+        // 20230928 E_Update
         if (this.pid > 0) {
-          this.receivecontract = new Receivecontractinfo(values[6] as Receivecontractinfo);
+          // 20230928 S_Update
+          // this.receivecontract = new Receivecontractinfo(values[6] as Receivecontractinfo);
+          // this.receivecontract.convert();
+          // this.bukkenName = `${values[6].land.bukkenNo}:${values[6].land.bukkenName}`;
+          this.receivecontract = new Receivecontractinfo(values[7] as Receivecontractinfo);
           this.receivecontract.convert();
-          this.bukkenName = `${values[6].land.bukkenNo}:${values[6].land.bukkenName}`;
+          this.bukkenName = `${values[7].land.bukkenNo}:${values[7].land.bukkenName}`;
+          // 20230928 E_Update
 
           this.initReceiveContract();
 
           //Seller
           this.loadSellers(this.receivecontract.tempLandInfoPid);
         }
-        else if(this.bukkenid > 0) {
-          const templandinfo = new Templandinfo(values[6] as Templandinfo);
+        else if (this.bukkenid > 0) {
+          // 20230928 S_Update
+          // const templandinfo = new Templandinfo(values[6] as Templandinfo);
+          const templandinfo = new Templandinfo(values[7] as Templandinfo);
+          // 20230928 E_Update
           this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName;
           this.receivecontract.depCode = templandinfo.department;
           var infoStaffs = templandinfo.infoStaff.split(",");
@@ -167,7 +185,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
         this.initReceiveContract();
         this.spinner.hide();
       }
-      
+
       //物件名称をキーにpidをmapに保持していく
       this.lands.forEach((land) => {
         this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
@@ -190,12 +208,12 @@ export class ReceiveContractDetailComponent extends BaseComponent {
     this.service.getBukkenSeller(landId).then(ret => {
 
       const ids = ret.map(data => data.contractInfoPid).filter((id, i, arr) => arr.indexOf(id) === i);
-      let lst : Code[] = [];
+      let lst: Code[] = [];
 
       ids.forEach(id => {
-        const rt = ret.filter(data => data.contractInfoPid === id && data.contractorName != null && data.contractorName !== '').map(data => {return  { id: data.pid, name: data.contractorName} });
-        if(rt.length > 0) {
-          lst.push(new Code({codeDetail: rt.map(cd => cd.id).join('_'), name: rt.map(cd => cd.name).join(',') }))
+        const rt = ret.filter(data => data.contractInfoPid === id && data.contractorName != null && data.contractorName !== '').map(data => { return { id: data.pid, name: data.contractorName } });
+        if (rt.length > 0) {
+          lst.push(new Code({ codeDetail: rt.map(cd => cd.id).join('_'), name: rt.map(cd => cd.name).join(',') }))
         }
       });
 
@@ -218,14 +236,14 @@ export class ReceiveContractDetailComponent extends BaseComponent {
    */
   convertContractor() {
     this.receivecontract.details.forEach(me => {
-      if(me.contractorMap != null && me.contractorMap.length > 0) {
+      if (me.contractorMap != null && me.contractorMap.length > 0) {
 
         let lst = [];
 
         me.contractorMap.forEach(ct => {
           const names = this.sellers.filter(sl => sl.codeDetail === ct.codeDetail).map(ct => ct.name);
-          if(names.length > 0) {
-            lst.push(new Code({codeDetail: ct.codeDetail, name: names[0]}));
+          if (names.length > 0) {
+            lst.push(new Code({ codeDetail: ct.codeDetail, name: names[0] }));
           }
         });
         me.contractorMap = lst;
@@ -254,21 +272,21 @@ export class ReceiveContractDetailComponent extends BaseComponent {
         element.settings = this.dropdownSettings;
         element.data = this.sellers;
       });
-    }, 500); 
+    }, 500);
   }
 
   /**
    * 明細情報削除
    */
   deleteReceiveContractDetail(sharerPos: number) {
-    const detail = this.receivecontract.details[sharerPos+1];
+    const detail = this.receivecontract.details[sharerPos + 1];
     if (detail.pid > 0) {
       if (this.delDetails == null) {
         this.delDetails = [];
       }
       this.delDetails.push(detail);
     }
-    this.receivecontract.details.splice(sharerPos+1, 1);
+    this.receivecontract.details.splice(sharerPos + 1, 1);
   }
 
   /**
@@ -276,10 +294,10 @@ export class ReceiveContractDetailComponent extends BaseComponent {
    */
   save() {
     if (!this.validate()) {
-       return;
+      return;
     }
-    const dlg = new Dialog({title: '確認', message: '入金管理情報を登録しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: '入金管理情報を登録しますが、よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -290,7 +308,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
         this.receivecontract.convertForSave(this.service.loginUser.userId, this.datepipe);   //saveのために日付型のconvertを行う
         this.service.saveReceiveContract(this.receivecontract).then(res => {
 
-          const finishDlg = new Dialog({title: '完了', message: '入金管理情報を登録しました。'});
+          const finishDlg = new Dialog({ title: '完了', message: '入金管理情報を登録しました。' });
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',
@@ -302,7 +320,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
             this.receivecontract.convert();
             this.convertContractor();
             this.resetBinding();
-            this.router.navigate(['/receivedetail'], {queryParams: {pid: this.receivecontract.pid}});
+            this.router.navigate(['/receivedetail'], { queryParams: { pid: this.receivecontract.pid } });
           });
         });
       }
@@ -342,7 +360,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
     }
 
     this.receivecontract.details.forEach((detail, pos) => {
-      if( detail.receiveCode == null　|| detail.receiveCode.length == 0 ) {
+      if (detail.receiveCode == null || detail.receiveCode.length == 0) {
         this.errorMsgs.push('入金種別は必須入力の項目です。');
         this.errors['detail.receiveCode_' + pos] = true;
       }
@@ -358,7 +376,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/receives'], {queryParams: {search: '1'}});
+    this.router.navigate(['/receives'], { queryParams: { search: '1' } });
   }
 
   /**
@@ -367,13 +385,13 @@ export class ReceiveContractDetailComponent extends BaseComponent {
   bukkenSearch() {
     this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
     const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
-    if(lst.length === 1) {
+    if (lst.length === 1) {
       this.loadSellers(this.bukkenMap[this.bukkenName]);
       this.receivecontract.tempLandInfoPid = this.bukkenMap[this.bukkenName];
     }
     else {
       this.sellers = [];
-      if(this.receivecontract != null && this.receivecontract.details.length > 0) {
+      if (this.receivecontract != null && this.receivecontract.details.length > 0) {
         this.receivecontract.details.forEach(me => {
           me.contractor = '';
         });
@@ -382,7 +400,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
     }
 
     //物件名削除⇒契約者リセット
-    if(this.isBlank(this.bukkenName)) {
+    if (this.isBlank(this.bukkenName)) {
       this.receivecontract.details.forEach(me => me.contractorMap = []);
     }
 
@@ -393,7 +411,7 @@ export class ReceiveContractDetailComponent extends BaseComponent {
     return val;
   }
 
-  taxCalc(detail: Receivecontractdetailinfo){
+  taxCalc(detail: Receivecontractdetailinfo) {
 
     let receivePriceTax = this.getNumber(this.removeComma(detail.receivePriceTaxMap));
     let taxEffectiveDay = this.receivecontract.taxEffectiveDayMap != null ? this.datepipe.transform(this.receivecontract.taxEffectiveDayMap, 'yyyyMMdd') : null;
@@ -405,23 +423,22 @@ export class ReceiveContractDetailComponent extends BaseComponent {
 
       // 税率
       this.taxRate = 0;
-      if(!this.isBlank(taxEffectiveDay)) {
-        var tax = this.taxes.filter(me => me.effectiveDay <= taxEffectiveDay).sort((a,b) => String(b.effectiveDay).localeCompare(a.effectiveDay))[0];
+      if (!this.isBlank(taxEffectiveDay)) {
+        var tax = this.taxes.filter(me => me.effectiveDay <= taxEffectiveDay).sort((a, b) => String(b.effectiveDay).localeCompare(a.effectiveDay))[0];
         this.taxRate = tax.taxRate;
       }
       // 入金種別
       let lst = this.recTypes.filter(me => me.receiveCode === detail.receiveCode);
 
       // 入金種別が課税対象の場合
-      if(lst.length > 0) {
+      if (lst.length > 0) {
         // 入金金額(税抜)=入金金額(税込)÷(1+消費税率)
         detail.receivePrice = Math.ceil(receivePriceTax / (1 + this.taxRate / 100));
         // 消費税=入金金額(税込)-入金金額(税抜)
         detail.receiveTax = receivePriceTax - detail.receivePrice;
       }
     }
-    else
-    {
+    else {
       detail.receivePrice = null;
       detail.receiveTax = null;
     }
@@ -438,6 +455,6 @@ export class ReceiveContractDetailComponent extends BaseComponent {
   contractorClick(event) {
     let pr = $(event.target).closest('div.multiselect-dropdown');
     let lst = pr.find('div.dropdown-list');
-    lst.css({left: pr.offset().left + 10, top: pr.offset().top + 20});
+    lst.css({ left: pr.offset().left + 10, top: pr.offset().top + 20 });
   }
 }

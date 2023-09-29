@@ -6,7 +6,7 @@
     width: 80px;
     font-size: 1.0em;
 }
-
+/* 20230929 S_Add */
 .detail-tbl-min > tr > td > label {
     background-color: rgba(226, 239, 218, 1);
     font-size: 0.8em;
@@ -16,3 +16,4 @@
     padding-right: 26px;
     font-weight: bold;
 }
+/* 20230929 E_Add */

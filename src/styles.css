@@ -48,6 +48,12 @@ textarea {
     min-width: 110px !important;
     width: 110px !important;
 }
+/* 20230929 S_Add */
+.width120 {
+    width: 120px !important;
+    min-width: 120px !important;
+}
+/* 20230929 E_Add */
 .width130 {
     width: 130px !important;
 }

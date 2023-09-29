@@ -28,7 +28,7 @@
     min-width: 120px;
     font-size: 12px;
     font-weight: 500;
-    color:white;
+    color: white;
     border: solid 1px gainsboro;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .detail-tbl > tr > th {
-    width:100px !important;
+    width: 100px !important;
     background-color: whitesmoke;
     text-align: left;
     height: 22px !important;
@@ -144,7 +144,7 @@ span.now {
 }
 
 .register-btn {
-    background-color:#45a4f7;
+    background-color: #45a4f7;
     color: white;
 }
 
@@ -154,7 +154,7 @@ span.now {
     min-width: 120px;
     font-size: 12px;
     font-weight: 500;
-    color:white;
+    color: white;
     border: solid 1px gainsboro;
 }
 
@@ -167,3 +167,13 @@ span.now {
 .row-disabled {
     background-color: #959595;
 }
+/* 20230929 S_Add */
+.button-div-left button {
+    margin: 10px 10px 10px 0px;
+}
+
+.button-div-left {
+    display: flex;
+    margin-left: 10px;
+}
+/* 20230929 E_Add */

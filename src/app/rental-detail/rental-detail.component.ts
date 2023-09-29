@@ -21,47 +21,47 @@ import { RentalReceive } from '../models/rentalreceive';
   templateUrl: './rental-detail.component.html',
   styleUrls: ['./rental-detail.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
 export class RentalInfoDetailComponent extends BaseComponent {
 
-  @ViewChild('topElement', {static: true}) topElement: ElementRef;
+  @ViewChild('topElement', { static: true }) topElement: ElementRef;
 
   public locationInfos = [];// 地番　家屋番号
   public contractSellerInfos = [];// 所有者名
-  
+
   public rental: RentalInfo;
   public pid: number;
   public contractInfoPid: number;// 仕入契約情報PID
   public tempLandInfoPid: number;// 土地情報PID
-  public receiveAllFlg:string;
-  
+  public receiveAllFlg: string;
+
   public rentalContracts = [];//賃貸契約
   public rentalReceives = [];//賃貸入金
   public rentalReceivesBk = [];//賃貸入金（変更前）
 
   bankPids: Code[];
-  locationInfoPids:Code[];
-  contractSellerInfoPids:Code[];
-  locationNumbers:Code[];
+  locationInfoPids: Code[];
+  contractSellerInfoPids: Code[];
+  locationNumbers: Code[];
   locationInfoPidDB: number;// DBの所在地情報PID
 
   constructor(public router: Router,
-              private route: ActivatedRoute,
-              public dialog: MatDialog,
-              public service: BackendService,
-              private spinner: NgxSpinnerService,
-              public datepipe: DatePipe) {
-      super(router, service,dialog);
-      this.route.queryParams.subscribe(params => {
-        this.pid = params.pid;
-        this.contractInfoPid = params.contractInfoPid;
-        this.tempLandInfoPid = params.tempLandInfoPid;
-      });
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    public service: BackendService,
+    private spinner: NgxSpinnerService,
+    public datepipe: DatePipe) {
+    super(router, service, dialog);
+    this.route.queryParams.subscribe(params => {
+      this.pid = params.pid;
+      this.contractInfoPid = params.contractInfoPid;
+      this.tempLandInfoPid = params.tempLandInfoPid;
+    });
 
-      this.rental = new RentalInfo();
+    this.rental = new RentalInfo();
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -77,16 +77,16 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
     const funcs = [];
 
-    funcs.push(this.service.getCodes(['005','043','045']));
+    funcs.push(this.service.getCodes(['005', '043', '046']));
     funcs.push(this.service.getBanks('1'));
 
     //地番　家屋番号を取得
     let cond = {
-      searchFor:'searchLocationNumber'
-      ,contractInfoPid: this.contractInfoPid
+      searchFor: 'searchLocationNumber'
+      , contractInfoPid: this.contractInfoPid
     };
     funcs.push(this.service.commonSearch(cond));
-   
+
     //所有者名を取得
     cond.searchFor = 'searchSellerName';
     funcs.push(this.service.commonSearch(cond));
@@ -103,10 +103,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
       this.bankPids = this.getBanks();
 
       this.locationInfos = values[2];
-      this.locationInfoPids = this.locationInfos.filter(loc=>(loc.blockNumber != null && loc.blockNumber != '') || (loc.buildingNumber != null && loc.buildingNumber != '')).map(loc => new Code({codeDetail: loc.locationInfoPid, name: loc.blockNumber??'' + ' ' + loc.buildingNumber??''}));
+      this.locationInfoPids = this.locationInfos.filter(loc => (loc.blockNumber != null && loc.blockNumber != '') || (loc.buildingNumber != null && loc.buildingNumber != '')).map(loc => new Code({ codeDetail: loc.locationInfoPid, name: loc.blockNumber ?? '' + ' ' + loc.buildingNumber ?? '' }));
 
       this.contractSellerInfos = values[3];
-      this.contractSellerInfoPids = this.contractSellerInfos.map(loc => new Code({codeDetail: loc.pid, name: loc.contractorName}));
+      this.contractSellerInfoPids = this.contractSellerInfos.map(loc => new Code({ codeDetail: loc.pid, name: loc.contractorName }));
 
       // 賃貸あり場合
       if (this.pid > 0) {
@@ -125,7 +125,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
       this.spinner.hide();
     });
   }
-  
+
   /**
    * 賃貸入金の変更前データ
    */
@@ -151,8 +151,8 @@ export class RentalInfoDetailComponent extends BaseComponent {
     if (!this.validate()) {
       return;
     }
-    const dlg = new Dialog({title: '確認', message: '賃貸情報を登録しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: '賃貸情報を登録しますが、よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -166,17 +166,15 @@ export class RentalInfoDetailComponent extends BaseComponent {
         else if (this.locationInfoPidDB != this.rental.locationInfoPid) {
           isNeedReload = true;
         }
-        this.rental.convertForSave(this.service.loginUser.userId, this.datepipe, true);
-        
+        this.rental.convertForSave(this.service.loginUser.userId, this.datepipe);
+
         if (this.rental.pid > 0) {
           this.rental.rentalReceivesChanged = this.getReceivesChanged();
         }
-        
-        console.log(JSON.stringify(this.rental));
-        
+
         this.service.rentalSave(this.rental).then(res => {
-          const finishDlg = new Dialog({title: '完了', message: '賃貸情報を登録しました。'});
-          
+          const finishDlg = new Dialog({ title: '完了', message: '賃貸情報を登録しました。' });
+
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',
@@ -188,10 +186,13 @@ export class RentalInfoDetailComponent extends BaseComponent {
             this.rental = new RentalInfo(res);
             this.locationInfoPidDB = this.rental.locationInfoPid;
             this.rental.convert();
-            if(isNeedReload) {
+            if (isNeedReload) {
               this.searchRentalContract_Receive();
             }
-            this.router.navigate(['/rendetail'], {queryParams: {pid: this.rental.pid, contractInfoPid: this.rental.contractInfoPid}});
+            else {
+              this.backupRentalReceive();
+            }
+            this.router.navigate(['/rendetail'], { queryParams: { pid: this.rental.pid, contractInfoPid: this.rental.contractInfoPid } });
           });
         });
       }
@@ -218,14 +219,14 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/rentals'], {queryParams: {search: '1'}});
+    this.router.navigate(['/rentals'], { queryParams: { search: '1' } });
   }
 
   /**
    * 契約情報遷移
    */
   toContract() {
-    this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contractInfoPid}});
+    this.router.navigate(['/ctdetail'], { queryParams: { pid: this.contractInfoPid } });
   }
 
   /**
@@ -237,7 +238,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
     data.contractInfoPid = this.rental.contractInfoPid;
     data.tempLandInfoPid = this.rental.tempLandInfoPid;
     data.locationInfoPid = this.locationInfoPidDB;
-    
+
     const dialogRef = this.dialog.open(RentalContractDetailComponent, {
       width: '98%',
       height: '650px',
@@ -262,13 +263,12 @@ export class RentalInfoDetailComponent extends BaseComponent {
     const dialogRef = this.dialog.open(RentalContractDetailComponent, {
       width: '98%',
       height: '650px',
-      data:  <RentalContract>Util.deepCopy(obj, 'RentalContract')
+      data: <RentalContract>Util.deepCopy(obj, 'RentalContract')
     });
 
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        
         if (result.isSave || result.isDelete) {
           if (result.isSave) {
             this.rentalContracts[pos] = new RentalContract(result.data);
@@ -310,7 +310,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * @param pos 
   */
   deleteRentalContract(obj: RentalContract, pos: number) {
-    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dlg = new Dialog({ title: '確認', message: '削除してよろしいですか？' });
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -330,12 +330,12 @@ export class RentalInfoDetailComponent extends BaseComponent {
   /**
    * 賃貸入金を取得
    */
-  searchRentalReceive(){
+  searchRentalReceive() {
     const funcs = [];
 
     let cond = {
-      searchFor:'searchRentalReceive'
-      ,rentalInfoPid: this.rental.pid
+      searchFor: 'searchRentalReceive'
+      , rentalInfoPid: this.rental.pid
     };
     funcs.push(this.service.commonSearch(cond));
 
@@ -349,15 +349,15 @@ export class RentalInfoDetailComponent extends BaseComponent {
   /**
    * 賃貸契約・入金を取得
    */
-  searchRentalContract_Receive(){
+  searchRentalContract_Receive() {
     const funcs = [];
 
     let cond = {
-      searchFor:'searchRentalContract_Receive'
-      ,rentalInfoPid: this.rental.pid
+      searchFor: 'searchRentalContract_Receive'
+      , rentalInfoPid: this.rental.pid
     };
     funcs.push(this.service.commonSearch(cond));
-   
+
     Promise.all(funcs).then(values => {
       this.rentalContracts = values[0].rentalContracts;
       this.rentalReceives = values[0].rentalReceives;
@@ -370,19 +370,19 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * 変更された賃貸入金を取得
    * @returns 
    */
-  getReceivesChanged(){
+  getReceivesChanged() {
     let listChangeds = [];
 
     this.rentalReceives.forEach(r => {
       r.details.forEach(d => {
-        let objBk = this.rentalReceivesBk.filter(b=>b.pid == d.pid)[0];
-        
+        let objBk = this.rentalReceivesBk.filter(b => b.pid == d.pid)[0];
+
         if (objBk.receiveFlg != d.receiveFlg) {
           listChangeds.push(d);
         }
       });
-    }); 
-    return  listChangeds;
+    });
+    return listChangeds;
   }
 
   /**
@@ -393,7 +393,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
     this.receiveAllFlg = (event.checked ? '1' : '0');
 
     this.rentalReceives.forEach(r => {
-      this.changeReceiveFlgGroup(event,r);
+      this.changeReceiveFlgGroup(event, r);
     });
   }
 
@@ -404,19 +404,19 @@ export class RentalInfoDetailComponent extends BaseComponent {
   */
   changeReceiveFlgGroup(event, flg: any) {
     flg.receiveFlgGroup = (event.checked ? '1' : '0');
-    
-    let listDetails = this.rentalReceives.filter(a=>a.receiveMonth == flg.receiveMonth);
-    
+
+    let listDetails = this.rentalReceives.filter(a => a.receiveMonth == flg.receiveMonth);
+
     if (listDetails.length > 0) {
-      for (var i= 0; i < listDetails.length; i++) {
+      for (var i = 0; i < listDetails.length; i++) {
         let details = listDetails[i].details;
 
-        for (var d= 0; d < details.length; d++) {
+        for (var d = 0; d < details.length; d++) {
           let item = details[d];
-          let con = this.rentalContracts.filter(c=>c.pid == item.rentalContractPid)[0];
+          let con = this.rentalContracts.filter(c => c.pid == item.rentalContractPid)[0];
 
           //賃料免除開始日以外
-          if (!(this.isDisableByRenContract(item.receiveMonth,con.roomRentExemptionStartDate))) {
+          if (!(this.isDisableByRenContract(item.receiveMonth, con.roomRentExemptionStartDate))) {
             item.receiveFlg = flg.receiveFlgGroup;
           }
         }
@@ -430,19 +430,19 @@ export class RentalInfoDetailComponent extends BaseComponent {
   * @param details 
   * @param renConPid 
   */
-  changeReceiveFlg(event, details,renConPid) {
+  changeReceiveFlg(event, details, renConPid) {
     let receiveFlg = (event.checked ? '1' : '0');
-    let detail = details.filter(a=>a.rentalContractPid == renConPid)[0];
+    let detail = details.filter(a => a.rentalContractPid == renConPid)[0];
     detail.receiveFlg = receiveFlg;
-    
-    this.rentalReceives.forEach(d=>{
-      var obj = d.details.filter(a=>a.pid == detail.pid);
+
+    this.rentalReceives.forEach(d => {
+      var obj = d.details.filter(a => a.pid == detail.pid);
       if (obj != null) {
         obj.receiveFlg = receiveFlg;
         return false;
       }
     });
-  }   
+  }
 
   /**
    * 賃貸契約存在チェック
@@ -451,7 +451,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * @returns 
    */
   isExistRenContract(details, renConPid) {
-    return details.filter(a=>a.rentalContractPid == renConPid).length > 0;
+    return details.filter(a => a.rentalContractPid == renConPid).length > 0;
   }
 
   /**
@@ -461,7 +461,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * @returns 
    */
   isDisableByRenContract(receiveMonth, roomRentExemptionStartDate) {
-    return roomRentExemptionStartDate && roomRentExemptionStartDate.substring(0,6) <= receiveMonth;
+    return roomRentExemptionStartDate && roomRentExemptionStartDate.substring(0, 6) <= receiveMonth;
   }
 
   /**
@@ -471,7 +471,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
   * @returns 
   */
   getReceiveDay(details, conPid) {
-    return details.filter(a=>a.rentalContractPid == conPid)[0].receiveDay;
+    return details.filter(a => a.rentalContractPid == conPid)[0].receiveDay;
   }
 
   /**
@@ -481,6 +481,6 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * @returns 
    */
   getReceiveFlg(details, conPid) {
-    return details.filter(a=>a.rentalContractPid == conPid)[0].receiveFlg;
+    return details.filter(a => a.rentalContractPid == conPid)[0].receiveFlg;
   }
 }

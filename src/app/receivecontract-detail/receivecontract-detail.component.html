@@ -9,17 +9,16 @@
     </ul>
 
     <!--/入金情報ヘッダー-->
-    <table class="detail-tbl-min-receive">  
+    <table class="detail-tbl-min-receive">
         <tr>
             <td colspan="10"><span class="min">契約区分</span></td>
             <td colspan="5">
                 <div class="register-div1">
                     <div><span class="must">消費税適用日</span>&nbsp;&nbsp;
-                            <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="receivecontract.taxEffectiveDayMap" class="width100" (ngModelChange)="changeTaxEffectiveDay($event)">
-                            <mat-datepicker-toggle matSuffix [for]="taxEffectiveDay" class="picker-icon"></mat-datepicker-toggle>
-                            <mat-datepicker #taxEffectiveDay></mat-datepicker>
+                        <input type="text" [matDatepicker]="taxEffectiveDay" [(ngModel)]="receivecontract.taxEffectiveDayMap" class="width100" (ngModelChange)="changeTaxEffectiveDay($event)">
+                        <mat-datepicker-toggle matSuffix [for]="taxEffectiveDay" class="picker-icon"></mat-datepicker-toggle>
+                        <mat-datepicker #taxEffectiveDay></mat-datepicker>
                     </div>
-            
                 </div>
             </td>
         </tr>
@@ -33,7 +32,7 @@
             </td>
             <th rowspan="2">取引先</th>
             <td colspan="6"><label>取引先　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierName" class="width85Per" maxlength="100"></td>
-        </tr> 
+        </tr>
         <tr>
             <th>契約担当部署</th>
             <td colspan="5">
@@ -41,7 +40,7 @@
             <td colspan="6">
                 <label>住所　</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierAddress" class="width400" maxlength="100">
                 &nbsp;&nbsp;<label>電話番号　</label>&nbsp;<input type="text" [(ngModel)]="receivecontract.supplierTel" class="width110" maxlength="25">
-            </td> 
+            </td>
         </tr>
         <!--
         <tr>
@@ -116,11 +115,16 @@
                 <th class="width80">入金日</th>
                 <!--<th class="width80">入金時間</th>-->
                 <th class="width130">入金方法</th>
+                <!-- 20230928 S_Add -->
+                <th class="width130">入金口座</th>
+                <th class="width250">振込名義人</th>
+                <th class="width250">振込名義人カナ</th>
+                <!-- 20230928 E_Add -->
                 <th>契約者</th>
                 <th>備考</th>
             </thead>
             <tbody class="list-body">
-                <tr *ngFor="let detail of receivecontract.details | slice:0:1; index as sharerPos">                        
+                <tr *ngFor="let detail of receivecontract.details | slice:0:1; index as sharerPos">
                     <td>
                         <button mat-raised-button (click)="addReceiveContractDetail()" style="background-color: #FFC000; color: white;">追加</button>
                     </td>
@@ -154,7 +158,12 @@
                         </div>
                     </td>
                     <!--<td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>-->
-                    <td><app-select-component  class="width150" [codes]="getCode('015')" [(ngModel)]="detail.receiveMethod"></app-select-component></td>
+                    <td><app-select-component class="width150" [codes]="getCode('015')" [(ngModel)]="detail.receiveMethod"></app-select-component></td>
+                    <!-- 20230928 S_Add -->
+                    <td><app-select-component class="width150" [codes]="bankPids" [(ngModel)]="detail.banktransferPid"></app-select-component></td>
+                    <td><input type="text" [(ngModel)]="detail.banktransferName" maxlength="128"></td>
+                    <td><input type="text" [(ngModel)]="detail.banktransferNameKana" maxlength="128"></td>
+                    <!-- 20230928 E_Add -->
                     <td>
                         <ng-multiselect-dropdown class="width280"
                             [placeholder]="'選択'"
@@ -203,6 +212,11 @@
                     </td>
                     <!--<td><input class="width100" type="text" [(ngModel)]="detail.contractFixTime" maxlength="5"></td>-->
                     <td><app-select-component class="width150" [codes]="getCode('015')" [(ngModel)]="detail.receiveMethod"></app-select-component></td>
+                    <!-- 20230928 S_Add -->
+                    <td><app-select-component class="width150" [codes]="bankPids" [(ngModel)]="detail.banktransferPid"></app-select-component></td>
+                    <td><input type="text" [(ngModel)]="detail.banktransferName" maxlength="128"></td>
+                    <td><input type="text" [(ngModel)]="detail.banktransferNameKana" maxlength="128"></td>
+                    <!-- 20230928 E_Add -->
                     <td>
                         <ng-multiselect-dropdown class="width280"
                             [placeholder]="'選択'"
@@ -210,7 +224,7 @@
                             [(ngModel)]="detail.contractorMap"
                             [settings]="dropdownSettings"
                             (click)="contractorClick($event)"
-                            >
+                        >
                         </ng-multiselect-dropdown>
 
                     </td>

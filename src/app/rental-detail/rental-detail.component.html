@@ -1,5 +1,5 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
-<div  class="detail-div">
+<div class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button class="button bukken-button" (click)="toContract()">契約詳細</button>
@@ -9,7 +9,7 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <!--/賃貸情報-->
-    <table class="detail-tbl"  style="margin:10px;width:99%">
+    <table class="detail-tbl" style="margin:10px;width:99%">
         <tr>
             <th>所有者名</th>
             <td>
@@ -17,14 +17,12 @@
             </td>
             <th>地番 家屋番号</th>
             <td>
-                <app-select-component [codes]="locationInfoPids" [(ngModel)]="rental.locationInfoPid"  [ngClass]="{'width250': true, 'error-select': errors['locationInfoPid']}"></app-select-component>
+                <app-select-component [codes]="locationInfoPids" [(ngModel)]="rental.locationInfoPid" [ngClass]="{'width250': true, 'error-select': errors['locationInfoPid']}"></app-select-component>
             </td>
             <th>建物名</th>
             <td colspan="3">
                 <input type="text" [(ngModel)]="rental.apartmentName" [ngClass]="{'width400': true, 'error': errors['apartmentName']}" maxlength="128">
             </td>
-            
-
         </tr>
         <tr>
             <th>入金口座</th>
@@ -52,9 +50,11 @@
     <!--/賃貸情報-->
 
     <!--賃貸契約一覧-->
+    <div class="button-div-left" *ngIf="pid > 0">
+        <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addRentalContract()">賃貸契約　登録</button>
+    </div>
     <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
         <span class="min">賃貸契約</span>
-        <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addRentalContract()" >賃貸契約　登録</button>
         <table>
             <thead class="list-header">
                 <th>部屋番号</th>
@@ -74,7 +74,7 @@
                     <td class="text-left">{{rcon.borrowerName}}</td>
                     <td [noWrap]="true">{{formatDay(rcon.loanPeriodStartDate, 'yyyy/MM/dd')}}～{{formatDay(rcon.loanPeriodEndDate, 'yyyy/MM/dd')}}</td>
                     <td class="text-left">{{getCodeTitle('043',rcon.contractMethod)}}</td>
-                    <td class="text-left">{{getCodeTitle('045',rcon.paymentMethod)}}</td>
+                    <td class="text-left">{{getCodeTitle('046',rcon.paymentMethod)}}</td>
                     <td class="text-right">{{numberFormat(rcon.rentPrice)}}</td>
                     <td class="text-right">{{numberFormat(getNumber(rcon.condoFee) + getNumber(rcon.managementFee)) }}</td>
                     <td><button mat-raised-button (click)="showRentalContract(rcon,pos)" color="warn">詳細</button></td>
@@ -91,18 +91,18 @@
         <span class="min">賃貸入金</span>
         <table>
             <thead class="list-header">
-                
+
             </thead>
             <tbody class="list-body">
                 <tr>
                     <th rowspan="3" class="header2 width100">一括
-                        <br/>
+                        <br />
                         <mat-checkbox [checked]="receiveAllFlg === '1'" (change)="changeReceiveAllFlg($event)"></mat-checkbox>
-                        <br/>
-                        (その月の全員分<br/>にチェック)
+                        <br />
+                        (その月の全員分<br />にチェック)
                     </th>
-                    <th class="header2 width100">部屋番号</th>
-                    <th  class="header2" *ngFor="let rcon of rentalContracts; index as pos">
+                    <th class="header2 width120">部屋番号</th>
+                    <th class="header2 width120" *ngFor="let rcon of rentalContracts; index as pos">
                         {{rcon.roomNo}}
                     </th>
                 </tr>

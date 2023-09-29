@@ -1,5 +1,5 @@
 <ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
-<div class="dialog-div">  
+<div class="dialog-div">
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
@@ -7,7 +7,7 @@
         <tr>
             <td colspan="4">
                 <span class="min">
-                    <label>立退き情報</label>
+                    <label>立退き情報　登録</label>
                 </span>
             </td>
         </tr>
@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <th>明渡予定日</th>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="surrenderScheduledDate" [(ngModel)]="data.surrenderScheduledDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="surrenderScheduledDate" class="picker-icon"></mat-datepicker-toggle>
@@ -35,7 +35,7 @@
                 </div>
             </td>
             <th>明渡日</th>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="surrenderDate" [(ngModel)]="data.surrenderDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="surrenderDate" class="picker-icon"></mat-datepicker-toggle>
@@ -62,32 +62,32 @@
             </td>
         </tr>
         <tr>
-            <td> 
+            <td>
                 <input type="text" [(ngModel)]="data.deposit1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.deposit1Map)">&nbsp;円
             </td>
-            <td> 
+            <td>
                 <input type="text" [(ngModel)]="data.deposit2Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.deposit2Map)">&nbsp;円
             </td>
-            <td> 
+            <td>
                 <input type="text" [(ngModel)]="data.remainingFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.remainingFeeMap)">&nbsp;円
             </td>
         </tr>
         <tr>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="depositPayedDate1" [(ngModel)]="data.depositPayedDate1Map" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="depositPayedDate1" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #depositPayedDate1></mat-datepicker>
                 </div>
             </td>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="depositPayedDate2" [(ngModel)]="data.depositPayedDate2Map" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="depositPayedDate2" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #depositPayedDate2></mat-datepicker>
                 </div>
             </td>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="remainingPayedDate" [(ngModel)]="data.remainingPayedDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="remainingPayedDate" class="picker-icon"></mat-datepicker-toggle>
@@ -97,7 +97,7 @@
         </tr>
         <tr>
             <th>合意書取得日</th>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="getAgreementDate" [(ngModel)]="data.getAgreementDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="getAgreementDate" class="picker-icon"></mat-datepicker-toggle>
@@ -105,7 +105,7 @@
                 </div>
             </td>
             <th>合意書添付日</th>
-            <td> 
+            <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="attachmentAgreementDate" [(ngModel)]="data.attachmentAgreementDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="attachmentAgreementDate" class="picker-icon"></mat-datepicker-toggle>

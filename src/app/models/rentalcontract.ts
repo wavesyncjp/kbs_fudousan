@@ -64,6 +64,10 @@ export class RentalContract {
     roomRentGuaranteeFeeMap: string;
     roomRentExemptionStartDateMap: Date = null;
     locationInfoPidForSearch: number;
+
+    statusMap: string;// 登録状態
+    msgMap: string;// NGのメッセージ
+
     // 開発用の例↑
     public constructor(init?: Partial<RentalContract>) {
         if (init) {
@@ -78,7 +82,7 @@ export class RentalContract {
         this.contractEndNotificationStartDateMap = Converter.stringToDate(this.contractEndNotificationStartDate, 'yyyyMMdd');
         this.contractEndNotificationEndDateMap = Converter.stringToDate(this.contractEndNotificationEndDate, 'yyyyMMdd');
         this.roomRentExemptionStartDateMap = Converter.stringToDate(this.roomRentExemptionStartDate, 'yyyyMMdd');
-        
+
         // 数字
         this.paymentDayMap = Converter.numberToString(this.paymentDay);
         this.rentPriceMap = Converter.numberToString(this.rentPrice);
