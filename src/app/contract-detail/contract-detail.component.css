@@ -178,4 +178,16 @@ span.now {
     display: flex;
     margin-left: 10px;
 } 
+.width_name{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
+ .delete_btn {
+    text-align: center;
+}
+.margin-base{
+    margin-left: 10px;
+}
 /* 20230917 E_Add */

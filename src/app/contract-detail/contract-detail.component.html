@@ -173,84 +173,68 @@
     <!-- 20230917 S_Add -->
     <!--賃貸一覧-->
     <div class="button-div-left" *ngIf="pid > 0">
-        <button mat-raised-button class="register-btn" (click)="navigateRental()" >賃貸情報　登録</button>
+        <button mat-raised-button class="register-btn" (click)="navigateRental()">賃貸情報　登録</button>
     </div>
-    <table class="detail-tbl-min">
-        <tr>
-            <td><span class="min">賃貸一覧</span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="contact-div">
-                    <table>
-                        <thead class="list-header">
-                            <th>建物名</th>
-                            <th>賃借人数</th>
-                            <th>総戸数</th>
-                            <th>詳細</th>
-                            <th>台帳作成</th>
-                            <th>入金管理表作成</th>
-                            <th class="width80">削除</th>
-                        </thead>
-                        <tbody class="list-body">
-                            <tr *ngFor="let item of rentals; index as pos">
-                                <td class="text-left">{{item.apartmentName}}</td>
-                                <td class="text-right">{{numberFormat(item.countContract)}}</td>
-                                <td class="text-right">{{numberFormat(item.totalUnits)}}</td>
-                                <td><button mat-raised-button (click)="showDetailRental(item)" color="warn">詳細</button></td>
-                                <td><button mat-raised-button class="output-btn">台帳作成</button></td>
-                                <td>&nbsp;&nbsp;<button mat-raised-button class="output-btn2">入金管理表作成</button>&nbsp;&nbsp;</td>
-                                <td><button mat-raised-button (click)="deleteRentalInfo(item,pos)" class="delete_btn">削除</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>
 
+    <div class="contact-div margin-base" style="width: 100%;">
+        <span class="min">賃貸一覧</span>
+        <table>
+            <thead class="list-header">
+                <th class="width_name">建物名</th>
+                <th class="width100">賃借人数</th>
+                <th class="width100">総戸数</th>
+                <th class="width80">詳細</th>
+                <th class="width100">台帳作成</th>
+                <th class="width150">入金管理表作成</th>
+                <th class="width80">削除</th>
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let item of rentals; index as pos">
+                    <td class="text-left">{{item.apartmentName}}</td>
+                    <td class="text-right">{{numberFormat(item.countContract)}}</td>
+                    <td class="text-right">{{numberFormat(item.totalUnits)}}</td>
+                    <td><button mat-raised-button (click)="showDetailRental(item)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button class="output-btn">台帳作成</button></td>
+                    <td>&nbsp;&nbsp;<button mat-raised-button class="output-btn2">入金管理表作成</button>&nbsp;&nbsp;</td>
+                    <td><button mat-raised-button (click)="deleteRentalInfo(item,pos)" class="delete_btn">削除</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
     <!--立退き一覧-->
     <div class="button-div-left" *ngIf="pid > 0">
-        <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addEvictionInfo()" >立退き情報　登録</button>
+        <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addEvictionInfo()">立退き情報　登録</button>
     </div>
-    <table class="detail-tbl-min">
-        <tr>
-            <td><span class="min">立退き一覧</span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="contact-div">
-                    <table>
-                        <thead class="list-header">
-                            <th>建物名</th>
-                            <th>部屋番号</th>
-                            <th>賃借人名</th>
-                            <th>明渡日</th>
-                            <th>明渡予定日</th>
-                            <th>詳細</th>
-                            <th>合意書</th>
-                            <th>預り金一覧作成</th>
-                        </thead>
-                        <tbody class="list-body">
-                            <tr *ngFor="let item of evictions; index as pos">
-                                <td class="text-left">{{item.apartmentName}}</td>
-                                <td class="text-left">{{item.roomNo}}</td>
-                                <td class="text-left">{{item.borrowerName}}</td>
-                                <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
-                                <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
-                                <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
-                                <!-- ??? -->
-                                <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">済</span></td>
-                                <td>&nbsp;&nbsp;<button mat-raised-button class="output-btn2">預り金一覧作成</button>&nbsp;&nbsp;</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>    
+
+    <div class="contact-div margin-base" style="width: 100%;">
+        <span class="min">立退き一覧</span>
+        <table>
+            <thead class="list-header">
+                <th class="width_name">建物名</th>
+                <th>部屋番号</th>
+                <th>賃借人名</th>
+                <th class="width100">明渡日</th>
+                <th class="width100">明渡予定日</th>
+                <th class="width80">詳細</th>
+                <th class="width80">合意書</th>
+                <th class="width150">預り金一覧作成</th>
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let item of evictions; index as pos">
+                    <td class="text-left">{{item.apartmentName}}</td>
+                    <td class="text-left">{{item.roomNo}}</td>
+                    <td class="text-left">{{item.borrowerName}}</td>
+                    <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
+                    <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
+                    <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
+                    <!-- ??? -->
+                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">済</span></td>
+                    <td>&nbsp;&nbsp;<button mat-raised-button class="output-btn2">預り金一覧作成</button>&nbsp;&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <!-- 20230917 E_Add -->
     <table class="detail-tbl-min">
         <tr>
