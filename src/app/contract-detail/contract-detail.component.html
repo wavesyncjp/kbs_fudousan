@@ -178,7 +178,7 @@
 
     <div class="contact-div margin-base" style="width: 100%;">
         <span class="min">賃貸一覧</span>
-        <table>
+        <table style="width: auto;">
             <thead class="list-header">
                 <th class="width_name">建物名</th>
                 <th class="width100">賃借人数</th>
@@ -195,7 +195,7 @@
                     <td class="text-right">{{numberFormat(item.totalUnits)}}</td>
                     <td><button mat-raised-button (click)="showDetailRental(item)" color="warn">詳細</button></td>
                     <td><button mat-raised-button class="output-btn">台帳作成</button></td>
-                    <td>&nbsp;&nbsp;<button mat-raised-button class="output-btn2">入金管理表作成</button>&nbsp;&nbsp;</td>
+                    <td><button mat-raised-button class="output-btn2">入金管理表作成</button></td>
                     <td><button mat-raised-button (click)="deleteRentalInfo(item,pos)" class="delete_btn">削除</button></td>
                 </tr>
             </tbody>
@@ -209,7 +209,7 @@
 
     <div class="contact-div margin-base" style="width: 100%;">
         <span class="min">立退き一覧</span>
-        <table>
+        <table style="width: auto;">
             <thead class="list-header">
                 <th class="width_name">建物名</th>
                 <th>部屋番号</th>
@@ -228,9 +228,8 @@
                     <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
                     <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
                     <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
-                    <!-- ??? -->
                     <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">済</span></td>
-                    <td>&nbsp;&nbsp;<button mat-raised-button class="output-btn2">預り金一覧作成</button>&nbsp;&nbsp;</td>
+                    <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
                 </tr>
             </tbody>
         </table>
