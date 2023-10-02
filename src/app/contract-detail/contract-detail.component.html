@@ -172,11 +172,11 @@
 
     <!-- 20230917 S_Add -->
     <!--賃貸一覧-->
-    <div class="button-div-left" *ngIf="pid > 0">
+    <div class="button-div-left" *ngIf="pid > 0 && !disableRentalUser">
         <button mat-raised-button class="register-btn" (click)="navigateRental()">賃貸情報　登録</button>
     </div>
 
-    <div class="contact-div margin-base" style="width: 100%;">
+    <div class="contact-div margin-base" *ngIf="!disableRentalUser" style="width: 100%;">
         <span class="min">賃貸一覧</span>
         <table style="width: auto;">
             <thead class="list-header">
@@ -203,11 +203,11 @@
     </div>
     <br>
     <!--立退き一覧-->
-    <div class="button-div-left" *ngIf="pid > 0">
-        <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addEvictionInfo()">立退き情報　登録</button>
+    <div class="button-div-left" *ngIf="pid > 0 && !disableRentalUser">
+        <button mat-raised-button class="register-btn" (click)="addEvictionInfo()">立退き情報　登録</button>
     </div>
 
-    <div class="contact-div margin-base" style="width: 100%;">
+    <div class="contact-div margin-base" *ngIf="!disableRentalUser" style="width: 100%;">
         <span class="min">立退き一覧</span>
         <table style="width: auto;">
             <thead class="list-header">
