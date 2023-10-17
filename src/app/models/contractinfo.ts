@@ -42,6 +42,10 @@ export class Contractinfo {
     earnestPriceDay: string;
     earnestPriceDayChk: string;
     tradingBalance: number;
+    // 20231010 S_Add
+    rentalSettlement: number;
+    successionDeposit: number;
+    // 20231010 E_Add
     prioritySalesArea: number;
     prioritySalesFloor: number;
     prioritySalesPlanPrice: number;
@@ -58,7 +62,7 @@ export class Contractinfo {
     deliveryFixedDay: string;
     vacationDay: string;
     contractDay: string;
-    decisionPrice:number;
+    decisionPrice: number;
     decisionDay: string;
     decisionDayChk: string;
     settlementDay: string;
@@ -107,7 +111,7 @@ export class Contractinfo {
     finishScheduledDay: string;
     deliveryDay: string;
     dependType: string;
-    
+
     deposit1DayMap: Date = null;
     deposit2DayMap: Date = null;
     // 20210510 S_Add
@@ -137,7 +141,7 @@ export class Contractinfo {
     prioritySalesAgreementDayMap: Date = null;
     finishScheduledDayMap: Date = null;
     deliveryDayMap: Date = null;
-    
+
     // 20200709 S_Add
     tradingPriceMap: string = "";
     tradingLandPriceMap: string = "";
@@ -153,6 +157,10 @@ export class Contractinfo {
     // 20210510 E_Add
     earnestPriceMap: string = "";
     tradingBalanceMap: string = "";
+    // 20231010 S_Add
+    rentalSettlementMap: string = "";
+    successionDepositMap: string = "";
+    // 20231010 E_Add
     prioritySalesAreaMap: string = "";
     prioritySalesFloorMap: string = "";
     prioritySalesPlanPriceMap: string = "";
@@ -179,7 +187,7 @@ export class Contractinfo {
     siteAvailableAreaMap: string = "";
     totalFloorAreaMap: string = "";
     // 20200709 E_Add
-   
+
     details: Contractdetailinfo[] = [];
     contractFiles: ContractFile[];
     contractAttaches: ContractAttach[];// 20230227 Add
@@ -187,7 +195,7 @@ export class Contractinfo {
     locations = []; // 所有地（保存しない）
     contractStaffMap = [];//20200828 Add
     csvSelected: boolean; //20211107 Add
-    
+
     createUserId: number;
     updateUserId: number;
 
@@ -202,7 +210,7 @@ export class Contractinfo {
     public convert() {
     */
     public convert(emps: any[]) {
-    //20200828 E_Update
+        //20200828 E_Update
         // 20200709 S_Add
         //カレンダー
         this.deposit1DayMap = Converter.stringToDate(this.deposit1Day, 'yyyyMMdd');
@@ -215,8 +223,7 @@ export class Contractinfo {
         this.fixedTaxDayMap = Converter.stringToDate(this.fixedTaxDay, 'yyyyMMdd');// 20230501 Add
 
         // 20210904 S_Add
-        if(this.sharingStartDay != null && this.sharingStartDay.length == 8)
-        {
+        if (this.sharingStartDay != null && this.sharingStartDay.length == 8) {
             this.sharingStartDayYYYY = this.sharingStartDay.substring(0, 4);
             this.sharingStartDayMMDD = this.sharingStartDay.substring(4);
         }
@@ -254,6 +261,10 @@ export class Contractinfo {
         // 20210510 E_Add
         this.earnestPriceMap = Converter.numberToString(this.earnestPrice);
         this.tradingBalanceMap = Converter.numberToString(this.tradingBalance);
+        // 20231010 S_Add
+        this.rentalSettlementMap = Converter.numberToString(this.rentalSettlement);
+        this.successionDepositMap = Converter.numberToString(this.successionDeposit);
+        // 20231010 E_Add
         this.prioritySalesAreaMap = Converter.numberToString(this.prioritySalesArea);
         this.prioritySalesFloorMap = Converter.numberToString(this.prioritySalesFloor);
         this.prioritySalesPlanPriceMap = Converter.numberToString(this.prioritySalesPlanPrice);
@@ -273,10 +284,10 @@ export class Contractinfo {
         this.siteAvailableAreaMap = Converter.numberToString(this.siteAvailableArea);
         this.totalFloorAreaMap = Converter.numberToString(this.totalFloorArea);
         // 20200709 E_Add
-        
+
         //20200828 S_Add
         if (this.contractStaff !== null && emps != null) {
-            this.contractStaffMap = emps.filter(me => this.contractStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
+            this.contractStaffMap = emps.filter(me => this.contractStaff.split(',').indexOf(me.userId) >= 0).map(me => { return { userId: me.userId, userName: me.userName } });
         }
         //20200828 E_Add
 
@@ -286,7 +297,7 @@ export class Contractinfo {
         });
 
         // 20230511 S_Add
-        if(this.contractAttaches != null){
+        if (this.contractAttaches != null) {
             this.contractAttaches.forEach((contractAttach) => {
                 contractAttach.attachFileDayMap = Converter.stringToDate(contractAttach.attachFileDay, 'yyyyMMdd');
             });
@@ -299,7 +310,7 @@ export class Contractinfo {
     public convertForSave(userId: number, datePipe: DatePipe) {
     */
     public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
-    //20200828 E_Update
+        //20200828 E_Update
         if (this.pid > 0) {
             this.updateUserId = userId;
         } else {
@@ -316,7 +327,7 @@ export class Contractinfo {
         this.earnestPriceDay = Converter.dateToString(this.earnestPriceDayMap, 'yyyyMMdd', datePipe);
         this.fixedTaxDay = Converter.dateToString(this.fixedTaxDayMap, 'yyyyMMdd', datePipe);// 20230501 Add
         // 20210904 S_Add
-        if(this.sharingStartDayYYYY != null && this.sharingStartDayMMDD != null) {
+        if (this.sharingStartDayYYYY != null && this.sharingStartDayMMDD != null) {
             this.sharingStartDay = this.sharingStartDayYYYY.concat(this.sharingStartDayMMDD);
         }
         this.sharingEndDay = Converter.dateToString(this.sharingEndDayMap, 'yyyyMMdd', datePipe);
@@ -353,6 +364,10 @@ export class Contractinfo {
         // 20210510 E_Add
         this.earnestPrice = Converter.stringToNumber(this.earnestPriceMap);
         this.tradingBalance = Converter.stringToNumber(this.tradingBalanceMap);
+        // 20231010 S_Add
+        this.rentalSettlement = Converter.stringToNumber(this.rentalSettlementMap);
+        this.successionDeposit = Converter.stringToNumber(this.successionDepositMap);
+        // 20231010 E_Add
         this.prioritySalesArea = Converter.stringToNumber(this.prioritySalesAreaMap);
         this.prioritySalesFloor = Converter.stringToNumber(this.prioritySalesFloorMap);
         this.prioritySalesPlanPrice = Converter.stringToNumber(this.prioritySalesPlanPriceMap);
@@ -372,9 +387,9 @@ export class Contractinfo {
         this.siteAvailableArea = Converter.stringToNumber(this.siteAvailableAreaMap);
         this.totalFloorArea = Converter.stringToNumber(this.totalFloorAreaMap);
         // 20200709 E_Add
-        
+
         //20200828 E_Add
-        if(isJoin) {
+        if (isJoin) {
             this.contractStaff = this.contractStaffMap.map(me => me['userId']).join(',');
         }
         //20200828 E_Add
@@ -384,7 +399,7 @@ export class Contractinfo {
             detail.contractHave = Converter.stringToNumber(detail.contractHaveMap);
         });
         // 20230511 S_Add
-        if(this.contractAttaches != null){
+        if (this.contractAttaches != null) {
             this.contractAttaches.forEach((contractAttach) => {
                 contractAttach.attachFileDay = Converter.dateToString(contractAttach.attachFileDayMap, 'yyyyMMdd', datePipe);
             });

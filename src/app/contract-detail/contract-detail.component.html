@@ -338,6 +338,16 @@
             <td>
                 <input type="text" [(ngModel)]="contract.tradingBalanceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.tradingBalanceMap)">&nbsp;円
             </td>
+            <!-- 20231010 S_Add -->
+            <th>賃料精算金</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.rentalSettlementMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.rentalSettlementMap)">&nbsp;円
+            </td>
+            <th>承継敷金(保証金)</th>
+            <td>
+                <input type="text" [(ngModel)]="contract.successionDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.successionDepositMap)">&nbsp;円
+            </td>
+            <!-- 20231010 E_Add -->
         </tr>
         <tr>
             <th>固都税清算金</th>
@@ -557,7 +567,10 @@
                     <td class="text-right">{{numberFormat(item.countContract)}}</td>
                     <td class="text-right">{{numberFormat(item.totalUnits)}}</td>
                     <td><button mat-raised-button (click)="showDetailRental(item)" color="warn">詳細</button></td>
-                    <td><button mat-raised-button class="output-btn">台帳作成</button></td>
+                    <!-- 20231016 S_Update -->
+                    <!-- <td><button mat-raised-button class="output-btn">台帳作成</button></td> -->
+                    <td><button mat-raised-button (click)="exportRental(item.pid)" class="output-btn">台帳作成</button></td>
+                    <!-- 20231016 E_Update -->
                     <td><button mat-raised-button class="output-btn2">入金管理表作成</button></td>
                     <td><button mat-raised-button (click)="deleteRentalInfo(item,pos)" class="delete_btn">削除</button></td>
                 </tr>
@@ -591,7 +604,10 @@
                     <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
                     <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
                     <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
-                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">済</span></td>
+                    <!-- 2023105 S_Update -->
+                    <!-- <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">済</span></td> -->
+                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
+                    <!-- 2023105 E_Update -->
                     <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
                 </tr>
             </tbody>

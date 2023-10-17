@@ -236,7 +236,12 @@
                 <!-- <input type="text" [(ngModel)]="data.roomNo" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" maxlength="10"> -->
                 <input type="text" [(ngModel)]="data.roomNo" [disabled]="isDisableResident(data)" class="width100" maxlength="10">
                 <!-- 20230914 E_Update -->
-                &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料</label>
+
+                <!-- 20231010 S_Update -->
+                <!-- &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料</label> -->
+                &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料等</label>
+                <!-- 20231010 E_Update -->
+
                 <!-- 20230914 S_Update -->
                 <!-- <input type="text" [(ngModel)]="data.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width80" maxlength="12" [value]="changeValue(data.rentPriceMap)"> -->
                 <input type="text" [(ngModel)]="data.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="isDisableResident(data)" class="width80" maxlength="12" [value]="changeValue(data.rentPriceMap)">
@@ -278,7 +283,12 @@
                 <!-- <input type="text" [(ngModel)]="resident.roomNo" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width100" maxlength="10"> -->
                 <input type="text" [(ngModel)]="resident.roomNo" [disabled]="isDisableResident(data)" class="width100" maxlength="10">
                 <!-- 20230914 E_Update -->
-                &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料</label>
+
+                <!-- 20231010 S_Update -->
+                <!-- &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料</label> -->
+                &nbsp;&nbsp;&nbsp;&nbsp;<label class="sharer">賃料等</label>
+                <!-- 20231010 E_Update -->
+
                 <!-- 20230914 S_Update -->
                 <!-- <input type="text" [(ngModel)]="resident.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="data.locationType !== '02' && data.locationType !== '04'" class="width80" maxlength="12" [value]="changeValue(resident.rentPriceMap)"> -->
                 <input type="text" [(ngModel)]="resident.rentPriceMap" (keypress)="floatOnly($event)" [disabled]="isDisableResident(data)" class="width80" maxlength="12" [value]="changeValue(resident.rentPriceMap)">

@@ -21,7 +21,10 @@
             </td>
             <th>建物名</th>
             <td colspan="3">
-                <input type="text" [(ngModel)]="rental.apartmentName" [ngClass]="{'width400': true, 'error': errors['apartmentName']}" maxlength="128">
+                <!-- 20231005 S_Update -->
+                <!-- <input type="text" [(ngModel)]="rental.apartmentName" [ngClass]="{'width400': true, 'error': errors['apartmentName']}" maxlength="128"> -->
+                <input type="text" [(ngModel)]="rental.apartmentName" [ngClass]="{'width300': true, 'error': errors['apartmentName']}" maxlength="128">
+                <!-- 20231005 E_Update -->
             </td>
         </tr>
         <tr>
@@ -46,12 +49,31 @@
                 </div>
             </td>
         </tr>
+        <!-- 20231010 S_Add -->
+        <tr>
+            <th>管理会社名称</th>
+            <td>
+                <input type="text" [(ngModel)]="rental.manageCompanyName" [ngClass]="{'width250': true, 'error': errors['manageCompanyName']}" maxlength="128">
+            </td>
+            <th>管理会社住所</th>
+            <td>
+                <input type="text" [(ngModel)]="rental.manageCompanyAddress" [ngClass]="{'width250': true, 'error': errors['manageCompanyAddress']}" maxlength="128">
+            </td>
+            <th>管理会社電話番号</th>
+            <td>
+                <input type="text" [(ngModel)]="rental.manageCompanyTel" [ngClass]="{'width110': true, 'error': errors['manageCompanyTel']}" maxlength="25">
+            </td>
+        </tr>
+        <!-- 20231010 E_Add -->
     </table>
     <!--/賃貸情報-->
 
     <!--賃貸契約一覧-->
     <div class="button-div-left" *ngIf="pid > 0">
         <button mat-raised-button *ngIf="pid > 0" class="register-btn" (click)="addRentalContract()">賃貸契約　登録</button>
+        <!-- 20231010 S_Add -->
+        <button mat-raised-button *ngIf="pid > 0" class="register-btn2" (click)="addEvictionInfo()">立退き情報　登録</button>
+        <!-- 20231010 E_Add -->
     </div>
     <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
         <span class="min">賃貸契約</span>
@@ -102,8 +124,11 @@
                         (その月の全員分<br />にチェック)
                     </th>
                     <th class="header2 width120">部屋番号</th>
-                    <th class="header2 width120" *ngFor="let rcon of rentalContracts; index as pos">
-                        {{rcon.roomNo}}
+                    <!-- 20231010 S_Update -->
+                    <!-- <th class="header2 width120" *ngFor="let rcon of rentalContracts; index as pos"> -->
+                    <th class="header2 width160" *ngFor="let rcon of rentalContracts; index as pos">
+                    <!-- 20231010 E_Update -->
+                    {{rcon.roomNo}}
                     </th>
                 </tr>
                 <tr>
@@ -115,27 +140,42 @@
                 <tr>
                     <td class="header2">賃料</td>
                     <td *ngFor="let rcon of rentalContracts; index as pos">
-                        {{numberFormat(rcon.rentPrice)}}
+                        <!-- 20231010 S_Update -->
+                        <!-- {{numberFormat(rcon.rentPrice)}} -->
+                        {{numberFormat(rcon.rentPriceRefMap)}}
+                        <!-- 20231010 E_Update -->
                     </td>
                 </tr>
                 <tr *ngFor="let rev of rentalReceives; index as pos">
                     <td class="text-center"><mat-checkbox [checked]="rev.receiveFlgGroup === '1'" (change)="changeReceiveFlgGroup($event,rev)"></mat-checkbox></td>
                     <td>{{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}</td>
-                    <td *ngFor="let con of rentalContracts; index as posSub" [ngClass]="{'row-disabled':isExistRenContract(rev.details,con.pid) && isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)}">
+                    <!-- 20231010 S_Update -->
+                    <!-- <td *ngFor="let con of rentalContracts; index as posSub" [ngClass]="{'row-disabled':isExistRenContract(rev.details,con.pid) && isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)}">
                         <span *ngIf="isExistRenContract(rev.details,con.pid)">{{formatDay(getReceiveDay(rev.details,con.pid),'MM/dd')}}</span>
                         &nbsp;
                         <mat-checkbox *ngIf="isExistRenContract(rev.details,con.pid)" [disabled]="isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)" [checked]="getReceiveFlg(rev.details,con.pid) === '1'" (change)="changeReceiveFlg($event,rev.details,con.pid)"></mat-checkbox>
+                    </td> -->
+                    <td *ngFor="let revM of rev.renByMonths; index as posSub" [ngClass]="{'row-disabled':revM.isExistRenContractMap && revM.isDisableByRenContractMap}">
+                        <div *ngIf="revM.isExistRenContractMap" class="picker-div">
+                            <input type="text" [matDatepicker]="receiveDay" [disabled]="revM.isDisableByRenContractMap" [(ngModel)]="revM.receiveDayMap" class="width100">
+                            <mat-datepicker-toggle matSuffix [for]="receiveDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #receiveDay></mat-datepicker>
+                        </div>
+                        &nbsp;
+                        <mat-checkbox *ngIf="revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
                     </td>
+                    <!-- 20231010 E_Update -->
                 </tr>
             </tbody>
         </table>
     </div>
     <!--/賃貸入金一覧-->
-
     <br>
-    <div class="register-div" style="margin-top:10px">
+    <!-- 20231010 S_Delete -->
+    <!-- <div class="register-div" style="margin-top:10px">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button class="button bukken-button" (click)="toContract()">契約詳細</button>
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
-    </div>
+    </div> -->
+    <!-- 20231010 E_Delete -->
 </div>

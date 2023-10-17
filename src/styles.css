@@ -601,6 +601,17 @@ span.minDl {
     top: 11px;
 }
 /* 20211107 E_Add */
+
+/* 20231010 S_Add */
+.ui-datepicker-trigger2 {
+    position: absolute;
+    left: 88px;
+    width: 20px;
+    height: 20px;
+    top: 2px;
+}
+/* 20231010 E_Add */
+
 /* 20220613 S_Add */
 .color-red{
     color:red;

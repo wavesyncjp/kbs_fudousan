@@ -41,10 +41,41 @@
                 <input type="text" [(ngModel)]="data.banktransferNameKana" [ngClass]="{'width250': true, 'error': errors['banktransferNameKana']}" maxlength="128">
             </td>
         </tr>
+        <!-- 20231010 S_Add -->
+        <tr>
+            <th>所在階</th>
+            <td>
+                <input type="text" [(ngModel)]="data.floorNumber" class="width100" maxlength="10">&nbsp;階
+            </td>
+            <th>面積</th>
+            <td>
+                <input type="text" [(ngModel)]="data.roomExtentMap" class="width100 number" (keypress)="floatOnly($event)" maxlength="12" [value]="changeValue(data.roomExtentMap)">&nbsp;㎡
+            </td>
+        </tr>
+        <tr>
+            <!-- 20231016 S_Update -->
+            <!-- <th>種類</th> -->
+            <th>建物種類</th>
+            <!-- 20231016 E_Update -->
+            <td>
+                <app-select-component [codes]="getCode('046')" [(ngModel)]="data.roomType"></app-select-component>
+            </td>
+            <th>使用目的</th>
+            <td>
+                <app-select-component [codes]="getCode('047')" [(ngModel)]="data.usePurpose"></app-select-component>
+            </td>
+        </tr>
+        <!-- 20231010 E_Add -->
         <tr>
             <th>部屋番号</th>
             <td>
                 <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
+            </td>
+            <th>成立年月日</th>
+            <td>
+                <span class="calendar-cell">
+                    <input type="text" id="agreementDate" class="width100" [(ngModel)]="data.agreementDateMap">
+                </span>
             </td>
         </tr>
         <tr>
@@ -53,27 +84,66 @@
                 <input type="text" [(ngModel)]="data.borrowerName" [ngClass]="{'width250': true, 'error': errors['borrowerName']}" maxlength="128" disabled="true">
             </td>
 
-            <th>契約期間</th>
+            <!-- 20231016 S_Delete -->
+            <!-- <th>契約期間</th>
             <td>
-                <div class="picker-div">
-                    <input type="text" [matDatepicker]="loanPeriodStartDate" [(ngModel)]="data.loanPeriodStartDateMap" placeholder="開始日" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="loanPeriodStartDate" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #loanPeriodStartDate></mat-datepicker>
-                </div>
+                <span class="calendar-cell">
+                    <input type="text" id="loanPeriodStartDate" class="width100" [(ngModel)]="data.loanPeriodStartDateMap">
+                </span>
                 &nbsp;&nbsp;～
-                <div class="picker-div">
-                    <input type="text" [matDatepicker]="loanPeriodEndDate" [(ngModel)]="data.loanPeriodEndDateMap" placeholder="終了日" [ngClass]="{'width100':true,'error': errors['loanPeriodEndDate']}">
-                    <mat-datepicker-toggle matSuffix [for]="loanPeriodEndDate" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #loanPeriodEndDate></mat-datepicker>
-                </div>
+                <span class="calendar-cell">
+                    <input type="text" id="loanPeriodEndDate" class="width100" [(ngModel)]="data.loanPeriodEndDateMap">
+                </span>
+            </td> -->
+            <!-- 20231016 E_Delete -->
+
+            <!-- 20231016 S_Add -->
+            <th>貸借人住所</th>
+            <td>
+                <input type="text" [(ngModel)]="data.borrowerAddress" [ngClass]="{'width250': true, 'error': errors['borrowerAddress']}" maxlength="128">
+            </td>
+            <!-- 20231016 E_Add -->
+        </tr>
+        <!-- 20231016 S_Add -->
+        <tr>
+            <th>貸借人電話番号</th>
+            <td>
+                <input type="text" [(ngModel)]="data.borrowerTel" [ngClass]="{'width110': true, 'error': errors['borrowerTel']}" maxlength="25">
             </td>
         </tr>
         <tr>
+            <th>契約期間</th>
+            <td>
+                <span class="calendar-cell">
+                    <input type="text" id="loanPeriodStartDate" class="width100" [(ngModel)]="data.loanPeriodStartDateMap">
+                </span>
+                &nbsp;&nbsp;～
+                <span class="calendar-cell">
+                    <input type="text" id="loanPeriodEndDate" class="width100" [(ngModel)]="data.loanPeriodEndDateMap">
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>入居者氏名</th>
+            <td>
+                <input type="text" [(ngModel)]="data.residentName" [ngClass]="{'width250': true, 'error': errors['residentName']}" maxlength="128">
+            </td>
+            <th>入居者電話番号</th>
+            <td>
+                <input type="text" [(ngModel)]="data.residentTel" [ngClass]="{'width110': true, 'error': errors['residentTel']}" maxlength="25">
+            </td>
+        </tr>
+        <!-- 20231016 E_Add -->
+        <tr>
             <th>契約方法</th>
             <td>
-                <app-select-component [codes]="getCode('043')" [(ngModel)]="data.contractMethod"></app-select-component>
+                <!-- 20231016 S_Update -->
+                <!-- <app-select-component [codes]="getCode('043')" [(ngModel)]="data.contractMethod"></app-select-component> -->
+                <app-select-component [codes]="getCode('043')" [(ngModel)]="data.contractMethod" cusClass="width250"></app-select-component>
+                <!-- 20231016 E_Update -->
             </td>
-            <th>契約終了通知をすべき期間</th>
+            <!-- 20231016 S_Update -->
+            <!-- <th>契約終了通知をすべき期間</th>
             <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="contractEndNotificationStartDate" [(ngModel)]="data.contractEndNotificationStartDateMap" placeholder="開始日" class="width100">
@@ -85,7 +155,12 @@
                     <mat-datepicker-toggle matSuffix [for]="contractEndNotificationEndDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #contractEndNotificationEndDate></mat-datepicker>
                 </div>
+            </td> -->
+            <th>契約終了通知</th>
+            <td>
+                <input type="text" [(ngModel)]="data.contractEndNotification" class="width100 number" (keypress)="numericOnly($event)" maxlength="3">&nbsp;ヶ月前
             </td>
+            <!-- 20231016 E_Update -->
         </tr>
         <tr>
             <th>支払方法</th>
@@ -135,15 +210,43 @@
                 <input type="text" [(ngModel)]="data.attachedFacilityFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.attachedFacilityFeeMap)">&nbsp;円
             </td>
         </tr>
+        <!-- 20231016 S_Add -->
         <tr>
-            <th>礼金</th>
+            <th>鍵交換費用</th>
             <td>
-                <input type="text" [(ngModel)]="data.keyMoneyMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.keyMoneyMap)">&nbsp;円
+                <input type="text" [(ngModel)]="data.keyExchangeFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.keyExchangeFeeMap)">&nbsp;円
             </td>
+            <th>その他費用</th>
+            <td>
+                <input type="text" [(ngModel)]="data.otherExpensesMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.otherExpensesMap)">&nbsp;円
+            </td>
+        </tr>
+        <!-- 20231016 E_Add -->
+
+        <!-- 20231010 S_Add -->
+        <tr>
+            <th>保証金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.securityDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.securityDepositMap)">&nbsp;円
+                <!-- 20231016 S_Add -->
+                &nbsp;<mat-checkbox [checked]="data.securityDepositConvertedFlg === '1'" (change)="changeSecurityDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+                <!-- 20231016 E_Add -->
+            </td>
+            <th>償却</th>
+            <td>
+                <input type="text" [(ngModel)]="data.amortizationMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.amortizationMap)">&nbsp;円
+            </td>
+        </tr>
+        <!-- 20231010 E_Add -->
+        <tr>
             <th>敷金</th>
             <td>
                 <input type="text" [(ngModel)]="data.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.depositMap)">&nbsp;円
                 &nbsp;<mat-checkbox [checked]="data.depositConvertedFlg === '1'" (change)="changeDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+            </td>
+            <th>礼金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.keyMoneyMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.keyMoneyMap)">&nbsp;円
             </td>
         </tr>
         <tr>
@@ -177,6 +280,11 @@
                     <mat-datepicker #roomRentExemptionStartDate></mat-datepicker>
                 </div>
             </td>
+            <th>更新料</th>
+            <td>
+                <input type="text" [(ngModel)]="data.updateFee" class="width100 number" (keypress)="floatOnly($event)" maxlength="6">&nbsp;ヶ月分
+            </td>
+            <!-- 20231016 E_Add -->
         </tr>
         <tr>
             <td colspan="6">

@@ -13,6 +13,8 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { RentalInfo } from '../models/rentalinfo';
 import { RentalContract } from '../models/rentalcontract';
 
+declare var $: any;// 20231010 Add
+
 @Component({
   selector: 'app-rentalContract-detail',
   templateUrl: './rentalContract-detail.component.html',
@@ -59,11 +61,15 @@ export class RentalContractDetailComponent extends BaseComponent {
     this.spinner.show();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['043', '044', '015']));
+    // 20231010 S_Update
+    // funcs.push(this.service.getCodes(['043', '044', '015']));
+    funcs.push(this.service.getCodes(['043', '044', '015', '046', '047']));
+    // 20231010 E_Update
     funcs.push(this.service.getBanks('1'));
     let cond = {
       searchFor: 'searchSellerName'
       , contractInfoPid: this.contractInfoPid
+      , isGetMore: 1 // 20231010 Add
     };
 
     if (this.data.pid > 0 && this.data.locationInfoPid == null) {
@@ -105,6 +111,62 @@ export class RentalContractDetailComponent extends BaseComponent {
 
       this.spinner.hide();
     });
+
+    // 20231010 S_Add
+    let _that = this;
+    $('#loanPeriodStartDate').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: `1950:${new Date().getFullYear() + 10}`,
+      dateFormat: 'yy/mm/dd',
+      onSelect: function (dataText) {
+        _that.data.loanPeriodStartDateMap = dataText;
+      },
+      showButtonPanel: true,
+      ignoreReadonly: true,
+      allowInputToggle: true,
+
+      buttonImage: "assets/img/calendar-icon_wareki.png",
+      buttonImageOnly: true,// 画像として表示
+      showOn: "both"
+    });
+
+    $('#loanPeriodEndDate').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: `1950:${new Date().getFullYear() + 10}`,
+      dateFormat: 'yy/mm/dd',
+      onSelect: function (dataText) {
+        _that.data.loanPeriodEndDateMap = dataText;
+      },
+      showButtonPanel: true,
+      ignoreReadonly: true,
+      allowInputToggle: true,
+
+      buttonImage: "assets/img/calendar-icon_wareki.png",
+      buttonImageOnly: true,// 画像として表示
+      showOn: "both"
+    });
+    // 20231016 S_Add
+    $('#agreementDate').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: `1950:${new Date().getFullYear() + 10}`,
+      dateFormat: 'yy/mm/dd',
+      onSelect: function (dataText) {
+        _that.data.agreementDateMap = dataText;
+      },
+      showButtonPanel: true,
+      ignoreReadonly: true,
+      allowInputToggle: true,
+
+      buttonImage: "assets/img/calendar-icon_wareki.png",
+      buttonImageOnly: true,// 画像として表示
+      showOn: "both"
+    });
+    // 20231016 E_Add
+    $('.ui-datepicker-trigger').removeClass('ui-datepicker-trigger').addClass('ui-datepicker-trigger2');
+    // 20231010 E_Add
   }
 
   /**
@@ -209,12 +271,23 @@ export class RentalContractDetailComponent extends BaseComponent {
       this.errorMsgs.push('契約期間は不正です。');
       this.errors['loanPeriodEndDate'] = true;
     }
-
-    if (this.data.contractEndNotificationStartDateMap && this.data.contractEndNotificationEndDateMap
-      && this.data.contractEndNotificationEndDateMap < this.data.contractEndNotificationStartDateMap) {
-      this.errorMsgs.push('契約終了通知をすべき期間は不正です。');
-      this.errors['contractEndNotificationEndDate'] = true;
+    // 20231010 S_Add
+    else if (this.data.ownershipRelocationDateDbMap && this.data.loanPeriodEndDateMap) {
+      let loanPeriodEndDate = this.data.loanPeriodEndDateMap.replace(/\//g, '');
+      if (loanPeriodEndDate < this.data.ownershipRelocationDateDbMap) {
+        this.errorMsgs.push('契約期間は不正です。');
+        this.errors['loanPeriodEndDate'] = true;
+      }
     }
+    // 20231010 E_Add
+
+    // 20231016 S_Delete
+    // if (this.data.contractEndNotificationStartDateMap && this.data.contractEndNotificationEndDateMap
+    //   && this.data.contractEndNotificationEndDateMap < this.data.contractEndNotificationStartDateMap) {
+    //   this.errorMsgs.push('契約終了通知をすべき期間は不正です。');
+    //   this.errors['contractEndNotificationEndDate'] = true;
+    // }
+    // 20231016 E_Delete
 
     if (this.errorMsgs.length > 0) {
       return false;
@@ -270,4 +343,16 @@ export class RentalContractDetailComponent extends BaseComponent {
     flg.roomRentGuaranteeFeeConvertedFlg = (event.checked ? 1 : 0);
     this.data.roomRentGuaranteeFeeConvertedFlg = flg.roomRentGuaranteeFeeConvertedFlg;
   }
+
+  // 20231016 S_Add
+  /**
+   * チェックボックス変更
+   * @param event ：イベント
+   * @param flg ：保証金返還済フラグ
+   */
+  changeSecurityDepositConvertedFlg(event, flg: any) {
+    flg.securityDepositConvertedFlg = (event.checked ? 1 : 0);
+    this.data.securityDepositConvertedFlg = flg.securityDepositConvertedFlg;
+  }
+  // 20231016 E_Add
 }

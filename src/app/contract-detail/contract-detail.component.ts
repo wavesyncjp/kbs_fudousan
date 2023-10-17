@@ -33,13 +33,13 @@ import { Util } from '../utils/util';
   templateUrl: './contract-detail.component.html',
   styleUrls: ['./contract-detail.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
 export class ContractDetailComponent extends BaseComponent {
 
-  @ViewChild('topElement', {static: true}) topElement: ElementRef;
+  @ViewChild('topElement', { static: true }) topElement: ElementRef;
 
   public contract: Contractinfo;
   public data: Templandinfo;
@@ -60,19 +60,19 @@ export class ContractDetailComponent extends BaseComponent {
   public sumArea: number = 0;// 20230301 Add
 
   constructor(public router: Router,
-              private route: ActivatedRoute,
-              public dialog: MatDialog,
-              public service: BackendService,
-              private spinner: NgxSpinnerService,
-              public datepipe: DatePipe) {
-      super(router, service,dialog);
-      this.route.queryParams.subscribe(params => {
-        this.pid = params.pid;
-        this.bukkenid = params.bukkenid;
-      });
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    public service: BackendService,
+    private spinner: NgxSpinnerService,
+    public datepipe: DatePipe) {
+    super(router, service, dialog);
+    this.route.queryParams.subscribe(params => {
+      this.pid = params.pid;
+      this.bukkenid = params.bukkenid;
+    });
 
-      this.data = new Templandinfo();
-      this.data.locations = [];
+    this.data = new Templandinfo();
+    this.data.locations = [];
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -94,7 +94,7 @@ export class ContractDetailComponent extends BaseComponent {
     this.contract = new Contractinfo();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012','019','026']));
+    funcs.push(this.service.getCodes(['002', '003', '004', '006', '007', '008', '009', '011', '012', '019', '026']));
     funcs.push(this.service.getEmps('1'));
     if (this.bukkenid > 0) {
       funcs.push(this.service.getLand(this.bukkenid));
@@ -111,7 +111,7 @@ export class ContractDetailComponent extends BaseComponent {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          lst.sort((a, b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
           this.sysCodes[code] = lst;
         });
       }
@@ -123,7 +123,7 @@ export class ContractDetailComponent extends BaseComponent {
       //20200828 E_Update
 
       // 物件あり場合
-      if ( values.length > 1) {
+      if (values.length > 1) {
         if (this.pid > 0) {
           this.contract = new Contractinfo(values[2] as Contractinfo);
           //20200828 S_Update
@@ -154,9 +154,9 @@ export class ContractDetailComponent extends BaseComponent {
       //20201009 - 登記名義人まとめ
       this.data.locations.forEach(me => {
 
-        if(me.sharers != null && me.sharers.length > 1){
+        if (me.sharers != null && me.sharers.length > 1) {
           me.sharers = me.sharers.filter(fl => fl.buysellFlg === "1");
-        }        
+        }
 
       });
       //20201009: END - 登記名義人まとめ
@@ -165,7 +165,7 @@ export class ContractDetailComponent extends BaseComponent {
       this.spinner.hide();
 
     });
-    
+
     //20200731 S_Add
     this.dropdownSettings = {
       singleSelection: false,
@@ -180,10 +180,10 @@ export class ContractDetailComponent extends BaseComponent {
   }
   // 20230509 S_Add
   sortLocationContract() {
-    this.data.locations.sort((a,b) => {
+    this.data.locations.sort((a, b) => {
       let id1 = a.displayOrder != null ? a.displayOrder : 0;
       let id2 = b.displayOrder != null ? b.displayOrder : 0;
-      if(id1 !== id2) return id1 - id2;
+      if (id1 !== id2) return id1 - id2;
 
       return a.pid - b.pid;
     });
@@ -194,10 +194,10 @@ export class ContractDetailComponent extends BaseComponent {
     let pids = [];
     tempLocsNot04.forEach(locNot04 => {
       tempLocs.push(locNot04);
-      if(locNot04.locationType === '03') {
+      if (locNot04.locationType === '03') {
         tempLocs04.forEach(loc04 => {
-          
-          if(String(locNot04.pid) === loc04.ridgePid && !pids.includes(loc04.pid)) {
+
+          if (String(locNot04.pid) === loc04.ridgePid && !pids.includes(loc04.pid)) {
             tempLocs.push(loc04);
             pids.push(loc04.pid);
           }
@@ -205,7 +205,7 @@ export class ContractDetailComponent extends BaseComponent {
       }
     });
     tempLocs04.forEach(loc04 => {
-      if(!pids.includes(loc04.pid)) {
+      if (!pids.includes(loc04.pid)) {
         tempLocs.push(loc04);
         pids.push(loc04.pid);
       }
@@ -242,7 +242,7 @@ export class ContractDetailComponent extends BaseComponent {
       } else {
         newLoc.contractDetail = new Contractdetailinfo();
       }
-        if(loc.locationType !== '03') locs.push(newLoc);
+      if (loc.locationType !== '03') locs.push(newLoc);
     });
     this.data.locations = locs;
   }
@@ -252,73 +252,73 @@ export class ContractDetailComponent extends BaseComponent {
    * @param event ：イベント
    * @param flg ：フラグ
    売買対象flgChange/相続未登記ありnotChange/建物未登記ありyetChange*/
-   flgChange1(event, flg: any) {
+  flgChange1(event, flg: any) {
     flg.deposit1DayChk = (event.checked ? 1 : 0);
     this.contract.deposit1DayChk = flg.deposit1DayChk;
-   }
-   flgChange2(event, flg: any) {
+  }
+  flgChange2(event, flg: any) {
     flg.deposit2DayChk = (event.checked ? 1 : 0);
     this.contract.deposit2DayChk = flg.deposit2DayChk;
-   }
+  }
   // 20230511 S_Add
-   flgChangeAttachFileChk(event, map: ContractAttach) {
+  flgChangeAttachFileChk(event, map: ContractAttach) {
     map.attachFileChk = (event.checked ? "1" : "0");
-   }
+  }
   // 20230511 E_Add
 
-   // 20210510 S_Add
-   deposit3Change(event, flg: any) {
+  // 20210510 S_Add
+  deposit3Change(event, flg: any) {
     flg.deposit3DayChk = (event.checked ? 1 : 0);
     this.contract.deposit3DayChk = flg.deposit3DayChk;
-   }
-   deposit4Change(event, flg: any) {
+  }
+  deposit4Change(event, flg: any) {
     flg.deposit4DayChk = (event.checked ? 1 : 0);
     this.contract.deposit4DayChk = flg.deposit4DayChk;
-   }
-   // 20210510 E_Add
-   flgChange3(event, flg: any) {
+  }
+  // 20210510 E_Add
+  flgChange3(event, flg: any) {
     flg.earnestPriceDayChk = (event.checked ? 1 : 0);
     this.contract.earnestPriceDayChk = flg.earnestPriceDayChk;
-   }
-   flgFinish(event, flg: any) {
+  }
+  flgFinish(event, flg: any) {
     flg.decisionDayChk = (event.checked ? 1 : 0);
     this.contract.decisionDayChk = flg.decisionDayChk;
-   }
-   flgCanncell(event, flg: any) {
+  }
+  flgCanncell(event, flg: any) {
     flg.canncellDayChk = (event.checked ? 1 : 0);
     this.contract.canncellDayChk = flg.canncellDayChk;
-   }
-   //  20230501 S_Add
-   flgChangeFixedTaxDay(event, flg: any) {
+  }
+  //  20230501 S_Add
+  flgChangeFixedTaxDay(event, flg: any) {
     flg.fixedTaxDayChk = (event.checked ? 1 : 0);
     this.contract.fixedTaxDayChk = flg.fixedTaxDayChk;
-   }
-   //  20230501 E_Add
+  }
+  //  20230501 E_Add
 
-   //  20230418 S_Add
-   flgCanncellDayChkAgree(event, flg: any) {
+  //  20230418 S_Add
+  flgCanncellDayChkAgree(event, flg: any) {
     flg.canncellDayChkAgree = (event.checked ? 1 : 0);
     this.contract.canncellDayChkAgree = flg.canncellDayChkAgree;
-   }
-   flgCanncellDayChkApproval(event, flg: any) {
+  }
+  flgCanncellDayChkApproval(event, flg: any) {
     flg.canncellDayChkApproval = (event.checked ? 1 : 0);
     this.contract.canncellDayChkApproval = flg.canncellDayChkApproval;
-   }
-   //  20230418 E_Add
+  }
+  //  20230418 E_Add
 
-   // 20210728 S_Add
-   retainageChange(event, flg: any) {
+  // 20210728 S_Add
+  retainageChange(event, flg: any) {
     flg.retainageDayChk = (event.checked ? 1 : 0);
     this.contract.retainageDayChk = flg.retainageDayChk;
-   }
-   // 20210728 E_Add
-   // 20211104 S_Add
-   flgChangeForSeller(event, seller: ContractSellerInfo, type) {
-     if(type == 'contractorType') {
+  }
+  // 20210728 E_Add
+  // 20211104 S_Add
+  flgChangeForSeller(event, seller: ContractSellerInfo, type) {
+    if (type == 'contractorType') {
       seller.contractorType = String((event.checked ? 1 : 0));
-     }
-   }
-   // 20211104 E_Add
+    }
+  }
+  // 20211104 E_Add
 
   /**
    * 登録
@@ -327,8 +327,8 @@ export class ContractDetailComponent extends BaseComponent {
     if (!this.validate()) {
       return;
     }
-    const dlg = new Dialog({title: '確認', message: '契約情報を登録しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: '契約情報を登録しますが、よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -345,7 +345,7 @@ export class ContractDetailComponent extends BaseComponent {
         //20200828 E_Update
         this.service.saveContract(this.contract).then(res => {
 
-          const finishDlg = new Dialog({title: '完了', message: '契約情報を登録しました。'});
+          const finishDlg = new Dialog({ title: '完了', message: '契約情報を登録しました。' });
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',
@@ -361,7 +361,7 @@ export class ContractDetailComponent extends BaseComponent {
             */
             this.contract.convert(this.emps);
             //20200828 S_Update
-            this.router.navigate(['/ctdetail'], {queryParams: {pid: this.contract.pid}});
+            this.router.navigate(['/ctdetail'], { queryParams: { pid: this.contract.pid } });
           });
 
         });
@@ -380,11 +380,11 @@ export class ContractDetailComponent extends BaseComponent {
 
       //契約データ構成
       let lst = [];
-      if(!this.isBlank(loc.contractDetail.contractDataType)) {
+      if (!this.isBlank(loc.contractDetail.contractDataType)) {
         loc.contractDetail.locationInfoPid = loc.pid;
         lst.push(loc.contractDetail);
         //不可分、低地両方チェック
-        if(loc.contractDetail.contractDataType === '03' && loc.contractDetail02 === '02') {
+        if (loc.contractDetail.contractDataType === '03' && loc.contractDetail02 === '02') {
           let contract02 = JSON.parse(JSON.stringify(loc.contractDetail)) as Contractdetailinfo;
           contract02.pid = 0;
           contract02.contractDataType = '02';
@@ -396,24 +396,24 @@ export class ContractDetailComponent extends BaseComponent {
 
       const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
       //更新
-      if(detailList.length > 0) {
+      if (detailList.length > 0) {
         //削除
-        if(lst.length === 0) {
+        if (lst.length === 0) {
           detailList.forEach(me => {
             me.deleteUserId = this.service.loginUser.userId;
           });
         }
         else {
           //上書き
-          if(detailList.length === lst.length) {
-            for(let index = 0 ; index < detailList.length; index++) {
+          if (detailList.length === lst.length) {
+            for (let index = 0; index < detailList.length; index++) {
               detailList[index] = lst[index];
             }
           }
           else {
             detailList[0] = lst[0]; //1件目
             //1件削除
-            if(detailList.length > lst.length) {
+            if (detailList.length > lst.length) {
               detailList[1].deleteUserId = this.service.loginUser.userId;
             }
             else {
@@ -452,12 +452,12 @@ export class ContractDetailComponent extends BaseComponent {
       */
 
     });
-    
+
     addList.forEach(data => {
       this.contract.details.push(data);
     });
-    
-    
+
+
     // 契約者
     if (this.delSellers.length > 0) {
       this.delSellers.forEach(del => {
@@ -486,8 +486,8 @@ export class ContractDetailComponent extends BaseComponent {
     this.sumArea = 0;
     this.data.locations.forEach(me => {
       //土地
-      if(me.locationType == '01' && me.contractDetail.contractDataType == '01') {
-        if(me.contractDetail.contractHaveMap) {
+      if (me.locationType == '01' && me.contractDetail.contractDataType == '01') {
+        if (me.contractDetail.contractHaveMap) {
           this.sumArea += Number(this.removeComma(me.contractDetail.contractHaveMap));
         }
         else {
@@ -507,16 +507,16 @@ export class ContractDetailComponent extends BaseComponent {
   change(event, item: Locationinfo, flg) {
 
     if (event.checked) {
-      if(flg === '01') {
+      if (flg === '01') {
         item.contractDetail.contractDataType = flg;
         item.contractDetail02 = '';
       }
-      else if(flg === '02') {
+      else if (flg === '02') {
         item.contractDetail02 = '02';
-        if( this.isBlank(item.contractDetail.contractDataType)) {
+        if (this.isBlank(item.contractDetail.contractDataType)) {
           item.contractDetail.contractDataType = '02';
         }
-        else if(item.contractDetail.contractDataType === '01') {
+        else if (item.contractDetail.contractDataType === '01') {
           item.contractDetail.contractDataType = '';
         }
       }
@@ -526,9 +526,9 @@ export class ContractDetailComponent extends BaseComponent {
     }
     else {
       //不可分
-      if(flg === '02') {
+      if (flg === '02') {
         item.contractDetail02 = '';
-        if(item.contractDetail.contractDataType === '02') {
+        if (item.contractDetail.contractDataType === '02') {
           item.contractDetail.contractDataType = '';
         }
       }
@@ -556,27 +556,27 @@ export class ContractDetailComponent extends BaseComponent {
 
     // 20230418 S_Add
     //03:解除済04:解除済(等価交換)
-    if(this.contract.contractNow == "03" || this.contract.contractNow == "04") {
-      if(!(this.contract.canncellDayChkAgree == "1" || this.contract.canncellDayChkApproval == "1")) {
+    if (this.contract.contractNow == "03" || this.contract.contractNow == "04") {
+      if (!(this.contract.canncellDayChkAgree == "1" || this.contract.canncellDayChkApproval == "1")) {
         this.errorMsgs.push('合意書締結済みもしくは、口頭・稟議取得済みに指定がない場合、契約状況に解除済は指定できません。');
       }
     }
     // 20230418 E_Add
-    
+
     this.data.locations.forEach((loc, pos) => {
-      if(loc.sharers == null || loc.sharers.length == 1) {
+      if (loc.sharers == null || loc.sharers.length == 1) {
         return;
       }
-      if((loc.contractDetail.contractDataType === '01' || loc.contractDetail.contractDataType === '03') 
+      if ((loc.contractDetail.contractDataType === '01' || loc.contractDetail.contractDataType === '03')
         && (loc.contractDetail.registrants == null || loc.contractDetail.registrants.length == 0)) {
-          if(loc.contractDetail.contractDataType === '01') {
-            this.errorMsgs.push('売主選択のデータで登記人が選択されていません。');
-            this.errors['contractDataType_01_' + pos] = true;
-          }
-          else {
-            this.errorMsgs.push('底地選択のデータで登記人が選択されていません。');
-            this.errors['contractDataType_03_' + pos] = true;
-          }
+        if (loc.contractDetail.contractDataType === '01') {
+          this.errorMsgs.push('売主選択のデータで登記人が選択されていません。');
+          this.errors['contractDataType_01_' + pos] = true;
+        }
+        else {
+          this.errorMsgs.push('底地選択のデータで登記人が選択されていません。');
+          this.errors['contractDataType_03_' + pos] = true;
+        }
       }
     });
 
@@ -590,14 +590,14 @@ export class ContractDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/contracts'], {queryParams: {search: '1'}});
+    this.router.navigate(['/contracts'], { queryParams: { search: '1' } });
   }
 
   /**
    * 物件情報遷移
    */
   toBukken() {
-    this.router.navigate(['/bkdetail'], {queryParams: {pid: this.data.pid}});
+    this.router.navigate(['/bkdetail'], { queryParams: { pid: this.data.pid } });
   }
 
   /**
@@ -618,8 +618,8 @@ export class ContractDetailComponent extends BaseComponent {
    */
   deleteFile(map: ContractFile) {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+    const dlg = new Dialog({ title: '確認', message: 'ファイルを削除しますが、よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -649,10 +649,10 @@ export class ContractDetailComponent extends BaseComponent {
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result['choose']) {    
+      if (result && result['choose']) {
         this.spinner.show();
         this.service.exportContract(this.contract.pid, result['templatePid']).then(data => {
-          
+
           /*
           var reader = new FileReader();
           reader.onload = function() {
@@ -663,7 +663,7 @@ export class ContractDetailComponent extends BaseComponent {
 
           this.service.writeToFile(data, result['fileName']);
           this.spinner.hide();
-        });    
+        });
       }
     });
 
@@ -725,7 +725,7 @@ export class ContractDetailComponent extends BaseComponent {
     const dialogRef = this.dialog.open(CalcKotozeiDetailComponent, {
       width: '98%',
       height: '580px',
-      data: {contract: this.contract, land: this.data}
+      data: { contract: this.contract, land: this.data }
     });
   }
   // 20210905 E_Add
@@ -769,8 +769,8 @@ export class ContractDetailComponent extends BaseComponent {
    */
   deleteAttach(map: ContractAttach) {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px',　height: '250px',　data: dlg});
+    const dlg = new Dialog({ title: '確認', message: 'ファイルを削除しますが、よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -786,8 +786,8 @@ export class ContractDetailComponent extends BaseComponent {
    * 契約精算申請書作成
    */
   contractCalculateExport() {
-    const dlg = new Dialog({title: '確認', message: '契約精算申請書を出力します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: '契約精算申請書を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -808,7 +808,7 @@ export class ContractDetailComponent extends BaseComponent {
    * @param tempLandInfoPid:土地情報PID
    */
   navigateRental() {
-    this.router.navigate(['/rendetail'], {queryParams: {contractInfoPid: this.pid, tempLandInfoPid:this.data.pid}});
+    this.router.navigate(['/rendetail'], { queryParams: { contractInfoPid: this.pid, tempLandInfoPid: this.data.pid } });
   }
 
   /**
@@ -816,7 +816,7 @@ export class ContractDetailComponent extends BaseComponent {
    * @param row: 賃貸データ
    */
   showDetailRental(row: RentalInfo) {
-    this.router.navigate(['/rendetail'], {queryParams: {pid: row.pid,contractInfoPid: row.contractInfoPid}});
+    this.router.navigate(['/rendetail'], { queryParams: { pid: row.pid, contractInfoPid: row.contractInfoPid } });
   }
 
   /**
@@ -850,7 +850,7 @@ export class ContractDetailComponent extends BaseComponent {
     const dialogRef = this.dialog.open(EvictionInfoDetailComponent, {
       width: '98%',
       height: '550px',
-      data:  <EvictionInfo>Util.deepCopy(loc, 'EvictionInfo')
+      data: <EvictionInfo>Util.deepCopy(loc, 'EvictionInfo')
     });
 
     // 再検索
@@ -879,7 +879,7 @@ export class ContractDetailComponent extends BaseComponent {
    * @param pos 
    */
   deleteRentalInfo(obj: RentalInfo, pos: number) {
-    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dlg = new Dialog({ title: '確認', message: '削除してよろしいですか？' });
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -891,10 +891,30 @@ export class ContractDetailComponent extends BaseComponent {
         this.service.rentalDelete(obj).then(res => {
           this.rentals.splice(pos, 1);
 
-          this.evictions = this.evictions.filter(item=>item.rentalInfoPid != obj.pid);
+          this.evictions = this.evictions.filter(item => item.rentalInfoPid != obj.pid);
         });
       }
     });
   }
   // 20230917 E_Add
+
+  // 20231016 S_Add
+  /**
+   * 取引成立台帳
+   */
+  exportRental(rentalInfoPid: number) {
+    const dlg = new Dialog({ title: '確認', message: '取引成立台帳（賃貸）を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportRental(rentalInfoPid).then(data => {
+          this.service.writeToFile(data, "取引成立台帳（賃貸）");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20231016 E_Add
 }

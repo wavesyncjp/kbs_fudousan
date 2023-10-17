@@ -17,6 +17,14 @@ export class RentalInfo {
     totalUnits: number;
     totalUnitsMap: string;
 
+    // 20231010 S_Add
+    manageCompanyName: string;
+    manageCompanyAddress: string;
+    manageCompanyTel: string;
+    statusMap: string;// 登録状態
+    msgMap: string;// NGのメッセージ
+    // 20231010 E_Add
+
     createUserId: number;
     updateUserId: number;
 

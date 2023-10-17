@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Output, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { User, Code, Department, CodeNameMst, PaymentType, ReceiveType, Kanjyo, KanjyoFix, Bank} from './models/bukken';// 20210916 Add
+import { User, Code, Department, CodeNameMst, PaymentType, ReceiveType, Kanjyo, KanjyoFix, Bank } from './models/bukken';// 20210916 Add
 import { Planinfo } from './models/planinfo';
 import { Templandinfo, LandPlanInfo } from './models/templandinfo';
 import { Information } from './models/information';
@@ -138,7 +138,7 @@ export class BackendService {
     };
     const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${getLandApi}`, body);
     return req.toPromise();
-  }  
+  }
 
   /**
    * 土地情報一覧取得
@@ -199,7 +199,7 @@ export class BackendService {
    * 土地情報登録（コピー→保存）
    * @param info ：土地情報
    */
-   saveLandByCopy(info: Templandinfo): Promise<Templandinfo> {
+  saveLandByCopy(info: Templandinfo): Promise<Templandinfo> {
     const saveLandApi = 'landsavebycopy.php';
     const req = this.http.post<Templandinfo>(`${this.BaseUrl}/${saveLandApi}`, info);
     return req.toPromise();
@@ -315,14 +315,14 @@ export class BackendService {
   /**
    * システムコード名称取得
    */
-    /*
-  getCodeNames(codes: string[]): Promise<Code[]> {
-    const getCodeApi = 'getcode.php';
-    const body = { code: codes };
-    const req = this.http.post<Code[]>(`${this.BaseUrl}/${getCodeApi}`, body);
-    return req.toPromise();
-  }
-  */
+  /*
+getCodeNames(codes: string[]): Promise<Code[]> {
+  const getCodeApi = 'getcode.php';
+  const body = { code: codes };
+  const req = this.http.post<Code[]>(`${this.BaseUrl}/${getCodeApi}`, body);
+  return req.toPromise();
+}
+*/
 
   /**
    * 帳票出力
@@ -352,7 +352,7 @@ export class BackendService {
   exportContract(contractPid: number, templatePid: any): Promise<Blob> {
     const downloadUrl = 'contractexport.php';
     // tslint:disable-next-line:max-line-length
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: contractPid, templatePid: templatePid}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: contractPid, templatePid: templatePid }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
 
@@ -362,7 +362,7 @@ export class BackendService {
    */
   exportPlan(planPid: number): Promise<Blob> {
     const downloadUrl = 'planexport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: planPid}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: planPid }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
 
@@ -372,7 +372,7 @@ export class BackendService {
    */
   exportSale(pid: number): Promise<Blob> {
     const downloadUrl = 'saleexport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: pid}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: pid }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
 
@@ -383,7 +383,7 @@ export class BackendService {
    */
   exportTransaction(pid: number): Promise<Blob> {
     const downloadUrl = 'transactionexport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: pid}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: pid }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
   // 20210524 E_Add
@@ -393,7 +393,7 @@ export class BackendService {
       type: 'application/octet-stream'
     });
 
-    if(fileName !== '') {
+    if (fileName !== '') {
       fileName = fileName.replace('.xlsx', '') + '_';
     }
 
@@ -459,7 +459,7 @@ export class BackendService {
    * @param infoPid ：インフォメーションPid
    * @param file ；ファイル
    */
-   uploadInfoAttachFile(infoPid: number, file: File): Promise<object> {
+  uploadInfoAttachFile(infoPid: number, file: File): Promise<object> {
     const uploadApi = 'infoAttachFileUpload.php';
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
@@ -519,11 +519,11 @@ export class BackendService {
   }
 
   // 20211227 S_Add
-    /**
-   * 承認済ファイルアップロード
-   * @param infoPid ：インフォメーションPid
-   * @param file ：ファイル
-   */
+  /**
+ * 承認済ファイルアップロード
+ * @param infoPid ：インフォメーションPid
+ * @param file ：ファイル
+ */
   uploadApprovedInfoFile(infoPid: number, file: File) {
     const uploadApi = 'approvedfile_upload.php';
     const formData: FormData = new FormData();
@@ -541,7 +541,7 @@ export class BackendService {
     const deleteFileApi = 'deletefile.php';
     // 20220701 S_Update
     // const body = { pid: id, isAttach: attach };
-    const body = { pid: id, isAttach: attach, deleteUserId: this.loginUser.userId};
+    const body = { pid: id, isAttach: attach, deleteUserId: this.loginUser.userId };
     // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
@@ -555,7 +555,7 @@ export class BackendService {
     const deleteFileApi = 'deleteContractFile.php';
     // 20220701 S_Update
     // const body = { pid: id };
-    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
     // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
@@ -570,7 +570,7 @@ export class BackendService {
     const deleteFileApi = 'deleteLocationFile.php';
     // 20220701 S_Update
     // const body = { pid: id };
-    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
     // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
@@ -582,11 +582,11 @@ export class BackendService {
    * 掲示板添付ファイル削除
    * @param id : 掲示板添付ファイルID
    */
-   deleteInfoAttachFile(id: number): Promise<object> {
+  deleteInfoAttachFile(id: number): Promise<object> {
     const deleteFileApi = 'deleteInfoAttachFile.php';
     // 20220701 S_Update
     // const body = { pid: id };
-    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
     // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
@@ -599,10 +599,10 @@ export class BackendService {
    * @param id : 仕入契約情報ID
    */
   deleteContractAttach(id: number): Promise<object> {
-      const deleteFileApi = 'deleteContractAttach.php';
-      const body = { pid: id, deleteUserId: this.loginUser.userId};
-      const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
-      return req.toPromise();
+    const deleteFileApi = 'deleteContractAttach.php';
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
   }
 
   /**
@@ -610,10 +610,10 @@ export class BackendService {
    * @param id : 物件売契約情報ID
    */
   deleteBukkenSalesAttach(id: number): Promise<object> {
-      const deleteFileApi = 'deleteBukkenSalesAttach.php';
-      const body = { pid: id, deleteUserId: this.loginUser.userId};
-      const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
-      return req.toPromise();
+    const deleteFileApi = 'deleteBukkenSalesAttach.php';
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
   }
   // 20230227 E_Add
 
@@ -764,7 +764,7 @@ export class BackendService {
    */
   deleteLocation(data: Locationinfo) {
     const api = 'locdelete.php';
-    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, { pid: data.pid, userPid: this.loginUser.userId });
     return req.toPromise();
   }
 
@@ -872,7 +872,7 @@ export class BackendService {
    * @param plan ：事業収支
    */
   savePlan(plan: Planinfo): Promise<Planinfo> {
-    const saveApi = 'plansave.php'; 
+    const saveApi = 'plansave.php';
     const req = this.http.post<Planinfo>(`${this.BaseUrl}/${saveApi}`, plan);
     return req.toPromise();
   }
@@ -882,7 +882,7 @@ export class BackendService {
    * @param planhistory ：事業収支履歴
    */
   savePlanHistory(planhistory: Planinfohistory): Promise<Planinfohistory> {
-    const saveApi = 'planhistorysave.php'; 
+    const saveApi = 'planhistorysave.php';
     const req = this.http.post<Planinfohistory>(`${this.BaseUrl}/${saveApi}`, planhistory);
     return req.toPromise();
   }
@@ -918,7 +918,7 @@ export class BackendService {
    * @param id ：事業収支情報履歴Id
    */
   getPlanHistoryList(id: number): Promise<Planhistorylist[]> {
-    
+
     const getApi = 'planhistorylistget.php';
     const body = {
       pid: id
@@ -975,7 +975,7 @@ export class BackendService {
    */
   deletePayContracte(id: number): Promise<void> {
     const deleteApi = 'paycontractdelete.php';
-    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
+    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
 
@@ -1017,7 +1017,7 @@ export class BackendService {
    */
   deleteReceiveContracte(id: number): Promise<void> {
     const deleteApi = 'receivecontractdelete.php';
-    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
+    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
   // 20210314 S_Add
@@ -1028,7 +1028,7 @@ export class BackendService {
    */
   deleteContract(id: number): Promise<void> {
     const deleteApi = 'contractdelete.php';
-    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, {pid: id, deleteUserId: this.loginUser.userId});
+    const req = this.http.post<any>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
   }
   // 20210314 E_Add
@@ -1039,7 +1039,7 @@ export class BackendService {
    */
   getBukkenSeller(tempLandInfoPid: number): Promise<ContractSellerInfo[]> {
     const api = 'sellerget.php';
-    const req = this.http.post<ContractSellerInfo[]>(`${this.BaseUrl}/${api}`, {tempLandInfoPid: tempLandInfoPid});
+    const req = this.http.post<ContractSellerInfo[]>(`${this.BaseUrl}/${api}`, { tempLandInfoPid: tempLandInfoPid });
     return req.toPromise();
   }
 
@@ -1061,7 +1061,7 @@ export class BackendService {
    * @param plan ：事業収支
    */
   saveLandPlan(plan: LandPlanInfo): Promise<LandPlanInfo> {
-    const saveApi = 'lanplansave.php'; 
+    const saveApi = 'lanplansave.php';
     const req = this.http.post<LandPlanInfo>(`${this.BaseUrl}/${saveApi}`, plan);
     return req.toPromise();
   }
@@ -1071,7 +1071,7 @@ export class BackendService {
    * @param sale 売り契約
    */
   saveBukkenSale(sale: Bukkensalesinfo): Promise<Bukkensalesinfo> {
-    const saveApi = 'lansalesave.php'; 
+    const saveApi = 'lansalesave.php';
     const req = this.http.post<Bukkensalesinfo>(`${this.BaseUrl}/${saveApi}`, sale);
     return req.toPromise();
   }
@@ -1079,8 +1079,8 @@ export class BackendService {
   /**
    * 契約書
    */
-  loadContractTemplate(data: any):  Promise<any[]>{
-    const api = 'contracttemplate.php'; 
+  loadContractTemplate(data: any): Promise<any[]> {
+    const api = 'contracttemplate.php';
     const req = this.http.post<any[]>(`${this.BaseUrl}/${api}`, data);
     return req.toPromise();
   }
@@ -1088,8 +1088,8 @@ export class BackendService {
   /**
    * CSV選択
    */
-  loadCsvTemplate(data: any):  Promise<any[]>{
-    const api = 'csvtemplate.php'; 
+  loadCsvTemplate(data: any): Promise<any[]> {
+    const api = 'csvtemplate.php';
     const req = this.http.post<any[]>(`${this.BaseUrl}/${api}`, data);
     return req.toPromise();
   }
@@ -1099,8 +1099,8 @@ export class BackendService {
    * @param id 物件ID
    * @param csvCode csvCode
    */
-  exportCsv(ids: Number[], csvCode) : Promise<any> {
-    const api = 'csvexport.php'; 
+  exportCsv(ids: Number[], csvCode): Promise<any> {
+    const api = 'csvexport.php';
     let param = {
       ids: ids.join(','),
       csvCode: csvCode
@@ -1128,12 +1128,12 @@ export class BackendService {
     const req = this.http.post<Kanjyo>(`${this.BaseUrl}/${saveApi}`, kanjyo);
     return req.toPromise();
   }
-  
+
   /**
    * 勘定科目削除
    * @param kanjyoCode : 削除したいkanjyoCode
    */
-  deleteKanjyo(kanjyoCode :string): Promise<void> {
+  deleteKanjyo(kanjyoCode: string): Promise<void> {
     const deleteApi = 'kanjyodelete.php';
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { kanjyoCode: kanjyoCode, deleteUserId: this.loginUser.userId });
     return req.toPromise();
@@ -1142,7 +1142,7 @@ export class BackendService {
   /**
    * 勘定コード取得
    */
-   getKanjyos(kanjyoCode: string): Promise<Kanjyo[]> {
+  getKanjyos(kanjyoCode: string): Promise<Kanjyo[]> {
     const getKanjyoApi = 'getkanjyo.php';
     const body = { kanjyoCode: kanjyoCode };
     const req = this.http.post<Kanjyo[]>(`${this.BaseUrl}/${getKanjyoApi}`, body);
@@ -1152,7 +1152,7 @@ export class BackendService {
   /**
    * 貸方借方決定マスタ取得
    */
-   searchKanjyoFix(cond: any): Promise<KanjyoFix[]> {
+  searchKanjyoFix(cond: any): Promise<KanjyoFix[]> {
     const searchApi = 'kanjyofixsearch.php';
     const req = this.http.post<KanjyoFix[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -1167,12 +1167,12 @@ export class BackendService {
     const req = this.http.post<KanjyoFix>(`${this.BaseUrl}/${saveApi}`, kanjyoFix);
     return req.toPromise();
   }
-  
+
   /**
    * 貸方借方決定マスタ削除
    * @param id : 削除したいpid
    */
-  deleteKanjyoFix(id :number): Promise<void> {
+  deleteKanjyoFix(id: number): Promise<void> {
     const deleteApi = 'kanjyofixdelete.php';
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
@@ -1202,11 +1202,11 @@ export class BackendService {
    * FB承認
    * @param id 支払管理明細情報ID
    */
-  fbApproval(ids: Number[]) : Promise<any> {
+  fbApproval(ids: Number[]): Promise<any> {
     const api = 'fbapproval.php';
     const param = {
       ids: ids
-      ,updateUserId: this.loginUser.userId
+      , updateUserId: this.loginUser.userId
     }
     const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
     return req.toPromise();
@@ -1217,12 +1217,12 @@ export class BackendService {
    * @param id 対象テーブルID
    * @param id 対象カラム名
    */
-  setOutPutDate(ids: Number[], target: string) : Promise<any> {
+  setOutPutDate(ids: Number[], target: string): Promise<any> {
     const api = 'setoutputdate.php';
     const param = {
       ids: ids
-      ,target: target
-      ,updateUserId: this.loginUser.userId
+      , target: target
+      , updateUserId: this.loginUser.userId
     }
     const req = this.http.post<any>(`${this.BaseUrl}/${api}`, param);
     return req.toPromise();
@@ -1233,7 +1233,7 @@ export class BackendService {
   /**
    * 銀行マスタ取得
    */
-   searchBank(cond: any): Promise<Bank[]> {
+  searchBank(cond: any): Promise<Bank[]> {
     const searchApi = 'banksearch.php';
     const req = this.http.post<Bank[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -1248,12 +1248,12 @@ export class BackendService {
     const req = this.http.post<Bank>(`${this.BaseUrl}/${saveApi}`, bank);
     return req.toPromise();
   }
-  
+
   /**
    * 銀行マスタ削除
    * @param id : 削除したいpid
    */
-  deleteBank(id :number): Promise<void> {
+  deleteBank(id: number): Promise<void> {
     const deleteApi = 'bankdelete.php';
     const req = this.http.post<void>(`${this.BaseUrl}/${deleteApi}`, { pid: id, deleteUserId: this.loginUser.userId });
     return req.toPromise();
@@ -1263,7 +1263,7 @@ export class BackendService {
   /**
    * 銀行マスタ取得
    */
-   getBanks(contractType: string): Promise<Bank[]> {
+  getBanks(contractType: string): Promise<Bank[]> {
     const getDepApi = 'getbank.php';
     const body = { contractType: contractType };
     const req = this.http.post<Bank[]>(`${this.BaseUrl}/${getDepApi}`, body);
@@ -1284,7 +1284,7 @@ export class BackendService {
   */
   exportBuyInfo(ids: number[]): Promise<Blob> {
     const downloadUrl = 'buyinfoexport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {ids: ids}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { ids: ids }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
   // 20211020 E_Add
@@ -1295,7 +1295,7 @@ export class BackendService {
    */
   exportCostRequest(ids: number[]): Promise<Blob> {
     const downloadUrl = 'costrequestexport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {ids: ids}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { ids: ids }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
   // 20220511 E_Add
@@ -1306,7 +1306,7 @@ export class BackendService {
    */
   exportSaleInfo(ids: number[]): Promise<Blob> {
     const downloadUrl = 'saleinfoexport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {ids: ids}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { ids: ids }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
   // 20220627 E_Add
@@ -1331,7 +1331,7 @@ export class BackendService {
    */
   exportContractCalculate(contractPid: number): Promise<Blob> {
     const downloadUrl = 'contractCalculateExport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, {pid: contractPid}, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: contractPid }, { responseType: 'blob' as 'blob' });
     return res.toPromise();
   }
   // 20230506 E_Add
@@ -1349,11 +1349,11 @@ export class BackendService {
   /**
    * 賃貸情報取得
    */
-  rentalGet(id: number,getIts: boolean = false): Promise<RentalInfo> {
+  rentalGet(id: number, getIts: boolean = false): Promise<RentalInfo> {
     const getApi = 'rentalget.php';
     const body = {
       pid: id
-      ,getIts : getIts ? '1' : '0'
+      , getIts: getIts ? '1' : '0'
     };
     const req = this.http.post<RentalInfo>(`${this.BaseUrl}/${getApi}`, body);
     return req.toPromise();
@@ -1375,7 +1375,7 @@ export class BackendService {
    */
   rentalDelete(data: RentalInfo) {
     const api = 'rentaldelete.php';
-    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, { pid: data.pid, userPid: this.loginUser.userId });
     return req.toPromise();
   }
   // 20230927 E_Add
@@ -1396,7 +1396,7 @@ export class BackendService {
    */
   deleteRentalContract(data: RentalContract) {
     const api = 'rentalcontractdelete.php';
-    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, { pid: data.pid, userPid: this.loginUser.userId });
     return req.toPromise();
   }
 
@@ -1417,7 +1417,7 @@ export class BackendService {
    */
   deleteEviction(data: EvictionInfo) {
     const api = 'evictiondelete.php';
-    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, {pid: data.pid, userPid: this.loginUser.userId});
+    const req = this.http.post<any>(`${this.BaseUrl}/${api}`, { pid: data.pid, userPid: this.loginUser.userId });
     return req.toPromise();
   }
 
@@ -1464,7 +1464,7 @@ export class BackendService {
    */
   deleteEvictionAttach(id: number): Promise<object> {
     const deleteFileApi = 'evictionattachdelete.php';
-    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
@@ -1490,9 +1490,22 @@ export class BackendService {
    */
   deleteInfoApprovalAttach(id: number): Promise<object> {
     const deleteFileApi = 'infoapprovalattachdelete.php';
-    const body = { pid: id, deleteUserId: this.loginUser.userId};
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
   }
   // 20230927 E_Add
+
+  // 20231016 S_Add
+  /**
+   * 取引成立台帳　出力
+   * @param pid 物件
+   */
+  exportRental(rentalInfoPid: number): Promise<Blob> {
+    const downloadUrl = 'rentalexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: rentalInfoPid }, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  // 20231016 E_Add
+
 }

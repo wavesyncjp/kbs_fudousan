@@ -15,7 +15,13 @@ import { Util } from '../utils/util';
 import { RentalContractDetailComponent } from '../rentalContract-detail/rentalContract-detail.component';
 import { RentalContract } from '../models/rentalcontract';
 import { RentalReceive } from '../models/rentalreceive';
+// 20231010 S_Add
+import { EvictionInfo } from '../models/evictioninfo';
+import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.component';
+import { Converter } from '../utils/converter';
+// 20231010 E_Add
 
+declare var $: any;// 20231010 Add
 @Component({
   selector: 'app-rental-detail',
   templateUrl: './rental-detail.component.html',
@@ -25,6 +31,7 @@ import { RentalReceive } from '../models/rentalreceive';
     { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
+
 export class RentalInfoDetailComponent extends BaseComponent {
 
   @ViewChild('topElement', { static: true }) topElement: ElementRef;
@@ -47,6 +54,8 @@ export class RentalInfoDetailComponent extends BaseComponent {
   contractSellerInfoPids: Code[];
   locationNumbers: Code[];
   locationInfoPidDB: number;// DBの所在地情報PID
+  ownershipRelocationDateDB: string;// DBの所有権移転日 20231010 Add
+  dateIds: [];
 
   constructor(public router: Router,
     private route: ActivatedRoute,
@@ -84,6 +93,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
     let cond = {
       searchFor: 'searchLocationNumber'
       , contractInfoPid: this.contractInfoPid
+      , isGetMore: 1 // 20231010 Add
     };
     funcs.push(this.service.commonSearch(cond));
 
@@ -112,6 +122,9 @@ export class RentalInfoDetailComponent extends BaseComponent {
       if (this.pid > 0) {
         this.rental = new RentalInfo(values[4] as RentalInfo);
         this.locationInfoPidDB = this.rental.locationInfoPid;
+        // 20231010 S_Add
+        this.ownershipRelocationDateDB = this.rental.ownershipRelocationDate;
+        // 20231010 E_Add
 
         this.rentalContracts = values[4].rentalContracts;
         this.rentalReceives = values[4].rentalReceives;
@@ -130,6 +143,8 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * 賃貸入金の変更前データ
    */
   backupRentalReceive() {
+    this.convertBeforeShow();//2023105 Add
+
     this.rentalReceivesBk = [];
     this.rentalReceives.forEach(r => {
       r.details.forEach(d => {
@@ -159,41 +174,64 @@ export class RentalInfoDetailComponent extends BaseComponent {
         this.spinner.show();
 
         let isNeedReload = false;
+        // 20231010 S_Add
+        this.rental.convertForSave(this.service.loginUser.userId, this.datepipe);
+        // 20231010 E_Add
+
         if (!this.rental.pid || this.rental.pid < 1) {
           this.rental.contractInfoPid = this.contractInfoPid;
           this.rental.tempLandInfoPid = this.tempLandInfoPid;
         }
-        else if (this.locationInfoPidDB != this.rental.locationInfoPid) {
+        // 20231010 S_Update
+        // else if (this.locationInfoPidDB != this.rental.locationInfoPid) {
+        else if (this.locationInfoPidDB != this.rental.locationInfoPid || this.ownershipRelocationDateDB != this.rental.ownershipRelocationDate) {
+          // 20231010 E_Update
           isNeedReload = true;
         }
-        this.rental.convertForSave(this.service.loginUser.userId, this.datepipe);
+        // 20231010 S_Delete
+        // this.rental.convertForSave(this.service.loginUser.userId, this.datepipe);
+        // 20231010 E_Delete
 
         if (this.rental.pid > 0) {
           this.rental.rentalReceivesChanged = this.getReceivesChanged();
         }
 
         this.service.rentalSave(this.rental).then(res => {
-          const finishDlg = new Dialog({ title: '完了', message: '賃貸情報を登録しました。' });
-
-          const dlgVal = this.dialog.open(FinishDialogComponent, {
-            width: '500px',
-            height: '250px',
-            data: finishDlg
-          });
-
-          dlgVal.afterClosed().subscribe(val => {
+          // 20231010 S_Add
+          if (res.statusMap === 'NG') {
             this.spinner.hide();
-            this.rental = new RentalInfo(res);
-            this.locationInfoPidDB = this.rental.locationInfoPid;
-            this.rental.convert();
-            if (isNeedReload) {
-              this.searchRentalContract_Receive();
-            }
-            else {
-              this.backupRentalReceive();
-            }
-            this.router.navigate(['/rendetail'], { queryParams: { pid: this.rental.pid, contractInfoPid: this.rental.contractInfoPid } });
-          });
+            this.dialog.open(FinishDialogComponent, {
+              width: '500px', height: '250px',
+              data: new Dialog({ title: 'エラー', message: res.msgMap })
+            });
+          }
+          else {
+            // 20231010 E_Add
+            const finishDlg = new Dialog({ title: '完了', message: '賃貸情報を登録しました。' });
+
+            const dlgVal = this.dialog.open(FinishDialogComponent, {
+              width: '500px',
+              height: '250px',
+              data: finishDlg
+            });
+
+            dlgVal.afterClosed().subscribe(val => {
+              this.spinner.hide();
+              this.rental = new RentalInfo(res);
+              this.locationInfoPidDB = this.rental.locationInfoPid;
+              // 20231010 S_Add
+              this.ownershipRelocationDateDB = this.rental.ownershipRelocationDate;
+              // 20231010 E_Add
+              this.rental.convert();
+              if (isNeedReload) {
+                this.searchRentalContract_Receive();
+              }
+              else {
+                this.backupRentalReceive();
+              }
+              this.router.navigate(['/rendetail'], { queryParams: { pid: this.rental.pid, contractInfoPid: this.rental.contractInfoPid } });
+            });
+          }// 20231010 Add
         });
       }
     });
@@ -260,6 +298,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
    */
   showRentalContract(obj: RentalContract, pos: number) {
     obj.locationInfoPidForSearch = this.locationInfoPidDB;
+    obj.ownershipRelocationDateDbMap = this.ownershipRelocationDateDB;
     const dialogRef = this.dialog.open(RentalContractDetailComponent, {
       width: '98%',
       height: '650px',
@@ -377,7 +416,12 @@ export class RentalInfoDetailComponent extends BaseComponent {
       r.details.forEach(d => {
         let objBk = this.rentalReceivesBk.filter(b => b.pid == d.pid)[0];
 
-        if (objBk.receiveFlg != d.receiveFlg) {
+        // 20231010 S_Update
+        // if (objBk.receiveFlg != d.receiveFlg) {
+        let receiveDay = Converter.dateToString(d.receiveDayMap, 'yyyyMMdd', this.datepipe);
+        if (objBk.receiveFlg != d.receiveFlg || objBk.receiveDay != receiveDay) {
+          d.receiveDay = receiveDay;
+          // 20231010 E_Update
           listChangeds.push(d);
         }
       });
@@ -424,25 +468,37 @@ export class RentalInfoDetailComponent extends BaseComponent {
     }
   }
 
-  /**
-  * 入金フラグを変更
-  * @param event 
-  * @param details 
-  * @param renConPid 
-  */
-  changeReceiveFlg(event, details, renConPid) {
-    let receiveFlg = (event.checked ? '1' : '0');
-    let detail = details.filter(a => a.rentalContractPid == renConPid)[0];
-    detail.receiveFlg = receiveFlg;
+  // 20231010 S_Update
+  // /**
+  // * 入金フラグを変更
+  // * @param event 
+  // * @param details 
+  // * @param renConPid 
+  // */
+  // changeReceiveFlg(event, details, renConPid) {
+  //   let receiveFlg = (event.checked ? '1' : '0');
+  //   let detail = details.filter(a => a.rentalContractPid == renConPid)[0];
+  //   detail.receiveFlg = receiveFlg;
 
-    this.rentalReceives.forEach(d => {
-      var obj = d.details.filter(a => a.pid == detail.pid);
-      if (obj != null) {
-        obj.receiveFlg = receiveFlg;
-        return false;
-      }
-    });
+  //   this.rentalReceives.forEach(d => {
+  //     var obj = d.details.filter(a => a.pid == detail.pid);
+  //     if (obj != null) {
+  //       obj.receiveFlg = receiveFlg;
+  //       return false;
+  //     }
+  //   });
+  // }
+
+  /**
+   * 入金フラグを変更
+   * @param event 
+   * @param rev 賃貸入金
+   */
+  changeReceiveFlg(event, rev: RentalReceive) {
+    let receiveFlg = (event.checked ? '1' : '0');
+    rev.receiveFlg = receiveFlg;
   }
+  // 20231010 E_Update
 
   /**
    * 賃貸契約存在チェック
@@ -475,6 +531,16 @@ export class RentalInfoDetailComponent extends BaseComponent {
   }
 
   /**
+ * 賃貸入金.入金Pid
+ * @param details 賃貸入金
+ * @param conPid 契約情報PID
+ * @returns 
+ */
+  getReceivePid(details, conPid) {
+    return details.filter(a => a.rentalContractPid == conPid)[0].pid;
+  }
+
+  /**
    * 入金フラグを取得
    * @param details 
    * @param conPid 
@@ -483,4 +549,54 @@ export class RentalInfoDetailComponent extends BaseComponent {
   getReceiveFlg(details, conPid) {
     return details.filter(a => a.rentalContractPid == conPid)[0].receiveFlg;
   }
+
+  // 20231010 S_Add
+  /**
+   * 立ち退き追加
+   */
+  addEvictionInfo(): void {
+    const data = new EvictionInfo();
+    data.contractInfoPid = this.rental.contractInfoPid;
+    data.tempLandInfoPid = this.rental.tempLandInfoPid;
+
+    const dialogRef = this.dialog.open(EvictionInfoDetailComponent, {
+      width: '98%',
+      height: '550px',
+      data: data
+    });
+
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      // if (result && result.isSave) {
+      // }
+    });
+  }
+
+  getRentalReceive(details, conPid): RentalReceive {
+    return details.filter(a => a.rentalContractPid == conPid)[0];
+  }
+
+  convertBeforeShow() {
+    for (var i = 0; i < this.rentalReceives.length; i++) {
+      let rev = this.rentalReceives[i];
+      let renByMonths: RentalReceive[] = [];
+
+      for (var j = 0; j < this.rentalContracts.length; j++) {
+        let con = this.rentalContracts[j];
+        let revByMonth = this.getRentalReceive(rev.details, con.pid);
+        if (revByMonth == null) {
+          revByMonth = new RentalReceive();
+        }
+        else {
+          revByMonth.isExistRenContractMap = this.isExistRenContract(rev.details, con.pid);
+          revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDate);
+          revByMonth.receiveDayMap = Converter.stringToDate(revByMonth.receiveDay, 'yyyyMMdd');;
+        }
+        renByMonths.push(revByMonth);
+      }
+
+      this.rentalReceives[i].renByMonths = renByMonths;
+    }
+  }
+  // 20231010 E_Add
 }
