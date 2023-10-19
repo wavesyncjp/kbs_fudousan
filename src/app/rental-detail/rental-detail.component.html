@@ -77,12 +77,16 @@
     </div>
     <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
         <span class="min">賃貸契約</span>
-        <table>
+        <table style="width: auto;">
             <thead class="list-header">
                 <th>部屋番号</th>
                 <th>賃借人名</th>
-                <th>契約期間</th>
-                <th>契約方法</th>
+                <!-- 20231019 S_Update -->
+                <!-- <th>契約期間</th>
+                <th>契約方法</th> -->
+                <th class="width150">契約期間</th>
+                <th class="width140">契約方法</th>
+                <!-- 20231019 E_Update -->
                 <th>支払方法</th>
                 <th>賃料</th>
                 <th>共益費・管理費</th>
@@ -138,7 +142,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="header2">賃料</td>
+                    <!-- 20231019 S_Update -->
+                    <!-- <td class="header2">賃料</td> -->
+                    <td class="header2">入金額</td>
+                    <!-- 20231019 E_Update -->
                     <td *ngFor="let rcon of rentalContracts; index as pos">
                         <!-- 20231010 S_Update -->
                         <!-- {{numberFormat(rcon.rentPrice)}} -->
