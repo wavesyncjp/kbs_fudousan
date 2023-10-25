@@ -15,7 +15,7 @@ import { NoticeDetailComponent } from '../notice-detail/notice-detail.component'
   styleUrls: ['./top.component.css']
 })
 
-export class TopComponent  extends BaseComponent {
+export class TopComponent extends BaseComponent {
 
   displayedColumns: string[] = ['infoDate', 'infoSubject', 'attachFileName'];
   dataSource = new MatTableDataSource<Information>();
@@ -24,7 +24,10 @@ export class TopComponent  extends BaseComponent {
   // 20211227 S_Add
   // 20220517 S_Update
   // displayedColumnsForNotice: string[] = ['infoDate', 'approvalFlg', 'infoSubject', 'attachFileName'];
-  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit', 'approvalDateTime'];
+  // 20231023 S_Update
+  // displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit', 'approvalDateTime'];
+  displayedColumnsForNotice: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit'];
+  // 20231023 E_Update
   // 20220517 E_Update
   dataSourceForNotice = new MatTableDataSource<Information>();
   hasNotice = false;
@@ -32,11 +35,19 @@ export class TopComponent  extends BaseComponent {
   enableUser: boolean = false;
   // 20211227 E_Add
   // 20230213 S_Add
-  displayedColumnsForOsaka: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit', 'approvalDateTime'];
+  // 20231023 S_Update
+  // displayedColumnsForOsaka: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit', 'approvalDateTime'];
+  displayedColumnsForOsaka: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit'];
+  // 20231023 E_Update
   dataSourceForOsaka = new MatTableDataSource<Information>();
   hasOsaka = false;
   // 20230213 E_Add
 
+  // 20231023 S_Add
+  displayedColumnsForFukuoka: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit'];
+  dataSourceForFukuoka = new MatTableDataSource<Information>();
+  hasFukuoka = false;
+  // 20231023 E_Add
   // view: any[] = ['50%', '100%'];
 
   // options for the chart
@@ -51,7 +62,7 @@ export class TopComponent  extends BaseComponent {
     yAxisLabel: '契約件数',
     timeline: true,
     barPadding: 50,
-    colorScheme : {
+    colorScheme: {
       domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
     },
     chartData: []
@@ -68,17 +79,17 @@ export class TopComponent  extends BaseComponent {
     yAxisLabel: '契約件数',
     timeline: true,
     barPadding: 100,
-    colorScheme : {
+    colorScheme: {
       domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
     },
     chartData: []
   };
 
   constructor(public router: Router,
-              public dialog: MatDialog,
-              public service: BackendService,
-              private spinner: NgxSpinnerService) {
-      super(router, service,dialog);
+    public dialog: MatDialog,
+    public service: BackendService,
+    private spinner: NgxSpinnerService) {
+    super(router, service, dialog);
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -104,8 +115,8 @@ export class TopComponent  extends BaseComponent {
     // this.service.searchInfo({count: 5, finishFlg: ['0'], today: '1'}).then(res => {
     // 20211227 S_Update
     // this.service.searchInfo({count: 5, finishFlg: ['0']}).then(res => {
-    this.service.searchInfo({count: 5, finishFlg: ['0'], infoType: 0}).then(res => {
-    // 20211227 E_Update
+    this.service.searchInfo({ count: 5, finishFlg: ['0'], infoType: 0 }).then(res => {
+      // 20211227 E_Update
       this.dataSource.data = res;
 
       if (res !== undefined && res.length > 0) {
@@ -129,7 +140,7 @@ export class TopComponent  extends BaseComponent {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          lst.sort((a, b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
           this.sysCodes[code] = lst;
         });
       }
@@ -137,9 +148,9 @@ export class TopComponent  extends BaseComponent {
 
     // お知らせ（名古屋支店）
     // 20230308 S_Update
-//    this.service.searchInfo({count: 10, finishFlg: ['0'], infoType: 1}).then(res => {
-    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 1, sortType: '1'}).then(res => {
-    // 20230308 E_Update
+    //    this.service.searchInfo({count: 10, finishFlg: ['0'], infoType: 1}).then(res => {
+    this.service.searchInfo({ count: 0, finishFlg: ['0'], infoType: 1, sortType: '1' }).then(res => {
+      // 20230308 E_Update
       this.dataSourceForNotice.data = res;
 
       if (res !== undefined && res.length > 0) {
@@ -154,9 +165,9 @@ export class TopComponent  extends BaseComponent {
     // 20230213 S_Add
     // お知らせ（大阪支店）
     // 20230308 S_Update
-//    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 2}).then(res => {
-    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 2, sortType: '1'}).then(res => {
-    // 20230308 E_Update
+    //    this.service.searchInfo({count: 0, finishFlg: ['0'], infoType: 2}).then(res => {
+    this.service.searchInfo({ count: 0, finishFlg: ['0'], infoType: 2, sortType: '1' }).then(res => {
+      // 20230308 E_Update
       this.dataSourceForOsaka.data = res;
 
       if (res !== undefined && res.length > 0) {
@@ -168,6 +179,21 @@ export class TopComponent  extends BaseComponent {
       }, 500);
     });
     // 20230213 E_Add
+
+    // 20231023 S_Add
+    // お知らせ（福岡支店）
+    this.service.searchInfo({ count: 0, finishFlg: ['0'], infoType: 3, sortType: '1' }).then(res => {
+      this.dataSourceForFukuoka.data = res;
+
+      if (res !== undefined && res.length > 0) {
+        this.hasFukuoka = true;
+      }
+
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500);
+    });
+    // 20231023 S_Add
   }
 
   buildDepChart() {
@@ -205,6 +231,11 @@ export class TopComponent  extends BaseComponent {
   navigate(url: string) {
     this.router.navigate([`/${url}`]);
   }
+  // 20231023 S_Add
+  navigate2(url: string, infoType: string) {
+    this.router.navigate([`/${url}`], { queryParams: { infoType: infoType } });
+  }
+  // 20231023 E_Add
 
   // 20211227 S_Add
   showNoticeDetail(row: Information) {
@@ -215,7 +246,7 @@ export class TopComponent  extends BaseComponent {
     });
 
     dialogRef.componentInstance.isHideSubjectDetail = true;// 20230306 Add
-    
+
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -233,7 +264,7 @@ export class TopComponent  extends BaseComponent {
     });
 
     dialogRef.componentInstance.isHideSubjectDetail = true;// 20230306 Add
-    
+
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
