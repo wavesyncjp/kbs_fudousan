@@ -44,3 +44,9 @@ td.mat-cell:last-of-type {
 .fuzzy {
     background-color: rgb(255, 249, 197);
 }
+/* 20231027 S_Add */
+.register-btn {
+    background-color:#45a4f7;
+    color: white;
+}
+/* 20231027 E_Add */

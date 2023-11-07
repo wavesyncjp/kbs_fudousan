@@ -22,3 +22,13 @@
     position: relative;
 }
 /* 20231010 E_Add */
+
+/* 20231027 S_Add */
+.left-aligned-actions {
+    justify-content: flex-start;
+  }
+.register-btn2 {
+    background-color: #4472c4;
+    color: white;
+}
+/* 20231027 E_Add */

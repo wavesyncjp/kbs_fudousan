@@ -46,8 +46,17 @@ export class RentalInfoDetailComponent extends BaseComponent {
   public receiveAllFlg: string;
 
   public rentalContracts = [];//賃貸契約
+  public rentalContractsBk = [];//賃貸契約（変更前）20231027 Add
   public rentalReceives = [];//賃貸入金
   public rentalReceivesBk = [];//賃貸入金（変更前）
+  // 20231027 S_Add
+  public evictions: EvictionInfo[];// 立退き一覧
+  bukkens = [];
+  bukkenMap: { [key: string]: number; } = {};
+  public bukkenName: string;
+  contracts: Code[];
+  isDisableContract = false;
+  // 20231027 E_Add
 
   bankPids: Code[];
   locationInfoPids: Code[];
@@ -68,6 +77,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
       this.pid = params.pid;
       this.contractInfoPid = params.contractInfoPid;
       this.tempLandInfoPid = params.tempLandInfoPid;
+      this.isDisableContract = this.contractInfoPid > 0;// 20231027 Add
     });
 
     this.rental = new RentalInfo();
@@ -89,17 +99,28 @@ export class RentalInfoDetailComponent extends BaseComponent {
     funcs.push(this.service.getCodes(['005', '043', '015']));
     funcs.push(this.service.getBanks('1'));
 
-    //地番　家屋番号を取得
-    let cond = {
-      searchFor: 'searchLocationNumber'
-      , contractInfoPid: this.contractInfoPid
-      , isGetMore: 1 // 20231010 Add
-    };
-    funcs.push(this.service.commonSearch(cond));
+    if (this.contractInfoPid > 0) {// 20231027 Add
+      //地番　家屋番号を取得
+      let cond = {
+        searchFor: 'searchLocationNumber'
+        , contractInfoPid: this.contractInfoPid
+        , isGetMore: 1 // 20231010 Add
+      };
+      funcs.push(this.service.commonSearch(cond));
 
-    //所有者名を取得
-    cond.searchFor = 'searchSellerName';
-    funcs.push(this.service.commonSearch(cond));
+      //所有者名を取得
+      cond.searchFor = 'searchSellerName';
+      funcs.push(this.service.commonSearch(cond));
+
+      //物件名称を取得
+      cond.searchFor = 'searchContractSimple';
+      funcs.push(this.service.commonSearch(cond));
+      // 20231027 S_Add  
+    }
+    else {
+      funcs.push(this.service.getLands(null));   // 物件情報一覧の取得 
+    }
+    // 20231027 E_Add
 
     if (this.pid > 0) {
       funcs.push(this.service.rentalGet(this.pid));
@@ -112,28 +133,81 @@ export class RentalInfoDetailComponent extends BaseComponent {
       this.banks = values[1];
       this.bankPids = this.getBanks();
 
-      this.locationInfos = values[2];
-      this.locationInfoPids = this.locationInfos.filter(loc => (loc.blockNumber != null && loc.blockNumber != '') || (loc.buildingNumber != null && loc.buildingNumber != '')).map(loc => new Code({ codeDetail: loc.locationInfoPid, name: loc.blockNumber ?? '' + ' ' + loc.buildingNumber ?? '' }));
+      if (this.contractInfoPid > 0) {// 20231027 Add
+        this.locationInfos = values[2];
+        let pidsTemp = [];
+        this.locationInfoPids = [];
 
-      this.contractSellerInfos = values[3];
-      this.contractSellerInfoPids = this.contractSellerInfos.map(loc => new Code({ codeDetail: loc.pid, name: loc.contractorName }));
+        this.locationInfos.forEach(loc => {
+          if ((loc.blockNumber != null && loc.blockNumber != '') || (loc.buildingNumber != null && loc.buildingNumber != '') || (loc.ridgePid != null && loc.address != null && loc.address != '')) {
+            let pid = loc.ridgePid != null ? loc.ridgePid : loc.locationInfoPid;
+
+            if (!pidsTemp.includes(pid)) {
+              pidsTemp.push(pid);
+              this.locationInfoPids.push(new Code({ codeDetail: pid, name: loc.ridgePid != null ? loc.address : ((loc.blockNumber ?? '') + ' ' + (loc.buildingNumber ?? '')) }));
+            }
+          }
+        });
+
+        this.contractSellerInfos = values[3];
+        this.contractSellerInfoPids = this.contractSellerInfos.map(loc => new Code({ codeDetail: loc.pid, name: loc.contractorName }));
+
+        // 20231027 S_Add
+        let contractsTemp = values[4];
+
+        this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
+
+        let lst: Code[] = [];
+        contractsTemp.forEach(item => {
+          lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+        });
+        this.contracts = lst;
+        // 20231027 E_Add
+      }// 20231027 Add
+      // 20231027 S_Add
+      else {
+        this.lands = values[2];
+        //入力の際に表示される物件名称を取得するための処理
+        this.bukkens = this.lands
+        //物件名称をキーにpidをmapに保持していく
+        this.lands.forEach((land) => {
+          this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
+        });
+      }
+      // 20231027 E_Add
 
       // 賃貸あり場合
       if (this.pid > 0) {
-        this.rental = new RentalInfo(values[4] as RentalInfo);
-        this.locationInfoPidDB = this.rental.locationInfoPid;
-        // 20231010 S_Add
-        this.ownershipRelocationDateDB = this.rental.ownershipRelocationDate;
-        // 20231010 E_Add
+        // 20231027 S_Update
+        // this.rental = new RentalInfo(values[4] as RentalInfo);
+        // this.locationInfoPidDB = this.rental.locationInfoPid;
+        // this.ownershipRelocationDateDB = this.rental.ownershipRelocationDate;
 
-        this.rentalContracts = values[4].rentalContracts;
-        this.rentalReceives = values[4].rentalReceives;
+        // this.rentalContracts = values[4].rentalContracts;
+        // this.rentalReceives = values[4].rentalReceives;
+
+        let dataTemp = values[5];
+        this.rental = new RentalInfo(dataTemp as RentalInfo);
+
+        this.locationInfoPidDB = this.rental.locationInfoPid;
+        this.ownershipRelocationDateDB = this.rental.ownershipRelocationDate;
+
+        this.rentalContracts = dataTemp.rentalContracts;
+        this.rentalReceives = dataTemp.rentalReceives;
+
+        this.evictions = dataTemp.evictionsMap;
+        // 20231027 E_Update
 
         this.backupRentalReceive();
 
         this.rental.convert();
       } else {
         this.rental = new RentalInfo();
+        // 20231027 S_Add
+        if (this.contractInfoPid > 0) {
+          this.rental.contractInfoPid = this.contractInfoPid;
+        }
+        // 20231027 E_Add
       }
       this.spinner.hide();
     });
@@ -151,6 +225,13 @@ export class RentalInfoDetailComponent extends BaseComponent {
         this.rentalReceivesBk.push(<RentalReceive>Util.deepCopy(d, 'RentalReceive'));
       });
     });
+
+    // 20231027 S_Add
+    this.rentalContractsBk = [];
+    this.rentalContracts.forEach(r => {
+      this.rentalContractsBk.push(<RentalContract>Util.deepCopy(r, 'RentalContract'));
+    });
+    // 20231027 E_Add
   }
 
   //数値にカンマを付ける作業
@@ -193,6 +274,12 @@ export class RentalInfoDetailComponent extends BaseComponent {
         // 20231010 E_Delete
 
         if (this.rental.pid > 0) {
+          // 20231027 S_Add
+          this.rental.rentalContractsChanged = this.getContractsChanged();
+          if (this.rental.rentalContractsChanged.length > 0) {
+            isNeedReload = true;
+          }
+          // 20231027 E_Add
           this.rental.rentalReceivesChanged = this.getReceivesChanged();
         }
 
@@ -287,7 +374,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {
         this.rentalContracts.push(result.data);
-        this.searchRentalReceive();
+        // 20231106 S_Update
+        // this.searchRentalReceive();
+        this.searchRentalContract_Receive();
+        // 20231106 E_Update
       }
     });
   }
@@ -315,7 +405,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
             this.rentalContracts.splice(pos, 1);
           }
         }
-        this.searchRentalReceive();
+        // 20231106 S_Update
+        // this.searchRentalReceive();
+        this.searchRentalContract_Receive();
+        // 20231106 E_Update
       }
     });
   }
@@ -405,6 +498,25 @@ export class RentalInfoDetailComponent extends BaseComponent {
     });
   }
 
+  // 20231027 S_Add
+  /**
+   * 変更された賃貸契約を取得
+   * @returns 
+   */
+  getContractsChanged() {
+    let listChangeds = [];
+
+    this.rentalContracts.forEach(obj => {
+      let objBk = this.rentalContractsBk.filter(b => b.pid == obj.pid)[0];
+
+      if (objBk.rentPriceRefMapMap != obj.rentPriceRefMapMap) {
+        obj.rentPriceRefMap = Converter.stringToNumber(obj.rentPriceRefMapMap);
+        listChangeds.push(obj);
+      }
+    });
+    return listChangeds;
+  }
+  // 20231027 E_Add
   /**
    * 変更された賃貸入金を取得
    * @returns 
@@ -460,7 +572,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
           let con = this.rentalContracts.filter(c => c.pid == item.rentalContractPid)[0];
 
           //賃料免除開始日以外
-          if (!(this.isDisableByRenContract(item.receiveMonth, con.roomRentExemptionStartDate))) {
+          // 20231101 S_Update
+          // if (!(this.isDisableByRenContract(item.receiveMonth, con.roomRentExemptionStartDate))) {
+          if (!(this.isDisableByRenContract(item.receiveMonth, con.roomRentExemptionStartDateEvicMap))) {
+            // 20231101 E_Update
             item.receiveFlg = flg.receiveFlgGroup;
           }
         }
@@ -556,6 +671,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
    */
   addEvictionInfo(): void {
     const data = new EvictionInfo();
+    data.rentalInfoPid = this.rental.pid;// 20231027 Add
     data.contractInfoPid = this.rental.contractInfoPid;
     data.tempLandInfoPid = this.rental.tempLandInfoPid;
 
@@ -567,8 +683,15 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
-      // if (result && result.isSave) {
-      // }
+      // 20231027 S_Add
+      if (result && result.isSave) {
+        this.evictions.push(result.data);
+        // 20231101 S_Update
+        // this.searchRentalReceive();
+        this.searchRentalContract_Receive();
+        // 20231101 E_Update
+      }
+      // 20231027 E_Add
     });
   }
 
@@ -577,6 +700,14 @@ export class RentalInfoDetailComponent extends BaseComponent {
   }
 
   convertBeforeShow() {
+    // 20231027 S_Add
+    if (this.rentalContracts != null) {
+      this.rentalContracts.forEach(obj => {
+        obj.rentPriceRefMapMap = Converter.numberToString(obj.rentPriceRefMap);
+      });
+    }
+    // 20231027 E_Add
+
     for (var i = 0; i < this.rentalReceives.length; i++) {
       let rev = this.rentalReceives[i];
       let renByMonths: RentalReceive[] = [];
@@ -589,7 +720,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
         }
         else {
           revByMonth.isExistRenContractMap = this.isExistRenContract(rev.details, con.pid);
-          revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDate);
+          // 20231101 S_Update
+          // revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDate);
+          revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDateEvicMap);
+          // 20231101 E_Update
           revByMonth.receiveDayMap = Converter.stringToDate(revByMonth.receiveDay, 'yyyyMMdd');;
         }
         renByMonths.push(revByMonth);
@@ -599,4 +733,114 @@ export class RentalInfoDetailComponent extends BaseComponent {
     }
   }
   // 20231010 E_Add
+
+  // 20231027 S_Add
+  /**
+   * 立ち退き詳細
+   * @param loc : 立ち退き
+   */
+  showEvictionInfo(loc: EvictionInfo, pos: number) {
+    const dialogRef = this.dialog.open(EvictionInfoDetailComponent, {
+      width: '98%',
+      height: '550px',
+      data: <EvictionInfo>Util.deepCopy(loc, 'EvictionInfo')
+    });
+
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        if (result.isSave || result.isDelete) {
+          if (result.isSave) {
+            this.evictions[pos] = new EvictionInfo(result.data);
+          } else if (result.isDelete) {
+            this.evictions.splice(pos, 1);
+          }
+          // 20231101 S_Update
+          // this.searchRentalReceive();
+          this.searchRentalContract_Receive();
+          // 20231101 E_Update  
+        }
+        // キャンセルで戻っても謄本添付ファイルは最新を設定
+        else {
+        }
+      }
+    });
+  }
+
+  /**
+   * 入力の度に物件を検索する
+   */
+  bukkenSearch() {
+    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
+    const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
+    if (lst.length === 1) {
+      this.tempLandInfoPid = this.bukkenMap[this.bukkenName];
+      this.loadContracts(this.tempLandInfoPid);
+    }
+    else {
+      this.tempLandInfoPid = null;
+      this.contracts = [];
+    }
+    this.rental.tempLandInfoPid = this.tempLandInfoPid;
+    this.rental.contractInfoPid = null;
+    this.rental.contractSellerInfoPid = null;
+    this.rental.locationInfoPid = null;
+  }
+  loadContracts(tempLandInfoPid: number) {
+    let cond = {
+      searchFor: 'searchContractSimple'
+      , tempLandInfoPid: tempLandInfoPid
+    };
+
+    this.service.commonSearch(cond).then(ret => {
+
+      let lst: Code[] = [];
+      ret.forEach(item => {
+        lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+      });
+
+      this.contracts = lst;
+
+      this.spinner.hide();
+    });
+  }
+  searchByContract() {
+    this.contractInfoPid = this.rental.contractInfoPid;
+
+    const funcs = [];
+    //地番　家屋番号を取得
+    let cond = {
+      searchFor: 'searchLocationNumber'
+      , contractInfoPid: this.rental.contractInfoPid
+      , isGetMore: 1
+    };
+    funcs.push(this.service.commonSearch(cond));
+
+    //所有者名を取得
+    cond.searchFor = 'searchSellerName';
+    funcs.push(this.service.commonSearch(cond));
+
+    Promise.all(funcs).then(values => {
+      this.locationInfos = values[0];
+      let pidsTemp = [];
+      this.locationInfoPids = [];
+
+      this.locationInfos.forEach(loc => {
+        if ((loc.blockNumber != null && loc.blockNumber != '') || (loc.buildingNumber != null && loc.buildingNumber != '') || (loc.ridgePid != null && loc.address != null && loc.address != '')) {
+          let pid = loc.ridgePid != null ? loc.ridgePid : loc.locationInfoPid;
+
+          if (!pidsTemp.includes(pid)) {
+            pidsTemp.push(pid);
+            this.locationInfoPids.push(new Code({ codeDetail: pid, name: loc.ridgePid != null ? loc.address : ((loc.blockNumber ?? '') + ' ' + (loc.buildingNumber ?? '')) }));
+          }
+        }
+      });
+
+      this.contractSellerInfos = values[1];
+      this.contractSellerInfoPids = this.contractSellerInfos.map(loc => new Code({ codeDetail: loc.pid, name: loc.contractorName }));
+
+      this.spinner.hide();
+    });
+  }
+  // 20231027 E_Add
 }

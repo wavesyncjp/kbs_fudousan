@@ -10,14 +10,29 @@
     </ul>
     <!--/賃貸情報-->
     <table class="detail-tbl" style="margin:10px;width:99%">
+        <!-- 20231027 S_Add -->
+        <tr>
+            <th rowspan="">物件名称</th>
+            <td>
+                <input type="search" [disabled]="isDisableContract" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" style="width: 250px">
+                <datalist id="data">
+                    <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option>
+                </datalist>
+            </td>
+            <th>契約番号</th>
+            <td>
+                <app-select-component [isDisabled]="isDisableContract || tempLandInfoPid == null || tempLandInfoPid < 1" [codes]="contracts" [(ngModel)]="rental.contractInfoPid" (changed)="searchByContract()" [ngClass]="{'width250': true, 'error-select': errors['contractInfoPid']}"></app-select-component>
+            </td>
+        </tr> 
+        <!-- 20231027 E_Add -->
         <tr>
             <th>所有者名</th>
             <td>
-                <app-select-component [codes]="contractSellerInfoPids" [(ngModel)]="rental.contractSellerInfoPid" [cusClass]="'width250'"></app-select-component>
+                <app-select-component [isDisabled]="rental.contractInfoPid == null || rental.contractInfoPid < 1" [codes]="contractSellerInfoPids" [(ngModel)]="rental.contractSellerInfoPid" [cusClass]="'width250'"></app-select-component>
             </td>
             <th>地番 家屋番号</th>
             <td>
-                <app-select-component [codes]="locationInfoPids" [(ngModel)]="rental.locationInfoPid" [ngClass]="{'width250': true, 'error-select': errors['locationInfoPid']}"></app-select-component>
+                <app-select-component [isDisabled]="rental.contractInfoPid == null || rental.contractInfoPid < 1" [codes]="locationInfoPids" [(ngModel)]="rental.locationInfoPid" [ngClass]="{'width250': true, 'error-select': errors['locationInfoPid']}"></app-select-component>
             </td>
             <th>建物名</th>
             <td colspan="3">
@@ -147,10 +162,10 @@
                     <td class="header2">入金額</td>
                     <!-- 20231019 E_Update -->
                     <td *ngFor="let rcon of rentalContracts; index as pos">
-                        <!-- 20231010 S_Update -->
-                        <!-- {{numberFormat(rcon.rentPrice)}} -->
-                        {{numberFormat(rcon.rentPriceRefMap)}}
-                        <!-- 20231010 E_Update -->
+                        <!-- 20231027 S_Update -->
+                        <!-- {{numberFormat(rcon.rentPriceRefMap)}} -->
+                        <input type="text" [(ngModel)]="rcon.rentPriceRefMapMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(rcon.rentPriceRefMapMap)">&nbsp;円
+                        <!-- 20231027 E_Update -->
                     </td>
                 </tr>
                 <tr *ngFor="let rev of rentalReceives; index as pos">
@@ -163,13 +178,19 @@
                         <mat-checkbox *ngIf="isExistRenContract(rev.details,con.pid)" [disabled]="isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)" [checked]="getReceiveFlg(rev.details,con.pid) === '1'" (change)="changeReceiveFlg($event,rev.details,con.pid)"></mat-checkbox>
                     </td> -->
                     <td *ngFor="let revM of rev.renByMonths; index as posSub" [ngClass]="{'row-disabled':revM.isExistRenContractMap && revM.isDisableByRenContractMap}">
-                        <div *ngIf="revM.isExistRenContractMap" class="picker-div">
+                        <!-- 20231027 S_Update -->
+                        <!-- <div *ngIf="revM.isExistRenContractMap" class="picker-div"> -->
+                        <div *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" class="picker-div">
+                        <!-- 20231027 E_Update -->
                             <input type="text" [matDatepicker]="receiveDay" [disabled]="revM.isDisableByRenContractMap" [(ngModel)]="revM.receiveDayMap" class="width100">
                             <mat-datepicker-toggle matSuffix [for]="receiveDay" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #receiveDay></mat-datepicker>
                         </div>
                         &nbsp;
-                        <mat-checkbox *ngIf="revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
+                        <!-- 20231027 S_Update -->
+                        <!-- <mat-checkbox *ngIf="revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox> -->
+                        <mat-checkbox *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
+                        <!-- 20231027 E_Update -->
                     </td>
                     <!-- 20231010 E_Update -->
                 </tr>
@@ -178,6 +199,36 @@
     </div>
     <!--/賃貸入金一覧-->
     <br>
+    <!-- 20231027 E_Add -->
+    <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
+        <span class="min">立退き一覧</span>
+        <table style="width: auto;">
+            <thead class="list-header">
+                <th class="width_name">建物名</th>
+                <th>部屋番号</th>
+                <th>賃借人名</th>
+                <th class="width100">明渡日</th>
+                <th class="width100">明渡予定日</th>
+                <th class="width80">詳細</th>
+                <th class="width80">合意書</th>
+                <th class="width150">預り金一覧作成</th>
+            </thead>
+            <tbody class="list-body">
+                <tr *ngFor="let item of evictions; index as pos">
+                    <td class="text-left">{{item.apartmentName}}</td>
+                    <td class="text-left">{{item.roomNo}}</td>
+                    <td class="text-left">{{item.borrowerName}}</td>
+                    <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
+                    <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
+                    <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
+                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
+                    <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <!-- 20231027 E_Add -->
     <!-- 20231010 S_Delete -->
     <!-- <div class="register-div" style="margin-top:10px">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>

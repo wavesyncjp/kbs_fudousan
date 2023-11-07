@@ -17,7 +17,10 @@
                 <app-select-component [codes]="contractSellerInfoPids" [(ngModel)]="rental.contractSellerInfoPid" [cusClass]="'width250'" [isDisabled]="true"></app-select-component>
             </td>
             <th>建物名</th>
-            <td>
+            <!-- 20231027 S_Update -->
+            <!-- <td> -->
+            <td colspan="3">
+            <!-- 20231027 E_Update -->
                 <input type="text" [(ngModel)]="rental.apartmentName" [ngClass]="{'width400': true, 'error': errors['apartmentName']}" maxlength="128" disabled="true">
             </td>
         </tr>
@@ -32,10 +35,12 @@
             </td>
         </tr>
         <tr>
-            <th>振込名義人</th>
+            <!-- 20231027 S_Delete -->
+            <!-- <th>振込名義人</th>
             <td>
                 <input type="text" [(ngModel)]="data.banktransferName" [ngClass]="{'width250': true, 'error': errors['banktransferName']}" maxlength="128">
-            </td>
+            </td> -->
+            <!-- 20231027 E_Delete -->
             <th>振込名義人カナ</th>
             <td>
                 <input type="text" [(ngModel)]="data.banktransferNameKana" [ngClass]="{'width250': true, 'error': errors['banktransferNameKana']}" maxlength="128">
@@ -103,14 +108,32 @@
                 <input type="text" [(ngModel)]="data.borrowerAddress" [ngClass]="{'width250': true, 'error': errors['borrowerAddress']}" maxlength="128">
             </td>
             <!-- 20231016 E_Add -->
-        </tr>
-        <!-- 20231016 S_Add -->
-        <tr>
+            <!-- 20231027 S_Add -->
             <th>貸借人電話番号</th>
             <td>
                 <input type="text" [(ngModel)]="data.borrowerTel" [ngClass]="{'width110': true, 'error': errors['borrowerTel']}" maxlength="25">
             </td>
+            <!-- 20231027 E_Add -->
         </tr>
+        <!-- 20231016 S_Add -->
+        <!-- 20231027 S_Update -->
+        <!-- <tr>
+            <th>貸借人電話番号</th>
+            <td>
+                <input type="text" [(ngModel)]="data.borrowerTel" [ngClass]="{'width110': true, 'error': errors['borrowerTel']}" maxlength="25">
+            </td>
+        </tr> -->
+        <tr>
+            <th>入居者氏名</th>
+            <td>
+                <input type="text" [(ngModel)]="data.residentName" [ngClass]="{'width250': true, 'error': errors['residentName']}" maxlength="128">
+            </td>
+            <th>入居者電話番号</th>
+            <td>
+                <input type="text" [(ngModel)]="data.residentTel" [ngClass]="{'width110': true, 'error': errors['residentTel']}" maxlength="25">
+            </td>
+        </tr>        
+        <!-- 20231027 E_Update -->
         <tr>
             <th>契約期間</th>
             <td>
@@ -123,7 +146,8 @@
                 </span>
             </td>
         </tr>
-        <tr>
+        <!-- 20231027 S_Delete -->
+        <!-- <tr>
             <th>入居者氏名</th>
             <td>
                 <input type="text" [(ngModel)]="data.residentName" [ngClass]="{'width250': true, 'error': errors['residentName']}" maxlength="128">
@@ -132,7 +156,8 @@
             <td>
                 <input type="text" [(ngModel)]="data.residentTel" [ngClass]="{'width110': true, 'error': errors['residentTel']}" maxlength="25">
             </td>
-        </tr>
+        </tr> -->
+        <!-- 20231027 E_Delete -->
         <!-- 20231016 E_Add -->
         <tr>
             <th>契約方法</th>
@@ -168,7 +193,10 @@
                 <app-select-component [codes]="getCode('015')" [(ngModel)]="data.paymentMethod"></app-select-component>
             </td>
             <th>支払期限</th>
-            <td>
+            <!-- 20231027 S_Update -->
+            <!-- <td> -->
+            <td colspan="3">
+            <!-- 20231027 E_Update -->
                 <app-select-component [codes]="getCode('044')" [(ngModel)]="data.usance"></app-select-component>&nbsp;分
                 &nbsp;&nbsp;
                 <input type="text" [(ngModel)]="data.paymentDayMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.paymentDayMap)">&nbsp;日まで
@@ -282,12 +310,28 @@
             </td>
             <th>更新料</th>
             <td>
-                <input type="text" [(ngModel)]="data.updateFee" class="width100 number" (keypress)="floatOnly($event)" maxlength="6">&nbsp;ヶ月分
+                <input type="text" [(ngModel)]="data.updateFee" class="width100 number" (keypress)="floatOnly($event)" maxlength="15">&nbsp;ヶ月分
             </td>
             <!-- 20231016 E_Add -->
         </tr>
+        <!-- 20231027 S_Add -->
         <tr>
-            <td colspan="6">
+            <th>備考</th>
+            <td colspan="5">
+                <input type="text" [(ngModel)]="data.rentalContractNotes" class="width85Per" maxlength="1024">
+            </td>
+        </tr>
+        <!-- 20231027 S_Add -->
+        <tr>
+            <!-- 20231027 S_Update -->
+            <!-- <td colspan="6"> -->
+            <td>
+                <mat-dialog-actions class="left-aligned-actions">
+                    <button mat-raised-button *ngIf="data.pid > 0" class="register-btn2" (click)="addEvictionInfo()">立退き情報　登録</button>
+                </mat-dialog-actions>
+            </td>
+            <td colspan="5">
+            <!-- 20231027 E_Update -->
                 <mat-dialog-actions align="center">
                     <button mat-raised-button class="delete-btn" *ngIf="data.pid > 0" (click)="deleteRentalContract()">削除</button>
                     <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>

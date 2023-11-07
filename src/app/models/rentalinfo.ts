@@ -29,6 +29,7 @@ export class RentalInfo {
     updateUserId: number;
 
     rentalContracts: RentalContract[];
+    rentalContractsChanged: RentalContract[];// 20231027
     rentalReceives: RentalReceive[];
     rentalReceivesChanged: RentalReceive[];
 

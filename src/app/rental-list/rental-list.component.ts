@@ -14,18 +14,18 @@ import { Code } from '../models/bukken';
   templateUrl: './rental-list.component.html',
   styleUrls: ['./rental-list.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter},
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter },
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
   ],
 })
-export class RentalInfoListComponent  extends BaseComponent {
+export class RentalInfoListComponent extends BaseComponent {
 
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'apartmentName', 'ownershipRelocationDate', 'validType', 'bankPid', 'detail'];
   dataSource = new MatTableDataSource<RentalInfo>();
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   bankPids: Code[];
   cond = {
@@ -35,22 +35,22 @@ export class RentalInfoListComponent  extends BaseComponent {
     , ownershipRelocationDate_From: ''// 所有権移転日 From
     , ownershipRelocationDate_ToMap: null// 所有権移転日 To
     , ownershipRelocationDate_To: ''// 所有権移転日 To
-    ,validType: ''// 有効区分
+    , validType: ''// 有効区分
     , bankPid: ''// 入金口座
   };
   search = '0';
   searched = false;
 
   constructor(public router: Router,
-              private route: ActivatedRoute,
-              public service: BackendService,
-              public dialog: MatDialog,
-              public datepipe: DatePipe,
-              private spinner: NgxSpinnerService) {
-                super(router, service,dialog);
-                this.route.queryParams.subscribe(params => {
-                  this.search = params.search;
-                });
+    private route: ActivatedRoute,
+    public service: BackendService,
+    public dialog: MatDialog,
+    public datepipe: DatePipe,
+    private spinner: NgxSpinnerService) {
+    super(router, service, dialog);
+    this.route.queryParams.subscribe(params => {
+      this.search = params.search;
+    });
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
@@ -61,7 +61,7 @@ export class RentalInfoListComponent  extends BaseComponent {
     this.dataSource.paginator = this.paginator;
     if (this.search === '1') {
       this.cond = this.service.searchCondition;
-      if(this.cond == null) {
+      if (this.cond == null) {
         this.resetCondition();
       }
       this.searchRental();
@@ -73,7 +73,7 @@ export class RentalInfoListComponent  extends BaseComponent {
     Promise.all(funcs).then(values => {
       // コード
       this.processCodes(values[0] as Code[]);
-      
+
       this.banks = values[1];
       this.bankPids = this.getBanks();
     });
@@ -92,7 +92,7 @@ export class RentalInfoListComponent  extends BaseComponent {
       , ownershipRelocationDate_To: ''
       , validType: ''
       , bankPid: ''
-   };
+    };
   }
 
   /**
@@ -120,7 +120,7 @@ export class RentalInfoListComponent  extends BaseComponent {
    * @param obj ：賃貸情報
    */
   showRental(obj: RentalInfo) {
-    this.router.navigate(['/rendetail'], {queryParams: {pid: obj.pid, contractInfoPid:obj.contractInfoPid}});
+    this.router.navigate(['/rendetail'], { queryParams: { pid: obj.pid, contractInfoPid: obj.contractInfoPid } });
   }
 
   /**
@@ -133,4 +133,13 @@ export class RentalInfoListComponent  extends BaseComponent {
     }
     return null;
   }
+
+  // 20231027 S_Add
+  /**
+   * 賃貸新規登録
+   */
+  createNew() {
+    this.router.navigate(['/rendetail']);
+  }
+  // 20231027 E_Add
 }

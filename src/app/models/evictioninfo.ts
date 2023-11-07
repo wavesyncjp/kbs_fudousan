@@ -27,6 +27,7 @@ export class EvictionInfo {
 
     // 20231010 S_Add
     successionDeposit: number;
+    returnDepositType: string;// 20231027 Add
     returnDeposit: number;
     returnDepositDate: string;
     roomRentExemptionStartDate: string;
@@ -59,6 +60,10 @@ export class EvictionInfo {
     roomRentExemptionStartDateMap: Date = null;
     // 20231010 E_Add
     agreementCancellationDateMap: Date = null;// 20231016 Add
+    // 20231027 S_Add
+    statusMap: string;// 登録状態
+    msgMap: string;// NGのメッセージ
+    // 20231027 E_Add
 
     evictionFiles: EvictionInfoAttach[];
     // 開発用の例↑

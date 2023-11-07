@@ -58,6 +58,7 @@ export class RentalContract {
     otherExpenses: number;
     securityDeposit: number;
     amortization: number;
+    rentalContractNotes: string;// 20231027 Add
     // 20231010 E_Add
     createUserId: number;
     updateUserId: number;
@@ -103,7 +104,11 @@ export class RentalContract {
     otherExpensesMap: string;
     securityDepositMap: string;
     amortizationMap: string;
-    rentPriceRefMap: string;
+    // 20231027 S_Update
+    // rentPriceRefMap: string;
+    rentPriceRefMap: number;
+    rentPriceRefMapMap: string;
+    // 20231027 E_Update
     ownershipRelocationDateDbMap: string;
     // 20231010 E_Add
     statusMap: string;// 登録状態

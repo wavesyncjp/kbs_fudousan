@@ -12,6 +12,10 @@ import { DatePipe } from '@angular/common';
 import { JPDateAdapter } from '../adapters/adapters';
 import { RentalInfo } from '../models/rentalinfo';
 import { RentalContract } from '../models/rentalcontract';
+// 20231027 S_Add
+import { EvictionInfo } from '../models/evictioninfo';
+import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.component';
+// 20231027 E_Add
 
 declare var $: any;// 20231010 Add
 
@@ -312,6 +316,7 @@ export class RentalContractDetailComponent extends BaseComponent {
     } else {
       this.data.borrowerName = '';
     }
+    this.data.residentName = this.data.borrowerName;// 20231101 Add
   }
 
   /**
@@ -355,4 +360,29 @@ export class RentalContractDetailComponent extends BaseComponent {
     this.data.securityDepositConvertedFlg = flg.securityDepositConvertedFlg;
   }
   // 20231016 E_Add
+
+  // 20231027 S_Add
+  /**
+   * 立ち退き追加
+   */
+  addEvictionInfo(): void {
+    const data = new EvictionInfo();
+    data.rentalInfoPid = this.data.rentalInfoPid;
+    data.contractInfoPid = this.data.contractInfoPid;
+    data.tempLandInfoPid = this.data.tempLandInfoPid;
+    data.residentInfoPid = this.data.residentInfoPid;
+
+    const dialogRef = this.dialog.open(EvictionInfoDetailComponent, {
+      width: '98%',
+      height: '550px',
+      data: data
+    });
+
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.isSave) {
+      }
+    });
+  }
+  // 20231027 E_Add  
 }

@@ -14,11 +14,17 @@
         <tr>
             <th>建物名</th>
             <td>
-                <app-select-component [codes]="rentalInfoPids" [(ngModel)]="data.rentalInfoPid" [ngClass]="{'error-select': errors['rentalInfoPid']}"></app-select-component>
+                <!-- 20231019 S_Update -->
+                <!-- <app-select-component [codes]="rentalInfoPids" [(ngModel)]="data.rentalInfoPid" [ngClass]="{'error-select': errors['rentalInfoPid']}"></app-select-component> -->
+                <app-select-component [codes]="rentalInfoPids" [(ngModel)]="data.rentalInfoPid" (changed)="changeByRentalInfoPid($event)" [ngClass]="{'error-select': errors['rentalInfoPid']}"></app-select-component>
+                <!-- 20231019 E_Update -->
             </td>
             <th>部屋番号</th>
             <td>
-                <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
+                <!-- 20231019 S_Update -->
+                <!-- <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component> -->
+                <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)"  [isDisabled]="residentInfoPids == null || residentInfoPids.length == 0" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
+                <!-- 20231019 E_Update -->
             </td>
             <th>貸借人名</th>
             <td>
@@ -29,7 +35,10 @@
             <th>明渡予定日</th>
             <td>
                 <div class="picker-div">
-                    <input type="text" [matDatepicker]="surrenderScheduledDate" [(ngModel)]="data.surrenderScheduledDateMap" class="width100">
+                    <!-- 20231027 S_Update -->
+                    <!-- <input type="text" [matDatepicker]="surrenderScheduledDate" [(ngModel)]="data.surrenderScheduledDateMap" class="width100"> -->
+                    <input type="text" [matDatepicker]="surrenderScheduledDate" [(ngModel)]="data.surrenderScheduledDateMap" [ngClass]="{'width100': true, 'error': errors['surrenderScheduledDate']}">
+                    <!-- 20231027 E_Update -->
                     <mat-datepicker-toggle matSuffix [for]="surrenderScheduledDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #surrenderScheduledDate></mat-datepicker>
                 </div>
@@ -69,6 +78,9 @@
             <!-- 20231010 S_Add -->
             <th rowspan="3">返還敷金(保証金)</th>
             <td>
+                <!-- 20231027 S_Add -->
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="data.returnDepositType"></app-select-component>
+                <!-- 20231027 E_Add -->
             </td>
             <!-- 20231010 E_Add -->
         </tr>
@@ -197,7 +209,10 @@
         </tr>
         <!-- 20231010 E_Add -->
         <tr>
-            <td colspan="7">
+            <!-- 20231027 S_Update -->
+            <!-- <td colspan="7"> -->
+            <td colspan="8">
+            <!-- 20231027 S_Update -->
                 <mat-dialog-actions align="center">
                     <button mat-raised-button class="delete-btn" *ngIf="data.pid > 0" (click)="deleteEviction()">削除</button>
                     <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
