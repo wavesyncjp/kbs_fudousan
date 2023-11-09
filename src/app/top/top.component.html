@@ -98,26 +98,24 @@
                 <ng-container matColumnDef="answerTimeLimit">
                     <td mat-cell *matCellDef="let element">{{element.answerTimeLimit}}</td>
                 </ng-container>
-                <!-- 20231023 S_Delete -->
+                <!-- 20231108 S_Delete -->
                 <!-- <ng-container matColumnDef="approvalDateTime">
                     <td mat-cell *matCellDef="let element">{{element.approvalDateTime | date:'yyyy/MM/dd HH:mm:ss'}}</td>
                 </ng-container> -->
-                <!-- 20231023 E_Delete -->
+                <!-- 20231108 E_Delete -->
                 <!-- 20220517 E_Add -->
 
                 <tr mat-row *matRowDef="let row; columns: displayedColumnsForNotice;"></tr>
             </table>
         </div>
-        <!-- 20231023 S_Update -->
+        <!-- 20231108 S_Update -->
         <!-- <div class="more" *ngIf="hasNotice"><a (click)="navigate('notices')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div> -->
         <div class="more" *ngIf="hasNotice"><a (click)="navigate2('notices','1')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
-        <!-- 20231023 E_Update -->
+        <!-- 20231108 E_Update -->
     </div>
     <!-- 20211227 E_Update -->
     <!-- 20230213 S_Add -->
-    <!-- 20231023 S_Delete -->
-    <!-- <br> -->    
-    <!-- 20231023 E_Delete -->
+    <br>
     <div class="bulletin-osaka" *ngIf="enableUser">
         <label>お知らせ（大阪支店）</label>
         <div class="mat-elevation-z8 main-data">
@@ -150,24 +148,28 @@
                 <ng-container matColumnDef="createUserId">
                     <td mat-cell *matCellDef="let element">{{getUserName(element.createUserId)}}</td>
                 </ng-container>
+
                 <ng-container matColumnDef="answerTimeLimit">
                     <td mat-cell *matCellDef="let element">{{element.answerTimeLimit}}</td>
                 </ng-container>
-                <!-- 20231023 S_Delete -->
+                <!-- 20231108 S_Delete -->
                 <!-- <ng-container matColumnDef="approvalDateTime">
                     <td mat-cell *matCellDef="let element">{{element.approvalDateTime | date:'yyyy/MM/dd HH:mm:ss'}}</td>
                 </ng-container> -->
-                <!-- 20231023 E_Delete -->
+                <!-- 20231108 E_Delete -->
+
                 <tr mat-row *matRowDef="let row; columns: displayedColumnsForOsaka;"></tr>
             </table>
         </div>
-        <!-- 20231023 S_Update -->
+        <!-- 20231108 S_Update -->
         <!-- <div class="more" *ngIf="hasOsaka"><a (click)="navigate('notices')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div> -->
-        <div class="more" *ngIf="hasOsaka"><a (click)="navigate2('notices', '2')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
-        <!-- 20231023 E_Update -->
+        <div class="more" *ngIf="hasOsaka"><a (click)="navigate2('notices','2')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
+        <!-- 20231108 E_Update -->
     </div>
     <!-- 20230213 E_Add -->
 
+    <!-- 20231108 S_Add -->
+    <br>
     <div class="bulletin-fukuoka" *ngIf="enableUser">
         <label>お知らせ（福岡支店）</label>
         <div class="mat-elevation-z8 main-data">
@@ -197,14 +199,18 @@
                 <ng-container matColumnDef="createUserId">
                     <td mat-cell *matCellDef="let element">{{getUserName(element.createUserId)}}</td>
                 </ng-container>
+
                 <ng-container matColumnDef="answerTimeLimit">
                     <td mat-cell *matCellDef="let element">{{element.answerTimeLimit}}</td>
                 </ng-container>
+
                 <tr mat-row *matRowDef="let row; columns: displayedColumnsForFukuoka;"></tr>
             </table>
         </div>
         <div class="more" *ngIf="hasFukuoka"><a (click)="navigate2('notices','3')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
     </div>
+    <!-- 20231108 E_Add -->    
+
     <!--
     <div class="chart">
         <ngx-charts-bar-vertical
