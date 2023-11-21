@@ -66,6 +66,14 @@ export class FileComponentComponent implements OnInit {
   @Input()
   comment = '';
 
+  // 20231020 S_Add
+  @Input()
+  accept = '';
+
+  @Input()
+  isPhoto = false;
+  // 20231020 E_Add
+
   @Input()
   hasComment = false;
 
@@ -80,14 +88,14 @@ export class FileComponentComponent implements OnInit {
 
   @Output() uploaded: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('fileInput', {static: true})
+  @ViewChild('fileInput', { static: true })
   fileInput;
 
   file: File | null = null;
 
   constructor(public service: BackendService,
-              public dialog: MatDialog,
-              private snackBar: MatSnackBar) { }
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -100,7 +108,7 @@ export class FileComponentComponent implements OnInit {
     const files: { [key: string]: File } = this.fileInput.nativeElement.files;
     this.file = files[0];
     // 20201021 S_Add
-    if(this.immediately) {
+    if (this.immediately) {
       this.uploadWithoutConfirm();
     }
     // 20201021 E_Add
@@ -120,7 +128,7 @@ export class FileComponentComponent implements OnInit {
     */
     for (var i = 0; i < event.length; i++) {
       this.file = event[i];
-      if(this.immediately) {
+      if (this.immediately) {
         this.uploadWithoutConfirm();
       }
     }
@@ -129,7 +137,7 @@ export class FileComponentComponent implements OnInit {
 
   upload(): void {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルアップロードしますが、よろしいですか？'});
+    const dlg = new Dialog({ title: '確認', message: 'ファイルアップロードしますが、よろしいですか？' });
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -139,24 +147,27 @@ export class FileComponentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
 
-       this.uploadWithoutConfirm();
+        this.uploadWithoutConfirm();
 
       }
     });
   }
 
   uploadWithoutConfirm() {
-     // 物件アップロード
-     if (this.bukkenId !== undefined && this.bukkenId > 0) {
-      this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
+    // 物件アップロード
+    if (this.bukkenId !== undefined && this.bukkenId > 0) {
+      // 20231020 S_Update
+      // this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment).then(res => {
+      this.service.uploadFile(this.bukkenId, this.file, this.hasComment, this.comment, this.isPhoto).then(res => {
+        // 20231020 E_Update
         this.snackBar.open('ファイルアップロード完了', null, {
           duration: 1000,
         });
         this.file = null;
         this.uploaded.emit(res);
-        
+
       });
-      if(this.hasComment) this.comment = '';
+      if (this.hasComment) this.comment = '';
     }
     // 20230227 S_Add
     // 仕入契約添付ファイルアップロード
@@ -173,7 +184,7 @@ export class FileComponentComponent implements OnInit {
     // 20230227 E_Add
     // 契約ファイルアップロード
     // tslint:disable-next-line:one-line
-    else if (this.contractInfoId !== undefined && this.contractInfoId > 0 ) {
+    else if (this.contractInfoId !== undefined && this.contractInfoId > 0) {
       this.service.uploadContractFile(this.contractInfoId, this.file).then(res => {
         this.snackBar.open('ファイルアップロード完了', null, {
           duration: 1000,
@@ -184,7 +195,7 @@ export class FileComponentComponent implements OnInit {
     }
     // 20210311 S_Add
     // 謄本ファイルアップロード
-    else if (this.locationInfoId !== undefined && this.locationInfoId > 0 ) {
+    else if (this.locationInfoId !== undefined && this.locationInfoId > 0) {
       this.service.uploadLocationFile(this.locationInfoId, this.file).then(res => {
         this.snackBar.open('ファイルアップロード完了', null, {
           duration: 1000,
@@ -196,7 +207,7 @@ export class FileComponentComponent implements OnInit {
     // 20210311 E_Add
     // 20220329 S_Add
     // インフォメーション添付ファイルアップロード
-    else if (this.infoPid !== undefined && this.infoPid > 0 ) {
+    else if (this.infoPid !== undefined && this.infoPid > 0) {
       this.service.uploadInfoAttachFile(this.infoPid, this.file).then(res => {
         this.snackBar.open('ファイルアップロード完了', null, {
           duration: 1000,
@@ -208,7 +219,7 @@ export class FileComponentComponent implements OnInit {
     // 20220329 E_Add
     // 20230927 S_Add
     // 承認済添付ファイルアップロード
-    else if (this.infoPid2 !== undefined && this.infoPid2 > 0 ) {
+    else if (this.infoPid2 !== undefined && this.infoPid2 > 0) {
       this.service.uploadInfoApprovalAttach(this.infoPid2, this.file).then(res => {
         this.snackBar.open('ファイルアップロード完了', null, {
           duration: 1000,

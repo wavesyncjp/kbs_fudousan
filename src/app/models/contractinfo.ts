@@ -199,6 +199,11 @@ export class Contractinfo {
     createUserId: number;
     updateUserId: number;
 
+    // 20231110 S_Add
+    statusMap: string;// 登録状態
+    msgMap: string;// NGのメッセージ
+    // 20231110 E_Add
+
     public constructor(init?: Partial<Contractinfo>) {
         if (init) {
             Object.assign(this, init);

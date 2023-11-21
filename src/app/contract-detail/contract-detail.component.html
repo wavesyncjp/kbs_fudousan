@@ -571,7 +571,10 @@
                     <!-- <td><button mat-raised-button class="output-btn">台帳作成</button></td> -->
                     <td><button mat-raised-button (click)="exportRental(item.pid)" class="output-btn">台帳作成</button></td>
                     <!-- 20231016 E_Update -->
-                    <td><button mat-raised-button class="output-btn2">入金管理表作成</button></td>
+                    <!-- 20231115 S_Update -->
+                    <!-- <td><button mat-raised-button class="output-btn2">入金管理表作成</button></td> -->
+                    <td><button mat-raised-button (click)="exportRentalManage(item.pid)" class="output-btn2">入金管理表作成</button></td>
+                    <!-- 20231115 S_Update -->
                     <td><button mat-raised-button (click)="deleteRentalInfo(item,pos)" class="delete_btn">削除</button></td>
                 </tr>
             </tbody>

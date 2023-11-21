@@ -345,25 +345,36 @@ export class ContractDetailComponent extends BaseComponent {
         //20200828 E_Update
         this.service.saveContract(this.contract).then(res => {
 
-          const finishDlg = new Dialog({ title: '完了', message: '契約情報を登録しました。' });
-          const dlgVal = this.dialog.open(FinishDialogComponent, {
-            width: '500px',
-            height: '250px',
-            data: finishDlg
-          });
-          dlgVal.afterClosed().subscribe(val => {
+          // 20231110 S_Add
+          if (res.statusMap == 'NG') {
             this.spinner.hide();
-            this.contract = new Contractinfo(res);
-            this.convertData();
-            //20200828 S_Update
-            /*
-            this.contract.convert();
-            */
-            this.contract.convert(this.emps);
-            //20200828 S_Update
-            this.router.navigate(['/ctdetail'], { queryParams: { pid: this.contract.pid } });
-          });
-
+            this.dialog.open(FinishDialogComponent, {
+              width: '500px',
+              height: '250px',
+              data: new Dialog({ title: 'エラー', message: res.msgMap })
+            });
+          }
+          else {
+            // 20231110 E_Add
+            const finishDlg = new Dialog({ title: '完了', message: '契約情報を登録しました。' });
+            const dlgVal = this.dialog.open(FinishDialogComponent, {
+              width: '500px',
+              height: '250px',
+              data: finishDlg
+            });
+            dlgVal.afterClosed().subscribe(val => {
+              this.spinner.hide();
+              this.contract = new Contractinfo(res);
+              this.convertData();
+              //20200828 S_Update
+              /*
+              this.contract.convert();
+              */
+              this.contract.convert(this.emps);
+              //20200828 S_Update
+              this.router.navigate(['/ctdetail'], { queryParams: { pid: this.contract.pid } });
+            });
+          }// 20231110 Add
         });
       }
     });
@@ -917,4 +928,24 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
   // 20231016 E_Add
+
+  // 20231115 S_Add
+  /**
+   * 入金管理表作成
+   */
+  exportRentalManage(rentalInfoPid: number) {
+    const dlg = new Dialog({ title: '確認', message: '入金管理表を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportRentalManage(rentalInfoPid).then(data => {
+          this.service.writeToFile(data, "賃貸管理表");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20231115 E_Add
 }

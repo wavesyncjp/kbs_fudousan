@@ -122,3 +122,145 @@ th.mat-sort-header-sorted {
     background-color: #BFBFBF;
 }
 /*20200828 E_Add*/
+
+/* 20231111 S_Add */
+.w-l{
+    width: 70% !important;
+}
+
+.w-r{
+    width: 30% !important;
+}
+
+.fl{
+    float: left !important;
+}
+
+.fr{
+    float: right !important;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    margin: 5px;
+}
+
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card-header {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-body {
+    padding: 0.5rem 0.5rem; 
+}
+
+.map-equip2 {
+    text-align: left;
+    font-size: 12px;
+    font-weight: normal !important;
+}
+
+.map-equip2 > table > tr > th {
+    font-weight: normal !important;
+}
+
+.map-equip2 .label {
+    width: 80px;
+    text-align: left;
+}
+
+.map-wrapper-l {
+    height: 100vh;
+    overflow-y: scroll;
+}
+.map-wrapper-r {
+    height: 100vh;
+    overflow-y: scroll;
+}
+.custom-marker-label {
+    color: white !important;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 7px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+.icon-container {
+    height: 90px;
+    display: flex;
+    overflow: hidden; 
+}
+  
+.icon-image {
+    height: 100%;
+    width: auto;
+}
+ 
+@media print {
+    .icon-container {
+        height: 240px;
+      }
+
+        
+    .map-wrapper-r {
+        height: unset;
+        overflow-y: unset;
+
+        position: relative;
+        width: 100%;
+
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .w-l{
+        width: 100% !important;
+    }
+    
+    .w-r{
+        width: 100% !important;
+    }
+
+    .card-height {
+        height: calc(calc(100vh / 2) - 15px);
+        -ms-flex: 0 0 calc(50% - 10px);
+        flex: 0 0 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+        margin: 0;
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
+    
+    .card-height:nth-child(4n+1),.card-height:nth-child(4n+2) {
+        page-break-before: always;
+    }
+    .card-height:nth-child(4n+3),.card-height:nth-child(4n+4) {
+        page-break-before:avoid;
+    }
+    .label, .valueClass{
+        font-weight: normal !important;
+    }
+} 
+/* 20231111 E_Add */

@@ -340,6 +340,97 @@
   </mat-tab>
 
   <mat-tab label="マップ">
-    <div #mapContainer id="map"></div>
+    <!-- 20231111 S_Update -->
+    <!-- <div #mapContainer id="map"></div> -->
+    <div #mapContainer id="map" class="map-wrapper-l w-l fl print-class"></div>
+    <div id="mapData" class="map-wrapper-r w-r fr print-class">
+    <!-- 20231111 E_Update -->
+      <div class="card card-height" *ngFor="let item of filterMap()">
+        <div class="card-header">
+            {{ item.labelMap }}
+        </div>
+        <div class="card-body map-equip2">
+          <table>
+            <!-- 20231111 S_Delete -->
+            <!-- <tr>
+              <th class="label">物件コード</th>
+              <th>{{ item.bukkenNo }}</th>
+            </tr>
+            <tr>
+              <th class="label">物件名</th>
+              <th>{{ item.bukkenName }}</th>
+            </tr> -->
+            <!-- 20231111 E_Delete -->
+            <tr>
+              <th class="label">契約物件番号</th>
+              <th class="valueClass">{{ item.contractBukkenNo }}</th>
+            </tr>
+            <tr>
+              <th class="label">住居表示</th>
+              <th class="valueClass">{{ item.residence }}</th>
+            </tr>
+            <!-- 20231111 S_Delete -->
+            <!-- <tr>
+              <th class="label">所在地</th>
+              <th>{{ item.remark1.split(',')[0] }}</th>
+            </tr>
+            <tr>
+              <th class="label">地番</th>
+              <th>{{ item.remark2.split(',')[0] }}</th>
+            </tr> -->
+            <!-- 20231111 E_Delete -->
+            <tr>
+              <th class="label">地図情報</th>
+              <th class="valueClass">
+                <span *ngFor="let f of item.mapFiles">
+                  <a href="{{f.mapFilePath + f.mapFileName}}" target="_blank">{{f.mapFileName}}</a>&nbsp;&nbsp;&nbsp; 
+                </span>
+              </th>
+            </tr>
+            <!-- 20231111 S_Delete -->
+            <!-- <tr><th><br></th><th></th></tr>
+            <tr>
+              <th class="label">情報収集日</th>
+              <th>{{ getPickDate(item) }}</th>
+            </tr>
+            <tr>
+              <th class="label">測量依頼日</th>
+              <th>{{ getSurveyRequestedDay(item) }}</th>
+            </tr>
+            <tr>
+              <th class="label">物件担当者</th>
+              <th>{{ item['staffName'] }}</th>
+            </tr> -->
+            <!-- 20231111 E_Delete -->
+            <tr>
+              <th class="label">結果</th>
+              <th class="valueClass">{{ item['result'] }}</th>
+            </tr>
+            <tr>
+              <!-- 20231111 S_Update -->
+              <!-- <th class="label"></th>
+              <th>
+                <a href="javascript:void(0);" (click)="showBukkenDetail(item)">詳細</a>
+              </th> -->
+              <th class="valueClass"><a href="javascript:void(0);" (click)="showBukkenDetail(item)">詳細</a></th>
+              <!-- 20231111 E_Update -->
+            </tr>
+            <!-- 20231111 S_Add -->
+            <tr>
+              <th class="label">物件写真</th>
+            </tr>
+            <tr>
+              <th colspan="2">
+                <span *ngFor="let f of item.photoFilesMap" class="icon-container">
+                  <img src="{{f.bukkenPhotoAttachFilePath + f.bukkenPhotoAttachFileName}}" class="icon-image">
+                </span>
+              </th>
+            </tr>
+            <!-- 20231111 E_Add -->
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- 20231111 E_Update -->
   </mat-tab>
 </mat-tab-group>

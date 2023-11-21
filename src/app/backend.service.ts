@@ -410,7 +410,10 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    * @param bukkenId ：物件ID
    * @param file ：ファイル
    */
-  uploadFile(bukkenId: number, file: File, hasComment = false, comment = ''): Promise<object> {
+  // 20231020 S_Update
+  // uploadFile(bukkenId: number, file: File, hasComment = false, comment = ''): Promise<object> {
+  uploadFile(bukkenId: number, file: File, hasComment = false, comment = '', isPhoto = false): Promise<object> {
+    // 20231020 E_Update
     const uploadApi = 'file_upload.php';
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
@@ -419,6 +422,11 @@ getCodeNames(codes: string[]): Promise<Code[]> {
       formData.append('comment', comment);
       formData.append('isAttach', '1');
     }
+    // 20231020 S_Add
+    if (isPhoto) {
+      formData.append('isPhoto', '1');
+    }
+    // 20231020 E_Add
     formData.append('createUserId', String(this.loginUser.userId));// 20220701 Add
     return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
   }
@@ -537,11 +545,17 @@ getCodeNames(codes: string[]): Promise<Code[]> {
   /**
    * ファイル削除
    */
-  deleteFile(id: number, attach: boolean): Promise<object> {
+  // 20231020 S_Update
+  // deleteFile(id: number, attach: boolean): Promise<object> {
+  deleteFile(id: number, attach: boolean, isPhoto: boolean = false): Promise<object> {
+    // 20231020 E_Update
     const deleteFileApi = 'deletefile.php';
     // 20220701 S_Update
     // const body = { pid: id, isAttach: attach };
-    const body = { pid: id, isAttach: attach, deleteUserId: this.loginUser.userId };
+    // 20231020 S_Update
+    // const body = { pid: id, isAttach: attach, deleteUserId: this.loginUser.userId };
+    const body = { pid: id, isAttach: attach, isPhoto: isPhoto, deleteUserId: this.loginUser.userId };
+    // 20231020 E_Update
     // 20220701 E_Update
     const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
     return req.toPromise();
@@ -1507,5 +1521,17 @@ getCodeNames(codes: string[]): Promise<Code[]> {
     return res.toPromise();
   }
   // 20231016 E_Add
+
+  // 20231115 S_Add
+  /**
+   * 入金管理表作成　出力
+   * @param pid 賃貸情報Pid
+   */
+  exportRentalManage(rentalInfoPid: number): Promise<Blob> {
+    const downloadUrl = 'rentalmanageexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: rentalInfoPid }, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  // 20231115 E_Add
 
 }

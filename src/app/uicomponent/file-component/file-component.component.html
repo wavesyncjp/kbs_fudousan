@@ -1,4 +1,7 @@
-<input type="file" style="display: none" #fileInput accept="" (change)="onChangeFileInput()" />
+<!-- 20231020 S_Update -->
+<!-- <input type="file" style="display: none" #fileInput accept="" (change)="onChangeFileInput()" /> -->
+<input type="file" style="display: none" #fileInput  [(accept)]="accept" (change)="onChangeFileInput()" />
+<!-- 20231020 E_Update -->
 <button mat-raised-button color="primary" class="file-select-button" [ngClass]="{'noMarginBtn': simpleMode}" (click)="onClickFileInputButton()" appDnd  (onFileDropped)="uploadFile($event)">
  <mat-icon>attach_file</mat-icon>
   {{!simpleMode ? 'ファイルを選択' : ''}}

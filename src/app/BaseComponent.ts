@@ -1,7 +1,7 @@
 import { OnInit, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from './backend.service';
-import { Code, PaymentType, ReceiveType} from './models/bukken';
+import { Code, PaymentType, ReceiveType } from './models/bukken';
 import { formatDate } from '@angular/common';
 import { parse } from 'date-fns';
 import { Dialog } from './models/dialog';
@@ -18,10 +18,10 @@ export class BaseComponent implements OnInit {
     public deps = [];
     public emps = [];
     public users = [];
-    public payTypes: PaymentType[]  = [];
-    public recTypes: ReceiveType[]  = []; // 20210916 Add
+    public payTypes: PaymentType[] = [];
+    public recTypes: ReceiveType[] = []; // 20210916 Add
     public lands = [];
-//    public codes = [];
+    //    public codes = [];
     public sysCodeNameMsts = [];
     public taxes = [];
     public paymenttypes = [];
@@ -34,16 +34,16 @@ export class BaseComponent implements OnInit {
     private locale = 'en-US';
 
     constructor(public router: Router,
-                public service: BackendService,
-                public dialog: MatDialog) {
+        public service: BackendService,
+        public dialog: MatDialog) {
     }
 
     ngOnInit(): void {
         this.service.isLoginPage(false);
 
-        if(!this.service.isLogin()) {
-            const dlg = new Dialog({title: 'エラー', message: '認証されていません。再度、ログインしてください。'});
-            const dialogRef = this.dialog.open(ErrorDialogComponent, {width: '500px', height: '250px', data: dlg});
+        if (!this.service.isLogin()) {
+            const dlg = new Dialog({ title: 'エラー', message: '認証されていません。再度、ログインしてください。' });
+            const dialogRef = this.dialog.open(ErrorDialogComponent, { width: '500px', height: '250px', data: dlg });
 
             dialogRef.afterClosed().subscribe(result => {
                 this.router.navigate(['/login']);
@@ -63,7 +63,7 @@ export class BaseComponent implements OnInit {
      */
     getCodeNameMst() {
         if (this.sysCodeNameMsts) {
-            return this.sysCodeNameMsts.map(codeNameMst => new Code({codeDetail: codeNameMst.code, name: codeNameMst.name}));
+            return this.sysCodeNameMsts.map(codeNameMst => new Code({ codeDetail: codeNameMst.code, name: codeNameMst.name }));
         } else {
             return [];
         }
@@ -112,7 +112,7 @@ export class BaseComponent implements OnInit {
      */
     getDeps() {
         if (this.deps) {
-            return this.deps.map(dep => new Code({codeDetail: dep.depCode, name: dep.depName}));
+            return this.deps.map(dep => new Code({ codeDetail: dep.depCode, name: dep.depName }));
         } else {
             return [];
         }
@@ -120,7 +120,7 @@ export class BaseComponent implements OnInit {
 
     getUsers() {
         if (this.users) {
-            return this.users.map(user => new Code({codeDetail: user.userId, name: user.userName}));
+            return this.users.map(user => new Code({ codeDetail: user.userId, name: user.userName }));
         } else {
             return [];
         }
@@ -128,7 +128,7 @@ export class BaseComponent implements OnInit {
 
     getEmps() {
         if (this.emps) {
-            return this.emps.map(user => new Code({codeDetail: user.employeeCode, name: user.userName}));
+            return this.emps.map(user => new Code({ codeDetail: user.employeeCode, name: user.userName }));
         } else {
             return [];
         }
@@ -138,9 +138,9 @@ export class BaseComponent implements OnInit {
     /**
      * @param userId ユーザー名称取得
      */
-     getUserName(userId: string): string {
+    getUserName(userId: string): string {
         const lst = this.emps.filter(data => data.userId === userId).map(data => data.userName);
-        if(lst.length > 0) {
+        if (lst.length > 0) {
             return lst[0];
         }
         return '';
@@ -149,7 +149,7 @@ export class BaseComponent implements OnInit {
 
     getLands() {
         if (this.lands) {
-            return this.lands.map(land => new Code({codeDetail: land.pid, name: land.bukkenName}));
+            return this.lands.map(land => new Code({ codeDetail: land.pid, name: land.bukkenName }));
         } else {
             return [];
         }
@@ -160,7 +160,7 @@ export class BaseComponent implements OnInit {
      */
     getPaymentTypes() {
         if (this.payTypes) {
-            return this.payTypes.map(PaymentType => new Code({codeDetail: PaymentType.paymentCode, name: PaymentType.paymentName}));
+            return this.payTypes.map(PaymentType => new Code({ codeDetail: PaymentType.paymentCode, name: PaymentType.paymentName }));
         } else {
             return [];
         }
@@ -171,7 +171,7 @@ export class BaseComponent implements OnInit {
      */
     getPaymentName(paymentCode: string): string {
         const lst = this.payTypes.filter(data => data.paymentCode === paymentCode).map(data => data.paymentName);
-        if(lst.length > 0) {
+        if (lst.length > 0) {
             return lst[0];
         }
         return '';
@@ -183,7 +183,7 @@ export class BaseComponent implements OnInit {
      */
     getReceiveTypes() {
         if (this.recTypes) {
-            return this.recTypes.map(ReceiveType => new Code({codeDetail: ReceiveType.receiveCode, name: ReceiveType.receiveName}));
+            return this.recTypes.map(ReceiveType => new Code({ codeDetail: ReceiveType.receiveCode, name: ReceiveType.receiveName }));
         } else {
             return [];
         }
@@ -194,7 +194,7 @@ export class BaseComponent implements OnInit {
      */
     getReceiveName(receiveCode: string): string {
         const lst = this.recTypes.filter(data => data.receiveCode === receiveCode).map(data => data.receiveName);
-        if(lst.length > 0) {
+        if (lst.length > 0) {
             return lst[0];
         }
         return '';
@@ -207,7 +207,7 @@ export class BaseComponent implements OnInit {
      */
     getKanjyos() {
         if (this.kanjyos) {
-            return this.kanjyos.map(kanjyo => new Code({codeDetail: kanjyo.kanjyoCode, name: kanjyo.kanjyoName}));
+            return this.kanjyos.map(kanjyo => new Code({ codeDetail: kanjyo.kanjyoCode, name: kanjyo.kanjyoName }));
         } else {
             return [];
         }
@@ -218,7 +218,7 @@ export class BaseComponent implements OnInit {
      */
     getKanjyoNames(kanjyoCode: string): string {
         const lst = this.kanjyos.filter(data => data.kanjyoCode === kanjyoCode).map(data => data.kanjyoName);
-        if(lst.length > 0) {
+        if (lst.length > 0) {
             return lst[0];
         }
         return '';
@@ -230,7 +230,7 @@ export class BaseComponent implements OnInit {
      */
     getTaxes() {
         if (this.taxes) {
-            return this.taxes.map(Tax => new Code({codeDetail: Tax.pid, name: Tax.taxRate}));
+            return this.taxes.map(Tax => new Code({ codeDetail: Tax.pid, name: Tax.taxRate }));
         } else {
             return [];
         }
@@ -240,11 +240,11 @@ export class BaseComponent implements OnInit {
     /**
      * 銀行取得
      */
-     getBanks() {
+    getBanks() {
         if (this.banks) {
-            return this.banks.map(bank => new Code({codeDetail: bank.pid, name: bank.displayName}));
+            return this.banks.map(bank => new Code({ codeDetail: bank.pid, name: bank.displayName }));
         } else {
-        return [];
+            return [];
         }
     }
     // 20210905 E_Add
@@ -288,7 +288,7 @@ export class BaseComponent implements OnInit {
 
     checkNumber(str, propName, msg) {
         if (str != null && str !== '') {
-            const isValid =  !isNaN(Number(str));
+            const isValid = !isNaN(Number(str));
             if (!isValid) {
                 this.errorMsgs.push(msg);
                 this.errors[propName] = true;
@@ -351,14 +351,14 @@ export class BaseComponent implements OnInit {
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         return parts.join('.') + (unit != null ? ' ' + unit : '');
     }
-    
+
     //数値にカンマを付ける作業
     //20200709 S_Add
     numberFormat(val: number | string) {
         // 空の場合そのまま返却
         if (isNullOrUndefined(val) || val === '') return '';
         // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
-        if(isNaN(Number(val))) val = val.toString().replace(/,/g, "").trim();
+        if (isNaN(Number(val))) val = val.toString().replace(/,/g, "").trim();
         // 整数部分を3桁カンマ区切りへ
         //val = Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         //20200901 S_Update
@@ -367,7 +367,7 @@ export class BaseComponent implements OnInit {
         //20200901 E_Update
         return val;
     }
-    
+
     removeComma(val: number | string) {
         if (isNullOrUndefined(val) || val === '') {
             return '';
@@ -400,13 +400,13 @@ export class BaseComponent implements OnInit {
      * コード
      * @param codes 
      */
-    processCodes(codes:Code[]) {
+    processCodes(codes: Code[]) {
         // コード
         if (codes !== null && codes.length > 0) {
             const uniqeCodes = [...new Set(codes.map(code => code.code))];
             uniqeCodes.forEach(code => {
                 const lst = codes.filter(c => c.code === code);
-                lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+                lst.sort((a, b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
                 this.sysCodes[code] = lst;
             });
         }

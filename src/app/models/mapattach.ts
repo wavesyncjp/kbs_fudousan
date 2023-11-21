@@ -13,6 +13,15 @@ export class AttachFile {
     attachFileRemark = '';
 }
 
+// 20231020 S_Add
+export class BukkenPhotoAttach {
+    pid: number;
+    tempLandInfoPid: number;
+    bukkenPhotoAttachFileName = '';
+    bukkenPhotoAttachFilePath = '';
+}
+// 20231020 E_Add
+
 export class ContractFile {
     pid: number;
     contractInfoPid: number;

@@ -1,6 +1,6 @@
 import { Locationinfo } from './locationinfo';
-import { MapAttach, AttachFile } from './mapattach';
-import {Bukkenplaninfo} from './bukkenplaninfo'
+import { MapAttach, AttachFile, BukkenPhotoAttach } from './mapattach';
+import { Bukkenplaninfo } from './bukkenplaninfo'
 import { Bukkensalesinfo } from './bukkensalesinfo';
 import { DatePipe } from '@angular/common';
 import { Converter } from '../utils/converter';
@@ -9,14 +9,14 @@ export class Templandinfo {
     pid: number;
     bukkenNo = '';
     //20200902 S_Update
-//    contractBukkenNo: number;
+    //    contractBukkenNo: number;
     contractBukkenNo = '';
     //20200902 E_Update
     bukkenName = '';
     residence = '';
     pickDate = '';
     department = '';
-//    staff = '';//20200801 Delete
+    //    staff = '';//20200801 Delete
     infoStaff = '';
     infoOffer = '';
     startDate = '';
@@ -29,7 +29,7 @@ export class Templandinfo {
     indivisibleNumerator: number;
     indivisibleDenominator: string;
     importance: string;// 20210111 Add
-//    landCategory = '';//20200801 Delete
+    //    landCategory = '';//20200801 Delete
     floorAreaRatio: string;
     coverageRate: number = null;
     surveyRequestedDay: string;
@@ -49,6 +49,7 @@ export class Templandinfo {
 
     mapFiles: MapAttach[];
     attachFiles: AttachFile[];
+    photoFilesMap: BukkenPhotoAttach[];// 20231020 Add
     locations: Locationinfo[];
 
     pickDateMap: Date = null;
@@ -56,7 +57,7 @@ export class Templandinfo {
     finishDateMap: Date = null;
     surveyRequestedDayMap: Date = null;
     surveyDeliveryDayMap: Date = null;
-    
+
     //20200731 S_Update
     /*
     infoStaffMap: string[] = [];
@@ -72,7 +73,8 @@ export class Templandinfo {
     //20210117 緯度経度追加
     latitude: number;
     longitude: number;
-    
+    labelMap: string;// 20230919 Add
+
     public constructor(init?: Partial<Templandinfo>) {
         if (init) {
             Object.assign(this, init);
@@ -84,7 +86,7 @@ export class Templandinfo {
     public convert() {
     */
     public convert(emps: any[]) {
-    //20200731 E_Update
+        //20200731 E_Update
         //日付
         this.pickDateMap = Converter.stringToDate(this.pickDate, 'yyyyMMdd');
         this.startDateMap = Converter.stringToDate(this.startDate, 'yyyyMMdd');
@@ -119,10 +121,10 @@ export class Templandinfo {
         }
         */
         if (this.infoStaff !== null && emps != null) {
-            this.infoStaffMap = emps.filter(me => this.infoStaff.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
+            this.infoStaffMap = emps.filter(me => this.infoStaff.split(',').indexOf(me.userId) >= 0).map(me => { return { userId: me.userId, userName: me.userName } });
         }
         if (this.infoOffer !== null && emps != null) {
-            this.infoOfferMap = emps.filter(me => this.infoOffer.split(',').indexOf(me.userId) >= 0).map(me => {return {userId: me.userId, userName: me.userName}});
+            this.infoOfferMap = emps.filter(me => this.infoOffer.split(',').indexOf(me.userId) >= 0).map(me => { return { userId: me.userId, userName: me.userName } });
         }
         //20200731 E_Update
     }
@@ -132,9 +134,9 @@ export class Templandinfo {
     public convertForSave(userId: number, datePipe: DatePipe) {
     */
     // 20210426 S_Update
-//    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
+    //    public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
     public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false, copyFlg: boolean = false) {
-    // 20210426 E_Update
+        // 20210426 E_Update
         //20200731 S_Update
         /*
         this.infoStaff = this.infoStaffMap.join(',');
@@ -143,12 +145,12 @@ export class Templandinfo {
         this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');
         */
         //20200731 E_Update
-        if(isJoin) {
+        if (isJoin) {
             this.infoStaff = this.infoStaffMap.map(me => me['userId']).join(',');
             this.infoOffer = this.infoOfferMap.map(me => me['userId']).join(',');
         }
         //20200819 E_Update
-        
+
         /*
         this.pickDate = this.pickDateMap != null ? this.pickDateMap.toLocaleString() : null;
         this.startDate = this.startDateMap != null ? this.startDateMap.toLocaleString() : null;
@@ -170,9 +172,9 @@ export class Templandinfo {
         this.surveyDeliveryDay = Converter.dateToString(this.surveyDeliveryDayMap, 'yyyyMMdd', datePipe);
 
         // 20210426 S_Update
-//        if (this.pid > 0) {
+        //        if (this.pid > 0) {
         if (this.pid > 0 && !copyFlg) {
-        // 20210426 E_Update
+            // 20210426 E_Update
             this.updateUserId = userId;
         } else {
             this.createUserId = userId;

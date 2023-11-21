@@ -14,9 +14,10 @@ import { Code } from '../models/bukken';
 import { DatePipe } from '@angular/common';
 import { Util } from '../utils/util';
 import { CsvTemplateComponent } from '../csv-template/csv-template.component';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';// 20231111 Delete
 
 declare var google: any;
+declare var $: any;// 20231111 Add
 
 @Component({
   selector: 'app-bukken-list',
@@ -24,8 +25,8 @@ declare var google: any;
   styleUrls: ['./bukken-list.component.css'],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJa },
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter }
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -34,8 +35,8 @@ export class BukkenListComponent extends BaseComponent {
   public cond = {
     bukkenNo: '',
     //20200828 S_Update
-//    contractBukkenNo:'',
-    contractBukkenNo_Like:'',
+    //    contractBukkenNo:'',
+    contractBukkenNo_Like: '',
     //20200828 E_Update
     bukkenName: '',
     residence: '',
@@ -60,11 +61,11 @@ export class BukkenListComponent extends BaseComponent {
     salesDecisionDay_To: '',
     salesDecisionDaySearch_To: '',
     //20210112 E_Add
-//    pickDateMap: new Date(),
-//    pickDate: '',
+    //    pickDateMap: new Date(),
+    //    pickDate: '',
     department: [],
     // 20201011 S_Update
-//    result: ['01'],
+    //    result: ['01'],
     result: [],
     // 20201011 E_Update
     mode: 1,
@@ -77,7 +78,7 @@ export class BukkenListComponent extends BaseComponent {
     importance: [],
     surveyRequestedDayChk: ''
     //20210113 E_Add
- };
+  };
   dropdownSettings = {};//20200828 Add
   search = '0';
   searched = false;
@@ -86,22 +87,23 @@ export class BukkenListComponent extends BaseComponent {
   /*
   displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark1', 'remark2', 'mapFiles', 'pickDate', 'surveyRequestedDay','department', 'result', 'detail', 'csvCheck'];
   */
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo','bukkenName', 'residence', 'remark2', 'mapFiles', 'startDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'copy', 'csvCheck'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'bukkenName', 'residence', 'remark2', 'mapFiles', 'startDate', 'surveyRequestedDay', 'staffName', 'result', 'detail', 'copy', 'csvCheck'];
   //20221226 E_Update
   dataSource = new MatTableDataSource<Templandinfo>();
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
+  @ViewChild(MatTabGroup, { static: true }) tabGroup: MatTabGroup;
 
   // 20210113 S_Add
-  @ViewChild('cbxBukkenListChk', {static: true}) cbxBukkenListChk: MatCheckbox;
-  @ViewChild('cbxSurveyRequestedDayChk', {static: true}) cbxSurveyRequestedDayChk: MatCheckbox;
+  @ViewChild('cbxBukkenListChk', { static: true }) cbxBukkenListChk: MatCheckbox;
+  @ViewChild('cbxSurveyRequestedDayChk', { static: true }) cbxSurveyRequestedDayChk: MatCheckbox;
   // 20210113 E_Add
 
   // マップ
-  @ViewChild('mapContainer', {static: true}) gmap: ElementRef;
+  @ViewChild('mapContainer', { static: true }) gmap: ElementRef;
+
   mapObj: any;
   infowindow: any;
   markers = [];
@@ -113,20 +115,21 @@ export class BukkenListComponent extends BaseComponent {
   hasSearchItem: boolean = false;// 20201011 Add
 
   constructor(private ngZone: NgZone,
-              public router: Router,
-              private route: ActivatedRoute,
-              public service: BackendService,
-              public dialog: MatDialog,
-              public datepipe: DatePipe,
-              private spinner: NgxSpinnerService) {
-                super(router, service,dialog);
+    public router: Router,
+    private route: ActivatedRoute,
+    public service: BackendService,
+    public dialog: MatDialog,
+    public datepipe: DatePipe,
+    private spinner: NgxSpinnerService) {
+    super(router, service, dialog);
 
-                this.route.queryParams.subscribe(params => {
-                  this.search = params.search;
-                });
+    this.route.queryParams.subscribe(params => {
+      this.search = params.search;
+    });
   }
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
+    this.loadScript('assets/js/jQuery.print.min.js');// 20231111 Add
     super.ngOnInit();
 
     //20200828 S_Add
@@ -144,7 +147,7 @@ export class BukkenListComponent extends BaseComponent {
 
     if (this.search === '1') {
       this.cond = this.service.searchCondition;
-      if(this.cond == null) {
+      if (this.cond == null) {
         this.resetCondition();
       }
     }
@@ -161,7 +164,7 @@ export class BukkenListComponent extends BaseComponent {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          lst.sort((a, b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
           this.sysCodes[code] = lst;
         });
       }
@@ -172,7 +175,7 @@ export class BukkenListComponent extends BaseComponent {
       this.emps = values[2];
       //20200828 E_Add
 
-//      this.cond.pickDateMap = null;
+      //      this.cond.pickDateMap = null;
       this.spinner.hide();
       if (this.search === '1') {
         this.searchBukken();
@@ -194,7 +197,13 @@ export class BukkenListComponent extends BaseComponent {
     };
     //20200828 E_Add
   }
-
+  // 20231111 S_Add
+  private loadScript(scriptUrl: string) {
+    const script = document.createElement('script');
+    script.src = scriptUrl;
+    document.body.appendChild(script);
+  }
+  // 20231111 E_Add
   highlight(row) {
     this.selectedRowIndex = row.pid;
   }
@@ -206,8 +215,8 @@ export class BukkenListComponent extends BaseComponent {
     this.cond = {
       bukkenNo: '',
       //20200828 S_Update
-//      contractBukkenNo:'',
-      contractBukkenNo_Like:'',
+      //      contractBukkenNo:'',
+      contractBukkenNo_Like: '',
       //20200828 E_Update
       bukkenName: '',
       residence: '',
@@ -232,11 +241,11 @@ export class BukkenListComponent extends BaseComponent {
       salesDecisionDay_To: '',
       salesDecisionDaySearch_To: '',
       //20210112 E_Add
-//      pickDateMap: new Date(),
-//      pickDate: '',
+      //      pickDateMap: new Date(),
+      //      pickDate: '',
       department: [],
       // 20201011 S_Update
-//      result: ['01'],
+      //      result: ['01'],
       result: [],
       // 20201011 E_Update
       mode: 1,
@@ -249,7 +258,7 @@ export class BukkenListComponent extends BaseComponent {
       importance: [],
       surveyRequestedDayChk: ''
       //20210113 E_Add
-   };
+    };
   }
 
   /**
@@ -259,7 +268,7 @@ export class BukkenListComponent extends BaseComponent {
     // 20201011 S_Add
     if (!this.validate()) return;
     // 20201011 E_Add
-    
+
     this.spinner.show();
 
     this.markers.forEach(marker => {
@@ -268,7 +277,7 @@ export class BukkenListComponent extends BaseComponent {
     });
     this.markers = [];
 
-//    this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
+    //    this.cond.pickDate = this.cond.pickDateMap != null ? this.cond.pickDateMap.toLocaleDateString() : null;
     this.cond.pickDateSearch_From = this.cond.pickDate_From != null ? this.datepipe.transform(this.cond.pickDate_From, 'yyyyMMdd') : "";
     this.cond.pickDateSearch_To = this.cond.pickDate_To != null ? this.datepipe.transform(this.cond.pickDate_To, 'yyyyMMdd') : "";
     this.cond.surveyRequestedDaySearch_From = this.cond.surveyRequestedDay_From != null ? this.datepipe.transform(this.cond.surveyRequestedDay_From, 'yyyyMMdd') : "";
@@ -289,6 +298,7 @@ export class BukkenListComponent extends BaseComponent {
     //20210113 E_Add
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
+        let count = 0;// 20230919 Add
         res.forEach(obj => {
           //20200828 S_Delete
           /*
@@ -308,10 +318,10 @@ export class BukkenListComponent extends BaseComponent {
           //20200828 S_Add
           //物件担当
           let staff = [];
-          if(!this.isBlank(obj.infoStaff)) {
+          if (!this.isBlank(obj.infoStaff)) {
             obj.infoStaff.split(',').forEach(me => {
-              let lst = this.emps.filter(us=>us.userId === me).map(me => me.userName);
-              if(lst.length > 0) {
+              let lst = this.emps.filter(us => us.userId === me).map(me => me.userName);
+              if (lst.length > 0) {
                 staff.push(lst[0]);
               }
             });
@@ -321,6 +331,12 @@ export class BukkenListComponent extends BaseComponent {
             obj['staffName'] = '';
           }
           //20200828 E_Add
+          // 20230919 S_Add
+          if (obj['latitude'] > 0) {
+            ++count;
+            obj['labelMap'] = count.toString();
+          }
+          // 20230919 E_Add
         });
       }
       this.service.searchCondition = this.cond;
@@ -344,11 +360,11 @@ export class BukkenListComponent extends BaseComponent {
    * @param row: 物件データ
    */
   showDetail(row: Templandinfo) {
-    this.router.navigate(['/bkdetail'], {queryParams: {pid: row.pid}});
+    this.router.navigate(['/bkdetail'], { queryParams: { pid: row.pid } });
   }
 
   showDetail2(id: number) {
-    this.router.navigate(['/bkdetail'], {queryParams: {pid: id}});
+    this.router.navigate(['/bkdetail'], { queryParams: { pid: id } });
   }
 
   /**
@@ -378,7 +394,7 @@ export class BukkenListComponent extends BaseComponent {
   // マップスタート
   mapInitializer() {
     const mapOptions = {
-      center: {lat: 35.6812, lng: 139.7671},
+      center: { lat: 35.6812, lng: 139.7671 },
       zoom: 13,
     };
     this.mapObj = new google.maps.Map(this.gmap.nativeElement, mapOptions);
@@ -405,22 +421,22 @@ export class BukkenListComponent extends BaseComponent {
     });
   }
   */
-  showMapMarker() {    
+  showMapMarker() {
     //20210117: 検索じゃなく、DBの値を表示
-    this.dataSource.data.forEach(bk => {      
-      if(bk.latitude > 0) {
-        this.setMarker({lat: Number(bk.latitude), lng: Number(bk.longitude)}, bk);
+    this.dataSource.data.forEach(bk => {
+      if (bk.latitude > 0) {
+        this.setMarker({ lat: Number(bk.latitude), lng: Number(bk.longitude) }, bk);
       }
     });
 
   }
 
-  showMaker(pos: number){
+  showMaker(pos: number) {
     let bk = this.dataSource.data[pos];
     const addr = bk.residence !== '' ? bk.residence : bk.remark1.split(',')[0];
     const geocoder = new google.maps.Geocoder();
     const that = this;
-    geocoder.geocode({address : addr}, function(results: any, status: any) {
+    geocoder.geocode({ address: addr }, function (results: any, status: any) {
       if (status === google.maps.GeocoderStatus.OK) {
         const latVal = results[0].geometry.location.lat(); // 緯度を取得
         const lngVal = results[0].geometry.location.lng(); // 経度を取得
@@ -431,26 +447,29 @@ export class BukkenListComponent extends BaseComponent {
         that.setMarker(mark, bk);
       }
 
-      if(pos < that.dataSource.data.length - 1) {
-          setTimeout(() => {
-            that.showMaker(pos+1);
-          }, 400);
+      if (pos < that.dataSource.data.length - 1) {
+        setTimeout(() => {
+          that.showMaker(pos + 1);
+        }, 400);
       }
     });
   }
   //20200902 E_Update
 
-   /**
-    * ピン追加
-    * @param latlng ：緯度経度
-    * @param bk ：物件情報
-    */
-   setMarker(latlng: any, bk: Templandinfo) {
+  /**
+   * ピン追加
+   * @param latlng ：緯度経度
+   * @param bk ：物件情報
+   */
+  setMarker(latlng: any, bk: Templandinfo) {
     const that = this;//20200902 Add
     const result = this.getCodeDetail('001', bk.result);
     // 20211128 S_Update
-//    const pin = (result === '01' ? 'pin-blue2.png' : result === '02' ? 'pin-green.png' : 'pin-pink.png');
-    const pin = (result === '01' ? 'pin-blue.png' : result === '02' ? 'pin-green.png' : result === '03' ? 'pin-purple.png' : result === '04' ? 'pin-yellow.png' : result === '05' ? 'pin-orange.png' : 'pin-pink.png');
+    //    const pin = (result === '01' ? 'pin-blue2.png' : result === '02' ? 'pin-green.png' : 'pin-pink.png');
+    // 20230919 S_Update
+    // const pin = (result === '01' ? 'pin-blue.png' : result === '02' ? 'pin-green.png' : result === '03' ? 'pin-purple.png' : result === '04' ? 'pin-yellow.png' : result === '05' ? 'pin-orange.png' : 'pin-pink.png');
+    const pin = (result === '01' ? 'pin-blue.png' : result === '02' ? 'pin-green.png' : result === '03' ? 'pin-purple.png' : result === '04' ? 'pin-yellow.png' : result === '05' ? 'pin-red.png' : 'pin-pink.png');
+    // 20230919 E_Update
     // 20211128 E_Update
     const marker = new google.maps.Marker({
       position: latlng,
@@ -459,9 +478,16 @@ export class BukkenListComponent extends BaseComponent {
         url: 'assets/img/' + pin,
         scaledSize: new google.maps.Size(40, 40)
       }
+      // 20231111 S_Add
+      , label: {
+        text: bk.labelMap,
+        className: 'custom-marker-label'
+      }
+      , zIndex: 0
+      // 20231111 E_Add
     });
 
-    marker.addListener('click', function() {
+    marker.addListener('click', function () {
 
       let dayStr = '';
       if (!(bk.pickDate === undefined || bk.pickDate === '' || bk.pickDate == null)) {
@@ -512,7 +538,7 @@ export class BukkenListComponent extends BaseComponent {
       infowindow.open(this.mapObj, marker);
     });
     //20200902 S_Update
-//    this.markers.push(marker);
+    //    this.markers.push(marker);
     that.markers.push(marker);
     //20200902 E_Update
   }
@@ -522,10 +548,10 @@ export class BukkenListComponent extends BaseComponent {
   /**
    * CSV出力
    */
-  csvExport(){
+  csvExport() {
 
     let lst = this.dataSource.data.filter(me => me['select']).map(me => Number(me.pid));
-    if(lst.length === 0) return;
+    if (lst.length === 0) return;
 
     //テンプレート選択
     const dialogRef = this.dialog.open(CsvTemplateComponent, {
@@ -540,7 +566,7 @@ export class BukkenListComponent extends BaseComponent {
       if (result && result['choose']) {
         this.spinner.show();
         this.service.exportCsv(lst, result['csvCode']).then(ret => {
-          
+
           // 20210125 S_Update 緯度経度取得停止
           // 20210121 S_Add 緯度経度取得
           /*
@@ -552,7 +578,7 @@ export class BukkenListComponent extends BaseComponent {
             Util.stringToCSV(ret['data'], result['csvName']);
           }
           */
-//          this.spinner.hide();
+          //          this.spinner.hide();
           // 20210121 E_Add 緯度経度取得
           this.spinner.hide();
           Util.stringToCSV(ret['data'], result['csvName']);
@@ -573,12 +599,12 @@ export class BukkenListComponent extends BaseComponent {
     this.latlngDataList = [];
     this.originalList = csvData.split('\\r\\n');// CSVデータを改行区切りで配列にする
     this.getLatLng();
-    
+
     let that = this;
-    
+
     //結果を監視する。全部終えたらConsoleに出力
     this.latLngInterval = window.setInterval(() => {
-      if(that.latlngDataList.length === that.originalList.length) {
+      if (that.latlngDataList.length === that.originalList.length) {
         window.clearInterval(that.latLngInterval);
         //console.log(JSON.stringify(that.latlngDataList));
         this.spinner.hide();
@@ -591,33 +617,33 @@ export class BukkenListComponent extends BaseComponent {
     let lineData = this.originalList[this.pointer];
 
     //CSVデータをカンマで区切った時に2個以上であれば区切った2個目をjuukyoに入れる
-    let juukyo = lineData.split(',').length >= 2 ? lineData.split(',')[1]:'';
+    let juukyo = lineData.split(',').length >= 2 ? lineData.split(',')[1] : '';
     //juukyoの両端のダブルクォーテーションを削除してjuukyoNewに入れる
     let juukyoNew = juukyo.replace('"', '').replace('"', '');
 
     let that = this;
     const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({address : juukyoNew}, function(results: any, status: any) {
+    geocoder.geocode({ address: juukyoNew }, function (results: any, status: any) {
       //OK
       if (status === google.maps.GeocoderStatus.OK) {
         let latVal = results[0].geometry.location.lat(); // 緯度を取得
         let lngVal = results[0].geometry.location.lng(); // 経度を取得
-//        that.latlngDataList.push(lineData + ',"' + latVal + '","' + lngVal + '"');
-//        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","'  + latVal + '","' + lngVal + '"');
-        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","'  + latVal + '","' + lngVal + '","' + status + '"');
+        //        that.latlngDataList.push(lineData + ',"' + latVal + '","' + lngVal + '"');
+        //        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","'  + latVal + '","' + lngVal + '"');
+        that.latlngDataList.push(lineData + ',"' + results[0].formatted_address + '","' + latVal + '","' + lngVal + '","' + status + '"');
       }
       //エラー
       else {
-//        that.latlngDataList.push(lineData + ',"NODATA","0","0"');
+        //        that.latlngDataList.push(lineData + ',"NODATA","0","0"');
         that.latlngDataList.push(lineData + ',"NODATA","0","0","' + status + '"');
       }
 
       //ポインタープラス
-      if(that.pointer < that.originalList.length - 1) {
-//        that.pointer ++;
-//        if (status === google.maps.GeocoderStatus.OK) that.pointer ++;
+      if (that.pointer < that.originalList.length - 1) {
+        //        that.pointer ++;
+        //        if (status === google.maps.GeocoderStatus.OK) that.pointer ++;
         if (status === google.maps.GeocoderStatus.OK) {
-          that.pointer ++;
+          that.pointer++;
           setTimeout(() => {
             that.getLatLng();
           }, 100);
@@ -639,29 +665,29 @@ export class BukkenListComponent extends BaseComponent {
   validate(): boolean {
     this.hasSearchItem = false;
     this.errorMsgs = [];
-    
-    if(!this.isBlank(this.cond.bukkenNo)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.contractBukkenNo_Like)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.bukkenName)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.address)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.residence)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.pickDate_From)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.pickDate_To)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.surveyRequestedDay_From)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.surveyRequestedDay_To)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.finishDate_From)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.finishDate_To)) this.hasSearchItem = true;
+
+    if (!this.isBlank(this.cond.bukkenNo)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.contractBukkenNo_Like)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.bukkenName)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.address)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.residence)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.pickDate_From)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.pickDate_To)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.surveyRequestedDay_From)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.surveyRequestedDay_To)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.finishDate_From)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.finishDate_To)) this.hasSearchItem = true;
     // 20210112 S_Add
-    if(!this.isBlank(this.cond.salesDecisionDay_From)) this.hasSearchItem = true;
-    if(!this.isBlank(this.cond.salesDecisionDay_To)) this.hasSearchItem = true;
-    if(this.cbxBukkenListChk.checked) this.hasSearchItem = true;
-    if(this.cond.importance.length > 0) this.hasSearchItem = true;
-    if(this.cbxSurveyRequestedDayChk.checked) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.salesDecisionDay_From)) this.hasSearchItem = true;
+    if (!this.isBlank(this.cond.salesDecisionDay_To)) this.hasSearchItem = true;
+    if (this.cbxBukkenListChk.checked) this.hasSearchItem = true;
+    if (this.cond.importance.length > 0) this.hasSearchItem = true;
+    if (this.cbxSurveyRequestedDayChk.checked) this.hasSearchItem = true;
     // 20210112 E_Add
-    if(this.cond.department.length > 0) this.hasSearchItem = true;
-    if(this.cond.result.length > 0) this.hasSearchItem = true;
-    if(this.cond.clctInfoStaffMap.length > 0) this.hasSearchItem = true;
-    
+    if (this.cond.department.length > 0) this.hasSearchItem = true;
+    if (this.cond.result.length > 0) this.hasSearchItem = true;
+    if (this.cond.clctInfoStaffMap.length > 0) this.hasSearchItem = true;
+
     if (!this.hasSearchItem) {
       this.errorMsgs.push('検索条件のいずれかを指定してください。');
       return false;
@@ -678,30 +704,59 @@ export class BukkenListComponent extends BaseComponent {
     newWindow.print();
     setTimeout(function () { newWindow.print(); newWindow.close(); }, 500);
     */
-    
-    let printWin = window.open('', '');
-    let windowContent = '<!DOCTYPE html>';
 
-    html2canvas(document.querySelector("#map"), {useCORS: true}).then(canvas => {
-      windowContent += '<html>'
-      windowContent += '<head><title>Print canvas</title></head>';
-      windowContent += '<body>'
-      windowContent += '<img src="' + canvas.toDataURL() + '">';
-      windowContent += '</body>';
-      windowContent += '</html>';
-      printWin.document.open();
-      printWin.document.write(windowContent);
-      printWin.document.close();
-      printWin.focus();
-      setTimeout(function () { printWin.print(); printWin.close(); }, 500);
-    });
-    
+    // 20231111 S_Update
+    // let printWin = window.open('', '');
+    // let windowContent = '<!DOCTYPE html>';
+
+    // html2canvas(document.querySelector("#map"), { useCORS: true }).then(canvas => {
+    //   windowContent += '<html>'
+    //   windowContent += '<head><title>Print canvas</title></head>';
+    //   windowContent += '<body>'
+    //   windowContent += '<img src="' + canvas.toDataURL() + '">';
+    //   windowContent += '</body>';
+    //   windowContent += '</html>';
+    //   printWin.document.open();
+    //   printWin.document.write(windowContent);
+    //   printWin.document.close();
+    //   printWin.focus();
+    //   setTimeout(function () { printWin.print(); printWin.close(); }, 500);
+    // });
+
+    $.print(".print-class");
+    // 20231111 E_Update
   }
 
   // 20210425 S_Add
   copyDetail(row: Templandinfo) {
-    this.router.navigate(['/bkdetail'], {queryParams: {pid: row.pid, copyFlg: true}});
+    this.router.navigate(['/bkdetail'], { queryParams: { pid: row.pid, copyFlg: true } });
   }
   // 20210425 E_Add
+
+  // 20230919 S_Add
+  filterMap() {
+    return this.dataSource.data.filter(item => item.latitude > 0);
+  }
+
+  getPickDate(bk) {
+    let dayStr = '';
+    if (!(bk.pickDate === undefined || bk.pickDate === '' || bk.pickDate == null)) {
+      dayStr = this.formatDay(bk.pickDate, 'yyyy/MM/dd');
+    }
+    return dayStr;
+  }
+
+  getSurveyRequestedDay(bk) {
+    let dayStr = '';
+    if (!(bk.surveyRequestedDay === undefined || bk.surveyRequestedDay === '' || bk.surveyRequestedDay == null)) {
+      dayStr = this.formatDay(bk.surveyRequestedDay, 'yyyy/MM/dd');
+    }
+    return dayStr;
+  }
+
+  showBukkenDetail(bk) {
+    this.router.navigate(['/bkdetail'], { queryParams: { pid: bk.pid } });
+  }
+  // 20230919 E_Add
 }
 

@@ -10,7 +10,7 @@ import { Locationinfo } from '../models/locationinfo';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 import { Code } from '../models/bukken';
-import { MapAttach, AttachFile } from '../models/mapattach';
+import { MapAttach, AttachFile, BukkenPhotoAttach } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Contractinfo } from '../models/contractinfo';
 import { LocationDetailComponent } from '../location-detail/location-detail.component';
@@ -25,23 +25,24 @@ declare var google: any;
   templateUrl: './bukken-detail.component.html',
   styleUrls: ['./bukken-detail.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
 
 export class BukkenDetailComponent extends BaseComponent {
   //hirano_202004.15_edd
-  @ViewChild(MatTabGroup, {static: true}) tabGroup: MatTabGroup;
+  @ViewChild(MatTabGroup, { static: true }) tabGroup: MatTabGroup;
   //hirano_202004.15_edd
-  @ViewChild('cbxBuysellFlg', {static: true})
+  @ViewChild('cbxBuysellFlg', { static: true })
   cbxBuysellFlg: MatCheckbox;
   public data: Templandinfo;
   public pid: number;
   public copyFlg: boolean = false;// 20210426 Add
   removeLoc: Locationinfo[] = [];
   contracts: Contractinfo[] = [];// 契約情報
-  public cond = {mode: 1
+  public cond = {
+    mode: 1
   };
 
   //20200731 S_Add
@@ -58,12 +59,12 @@ export class BukkenDetailComponent extends BaseComponent {
   public sumAreaContract: number = 0;// 20230309 Add
 
   constructor(public router: Router,
-              private route: ActivatedRoute,
-              public service: BackendService,
-              public dialog: MatDialog,
-              public datepipe: DatePipe,
-              private spinner: NgxSpinnerService) {
-    super(router, service,dialog);
+    private route: ActivatedRoute,
+    public service: BackendService,
+    public dialog: MatDialog,
+    public datepipe: DatePipe,
+    private spinner: NgxSpinnerService) {
+    super(router, service, dialog);
 
     this.route.queryParams.subscribe(params => {
       this.pid = params.pid;
@@ -108,7 +109,7 @@ export class BukkenDetailComponent extends BaseComponent {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          lst.sort((a, b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
           this.sysCodes[code] = lst;
         });
       }
@@ -121,12 +122,11 @@ export class BukkenDetailComponent extends BaseComponent {
       this.emps = values[2];
 
       // 物件あり場合
-      if ( values.length > 3) {
+      if (values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
         // 20210426 S_Add
         // コピーの場合
-        if(this.copyFlg)
-        {
+        if (this.copyFlg) {
           // this.data.bukkenNo = '';// 20220522 Delete
           this.data.attachFiles = [];
         }
@@ -135,10 +135,10 @@ export class BukkenDetailComponent extends BaseComponent {
 
       // 土地の契約情報
       // 20220522 S_Update
-//      if (values.length > 4) {
-//      if (values.length > 4 && !this.copyFlg) {
+      //      if (values.length > 4) {
+      //      if (values.length > 4 && !this.copyFlg) {
       if (values.length > 4) {
-      // 20220522 E_Update
+        // 20220522 E_Update
         this.contracts = values[4];
       }
 
@@ -177,7 +177,7 @@ export class BukkenDetailComponent extends BaseComponent {
 
         // 20230301 S_Add
         //土地
-        if(loc.locationType == '01') {
+        if (loc.locationType == '01') {
           this.sumArea += Number(loc.area);
         }
         // 20230301 E_Add
@@ -202,34 +202,34 @@ export class BukkenDetailComponent extends BaseComponent {
   sumAreaContractProcess() {
     this.sumAreaContract = 0;
     if (this.data.locations && this.data.locations.length > 0) {
-      this.contracts.forEach (ct=>{
+      this.contracts.forEach(ct => {
         const details = ct.details.filter(dt => dt.contractDataType === '01');
 
-        details.forEach(dt=>{
-            this.data.locations.forEach(me => {
-              //土地
-              if(me.locationType == '01' && me.pid == dt.locationInfoPid) {
-                if(dt.contractHave && dt.contractHave > 0) {
-                  this.sumAreaContract += Number(dt.contractHave);
-                }
-                else {
-                  this.sumAreaContract += Number(me.area);
-                }
+        details.forEach(dt => {
+          this.data.locations.forEach(me => {
+            //土地
+            if (me.locationType == '01' && me.pid == dt.locationInfoPid) {
+              if (dt.contractHave && dt.contractHave > 0) {
+                this.sumAreaContract += Number(dt.contractHave);
               }
-            });
+              else {
+                this.sumAreaContract += Number(me.area);
+              }
+            }
+          });
         });
       });
     }
   }
 
-  openAttachFileDialog(parentPid: number,fileType: number, attachFileType: string) {
+  openAttachFileDialog(parentPid: number, fileType: number, attachFileType: string) {
     let bukkenNo = this.data.bukkenNo;
     let bukkenName = this.data.bukkenName;
-    
+
     const dialogRef = this.dialog.open(AttachFileDialogComponent, {
-    width: '60%',
-    height: '400px',
-    data: {parentPid, fileType, attachFileType,bukkenNo,bukkenName}
+      width: '60%',
+      height: '400px',
+      data: { parentPid, fileType, attachFileType, bukkenNo, bukkenName }
     });
   }
   // 20230309 E_Add
@@ -255,7 +255,7 @@ export class BukkenDetailComponent extends BaseComponent {
   }
   */
   sortLocation() {
-    this.data.locations.sort((a,b) => {
+    this.data.locations.sort((a, b) => {
       /*
       let id1 = a.locationType != null ? a.locationType : '';
       let id2 = b.locationType != null ? b.locationType : '';
@@ -275,7 +275,7 @@ export class BukkenDetailComponent extends BaseComponent {
       */
       let id1 = a.displayOrder != null ? a.displayOrder : 0;
       let id2 = b.displayOrder != null ? b.displayOrder : 0;
-      if(id1 !== id2) return id1 - id2;
+      if (id1 !== id2) return id1 - id2;
 
       return a.pid - b.pid;
     });
@@ -286,10 +286,10 @@ export class BukkenDetailComponent extends BaseComponent {
     let pids = [];
     tempLocsNot04.forEach(locNot04 => {
       tempLocs.push(locNot04);
-      if(locNot04.locationType === '03') {
+      if (locNot04.locationType === '03') {
         tempLocs04.forEach(loc04 => {
-          
-          if(String(locNot04.pid) === loc04.ridgePid && !pids.includes(loc04.pid)) {
+
+          if (String(locNot04.pid) === loc04.ridgePid && !pids.includes(loc04.pid)) {
             tempLocs.push(loc04);
             pids.push(loc04.pid);
           }
@@ -297,7 +297,7 @@ export class BukkenDetailComponent extends BaseComponent {
       }
     });
     tempLocs04.forEach(loc04 => {
-      if(!pids.includes(loc04.pid)) {
+      if (!pids.includes(loc04.pid)) {
         tempLocs.push(loc04);
         pids.push(loc04.pid);
       }
@@ -340,7 +340,7 @@ export class BukkenDetailComponent extends BaseComponent {
     const dialogRef = this.dialog.open(LocationDetailComponent, {
       width: '98%',
       height: '650px',// 20220308 Update
-      data:  <Locationinfo>Util.deepCopy(loc, 'Locationinfo')
+      data: <Locationinfo>Util.deepCopy(loc, 'Locationinfo')
     });
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
@@ -440,7 +440,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * 一覧へ戻る
    */
   backToList() {
-    this.router.navigate(['/bukkens'], {queryParams: {search: '1'}});
+    this.router.navigate(['/bukkens'], { queryParams: { search: '1' } });
   }
 
   /**
@@ -462,12 +462,12 @@ export class BukkenDetailComponent extends BaseComponent {
   // 20210426 S_Update
   // save() {
   save(copyFlg: boolean) {
-  // 20210426 E_Update
+    // 20210426 E_Update
     if (!this.validate()) {
       return;
     }
 
-    const dlg = new Dialog({title: '確認', message: '土地情報を登録します。よろしいですか？'});
+    const dlg = new Dialog({ title: '確認', message: '土地情報を登録します。よろしいですか？' });
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -482,7 +482,7 @@ export class BukkenDetailComponent extends BaseComponent {
         const that = this;
 
         const geocoder = new google.maps.Geocoder();
-        geocoder.geocode({address : this.data.residence}, function(results: any, status: any) {
+        geocoder.geocode({ address: this.data.residence }, function (results: any, status: any) {
           if (status === google.maps.GeocoderStatus.OK) {
             that.data.latitude = results[0].geometry.location.lat(); // 緯度を取得
             that.data.longitude = results[0].geometry.location.lng();// 経度を取得
@@ -493,35 +493,46 @@ export class BukkenDetailComponent extends BaseComponent {
           }
 
           // 20210426 S_Update
-//          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true);
+          //          that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true);
           that.data.convertForSave(that.service.loginUser.userId, that.datepipe, true, copyFlg);
           // 20210426 E_Update
           const funcs = [];
           // 20210426 S_Update
-//          funcs.push(that.service.saveLand(that.data));
-          if(copyFlg) funcs.push(that.service.saveLandByCopy(that.data));
+          //          funcs.push(that.service.saveLand(that.data));
+          if (copyFlg) funcs.push(that.service.saveLandByCopy(that.data));
           else funcs.push(that.service.saveLand(that.data));
           // 20210426 E_Update
           Promise.all(funcs).then(values => {
             that.spinner.hide();
-            const finishDlg = new Dialog({title: '完了', message: '土地情報を登録しました。'});
-            const dlgVal = that.dialog.open(FinishDialogComponent, {
-              width: '500px',
-              height: '250px',
-              data: finishDlg
-            });
-            dlgVal.afterClosed().subscribe(res => {
-              that.data = new Templandinfo(values[0]);
-              that.convertForDisplay();
-              // 20220522 S_Add
-              if(copyFlg) {
-                that.service.getLandContract(that.data.pid).then(res => {
-                  that.contracts = res;
-                });
-              }
-              // 20220522 E_Add
-              that.router.navigate(['/bkdetail'], {queryParams: {pid: that.data.pid}});
-            });
+            // 20231110 S_Add
+            if (values[0].statusMap == 'NG') {
+              that.dialog.open(FinishDialogComponent, {
+                width: '500px',
+                height: '250px',
+                data: new Dialog({ title: 'エラー', message: values[0].msgMap })
+              });
+            }
+            else {
+              // 20231110 E_Add
+              const finishDlg = new Dialog({ title: '完了', message: '土地情報を登録しました。' });
+              const dlgVal = that.dialog.open(FinishDialogComponent, {
+                width: '500px',
+                height: '250px',
+                data: finishDlg
+              });
+              dlgVal.afterClosed().subscribe(res => {
+                that.data = new Templandinfo(values[0]);
+                that.convertForDisplay();
+                // 20220522 S_Add
+                if (copyFlg) {
+                  that.service.getLandContract(that.data.pid).then(res => {
+                    that.contracts = res;
+                  });
+                }
+                // 20220522 E_Add
+                that.router.navigate(['/bkdetail'], { queryParams: { pid: that.data.pid } });
+              });
+            }// 20231110 Add
           });
         });
       }
@@ -575,8 +586,8 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   deleteMapFile(map: MapAttach) {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: 'ファイルを削除します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -593,8 +604,8 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   deleteAttachFile(map: AttachFile) {
 
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: 'ファイルを削除します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -610,7 +621,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param loc: 所在地
    */
   navigateContract() {
-    this.router.navigate(['/ctdetail'], {queryParams: {bukkenid: this.data.pid}});
+    this.router.navigate(['/ctdetail'], { queryParams: { bukkenid: this.data.pid } });
   }
 
   /**
@@ -618,7 +629,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * @param data : 契約情報
    */
   showContract(ctData: Contractinfo) {
-    this.router.navigate(['/ctdetail'], {queryParams: {pid: ctData.pid}});
+    this.router.navigate(['/ctdetail'], { queryParams: { pid: ctData.pid } });
   }
 
   getLocationType(ctData: Contractinfo) {
@@ -804,17 +815,17 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   gotoPlan() {
     // 20210426 S_Update
-//    if(this.pid != null && this.pid > 0) {
-    if(this.pid != null && this.pid > 0 && !this.copyFlg) {
-    // 20210426 E_Update
-      this.router.navigate(['/bukkenplans'], {queryParams: {pid: this.pid}});
+    //    if(this.pid != null && this.pid > 0) {
+    if (this.pid != null && this.pid > 0 && !this.copyFlg) {
+      // 20210426 E_Update
+      this.router.navigate(['/bukkenplans'], { queryParams: { pid: this.pid } });
     }
   }
 
   export() {
 
-    const dlg = new Dialog({title: '確認', message: '売買取引管理表を出力します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: '売買取引管理表を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -832,8 +843,8 @@ export class BukkenDetailComponent extends BaseComponent {
    * 取引成立台帳
    */
   exportTransaction() {
-    const dlg = new Dialog({title: '確認', message: '取引成立台帳を出力します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: '取引成立台帳を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -853,7 +864,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * ※本番では未使用
    */
   navigatePlan() {
-    this.router.navigate(['/plandetail'], {queryParams: {bukkenid: this.data.pid}});
+    this.router.navigate(['/plandetail'], { queryParams: { bukkenid: this.data.pid } });
   }
   // 20201006 E_Add
 
@@ -862,7 +873,7 @@ export class BukkenDetailComponent extends BaseComponent {
    * チェックボックスON/OFF
    */
   changeFlg(event, flgType: string) {
-    if(flgType === 'bukkenListChk') this.data.bukkenListChk = (event.checked ? '1' : '0');
+    if (flgType === 'bukkenListChk') this.data.bukkenListChk = (event.checked ? '1' : '0');
   }
 
   /**
@@ -882,21 +893,21 @@ export class BukkenDetailComponent extends BaseComponent {
     // 不可分分母
     let indivisibleDenominator = this.getNumber(this.removeComma(data.indivisibleDenominator));
 
-    if(indivisibleNumerator > 0 && indivisibleDenominator > 0) {
+    if (indivisibleNumerator > 0 && indivisibleDenominator > 0) {
       let rate = Math.floor(indivisibleNumerator / indivisibleDenominator * 100)
       // 不可分子/不可分母≧50％
-      if(rate >= 50) importance = 'A';
+      if (rate >= 50) importance = 'A';
       // 不可分子≧2かつ不可分子/不可分母<50％
-      else if(indivisibleNumerator >= 2 && rate < 50) importance = 'B';
+      else if (indivisibleNumerator >= 2 && rate < 50) importance = 'B';
       // 不可分子＝1
-      else if(indivisibleNumerator == 1) importance = 'C';
+      else if (indivisibleNumerator == 1) importance = 'C';
     }
     data.importance = importance;
   }
   // 20210112 E_Add
   // 20210314 S_Add
   deleteContract(contract: Contractinfo, pos: number) {
-    const dlg = new Dialog({title: '確認', message: '削除してよろしいですか？'});
+    const dlg = new Dialog({ title: '確認', message: '削除してよろしいですか？' });
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -906,7 +917,7 @@ export class BukkenDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         this.service.deleteContract(contract.pid).then(res => {
-            this.contracts.splice(pos, 1);
+          this.contracts.splice(pos, 1);
         });
       }
     });
@@ -931,10 +942,10 @@ export class BukkenDetailComponent extends BaseComponent {
    */
   buyInfoExport() {
     let lst = this.contracts.filter(me => me.csvSelected).map(me => Number(me.pid));
-    if(lst.length === 0) return;
+    if (lst.length === 0) return;
 
-    const dlg = new Dialog({title: '確認', message: '決済案内を出力します。よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: '決済案内を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -947,4 +958,34 @@ export class BukkenDetailComponent extends BaseComponent {
     });
   }
   // 20211107 E_Add
+
+  // 20231020 S_Add
+  // 物件写真アップロード
+  photoUploaded(event) {
+
+    if (this.data.photoFilesMap === null) {
+      this.data.photoFilesMap = [];
+    }
+    const file: BukkenPhotoAttach = JSON.parse(JSON.stringify(event));
+    this.data.photoFilesMap.push(file);
+  }
+
+  /**
+   * 物件写真削除
+   * @param map : 削除したい物件写真
+   */
+  deletePhotoFile(file: BukkenPhotoAttach) {
+
+    const dlg = new Dialog({ title: '確認', message: 'ファイルを削除します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteFile(file.pid, false, true).then(res => {
+          this.data.photoFilesMap.splice(this.data.photoFilesMap.indexOf(file), 1);
+        });
+      }
+    });
+  }
+  // 20231020 E_Add
 }

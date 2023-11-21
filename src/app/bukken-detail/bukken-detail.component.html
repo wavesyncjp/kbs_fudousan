@@ -296,6 +296,29 @@
                 </td>
                 <!-- 20210426 E_Add -->
             </tr>
+
+            <!-- 20231020 S_Add -->
+            <tr>
+                <th>物件写真添付</th>
+                <td colspan="5" *ngIf="!copyFlg">
+                    <label *ngIf="!(data.pid > 0)" style="color:red">※土地情報を登録後に添付可能となります。</label>
+                    <app-file bukkenId="{{data.pid}}" isPhoto ="true" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" *ngIf="data.pid > 0 && !disableUser && (data.photoFilesMap == null || data.photoFilesMap.length == 0)" (uploaded)="photoUploaded($event)" [immediately]="true"></app-file>
+                    <table style="margin-left: 5px;">
+                        <tr *ngFor="let file of data.photoFilesMap">
+                            <td class="min-width160"><a [attr.href]="file.bukkenPhotoAttachFilePath + file.bukkenPhotoAttachFileName" target="_blank">{{file.bukkenPhotoAttachFileName}}</a></td>
+                            <td><button mat-flat-button *ngIf="!disableUser" class="attach-btn" (click)="deletePhotoFile(file)">削除</button></td>
+                        </tr>
+                    </table>
+                </td>
+                <td colspan="5" *ngIf="copyFlg">
+                    <table style="margin-left: 5px;">
+                        <tr *ngFor="let file of data.photoFilesMap">
+                            <td class="min-width160"><a [attr.href]="file.bukkenPhotoAttachFilePath + file.bukkenPhotoAttachFileName" target="_blank">{{file.bukkenPhotoAttachFileName}}</a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- 20231020 E_Add -->
         </table>
     </table>
 
