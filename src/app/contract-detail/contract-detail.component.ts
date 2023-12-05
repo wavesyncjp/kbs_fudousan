@@ -26,6 +26,7 @@ import { EvictionInfo } from '../models/evictioninfo';
 import { RentalInfo } from '../models/rentalinfo';
 import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.component';
 import { Util } from '../utils/util';
+import { DepositInfo } from '../models/depositinfo';
 // 20230917 E_Add
 
 @Component({
@@ -948,4 +949,49 @@ export class ContractDetailComponent extends BaseComponent {
     });
   }
   // 20231115 E_Add
+
+  // 20231128 S_Add
+  depositDayChange(event, obj: any, idx: number) {
+    obj.depositDayChk = (event.checked ? 1 : 0);
+    this.contract.depositsMap[idx].depositDayChk = obj.depositDayChk;
+  }
+
+  depositChange(event, obj: any, idx: number) {
+    obj.depositChk = (event.checked ? 1 : 0);
+    this.contract.depositsMap[idx].depositChk = obj.depositChk;
+  }
+  getIndexJp(idx) {
+    switch (idx) {
+      case 0:
+        return '①';
+      case 1:
+        return '②';
+      case 2:
+        return '③';
+      case 3:
+        return '④';
+      case 4:
+        return '⑤';
+      case 5:
+        return '⑥';
+      case 6:
+        return '⑦';
+      case 7:
+        return '⑧';
+      case 8:
+        return '⑨';
+      case 9:
+        return '⑩';
+    }
+  }
+  addDeposit() {
+    if (this.contract.depositsMap == null) {
+      this.contract.depositsMap = [];
+    }
+    this.contract.depositsMap.push(new DepositInfo());
+  }
+  deleteDeposit(pos: number) {
+    this.contract.depositsMap.splice(pos, 1);
+  }
+  // 20231128 E_Add
 }

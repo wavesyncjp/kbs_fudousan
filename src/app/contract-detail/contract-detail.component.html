@@ -284,7 +284,8 @@
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.settlementAfter" maxlength="100"><span style="font-size: small;">以内に支払い</span>
             </td>
         </tr>
-        <tr>
+        <!-- 20231128 S_Update -->
+        <!-- <tr>
             <th>内金①</th>
             <td>
                 <input type="text" [(ngModel)]="contract.deposit1Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit1Map)">&nbsp;円
@@ -303,7 +304,6 @@
                 <mat-datepicker #deposit2Day></mat-datepicker>
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit2DayChk === '1'" (change)="flgChange2($event, data)"></mat-checkbox>
             </td>
-            <!-- 20210510 S_Add -->
             <th>内金③</th>
             <td>
                 <input type="text" [(ngModel)]="contract.deposit3Map" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.deposit3Map)">&nbsp;円
@@ -322,7 +322,23 @@
                 <mat-datepicker #deposit4Day></mat-datepicker>
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="contract.deposit4DayChk === '1'" (change)="deposit4Change($event, data)"></mat-checkbox>
             </td>
+        </tr> -->
+        <tr *ngFor="let dep of contract.depositsMap; index as pos">
+            <th>内金{{ getIndexJp(pos) }}
+                <button *ngIf="pos == 0 && contract.depositsMap.length < 10" mat-raised-button class="addSharer" (click)="addDeposit()">追加</button>
+                <button *ngIf="pos != 0" mat-raised-button class="deleteSharer" (click)="deleteDeposit(pos)">削除</button>
+            </th>
+            <td colspan="7">
+                <input type="text" [(ngModel)]="dep.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(dep.depositMap)">&nbsp;円
+                &nbsp;
+                <input type="text" [matDatepicker]="depositDay" class="width100" [(ngModel)]="dep.depositDayMap">
+                <mat-datepicker-toggle matSuffix [for]="depositDay" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #depositDay></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="dep.depositDayChk === '1'" (change)="depositDayChange($event, data, pos)"></mat-checkbox>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;預り金</span><mat-checkbox [checked]="dep.depositChk === '1'" (change)="depositChange($event, data, pos)"></mat-checkbox>
+            </td>
         </tr>
+        <!-- 20231128 E_Update -->
         <tr>
         <!-- 20210510 E_Add -->
             <th>手付金</th>
