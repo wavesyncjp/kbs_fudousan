@@ -98,17 +98,25 @@
     <!--/土地情報契約-->
 
     <!--/建物情報契約-->
-    <table class="detail-tbl-min">
+    <!-- 20231206 S_Add -->
+    <mat-expansion-panel expanded='true'>
+        <mat-expansion-panel-header class="mat-panel-custom">
+        <div>
+            <span class="min">売主・不可分選択</span>
+        </div>
+        </mat-expansion-panel-header>
+        <div class="contact-div detail-tbl-min table-custom">
+    <!-- 20231206 E_Add     -->
+    <!-- 20231206 S_Delete -->
+    <!-- <table class="detail-tbl-min">
         <tr>
             <td><span class="min">売主・不可分選択</span>
-                <!-- 20230313 S_Delete -->
-                <!-- <span style="font-size: small;">地積合計 </span>{{sumArea | number}}<span style="font-size: small;"> ㎡</span> -->
-                <!-- 20230313 E_Delete -->
             </td>
         </tr>
         <tr>
             <td>
-                <div class="contact-div">
+                <div class="contact-div"> -->
+    <!-- 20231206 E_Delete -->
                     <table>
                         <thead class="list-header">
                             <th class="c_width40">売主<br>選択</th>
@@ -166,9 +174,15 @@
                         </tbody>
                     </table>
                 </div>
-            </td>
+    <!-- 20231206 S_Delete -->
+            <!-- </td>
         </tr>
-    </table>
+    </table> -->
+    <!-- 20231206 E_Delete -->
+    <!-- 20231206 S_Add -->
+    </mat-expansion-panel>
+    <br>
+    <!-- 20231206 E_Add -->
 
     <table class="detail-tbl-min">
         <tr>

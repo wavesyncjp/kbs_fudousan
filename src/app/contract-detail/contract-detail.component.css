@@ -191,3 +191,15 @@ span.now {
     margin-left: 10px;
 }
 /* 20230917 E_Add */
+
+/* 20231206 S_Add */
+.mat-panel-custom  {
+    margin-left: -12px;
+}
+.table-custom  {
+    width: calc(100% + 40px);
+    margin-left: -12px;
+    margin-top: -10px;
+    margin-bottom: 0;
+}
+/* 20231206 E_Add */

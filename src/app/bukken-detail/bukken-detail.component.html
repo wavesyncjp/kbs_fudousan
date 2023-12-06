@@ -432,21 +432,9 @@
     </div>
     <!-- 20211107 E_Add -->
     <!--契約情報-->
-    <!-- 20231128 S_Add -->
-    <mat-expansion-panel expanded='true'>
-        <mat-expansion-panel-header class="mat-panel-custom">
-        <div>
-            <span class="min">契約一覧</span>
-            <span style="font-size: small;">地積合計 </span>{{sumAreaContract | number}}<span style="font-size: small;"> ㎡</span>
-        </div>
-        </mat-expansion-panel-header>
-        <div class="contact-div mat-panel-custom table-custom" *ngIf="contracts && contracts.length > 0">
-    <!-- 20231128 E_Add     -->
-        <!-- 20231128 S_Delete -->
-        <!-- <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
-            <span class="min">契約一覧</span>
-            <span style="font-size: small;">地積合計 </span>{{sumAreaContract | number}}<span style="font-size: small;"> ㎡</span> -->
-        <!-- 20231128 E_Delete -->    
+    <div class="contact-div" *ngIf="contracts && contracts.length > 0" style="width: 100%;">
+        <span class="min">契約一覧</span>
+        <span style="font-size: small;">地積合計 </span>{{sumAreaContract | number}}<span style="font-size: small;"> ㎡</span>
         <table>
             <thead class="list-header">
                 <!-- 20220522 S_Update -->
@@ -506,9 +494,6 @@
             </tbody>
         </table>
     </div>
-    <!-- 20231128 S_Add -->
-    </mat-expansion-panel>
-    <!-- 20231128 E_Add -->
     <!--/契約情報-->
     <div class="register-div-bottom">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
