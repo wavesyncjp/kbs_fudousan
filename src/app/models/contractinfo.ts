@@ -347,7 +347,105 @@ export class Contractinfo {
         }
         // 20230511 E_Add
 
-        // 20231128 S_Add
+        // 20231207 S_Update
+        // // 20231128 S_Add
+        // this.depositsMap = [];
+
+        // for (var i = 1; i <= 10; i++) {
+        //     var dep = new DepositInfo();
+
+        //     switch (i) {
+        //         case 1:
+        //             dep.deposit = this.deposit1;
+        //             dep.depositChk = this.deposit1Chk;
+        //             dep.depositDay = this.deposit1Day;
+        //             dep.depositDayChk = this.deposit1DayChk;
+        //             break;
+        //         case 2:
+        //             dep.deposit = this.deposit2;
+        //             dep.depositChk = this.deposit2Chk;
+        //             dep.depositDay = this.deposit2Day;
+        //             dep.depositDayChk = this.deposit2DayChk;
+        //             break;
+        //         case 3:
+        //             dep.deposit = this.deposit3;
+        //             dep.depositChk = this.deposit3Chk;
+        //             dep.depositDay = this.deposit3Day;
+        //             dep.depositDayChk = this.deposit3DayChk;
+        //             break;
+        //         case 4:
+        //             dep.deposit = this.deposit4;
+        //             dep.depositChk = this.deposit4Chk;
+        //             dep.depositDay = this.deposit4Day;
+        //             dep.depositDayChk = this.deposit4DayChk;
+        //             break;
+        //         case 5:
+        //             dep.deposit = this.deposit5;
+        //             dep.depositChk = this.deposit5Chk;
+        //             dep.depositDay = this.deposit5Day;
+        //             dep.depositDayChk = this.deposit5DayChk;
+        //             break;
+        //         case 6:
+        //             dep.deposit = this.deposit6;
+        //             dep.depositChk = this.deposit6Chk;
+        //             dep.depositDay = this.deposit6Day;
+        //             dep.depositDayChk = this.deposit6DayChk;
+        //             break;
+        //         case 7:
+        //             dep.deposit = this.deposit7;
+        //             dep.depositChk = this.deposit7Chk;
+        //             dep.depositDay = this.deposit7Day;
+        //             dep.depositDayChk = this.deposit7DayChk;
+        //             break;
+        //         case 8:
+        //             dep.deposit = this.deposit8;
+        //             dep.depositChk = this.deposit8Chk;
+        //             dep.depositDay = this.deposit8Day;
+        //             dep.depositDayChk = this.deposit8DayChk;
+        //             break;
+        //         case 9:
+        //             dep.deposit = this.deposit9;
+        //             dep.depositChk = this.deposit9Chk;
+        //             dep.depositDay = this.deposit9Day;
+        //             dep.depositDayChk = this.deposit9DayChk;
+        //             break;
+        //         case 10:
+        //             dep.deposit = this.deposit10;
+        //             dep.depositChk = this.deposit10Chk;
+        //             dep.depositDay = this.deposit10Day;
+        //             dep.depositDayChk = this.deposit10DayChk;
+        //             break;
+        //     }
+        //     this.depositsMap.push(dep);
+        // }
+
+        // for (var i = 9; i > 0; i--) {
+        //     let dep = this.depositsMap[i];
+        //     if ((dep.deposit == null || dep.deposit == 0)
+        //         && (dep.depositChk == null || dep.depositChk == "" || dep.depositChk == "0")
+        //         && (dep.depositDay == null || dep.depositDay == "")
+        //         && (dep.depositDayChk == null || dep.depositDayChk == "" || dep.depositDayChk == "0")
+        //     ) {
+        //         this.depositsMap.splice(i, 1);
+        //     }
+        //     else {
+        //         break;
+        //     }
+        // }
+
+        // for (var i = 0; i < this.depositsMap.length; i++) {
+        //     //カレンダー
+        //     this.depositsMap[i].depositDayMap = Converter.stringToDate(this.depositsMap[i].depositDay, 'yyyyMMdd');
+        //     //数字
+        //     this.depositsMap[i].depositMap = Converter.numberToString(this.depositsMap[i].deposit);
+        // }
+        // // 20231128 E_Add
+        this.convertDeposits();
+        // 20231207 E_Update
+    }
+
+    // 20231207 S_Add
+    public convertDeposits() {
         this.depositsMap = [];
 
         for (var i = 1; i <= 10; i++) {
@@ -438,8 +536,8 @@ export class Contractinfo {
             //数字
             this.depositsMap[i].depositMap = Converter.numberToString(this.depositsMap[i].deposit);
         }
-        // 20231128 E_Add
     }
+    // 20231207 E_Add
 
     //20200828 S_Update
     /*

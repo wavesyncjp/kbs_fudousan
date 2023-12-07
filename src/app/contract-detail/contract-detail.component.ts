@@ -145,6 +145,7 @@ export class ContractDetailComponent extends BaseComponent {
         } else {
           this.data = new Templandinfo(values[2] as Templandinfo);
           this.contract = new Contractinfo();
+          this.contract.convertDeposits();// 20231207
           this.contract.sellers = [];
           this.contract.sellers.push(new ContractSellerInfo());
         }
