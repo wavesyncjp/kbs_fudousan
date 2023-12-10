@@ -43,10 +43,10 @@ export class PayContractListComponent extends BaseComponent {
     contractFixDay_To: '',
     contractFixDayMap_To: '',
     payDay_From: '',
-    // 20231128 S_Update
-    // payDayMap_From: '',
-    payDayMap_From: new Date(),
-    // 20231128 E_Update
+    // 20231211 S_Update
+    payDayMap_From: '',
+    // payDayMap_From: new Date(),
+    // 20231211 E_Update
     payDay_To: '',
     payDayMap_To: '',
     //20200913 S_Add
@@ -146,10 +146,10 @@ export class PayContractListComponent extends BaseComponent {
       contractFixDay_To: '',
       contractFixDayMap_To: '',
       payDay_From: '',
-      // 20231128 S_Update
-      // payDayMap_From: '',
-      payDayMap_From: new Date(),
-      // 20231128 S_Update
+      // 20231211 S_Update
+      payDayMap_From: '',
+      // payDayMap_From: new Date(),
+      // 20231211 S_Update
       payDay_To: '',
       payDayMap_To: '',
       //20200913 S_Add
