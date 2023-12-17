@@ -175,6 +175,10 @@ export class PayContractListComponent extends BaseComponent {
    * 検索
    */
   searchPayContract() {
+    // 20231213 S_Add
+    if (!this.validate()) return;
+    // 20231213 E_Add
+
     this.spinner.show();
 
     this.cond.contractDay_From = this.cond.contractDayMap_From != null ? this.datepipe.transform(this.cond.contractDayMap_From, 'yyyyMMdd') : "";
@@ -335,4 +339,34 @@ export class PayContractListComponent extends BaseComponent {
     });
   }
   // 20220511 E_Add
+
+  // 20231213 S_Add
+  /**
+   * バリデーション
+   */
+  validate(): boolean {
+    let hasSearchItem = false;
+    this.errorMsgs = [];
+
+    if (!this.isBlank(this.cond.bukkenNo)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.contractBukkenNo_Like)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.bukkenName)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.paymentCode)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.supplierName)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.contractDayMap_From)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.contractDayMap_To)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.contractFixDayMap_From)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.contractFixDayMap_To)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.payDayMap_From)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.payDayMap_To)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.payFixDayMap_From)) hasSearchItem = true;
+    if (!this.isBlank(this.cond.payFixDayMap_To)) hasSearchItem = true;
+
+    if (!hasSearchItem) {
+      this.errorMsgs.push('検索条件のいずれかを指定してください。');
+      return false;
+    }
+    return true;
+  }
+  // 20231213 E_Add
 }

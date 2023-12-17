@@ -3,6 +3,11 @@
         <mat-expansion-panel-header>
             <mat-panel-title>検索条件</mat-panel-title>
         </mat-expansion-panel-header>
+        <!-- 20231213 S_Add -->
+        <ul *ngIf="errorMsgs.length > 0" class="error-span">
+        <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+        </ul>
+        <!-- 20231213 E_Add -->
         <div class="search-div">
             <table class="search-tbl">
                 <tr>
