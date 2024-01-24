@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, NgZone, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -115,6 +115,7 @@ export class BukkenListComponent extends BaseComponent {
   hasSearchItem: boolean = false;// 20201011 Add
 
   constructor(private ngZone: NgZone,
+    private cdr: ChangeDetectorRef,
     public router: Router,
     private route: ActivatedRoute,
     public service: BackendService,
@@ -344,6 +345,7 @@ export class BukkenListComponent extends BaseComponent {
       this.dataSource.sort = this.sort;
       this.searched = true;
       this.showMapMarker();
+      this.updateMapCenter();// 20240123 Add
       // モード
       if (this.cond.mode === 2 && this.tabGroup.selectedIndex === 0) {
         this.tabGroup.selectedIndex = 1;
@@ -455,6 +457,29 @@ export class BukkenListComponent extends BaseComponent {
     });
   }
   //20200902 E_Update
+
+  // 20240123 S_Add
+  updateMapCenterByLocation(map: any) {
+    if (this.mapObj && map.latitude > 0) {
+      const mapOptions = {
+        center: { lat: Number(map.latitude), lng: Number(map.longitude) },
+        zoom: 13,
+      };
+
+      this.mapObj.setOptions(mapOptions);
+    }
+  }
+  updateMapCenter() {
+    if (this.mapObj) {
+      this.dataSource.data.forEach(bk => {
+        if (bk.latitude > 0) {
+          this.updateMapCenterByLocation(bk);
+          return false;
+        }
+      });
+    }
+  }
+  // 20240123 E_Add
 
   /**
    * ピン追加

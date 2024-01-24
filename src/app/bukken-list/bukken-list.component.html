@@ -346,7 +346,10 @@
     <div id="mapData" class="map-wrapper-r w-r fr print-class">
     <!-- 20231111 E_Update -->
       <div class="card card-height" *ngFor="let item of filterMap()">
-        <div class="card-header">
+        <!-- 20240123 S_Update -->
+        <!-- <div class="card-header"> -->
+        <div class="card-header" (click)="updateMapCenterByLocation(item);">
+        <!-- 20240123 E_Update -->
             {{ item.labelMap }}
         </div>
         <div class="card-body map-equip2">
