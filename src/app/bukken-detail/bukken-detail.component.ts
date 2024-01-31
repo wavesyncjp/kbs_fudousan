@@ -896,7 +896,10 @@ export class BukkenDetailComponent extends BaseComponent {
     if (indivisibleNumerator > 0 && indivisibleDenominator > 0) {
       let rate = Math.floor(indivisibleNumerator / indivisibleDenominator * 100)
       // 不可分子/不可分母≧50％
-      if (rate >= 50) importance = 'A';
+      // 20240131 S_Update
+      // if (rate >= 50) importance = 'A';
+      if (indivisibleDenominator - indivisibleNumerator == 1) importance = 'A';
+      // 20240131 E_Update
       // 不可分子≧2かつ不可分子/不可分母<50％
       else if (indivisibleNumerator >= 2 && rate < 50) importance = 'B';
       // 不可分子＝1
