@@ -27,8 +27,8 @@ declare var $: any;// 20211107 Add
   styleUrls: ['./location-detail.component.css'],
   //20200913 S_Add
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
-    {provide: DateAdapter, useClass: JPDateAdapter}
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    { provide: DateAdapter, useClass: JPDateAdapter }
   ],
   //20200913 E_Add
 })
@@ -43,25 +43,25 @@ export class LocationDetailComponent extends BaseComponent {
 
   // 20201021 S_Add
   // 相続未登記あり
-  @ViewChild('inheritanceNotyet', {static: true})
+  @ViewChild('inheritanceNotyet', { static: true })
   inheritanceNotyet: MatCheckbox;
   // 建物未登記あり
-  @ViewChild('buildingNotyet', {static: true})
+  @ViewChild('buildingNotyet', { static: true })
   buildingNotyet: MatCheckbox;
   // 売買対象
-  @ViewChild('buysellFlg', {static: true})
+  @ViewChild('buysellFlg', { static: true })
   buysellFlg: MatCheckbox;
   // 20201021 E_Add
 
   constructor(public router: Router,
-              public service: BackendService,
-              private spinner: NgxSpinnerService,
-              public dialogRef: MatDialogRef<Locationinfo>,
-              public dialog: MatDialog,
-              public datepipe: DatePipe,//20200913 Add
-              /*public sharer: SharerInfo,*/
-              @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
-      super(router, service,dialog);
+    public service: BackendService,
+    private spinner: NgxSpinnerService,
+    public dialogRef: MatDialogRef<Locationinfo>,
+    public dialog: MatDialog,
+    public datepipe: DatePipe,//20200913 Add
+    /*public sharer: SharerInfo,*/
+    @Inject(MAT_DIALOG_DATA) public data: Locationinfo) {
+    super(router, service, dialog);
   }
 
   // 20210211 S_Add
@@ -86,7 +86,7 @@ export class LocationDetailComponent extends BaseComponent {
         const uniqeCodes = [...new Set(codes.map(code => code.code))];
         uniqeCodes.forEach(code => {
           const lst = codes.filter(c => c.code === code);
-          lst.sort((a , b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
+          lst.sort((a, b) => Number(a.displayOrder) > Number(b.displayOrder) ? 1 : -1);
           this.sysCodes[code] = lst;
         });
       }
@@ -97,7 +97,7 @@ export class LocationDetailComponent extends BaseComponent {
     });
 
     // 20230501 S_Add
-    if(this.data.pid == undefined){
+    if (this.data.pid == undefined) {
       this.data.displayOrder = 0;
     }
     // 20230501 E_Add
@@ -106,7 +106,7 @@ export class LocationDetailComponent extends BaseComponent {
     /*
     if(this.data.pid == undefined) this.data.locationType = '01';
     */
-    if(this.data.pid == undefined && this.data.locationType == undefined) this.data.locationType = '01';
+    if (this.data.pid == undefined && this.data.locationType == undefined) this.data.locationType = '01';
     //20200811 E_Update
     else {
       if (this.data.locationType === '04') {
@@ -166,7 +166,7 @@ export class LocationDetailComponent extends BaseComponent {
     });
     // 20211107 S_End
     // 20211109 S_Add
-    if(this.data.locationType === '01' || this.data.locationType === '03') {
+    if (this.data.locationType === '01' || this.data.locationType === '03') {
       this.switchCalendar('#txtCompletionDay', false);
     } else {
       this.switchCalendar('#txtCompletionDay', true);
@@ -195,7 +195,7 @@ export class LocationDetailComponent extends BaseComponent {
    * @param loc ：所有地
    */
   deleteSharer(sharerPos: number) {
-//    sharerPos++;// 20201031 Add
+    //    sharerPos++;// 20201031 Add
     const sharer = this.data.sharers[sharerPos];
     if (sharer.pid > 0) {
       if (this.data.delSharers == null) {
@@ -246,7 +246,7 @@ export class LocationDetailComponent extends BaseComponent {
     const val = event.target.value;
     let ret = this.removeComma(val)
     if (this.isNumberStr(ret)) {
-      this.data.tsubo = Math.floor(Number(ret) * 0.3025 * 100 ) / 100;
+      this.data.tsubo = Math.floor(Number(ret) * 0.3025 * 100) / 100;
     }
   }
 
@@ -257,7 +257,7 @@ export class LocationDetailComponent extends BaseComponent {
     if (event.target.value !== this.oldLocationType && this.oldLocationType != null && this.oldLocationType !== '') {
       // 20230926 S_Update
       // const dlg = new Dialog({title: '確認', message: '区分を変更すると一部の項目は値がクリアされるます。よろしいですか？'});
-      const dlg = new Dialog({title: '確認', message: '区分を変更すると一部の項目は値がクリアされます。よろしいですか？'});
+      const dlg = new Dialog({ title: '確認', message: '区分を変更すると一部の項目は値がクリアされます。よろしいですか？' });
       // 20230926 E_Update
       const dlgRef = this.dialog.open(ConfirmDialogComponent, {
         width: '500px',
@@ -276,7 +276,7 @@ export class LocationDetailComponent extends BaseComponent {
           // 20201224 E_Add
           // 20220705 S_Add
           // 家屋番号を初期化
-          if(this.data.buildingNumber == this.buildingNotyetChar) this.data.buildingNumber = null;
+          if (this.data.buildingNumber == this.buildingNotyetChar) this.data.buildingNumber = null;
           // 20220705 E_Add
           this.applyChangeType();
         } else {
@@ -293,7 +293,7 @@ export class LocationDetailComponent extends BaseComponent {
    * カレンダーアイコン 活性/非活性
    */
   switchCalendar(id: string, set: boolean) {
-    if(set) {
+    if (set) {
       $(id).datepicker('enable');
     } else {
       $(id).datepicker('disable');
@@ -392,8 +392,8 @@ export class LocationDetailComponent extends BaseComponent {
       // 20201020 E_Add
       // 20201222 S_Add
       this.data.grossFloorAreaMap = null;// 延床面積
-//      this.data.bottomLandPid = null;// 底地
-//      this.data.leasedAreaMap = null;// 借地対象面積
+      //      this.data.bottomLandPid = null;// 底地
+      //      this.data.leasedAreaMap = null;// 借地対象面積
       // 20201222 E_Add
       // 所有者追加分を削除
       var index: number = 0;
@@ -427,13 +427,13 @@ export class LocationDetailComponent extends BaseComponent {
       this.data.tsubo = null;           // 坪
       this.data.landCategory = null;    // 地目
       // 20201020 E_Add
-//      this.data.grossFloorAreaMap = null;// 延床面積 20201222 Add
+      //      this.data.grossFloorAreaMap = null;// 延床面積 20201222 Add
     }
     // 20201222 S_Add
     if (this.data.locationType !== '01'
       && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
 
-      if(this.data.bottomLandPid === null || this.data.bottomLandPid === '') {
+      if (this.data.bottomLandPid === null || this.data.bottomLandPid === '') {
         // 底地を取得
         this.cond = {
           tempLandInfoPid: this.data.tempLandInfoPid,
@@ -447,8 +447,7 @@ export class LocationDetailComponent extends BaseComponent {
         });
       }
     }
-    else
-    {
+    else {
       this.data.bottomLandPid = null;// 底地
       this.data.leasedAreaMap = null;// 借地対象面積
       this.data.landRentMap = null;// 地代 20220614 Add
@@ -471,7 +470,7 @@ export class LocationDetailComponent extends BaseComponent {
     // 20230914 S_Update
     // if (this.data.locationType !== '02' && this.data.locationType !== '04') {
     if (this.isDisableResident(this.data)) {
-    // 20230914 E_Update
+      // 20230914 E_Update
       this.data.roomNo = null;            // 部屋番号
       this.data.borrowerName = null;      // 借主氏名
       this.data.rentPriceMap = null;      // 賃料
@@ -491,7 +490,7 @@ export class LocationDetailComponent extends BaseComponent {
     }
     // 20220615 E_Add
     // 20211109 S_Add
-    if(this.data.locationType === '01' || this.data.locationType === '03') {
+    if (this.data.locationType === '01' || this.data.locationType === '03') {
       this.switchCalendar('#txtCompletionDay', false);
     } else {
       this.switchCalendar('#txtCompletionDay', true);
@@ -505,7 +504,7 @@ export class LocationDetailComponent extends BaseComponent {
    */
   getLocAdress() {
     if (this.locAdresses) {
-      return this.locAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+      return this.locAdresses.map(locAdress => new Code({ codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '') }));
     } else {
       return [];
     }
@@ -517,7 +516,7 @@ export class LocationDetailComponent extends BaseComponent {
   */
   getLandAdress() {
     if (this.landAdresses) {
-      return this.landAdresses.map(locAdress => new Code({codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '')}));
+      return this.landAdresses.map(locAdress => new Code({ codeDetail: locAdress.pid, name: locAdress.address + (locAdress.blockNumber != null ? locAdress.blockNumber : '') }));
     } else {
       return [];
     }
@@ -549,13 +548,13 @@ export class LocationDetailComponent extends BaseComponent {
     data.buildingNotyet = (event.checked ? 1 : 0);
     // 20220705 S_Add
     // 区分が01:土地の場合
-    if(this.data.locationType === '01') {
+    if (this.data.locationType === '01') {
       // 建物未登記ありにチェックがある場合、家屋番号に固定文言を設定する
       this.data.buildingNumber = event.checked ? this.buildingNotyetChar : '';
     }
     // 20220705 E_Add
   }
-  
+
   /**
    * 登録
    */
@@ -564,7 +563,7 @@ export class LocationDetailComponent extends BaseComponent {
       return;
     }
 
-    const dlg = new Dialog({title: '確認', message: '謄本情報を登録しますが、よろしいですか？'});
+    const dlg = new Dialog({ title: '確認', message: '謄本情報を登録しますが、よろしいですか？' });
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -577,13 +576,13 @@ export class LocationDetailComponent extends BaseComponent {
         this.convertBottomLand();// 20210614 Add
         this.convertResident();// 20220614 Add
         //20200913 S_Update
-//        this.data.convertForSave(this.service.loginUser.userId);
+        //        this.data.convertForSave(this.service.loginUser.userId);
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe);
         //20200913 E_Update
         // 削除された所在地も送る
 
         this.service.saveLocation(this.data).then(values => {
-          const finishDlg = new Dialog({title: '完了', message: '謄本情報を登録しました。'});
+          const finishDlg = new Dialog({ title: '完了', message: '謄本情報を登録しました。' });
           const dlgVal = this.dialog.open(FinishDialogComponent, {
             width: '500px',
             height: '250px',
@@ -592,7 +591,7 @@ export class LocationDetailComponent extends BaseComponent {
           dlgVal.afterClosed().subscribe(res => {
             this.data = new Locationinfo(values);
             this.spinner.hide();
-            this.dialogRef.close({data: this.data, isSave: true});
+            this.dialogRef.close({ data: this.data, isSave: true });
           });
         });
       }
@@ -604,7 +603,7 @@ export class LocationDetailComponent extends BaseComponent {
    * @param row ：削除したい所有地
    */
   deleteLoc() {
-    const dlg = new Dialog({title: '確認', message: '謄本情報を削除してよろしいですか？'});
+    const dlg = new Dialog({ title: '確認', message: '謄本情報を削除してよろしいですか？' });
     const dlgRef = this.dialog.open(ConfirmDialogComponent, {
       width: '500px',
       height: '250px',
@@ -621,10 +620,10 @@ export class LocationDetailComponent extends BaseComponent {
           if (res.status === 'NG') {
             this.dialog.open(FinishDialogComponent, {
               width: '500px', height: '250px',
-              data: new Dialog({title: 'エラー', message: '謄本情報を既に契約されています。'})
+              data: new Dialog({ title: 'エラー', message: '謄本情報を既に契約されています。' })
             });
           } else {
-            this.dialogRef.close({data: this.data, isDelete: true});
+            this.dialogRef.close({ data: this.data, isDelete: true });
           }
         });
       }
@@ -655,6 +654,17 @@ export class LocationDetailComponent extends BaseComponent {
       && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
       this.checkBlank(this.data.bottomLandPid, `bottomLandPid`, '底地は必須です。');
     }
+    // 20240123 S_Add
+    // 建物
+    if (this.data.locationType === '02' && (this.data.apartmentName == null || this.data.apartmentName == '')) {
+      this.convertResident();
+      let residentsCheck = this.data.residents.filter(a => (a.roomNo != null && a.roomNo != '') || (a.rentPriceMap != null && a.rentPriceMap != '' && a.rentPriceMap != '0') || (a.borrowerName != null && a.borrowerName != ''));
+
+      if (residentsCheck.length > 0) {
+        this.checkBlank(this.data.apartmentName, `apartmentName`, '区分が建物 の時且つ、部屋番号、賃料、借主氏名　のいずれかに値を入れて保存する場合、建物名は必須です。');
+      }
+    }
+    // 20240123 E_Add
     // 20201221 E_Add
     if (this.errorMsgs.length > 0) {
       return false;
@@ -668,8 +678,8 @@ export class LocationDetailComponent extends BaseComponent {
   cancel() {
     this.spinner.hide();
     // 20210311 S_Update
-//    this.dialogRef.close(false);
-    this.dialogRef.close({data: this.data});
+    //    this.dialogRef.close(false);
+    this.dialogRef.close({ data: this.data });
     // 20210311 E_Update
   }
 
@@ -691,8 +701,8 @@ export class LocationDetailComponent extends BaseComponent {
    * @param map :　削除したいファイル
    */
   deleteFile(map: LocationAttach) {
-    const dlg = new Dialog({title: '確認', message: 'ファイルを削除しますが、よろしいですか？'});
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {width: '500px', height: '250px', data: dlg});
+    const dlg = new Dialog({ title: '確認', message: 'ファイルを削除しますが、よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
 
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
@@ -758,7 +768,7 @@ export class LocationDetailComponent extends BaseComponent {
    * 入居者追加
    * @param loc ：所有地
    */
-   addResident() {
+  addResident() {
     if (this.data.residents == null) {
       this.data.residents = [];
     }

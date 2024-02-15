@@ -23,7 +23,7 @@ export class RentalContract {
     contractEndNotification: string;
     residentName: string;
     residentTel: string;
-    keyExchangeFee: number;
+    // keyExchangeFee: number; // 20240123 Delete
     updateFee: number;
     securityDepositConvertedFlg: string;
     // 20231016 E_Add
@@ -37,17 +37,17 @@ export class RentalContract {
     condoFeeTax: number;
     managementFee: number;
     managementFeeTax: number;
-    attachedFacilityFee: number;
-    keyMoney: number;
+    // attachedFacilityFee: number; // 20240123 Delete
+    // keyMoney: number; // 20240123 Delete
     deposit: number;
     depositConvertedFlg: string;
     parkingFee: number;
     parkingDeposit: number;
     parkingDepositConvertedFlg: string;
-    InsuranceFee: number;
-    roomRentGuaranteeFee: number;
-    roomRentGuaranteeFeeConvertedFlg: string;
-    roomRentExemptionStartDate: string;
+    // InsuranceFee: number; // 20240123 Delete
+    // roomRentGuaranteeFee: number; // 20240123 Delete
+    // roomRentGuaranteeFeeConvertedFlg: string; // 20240123 Delete
+    // roomRentExemptionStartDate: string; // 20240123 Delete
     contractMethod: string;
     receiveCode: string;
     // 20231010 S_Add
@@ -79,7 +79,7 @@ export class RentalContract {
 
     // 20231016 S_Add
     agreementDateMap: String = null;
-    keyExchangeFeeMap: string;
+    // keyExchangeFeeMap: string; // 20240123 Delete
     // 20231016 E_Add
 
     paymentDayMap: string;
@@ -89,14 +89,14 @@ export class RentalContract {
     condoFeeTaxMap: string;
     managementFeeMap: string;
     managementFeeTaxMap: string;
-    attachedFacilityFeeMap: string;
-    keyMoneyMap: string;
+    // attachedFacilityFeeMap: string; // 20240123 Delete
+    // keyMoneyMap: string; // 20240123 Delete
     depositMap: string;
     parkingFeeMap: string;
     parkingDepositMap: string;
-    InsuranceFeeMap: string;
-    roomRentGuaranteeFeeMap: string;
-    roomRentExemptionStartDateMap: Date = null;
+    // InsuranceFeeMap: string; // 20240123 Delete
+    // roomRentGuaranteeFeeMap: string; // 20240123 Delete
+    // roomRentExemptionStartDateMap: Date = null; // 20240123 Delete
     locationInfoPidForSearch: number;
 
     // 20231010 S_Add
@@ -113,6 +113,12 @@ export class RentalContract {
     // 20231010 E_Add
     statusMap: string;// 登録状態
     msgMap: string;// NGのメッセージ
+
+    // 20240123 S_Add
+    depositSumMap: number;
+    feeSumMap: number;
+    taxSumMap: number;
+    // 20240123 S_Add
 
     // 開発用の例↑
     public constructor(init?: Partial<RentalContract>) {
@@ -137,7 +143,7 @@ export class RentalContract {
         this.agreementDateMap = this.addSlash(this.agreementDate);
         // 20231016 E_Add
 
-        this.roomRentExemptionStartDateMap = Converter.stringToDate(this.roomRentExemptionStartDate, 'yyyyMMdd');
+        // this.roomRentExemptionStartDateMap = Converter.stringToDate(this.roomRentExemptionStartDate, 'yyyyMMdd'); // 20240123 Delete
 
         // 数字
         this.paymentDayMap = Converter.numberToString(this.paymentDay);
@@ -147,22 +153,22 @@ export class RentalContract {
         this.condoFeeTaxMap = Converter.numberToString(this.condoFeeTax);
         this.managementFeeMap = Converter.numberToString(this.managementFee);
         this.managementFeeTaxMap = Converter.numberToString(this.managementFeeTax);
-        this.attachedFacilityFeeMap = Converter.numberToString(this.attachedFacilityFee);
+        // this.attachedFacilityFeeMap = Converter.numberToString(this.attachedFacilityFee);// 20240123 Delete
         // 20231010 S_Add
         this.otherExpensesMap = Converter.numberToString(this.otherExpenses);
         this.securityDepositMap = Converter.numberToString(this.securityDeposit);
         this.amortizationMap = Converter.numberToString(this.amortization);
         this.roomExtentMap = Converter.numberToString(this.roomExtent);
         // 20231010 E_Add
-        this.keyMoneyMap = Converter.numberToString(this.keyMoney);
+        // this.keyMoneyMap = Converter.numberToString(this.keyMoney); // 20240123 Delete
         this.depositMap = Converter.numberToString(this.deposit);
         this.parkingFeeMap = Converter.numberToString(this.parkingFee);
         this.parkingDepositMap = Converter.numberToString(this.parkingDeposit);
-        this.InsuranceFeeMap = Converter.numberToString(this.InsuranceFee);
-        this.roomRentGuaranteeFeeMap = Converter.numberToString(this.roomRentGuaranteeFee);
+        // this.InsuranceFeeMap = Converter.numberToString(this.InsuranceFee); // 20240123 Delete
+        // this.roomRentGuaranteeFeeMap = Converter.numberToString(this.roomRentGuaranteeFee); // 20240123 Delete
 
         // 20231016 S_Add
-        this.keyExchangeFeeMap = Converter.numberToString(this.keyExchangeFee);
+        // this.keyExchangeFeeMap = Converter.numberToString(this.keyExchangeFee); // 20240123 Delete
         // 20231016 E_Add
     }
 
@@ -187,7 +193,7 @@ export class RentalContract {
         this.agreementDate = this.agreementDateMap != null ? this.agreementDateMap.replace(/\//g, '') : this.agreementDate;
         // 20231016 E_Add
 
-        this.roomRentExemptionStartDate = Converter.dateToString(this.roomRentExemptionStartDateMap, 'yyyyMMdd', datePipe);
+        // this.roomRentExemptionStartDate = Converter.dateToString(this.roomRentExemptionStartDateMap, 'yyyyMMdd', datePipe); // 20240123 Delete
 
         // 数字
         this.paymentDay = Converter.stringToNumber(this.paymentDayMap);
@@ -197,22 +203,22 @@ export class RentalContract {
         this.condoFeeTax = Converter.stringToNumber(this.condoFeeTaxMap);
         this.managementFee = Converter.stringToNumber(this.managementFeeMap);
         this.managementFeeTax = Converter.stringToNumber(this.managementFeeTaxMap);
-        this.attachedFacilityFee = Converter.stringToNumber(this.attachedFacilityFeeMap);
+        // this.attachedFacilityFee = Converter.stringToNumber(this.attachedFacilityFeeMap);// 20240123 Delete
         // 20231010 S_Add
         this.otherExpenses = Converter.stringToNumber(this.otherExpensesMap);
         this.securityDeposit = Converter.stringToNumber(this.securityDepositMap);
         this.amortization = Converter.stringToNumber(this.amortizationMap);
         this.roomExtent = Converter.stringToNumber(this.roomExtentMap);
         // 20231010 E_Add
-        this.keyMoney = Converter.stringToNumber(this.keyMoneyMap);
+        // this.keyMoney = Converter.stringToNumber(this.keyMoneyMap); // 20240123 Delete
         this.deposit = Converter.stringToNumber(this.depositMap);
         this.parkingFee = Converter.stringToNumber(this.parkingFeeMap);
         this.parkingDeposit = Converter.stringToNumber(this.parkingDepositMap);
-        this.InsuranceFee = Converter.stringToNumber(this.InsuranceFeeMap);
-        this.roomRentGuaranteeFee = Converter.stringToNumber(this.roomRentGuaranteeFeeMap);
+        // this.InsuranceFee = Converter.stringToNumber(this.InsuranceFeeMap); // 20240123 Delete
+        // this.roomRentGuaranteeFee = Converter.stringToNumber(this.roomRentGuaranteeFeeMap); // 20240123 Delete
 
         // 20231016 S_Add
-        this.keyExchangeFee = Converter.stringToNumber(this.keyExchangeFeeMap);
+        // this.keyExchangeFee = Converter.stringToNumber(this.keyExchangeFeeMap); // 20240123 Delete
         // 20231016 E_Add
     }
 

@@ -213,9 +213,18 @@
                 <textarea [(ngModel)]="data.structure"  class="area" [disabled]="data.locationType == '01'" maxlength="128"></textarea>
             </td>
             <th>床面積</th>
-            <td colspan="3">
+            <!-- 20240123 S_Add -->
+            <!-- <td colspan="3"> -->
+            <td>
+            <!-- 20240123 E_Add -->
                 <textarea [(ngModel)]="data.floorSpace"  class="area" [ngClass]="{'error': errors['floorSpace']}" [disabled]="data.locationType == '01'" maxlength="128"></textarea>
             </td>
+            <!-- 20240123 S_Add -->
+            <th>建物名</th>
+            <td>
+                <input type="text" [(ngModel)]="data.apartmentName" class="width120" [ngClass]="{'error': errors['apartmentName']}" [disabled]="data.locationType != '02'" maxlength="128">
+            </td>
+            <!-- 20240123 E_Add -->
         </tr>
         <tr>
             <th>入居者情報</th>

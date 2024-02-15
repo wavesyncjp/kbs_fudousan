@@ -6,11 +6,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { MatPaginatorModule, MatExpansionModule, MatCardModule, MatToolbarModule, MatSidenavModule, MatListModule,
-         MatTableModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatDialogModule,
-         MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSnackBarModule, MatCheckboxModule,
-         MatTabsModule, MatSortModule
-       } from '@angular/material';
+import {
+  MatPaginatorModule, MatExpansionModule, MatCardModule, MatToolbarModule, MatSidenavModule, MatListModule,
+  MatTableModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatDialogModule,
+  MatGridListModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSnackBarModule, MatCheckboxModule,
+  MatTabsModule, MatSortModule
+} from '@angular/material';
 import { BukkenListComponent } from './bukken-list/bukken-list.component';
 import { BukkenDetailComponent } from './bukken-detail/bukken-detail.component';
 import { BukkenUpdateComponent } from './bukken-update/bukken-update.component';// 20210207 Add
@@ -53,8 +54,8 @@ import { ReceiveContractDetailComponent } from './receivecontract-detail/receive
 // 20200226 S_Add
 import { PlanListComponent } from './plan-list/plan-list.component';
 // 20200226 E_Add
-import{ BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
-import{ BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
+import { BukkenplaninfoDetailComponent } from './bukkenplaninfo-detail/bukkenplaninfo-detail.component';
+import { BukkenplaninfoListComponent } from './bukkenplaninfo-list/bukkenplaninfo-list.component';
 import { ContractTemplateComponent } from './contract-template/contract-template.component';
 import { CsvTemplateComponent } from './csv-template/csv-template.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
@@ -96,6 +97,9 @@ import { RentalInfoDetailComponent } from './rental-detail/rental-detail.compone
 import { RentalContractDetailComponent } from './rentalContract-detail/rentalContract-detail.component';
 import { EvictionInfoDetailComponent } from './eviction-detail/eviction-detail.component';
 // 20230917 E_Add
+// 20240123 S_Add
+import { CalRentalSettlementDetailComponent } from './calRentalSettlement-detail/calRentalSettlement-detail.component';
+// 20240123 E_Add
 
 @NgModule({
   declarations: [
@@ -174,6 +178,7 @@ import { EvictionInfoDetailComponent } from './eviction-detail/eviction-detail.c
     , RentalContractDetailComponent
     , EvictionInfoDetailComponent
     // 20230917 E_Add
+    , CalRentalSettlementDetailComponent // 20240123 Add
   ],
   imports: [
     BrowserModule

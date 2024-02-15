@@ -2,11 +2,20 @@
 <div  class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()">契約精算申請書作成</button><!-- 20230506 Add -->
+        <!-- 20240131 S_Update -->
+        <!-- <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()">契約精算申請書作成</button>20230506 Add -->
+        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()" [disabled]="disableUser">契約精算申請書作成</button><!-- 20230506 Add -->
+        <!-- 20240131 E_Update -->
         <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
-        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button export-button" (click)="export()">契約書出力</button>
+        <!-- 20240131 S_Update -->
+        <!-- <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button export-button" (click)="export()">契約書出力</button> -->
+        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button export-button" (click)="export()" [disabled]="disableUser">契約書出力</button>
+        <!-- 20240131 E_Update -->
         <!--<button mat-raised-button *ngIf="this.contract.pid > 0" class="button buyInfoExport-button" (click)="buyInfoExport()">決済案内出力</button>--><!-- 20211107 Delete -->
-        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+        <!-- 20240131 S_Update -->
+        <!-- <button mat-raised-button color="primary" class="button" (click)="save()">登録</button> -->
+        <button mat-raised-button color="primary" class="button" *ngIf="!this.disableUser" (click)="save()">登録</button>
+        <!-- 20240131 E_Update -->
     </div>
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
@@ -142,12 +151,14 @@
                         </thead>
                         <tbody class="list-body">
                             <tr *ngFor="let item of data.locations; index as pos">
-                                <td [ngClass]="{'tderror': errors['contractDataType_01_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="hasSharer(item)" ></mat-checkbox></td>
-                                <!-- 20201218 S_Update -->
-                                <!--<td><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '02'" (change)="change($event, item, '02')"></mat-checkbox></td>-->
+                                <!-- 20240131 S_Update -->
+                                <!-- <td [ngClass]="{'tderror': errors['contractDataType_01_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="hasSharer(item)" ></mat-checkbox></td>
                                 <td><mat-checkbox color="primary" [ngModel]="item.contractDetail02 === '02'" (change)="change($event, item, '02')"></mat-checkbox></td>
-                                <!-- 20201218 E_Update -->
-                                <td [ngClass]="{'tderror': errors['contractDataType_03_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" ></mat-checkbox></td>                                
+                                <td [ngClass]="{'tderror': errors['contractDataType_03_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" ></mat-checkbox></td>                                 -->
+                                <td [ngClass]="{'tderror': errors['contractDataType_01_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '01'" (change)="change($event, item, '01')" *ngIf="hasSharer(item)" [disabled]="disableUser"></mat-checkbox></td>
+                                <td><mat-checkbox color="primary" [ngModel]="item.contractDetail02 === '02'" (change)="change($event, item, '02')" [disabled]="disableUser"></mat-checkbox></td>
+                                <td [ngClass]="{'tderror': errors['contractDataType_03_' + pos]}"><mat-checkbox color="primary" [ngModel]="item.contractDetail.contractDataType === '03'" (change)="change($event, item, '03')" *ngIf="item.locationType === '01'" [disabled]="disableUser"></mat-checkbox></td>                                
+                                <!-- 20240131 E_Update -->
                                 <td>{{getCodeTitle('007', item.locationType)}}</td>
                                 <td>{{getCodeTitle('011', item.rightsForm)}}</td>
                                 <td class="width200 text-left">{{item.address}}</td>
@@ -156,16 +167,20 @@
                                 <td>{{item.owner}}</td>
                                 <td>
                                     <label *ngIf="!(item.sharers.length > 1)">{{item.sharers.length === 1 ? item.sharers[0].sharer : ''}}</label>
-                                    <button class="sharerBtn" *ngIf="item.sharers.length > 1" (click)="showSharer(item)" >表示</button> 
+                                    <!-- 20240131 S_Update -->
+                                    <!-- <button class="sharerBtn" *ngIf="item.sharers.length > 1" (click)="showSharer(item)" >表示</button>  -->
+                                    <button class="sharerBtn" *ngIf="item.sharers.length > 1" [disabled]="disableUser"  (click)="showSharer(item)" >表示</button> 
+                                    <!-- 20240131 E_Update -->
                                 </td>
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
                                 <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>
-                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractArea" maxlength="100"></span></td>
-                                <!-- 20230301 S_Update -->
-                                <!-- <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)">&nbsp;㎡</span></td> -->
-                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)" (change)="sumAreaProcess()">&nbsp;㎡</span></td>
-                                <!-- 20230301 E_Update -->
+                                <!-- 20240131 S_Update -->
+                                <!-- <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractArea" maxlength="100"></span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)" (change)="sumAreaProcess()">&nbsp;㎡</span></td> -->
+                                <td><span *ngIf="item.contractDetail.contractDataType === '03'"><input type="text" class="c_width250" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractArea" maxlength="100" [disabled]="disableUser"></span></td>
+                                <td><span *ngIf="item.contractDetail.contractDataType === '01'"><input type="text" class="width80 number" (keypress)="floatOnly($event)" [(ngModel)]="item.contractDetail.contractHaveMap" maxlength="12" [value]="changeValue(item.contractDetail.contractHaveMap)" (change)="sumAreaProcess()" [disabled]="disableUser">&nbsp;㎡</span></td>
+                                <!-- 20240131 E_Update -->
                                 <td>{{getCodeTitles('003',item.dependType)}}</td>
                                 <td style="white-space: pre;">{{item.structure}}</td>
                                 <td>{{item.dependFloor}}</td>
@@ -192,32 +207,50 @@
         </tr>
         <tr *ngFor="let seller of contract.sellers | slice:0:1">
             <th class="sharer" style="white-space: nowrap;">契約者名
-                <button mat-raised-button class="addSharer" (click)="addContractSeller()">追加</button>
+                <!-- 20240131 S_Update -->
+                <!-- <button mat-raised-button class="addSharer" (click)="addContractSeller()">追加</button> -->
+                <button mat-raised-button class="addSharer" (click)="addContractSeller()" [disabled]="disableUser">追加</button>
+                <!-- 20240131 E_Update -->
             </th>
             <td colspan="3">
-                <input type="text" [(ngModel)]="seller.contractorName" class="width300" maxlength="100">
+                <!-- 20240131 S_Update -->
+                <!-- <input type="text" [(ngModel)]="seller.contractorName" class="width300" maxlength="100"> -->
+                <input type="text" [disabled]="disableUser" [(ngModel)]="seller.contractorName" class="width300" maxlength="100">
+                <!-- 20240131 E_Update -->
                 <!-- 20220703 S_Delete -->
                 <!--&nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;受領書印紙&nbsp;</span><mat-checkbox [checked]="seller.contractorType === '1'" (change)="flgChangeForSeller($event, seller, 'contractorType')"></mat-checkbox>-->
                 <!-- 20220703 E_Delete -->
             </td>
             <th class="sharer">契約者住所</th>
             <td colspan="3">
-                <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
+                <!-- 20240131 S_Update -->
+                <!-- <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100"> -->
+                <input type="text" [disabled]="disableUser" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
+                <!-- 20240131 E_Update -->
             </td>
         </tr>
         <tr *ngFor="let seller of contract.sellers | slice:1; index as sharerPos">
             <th class="sharer">契約者名
-                <button mat-raised-button class="deleteSharer" (click)="deleteContractSeller(sharerPos)">削除</button>
+                <!-- 20240131 S_Update -->
+                <!-- <button mat-raised-button class="deleteSharer" (click)="deleteContractSeller(sharerPos)">削除</button> -->
+                <button mat-raised-button class="deleteSharer" (click)="deleteContractSeller(sharerPos)" [disabled]="disableUser">削除</button>
+                <!-- 20240131 E_Update -->
             </th>
             <td colspan="3">
-                <input type="text" [(ngModel)]="seller.contractorName" class="width300" maxlength="100">
+                <!-- 20240131 S_Update -->
+                <!-- <input type="text" [(ngModel)]="seller.contractorName" class="width300" maxlength="100"> -->
+                <input type="text" [disabled]="disableUser" [(ngModel)]="seller.contractorName" class="width300" maxlength="100">
+                <!-- 20240131 E_Update -->
                 <!-- 20220703 S_Delete -->
                 <!--&nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;受領書印紙&nbsp;</span><mat-checkbox [checked]="seller.contractorType === '1'" (change)="flgChangeForSeller($event, seller, 'contractorType')"></mat-checkbox>-->
                 <!-- 20220703 E_Delete -->
             </td>
             <th class="sharer">契約者住所</th>
             <td colspan="3">
-                <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
+                <!-- 20240131 S_Update -->
+                <!-- <input type="text" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100"> -->
+                <input type="text" [disabled]="disableUser" [(ngModel)]="seller.contractorAdress" class="width300" maxlength="100">
+                <!-- 20240131 E_Update -->
             </td>
         </tr>
         <tr>
@@ -338,7 +371,8 @@
             </td>
         </tr> -->
         <tr *ngFor="let dep of contract.depositsMap; index as pos">
-            <th>内金{{ getIndexJp(pos) }}
+            <!-- 20240131 S_Update -->
+            <!-- <th>内金{{ getIndexJp(pos) }}
                 <button *ngIf="pos == 0 && contract.depositsMap.length < 10" mat-raised-button class="addSharer" (click)="addDeposit()">追加</button>
                 <button *ngIf="pos != 0" mat-raised-button class="deleteSharer" (click)="deleteDeposit(pos)">削除</button>
             </th>
@@ -350,7 +384,21 @@
                 <mat-datepicker #depositDay></mat-datepicker>
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="dep.depositDayChk === '1'" (change)="depositDayChange($event, data, pos)"></mat-checkbox>
                 &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;預り金</span><mat-checkbox [checked]="dep.depositChk === '1'" (change)="depositChange($event, data, pos)"></mat-checkbox>
+            </td> -->
+            <th>内金{{ getIndexJp(pos) }}
+                <button *ngIf="pos == 0 && contract.depositsMap.length < 10" mat-raised-button class="addSharer" (click)="addDeposit()" [disabled]="disableUser">追加</button>
+                <button *ngIf="pos != 0" mat-raised-button class="deleteSharer" (click)="deleteDeposit(pos)" [disabled]="disableUser">削除</button>
+            </th>
+            <td colspan="7">
+                <input type="text" [(ngModel)]="dep.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(dep.depositMap)" [disabled]="disableUser">&nbsp;円
+                &nbsp;
+                <input type="text" [matDatepicker]="depositDay" class="width100" [(ngModel)]="dep.depositDayMap" [disabled]="disableUser">
+                <mat-datepicker-toggle matSuffix [for]="depositDay" class="picker-icon" [disabled]="disableUser"></mat-datepicker-toggle>
+                <mat-datepicker #depositDay [disabled]="disableUser"></mat-datepicker>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;済</span><mat-checkbox [checked]="dep.depositDayChk === '1'" (change)="depositDayChange($event, data, pos)" [disabled]="disableUser"></mat-checkbox>
+                &nbsp;<span style="font-size: 0.8em;">&nbsp;&nbsp;預り金</span><mat-checkbox [checked]="dep.depositChk === '1'" (change)="depositChange($event, data, pos)" [disabled]="disableUser"></mat-checkbox>
             </td>
+            <!-- 20240131 E_Update -->
         </tr>
         <!-- 20231128 E_Update -->
         <tr>
@@ -372,6 +420,13 @@
             <th>賃料精算金</th>
             <td>
                 <input type="text" [(ngModel)]="contract.rentalSettlementMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(contract.rentalSettlementMap)">&nbsp;円
+                <!-- 20240123 S_Add -->
+                <br>
+                <!-- 20240131 S_Update -->
+                <!-- &nbsp;<button mat-raised-button style="line-height:20px;margin-top: 5px;" color="primary" class="button" (click)="calRentalSettlement()">計算</button> -->
+                &nbsp;<button mat-raised-button style="line-height:20px;margin-top: 5px;" color="primary" class="button" (click)="calRentalSettlement()" [disabled]="disableUser">計算</button>
+                <!-- 20240131 E_Update -->
+                <!-- 20240123 E_Add -->
             </td>
             <th>承継敷金(保証金)</th>
             <td>
@@ -384,7 +439,10 @@
             <td>
                 <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.fixedTaxMap" maxlength="15" [value]="changeValue(contract.fixedTaxMap)">&nbsp;円
                 <!-- 20210905 S_Add -->
-                &nbsp;&nbsp;&nbsp;&nbsp;<button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="calcKotozei()">計算</button>
+                <!-- 20240131 S_Update -->
+                <!-- &nbsp;&nbsp;&nbsp;&nbsp;<button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="calcKotozei()">計算</button> -->
+                &nbsp;&nbsp;&nbsp;&nbsp;<button mat-raised-button style="line-height:20px" color="primary" class="button" (click)="calcKotozei()" [disabled]="disableUser">計算</button>
+                <!-- 20240131 E_Update -->
                 <!-- 20210905 E_Add -->
 
                 <!-- 20230501 S_Add -->
@@ -625,9 +683,15 @@
                 <th>賃借人名</th>
                 <th class="width100">明渡日</th>
                 <th class="width100">明渡予定日</th>
-                <th class="width80">詳細</th>
+                <!-- 20240123 S_Update -->
+                <!-- <th class="width80">詳細</th>
+                <th class="width80">合意書</th>
+                <th class="width150">預り金一覧作成</th> -->
                 <th class="width80">合意書</th>
                 <th class="width150">預り金一覧作成</th>
+                <th class="width80">詳細</th>
+                <th class="width80">削除</th>
+                <!-- 20240123 E_Update -->
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let item of evictions; index as pos">
@@ -636,12 +700,15 @@
                     <td class="text-left">{{item.borrowerName}}</td>
                     <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
                     <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
-                    <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
-                    <!-- 2023105 S_Update -->
-                    <!-- <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">済</span></td> -->
+                    <!-- 20240123 S_Update -->
+                    <!-- <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
                     <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
-                    <!-- 2023105 E_Update -->
+                    <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td> -->
+                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
                     <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
+                    <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button (click)="deleteEvictionInfo(item,pos)" class="delete_btn">削除</button></td>
+                    <!-- 20240123 E_Update -->
                 </tr>
             </tbody>
         </table>
@@ -756,6 +823,9 @@
     <div class="register-div" style="margin-top:10px">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
-        <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
+        <!-- 20240131 S_Update -->
+        <!-- <button mat-raised-button color="primary" class="button" (click)="save()">登録</button> -->
+        <button mat-raised-button color="primary" class="button" *ngIf="!this.disableUser" (click)="save()">登録</button>
+        <!-- 20240131 E_Update -->
     </div>
 </div>

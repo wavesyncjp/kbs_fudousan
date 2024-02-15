@@ -107,6 +107,20 @@
           <!-- 20210112 E_Add -->
         </tr>
         <!-- 20200828 S_Add -->
+
+        <!-- 20240201 S_Add -->
+        <tr>
+          <th>測量依頼先</th>
+          <td colspan="2">
+            <input type="text" class="fuzzyWidth400" [(ngModel)]="cond.surveyRequested" maxlength="100">
+          </td>
+
+          <th>測量未納品</th>
+          <td colspan="2">
+            <mat-checkbox [checked]="cond.surveyDeliveryDayChk === '1'" #cbxSurveyDeliveryDayChk></mat-checkbox>
+          </td>
+        </tr>
+        <!-- 20240201 E_Add -->
         <tr>
           <!-- 20200913 S_Add -->
           <th>終了日</th>

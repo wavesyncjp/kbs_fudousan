@@ -78,6 +78,10 @@ export class BukkenListComponent extends BaseComponent {
     importance: [],
     surveyRequestedDayChk: ''
     //20210113 E_Add
+    // 20240201 S_Add
+    , surveyRequested: ''
+    , surveyDeliveryDayChk: ''
+    // 20240201 E_Add
   };
   dropdownSettings = {};//20200828 Add
   search = '0';
@@ -100,6 +104,9 @@ export class BukkenListComponent extends BaseComponent {
   @ViewChild('cbxBukkenListChk', { static: true }) cbxBukkenListChk: MatCheckbox;
   @ViewChild('cbxSurveyRequestedDayChk', { static: true }) cbxSurveyRequestedDayChk: MatCheckbox;
   // 20210113 E_Add
+  // 20240201 S_Add
+  @ViewChild('cbxSurveyDeliveryDayChk', { static: true }) cbxSurveyDeliveryDayChk: MatCheckbox;
+  // 20240201 E_Add
 
   // マップ
   @ViewChild('mapContainer', { static: true }) gmap: ElementRef;
@@ -259,6 +266,10 @@ export class BukkenListComponent extends BaseComponent {
       importance: [],
       surveyRequestedDayChk: ''
       //20210113 E_Add
+      // 20240201 S_Add
+      , surveyRequested: ''
+      , surveyDeliveryDayChk: ''
+      // 20240201 E_Add
     };
   }
 
@@ -297,6 +308,9 @@ export class BukkenListComponent extends BaseComponent {
     this.cond.bukkenListChk = this.cbxBukkenListChk.checked ? '1' : '';
     this.cond.surveyRequestedDayChk = this.cbxSurveyRequestedDayChk.checked ? '1' : '';
     //20210113 E_Add
+    // 20240201 S_Add
+    this.cond.surveyDeliveryDayChk = this.cbxSurveyDeliveryDayChk.checked ? '1' : '';
+    // 20240201 E_Add
     this.service.searchLand(this.cond).then(res => {
       if (res !== null && res.length > 0) {
         let count = 0;// 20230919 Add
@@ -709,6 +723,10 @@ export class BukkenListComponent extends BaseComponent {
     if (this.cond.importance.length > 0) this.hasSearchItem = true;
     if (this.cbxSurveyRequestedDayChk.checked) this.hasSearchItem = true;
     // 20210112 E_Add
+    // 20240201 S_Add
+    if (!this.isBlank(this.cond.surveyRequested)) this.hasSearchItem = true;
+    if (this.cbxSurveyDeliveryDayChk.checked) this.hasSearchItem = true;
+    // 20240201 E_Add
     if (this.cond.department.length > 0) this.hasSearchItem = true;
     if (this.cond.result.length > 0) this.hasSearchItem = true;
     if (this.cond.clctInfoStaffMap.length > 0) this.hasSearchItem = true;

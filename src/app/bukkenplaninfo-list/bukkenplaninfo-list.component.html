@@ -103,6 +103,9 @@
                     <mat-datepicker-toggle matSuffix [for]="surveyDeliveryDay" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #surveyDeliveryDay></mat-datepicker>
                 </div>
+                <!-- 20240201 S_Add -->
+                <span style="font-size: 0.8em;">未納品</span><mat-checkbox [checked]="data.land.surveyDeliveryDayChk === '1'" (change)="flgFinish($event, 'surveyDeliveryDayChk')"></mat-checkbox>
+                <!-- 20240201 E_Add -->
             </tr>
             <tr>
                 <th>備考</th>

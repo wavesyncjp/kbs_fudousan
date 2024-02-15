@@ -52,6 +52,7 @@ export class Templandinfo {
     photoFilesMap: BukkenPhotoAttach[];// 20231020 Add
     locations: Locationinfo[];
 
+    surveyDeliveryDayChk: string;// 20240201 Add
     pickDateMap: Date = null;
     startDateMap: Date = null;
     finishDateMap: Date = null;

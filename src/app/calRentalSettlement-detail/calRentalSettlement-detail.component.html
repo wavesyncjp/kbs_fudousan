@@ -1,0 +1,68 @@
+<ngx-spinner type="ball-spin-clockwise" bdOpacity="0.7"></ngx-spinner>
+<div class="dialog-div">
+    <table class="detail-tbl-min">
+        <tr>
+            <td><span class="min">賃料精算金　計算</span></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="contact-div">
+                    <table>
+                        <thead class="list-header">
+                            <th>部屋番号</th>
+                            <th>敷金・保証金</th>
+                            <th>賃料</th>
+                            <th>管理費・共益費</th>
+                            <th>消費税</th>
+                            <th>賃料合計</th>
+                        </thead>
+                        <tbody class="list-body">
+                            <tr *ngFor="let item of renContracts; index as pos">
+                                <td>{{item.roomNo}}</td>
+                                <td>{{numberFormat(getNumber(item.deposit) + getNumber(item.securityDeposit))}}</td>
+                                <td>{{numberFormat(item.rentPrice)}}</td>
+                                <td>{{numberFormat(item.feeSumMap)}}</td>
+                                <td>{{numberFormat(item.taxSumMap)}}</td>
+                                <td>{{numberFormat(getNumber(item.rentPrice) + item.feeSumMap + item.taxSumMap)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table class="detail-tbl-min">
+        <tr>
+            <th colspan="2">買主収益期間</th>
+            <td colspan="4">
+                <input type="text" [matDatepicker]="decisionDayBeginMonthMap" class="width100" [(ngModel)]="contract.decisionDayBeginMonthMap" (dateChange)="calcForRentPrice()" (change)="calcForRentPrice()">
+                <mat-datepicker-toggle matSuffix [for]="decisionDayBeginMonthMap" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #decisionDayBeginMonthMap></mat-datepicker>
+                &nbsp;&nbsp;～&nbsp;&nbsp;
+
+                <input type="text" [matDatepicker]="decisionDayEndMonthMap" class="width100" [(ngModel)]="contract.decisionDayEndMonthMap" (dateChange)="calcForRentPrice()" (change)="calcForRentPrice()">
+                <mat-datepicker-toggle matSuffix [for]="decisionDayEndMonthMap" class="picker-icon"></mat-datepicker-toggle>
+                <mat-datepicker #decisionDayEndMonthMap></mat-datepicker>
+
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">賃料精算金（非課税分）</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.rentPriceNoPayTaxMap" maxlength="15" [value]="changeNumeric(contract.fixedLandTaxMap)">&nbsp;円
+            </td>
+            <th colspan="2">賃料精算金（課税分）</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.rentPricePayTaxMap" maxlength="15" [value]="changeNumeric(contract.rentPricePayTaxMap)">&nbsp;円
+            </td>
+            <th colspan="2">賃料精算金（消費税）</th>
+            <td>
+                <input type="text" class="width100 number" (keypress)="numericOnly($event)" [(ngModel)]="contract.rentPriceTaxMap" maxlength="15" [value]="changeNumeric(contract.rentPriceTaxMap)">&nbsp;円
+            </td>
+        </tr>
+    </table>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button class="width100" (click)="cancel()">キャンセル</button>
+        <button mat-raised-button class="width80" color="primary" (click)="save()">登録</button>
+    </mat-dialog-actions>
+</div>

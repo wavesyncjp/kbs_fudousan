@@ -2,7 +2,10 @@
 <div class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
-        <button mat-raised-button class="button bukken-button" (click)="toContract()">契約詳細</button>
+        <!-- 20240201 S_Update -->
+        <!-- <button mat-raised-button class="button bukken-button" (click)="toContract()">契約詳細</button> -->
+        <button mat-raised-button *ngIf="this.contractInfoPid > 0" class="button bukken-button" (click)="toContract()">契約詳細</button>
+        <!-- 20240201 E_Update -->
         <button mat-raised-button color="primary" class="button" (click)="save()">登録</button>
     </div>
     <ul *ngIf="errorMsgs.length > 0" class="error-span">
@@ -209,9 +212,15 @@
                 <th>賃借人名</th>
                 <th class="width100">明渡日</th>
                 <th class="width100">明渡予定日</th>
-                <th class="width80">詳細</th>
+                <!-- 20240123 S_Update -->
+                <!-- <th class="width80">詳細</th>
+                <th class="width80">合意書</th>
+                <th class="width150">預り金一覧作成</th> -->
                 <th class="width80">合意書</th>
                 <th class="width150">預り金一覧作成</th>
+                <th class="width80">詳細</th>
+                <th class="width80">削除</th>
+                <!-- 20240123 E_Update -->
             </thead>
             <tbody class="list-body">
                 <tr *ngFor="let item of evictions; index as pos">
@@ -220,9 +229,15 @@
                     <td class="text-left">{{item.borrowerName}}</td>
                     <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
                     <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>
-                    <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
+                    <!-- 20240123 S_Update -->
+                    <!-- <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
+                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
+                    <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td> -->
                     <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
                     <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
+                    <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
+                    <td><button mat-raised-button (click)="deleteEvictionInfo(item,pos)" class="delete_btn">削除</button></td>
+                    <!-- 20240123 E_Update -->
                 </tr>
             </tbody>
         </table>

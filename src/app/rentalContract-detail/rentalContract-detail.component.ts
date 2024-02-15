@@ -316,7 +316,9 @@ export class RentalContractDetailComponent extends BaseComponent {
     } else {
       this.data.borrowerName = '';
     }
-    this.data.residentName = this.data.borrowerName;// 20231101 Add
+    // 20240123 S_Delete
+    // this.data.residentName = this.data.borrowerName;// 20231101 Add
+    // 20240123 E_Delete
   }
 
   /**
@@ -344,11 +346,12 @@ export class RentalContractDetailComponent extends BaseComponent {
    * @param event ：イベント
    * @param flg ：賃貸保証料返還済フラグ
    */
-  changeRoomRentGuaranteeFeeConvertedFlg(event, flg: any) {
-    flg.roomRentGuaranteeFeeConvertedFlg = (event.checked ? 1 : 0);
-    this.data.roomRentGuaranteeFeeConvertedFlg = flg.roomRentGuaranteeFeeConvertedFlg;
-  }
-
+  // 20240123 S_Delete
+  // changeRoomRentGuaranteeFeeConvertedFlg(event, flg: any) {
+  //   flg.roomRentGuaranteeFeeConvertedFlg = (event.checked ? 1 : 0);
+  //   this.data.roomRentGuaranteeFeeConvertedFlg = flg.roomRentGuaranteeFeeConvertedFlg;
+  // }
+  // 20240123 E_Delete
   // 20231016 S_Add
   /**
    * チェックボックス変更
@@ -385,4 +388,10 @@ export class RentalContractDetailComponent extends BaseComponent {
     });
   }
   // 20231027 E_Add  
+
+  // 20240123 S_Add
+  copyResidentName(): void {
+    this.data.residentName = this.data.borrowerName;
+  }
+  // 20240123 E_Add
 }

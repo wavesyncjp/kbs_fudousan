@@ -1,4 +1,7 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+// 20240131 S_Update
+// import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, Renderer2, ViewChildren, QueryList } from '@angular/core';
+// 20240131 E_Update
 import { MatRadioChange } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -28,6 +31,15 @@ import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.
 import { Util } from '../utils/util';
 import { DepositInfo } from '../models/depositinfo';
 // 20230917 E_Add
+// 20240123 S_Add
+import { CalRentalSettlementDetailComponent } from '../calRentalSettlement-detail/calRentalSettlement-detail.component';
+// 20240123 E_Add
+// 20240131 S_Add
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatRadioGroup } from '@angular/material/radio';
+import { MatDatepickerInput } from '@angular/material/datepicker';
+import { MultiSelectComponent } from 'ng-multiselect-dropdown';
+// 20240131 E_Add
 
 @Component({
   selector: 'app-contract-detail',
@@ -38,7 +50,14 @@ import { DepositInfo } from '../models/depositinfo';
     { provide: DateAdapter, useClass: JPDateAdapter }
   ],
 })
-export class ContractDetailComponent extends BaseComponent {
+// 20240131 S_Update
+// export class ContractDetailComponent extends BaseComponent{
+export class ContractDetailComponent extends BaseComponent implements AfterViewInit {
+  @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
+  @ViewChildren(MatRadioGroup) radioGroups: QueryList<MatRadioGroup>;
+  @ViewChildren(MatDatepickerInput) datepickerInputs: QueryList<MatDatepickerInput<any>>;
+  @ViewChildren(MultiSelectComponent) dropdowns: QueryList<MultiSelectComponent>;
+  // 20240131 E_Update
 
   @ViewChild('topElement', { static: true }) topElement: ElementRef;
 
@@ -65,6 +84,7 @@ export class ContractDetailComponent extends BaseComponent {
     public dialog: MatDialog,
     public service: BackendService,
     private spinner: NgxSpinnerService,
+    private renderer: Renderer2, //20240131
     public datepipe: DatePipe) {
     super(router, service, dialog);
     this.route.queryParams.subscribe(params => {
@@ -76,7 +96,48 @@ export class ContractDetailComponent extends BaseComponent {
     this.data.locations = [];
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
+  ngAfterViewInit() {
+    if (this.disableUser) {
+      const inputElements = document.querySelectorAll('input');
+      inputElements.forEach((element: HTMLElement) => {
+        this.renderer.setProperty(element, 'disabled', true);
+      });
+
+      const textareaElements = document.querySelectorAll('textarea');
+      textareaElements.forEach((element: HTMLElement) => {
+        this.renderer.setProperty(element, 'disabled', true);
+      });
+
+      const selectElements = document.querySelectorAll('select');
+      selectElements.forEach((element: HTMLElement) => {
+        this.renderer.setProperty(element, 'disabled', true);
+      });
+
+      if (this.checkboxes) {
+        this.checkboxes.forEach((element: MatCheckbox) => {
+          element.disabled = true;
+        });
+      }
+
+      if (this.radioGroups) {
+        this.radioGroups.forEach((element: MatRadioGroup) => {
+          element.disabled = true;
+        });
+      }
+
+      if (this.datepickerInputs) {
+        this.datepickerInputs.forEach(element => {
+          element.disabled = true;
+        });
+      }
+
+      if (this.dropdowns) {
+        this.dropdowns.forEach(element => {
+          element.disabled = true;
+        });
+      }
+    }
+  }
   ngOnInit() {
     super.ngOnInit();
     this.service.changeTitle('契約情報詳細');
@@ -163,7 +224,6 @@ export class ContractDetailComponent extends BaseComponent {
       });
       //20201009: END - 登記名義人まとめ
       this.sumAreaProcess();// 20230301 Add
-
       this.spinner.hide();
 
     });
@@ -995,4 +1055,39 @@ export class ContractDetailComponent extends BaseComponent {
     this.contract.depositsMap.splice(pos, 1);
   }
   // 20231128 E_Add
+
+  // 20240123 S_Add
+  /**
+   * 立ち退き削除
+   * @param obj 立ち退き
+   * @param pos 
+   */
+  deleteEvictionInfo(obj: EvictionInfo, pos: number) {
+    const dlg = new Dialog({ title: '確認', message: '削除してよろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteEviction(obj).then(res => {
+          this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+        });
+      }
+    });
+  }
+
+  /**
+   * 賃料精算金の計算
+   */
+  calRentalSettlement() {
+    const dialogRef = this.dialog.open(CalRentalSettlementDetailComponent, {
+      width: '98%',
+      height: '580px',
+      data: { contract: this.contract, land: this.data }
+    });
+  }
+  // 20240123 E_Add
 }

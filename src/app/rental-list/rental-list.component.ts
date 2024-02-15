@@ -120,7 +120,10 @@ export class RentalInfoListComponent extends BaseComponent {
    * @param obj ：賃貸情報
    */
   showRental(obj: RentalInfo) {
-    this.router.navigate(['/rendetail'], { queryParams: { pid: obj.pid, contractInfoPid: obj.contractInfoPid } });
+    // 20240201 S_Update
+    // this.router.navigate(['/rendetail'], { queryParams: { pid: obj.pid, contractInfoPid: obj.contractInfoPid } });
+    this.router.navigate(['/rendetail'], { queryParams: { pid: obj.pid, contractInfoPid: obj.contractInfoPid, tempLandInfoPid: obj.tempLandInfoPid } });
+    // 20240201 E_Update
   }
 
   /**

@@ -238,6 +238,14 @@ export class Contractinfo {
     depositsMap: DepositInfo[];
     // 20231128 E_Add
 
+    // 20240123 S_Add
+    rentPriceNoPayTaxMap: string = "";// 賃料精算金（非課税分）
+    rentPricePayTaxMap: string = "";// 賃料精算金（課税分）
+    rentPriceTaxMap: string = "";// 賃料精算金（消費税）
+    decisionDayBeginMonthMap: Date = null;
+    decisionDayEndMonthMap: Date = null;
+    // 20240123 S_Add
+
     public constructor(init?: Partial<Contractinfo>) {
         if (init) {
             Object.assign(this, init);

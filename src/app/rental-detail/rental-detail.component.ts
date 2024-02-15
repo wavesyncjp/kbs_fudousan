@@ -19,6 +19,7 @@ import { RentalReceive } from '../models/rentalreceive';
 import { EvictionInfo } from '../models/evictioninfo';
 import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.component';
 import { Converter } from '../utils/converter';
+import { parseJSON } from 'date-fns';
 // 20231010 E_Add
 
 declare var $: any;// 20231010 Add
@@ -118,7 +119,15 @@ export class RentalInfoDetailComponent extends BaseComponent {
       // 20231027 S_Add  
     }
     else {
-      funcs.push(this.service.getLands(null));   // 物件情報一覧の取得 
+      funcs.push(this.service.getLands(null));   // 物件情報一覧の取得
+      if (this.pid > 0) {
+        let cond = {
+          searchFor: 'searchContractSimple'
+          , tempLandInfoPid: this.tempLandInfoPid
+        };
+        //物件名称を取得
+        funcs.push(this.service.commonSearch(cond));
+      }
     }
     // 20231027 E_Add
 
@@ -173,6 +182,20 @@ export class RentalInfoDetailComponent extends BaseComponent {
         this.lands.forEach((land) => {
           this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
         });
+
+        // 20240201 S_Add
+        if (this.pid > 0) {
+          let contractsTemp = values[3];
+
+          this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
+
+          let lst: Code[] = [];
+          contractsTemp.forEach(item => {
+            lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+          });
+          this.contracts = lst;
+        }
+        // 20240201 E_Add
       }
       // 20231027 E_Add
 
@@ -186,7 +209,11 @@ export class RentalInfoDetailComponent extends BaseComponent {
         // this.rentalContracts = values[4].rentalContracts;
         // this.rentalReceives = values[4].rentalReceives;
 
-        let dataTemp = values[5];
+        // 20240201 S_Update
+        // let dataTemp = values[5];
+        let dataTemp = this.contractInfoPid > 0 ? values[5] : values[4];
+
+        // 20240201 E_Update
         this.rental = new RentalInfo(dataTemp as RentalInfo);
 
         this.locationInfoPidDB = this.rental.locationInfoPid;
@@ -316,7 +343,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
               else {
                 this.backupRentalReceive();
               }
-              this.router.navigate(['/rendetail'], { queryParams: { pid: this.rental.pid, contractInfoPid: this.rental.contractInfoPid } });
+              // 20240201 S_Update
+              // this.router.navigate(['/rendetail'], { queryParams: { pid: this.rental.pid, contractInfoPid: this.rental.contractInfoPid } });
+              this.router.navigate(['/rendetail'], { queryParams: { pid: this.rental.pid, contractInfoPid: this.rental.contractInfoPid, tempLandInfoPid: this.rental.tempLandInfoPid } });
+              // 20240201 E_Update
             });
           }// 20231010 Add
         });
@@ -843,4 +873,28 @@ export class RentalInfoDetailComponent extends BaseComponent {
     });
   }
   // 20231027 E_Add
+
+  // 20240123 S_Add
+  /**
+   * 立ち退き削除
+   * @param obj 立ち退き
+   * @param pos 
+   */
+  deleteEvictionInfo(obj: EvictionInfo, pos: number) {
+    const dlg = new Dialog({ title: '確認', message: '削除してよろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      height: '250px',
+      data: dlg
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteEviction(obj).then(res => {
+          this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+        });
+      }
+    });
+  }
+  // 20240123 E_Add  
 }

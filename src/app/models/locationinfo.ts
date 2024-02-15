@@ -15,9 +15,9 @@ export class Locationinfo {
     inheritanceNotyet = '0';
     buildingNotyet = '0';
     // 20200803 S_Delete
-//    registPosition: number;
-//    zipcode: string;
-//    prefecture: string;
+    //    registPosition: number;
+    //    zipcode: string;
+    //    prefecture: string;
     // 20200803 E_Delete
     address: string;
     blockNumber: string;
@@ -26,31 +26,31 @@ export class Locationinfo {
     area: number;
     tsubo: number;
     // 20200803 S_Delete
-//    floorAreaRate: number;
-//    improveFlg: number;
+    //    floorAreaRate: number;
+    //    improveFlg: number;
     //20200803 E_Delete
-//    buildingType: string;// 20201124 Delete
+    //    buildingType: string;// 20201124 Delete
     floorSpace: string;
     structure: string;
-//    coverageRate: number;// 20200803 Delete
+    //    coverageRate: number;// 20200803 Delete
     owner: string;
     ownerAdress: string;
     equity: string;
     //20200803 S_Delete
-//    landMortgage: string;
-//    builMortgage: string;
+    //    landMortgage: string;
+    //    builMortgage: string;
     //20200803 E_Delete
     rightsForm: string;
     liveInfo: string;
     locationType: string;
-//    residence: string;// 20200803 Delete
+    //    residence: string;// 20200803 Delete
     ownerRemark: string;
     buysellFlg = '0';
     dependFloor: string;
     dependType: string;
     // 20200803 S_Delete
-//    bukkenName = '';
-//    floorAreaRatio: number = null;
+    //    bukkenName = '';
+    //    floorAreaRatio: number = null;
     // 20200803 E_Delete
     // 20201124 S_Add
     grossFloorArea: number;
@@ -73,10 +73,11 @@ export class Locationinfo {
     rentPrice: number;
     expirationDate: string;
     // 20220614 E_Add
-    
+    apartmentName: string;// 20240123 Add
+
     acquisitionDateMap: Date = null;// 20200913 Add
     // 20211107 S_Update
-//    completionDayMap: Date = null;// 20211025 Add
+    //    completionDayMap: Date = null;// 20211025 Add
     completionDayMap: String = null;
     // 20211107 E_Update
     expirationDateMap: Date = null;// 20220614 Add
@@ -127,7 +128,7 @@ export class Locationinfo {
         //カレンダー
         this.acquisitionDateMap = Converter.stringToDate(this.acquisitionDate, 'yyyyMMdd');// 20200913 Add
         // 20211107 S_Update
-//        this.completionDayMap = Converter.stringToDate(this.completionDay, 'yyyyMMdd');// 20211025 Add
+        //        this.completionDayMap = Converter.stringToDate(this.completionDay, 'yyyyMMdd');// 20211025 Add
         this.completionDayMap = this.addSlash(this.completionDay);
         // 20211107 E_Update
         this.expirationDateMap = Converter.stringToDate(this.expirationDate, 'yyyyMMdd');// 20220614 Add
@@ -161,9 +162,9 @@ export class Locationinfo {
         // 20220614 E_Add
     }
     // 20200913 S_Update
-//    public convertForSave(userId: number) {
+    //    public convertForSave(userId: number) {
     public convertForSave(userId: number, datePipe: DatePipe) {
-    // 20200913 E_Update
+        // 20200913 E_Update
         if (this.dependTypeMap != null && this.dependTypeMap.length > 0) {
             this.dependType = this.dependTypeMap.join(',');
         }
@@ -175,7 +176,7 @@ export class Locationinfo {
         //カレンダー
         this.acquisitionDate = Converter.dateToString(this.acquisitionDateMap, 'yyyyMMdd', datePipe);// 20200913 Add
         // 20211107 S_Update
-//        this.completionDay = Converter.dateToString(this.completionDayMap, 'yyyyMMdd', datePipe);// 20211025 Add
+        //        this.completionDay = Converter.dateToString(this.completionDayMap, 'yyyyMMdd', datePipe);// 20211025 Add
         this.completionDay = this.completionDayMap != null ? this.completionDayMap.replace(/\//g, '') : this.completionDay;
         // 20211107 E_Update
         this.expirationDate = Converter.dateToString(this.expirationDateMap, 'yyyyMMdd', datePipe);// 20220614 Add
@@ -210,7 +211,7 @@ export class Locationinfo {
     }
     // 20211107 S_Add
     addSlash(day: String) {
-        if(day == null || day === '' || day.length < 8) return day;
+        if (day == null || day === '' || day.length < 8) return day;
         return `${day.substring(0, 4)}/${day.substring(4, 6)}/${day.substring(6)}`
     }
     // 20211107 E_Add
