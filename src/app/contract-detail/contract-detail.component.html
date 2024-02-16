@@ -4,7 +4,10 @@
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
         <!-- 20240131 S_Update -->
         <!-- <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()">契約精算申請書作成</button>20230506 Add -->
-        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()" [disabled]="disableUser">契約精算申請書作成</button><!-- 20230506 Add -->
+        <!-- 20240216 S_Update -->
+        <!-- <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()" [disabled]="disableUser">契約精算申請書作成</button>20230506 Add -->
+        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()">契約精算申請書作成</button>
+        <!-- 20240216 E_Update -->
         <!-- 20240131 E_Update -->
         <button mat-raised-button class="button bukken-button" (click)="toBukken()">物件情報</button>
         <!-- 20240131 S_Update -->
