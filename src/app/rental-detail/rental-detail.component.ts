@@ -67,6 +67,9 @@ export class RentalInfoDetailComponent extends BaseComponent {
   ownershipRelocationDateDB: string;// DBの所有権移転日 20231010 Add
   dateIds: [];
 
+  yearReceives: Code[];// 20240228 Add
+  minReceiveMonth: String = "";// 20240307 Add
+
   constructor(public router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -221,7 +224,6 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
         this.rentalContracts = dataTemp.rentalContracts;
         this.rentalReceives = dataTemp.rentalReceives;
-
         this.evictions = dataTemp.evictionsMap;
         // 20231027 E_Update
 
@@ -259,6 +261,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
       this.rentalContractsBk.push(<RentalContract>Util.deepCopy(r, 'RentalContract'));
     });
     // 20231027 E_Add
+    this.setYearReceive();// 20240229 Add
   }
 
   //数値にカンマを付ける作業
@@ -301,13 +304,18 @@ export class RentalInfoDetailComponent extends BaseComponent {
         // 20231010 E_Delete
 
         if (this.rental.pid > 0) {
-          // 20231027 S_Add
-          this.rental.rentalContractsChanged = this.getContractsChanged();
-          if (this.rental.rentalContractsChanged.length > 0) {
+          // 20240221 S_Delete
+          // this.rental.rentalContractsChanged = this.getContractsChanged();
+          // if (this.rental.rentalContractsChanged.length > 0) {
+          //   isNeedReload = true;
+          // }
+          // 20240221 E_Delete
+          this.rental.rentalReceivesChanged = this.getReceivesChanged();
+          // 20240221 S_Add
+          if (this.rental.rentalReceivesChanged.length > 0) {
             isNeedReload = true;
           }
-          // 20231027 E_Add
-          this.rental.rentalReceivesChanged = this.getReceivesChanged();
+          // 20240221 E_Add
         }
 
         this.service.rentalSave(this.rental).then(res => {
@@ -331,7 +339,9 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
             dlgVal.afterClosed().subscribe(val => {
               this.spinner.hide();
+              let yearReceiveMap = this.rental.yearReceiveMap;// 20240229 Add
               this.rental = new RentalInfo(res);
+              this.rental.yearReceiveMap = yearReceiveMap;// 20240229 Add
               this.locationInfoPidDB = this.rental.locationInfoPid;
               // 20231010 S_Add
               this.ownershipRelocationDateDB = this.rental.ownershipRelocationDate;
@@ -434,10 +444,16 @@ export class RentalInfoDetailComponent extends BaseComponent {
           } else if (result.isDelete) {
             this.rentalContracts.splice(pos, 1);
           }
+          this.searchRentalContract_Receive(result.isAddedEviction);// 20240229 Add
         }
+        // 20240229 S_Add
+        else if (result.isAddedEviction) {
+          this.searchRentalContract_Receive(true);
+        }
+        // 20240229 E_Add
         // 20231106 S_Update
         // this.searchRentalReceive();
-        this.searchRentalContract_Receive();
+        // this.searchRentalContract_Receive();// 20240229 Delete
         // 20231106 E_Update
       }
     });
@@ -511,11 +527,17 @@ export class RentalInfoDetailComponent extends BaseComponent {
   /**
    * 賃貸契約・入金を取得
    */
-  searchRentalContract_Receive() {
+  // 20240229 S_Update
+  // searchRentalContract_Receive() {
+  searchRentalContract_Receive(isGetEviction = false) {
+    // 20240229 S_Update
     const funcs = [];
 
     let cond = {
-      searchFor: 'searchRentalContract_Receive'
+      // 20240229 S_Update
+      // searchFor: 'searchRentalContract_Receive'
+      searchFor: isGetEviction ? 'searchRentalContract_Receive_Eviction' : 'searchRentalContract_Receive'
+      // 20240229 E_Update
       , rentalInfoPid: this.rental.pid
     };
     funcs.push(this.service.commonSearch(cond));
@@ -523,6 +545,11 @@ export class RentalInfoDetailComponent extends BaseComponent {
     Promise.all(funcs).then(values => {
       this.rentalContracts = values[0].rentalContracts;
       this.rentalReceives = values[0].rentalReceives;
+      // 20240229 S_Add
+      if (isGetEviction) {
+        this.evictions = values[0].evictions;
+      }
+      // 20240229 E_Add
 
       this.backupRentalReceive();
     });
@@ -533,19 +560,21 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * 変更された賃貸契約を取得
    * @returns 
    */
-  getContractsChanged() {
-    let listChangeds = [];
+  // 20240221 S_Delete
+  // getContractsChanged() {
+  //   let listChangeds = [];
 
-    this.rentalContracts.forEach(obj => {
-      let objBk = this.rentalContractsBk.filter(b => b.pid == obj.pid)[0];
+  //   this.rentalContracts.forEach(obj => {
+  //     let objBk = this.rentalContractsBk.filter(b => b.pid == obj.pid)[0];
 
-      if (objBk.rentPriceRefMapMap != obj.rentPriceRefMapMap) {
-        obj.rentPriceRefMap = Converter.stringToNumber(obj.rentPriceRefMapMap);
-        listChangeds.push(obj);
-      }
-    });
-    return listChangeds;
-  }
+  //     if (objBk.rentPriceRefMapMap != obj.rentPriceRefMapMap) {
+  //       obj.rentPriceRefMap = Converter.stringToNumber(obj.rentPriceRefMapMap);
+  //       listChangeds.push(obj);
+  //     }
+  //   });
+  //   return listChangeds;
+  // }
+  // 20240221 E_Delete
   // 20231027 E_Add
   /**
    * 変更された賃貸入金を取得
@@ -556,16 +585,36 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
     this.rentalReceives.forEach(r => {
       r.details.forEach(d => {
-        let objBk = this.rentalReceivesBk.filter(b => b.pid == d.pid)[0];
-
-        // 20231010 S_Update
-        // if (objBk.receiveFlg != d.receiveFlg) {
-        let receiveDay = Converter.dateToString(d.receiveDayMap, 'yyyyMMdd', this.datepipe);
-        if (objBk.receiveFlg != d.receiveFlg || objBk.receiveDay != receiveDay) {
-          d.receiveDay = receiveDay;
-          // 20231010 E_Update
-          listChangeds.push(d);
+        // 20240229 S_Add
+        if (d.pid < 1) {
+          if (d.receiveFlg == '1' || (d.receiveDayMap != null && d.receiveDayMap != '') || (d.receivePriceMap != null && d.receivePriceMap != '' && d.receivePriceMap != '0')) {
+            let receiveDay = Converter.dateToString(d.receiveDayMap, 'yyyyMMdd', this.datepipe);
+            let receivePrice = Converter.stringToNumber(d.receivePriceMap);
+            d.receiveDay = receiveDay;
+            d.receivePrice = receivePrice;
+            d.locationInfoPid = this.rental.locationInfoPid;
+            listChangeds.push(d);
+          }
         }
+        else {
+          // 20240229 E_Add
+          let objBk = this.rentalReceivesBk.filter(b => b.pid == d.pid)[0];
+
+          // 20240221 S_Update
+          // let receiveDay = Converter.dateToString(d.receiveDayMap, 'yyyyMMdd', this.datepipe);
+          // if (objBk.receiveFlg != d.receiveFlg || objBk.receiveDay != receiveDay) {
+          //   d.receiveDay = receiveDay;
+          //   listChangeds.push(d);
+          // }
+          let receiveDay = Converter.dateToString(d.receiveDayMap, 'yyyyMMdd', this.datepipe);
+          let receivePrice = Converter.stringToNumber(d.receivePriceMap);
+          if (objBk.receiveFlg != d.receiveFlg || objBk.receiveDay != receiveDay || objBk.receivePrice != receivePrice) {
+            d.receiveDay = receiveDay;
+            d.receivePrice = receivePrice;
+            listChangeds.push(d);
+          }
+          // 20240221 E_Update
+        }// 20240229 Add
       });
     });
     return listChangeds;
@@ -579,7 +628,17 @@ export class RentalInfoDetailComponent extends BaseComponent {
     this.receiveAllFlg = (event.checked ? '1' : '0');
 
     this.rentalReceives.forEach(r => {
-      this.changeReceiveFlgGroup(event, r);
+      // 20240229 S_Update
+      // this.changeReceiveFlgGroup(event, r);
+      if (r.receiveMonth != null && r.receiveMonth.length > 5) {
+        if (r.receiveMonth.substring(0, 4) == this.rental.yearReceiveMap) {
+          this.changeReceiveFlgGroup(event, r);
+        }
+      }
+      else {
+        this.changeReceiveFlgGroup(event, r);
+      }
+      // 20240229 E_Update
     });
   }
 
@@ -599,15 +658,25 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
         for (var d = 0; d < details.length; d++) {
           let item = details[d];
+          // 20240229 S_Add          
+          if (item.isSkipSetCheckboxMap) {
+            continue;
+          }
+          // 20240229 E_Add          
           let con = this.rentalContracts.filter(c => c.pid == item.rentalContractPid)[0];
 
           //賃料免除開始日以外
           // 20231101 S_Update
           // if (!(this.isDisableByRenContract(item.receiveMonth, con.roomRentExemptionStartDate))) {
-          if (!(this.isDisableByRenContract(item.receiveMonth, con.roomRentExemptionStartDateEvicMap))) {
-            // 20231101 E_Update
+          // 20240229 S_Update          
+          // if (!(this.isDisableByRenContract(item.receiveMonth, con.roomRentExemptionStartDateEvicMap))) {
+          //   item.receiveFlg = flg.receiveFlgGroup;
+          // }
+          //// 20231101 E_Update
+          if (!(this.invisibleByRenContract(true, item.receiveMonth, con))) {
             item.receiveFlg = flg.receiveFlgGroup;
           }
+          // 20240229 E_Update 
         }
       }
     }
@@ -661,9 +730,11 @@ export class RentalInfoDetailComponent extends BaseComponent {
    * @param roomRentExemptionStartDate 
    * @returns 
    */
-  isDisableByRenContract(receiveMonth, roomRentExemptionStartDate) {
-    return roomRentExemptionStartDate && roomRentExemptionStartDate.substring(0, 6) <= receiveMonth;
-  }
+  // 20240229 S_Delete
+  // isDisableByRenContract(receiveMonth, roomRentExemptionStartDate) {
+  //   return roomRentExemptionStartDate && roomRentExemptionStartDate.substring(0, 6) <= receiveMonth;
+  // }
+  // 20240229 E_Delete
 
   /**
   * 賃貸入金.入金日取得
@@ -715,6 +786,11 @@ export class RentalInfoDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       // 20231027 S_Add
       if (result && result.isSave) {
+        // 20240307 S_Add
+        if (this.evictions == null) {
+          this.evictions = [];
+        }
+        // 20240307 E_Add
         this.evictions.push(result.data);
         // 20231101 S_Update
         // this.searchRentalReceive();
@@ -750,11 +826,18 @@ export class RentalInfoDetailComponent extends BaseComponent {
         }
         else {
           revByMonth.isExistRenContractMap = this.isExistRenContract(rev.details, con.pid);
-          // 20231101 S_Update
-          // revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDate);
-          revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDateEvicMap);
-          // 20231101 E_Update
+          // 20240229 S_Update
+          // // 20231101 S_Update
+          // // revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDate);
+          // revByMonth.isDisableByRenContractMap = this.isDisableByRenContract(rev.receiveMonth, con.roomRentExemptionStartDateEvicMap);
+          // // 20231101 E_Update
+          revByMonth.invisibleByRenContractMap = this.invisibleByRenContract(revByMonth.isExistRenContractMap, rev.receiveMonth, con);
+          // 20240229 E_Update
+
           revByMonth.receiveDayMap = Converter.stringToDate(revByMonth.receiveDay, 'yyyyMMdd');;
+          // 20240221 S_Add
+          revByMonth.receivePriceMap = Converter.numberToString(revByMonth.receivePrice);
+          // 20240221 E_Add
         }
         renByMonths.push(revByMonth);
       }
@@ -891,10 +974,205 @@ export class RentalInfoDetailComponent extends BaseComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         this.service.deleteEviction(obj).then(res => {
-          this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+          // 20240229 S_Update
+          // this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+
+          if (res.statusMap === 'NG') {
+            this.dialog.open(FinishDialogComponent, {
+              width: '500px', height: '250px',
+              data: new Dialog({ title: 'エラー', message: res.msgMap })
+            });
+          }
+          else {
+            this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+            this.searchRentalContract_Receive();
+          }
+          // 20240229 E_Update
         });
       }
     });
   }
   // 20240123 E_Add  
+
+  // 20240228 S_Add
+  /**
+   * 最大の賃貸免除開始日を取得
+   * @returns 
+   */
+  getMaxRoomRentExemptionStartDateEvicMap(): string {
+    let maxDate: string = null;
+
+    this.rentalContracts.forEach(r => {
+      if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
+        maxDate = null;
+        return false;
+      }
+      if (maxDate == null || r.roomRentExemptionStartDateEvicMap > maxDate) {
+        maxDate = r.roomRentExemptionStartDateEvicMap;
+      }
+    });
+
+    if (maxDate != null && maxDate != '') {
+      let date = Converter.stringToDate(maxDate.substring(0, 6) + '01', 'yyyyMMdd');
+      date.setMonth(date.getMonth() - 1);
+      maxDate = Converter.dateToString(date, 'yyyyMMdd', this.datepipe);
+    }
+    return maxDate;
+  }
+
+  /**
+   * 最大の明渡日を取得
+   * @returns 
+   */
+  getMaxSurrenderDateEvicMap(): string {
+    let maxDate: string = null;
+
+    this.rentalContracts.forEach(r => {
+      if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
+        maxDate = null;
+        return false;
+      }
+      if (maxDate == null || r.surrenderDateEvicMap > maxDate) {
+        maxDate = r.surrenderDateEvicMap;
+      }
+    });
+    if (maxDate != null && maxDate != '') {
+      let date = Converter.stringToDate(maxDate.substring(0, 6) + '01', 'yyyyMMdd');
+      date.setMonth(date.getMonth() - 1);
+      maxDate = Converter.dateToString(date, 'yyyyMMdd', this.datepipe);
+    }
+    return maxDate;
+  }
+
+  getMinReceiveMonth(): String {
+    let minDate: String = null;
+
+    this.rentalReceives.forEach(r => {
+      r.details.forEach(d => {
+        if (d.receiveMonth != null && d.receiveMonth != '') {
+          if (minDate == null || d.receiveMonth < minDate) {
+            minDate = d.receiveMonth;
+          }
+        }
+      });
+    });
+    return minDate;
+  }
+  filterRentalReceives() {
+    if (this.rentalReceives.length > 0) {
+      const convert = new Converter();
+      let currentYYMM = convert.formatDay(new Date(), 'yyyyMM');
+
+      for (let i = 1; i <= 12; i++) {
+        let receiveMonth = this.rental.yearReceiveMap + (i < 10 ? '0' : '') + i.toString();
+
+        if (receiveMonth >= currentYYMM && receiveMonth >= this.minReceiveMonth) {
+          let filtered = this.rentalReceives.filter(r => r.receiveMonth == receiveMonth);
+
+          if (filtered.length == 0) {
+            let renByMonths: RentalReceive[] = [];
+
+            for (var j = 0; j < this.rentalContracts.length; j++) {
+              let con = this.rentalContracts[j];
+              let revByMonth = new RentalReceive();
+              revByMonth.pid = 0;
+              revByMonth.rentalInfoPid = this.rental.pid;
+              revByMonth.rentalContractPid = con.pid;
+              revByMonth.contractInfoPid = this.rental.contractInfoPid;
+              revByMonth.locationInfoPid = this.rental.locationInfoPid;
+              revByMonth.tempLandInfoPid = this.rental.tempLandInfoPid;
+              revByMonth.receiveCode = con.receiveCode;
+              revByMonth.receiveMonth = receiveMonth;
+              revByMonth.receiveFlg = '0';
+              revByMonth.isExistRenContractMap = true;
+              revByMonth.invisibleByRenContractMap = this.invisibleByRenContract(revByMonth.isExistRenContractMap, receiveMonth, con);
+              if (revByMonth.invisibleByRenContractMap) {
+                revByMonth.isSkipSetCheckboxMap = true;
+              }
+              renByMonths.push(revByMonth);
+            }
+
+            this.rentalReceives.push({ receiveMonth: receiveMonth, receiveFlgGroup: '0', renByMonths: renByMonths, details: renByMonths });
+          }
+        }
+      }
+    }
+    return this.rentalReceives.filter(r => r.receiveMonth != null && r.receiveMonth.length > 5 && r.receiveMonth.substring(0, 4) == this.rental.yearReceiveMap).sort((a, b) => a.receiveMonth.localeCompare(b.receiveMonth));
+  }
+  invisibleByRenContract(isExistRenContractMap, receiveMonth, con) {
+    // 賃貸入金と賃貸契約が紐づた場合
+    if (isExistRenContractMap) {
+      // 「賃貸免除開始日」の入力があればそれ以降は非表示にする
+      if (con.roomRentExemptionStartDateEvicMap != null && con.roomRentExemptionStartDateEvicMap != '') {
+        return receiveMonth >= con.roomRentExemptionStartDateEvicMap.substring(0, 6);
+      }
+      // 「明渡日」の入力があればそれ以降非表示にする
+      else if (con.surrenderDateEvicMap != null && con.surrenderDateEvicMap != '') {
+        return receiveMonth >= con.surrenderDateEvicMap.substring(0, 6);
+      }
+      // 無限表示する
+      return false;
+    }
+    return true;
+  }
+
+  setYearReceive() {
+    if (this.rentalReceives.length > 0) {
+
+      let yearReceiveMap = this.rental.yearReceiveMap;
+      let isExistsYear = false;
+
+      //入金日
+      this.minReceiveMonth = this.getMinReceiveMonth();
+      // 賃貸免除開始日
+      let maxRoomRentDate = this.getMaxRoomRentExemptionStartDateEvicMap();
+      // 明渡日
+      let maxSurrenderDate = this.getMaxSurrenderDateEvicMap();
+
+      let yearReceivesTemp: Code[] = [];
+
+      let year = (new Date()).getFullYear();
+
+      let minYear = year - 5;
+      if (this.minReceiveMonth != null && this.minReceiveMonth != '') {
+        minYear = parseInt(this.minReceiveMonth.substring(0, 4));
+      }
+      if (minYear > year) {
+        year = minYear;
+      }
+
+      let maxYear = year + 5;
+      // 賃貸免除開始日設定される場合、
+      if (maxRoomRentDate != null && maxRoomRentDate != '') {
+        maxYear = parseInt(maxRoomRentDate.substring(0, 4));
+      }
+      // 明渡日設定される場合、
+      else if (maxSurrenderDate != null && maxSurrenderDate != '') {
+        maxYear = parseInt(maxSurrenderDate.substring(0, 4));
+      }
+      if (maxYear < year) {
+        year = maxYear;
+      }
+
+      for (let y = minYear; y <= maxYear; y++) {
+        if (y.toString() == yearReceiveMap) {
+          isExistsYear = true;
+        }
+        yearReceivesTemp.push(new Code({ codeDetail: y.toString(), name: y.toString() }));
+      }
+      this.yearReceives = yearReceivesTemp;
+
+      if (isExistsYear) {
+        this.rental.yearReceiveMap = null;
+
+        setTimeout(() => {
+          this.rental.yearReceiveMap = yearReceiveMap;
+        }, 100);
+      }
+      else {
+        this.rental.yearReceiveMap = year.toString();
+      }
+    }
+  }
+  // 20240228 E_Add
 }

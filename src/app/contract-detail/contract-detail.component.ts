@@ -1073,7 +1073,19 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
     dialogRef.afterClosed().subscribe(result => {
       if (dlg.choose) {
         this.service.deleteEviction(obj).then(res => {
-          this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+          // 20240229 S_Update
+          // this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+
+          if (res.statusMap === 'NG') {
+            this.dialog.open(FinishDialogComponent, {
+              width: '500px', height: '250px',
+              data: new Dialog({ title: 'エラー', message: res.msgMap })
+            });
+          }
+          else {
+            this.evictions = this.evictions.filter(item => item.pid != obj.pid);
+          }
+          // 20240229 E_Update
         });
       }
     });

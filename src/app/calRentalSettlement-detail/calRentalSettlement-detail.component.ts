@@ -48,7 +48,16 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
     super.ngOnInit();
     const funcs = [];
 
-    this.contract.decisionDayBeginMonthMap = this.contract.decisionDayMap;
+    // 20240221 S_Update
+    // this.contract.decisionDayBeginMonthMap = this.contract.decisionDayMap;
+    // 買主収益期間開始日が存在した場合
+    if (this.contract.buyerRevenueStartDay != null && this.contract.buyerRevenueStartDay != '') {
+      this.contract.decisionDayBeginMonthMap = Converter.stringToDate(this.contract.buyerRevenueStartDay, 'yyyyMMdd');
+    }
+    else {
+      this.contract.decisionDayBeginMonthMap = this.contract.decisionDayMap;
+    }
+    // 20240221 E_Update
 
     if (this.contract.pid > 0) {
       //賃貸契約取得(計算用)を取得
@@ -80,7 +89,16 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
       item.taxSumMap = this.getNumber(item.rentPriceTax) + this.getNumber(item.managementFeeTax) + this.getNumber(item.condoFeeTax);
     });
 
-    this.contract.decisionDayEndMonthMap = this.getEndOfMonth(this.contract.decisionDayBeginMonthMap);
+    // 20240221 S_Update
+    // this.contract.decisionDayEndMonthMap = this.getEndOfMonth(this.contract.decisionDayBeginMonthMap);
+    // 買主収益期間開始日と買主収益期間終了日が存在していない場合
+    if ((this.contract.buyerRevenueStartDay == null || this.contract.buyerRevenueStartDay == '') && (this.contract.buyerRevenueEndDay == null || this.contract.buyerRevenueEndDay == '')) {
+      this.contract.decisionDayEndMonthMap = this.getEndOfMonth(this.contract.decisionDayBeginMonthMap);
+    }
+    else {
+      this.contract.decisionDayEndMonthMap = Converter.stringToDate(this.contract.buyerRevenueEndDay, 'yyyyMMdd');
+    }
+    // 20240221 E_Update
 
     this.calcForRentPrice();
   }
@@ -132,6 +150,12 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
    * 登録
    */
   save() {
+
+    // 20240226 S_Add
+    this.convertForSave();
+    this.contract.convertForSave(this.service.loginUser.userId, this.datepipe, true);
+    // 20240226 E_Add
+
     this.contract.rentalSettlementMap = Converter.numberToString(Converter.stringToNumber(this.contract.rentPriceNoPayTaxMap)
       + Converter.stringToNumber(this.contract.rentPricePayTaxMap)
       + Converter.stringToNumber(this.contract.rentPriceTaxMap)
@@ -139,6 +163,14 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
 
     let depositSum = this.renContracts.reduce((a, currentValue) => a + currentValue.depositSumMap, 0);
     this.contract.successionDepositMap = Converter.numberToString(depositSum);
+    // 20240221 S_Add
+    this.contract.buyerRevenueStartDay = Converter.dateToString(this.contract.decisionDayBeginMonthMap, 'yyyyMMdd', this.datepipe);
+    this.contract.buyerRevenueEndDay = Converter.dateToString(this.contract.decisionDayEndMonthMap, 'yyyyMMdd', this.datepipe);
+    // 20240221 E_Add
+
+    // 20240226 S_Add
+    this.service.saveContract(this.contract);
+    // 20240226 E_Add
 
     this.dialogRef.close({ data: this.contract });
   }
@@ -151,4 +183,81 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
     this.spinner.hide();
     this.dialogRef.close({ data: this.contract });
   }
+
+  // 20240226 S_Add  
+  /**
+   * 登録の為の変換
+   */
+  convertForSave() {
+    const addList = [];
+    this.data.locations.forEach(loc => {
+      //契約データ構成
+      let lst = [];
+      if (!this.isBlank(loc.contractDetail.contractDataType)) {
+        loc.contractDetail.locationInfoPid = loc.pid;
+        lst.push(loc.contractDetail);
+        //不可分、低地両方チェック
+        if (loc.contractDetail.contractDataType === '03' && loc.contractDetail02 === '02') {
+          let contract02 = JSON.parse(JSON.stringify(loc.contractDetail)) as Contractdetailinfo;
+          contract02.pid = 0;
+          contract02.contractDataType = '02';
+          contract02.contractArea = null;
+          contract02.contractHave = 0;
+          lst.push(contract02);
+        }
+      }
+
+      const detailList = this.contract.details.filter(detail => detail.locationInfoPid === loc.pid);
+      //更新
+      if (detailList.length > 0) {
+        //削除
+        if (lst.length === 0) {
+          detailList.forEach(me => {
+            me.deleteUserId = this.service.loginUser.userId;
+          });
+        }
+        else {
+          //上書き
+          if (detailList.length === lst.length) {
+            for (let index = 0; index < detailList.length; index++) {
+              detailList[index] = lst[index];
+            }
+          }
+          else {
+            detailList[0] = lst[0]; //1件目
+            //1件削除
+            if (detailList.length > lst.length) {
+              detailList[1].deleteUserId = this.service.loginUser.userId;
+            }
+            else {
+              addList.push(lst[1]);
+            }
+          }
+        }
+        //上書き：End
+      }
+      //新規
+      else {
+        lst.forEach(data => {
+          addList.push(data);
+        });
+      }
+    });
+
+    addList.forEach(data => {
+      this.contract.details.push(data);
+    });
+
+    // 所有地 (仕入契約登記人情報登録のため)
+    this.data.locations.forEach(loc => {
+      if (loc.sharers.length > 0) {
+        const val = {
+          locationInfoPid: loc.pid,
+          sharerInfoPid: loc.sharers.map(sr => sr.pid)
+        };
+        this.contract.locations.push(val);
+      }
+    });
+  }
+  // 20240226 E_Add  
 }

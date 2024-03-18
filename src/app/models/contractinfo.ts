@@ -112,6 +112,10 @@ export class Contractinfo {
     finishScheduledDay: string;
     deliveryDay: string;
     dependType: string;
+    // 20240221 S_Add
+    buyerRevenueStartDay: string;
+    buyerRevenueEndDay: string;
+    // 20240221 S_Add
 
     deposit1DayMap: Date = null;
     deposit2DayMap: Date = null;

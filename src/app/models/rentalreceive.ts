@@ -19,9 +19,16 @@ export class RentalReceive {
 
     // 20231010 S_Add
     isExistRenContractMap: boolean;
-    isDisableByRenContractMap: boolean;
+    // 20240229 S_Update
+    // isDisableByRenContractMap: boolean;
+    invisibleByRenContractMap: boolean;
+    isSkipSetCheckboxMap: boolean;
+    // 20240229 E_Update
     receiveDayMap: Date = null;
     // 20231010 E_Add
+    // 20240221 S_Add
+    receivePriceMap: string = "";
+    // 20240221 E_Add
 
     public constructor(init?: Partial<RentalReceive>) {
         if (init) {

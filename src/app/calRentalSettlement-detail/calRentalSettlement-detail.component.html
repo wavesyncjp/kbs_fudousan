@@ -14,6 +14,7 @@
                             <th>賃料</th>
                             <th>管理費・共益費</th>
                             <th>消費税</th>
+                            <th>駐車場使用料</th><!-- 20240221 Add -->
                             <th>賃料合計</th>
                         </thead>
                         <tbody class="list-body">
@@ -23,6 +24,7 @@
                                 <td>{{numberFormat(item.rentPrice)}}</td>
                                 <td>{{numberFormat(item.feeSumMap)}}</td>
                                 <td>{{numberFormat(item.taxSumMap)}}</td>
+                                <td>{{numberFormat(item.parkingFee)}}</td><!-- 20240221 Add -->
                                 <td>{{numberFormat(getNumber(item.rentPrice) + item.feeSumMap + item.taxSumMap)}}</td>
                             </tr>
                         </tbody>

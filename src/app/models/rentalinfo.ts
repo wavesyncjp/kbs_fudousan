@@ -29,9 +29,12 @@ export class RentalInfo {
     updateUserId: number;
 
     rentalContracts: RentalContract[];
-    rentalContractsChanged: RentalContract[];// 20231027
+    // 20240221 S_Delete
+    // rentalContractsChanged: RentalContract[];// 20231027
+    // 20240221 E_Delete
     rentalReceives: RentalReceive[];
     rentalReceivesChanged: RentalReceive[];
+    yearReceiveMap: string;// 20240228 Add
 
     public constructor(init?: Partial<RentalInfo>) {
         if (init) {

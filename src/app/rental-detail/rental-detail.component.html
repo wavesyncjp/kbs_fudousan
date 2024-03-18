@@ -119,8 +119,12 @@
                     <td [noWrap]="true">{{formatDay(rcon.loanPeriodStartDate, 'yyyy/MM/dd')}}～{{formatDay(rcon.loanPeriodEndDate, 'yyyy/MM/dd')}}</td>
                     <td class="text-left">{{getCodeTitle('043',rcon.contractMethod)}}</td>
                     <td class="text-left">{{getCodeTitle('015',rcon.paymentMethod)}}</td>
-                    <td class="text-right">{{numberFormat(rcon.rentPrice)}}</td>
-                    <td class="text-right">{{numberFormat(getNumber(rcon.condoFee) + getNumber(rcon.managementFee)) }}</td>
+                    <!-- 20240221 S_Update -->
+                    <!-- <td class="text-right">{{numberFormat(rcon.rentPrice)}}</td>
+                    <td class="text-right">{{numberFormat(getNumber(rcon.condoFee) + getNumber(rcon.managementFee)) }}</td> -->
+                    <td class="text-right">{{numberFormat(getNumber(rcon.rentPrice) + getNumber(rcon.rentPriceTax))}}</td>
+                    <td class="text-right">{{numberFormat(getNumber(rcon.condoFee) + getNumber(rcon.managementFee) + getNumber(rcon.condoFeeTax) + getNumber(rcon.managementFeeTax)) }}</td>
+                    <!-- 20240221 E_Update -->
                     <td><button mat-raised-button (click)="showRentalContract(rcon,pos)" color="warn">詳細</button></td>
                     <td><button mat-raised-button (click)="deleteRentalContract(rcon,pos)" class="delete_btn">削除</button></td>
                     <td><button mat-raised-button (click)="copyRentalContract(rcon)" color="primary">コピー</button></td>
@@ -133,13 +137,19 @@
     <!--賃貸入金一覧-->
     <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
         <span class="min">賃貸入金</span>
+        <!-- 20240228 S_Add -->
+        <app-select-component cusClass="width80" style="margin-left: -30px;" [codes]="yearReceives" [(ngModel)]="rental.yearReceiveMap"></app-select-component>&nbsp;年
+        <!-- 20240228 E_Add -->
         <table style="width: auto;">
             <thead class="list-header">
 
             </thead>
             <tbody class="list-body">
                 <tr>
-                    <th rowspan="3" class="header2 width100">一括
+                    <!-- 20240221 S_Update -->
+                    <!-- <th rowspan="3" class="header2 width100">一括 -->
+                    <th rowspan="2" class="header2 width100">一括
+                    <!-- 20240221 E_Update -->
                         <br />
                         <mat-checkbox [checked]="receiveAllFlg === '1'" (change)="changeReceiveAllFlg($event)"></mat-checkbox>
                         <br />
@@ -159,20 +169,19 @@
                         {{rcon.borrowerName}}
                     </td>
                 </tr>
-                <tr>
-                    <!-- 20231019 S_Update -->
-                    <!-- <td class="header2">賃料</td> -->
+                <!-- 20240221 S_Delete -->
+                <!-- <tr>
                     <td class="header2">入金額</td>
-                    <!-- 20231019 E_Update -->
                     <td *ngFor="let rcon of rentalContracts; index as pos">
-                        <!-- 20231027 S_Update -->
-                        <!-- {{numberFormat(rcon.rentPriceRefMap)}} -->
                         <input type="text" [(ngModel)]="rcon.rentPriceRefMapMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(rcon.rentPriceRefMapMap)">&nbsp;円
-                        <!-- 20231027 E_Update -->
                     </td>
-                </tr>
-                <tr *ngFor="let rev of rentalReceives; index as pos">
-                    <td class="text-center"><mat-checkbox [checked]="rev.receiveFlgGroup === '1'" (change)="changeReceiveFlgGroup($event,rev)"></mat-checkbox></td>
+                </tr> -->
+                <!-- 20240221 E_Delete -->
+                <!-- 20240228 S_Update -->
+                <!-- <tr *ngFor="let rev of rentalReceives; index as pos"> -->
+                <tr *ngFor="let rev of filterRentalReceives(); index as pos">
+                <!-- 20240228 S_Update -->
+                <td class="text-center"><mat-checkbox [checked]="rev.receiveFlgGroup === '1'" (change)="changeReceiveFlgGroup($event,rev)"></mat-checkbox></td>
                     <td>{{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}</td>
                     <!-- 20231010 S_Update -->
                     <!-- <td *ngFor="let con of rentalContracts; index as posSub" [ngClass]="{'row-disabled':isExistRenContract(rev.details,con.pid) && isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)}">
@@ -180,19 +189,39 @@
                         &nbsp;
                         <mat-checkbox *ngIf="isExistRenContract(rev.details,con.pid)" [disabled]="isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)" [checked]="getReceiveFlg(rev.details,con.pid) === '1'" (change)="changeReceiveFlg($event,rev.details,con.pid)"></mat-checkbox>
                     </td> -->
-                    <td *ngFor="let revM of rev.renByMonths; index as posSub" [ngClass]="{'row-disabled':revM.isExistRenContractMap && revM.isDisableByRenContractMap}">
+                    <!-- 20240229 S_Update -->
+                    <!-- <td *ngFor="let revM of rev.renByMonths; index as posSub" [ngClass]="{'row-disabled':revM.isExistRenContractMap && revM.isDisableByRenContractMap}"> -->
+                    <td *ngFor="let revM of rev.renByMonths; index as posSub">
+                    <!-- 20240229 E_Update -->
+                        <!-- 20240221 S_Add -->
+                        <!-- 20240229 S_Update -->
+                        <!-- <div *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap"> -->
+                        <div *ngIf="!revM.invisibleByRenContractMap">
+                        <!-- 20240229 E_Update -->
+                            <input type="text" [(ngModel)]="revM.receivePriceMap" style="margin-left: -17px;" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(revM.receivePriceMap)">&nbsp;円
+                        </div>
+                        <!-- 20240221 E_Add -->
                         <!-- 20231027 S_Update -->
                         <!-- <div *ngIf="revM.isExistRenContractMap" class="picker-div"> -->
-                        <div *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" class="picker-div">
+                        <!-- 20240229 S_Update -->
+                        <!-- <div *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" class="picker-div"> -->
+                        <div *ngIf="!revM.invisibleByRenContractMap" class="picker-div">
+                        <!-- 20240229 E_Update -->
                         <!-- 20231027 E_Update -->
-                            <input type="text" [matDatepicker]="receiveDay" [disabled]="revM.isDisableByRenContractMap" [(ngModel)]="revM.receiveDayMap" class="width100">
+                            <!-- 20240229 S_Update -->
+                            <!-- <input type="text" [matDatepicker]="receiveDay" [disabled]="revM.isDisableByRenContractMap" [(ngModel)]="revM.receiveDayMap" class="width100"> -->
+                            <input type="text" [matDatepicker]="receiveDay" [(ngModel)]="revM.receiveDayMap" class="width100">
+                            <!-- 20240229 E_Update -->
                             <mat-datepicker-toggle matSuffix [for]="receiveDay" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #receiveDay></mat-datepicker>
                         </div>
                         &nbsp;
                         <!-- 20231027 S_Update -->
                         <!-- <mat-checkbox *ngIf="revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox> -->
-                        <mat-checkbox *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
+                        <!-- 20240229 S_Update -->
+                        <!-- <mat-checkbox *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox> -->
+                        <mat-checkbox *ngIf="!revM.invisibleByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
+                        <!-- 20240229 E_Update -->
                         <!-- 20231027 E_Update -->
                     </td>
                     <!-- 20231010 E_Update -->

@@ -45,6 +45,8 @@ export class RentalContractDetailComponent extends BaseComponent {
   contractSellerInfoPids: Code[];
   receiveTypes: Code[];
 
+  isAddedEviction: boolean;// 20240229 Add
+
   constructor(public router: Router,
     public service: BackendService,
     private spinner: NgxSpinnerService,
@@ -231,7 +233,10 @@ export class RentalContractDetailComponent extends BaseComponent {
             dlgVal.afterClosed().subscribe(res => {
               this.data = new RentalContract(values);
               this.spinner.hide();
-              this.dialogRef.close({ data: this.data, isSave: true });
+              // 20240229 S_Update
+              // this.dialogRef.close({ data: this.data, isSave: true });
+              this.dialogRef.close({ data: this.data, isSave: true, isAddedEviction: this.isAddedEviction });
+              // 20240229 E_Update
             });
           }
         });
@@ -256,7 +261,10 @@ export class RentalContractDetailComponent extends BaseComponent {
         this.service.deleteRentalContract(this.data).then(res => {
 
           this.spinner.hide();
-          this.dialogRef.close({ data: this.data, isDelete: true });
+          // 20240229 S_Update
+          // this.dialogRef.close({ data: this.data, isDelete: true });
+          this.dialogRef.close({ data: this.data, isDelete: true, isAddedEviction: this.isAddedEviction });
+          // 20240229 E_Update
         });
       }
     });
@@ -304,7 +312,10 @@ export class RentalContractDetailComponent extends BaseComponent {
    */
   cancel() {
     this.spinner.hide();
-    this.dialogRef.close({ data: this.data });
+    // 20240229 S_Update
+    // this.dialogRef.close({ data: this.data });
+    this.dialogRef.close({ data: this.data, isAddedEviction: this.isAddedEviction });
+    // 20240229 E_Update
   }
 
   /**
@@ -384,6 +395,7 @@ export class RentalContractDetailComponent extends BaseComponent {
     // 再検索
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.isSave) {
+        this.isAddedEviction = true;// 20240229 Add
       }
     });
   }
