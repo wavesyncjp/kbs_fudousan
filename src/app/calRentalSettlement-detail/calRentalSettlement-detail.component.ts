@@ -105,10 +105,23 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
 
   calcForRentPrice() {
     let days = this.differenceInDays(this.contract.decisionDayBeginMonthMap, this.contract.decisionDayEndMonthMap);
-
-    this.contract.rentPriceNoPayTaxMap = Converter.numberToString(this.renContracts.filter(a => a.taxSumMap == 0).reduce((a, currentValue) => a + this.getNumber(currentValue.rentPrice), 0) * days);
-    this.contract.rentPricePayTaxMap = Converter.numberToString(this.renContracts.filter(a => a.taxSumMap > 0).reduce((a, currentValue) => a + this.getNumber(currentValue.rentPrice), 0) * days);
-    this.contract.rentPriceTaxMap = Converter.numberToString(this.renContracts.filter(a => a.taxSumMap > 0).reduce((a, currentValue) => a + currentValue.taxSumMap, 0) * days);
+    // 20240328 S_Update
+    // this.contract.rentPriceNoPayTaxMap = Converter.numberToString(this.renContracts.filter(a => a.taxSumMap == 0).reduce((a, currentValue) => a + this.getNumber(currentValue.rentPrice), 0) * days);
+    // this.contract.rentPricePayTaxMap = Converter.numberToString(this.renContracts.filter(a => a.taxSumMap > 0).reduce((a, currentValue) => a + this.getNumber(currentValue.rentPrice), 0) * days);
+    // this.contract.rentPriceTaxMap = Converter.numberToString(this.renContracts.filter(a => a.taxSumMap > 0).reduce((a, currentValue) => a + currentValue.taxSumMap, 0) * days);
+    let decisionDayEndMonthMap = this.getEndOfMonth(this.contract.decisionDayBeginMonthMap);
+    if (decisionDayEndMonthMap != null) {
+      const day = decisionDayEndMonthMap.getDate();
+      this.contract.rentPriceNoPayTaxMap = Converter.numberToString(Math.round(this.renContracts.filter(a => a.taxSumMap == 0).reduce((a, currentValue) => a + this.getNumber(currentValue.rentPrice) + currentValue.feeSumMap, 0) / day * days));
+      this.contract.rentPricePayTaxMap = Converter.numberToString(Math.round(this.renContracts.filter(a => a.taxSumMap > 0).reduce((a, currentValue) => a + this.getNumber(currentValue.rentPrice) + currentValue.feeSumMap, 0) / day * days));
+      this.contract.rentPriceTaxMap = Converter.numberToString(Math.round(this.renContracts.filter(a => a.taxSumMap > 0).reduce((a, currentValue) => a + currentValue.taxSumMap, 0) / day * days));
+    }
+    else {
+      this.contract.rentPriceNoPayTaxMap = '';
+      this.contract.rentPricePayTaxMap = '';
+      this.contract.rentPriceTaxMap = '';
+    }
+    // 20240328 E_Update
   }
 
   getEndOfMonth(date) {
@@ -135,7 +148,10 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
     }
 
     const diffInMs = Math.abs(utcDate2 - utcDate1);
-    return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    // 20240328 S_Update
+    // return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    return Math.floor(diffInMs / (1000 * 60 * 60 * 24)) + 1;
+    // 20240328 S_Update
   }
 
   /**
@@ -153,16 +169,36 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
 
     // 20240226 S_Add
     this.convertForSave();
-    this.contract.convertForSave(this.service.loginUser.userId, this.datepipe, true);
-    // 20240226 E_Add
 
+    // 20240327 S_Add
+    let depositSum = this.renContracts.reduce((a, currentValue) => a + this.getNumber(currentValue.deposit), 0);
+    this.contract.successionDepositMap = Converter.numberToString(depositSum);
+    let securityDepositSum = this.renContracts.reduce((a, currentValue) => a + this.getNumber(currentValue.securityDeposit), 0);
+    this.contract.successionSecurityDepositMap = Converter.numberToString(securityDepositSum);
+    // 20240327 E_Add
+
+    // 20240328 S_Add
     this.contract.rentalSettlementMap = Converter.numberToString(Converter.stringToNumber(this.contract.rentPriceNoPayTaxMap)
       + Converter.stringToNumber(this.contract.rentPricePayTaxMap)
       + Converter.stringToNumber(this.contract.rentPriceTaxMap)
     );
+    // 20240328 E_Add
 
-    let depositSum = this.renContracts.reduce((a, currentValue) => a + currentValue.depositSumMap, 0);
-    this.contract.successionDepositMap = Converter.numberToString(depositSum);
+    this.contract.convertForSave(this.service.loginUser.userId, this.datepipe, true);
+    // 20240226 E_Add
+
+    // 20240328 S_Delete
+    // this.contract.rentalSettlementMap = Converter.numberToString(Converter.stringToNumber(this.contract.rentPriceNoPayTaxMap)
+    //   + Converter.stringToNumber(this.contract.rentPricePayTaxMap)
+    //   + Converter.stringToNumber(this.contract.rentPriceTaxMap)
+    // );
+    // 20240328 E_Delete
+
+    // 20240327 S_Delete
+    // let depositSum = this.renContracts.reduce((a, currentValue) => a + currentValue.depositSumMap, 0);
+    // this.contract.successionDepositMap = Converter.numberToString(depositSum);
+    // 20240327 E_Delete
+
     // 20240221 S_Add
     this.contract.buyerRevenueStartDay = Converter.dateToString(this.contract.decisionDayBeginMonthMap, 'yyyyMMdd', this.datepipe);
     this.contract.buyerRevenueEndDay = Converter.dateToString(this.contract.decisionDayEndMonthMap, 'yyyyMMdd', this.datepipe);

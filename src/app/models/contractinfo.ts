@@ -47,6 +47,7 @@ export class Contractinfo {
     rentalSettlement: number;
     successionDeposit: number;
     // 20231010 E_Add
+    successionSecurityDeposit: number;// 20240327 Add
     prioritySalesArea: number;
     prioritySalesFloor: number;
     prioritySalesPlanPrice: number;
@@ -166,6 +167,7 @@ export class Contractinfo {
     rentalSettlementMap: string = "";
     successionDepositMap: string = "";
     // 20231010 E_Add
+    successionSecurityDepositMap: string = "";// 20240327 Add
     prioritySalesAreaMap: string = "";
     prioritySalesFloorMap: string = "";
     prioritySalesPlanPriceMap: string = "";
@@ -320,6 +322,7 @@ export class Contractinfo {
         this.rentalSettlementMap = Converter.numberToString(this.rentalSettlement);
         this.successionDepositMap = Converter.numberToString(this.successionDeposit);
         // 20231010 E_Add
+        this.successionSecurityDepositMap = Converter.numberToString(this.successionSecurityDeposit);// 20240327 Add
         this.prioritySalesAreaMap = Converter.numberToString(this.prioritySalesArea);
         this.prioritySalesFloorMap = Converter.numberToString(this.prioritySalesFloor);
         this.prioritySalesPlanPriceMap = Converter.numberToString(this.prioritySalesPlanPrice);
@@ -618,6 +621,7 @@ export class Contractinfo {
         this.rentalSettlement = Converter.stringToNumber(this.rentalSettlementMap);
         this.successionDeposit = Converter.stringToNumber(this.successionDepositMap);
         // 20231010 E_Add
+        this.successionSecurityDeposit = Converter.stringToNumber(this.successionSecurityDepositMap);// 20240327 Add
         this.prioritySalesArea = Converter.stringToNumber(this.prioritySalesAreaMap);
         this.prioritySalesFloor = Converter.stringToNumber(this.prioritySalesFloorMap);
         this.prioritySalesPlanPrice = Converter.stringToNumber(this.prioritySalesPlanPriceMap);

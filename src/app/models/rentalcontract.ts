@@ -119,6 +119,8 @@ export class RentalContract {
     feeSumMap: number;
     taxSumMap: number;
     // 20240123 S_Add
+    securityDepositSumMap: number;// 20240327 Add
+
 
     // 開発用の例↑
     public constructor(init?: Partial<RentalContract>) {
