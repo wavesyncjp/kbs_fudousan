@@ -100,6 +100,9 @@ import { EvictionInfoDetailComponent } from './eviction-detail/eviction-detail.c
 // 20240123 S_Add
 import { CalRentalSettlementDetailComponent } from './calRentalSettlement-detail/calRentalSettlement-detail.component';
 // 20240123 E_Add
+// 20240402 S_Add
+import { RentalSelectComponent } from './rental-select/rental-select.component';
+// 20240402 E_Add
 
 @NgModule({
   declarations: [
@@ -179,6 +182,7 @@ import { CalRentalSettlementDetailComponent } from './calRentalSettlement-detail
     , EvictionInfoDetailComponent
     // 20230917 E_Add
     , CalRentalSettlementDetailComponent // 20240123 Add
+    , RentalSelectComponent// 20240402 Add
   ],
   imports: [
     BrowserModule
@@ -247,6 +251,7 @@ import { CalRentalSettlementDetailComponent } from './calRentalSettlement-detail
     , CalcSaleKotozeiDetailComponent
     , NoticeDetailComponent// 20211227 Add
     , AttachFileDialogComponent// 20230302 Add
+    , RentalSelectComponent // 20240402 Add
   ],
 })
 export class AppModule { }

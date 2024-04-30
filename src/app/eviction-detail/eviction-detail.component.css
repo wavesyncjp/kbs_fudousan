@@ -16,3 +16,20 @@
     padding-right: 26px;
     font-weight: bold;
 }
+
+/* 20240402 S_Add */
+.addDeposit {
+    background-color: rgb(238, 187, 45);
+    color: white;
+    height: 34px;
+}
+
+.deleteDeposit {
+    background-color: rgb(163, 158, 142);
+    color: black;
+    height: 34px;
+}
+.right-align {
+    text-align: right;
+}
+/* 20240402 E_Add */

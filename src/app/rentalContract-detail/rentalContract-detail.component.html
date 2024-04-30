@@ -270,7 +270,9 @@
             <td>
                 <input type="text" [(ngModel)]="data.securityDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.securityDepositMap)">&nbsp;円
                 <!-- 20231016 S_Add -->
-                &nbsp;<mat-checkbox [checked]="data.securityDepositConvertedFlg === '1'" (change)="changeSecurityDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+                <!-- 20240402 S_Delete -->
+                <!-- &nbsp;<mat-checkbox [checked]="data.securityDepositConvertedFlg === '1'" (change)="changeSecurityDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span> -->
+                <!-- 20240402 E_Delete -->
                 <!-- 20231016 E_Add -->
             </td>
             <th>償却</th>
@@ -283,7 +285,9 @@
             <th>敷金</th>
             <td>
                 <input type="text" [(ngModel)]="data.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.depositMap)">&nbsp;円
-                &nbsp;<mat-checkbox [checked]="data.depositConvertedFlg === '1'" (change)="changeDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+                <!-- 20240402 S_Delete -->
+                <!-- &nbsp;<mat-checkbox [checked]="data.depositConvertedFlg === '1'" (change)="changeDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span> -->
+                <!-- 20240402 E_Delete -->
             </td>
             <!-- 20240123 S_Delete -->
             <!-- <th>礼金</th>
@@ -300,7 +304,9 @@
             <th>駐車場敷金</th>
             <td>
                 <input type="text" [(ngModel)]="data.parkingDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.parkingDepositMap)">&nbsp;円
-                &nbsp;<mat-checkbox [checked]="data.parkingDepositConvertedFlg === '1'" (change)="changeParkingDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span>
+                <!-- 20240426 S_Delete -->
+                <!-- &nbsp;<mat-checkbox [checked]="data.parkingDepositConvertedFlg === '1'" (change)="changeParkingDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span> -->
+                <!-- 20240426 E_Delete -->
             </td>
         </tr>
         <!-- 20240123 S_Delete -->

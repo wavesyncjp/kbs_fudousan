@@ -698,6 +698,9 @@
     <!--立退き一覧-->
     <div class="button-div-left" *ngIf="pid > 0 && !disableRentalUser">
         <button mat-raised-button class="register-btn" (click)="addEvictionInfo()">立退き情報　登録</button>
+        <!-- 20240402 S_Add -->
+        <button mat-raised-button class="output-btn2" (click)="selectRental()" >預り金一覧作成</button>
+        <!-- 20240402 E_Add -->
     </div>
 
     <div class="contact-div margin-base" *ngIf="!disableRentalUser" style="width: 100%;">
@@ -714,7 +717,10 @@
                 <th class="width80">合意書</th>
                 <th class="width150">預り金一覧作成</th> -->
                 <th class="width80">合意書</th>
-                <th class="width150">預り金一覧作成</th>
+                <!-- 20240402 S_Update -->
+                <!-- <th class="width150">預り金一覧作成</th> -->
+                <th class="width80">敷金返還</th>
+                <!-- 20240402 E_Update -->
                 <th class="width80">詳細</th>
                 <th class="width80">削除</th>
                 <!-- 20240123 E_Update -->
@@ -730,8 +736,12 @@
                     <!-- <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
                     <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
                     <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td> -->
-                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
-                    <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
+                    <!-- 20240402 S_Update -->
+                    <!-- <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td> -->
+                    <!-- <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td> -->
+                    <td><span class="font-bold" *ngIf="item.getAgreementDate != null && item.getAgreementDate != ''">済</span></td>
+                    <td><span class="font-bold" *ngIf="item.returnDepositFlg === '1'">済</span></td>
+                    <!-- 20240402 E_Update -->
                     <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
                     <td><button mat-raised-button (click)="deleteEvictionInfo(item,pos)" class="delete_btn">削除</button></td>
                     <!-- 20240123 E_Update -->

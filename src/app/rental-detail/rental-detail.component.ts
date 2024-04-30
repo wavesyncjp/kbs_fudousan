@@ -823,6 +823,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
         let revByMonth = this.getRentalReceive(rev.details, con.pid);
         if (revByMonth == null) {
           revByMonth = new RentalReceive();
+          revByMonth.invisibleByRenContractMap = true;// 20240404 Add
         }
         else {
           revByMonth.isExistRenContractMap = this.isExistRenContract(rev.details, con.pid);
@@ -995,54 +996,118 @@ export class RentalInfoDetailComponent extends BaseComponent {
   // 20240123 E_Add  
 
   // 20240228 S_Add
+  // 20240405 S_Add
+  // /**
+  //  * 最大の賃貸免除開始日を取得
+  //  * @returns 
+  //  */
+  // getMaxRoomRentExemptionStartDateEvicMap(): string {
+  //   let maxDate: string = null;
+
+  //   this.rentalContracts.forEach(r => {
+  //     if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
+  //       maxDate = null;
+  //       return false;
+  //     }
+  //     if (maxDate == null || r.roomRentExemptionStartDateEvicMap > maxDate) {
+  //       maxDate = r.roomRentExemptionStartDateEvicMap;
+  //     }
+  //   });
+
+  //   if (maxDate != null && maxDate != '') {
+  //     let date = Converter.stringToDate(maxDate.substring(0, 6) + '01', 'yyyyMMdd');
+  //     date.setMonth(date.getMonth() - 1);
+  //     maxDate = Converter.dateToString(date, 'yyyyMMdd', this.datepipe);
+  //   }
+  //   return maxDate;
+  // }
+
+  // /**
+  //  * 最大の明渡日を取得
+  //  * @returns 
+  //  */
+  // getMaxSurrenderDateEvicMap(): string {
+  //   let maxDate: string = null;
+
+  //   this.rentalContracts.forEach(r => {
+  //     if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
+  //       maxDate = null;
+  //       return false;
+  //     }
+  //     if (maxDate == null || r.surrenderDateEvicMap > maxDate) {
+  //       maxDate = r.surrenderDateEvicMap;
+  //     }
+  //   });
+  //   if (maxDate != null && maxDate != '') {
+  //     let date = Converter.stringToDate(maxDate.substring(0, 6) + '01', 'yyyyMMdd');
+  //     date.setMonth(date.getMonth() - 1);
+  //     maxDate = Converter.dateToString(date, 'yyyyMMdd', this.datepipe);
+  //   }
+  //   return maxDate;
+  // }
+  
   /**
-   * 最大の賃貸免除開始日を取得
+   * 最大の賃貸免除開始日・明渡日を取得
    * @returns 
    */
-  getMaxRoomRentExemptionStartDateEvicMap(): string {
+  getMaxDatDateEvic(): string {
     let maxDate: string = null;
 
     this.rentalContracts.forEach(r => {
-      if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
+      // 20240426 S_Update
+      // // 賃貸免除開始日 ・明渡日両方存在しない場合
+      // if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
+      // 賃貸免除開始日 ・合意解除日 ・明渡日全部存在しない場合
+      if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.agreementCancellationDateEvicMap == null || r.agreementCancellationDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
+      // 20240426 E_Update
         maxDate = null;
         return false;
       }
-      if (maxDate == null || r.roomRentExemptionStartDateEvicMap > maxDate) {
-        maxDate = r.roomRentExemptionStartDateEvicMap;
+
+      // 20240426 S_Update
+      // // 賃貸免除開始日 ・明渡日両方存在した場合
+      // if ((r.roomRentExemptionStartDateEvicMap != null && r.roomRentExemptionStartDateEvicMap != '') && (r.surrenderDateEvicMap != null && r.surrenderDateEvicMap != '')) {
+      // 賃貸免除開始日 ・合意解除日 ・明渡日全部存在した場合
+      if ((r.roomRentExemptionStartDateEvicMap != null && r.roomRentExemptionStartDateEvicMap != '') && (r.agreementCancellationDateEvicMap != null && r.agreementCancellationDateEvicMap != '') && (r.surrenderDateEvicMap != null && r.surrenderDateEvicMap != '')) {
+      // 20240426 E_Update
+        if (maxDate == null || r.roomRentExemptionStartDateEvicMap > maxDate) {
+          maxDate = r.roomRentExemptionStartDateEvicMap;
+        }
+      }
+      else {
+        // 賃貸免除開始日存在した場合
+        if(r.roomRentExemptionStartDateEvicMap != null && r.roomRentExemptionStartDateEvicMap !=''){
+          if (maxDate == null || r.roomRentExemptionStartDateEvicMap > maxDate) {
+            maxDate = r.roomRentExemptionStartDateEvicMap;
+          }
+        }
+        // 20240426 S_Add
+        // 合意解除日存在した場合
+        else if(r.agreementCancellationDateEvicMap != null && r.agreementCancellationDateEvicMap !=''){
+          if (maxDate == null || r.agreementCancellationDateEvicMap > maxDate) {
+            maxDate = r.agreementCancellationDateEvicMap;
+          }
+        }
+        // 20240426 E_Add
+        // 明渡日存在した場合
+        else if(r.surrenderDateEvicMap != null && r.surrenderDateEvicMap !=''){
+          if (maxDate == null || r.surrenderDateEvicMap > maxDate) {
+            maxDate = r.surrenderDateEvicMap;
+          }
+        }
       }
     });
 
     if (maxDate != null && maxDate != '') {
       let date = Converter.stringToDate(maxDate.substring(0, 6) + '01', 'yyyyMMdd');
-      date.setMonth(date.getMonth() - 1);
+      if(this.isBeginDayInMonth(maxDate)){// 20240426 Add
+        date.setMonth(date.getMonth() - 1);
+      }// 20240426 Add
       maxDate = Converter.dateToString(date, 'yyyyMMdd', this.datepipe);
     }
     return maxDate;
   }
-
-  /**
-   * 最大の明渡日を取得
-   * @returns 
-   */
-  getMaxSurrenderDateEvicMap(): string {
-    let maxDate: string = null;
-
-    this.rentalContracts.forEach(r => {
-      if ((r.roomRentExemptionStartDateEvicMap == null || r.roomRentExemptionStartDateEvicMap == '') && (r.surrenderDateEvicMap == null || r.surrenderDateEvicMap == '')) {
-        maxDate = null;
-        return false;
-      }
-      if (maxDate == null || r.surrenderDateEvicMap > maxDate) {
-        maxDate = r.surrenderDateEvicMap;
-      }
-    });
-    if (maxDate != null && maxDate != '') {
-      let date = Converter.stringToDate(maxDate.substring(0, 6) + '01', 'yyyyMMdd');
-      date.setMonth(date.getMonth() - 1);
-      maxDate = Converter.dateToString(date, 'yyyyMMdd', this.datepipe);
-    }
-    return maxDate;
-  }
+  // 20240405 E_Add
 
   getMinReceiveMonth(): String {
     let minDate: String = null;
@@ -1102,14 +1167,39 @@ export class RentalInfoDetailComponent extends BaseComponent {
   invisibleByRenContract(isExistRenContractMap, receiveMonth, con) {
     // 賃貸入金と賃貸契約が紐づた場合
     if (isExistRenContractMap) {
+      // 20240426 S_Update
+      // // 「賃貸免除開始日」の入力があればそれ以降は非表示にする
+      // if (con.roomRentExemptionStartDateEvicMap != null && con.roomRentExemptionStartDateEvicMap != '') {
+      //   return receiveMonth >= con.roomRentExemptionStartDateEvicMap.substring(0, 6);
+      // }
+      // // 「明渡日」の入力があればそれ以降非表示にする
+      // else if (con.surrenderDateEvicMap != null && con.surrenderDateEvicMap != '') {
+      //   return receiveMonth >= con.surrenderDateEvicMap.substring(0, 6);
+      // }
+      let dateTemp = '';
       // 「賃貸免除開始日」の入力があればそれ以降は非表示にする
       if (con.roomRentExemptionStartDateEvicMap != null && con.roomRentExemptionStartDateEvicMap != '') {
-        return receiveMonth >= con.roomRentExemptionStartDateEvicMap.substring(0, 6);
+        dateTemp = con.roomRentExemptionStartDateEvicMap;
+      }
+      // 「合意解除日」の入力があればそれ以降は非表示にする
+      else if (con.agreementCancellationDateEvicMap != null && con.agreementCancellationDateEvicMap != '') {
+        dateTemp = con.agreementCancellationDateEvicMap;
       }
       // 「明渡日」の入力があればそれ以降非表示にする
       else if (con.surrenderDateEvicMap != null && con.surrenderDateEvicMap != '') {
-        return receiveMonth >= con.surrenderDateEvicMap.substring(0, 6);
+        dateTemp = con.surrenderDateEvicMap;
       }
+      if(dateTemp != ''){
+        // 各日付が「X月1日」の場合はその所属する月以降非表示
+        if(this.isBeginDayInMonth(dateTemp)){
+          return receiveMonth >= dateTemp.substring(0, 6);
+        }
+        //各日付が「X月2日～末日」だった場合、翌月から非表示とする
+        else{
+          return receiveMonth > dateTemp.substring(0, 6);
+        }
+      }
+      // 20240426 E_Update
       // 無限表示する
       return false;
     }
@@ -1124,10 +1214,13 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
       //入金日
       this.minReceiveMonth = this.getMinReceiveMonth();
-      // 賃貸免除開始日
-      let maxRoomRentDate = this.getMaxRoomRentExemptionStartDateEvicMap();
-      // 明渡日
-      let maxSurrenderDate = this.getMaxSurrenderDateEvicMap();
+      // 20240405 S_Update
+      // // 賃貸免除開始日
+      // let maxRoomRentDate = this.getMaxRoomRentExemptionStartDateEvicMap();
+      // // 明渡日
+      // let maxSurrenderDate = this.getMaxSurrenderDateEvicMap();
+      let maxDateEvic = this.getMaxDatDateEvic();
+      // 20240405 E_Update
 
       let yearReceivesTemp: Code[] = [];
 
@@ -1142,14 +1235,20 @@ export class RentalInfoDetailComponent extends BaseComponent {
       }
 
       let maxYear = year + 5;
-      // 賃貸免除開始日設定される場合、
-      if (maxRoomRentDate != null && maxRoomRentDate != '') {
-        maxYear = parseInt(maxRoomRentDate.substring(0, 4));
+      // 20240405 S_Update
+      // // 賃貸免除開始日設定される場合、
+      // if (maxRoomRentDate != null && maxRoomRentDate != '') {
+      //   maxYear = parseInt(maxRoomRentDate.substring(0, 4));
+      // }
+      // // 明渡日設定される場合、
+      // else if (maxSurrenderDate != null && maxSurrenderDate != '') {
+      //   maxYear = parseInt(maxSurrenderDate.substring(0, 4));
+      // }
+      if (maxDateEvic != null && maxDateEvic != '') {
+        maxYear = parseInt(maxDateEvic.substring(0, 4));
       }
-      // 明渡日設定される場合、
-      else if (maxSurrenderDate != null && maxSurrenderDate != '') {
-        maxYear = parseInt(maxSurrenderDate.substring(0, 4));
-      }
+      // 20240405 E_Update
+
       if (maxYear < year) {
         year = maxYear;
       }
@@ -1175,4 +1274,13 @@ export class RentalInfoDetailComponent extends BaseComponent {
     }
   }
   // 20240228 E_Add
+
+  // 20240426 S_Add
+  isBeginDayInMonth(strDate: string){
+    if(strDate != null && strDate != ''){
+      return strDate.substring(6) == '01';
+    }
+    return false;
+  }
+  // 20240426 E_Add
 }

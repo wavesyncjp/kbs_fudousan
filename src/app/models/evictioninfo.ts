@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Converter } from '../utils/converter';
 import { EvictionInfoAttach } from './evictioninfoattach';
+import { EvictionDepositInfo } from './evictiondeposittinfo';
 
 export class EvictionInfo {
     pid: number;
@@ -34,6 +35,28 @@ export class EvictionInfo {
     // 20231010 E_Add
     agreementCancellationDate: string;// 20231016 Add
 
+    // 20240402 S_Add
+    returnDepositFlg: string;
+    evictionDepositType1: string;
+    evictionDepositType2: string;
+    evictionDepositType3: string;
+    evictionDepositType4: string;
+    evictionDepositType5: string;
+    evictionDepositType6: string;
+    evictionDepositType7: string;
+    depositType4: string;
+    deposit4: number;
+    depositPayedDate4: string;
+    depositType5: string;
+    deposit5: number;
+    depositPayedDate5: string;
+    depositType6: string;
+    deposit6: number;
+    depositPayedDate6: string;
+    depositType7: string;
+    deposit7: number;
+    depositPayedDate7: string;
+    // 20240402 E_Add
     createUserId: number;
     updateUserId: number;
 
@@ -66,6 +89,7 @@ export class EvictionInfo {
     // 20231027 E_Add
 
     evictionFiles: EvictionInfoAttach[];
+    depositsMap: EvictionDepositInfo[] = [];// 20240402
     // 開発用の例↑
     public constructor(init?: Partial<EvictionInfo>) {
         if (init) {
@@ -100,6 +124,8 @@ export class EvictionInfo {
         this.successionDepositMap = Converter.numberToString(this.successionDeposit);
         this.returnDepositMap = Converter.numberToString(this.returnDeposit);
         // 20231010 E_Add
+
+        this.convertDeposits();// 20240402 Add
     }
 
     public convertForSave(userId: number, datePipe: DatePipe, isJoin: boolean = false) {
@@ -134,5 +160,146 @@ export class EvictionInfo {
         this.successionDeposit = Converter.stringToNumber(this.successionDepositMap);
         this.returnDeposit = Converter.stringToNumber(this.returnDepositMap);
         // 20231010 E_Add
+
+
+        // 20240402 S_Add
+        let depositsMapTemp: EvictionDepositInfo[] = [];
+
+        for (var i = 0; i < this.depositsMap.length; i++) {
+            depositsMapTemp.push(this.depositsMap[i]);
+        }
+
+        for (var i = this.depositsMap.length; i < 7; i++) {
+            depositsMapTemp.push(new EvictionDepositInfo());
+        }
+
+        for (var i = 1; i <= depositsMapTemp.length; i++) {
+            var dep = depositsMapTemp[i - 1];
+            dep.depositPayedDate = Converter.dateToString(dep.depositPayedDateMap, 'yyyyMMdd', datePipe);
+            dep.deposit = Converter.stringToNumber(dep.depositMap);
+
+            switch (i) {
+                case 1:
+                    this.evictionDepositType1 = dep.evictionDepositType;
+                    this.depositType1 = dep.depositType;
+                    this.deposit1 = dep.deposit;
+                    this.depositPayedDate1 = dep.depositPayedDate;
+                    break;
+                case 2:
+                    this.evictionDepositType2 = dep.evictionDepositType;
+                    this.depositType2 = dep.depositType;
+                    this.deposit2 = dep.deposit;
+                    this.depositPayedDate2 = dep.depositPayedDate;
+                    break;
+                case 3:
+                    this.evictionDepositType3 = dep.evictionDepositType;
+                    this.remainingType = dep.depositType;
+                    this.remainingFee = dep.deposit;
+                    this.remainingPayedDate = dep.depositPayedDate;
+                    break;
+                case 4:
+                    this.evictionDepositType4 = dep.evictionDepositType;
+                    this.depositType4 = dep.depositType;
+                    this.deposit4 = dep.deposit;
+                    this.depositPayedDate4 = dep.depositPayedDate;
+                    break;
+                case 5:
+                    this.evictionDepositType5 = dep.evictionDepositType;
+                    this.depositType5 = dep.depositType;
+                    this.deposit5 = dep.deposit;
+                    this.depositPayedDate5 = dep.depositPayedDate;
+                    break;
+                case 6:
+                    this.evictionDepositType6 = dep.evictionDepositType;
+                    this.depositType6 = dep.depositType;
+                    this.deposit6 = dep.deposit;
+                    this.depositPayedDate6 = dep.depositPayedDate;
+                    break;
+                case 7:
+                    this.evictionDepositType7 = dep.evictionDepositType;
+                    this.depositType7 = dep.depositType;
+                    this.deposit7 = dep.deposit;
+                    this.depositPayedDate7 = dep.depositPayedDate;
+                    break;
+            }
+        }
+        // 20240402 E_Add
     }
+
+    // 20240402 S_Add
+    public convertDeposits() {
+        this.depositsMap = [];
+
+        for (var i = 1; i <= 7; i++) {
+            var dep = new EvictionDepositInfo();
+
+            switch (i) {
+                case 1:
+                    dep.evictionDepositType = this.evictionDepositType1;
+                    dep.depositType = this.depositType1;
+                    dep.deposit = this.deposit1;
+                    dep.depositPayedDate = this.depositPayedDate1;
+                    break;
+                case 2:
+                    dep.evictionDepositType = this.evictionDepositType2;
+                    dep.depositType = this.depositType2;
+                    dep.deposit = this.deposit2;
+                    dep.depositPayedDate = this.depositPayedDate2;
+                    break;
+                case 3:
+                    dep.evictionDepositType = this.evictionDepositType3;
+                    dep.depositType = this.remainingType;
+                    dep.deposit = this.remainingFee;
+                    dep.depositPayedDate = this.remainingPayedDate;
+                    break;
+                case 4:
+                    dep.evictionDepositType = this.evictionDepositType4;
+                    dep.depositType = this.depositType4;
+                    dep.deposit = this.deposit4;
+                    dep.depositPayedDate = this.depositPayedDate4;
+                    break;
+                case 5:
+                    dep.evictionDepositType = this.evictionDepositType5;
+                    dep.depositType = this.depositType5;
+                    dep.deposit = this.deposit5;
+                    dep.depositPayedDate = this.depositPayedDate5;
+                    break;
+                case 6:
+                    dep.evictionDepositType = this.evictionDepositType6;
+                    dep.depositType = this.depositType6;
+                    dep.deposit = this.deposit6;
+                    dep.depositPayedDate = this.depositPayedDate6;
+                    break;
+                case 7:
+                    dep.evictionDepositType = this.evictionDepositType7;
+                    dep.depositType = this.depositType7;
+                    dep.deposit = this.deposit7;
+                    dep.depositPayedDate = this.depositPayedDate7;
+                    break;
+            }
+            this.depositsMap.push(dep);
+        }
+
+        for (var i = 6; i > 0; i--) {
+            let dep = this.depositsMap[i];
+            if ((dep.evictionDepositType == null || dep.evictionDepositType == "" || dep.evictionDepositType == "0")
+                && (dep.depositType == null || dep.depositType == "" || dep.depositType == "0")
+                && (dep.deposit == null || dep.deposit == 0)
+                && (dep.depositPayedDate == null || dep.depositPayedDate == "")
+            ) {
+                this.depositsMap.splice(i, 1);
+            }
+            else {
+                break;
+            }
+        }
+
+        for (var i = 0; i < this.depositsMap.length; i++) {
+            //カレンダー
+            this.depositsMap[i].depositPayedDateMap = Converter.stringToDate(this.depositsMap[i].depositPayedDate, 'yyyyMMdd');
+            //数字
+            this.depositsMap[i].depositMap = Converter.numberToString(this.depositsMap[i].deposit);
+        }
+    }
+    // 20240402 E_Add
 }

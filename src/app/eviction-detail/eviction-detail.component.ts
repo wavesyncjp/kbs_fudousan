@@ -13,6 +13,7 @@ import { JPDateAdapter } from '../adapters/adapters';
 import { EvictionInfo } from '../models/evictioninfo';
 import { EvictionInfoAttach } from '../models/evictioninfoattach';
 import { Contractinfo } from '../models/contractinfo';
+import { EvictionDepositInfo } from '../models/evictiondeposittinfo';
 
 @Component({
   selector: 'app-eviction-detail',
@@ -38,6 +39,10 @@ export class EvictionInfoDetailComponent extends BaseComponent {
   contractSellerInfoPids: Code[];
   residentInfoPidTemp: number;// 20231027 Add
 
+  // 20240402 S_Add
+  residentInfoPidsFilter: any[];// 入居者情報
+  // 20240402 E_Add
+
   constructor(public router: Router,
     public service: BackendService,
     private spinner: NgxSpinnerService,
@@ -57,7 +62,10 @@ export class EvictionInfoDetailComponent extends BaseComponent {
     this.spinner.show();
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['045']));
+    // 20240402 S_Update
+    // funcs.push(this.service.getCodes(['045']));
+    funcs.push(this.service.getCodes(['045', '048']));
+    // 20240402 E_Update
 
     // 20231019 S_Delete
     // let cond = {
@@ -93,7 +101,6 @@ export class EvictionInfoDetailComponent extends BaseComponent {
       // }
       let rentalApartments = values[1];
       this.rentalInfoPids = rentalApartments.map(item => new Code({ codeDetail: item.pid, name: item.apartmentName, displayOrder: item.locationInfoPid }));
-
       if (this.data.pid > 0) {
         // 20231027 S_Update
         // this.data.evictionFiles = values[1];
@@ -217,7 +224,14 @@ export class EvictionInfoDetailComponent extends BaseComponent {
     this.errors = {};
 
     this.checkBlank(this.data.rentalInfoPid, 'rentalInfoPid', '建物名は必須です。');
-    this.checkBlank(this.data.residentInfoPid, 'residentInfoPid', '部屋番号は必須です。');
+    // 20240402 S_Update
+    // this.checkBlank(this.data.residentInfoPid, 'residentInfoPid', '部屋番号は必須です。');
+    let roomNoCheck = this.data.roomNo;
+    if (this.data.residentInfoPid != null && this.data.residentInfoPid != 0) {
+      roomNoCheck += this.data.residentInfoPid.toString();
+    }
+    this.checkBlank(roomNoCheck, 'residentInfoPid', '部屋番号は必須です。');
+    // 20240402 E_Update
     // 20231027 S_Add
     this.checkBlank(this.data.surrenderScheduledDateMap, 'surrenderScheduledDate', '明渡予定日は必須です。');
     // 20231027 E_Add
@@ -239,33 +253,43 @@ export class EvictionInfoDetailComponent extends BaseComponent {
   /**
    * 部屋番号変更
    */
-  changeRoomNo(event) {
-    // 20231027 S_Add
-    // if (event.target.value !== '') {
-    //   const item = this.residentInfos.filter(c => c.pid == event.target.value)[0];
-    //   this.data.borrowerName = item.borrowerName;
-    //   // this.data.locationInfoPid = item.locationInfoPid;// 20231019 Delete
-    // } else {
-    //   this.data.borrowerName = '';
-    //   // this.data.locationInfoPid = null;// 20231019 Delete
-    // }
-    this.changeRoomNoSub(event.target.value);
-    // 20231027 E_Add
-  }
+  // 20240402 S_Delete
+  // changeRoomNo(event) {
+  //   // 20231027 S_Add
+  //   // if (event.target.value !== '') {
+  //   //   const item = this.residentInfos.filter(c => c.pid == event.target.value)[0];
+  //   //   this.data.borrowerName = item.borrowerName;
+  //   //   // this.data.locationInfoPid = item.locationInfoPid;// 20231019 Delete
+  //   // } else {
+  //   //   this.data.borrowerName = '';
+  //   //   // this.data.locationInfoPid = null;// 20231019 Delete
+  //   // }
+  //   this.changeRoomNoSub(event.target.value);
+  //   // 20231027 E_Add
+  // }
+  // 20240402 E_Delete
 
   // 20231027 S_Add
   /**
    * 部屋番号変更
    */
   changeRoomNoSub(residentInfoPid) {
-    if (residentInfoPid !== '') {
+    // 20240402 S_Update
+    // if (residentInfoPid !== '') {
+    //   const item = this.residentInfos.filter(c => c.pid == residentInfoPid)[0];
+    //   this.data.borrowerName = item.borrowerName;
+    // }
+    // else {
+    //   this.data.borrowerName = '';
+    // }
+    if (residentInfoPid != null && residentInfoPid !== '') {
       const item = this.residentInfos.filter(c => c.pid == residentInfoPid)[0];
       this.data.borrowerName = item.borrowerName;
-    } else {
-      this.data.borrowerName = '';
     }
+    // 20240402 E_Update
   }
   // 20231027 E_Add
+
 
   /**
    * チェックボックス変更
@@ -339,18 +363,27 @@ export class EvictionInfoDetailComponent extends BaseComponent {
     } else {
       this.residentInfos = [];
       this.residentInfoPids = [];
+      this.residentInfoPidsFilter = this.residentInfoPids;// 20240402 Add
       this.data.locationInfoPid = null;
-    }
-    // 20231027 S_Add
-    if (this.residentInfoPidTemp > 0) {
-      this.data.residentInfoPid = this.residentInfoPidTemp;
-      this.residentInfoPidTemp = 0;
-    }
-    // 20231027 E_Add
-    else {// 20231027 Add
+
+      // 20240402 S_Add
       this.data.residentInfoPid = null;
       this.data.borrowerName = '';
-    }// 20231027 Add
+      this.data.roomNo = '';
+      // 20240402 E_Add
+    }
+    // 20240402 S_Delete
+    // // 20231027 S_Add
+    // if (this.residentInfoPidTemp > 0) {
+    //   this.data.residentInfoPid = this.residentInfoPidTemp;
+    //   this.residentInfoPidTemp = 0;
+    // }
+    // // 20231027 E_Add
+    // else {// 20231027 Add
+    //   this.data.residentInfoPid = null;
+    //   this.data.borrowerName = '';
+    // }// 20231027 Add
+    // 20240402 E_Delete
   }
   // 20231027 E_Add
   /**
@@ -369,12 +402,54 @@ export class EvictionInfoDetailComponent extends BaseComponent {
     Promise.all(funcs).then(values => {
       this.residentInfos = values[0];
       this.residentInfoPids = this.residentInfos.map(loc => new Code({ codeDetail: loc.pid, name: loc.roomNo }));
+      this.residentInfoPidsFilter = this.residentInfoPids;// 20240402 Add
+
       // 20231027 S_Add
       if (this.residentInfoPidTemp > 0) {
         this.changeRoomNoSub(this.residentInfoPidTemp);
+        // 20240402 S_Add
+        this.data.residentInfoPid = this.residentInfoPidTemp;
+        this.residentInfoPidTemp = 0;
+        this.data.roomNo = this.residentInfoPids.filter(a => a.codeDetail == this.data.residentInfoPid.toString())[0].name;
+        // 20240402 E_Add
       }
       // 20231027 E_Add
     });
   }
   // 20231019 E_Add
+
+  // 20240402 S_Add
+  /**
+   * 部屋番号入力の際、入居者情報を検索する
+   */
+  residentSearch() {
+    this.residentInfoPidsFilter = this.residentInfoPids.filter(item => `${item.name}`.includes(this.data.roomNo));
+    if (this.residentInfoPidsFilter.length === 1) {
+      this.data.residentInfoPid = Number(this.residentInfoPidsFilter[0].codeDetail);
+    }
+    else {
+      this.data.residentInfoPid = null;
+    }
+    this.changeRoomNoSub(this.data.residentInfoPid);
+  }
+
+  /**
+   * チェックボックス変更
+   * @param event ：イベント
+   * @param flg ：フラグ
+   返還敷金(保証金)返還済フラグ*/
+  changeReturnDepositFlg(event, flg: any) {
+    flg.returnDepositFlg = (event.checked ? 1 : 0);
+    this.data.returnDepositFlg = flg.returnDepositFlg;
+  }
+  addDeposit() {
+    if (this.data.depositsMap == null) {
+      this.data.depositsMap = [];
+    }
+    this.data.depositsMap.push(new EvictionDepositInfo());
+  }
+  deleteDeposit(pos: number) {
+    this.data.depositsMap.splice(pos, 1);
+  }
+  // 20240402 E_Add
 }

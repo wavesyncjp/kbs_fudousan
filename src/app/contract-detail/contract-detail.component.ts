@@ -39,6 +39,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatRadioGroup } from '@angular/material/radio';
 import { MatDatepickerInput } from '@angular/material/datepicker';
 import { MultiSelectComponent } from 'ng-multiselect-dropdown';
+import { RentalSelectComponent } from '../rental-select/rental-select.component';
 // 20240131 E_Add
 
 @Component({
@@ -1102,4 +1103,29 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
     });
   }
   // 20240123 E_Add
+
+  // 20240402 S_Add  
+  /**
+ * 建物名選択
+ */
+  selectRental() {
+
+    //テンプレート選択
+    const dialogRef = this.dialog.open(RentalSelectComponent, {
+      width: '450px',
+      height: '200px',
+      data: this.rentals
+    });
+    // 再検索
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['choose']) {
+        //   this.spinner.show();
+        //   this.service.exportContract(this.contract.pid, result['templatePid']).then(data => {
+        //   this.service.writeToFile(data, result['fileName']);
+        //   this.spinner.hide();
+        // });
+      }
+    });
+  }
+  // 20240402 E_Add  
 }

@@ -21,14 +21,21 @@
             </td>
             <th>部屋番号</th>
             <td>
-                <!-- 20231019 S_Update -->
-                <!-- <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component> -->
-                <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)"  [isDisabled]="residentInfoPids == null || residentInfoPids.length == 0" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
-                <!-- 20231019 E_Update -->
+                <!-- 20240402 S_Update -->
+                <!-- <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)"  [isDisabled]="residentInfoPids == null || residentInfoPids.length == 0" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component> -->
+
+                <input type="search" name="datalist" list="datalist" [(ngModel)]="data.roomNo" (change)="residentSearch()" [ngClass]="{'error': errors['residentInfoPid'], 'width120': true}">
+                <datalist id="datalist">
+                    <option *ngFor="let res of residentInfoPidsFilter">{{res.name}}</option>
+                </datalist>
+                <!-- 20240402 E_Update -->
             </td>
             <th>貸借人名</th>
             <td>
-                <input type="text" [(ngModel)]="data.borrowerName" [ngClass]="{'error': errors['borrowerName']}" maxlength="128" disabled="true">
+                <!-- 20240402 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.borrowerName" [ngClass]="{'error': errors['borrowerName']}" maxlength="128" disabled="true"> -->
+                <input type="text" [(ngModel)]="data.borrowerName" [ngClass]="{'error': errors['borrowerName'], 'width120': true}" maxlength="128" [disabled]="data.residentInfoPid != null && data.residentInfoPid != 0">
+                <!-- 20240402 E_Update -->
             </td>
         </tr>
         <tr>
@@ -56,13 +63,16 @@
                 <input type="text" [(ngModel)]="data.evictionFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.evictionFeeMap)">&nbsp;円
             </td>
             <!-- 20231010 S_Add -->
-            <th>承継敷金(保証金)</th>
+            <!-- 20240402 S_Delete -->
+            <!-- <th>承継敷金(保証金)</th>
             <td>
                 <input type="text" [(ngModel)]="data.successionDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.successionDepositMap)">&nbsp;円
-            </td>
+            </td> -->
+            <!-- 20240402 E_Delete -->
             <!-- 20231010 E_Add -->
         </tr>
-        <tr>
+        <!-- 20240402 S_Delete -->
+        <!-- <tr>
             <th rowspan="3">内金①</th>
             <td>
                 <app-select-component [codes]="getCode('045')" [(ngModel)]="data.depositType1"></app-select-component>
@@ -75,14 +85,10 @@
             <td>
                 <app-select-component [codes]="getCode('045')" [(ngModel)]="data.remainingType"></app-select-component>
             </td>
-            <!-- 20231010 S_Add -->
             <th rowspan="3">返還敷金(保証金)</th>
             <td>
-                <!-- 20231027 S_Add -->
                 <app-select-component [codes]="getCode('045')" [(ngModel)]="data.returnDepositType"></app-select-component>
-                <!-- 20231027 E_Add -->
             </td>
-            <!-- 20231010 E_Add -->
         </tr>
         <tr>
             <td>
@@ -94,11 +100,9 @@
             <td>
                 <input type="text" [(ngModel)]="data.remainingFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.remainingFeeMap)">&nbsp;円
             </td>
-            <!-- 20231010 S_Add -->
             <td>
                 <input type="text" [(ngModel)]="data.returnDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.returnDepositMap)">&nbsp;円
             </td>
-            <!-- 20231010 E_Add -->
         </tr>
         <tr>
             <td>
@@ -122,7 +126,6 @@
                     <mat-datepicker #remainingPayedDate></mat-datepicker>
                 </div>
             </td>
-            <!-- 20231010 S_Add -->
             <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="returnDepositDate" [(ngModel)]="data.returnDepositDateMap" class="width100">
@@ -130,8 +133,100 @@
                     <mat-datepicker #returnDepositDate></mat-datepicker>
                 </div>
             </td>
-            <!-- 20231010 E_Add -->
+        </tr> -->
+        <!-- 20240402 E_Delete -->
+        
+        <!-- 20240402 S_Add -->
+        <!-- deposit begin -->
+        <!-- deposit row 1 begin -->
+        <tr>
+            <ng-container *ngFor="let deposit of data.depositsMap.slice(0, 4); let pos = index">
+            <th rowspan="3" class="right-align">
+                <app-select-component [codes]="getCode('048')" [(ngModel)]="deposit.evictionDepositType" cusClass="width120"></app-select-component>
+                <br>
+                <br>
+                <button mat-raised-button class="addDeposit" *ngIf="pos == 0" [disabled]="data.depositsMap.length > 6" (click)="addDeposit()" >追加</button>
+                <button mat-raised-button class="deleteDeposit" *ngIf="pos != 0" (click)="deleteDeposit(pos)" >削除</button>
+            <td>
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="deposit.depositType"></app-select-component>
+            </td>
+            </ng-container>
         </tr>
+        <tr>
+            <ng-container *ngFor="let deposit of data.depositsMap.slice(0, 4); let pos = index">
+            <td>
+                <input type="text" [(ngModel)]="deposit.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(deposit.depositMap)">&nbsp;円
+            </td>
+            </ng-container>
+        </tr>
+        <tr>
+            <ng-container *ngFor="let deposit of data.depositsMap.slice(0, 4); let pos = index">
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="depositPayedDate" [(ngModel)]="deposit.depositPayedDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="depositPayedDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #depositPayedDate></mat-datepicker>
+                </div>
+            </td>
+            </ng-container>
+        </tr>
+        <!-- deposit row 1 end -->
+
+        <!-- deposit row 2 begin -->
+        <tr *ngIf="data.depositsMap.length > 4">
+            <ng-container *ngFor="let deposit of data.depositsMap.slice(4); let pos = index">
+            <th rowspan="3" class="right-align">
+                <app-select-component [codes]="getCode('048')" [(ngModel)]="deposit.evictionDepositType" cusClass="width120"></app-select-component>
+                <br>
+                <br>
+                <button mat-raised-button class="deleteDeposit" (click)="deleteDeposit(pos + 4)">削除</button>
+            <td>
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="deposit.depositType"></app-select-component>
+            </td>
+            </ng-container>
+        </tr>
+        <tr *ngIf="data.depositsMap.length > 4">
+            <ng-container *ngFor="let deposit of data.depositsMap.slice(4); let pos = index">
+            <td>
+                <input type="text" [(ngModel)]="deposit.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(deposit.depositMap)">&nbsp;円
+            </td>
+            </ng-container>
+        </tr>
+        <tr *ngIf="data.depositsMap.length > 4">
+            <ng-container *ngFor="let deposit of data.depositsMap.slice(4); let pos = index">
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="depositPayedDate" [(ngModel)]="deposit.depositPayedDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="depositPayedDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #depositPayedDate></mat-datepicker>
+                </div>
+            </td>
+            </ng-container>
+        </tr>
+        <!-- deposit row 2 end -->
+        <!-- deposit end -->
+        <tr>
+            <th rowspan="3">返還敷金(保証金)</th>
+            <td>
+                <app-select-component [codes]="getCode('045')" [(ngModel)]="data.returnDepositType"></app-select-component>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" [(ngModel)]="data.returnDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.returnDepositMap)">&nbsp;円
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="returnDepositDate" [(ngModel)]="data.returnDepositDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="returnDepositDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #returnDepositDate></mat-datepicker>
+                    <mat-checkbox [checked]="data.returnDepositFlg === '1'" (change)="changeReturnDepositFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;済</span>
+                </div>
+            </td>
+        </tr>
+        <!-- 20240402 E_Add -->
         <tr>
             <!-- 20231010 S_Update -->
             <!-- <th>合意書取得日</th> -->
@@ -156,10 +251,20 @@
             <!-- 20231010 E_Delete -->
 
             <!-- 20231010 S_Add -->
-            <th>合意書取得済</th>
+            <!-- 20240402 S_Update -->
+            <!-- <th>合意書取得済</th>
             <td>
                 <mat-checkbox [checked]="data.acquiredAgreementFlg === '1'" (change)="changeAcquiredAgreementFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;済</span>
+            </td> -->
+            <th>合意解除日</th>
+            <td>
+                <div class="picker-div">
+                    <input type="text" [matDatepicker]="agreementCancellationDate" [(ngModel)]="data.agreementCancellationDateMap" class="width100">
+                    <mat-datepicker-toggle matSuffix [for]="agreementCancellationDate" class="picker-icon"></mat-datepicker-toggle>
+                    <mat-datepicker #agreementCancellationDate></mat-datepicker>
+                </div>
             </td>
+            <!-- 20240402 E_Update -->
             <!-- 20231010 E_Add -->
 
             <th>ファイル添付</th>
@@ -197,14 +302,16 @@
                 </div>
             </td>
             <!-- 20231016 S_Add -->
-            <th>合意解除日</th>
+            <!-- 20240402 S_Delete -->
+            <!-- <th>合意解除日</th>
             <td>
                 <div class="picker-div">
                     <input type="text" [matDatepicker]="agreementCancellationDate" [(ngModel)]="data.agreementCancellationDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="agreementCancellationDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #agreementCancellationDate></mat-datepicker>
                 </div>
-            </td>
+            </td> -->
+            <!-- 20240402 E_Delete -->
             <!-- 20231016 E_Add -->
         </tr>
         <!-- 20231010 E_Add -->

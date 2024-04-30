@@ -234,6 +234,9 @@
     <!-- 20231027 E_Add -->
     <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
         <span class="min">立退き一覧</span>
+        <!-- 20240402 S_Add -->
+        <button mat-raised-button class="output-btn2">預り金一覧作成</button>
+        <!-- 20240402 E_Add -->
         <table style="width: auto;">
             <thead class="list-header">
                 <th class="width_name">建物名</th>
@@ -246,7 +249,10 @@
                 <th class="width80">合意書</th>
                 <th class="width150">預り金一覧作成</th> -->
                 <th class="width80">合意書</th>
-                <th class="width150">預り金一覧作成</th>
+                <!-- 20240402 S_Update -->
+                <!-- <th class="width150">預り金一覧作成</th> -->
+                <th class="width80">敷金返還</th>
+                <!-- 20240402 E_Update -->
                 <th class="width80">詳細</th>
                 <th class="width80">削除</th>
                 <!-- 20240123 E_Update -->
@@ -262,8 +268,14 @@
                     <!-- <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
                     <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
                     <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td> -->
-                    <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td>
-                    <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td>
+                    <!-- 20240402 S_Update -->
+                    <!-- <td><span class="font-bold" *ngIf="item.acquiredAgreementFlg === '1'">有</span></td> -->
+                    <td><span class="font-bold" *ngIf="item.getAgreementDate != null && item.getAgreementDate != ''">済</span></td>
+                    <!-- 20240402 E_Update -->
+                    <!-- 20240402 S_Update -->
+                    <!-- <td><button mat-raised-button class="output-btn2">預り金一覧作成</button></td> -->
+                    <td><span class="font-bold" *ngIf="item.returnDepositFlg === '1'">済</span></td>
+                    <!-- 20240402 E_Update -->
                     <td><button mat-raised-button (click)="showEvictionInfo(item,pos)" color="warn">詳細</button></td>
                     <td><button mat-raised-button (click)="deleteEvictionInfo(item,pos)" class="delete_btn">削除</button></td>
                     <!-- 20240123 E_Update -->
