@@ -117,60 +117,67 @@ export class RentalContractDetailComponent extends BaseComponent {
 
       this.spinner.hide();
     });
-
+    
     // 20231010 S_Add
     let _that = this;
-    $('#loanPeriodStartDate').datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: `1950:${new Date().getFullYear() + 10}`,
-      dateFormat: 'yy/mm/dd',
-      onSelect: function (dataText) {
-        _that.data.loanPeriodStartDateMap = dataText;
-      },
-      showButtonPanel: true,
-      ignoreReadonly: true,
-      allowInputToggle: true,
+    // 20240610 S_Update
+    // $('#loanPeriodStartDate').datepicker({
+    //   changeMonth: true,
+    //   changeYear: true,
+    //   yearRange: `1950:${new Date().getFullYear() + 10}`,
+    //   dateFormat: 'yy/mm/dd',
+    //   onSelect: function (dataText) {
+    //     _that.data.loanPeriodStartDateMap = dataText;
+    //   },
+    //   showButtonPanel: true,
+    //   ignoreReadonly: true,
+    //   allowInputToggle: true,
 
-      buttonImage: "assets/img/calendar-icon_wareki.png",
-      buttonImageOnly: true,// 画像として表示
-      showOn: "both"
-    });
+    //   buttonImage: "assets/img/calendar-icon_wareki.png",
+    //   buttonImageOnly: true,// 画像として表示
+    //   showOn: "both"
+    // });
 
-    $('#loanPeriodEndDate').datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: `1950:${new Date().getFullYear() + 10}`,
-      dateFormat: 'yy/mm/dd',
-      onSelect: function (dataText) {
-        _that.data.loanPeriodEndDateMap = dataText;
-      },
-      showButtonPanel: true,
-      ignoreReadonly: true,
-      allowInputToggle: true,
+    // $('#loanPeriodEndDate').datepicker({
+    //   changeMonth: true,
+    //   changeYear: true,
+    //   yearRange: `1950:${new Date().getFullYear() + 10}`,
+    //   dateFormat: 'yy/mm/dd',
+    //   onSelect: function (dataText) {
+    //     _that.data.loanPeriodEndDateMap = dataText;
+    //   },
+    //   showButtonPanel: true,
+    //   ignoreReadonly: true,
+    //   allowInputToggle: true,
 
-      buttonImage: "assets/img/calendar-icon_wareki.png",
-      buttonImageOnly: true,// 画像として表示
-      showOn: "both"
-    });
-    // 20231016 S_Add
-    $('#agreementDate').datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: `1950:${new Date().getFullYear() + 10}`,
-      dateFormat: 'yy/mm/dd',
-      onSelect: function (dataText) {
-        _that.data.agreementDateMap = dataText;
-      },
-      showButtonPanel: true,
-      ignoreReadonly: true,
-      allowInputToggle: true,
+    //   buttonImage: "assets/img/calendar-icon_wareki.png",
+    //   buttonImageOnly: true,// 画像として表示
+    //   showOn: "both"
+    // });
+    // // 20231016 S_Add
+    // $('#agreementDate').datepicker({
+    //   changeMonth: true,
+    //   changeYear: true,
+    //   yearRange: `1950:${new Date().getFullYear() + 10}`,
+    //   dateFormat: 'yy/mm/dd',
+    //   onSelect: function (dataText) {
+    //     _that.data.agreementDateMap = dataText;
+    //   },
+    //   showButtonPanel: true,
+    //   ignoreReadonly: true,
+    //   allowInputToggle: true,
 
-      buttonImage: "assets/img/calendar-icon_wareki.png",
-      buttonImageOnly: true,// 画像として表示
-      showOn: "both"
-    });
-    // 20231016 E_Add
+    //   buttonImage: "assets/img/calendar-icon_wareki.png",
+    //   buttonImageOnly: true,// 画像として表示
+    //   showOn: "both"
+    // });
+    // // 20231016 E_Add
+
+    this.initializeDatepicker($,'#loanPeriodStartDate', _that.data, 'loanPeriodStartDateMap');
+    this.initializeDatepicker($,'#loanPeriodEndDate', _that.data, 'loanPeriodEndDateMap');
+    this.initializeDatepicker($,'#agreementDate', _that.data, 'agreementDateMap');
+    // 20240610 E_Update
+
     $('.ui-datepicker-trigger').removeClass('ui-datepicker-trigger').addClass('ui-datepicker-trigger2');
     // 20231010 E_Add
   }

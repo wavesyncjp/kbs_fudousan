@@ -148,22 +148,25 @@ export class LocationDetailComponent extends BaseComponent {
 
     // 20211107 S_Add
     let _that = this;
-    $('#txtCompletionDay').datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: `1950:${new Date().getFullYear() + 10}`,
-      dateFormat: 'yy/mm/dd',
-      onSelect: function (dataText) {
-        _that.data.completionDayMap = dataText;
-      },
-      showButtonPanel: true,
-      ignoreReadonly: true,
-      allowInputToggle: true,
+    // 20240610 S_Update
+    // $('#txtCompletionDay').datepicker({
+    //   changeMonth: true,
+    //   changeYear: true,
+    //   yearRange: `1950:${new Date().getFullYear() + 10}`,
+    //   dateFormat: 'yy/mm/dd',
+    //   onSelect: function (dataText) {
+    //     _that.data.completionDayMap = dataText;
+    //   },
+    //   showButtonPanel: true,
+    //   ignoreReadonly: true,
+    //   allowInputToggle: true,
 
-      buttonImage: "assets/img/calendar-icon_wareki.png",
-      buttonImageOnly: true,// 画像として表示
-      showOn: "both"
-    });
+    //   buttonImage: "assets/img/calendar-icon_wareki.png",
+    //   buttonImageOnly: true,// 画像として表示
+    //   showOn: "both"
+    // });
+    this.initializeDatepicker($,'#txtCompletionDay', _that.data, 'completionDayMap');
+    // 20240610 E_Update
     // 20211107 S_End
     // 20211109 S_Add
     if (this.data.locationType === '01' || this.data.locationType === '03') {

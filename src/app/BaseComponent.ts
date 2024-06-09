@@ -412,4 +412,68 @@ export class BaseComponent implements OnInit {
         }
     }
     // 20230917 E_Add
+
+    // 20240610 S_Add
+    // 再利用可能な日付ピッカーの初期化関数を定義します。
+    initializeDatepicker($, selector, dateMapObject, dateKey) {
+        $(selector).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: `1950:${new Date().getFullYear() + 10}`,
+            dateFormat: 'yy/mm/dd',
+            onSelect: function (dataText) {
+                dateMapObject[dateKey] = dataText;
+            },
+            showButtonPanel: true,
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            buttonImage: "assets/img/calendar-icon_wareki.png",
+            buttonImageOnly: true,
+            showOn: "both"
+        }).on('change', function () {
+            const inputDate = $(this).val();
+            let currentDate = $(this).datepicker('getDate');
+            let formattedDate = $.datepicker.formatDate('yy/mm/dd', currentDate);
+    
+            if (inputDate !== formattedDate) {
+                const parseDate = (dateString, pattern) => {
+                    const year = parseInt(dateString.substr(0, 4));
+                    let month = parseInt(dateString.substr(4, pattern === 'yyyymmdd' ? 2 : 1));
+                    let day = parseInt(dateString.substr(4 + (pattern === 'yyyymmdd' ? 2 : 1), pattern === 'yyyymmdd' ? 2 : 1));
+                    
+                    if (pattern === 'yyyymdd' || pattern === 'yyyymd') {
+                        if (pattern === 'yyyymdd' && parseInt(dateString.substr(5, 2)) <= 12) {
+                            month = parseInt(dateString.substr(4, 1));
+                            day = parseInt(dateString.substr(5, 2));
+                        }
+                    }
+    
+                    if (month <= 12 && day <= new Date(year, month, 0).getDate()) {
+                        return new Date(year, month - 1, day);
+                    }
+                    return null;
+                };
+    
+                let isValidDate = !isNaN(currentDate.getTime());
+                if (isValidDate) {
+                    if (/^\d{8}$/.test(inputDate)) {
+                        currentDate = parseDate(inputDate, 'yyyymmdd');
+                    } else if (/^\d{6}$/.test(inputDate)) {
+                        currentDate = parseDate(inputDate, 'yyyymd');
+                    } else if (/^\d{7}$/.test(inputDate)) {
+                        currentDate = parseDate(inputDate, 'yyyymdd') || parseDate(inputDate, 'yyyymd');
+                    }
+    
+                    if (currentDate) {
+                        formattedDate = $.datepicker.formatDate('yy/mm/dd', currentDate);
+                        $(this).datepicker('setDate', formattedDate);
+                    } else {
+                        $(this).val(formattedDate); // 最後の有効な日付にリセットします。
+                    }
+                }
+                dateMapObject[dateKey] = formattedDate;
+            }
+        });
+    }
+    // 20240610 E_Add
 }
