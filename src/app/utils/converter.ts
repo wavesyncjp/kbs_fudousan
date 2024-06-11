@@ -1,6 +1,9 @@
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
-import { parse } from 'date-fns';
+// 20240610 S_Update
+// import { parse } from 'date-fns';
+import { parse, format } from 'date-fns';
+// 20240610 E_Update
 
 export class Converter {
     
@@ -42,4 +45,18 @@ export class Converter {
         let ret = val != null && val !== '' ? parse(val, format, new Date()) : null;
         return ret;
     }
+
+    // 20240610 S_Add
+    public static dateToString2(val: String, format: string, datePipe: DatePipe) {
+        let ret = val != null ? datePipe.transform(val.toString(), format) : null;
+        return ret;
+    }
+    public static stringToDate2(val: string, formatDate: string) {
+        let ret = val != null && val !== '' ? parse(val, formatDate, new Date()) : null;
+        if(ret != null){
+            return format(ret, 'yyyy/M/d');
+        }
+        return val;
+    }
+    // 20240610 E_Add
 }

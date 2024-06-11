@@ -129,7 +129,10 @@ export class Locationinfo {
         this.acquisitionDateMap = Converter.stringToDate(this.acquisitionDate, 'yyyyMMdd');// 20200913 Add
         // 20211107 S_Update
         //        this.completionDayMap = Converter.stringToDate(this.completionDay, 'yyyyMMdd');// 20211025 Add
-        this.completionDayMap = this.addSlash(this.completionDay);
+        // 20240610 S_Update
+        // this.completionDayMap = this.addSlash(this.completionDay);
+        this.completionDayMap = Converter.stringToDate2(this.completionDay, 'yyyyMMdd');// 20211025 Add
+        // 20240610 E_Update
         // 20211107 E_Update
         this.expirationDateMap = Converter.stringToDate(this.expirationDate, 'yyyyMMdd');// 20220614 Add
         //カンマ
@@ -177,7 +180,10 @@ export class Locationinfo {
         this.acquisitionDate = Converter.dateToString(this.acquisitionDateMap, 'yyyyMMdd', datePipe);// 20200913 Add
         // 20211107 S_Update
         //        this.completionDay = Converter.dateToString(this.completionDayMap, 'yyyyMMdd', datePipe);// 20211025 Add
-        this.completionDay = this.completionDayMap != null ? this.completionDayMap.replace(/\//g, '') : this.completionDay;
+        // 20240610 S_Update
+        // this.completionDay = this.completionDayMap != null ? this.completionDayMap.replace(/\//g, '') : this.completionDay;
+        this.completionDay = Converter.dateToString2(this.completionDayMap, 'yyyyMMdd', datePipe);
+        // 20240610 E_Update
         // 20211107 E_Update
         this.expirationDate = Converter.dateToString(this.expirationDateMap, 'yyyyMMdd', datePipe);// 20220614 Add
         //カンマ
@@ -209,10 +215,12 @@ export class Locationinfo {
         });
         // 20220614 E_Add
     }
-    // 20211107 S_Add
-    addSlash(day: String) {
-        if (day == null || day === '' || day.length < 8) return day;
-        return `${day.substring(0, 4)}/${day.substring(4, 6)}/${day.substring(6)}`
-    }
-    // 20211107 E_Add
+    // 20240610 S_Delete
+    // // 20211107 S_Add
+    // addSlash(day: String) {
+    //     if (day == null || day === '' || day.length < 8) return day;
+    //     return `${day.substring(0, 4)}/${day.substring(4, 6)}/${day.substring(6)}`
+    // }
+    // // 20211107 E_Add
+    // 20240610 E_Delete
 }

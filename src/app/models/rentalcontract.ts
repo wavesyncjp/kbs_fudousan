@@ -134,15 +134,22 @@ export class RentalContract {
         // 20231010 S_Update
         // this.loanPeriodStartDateMap = Converter.stringToDate(this.loanPeriodStartDate, 'yyyyMMdd');
         // this.loanPeriodEndDateMap = Converter.stringToDate(this.loanPeriodEndDate, 'yyyyMMdd');
-        this.loanPeriodStartDateMap = this.addSlash(this.loanPeriodStartDate);
-        this.loanPeriodEndDateMap = this.addSlash(this.loanPeriodEndDate);
+        // 20240610 S_Update
+        // this.loanPeriodStartDateMap = this.addSlash(this.loanPeriodStartDate);
+        // this.loanPeriodEndDateMap = this.addSlash(this.loanPeriodEndDate);
+        this.loanPeriodStartDateMap = Converter.stringToDate2(this.loanPeriodStartDate, 'yyyyMMdd');
+        this.loanPeriodEndDateMap = Converter.stringToDate2(this.loanPeriodEndDate, 'yyyyMMdd');
+        // 20240610 E_Update
         // 20231010 E_Update
         // 20231016 S_Delete
         // this.contractEndNotificationStartDateMap = Converter.stringToDate(this.contractEndNotificationStartDate, 'yyyyMMdd');
         // this.contractEndNotificationEndDateMap = Converter.stringToDate(this.contractEndNotificationEndDate, 'yyyyMMdd');
         // 20231016 E_Delete
         // 20231016 S_Add
-        this.agreementDateMap = this.addSlash(this.agreementDate);
+        // 20240610 S_Update
+        // this.agreementDateMap = this.addSlash(this.agreementDate);
+        this.agreementDateMap = Converter.stringToDate2(this.agreementDate, 'yyyyMMdd');
+        // 20240610 E_Update
         // 20231016 E_Add
 
         // this.roomRentExemptionStartDateMap = Converter.stringToDate(this.roomRentExemptionStartDate, 'yyyyMMdd'); // 20240123 Delete
@@ -184,15 +191,22 @@ export class RentalContract {
         // 20231010 S_Update
         // this.loanPeriodStartDate = Converter.dateToString(this.loanPeriodStartDateMap, 'yyyyMMdd', datePipe);
         // this.loanPeriodEndDate = Converter.dateToString(this.loanPeriodEndDateMap, 'yyyyMMdd', datePipe);
-        this.loanPeriodStartDate = this.loanPeriodStartDateMap != null ? this.loanPeriodStartDateMap.replace(/\//g, '') : this.loanPeriodStartDate;
-        this.loanPeriodEndDate = this.loanPeriodEndDateMap != null ? this.loanPeriodEndDateMap.replace(/\//g, '') : this.loanPeriodEndDate;
+        // 20240610 S_Update
+        // this.loanPeriodStartDate = this.loanPeriodStartDateMap != null ? this.loanPeriodStartDateMap.replace(/\//g, '') : this.loanPeriodStartDate;
+        // this.loanPeriodEndDate = this.loanPeriodEndDateMap != null ? this.loanPeriodEndDateMap.replace(/\//g, '') : this.loanPeriodEndDate;
+        this.loanPeriodStartDate = Converter.dateToString2(this.loanPeriodStartDateMap, 'yyyyMMdd', datePipe);
+        this.loanPeriodEndDate = Converter.dateToString2(this.loanPeriodEndDateMap, 'yyyyMMdd', datePipe);
+        // 20240610 E_Update
         // 20231010 E_Update
         // 20231016 S_Delete
         // this.contractEndNotificationStartDate = Converter.dateToString(this.contractEndNotificationStartDateMap, 'yyyyMMdd', datePipe);
         // this.contractEndNotificationEndDate = Converter.dateToString(this.contractEndNotificationEndDateMap, 'yyyyMMdd', datePipe);
         // 20231016 E_Delete
         // 20231016 S_Add
-        this.agreementDate = this.agreementDateMap != null ? this.agreementDateMap.replace(/\//g, '') : this.agreementDate;
+        // 20240610 S_Update
+        // this.agreementDate = this.agreementDateMap != null ? this.agreementDateMap.replace(/\//g, '') : this.agreementDate;
+        this.agreementDate = Converter.dateToString2(this.agreementDateMap, 'yyyyMMdd', datePipe);
+        // 20240610 E_Update
         // 20231016 E_Add
 
         // this.roomRentExemptionStartDate = Converter.dateToString(this.roomRentExemptionStartDateMap, 'yyyyMMdd', datePipe); // 20240123 Delete
@@ -224,10 +238,12 @@ export class RentalContract {
         // 20231016 E_Add
     }
 
-    // 20231010 S_Add
-    addSlash(day: String) {
-        if (day == null || day === '' || day.length < 8) return day;
-        return `${day.substring(0, 4)}/${day.substring(4, 6)}/${day.substring(6)}`
-    }
-    // 20231010 E_Add
+    // 20240610 S_Delete
+    // // 20231010 S_Add
+    // addSlash(day: String) {
+    //     if (day == null || day === '' || day.length < 8) return day;
+    //     return `${day.substring(0, 4)}/${day.substring(4, 6)}/${day.substring(6)}`
+    // }
+    // // 20231010 E_Add
+    // 20240610 E_Delete
 }

@@ -420,7 +420,7 @@ export class BaseComponent implements OnInit {
             changeMonth: true,
             changeYear: true,
             yearRange: `1950:${new Date().getFullYear() + 10}`,
-            dateFormat: 'yy/mm/dd',
+            dateFormat: 'yy/m/d',
             onSelect: function (dataText) {
                 dateMapObject[dateKey] = dataText;
             },
@@ -433,7 +433,7 @@ export class BaseComponent implements OnInit {
         }).on('change', function () {
             const inputDate = $(this).val();
             let currentDate = $(this).datepicker('getDate');
-            let formattedDate = $.datepicker.formatDate('yy/mm/dd', currentDate);
+            let formattedDate = $.datepicker.formatDate('yy/m/d', currentDate);
     
             if (inputDate !== formattedDate) {
                 const parseDate = (dateString, pattern) => {
@@ -465,7 +465,7 @@ export class BaseComponent implements OnInit {
                     }
     
                     if (currentDate) {
-                        formattedDate = $.datepicker.formatDate('yy/mm/dd', currentDate);
+                        formattedDate = $.datepicker.formatDate('yy/m/d', currentDate);
                         $(this).datepicker('setDate', formattedDate);
                     } else {
                         $(this).val(formattedDate); // 最後の有効な日付にリセットします。
