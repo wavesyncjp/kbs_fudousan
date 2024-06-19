@@ -103,6 +103,7 @@ import { CalRentalSettlementDetailComponent } from './calRentalSettlement-detail
 // 20240402 S_Add
 import { RentalSelectComponent } from './rental-select/rental-select.component';
 // 20240402 E_Add
+import { NumberInputComponent } from './uicomponent/number-input/number-input.component';// 20240614 Add
 
 @NgModule({
   declarations: [
@@ -183,6 +184,7 @@ import { RentalSelectComponent } from './rental-select/rental-select.component';
     // 20230917 E_Add
     , CalRentalSettlementDetailComponent // 20240123 Add
     , RentalSelectComponent// 20240402 Add
+    , NumberInputComponent// 20240614 Add
   ],
   imports: [
     BrowserModule

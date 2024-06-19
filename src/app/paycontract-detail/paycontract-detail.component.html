@@ -212,18 +212,19 @@
                     <!-- 20231206 S_Update -->
                     <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td> -->
-                    <!-- 20240610 S_Update     -->
+                    <!-- 20240614 S_Update     -->
                     <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (keyup)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" (keyup)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td> -->
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (input)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" (input)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
-                    <!-- 20240610 E_Update     -->
+                    <td class="money"><app-number-input [(value)]="detail.payPriceMap" (valueChange)="calcPriceTax(detail)"></app-number-input><label>円</label></td>
+                    <td class="money"><app-number-input [(value)]="detail.payTaxMap" (valueChange)="calcPriceTax(detail)"></app-number-input><label>円</label></td>
+                    <!-- 20240614 E_Update     -->
                     <!-- 20231206 E_Update -->
-                    <!-- 20240610 S_Update     -->
-                    <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td> -->
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (input)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
-                    <!-- 20240610 E_Update     -->
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.withholdingTaxMap" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.withholdingTaxMap)"><label>円</label></td><!-- 20220725 S_Add -->
+                    <!-- 20240614 S_Update     -->
+                    <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.withholdingTaxMap" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.withholdingTaxMap)"><label>円</label></td>20220725 S_Add -->
+                    <td class="money"><app-number-input [(value)]="detail.payPriceTaxMap" (valueChange)="taxCalc(detail)"></app-number-input><label>円</label></td>
+                    <td class="money"><app-number-input [(value)]="detail.withholdingTaxMap"></app-number-input><label>円</label></td>
+                    <!-- 20240614 E_Update     -->
                     <!-- 20200921 E_Update -->
                     <!-- 20210905 S_Delete -->
                     <!--
@@ -300,18 +301,19 @@
                     <!-- 20231206 S_Update -->
                     <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td> -->
-                    <!-- 20240610 S_Update     -->
+                    <!-- 20240614 S_Update     -->
                     <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (keyup)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" (keyup)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td> -->
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceMap" (input)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payPriceMap)"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payTaxMap" (input)="calcPriceTax(detail)" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.payTaxMap)"><label>円</label></td>
-                    <!-- 20240610 E_Update     -->
+                    <td class="money"><app-number-input [(value)]="detail.payPriceMap" (valueChange)="calcPriceTax(detail)"></app-number-input><label>円</label></td>
+                    <td class="money"><app-number-input [(value)]="detail.payTaxMap" (valueChange)="calcPriceTax(detail)"></app-number-input><label>円</label></td>
+                    <!-- 20240614 E_Update     -->
                     <!-- 20231206 E_Update -->
-                    <!-- 20240610 S_Update     -->
-                    <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td> -->
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (input)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
-                    <!-- 20240610 E_Update     -->
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.withholdingTaxMap" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.withholdingTaxMap)"><label>円</label></td><!-- 20220725 S_Add -->
+                    <!-- 20240614 S_Update     -->
+                    <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.payPriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.payPriceTaxMap)"><label>円</label></td>
+                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.withholdingTaxMap" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.withholdingTaxMap)"><label>円</label></td>20220725 S_Add -->
+                    <td class="money"><app-number-input [(value)]="detail.payPriceTaxMap" (valueChange)="taxCalc(detail)"></app-number-input><label>円</label></td>
+                    <td class="money"><app-number-input [(value)]="detail.withholdingTaxMap"></app-number-input><label>円</label></td>
+                    <!-- 20240614 E_Update     -->
                     <!-- 20200921 E_Update -->
                     <!-- 20210905 S_Delete -->
                     <!--

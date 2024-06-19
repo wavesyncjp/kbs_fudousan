@@ -139,7 +139,10 @@
                     </td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receivePriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receiveTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receiveTaxMap)"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td>
+                    <!-- 20240614 S_Update -->
+                    <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td> -->
+                    <td class="money"><app-number-input [(value)]="detail.receivePriceTaxMap" (valueChange)="taxCalc(detail)"></app-number-input><label>円</label></td>
+                    <!-- 20240614 E_Update -->
                     <!--
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.receiveSeason" maxlength="100"></td>
                     <td>
@@ -192,7 +195,10 @@
                     </td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receivePriceMap)"><label>円</label></td>
                     <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receiveTaxMap" [attr.disabled]="true" (keypress)="numericOnly($event)" style="padding: 0px;" [value]="changeValue(detail.receiveTaxMap)"><label>円</label></td>
-                    <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td>
+                    <!-- 20240614 S_Update -->
+                    <!-- <td class="money"><input class="width110 number" type="text" [(ngModel)]="detail.receivePriceTaxMap" (keyup)="taxCalc(detail)" (keypress)="numericOnly($event)" maxlength="15" style="padding: 0px;" [value]="changeValue(detail.receivePriceTaxMap)"><label>円</label></td> -->
+                    <td class="money"><app-number-input [(value)]="detail.receivePriceTaxMap" (valueChange)="taxCalc(detail)"></app-number-input><label>円</label></td>
+                    <!-- 20240614 E_Update -->
                     <!--
                     <td><input class="width100 number" type="text" [(ngModel)]="detail.receiveSeason" maxlength="100"></td>
                     <td>
