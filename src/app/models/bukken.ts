@@ -194,7 +194,10 @@ export class KanjyoFix {
     debtorKanjyoDetailName: string;
     creditorKanjyoCode: string;
     creditorKanjyoDetailName: string;
-    transFlg: string = "";
+    // 20240802 S_Update
+    // transFlg: string = "";
+    contractType: string = "";
+    // 20240802 E_Update
     transDebtorKanjyoCode : string;
     transCreditorKanjyoCode : string;
     createUserId: number;

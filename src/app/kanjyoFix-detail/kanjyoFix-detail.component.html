@@ -26,10 +26,16 @@
             </td>
         </tr>
         <tr>
-            <th>振替フラグ</th>
+            <!-- 20240802 S_Update -->
+            <!-- <th>振替フラグ</th>
             <td>
                 <app-select-component [codes]="getCode('029')" [(ngModel)]="data.transFlg"></app-select-component>
+            </td> -->
+            <th>入出金区分</th>
+            <td>
+                <app-select-component [codes]="getCode('031')" [(ngModel)]="data.contractType"></app-select-component>
             </td>
+            <!-- 20240802 E_Update -->
 
             <th>振替後<br>借方勘定科目コード</th>
             <td>

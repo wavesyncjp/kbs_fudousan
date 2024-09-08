@@ -100,7 +100,21 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
     }
     // 20240221 E_Update
 
-    this.calcForRentPrice();
+    // 20240528 S_Update
+    // this.calcForRentPrice();
+    if(this.contract.rentalSettlementNoPayTax != null && this.contract.rentalSettlementNoPayTax != 0
+      || this.contract.rentalSettlementPayTax != null && this.contract.rentalSettlementPayTax != 0
+      || this.contract.rentalSettlementTax != null && this.contract.rentalSettlementTax != 0
+    )
+    {
+      this.contract.rentPriceNoPayTaxMap = Converter.numberToString(this.contract.rentalSettlementNoPayTax);
+      this.contract.rentPricePayTaxMap = Converter.numberToString(this.contract.rentalSettlementPayTax);
+      this.contract.rentPriceTaxMap = Converter.numberToString(this.contract.rentalSettlementTax);
+    }
+    else{
+      this.calcForRentPrice();
+    }
+    // 20240528 E_Update
   }
 
   calcForRentPrice() {
@@ -294,6 +308,13 @@ export class CalRentalSettlementDetailComponent extends BaseComponent {
         this.contract.locations.push(val);
       }
     });
+
+    // 20240528 S_Add
+    this.contract.rentalSettlementNoPayTax = Converter.stringToNumber(this.contract.rentPriceNoPayTaxMap);
+    this.contract.rentalSettlementPayTax = Converter.stringToNumber(this.contract.rentPricePayTaxMap);
+    this.contract.rentalSettlementTax = Converter.stringToNumber(this.contract.rentPriceTaxMap);
+    // 20240528 E_Add
+
   }
   // 20240226 E_Add  
 }

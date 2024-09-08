@@ -26,7 +26,10 @@ import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
 export class KanjyoFixListComponent extends BaseComponent {
   public cond: any;
   selectedRowIndex = -1;
-  displayedColumns: string[] = ['paymentCode', 'debtorKanjyoCode','creditorKanjyoCode','transFlg','createDate', 'updateDate', 'delete', 'detail'];
+  // 20240802 S_Update
+  // displayedColumns: string[] = ['paymentCode', 'debtorKanjyoCode','creditorKanjyoCode','transFlg','createDate', 'updateDate', 'delete', 'detail'];
+  displayedColumns: string[] = ['paymentCode', 'debtorKanjyoCode','creditorKanjyoCode','contractType','createDate', 'updateDate', 'delete', 'detail'];
+  // 20240802 E_Update
   dataSource = new MatTableDataSource<KanjyoFix>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -50,7 +53,10 @@ export class KanjyoFixListComponent extends BaseComponent {
     };
 
     const funcs = [];
-    funcs.push(this.service.getCodes(['029']));
+    // 20240802 S_Update
+    // funcs.push(this.service.getCodes(['029']));
+    funcs.push(this.service.getCodes(['031']));
+    // 20240802 E_Update
     funcs.push(this.service.getKanjyos(null));
     funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
 

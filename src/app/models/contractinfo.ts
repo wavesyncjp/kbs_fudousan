@@ -252,6 +252,12 @@ export class Contractinfo {
     decisionDayEndMonthMap: Date = null;
     // 20240123 S_Add
 
+    // 20240528 S_Add
+    rentalSettlementNoPayTax: number;// 賃料精算金（非課税分）
+    rentalSettlementPayTax: number;// 賃料精算金（課税分）
+    rentalSettlementTax: number;// 賃料精算金（消費税）
+    // 20240528 E_Add
+
     public constructor(init?: Partial<Contractinfo>) {
         if (init) {
             Object.assign(this, init);

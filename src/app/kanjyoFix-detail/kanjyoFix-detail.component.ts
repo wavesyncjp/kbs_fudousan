@@ -40,7 +40,10 @@ export class KanjyoFixDetailComponent extends BaseComponent {
 
   ngOnInit() {
     const funcs = [];
-    funcs.push(this.service.getCodes(['029']));
+    // 20240802 S_Update
+    // funcs.push(this.service.getCodes(['029']));
+    funcs.push(this.service.getCodes(['031']));
+    // 20240802 E_Update
     funcs.push(this.service.getKanjyos(null));
     funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
 
@@ -79,10 +82,12 @@ export class KanjyoFixDetailComponent extends BaseComponent {
 
     this.checkBlank(this.data.paymentCode, 'paymentCode', '支払コードは必須です。');
 
-    if(this.data.transFlg !== '' && this.data.transFlg !== '00'){
-      this.checkBlank(this.data.transDebtorKanjyoCode, 'transDebtorKanjyoCode', '振替後借方勘定科目コードは必須です。');
-      this.checkBlank(this.data.transCreditorKanjyoCode, 'transCreditorKanjyoCode', '振替後貸方勘定科目コードは必須です。');
-    }
+    // 20240802 S_Delete
+    // if(this.data.transFlg !== '' && this.data.transFlg !== '00'){
+    //   this.checkBlank(this.data.transDebtorKanjyoCode, 'transDebtorKanjyoCode', '振替後借方勘定科目コードは必須です。');
+    //   this.checkBlank(this.data.transCreditorKanjyoCode, 'transCreditorKanjyoCode', '振替後貸方勘定科目コードは必須です。');
+    // }
+    // 20240802 E_Delete
     if (this.errorMsgs.length > 0) {
       return false;
     }

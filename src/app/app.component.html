@@ -59,6 +59,10 @@
                         <li><a (click)="navigate('bkupdate')">担当割付・変更</a></li><!-- 20210207 Add -->
                         <!-- リリースまでコメント --><!--<li><a (click)="navigate('kanjyos')">勘定マスタ</a></li>--><!-- 20210628 Add -->
                         <!-- リリースまでコメント --><!--<li><a (click)="navigate('kanjyoFixs')">貸方借方決定マスタ</a></li>--><!-- 20210628 Add -->
+                        <!-- 20240802 S_Add -->
+                        <li *ngIf="authority == '01'"><a (click)="navigate('kanjyos')">勘定マスタ</a></li>
+                        <li *ngIf="authority == '01'"><a (click)="navigate('kanjyoFixs')">貸方借方決定マスタ</a></li>
+                        <!-- 20240802 E_Add -->
                     </ul>
                 </div>
             </li>
