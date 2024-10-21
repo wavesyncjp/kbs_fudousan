@@ -16,10 +16,18 @@ table {
 }
 
 .payment-type {
-    width: 140px !important;
+    /* 20240930 S_Update */
+    /* width: 140px !important; */
+    width: 280px !important;
+    /* 20240930 E_Update */
     height: 25px !important;
     min-width: 100px;
     border: solid 1px cornflowerblue;
     border-radius: 2px;
     margin-left: 3px;
 }
+/* 20240930 S_Add */
+.payment-type:disabled {
+    background-color: #EBEBE4;
+}
+/* 20240930 E_Add */

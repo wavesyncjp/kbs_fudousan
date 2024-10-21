@@ -205,6 +205,11 @@ export class KanjyoFix {
     updateDate: Date;
     createDate: Date;
 
+    // 20240930 S_Add
+    statusMap: string;// 登録状態
+    msgMap: string;// NGのメッセージ
+    // 20240930 E_Add
+
     public constructor(init?: Partial<KanjyoFix>) {
         Object.assign(this, init);
     }

@@ -59,6 +59,7 @@ export class KanjyoFixListComponent extends BaseComponent {
     // 20240802 E_Update
     funcs.push(this.service.getKanjyos(null));
     funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
+    funcs.push(this.service.searchReceiveType(null));// 20240930 Add
 
     Promise.all(funcs).then(values => {
       // コード
@@ -73,6 +74,7 @@ export class KanjyoFixListComponent extends BaseComponent {
       }
       this.kanjyos = values[1];
       this.payTypes = values[2];
+      this.recTypes = values[3];// 20240930 Add
 
       this.kanjyoCodes = this.getKanjyos();
       this.paymenttypes = this.getPaymentTypes();

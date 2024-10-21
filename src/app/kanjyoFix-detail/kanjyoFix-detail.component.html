@@ -3,8 +3,37 @@
         <li *ngFor="let msg of errorMsgs">{{msg}}</li>
     </ul>
     <table class="detail-tbl">
+        <!-- 20240930 S_Add -->
         <tr>
-            <th>支払コード</th>
+            <th>入出金区分</th>
+            <td>
+                <app-select-component [codes]="getCode('031')" [(ngModel)]="data.contractType" [ngClass]="{'error-select': errors['contractType']}"></app-select-component>
+            </td>
+            <th>コード</th>
+            <td>
+                <select [(ngModel)]="data.paymentCode" class="payment-type" [ngClass]="{'width400': true, 'error': errors['paymentCode']}" [disabled]="data.contractType == null || data.contractType == ''">
+                    <option value=""></option>
+                    <ng-container *ngIf="data.contractType == '0'">
+                    <ng-container *ngFor="let tp of payTypes">
+                        <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                        <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option>
+                    </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="data.contractType == '1'">
+                        <ng-container *ngFor="let tp of recTypes">
+                            <optgroup [label]="tp.receiveName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                            <option [value]="tp.receiveCode" *ngIf="tp.categoryFlg !== '1'">
+                                &nbsp;&nbsp;&nbsp;&nbsp;{{tp.receiveName}}
+                            </option>
+                        </ng-container>
+                    </ng-container>
+                </select>
+            </td>
+        </tr>
+        <!-- 20240930 E_Add -->
+        <tr>
+            <!-- 20240930 S_Delete -->
+            <!-- <th>支払コード</th>
             <td>
                 <select [(ngModel)]="data.paymentCode" class="payment-type" [ngClass]="{'width400': true, 'error': errors['paymentCode']}">
                     <option value=""></option>
@@ -13,7 +42,8 @@
                         <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option>
                     </ng-container>
                 </select>
-            </td>
+            </td> -->
+            <!-- 20240930 E_Delete -->
 
             <th>借方勘定科目コード</th>
             <td>
@@ -31,10 +61,12 @@
             <td>
                 <app-select-component [codes]="getCode('029')" [(ngModel)]="data.transFlg"></app-select-component>
             </td> -->
-            <th>入出金区分</th>
+            <!-- 20240930 S_Delete -->
+            <!-- <th>入出金区分</th>
             <td>
                 <app-select-component [codes]="getCode('031')" [(ngModel)]="data.contractType"></app-select-component>
-            </td>
+            </td> -->
+            <!-- 20240930 E_Delete -->
             <!-- 20240802 E_Update -->
 
             <th>振替後<br>借方勘定科目コード</th>
