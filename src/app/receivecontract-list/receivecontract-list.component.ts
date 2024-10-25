@@ -94,7 +94,10 @@ export class ReceiveContractListComponent extends BaseComponent {
     }
 
     const funcs = [];
-    funcs.push(this.service.searchReceiveType(null));
+    // 20241024 S_Update
+    // funcs.push(this.service.searchReceiveType(null));
+    funcs.push(this.service.searchReceiveType({isAllData: '1'}));
+    // 20241024 E_Update
     funcs.push(this.service.getBanks('1'));// 20230928 Add
     Promise.all(funcs).then(values => {
       this.recTypes = values[0];

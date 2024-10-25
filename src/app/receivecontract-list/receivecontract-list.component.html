@@ -23,8 +23,12 @@
                     <select [(ngModel)]="cond.receiveCode" class="receive-type">
                         <option value=""></option>
                         <ng-container *ngFor="let tp of recTypes">
-                            <optgroup [label]="tp.receiveName" *ngIf="tp.categoryFlg === '1'"></optgroup>
-                            <option [value]="tp.receiveCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.receiveName}}</option>
+                            <!-- 20241024 S_Update -->
+                            <!-- <optgroup [label]="tp.receiveName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                            <option [value]="tp.receiveCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.receiveName}}</option> -->
+                            <optgroup [label]="tp.receiveName" *ngIf="tp.categoryFlg === '1' && (tp.deleteDate == null || tp.deleteDate == '')"></optgroup>
+                            <option [value]="tp.receiveCode" *ngIf="tp.categoryFlg !== '1' && (tp.deleteDate == null || tp.deleteDate == '')">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.receiveName}}</option>
+                            <!-- 20241024 E_Update -->
                         </ng-container>
                     </select>
                 </td>

@@ -35,8 +35,12 @@
                         <select [(ngModel)]="cond.paymentCode" class="payment-type">
                             <option value=""></option>
                             <ng-container *ngFor="let tp of payTypes">
-                                <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
-                                <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option>
+                                <!-- 20241024 S_Update -->
+                                <!-- <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1'"></optgroup>
+                                <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1'">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option> -->
+                                <optgroup [label]="tp.paymentName" *ngIf="tp.categoryFlg === '1' && tp.payContractEntryFlg === '1' && (tp.deleteDate == null || tp.deleteDate == '')"></optgroup>
+                                <option [value]="tp.paymentCode" *ngIf="tp.categoryFlg !== '1' && tp.payContractEntryFlg === '1' && (tp.deleteDate == null || tp.deleteDate == '')">&nbsp;&nbsp;&nbsp;&nbsp;{{tp.paymentName}}</option>
+                                <!-- 20241024 E_Update -->
                             </ng-container>
                         </select>
                         <!-- 20210629 E_Add -->

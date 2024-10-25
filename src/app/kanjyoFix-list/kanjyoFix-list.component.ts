@@ -58,8 +58,12 @@ export class KanjyoFixListComponent extends BaseComponent {
     funcs.push(this.service.getCodes(['031']));
     // 20240802 E_Update
     funcs.push(this.service.getKanjyos(null));
-    funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
-    funcs.push(this.service.searchReceiveType(null));// 20240930 Add
+    // 20241024 S_Update
+    // funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
+    // funcs.push(this.service.searchReceiveType(null));// 20240930 Add
+    funcs.push(this.service.searchPaymentType({isAllData: '1'}));
+    funcs.push(this.service.searchReceiveType({isAllData: '1'}));
+    // 20241024 E_Update
 
     Promise.all(funcs).then(values => {
       // コード

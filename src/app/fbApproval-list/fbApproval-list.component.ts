@@ -73,7 +73,10 @@ export class FbApprovalListComponent extends BaseComponent {
     }
 
     const funcs = [];
-    funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
+    // 20241024 S_Update
+    // funcs.push(this.service.searchPaymentType({payContractEntryFlg: '1'}));
+    funcs.push(this.service.searchPaymentType({isAllData: '1'}));
+    // 20241024 E_Update
     funcs.push(this.service.getCodes(['032']));
 
     Promise.all(funcs).then(values => {
