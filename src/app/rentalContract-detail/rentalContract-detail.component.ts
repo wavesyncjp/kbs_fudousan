@@ -413,4 +413,26 @@ export class RentalContractDetailComponent extends BaseComponent {
     this.data.residentName = this.data.borrowerName;
   }
   // 20240123 E_Add
+
+  // 20241028 S_Add
+  /**
+   * チェックボックス変更
+   * @param event ：イベント
+   * @param flg ：フラグ
+   償却差引きフラグ*/
+   changeSubtractionAmortizationFlg(event, flg: any) {
+    flg.subtractionAmortizationFlg = (event.checked ? 1 : 0);
+    this.data.subtractionAmortizationFlg = flg.subtractionAmortizationFlg;
+  }
+  /**
+   * チェックボックス変更
+   * @param event ：イベント
+   * @param flg ：フラグ
+   支払期限フラグ*/
+   changePaymentLastDaysFlg(event, flg: any) {
+    flg.paymentLastDaysFlg = (event.checked ? 1 : 0);
+    this.data.paymentLastDaysFlg = flg.paymentLastDaysFlg;
+    this.data.paymentDayMap = flg.paymentLastDaysFlg == 1 ? '末' : '';
+  }  
+  // 20241028 E_Add
 }

@@ -32,3 +32,9 @@
     color: white;
 }
 /* 20231027 E_Add */
+
+/* 20241028 S_Add */
+.tableSpaceNone{
+    border-spacing: unset !important;
+}
+/* 20241028 E_Add */

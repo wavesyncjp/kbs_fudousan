@@ -170,46 +170,39 @@
         <!-- 20231027 E_Delete -->
         <!-- 20231016 E_Add -->
         <tr>
-            <!-- 20240123 S_Delete -->
-            <!-- <th>契約方法</th>
-            <td>
-                <app-select-component [codes]="getCode('043')" [(ngModel)]="data.contractMethod" cusClass="width250"></app-select-component>
-            </td> -->
-            <!-- 20240123 E_Delete -->
-            <!-- 20231016 S_Update -->
-            <!-- <th>契約終了通知をすべき期間</th>
-            <td>
-                <div class="picker-div">
-                    <input type="text" [matDatepicker]="contractEndNotificationStartDate" [(ngModel)]="data.contractEndNotificationStartDateMap" placeholder="開始日" class="width100">
-                    <mat-datepicker-toggle matSuffix [for]="contractEndNotificationStartDate" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #contractEndNotificationStartDate></mat-datepicker>
-                </div>&nbsp;&nbsp;～
-                <div class="picker-div">
-                    <input type="text" [matDatepicker]="contractEndNotificationEndDate" [(ngModel)]="data.contractEndNotificationEndDateMap" placeholder="終了日" [ngClass]="{'width100':true,'error': errors['contractEndNotificationEndDate']}">
-                    <mat-datepicker-toggle matSuffix [for]="contractEndNotificationEndDate" class="picker-icon"></mat-datepicker-toggle>
-                    <mat-datepicker #contractEndNotificationEndDate></mat-datepicker>
-                </div>
-            </td> -->
             <th>契約終了通知</th>
             <td>
                 <input type="text" [(ngModel)]="data.contractEndNotification" class="width100 number" (keypress)="numericOnly($event)" maxlength="3">&nbsp;ヶ月前
             </td>
-            <!-- 20231016 E_Update -->
+            <!-- 20241028 S_Add -->
+            <th rowSpan="2">支払期限</th>
+            <td rowSpan="2" colspan="3" >
+                <table class="tableSpaceNone">
+                    <tr>
+                        <td style="padding-right: 15px !important;"><app-select-component [codes]="getCode('044')" [(ngModel)]="data.usance"></app-select-component>&nbsp;分</td>
+                        <td><input type="text" [(ngModel)]="data.paymentDayMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.paymentDayMap)" [disabled]="data.paymentLastDaysFlg == '1'">&nbsp;日まで</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="padding-top: 5px !important;"><mat-checkbox [checked]="data.paymentLastDaysFlg == '1'" (change)="changePaymentLastDaysFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;末日</span></td>
+                    </tr>
+                </table>
+            </td>
+            <!-- 20241028 E_Add -->
         </tr>
         <tr>
             <th>支払方法</th>
             <td>
                 <app-select-component [codes]="getCode('015')" [(ngModel)]="data.paymentMethod"></app-select-component>
             </td>
-            <th>支払期限</th>
-            <!-- 20231027 S_Update -->
-            <!-- <td> -->
+            <!-- 20241028 S_Delete -->
+            <!-- <th>支払期限</th>
             <td colspan="3">
-            <!-- 20231027 E_Update -->
                 <app-select-component [codes]="getCode('044')" [(ngModel)]="data.usance"></app-select-component>&nbsp;分
                 &nbsp;&nbsp;
                 <input type="text" [(ngModel)]="data.paymentDayMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.paymentDayMap)">&nbsp;日まで
-            </td>
+            </td> -->
+            <!-- 20241028 E_Delete -->
         </tr>
         <tr>
             <th>賃料</th>
@@ -224,21 +217,33 @@
         <tr>
             <th>共益費</th>
             <td>
-                <input type="text" [(ngModel)]="data.condoFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeMap)">&nbsp;円
+                <!-- 20241028 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.condoFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeMap)">&nbsp;円 -->
+                <input type="text" [(ngModel)]="data.condoFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeMap)" [disabled]="(data.condoFeeMap == null || data.condoFeeMap == '') && (data.condoFeeTaxMap == null || data.condoFeeTaxMap == '') && ((data.managementFeeMap != null && data.managementFeeMap != '') || (data.managementFeeTaxMap != null && data.managementFeeTaxMap != ''))">&nbsp;円
+                <!-- 20241028 E_Update -->
             </td>
             <th>共益費（消費税）</th>
             <td>
-                <input type="text" [(ngModel)]="data.condoFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeTaxMap)">&nbsp;円
+                <!-- 20241028 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.condoFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeTaxMap)">&nbsp;円 -->
+                <input type="text" [(ngModel)]="data.condoFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.condoFeeTaxMap)" [disabled]="(data.condoFeeMap == null || data.condoFeeMap == '') && (data.condoFeeTaxMap == null || data.condoFeeTaxMap == '') && ((data.managementFeeMap != null && data.managementFeeMap != '') || (data.managementFeeTaxMap != null && data.managementFeeTaxMap != ''))">&nbsp;円
+                <!-- 20241028 E_Update -->
             </td>
         </tr>
         <tr>
             <th>管理費</th>
             <td>
-                <input type="text" [(ngModel)]="data.managementFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeMap)">&nbsp;円
+                <!-- 20241028 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.managementFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeMap)">&nbsp;円 -->
+                <input type="text" [(ngModel)]="data.managementFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeMap)" [disabled]="(data.managementFeeMap == null || data.managementFeeMap == '') && (data.managementFeeTaxMap == null || data.managementFeeTaxMap == '') && ((data.condoFeeMap != null && data.condoFeeMap != '') || (data.condoFeeTaxMap != null && data.condoFeeTaxMap != ''))">&nbsp;円
+                <!-- 20241028 E_Update -->
             </td>
             <th>管理費（消費税）</th>
             <td>
-                <input type="text" [(ngModel)]="data.managementFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeTaxMap)">&nbsp;円
+                <!-- 20241028 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.managementFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeTaxMap)">&nbsp;円 -->
+                <input type="text" [(ngModel)]="data.managementFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.managementFeeTaxMap)" [disabled]="(data.managementFeeMap == null || data.managementFeeMap == '') && (data.managementFeeTaxMap == null || data.managementFeeTaxMap == '') && ((data.condoFeeMap != null && data.condoFeeMap != '') || (data.condoFeeTaxMap != null && data.condoFeeTaxMap != ''))">&nbsp;円
+                <!-- 20241028 E_Update -->
             </td>
         </tr>
         <!-- 20240123 S_Delete -->
@@ -268,26 +273,27 @@
         <tr>
             <th>保証金</th>
             <td>
-                <input type="text" [(ngModel)]="data.securityDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.securityDepositMap)">&nbsp;円
-                <!-- 20231016 S_Add -->
-                <!-- 20240402 S_Delete -->
-                <!-- &nbsp;<mat-checkbox [checked]="data.securityDepositConvertedFlg === '1'" (change)="changeSecurityDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span> -->
-                <!-- 20240402 E_Delete -->
-                <!-- 20231016 E_Add -->
+                <!-- 20241028 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.securityDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.securityDepositMap)">&nbsp;円 -->
+                <input type="text" [(ngModel)]="data.securityDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.securityDepositMap)" [disabled]="(data.securityDepositMap == null || data.securityDepositMap == '') && (data.depositMap != null && data.depositMap != '')">&nbsp;円
+                <!-- 20241028 E_Update -->
             </td>
             <th>償却</th>
             <td>
                 <input type="text" [(ngModel)]="data.amortizationMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.amortizationMap)">&nbsp;円
+                <!-- 20241028 S_Add -->
+                &nbsp;&nbsp;<mat-checkbox [checked]="data.subtractionAmortizationFlg === '1'" (change)="changeSubtractionAmortizationFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;償却差引き</span>
+                <!-- 20241028 E_Add -->
             </td>
         </tr>
         <!-- 20231010 E_Add -->
         <tr>
             <th>敷金</th>
             <td>
-                <input type="text" [(ngModel)]="data.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.depositMap)">&nbsp;円
-                <!-- 20240402 S_Delete -->
-                <!-- &nbsp;<mat-checkbox [checked]="data.depositConvertedFlg === '1'" (change)="changeDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span> -->
-                <!-- 20240402 E_Delete -->
+                <!-- 20241028 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.depositMap)">&nbsp;円 -->
+                <input type="text" [(ngModel)]="data.depositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.depositMap)" [disabled]="(data.depositMap == null || data.depositMap == '') && (data.securityDepositMap != null && data.securityDepositMap != '')">&nbsp;円
+                <!-- 20241028 E_Update -->
             </td>
             <!-- 20240123 S_Delete -->
             <!-- <th>礼金</th>

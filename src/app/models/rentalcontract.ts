@@ -60,6 +60,12 @@ export class RentalContract {
     amortization: number;
     rentalContractNotes: string;// 20231027 Add
     // 20231010 E_Add
+    
+    // 20241028 S_Add
+    subtractionAmortizationFlg: string;
+    paymentLastDaysFlg: string;
+    // 20241028 E_Add
+
     createUserId: number;
     updateUserId: number;
 
@@ -156,6 +162,11 @@ export class RentalContract {
 
         // 数字
         this.paymentDayMap = Converter.numberToString(this.paymentDay);
+        // 20241028 S_Add
+        if(this.paymentLastDaysFlg == '1'){
+            this.paymentDayMap = '末';
+        }
+        // 20241028 E_Add
         this.rentPriceMap = Converter.numberToString(this.rentPrice);
         this.rentPriceTaxMap = Converter.numberToString(this.rentPriceTax);
         this.condoFeeMap = Converter.numberToString(this.condoFee);
@@ -212,7 +223,15 @@ export class RentalContract {
         // this.roomRentExemptionStartDate = Converter.dateToString(this.roomRentExemptionStartDateMap, 'yyyyMMdd', datePipe); // 20240123 Delete
 
         // 数字
-        this.paymentDay = Converter.stringToNumber(this.paymentDayMap);
+        // 20241028 S_Update
+        // this.paymentDay = Converter.stringToNumber(this.paymentDayMap);
+        if(this.paymentDayMap == '末'){
+            this.paymentDay = Converter.stringToNumber('');
+        }
+        else{
+            this.paymentDay = Converter.stringToNumber(this.paymentDayMap);
+        }
+        // 20241028 E_Update
         this.rentPrice = Converter.stringToNumber(this.rentPriceMap);
         this.rentPriceTax = Converter.stringToNumber(this.rentPriceTaxMap);
         this.condoFee = Converter.stringToNumber(this.condoFeeMap);
