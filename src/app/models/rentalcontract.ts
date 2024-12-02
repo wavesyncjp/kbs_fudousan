@@ -24,7 +24,7 @@ export class RentalContract {
     residentName: string;
     residentTel: string;
     // keyExchangeFee: number; // 20240123 Delete
-    updateFee: number;
+    // updateFee: number;// 20241125 Delete
     securityDepositConvertedFlg: string;
     // 20231016 E_Add
 
@@ -42,6 +42,7 @@ export class RentalContract {
     deposit: number;
     depositConvertedFlg: string;
     parkingFee: number;
+    parkingFeeTax: number;// 20241125 Add
     parkingDeposit: number;
     parkingDepositConvertedFlg: string;
     // InsuranceFee: number; // 20240123 Delete
@@ -99,6 +100,7 @@ export class RentalContract {
     // keyMoneyMap: string; // 20240123 Delete
     depositMap: string;
     parkingFeeMap: string;
+    parkingFeeTaxMap: string;// 20241125 Add
     parkingDepositMap: string;
     // InsuranceFeeMap: string; // 20240123 Delete
     // roomRentGuaranteeFeeMap: string; // 20240123 Delete
@@ -183,6 +185,7 @@ export class RentalContract {
         // this.keyMoneyMap = Converter.numberToString(this.keyMoney); // 20240123 Delete
         this.depositMap = Converter.numberToString(this.deposit);
         this.parkingFeeMap = Converter.numberToString(this.parkingFee);
+        this.parkingFeeTaxMap = Converter.numberToString(this.parkingFeeTax);// 20241125 Add
         this.parkingDepositMap = Converter.numberToString(this.parkingDeposit);
         // this.InsuranceFeeMap = Converter.numberToString(this.InsuranceFee); // 20240123 Delete
         // this.roomRentGuaranteeFeeMap = Converter.numberToString(this.roomRentGuaranteeFee); // 20240123 Delete
@@ -248,6 +251,7 @@ export class RentalContract {
         // this.keyMoney = Converter.stringToNumber(this.keyMoneyMap); // 20240123 Delete
         this.deposit = Converter.stringToNumber(this.depositMap);
         this.parkingFee = Converter.stringToNumber(this.parkingFeeMap);
+        this.parkingFeeTax = Converter.stringToNumber(this.parkingFeeTaxMap);// 20241125 Add
         this.parkingDeposit = Converter.stringToNumber(this.parkingDepositMap);
         // this.InsuranceFee = Converter.stringToNumber(this.InsuranceFeeMap); // 20240123 Delete
         // this.roomRentGuaranteeFee = Converter.stringToNumber(this.roomRentGuaranteeFeeMap); // 20240123 Delete

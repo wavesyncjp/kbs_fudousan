@@ -307,13 +307,16 @@
             <td>
                 <input type="text" [(ngModel)]="data.parkingFeeMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.parkingFeeMap)">&nbsp;円
             </td>
-            <th>駐車場敷金</th>
+            <!-- 20241125 S_Update -->
+            <!-- <th>駐車場敷金</th>
             <td>
                 <input type="text" [(ngModel)]="data.parkingDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.parkingDepositMap)">&nbsp;円
-                <!-- 20240426 S_Delete -->
-                <!-- &nbsp;<mat-checkbox [checked]="data.parkingDepositConvertedFlg === '1'" (change)="changeParkingDepositConvertedFlg($event, data)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;返還済</span> -->
-                <!-- 20240426 E_Delete -->
+            </td> -->
+            <th>駐車場使用料（消費税）</th>
+            <td>
+                <input type="text" [(ngModel)]="data.parkingFeeTaxMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.parkingFeeTaxMap)">&nbsp;円
             </td>
+            <!-- 20241125 E_Update -->
         </tr>
         <!-- 20240123 S_Delete -->
         <!-- <tr>
@@ -339,10 +342,16 @@
                 </div>
             </td> -->
             <!-- 20240123 E_Delete -->
-            <th>更新料</th>
+             <!-- 20241125 S_Update -->
+            <!-- <th>更新料</th>
             <td>
                 <input type="text" [(ngModel)]="data.updateFee" class="width100 number" (keypress)="floatOnly($event)" maxlength="15">&nbsp;ヶ月分
+            </td> -->
+            <th>駐車場敷金</th>
+            <td>
+                <input type="text" [(ngModel)]="data.parkingDepositMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(data.parkingDepositMap)">&nbsp;円
             </td>
+             <!-- 20241125 E_Update -->
             <!-- 20231016 E_Add -->
         </tr>
         <!-- 20231027 S_Add -->
