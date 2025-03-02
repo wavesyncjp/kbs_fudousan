@@ -151,7 +151,10 @@ export class PayContractDetailComponent extends BaseComponent {
         if (this.pid > 0) {
           this.paycontract = new Paycontractinfo(values[6] as Paycontractinfo);
           this.paycontract.convert();
-          this.bukkenName = `${values[6].land.bukkenNo}:${values[6].land.bukkenName}`;
+          // 20250219 S_Update
+          // this.bukkenName = `${values[6].land.bukkenNo}:${values[6].land.bukkenName}`;
+          this.bukkenName = `${values[6].land.bukkenNo}:${values[6].land.bukkenName}:${values[6].land.contractBukkenNo}`;
+          // 20250219 E_Update
 
           this.initPayContract();
 
@@ -162,7 +165,10 @@ export class PayContractDetailComponent extends BaseComponent {
         // 20210311 S_Add
         else if (this.bukkenid > 0) {
           const templandinfo = new Templandinfo(values[6] as Templandinfo);
-          this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName;
+          // 20250219 S_Update
+          // this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName;
+          this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName + ':' + templandinfo.contractBukkenNo;
+          // 20250219 E_Update
           this.paycontract.depCode = templandinfo.department;
           var infoStaffs = templandinfo.infoStaff.split(",");
           this.paycontract.userId = this.getNumber(infoStaffs[0]);
@@ -193,7 +199,10 @@ export class PayContractDetailComponent extends BaseComponent {
 
       //物件名称をキーにpidをmapに保持していく
       this.lands.forEach((land) => {
-        this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
+        // 20250219 S_Update
+        // this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
+        this.bukkenMap[land.bukkenNo + ':' + land.bukkenName + ':' + land.contractBukkenNo] = land.pid
+        // 20250219 E_Update
       });
 
     });
@@ -396,8 +405,12 @@ export class PayContractDetailComponent extends BaseComponent {
    * 入力の度に物件を検索する
    */
   bukkenSearch() {
-    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
-    const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
+    // 20250219 S_Update
+    // this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
+    // const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
+    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}`.includes(this.bukkenName));
+    const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}` === this.bukkenName);
+    // 20250219 E_Update
     if (lst.length === 1) {
       this.loadSellers(this.bukkenMap[this.bukkenName]);
       this.paycontract.tempLandInfoPid = this.bukkenMap[this.bukkenName];// 20210523 Add

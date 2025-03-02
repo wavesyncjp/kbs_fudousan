@@ -52,7 +52,10 @@
                 <!--<input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" [disabled]="data.infoSubjectDetail == '99'" style="width: 400px">-->
                 <input type="search" name="example" list="data" [(ngModel)]="bukkenName" (change)="bukkenSearch()" style="width: 400px">
                 <datalist id="data">
-                    <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option>
+                    <!-- 20250219 S_Update -->
+                    <!-- <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option> -->
+                    <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName + ':' + land.contractBukkenNo}}</option>
+                    <!-- 20250219 E_Update -->
                 </datalist>
             </td>
         </tr>

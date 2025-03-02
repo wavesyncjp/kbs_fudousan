@@ -107,7 +107,10 @@ export class NoticeDetailComponent extends BaseComponent {
       this.bukkens = this.lands
       //物件名称をキーにpidをmapに保持していく
       this.lands.forEach((land) => {
-        this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
+        // 20250219 S_Update
+        // this.bukkenMap[land.bukkenNo + ':' + land.bukkenName] = land.pid
+        this.bukkenMap[land.bukkenNo + ':' + land.bukkenName + ':' + land.contractBukkenNo] = land.pid
+        // 20250219 E_Update
       });
       // 20230301 E_Add
 
@@ -140,7 +143,10 @@ export class NoticeDetailComponent extends BaseComponent {
         // 20230302 S_Add
         if (this.data.tempLandInfoPid > 0) {
           const templandinfo = new Templandinfo(values[2] as Templandinfo);
-          this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName;
+          // 20250219 S_Update
+          // this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName;
+          this.bukkenName = templandinfo.bukkenNo + ':' + templandinfo.bukkenName + ':' + templandinfo.contractBukkenNo;
+          // 20250219 E_Update
         }
         // 20230302 E_Add
         this.data.convert();
@@ -397,8 +403,12 @@ export class NoticeDetailComponent extends BaseComponent {
    * 入力の度に物件を検索する
    */
   bukkenSearch() {
-    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
-    const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
+    // 20250219 S_Update
+    // this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
+    // const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
+    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}`.includes(this.bukkenName));
+    const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}` === this.bukkenName);
+    // 20250219 E_Update
     if(lst.length === 1) {
       this.data.tempLandInfoPid = this.bukkenMap[this.bukkenName];
     }
