@@ -449,7 +449,11 @@ export class NoticeDetailComponent extends BaseComponent {
       if(this.bukkenName != null && this.bukkenName !== undefined && this.bukkenName !== '') {
         // 20230306 S_Update
         // infoSubject += this.bukkenName;
-        infoSubject += this.bukkenName.split(':')[1];
+        // 20250304 S_Update
+        // infoSubject += this.bukkenName.split(':')[1];
+        var bukkenNames = this.bukkenName.split(':');
+        infoSubject += bukkenNames[1] + ':' + bukkenNames[2];
+        // 20250304 S_Update
         // 20230306 E_Update
       }
       // 契約相手に指定がある場合
