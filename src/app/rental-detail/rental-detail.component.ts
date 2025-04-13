@@ -1096,6 +1096,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
           }
         }
       }
+      return false; // 続ける
     });
 
     if (maxDate != null && maxDate != '') {
@@ -1283,4 +1284,42 @@ export class RentalInfoDetailComponent extends BaseComponent {
     return false;
   }
   // 20240426 E_Add
+  
+  // 20250402 S_Add
+  /**
+   * 取引成立台帳
+   */
+  exportRental() {
+    const dlg = new Dialog({ title: '確認', message: '取引成立台帳（賃貸）を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportRental(this.rental.pid).then(data => {
+          this.service.writeToFile(data, "取引成立台帳（賃貸）");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+
+  /**
+   * 入金管理表作成
+   */
+  exportRentalManage() {
+    const dlg = new Dialog({ title: '確認', message: '入金管理表を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportRentalManage(this.rental.pid).then(data => {
+          this.service.writeToFile(data, "賃貸管理表");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // exportRental E_Add
 }

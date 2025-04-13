@@ -659,9 +659,11 @@
 
     <!-- 20230917 S_Add -->
     <!--賃貸一覧-->
-    <div class="button-div-left" *ngIf="pid > 0 && !disableRentalUser">
+    <!-- 20250402 S_Delete -->
+    <!-- <div class="button-div-left" *ngIf="pid > 0 && !disableRentalUser">
         <button mat-raised-button class="register-btn" (click)="navigateRental()">賃貸情報　登録</button>
-    </div>
+    </div> -->
+    <!-- 20250402 E_Delete -->
 
     <div class="contact-div margin-base" *ngIf="!disableRentalUser" style="width: 100%;">
         <span class="min">賃貸一覧</span>
@@ -671,8 +673,10 @@
                 <th class="width100">賃借人数</th>
                 <th class="width100">総戸数</th>
                 <th class="width80">詳細</th>
-                <th class="width100">台帳作成</th>
-                <th class="width150">入金管理表作成</th>
+                <!-- 20250402 S_Delete -->
+                <!-- <th class="width100">台帳作成</th>
+                <th class="width150">入金管理表作成</th> -->
+                <!-- 20250402 E_Delete -->
                 <th class="width80">削除</th>
             </thead>
             <tbody class="list-body">
@@ -681,14 +685,10 @@
                     <td class="text-right">{{numberFormat(item.countContract)}}</td>
                     <td class="text-right">{{numberFormat(item.totalUnits)}}</td>
                     <td><button mat-raised-button (click)="showDetailRental(item)" color="warn">詳細</button></td>
-                    <!-- 20231016 S_Update -->
-                    <!-- <td><button mat-raised-button class="output-btn">台帳作成</button></td> -->
-                    <td><button mat-raised-button (click)="exportRental(item.pid)" class="output-btn">台帳作成</button></td>
-                    <!-- 20231016 E_Update -->
-                    <!-- 20231115 S_Update -->
-                    <!-- <td><button mat-raised-button class="output-btn2">入金管理表作成</button></td> -->
-                    <td><button mat-raised-button (click)="exportRentalManage(item.pid)" class="output-btn2">入金管理表作成</button></td>
-                    <!-- 20231115 S_Update -->
+                    <!-- 20250402 S_Delete -->
+                    <!-- <td><button mat-raised-button (click)="exportRental(item.pid)" class="output-btn">台帳作成</button></td>
+                    <td><button mat-raised-button (click)="exportRentalManage(item.pid)" class="output-btn2">入金管理表作成</button></td> -->
+                    <!-- 20250402 E_Delete -->
                     <td><button mat-raised-button (click)="deleteRentalInfo(item,pos)" class="delete_btn">削除</button></td>
                 </tr>
             </tbody>

@@ -92,6 +92,9 @@
         <!-- 20231010 S_Add -->
         <button mat-raised-button *ngIf="pid > 0" class="register-btn2" (click)="addEvictionInfo()">立退き情報　登録</button>
         <!-- 20231010 E_Add -->
+        <!-- 20250402 S_Add -->
+        <button mat-raised-button *ngIf="pid > 0" class="output-btn" (click)="exportRental()">台帳作成</button>
+        <!-- 20250402 E_Add -->
     </div>
     <div class="contact-div" *ngIf="pid > 0" style="width: 100%;">
         <span class="min">賃貸契約</span>
@@ -140,6 +143,9 @@
         <!-- 20240228 S_Add -->
         <app-select-component cusClass="width80" style="margin-left: -30px;" [codes]="yearReceives" [(ngModel)]="rental.yearReceiveMap"></app-select-component>&nbsp;年
         <!-- 20240228 E_Add -->
+        <!-- 20250402 S_Add -->
+        &nbsp;&nbsp;&nbsp;<button mat-raised-button class="output-btn2" (click)="exportRentalManage()">入金管理表作成</button>
+        <!-- 20250402 S_Add -->
         <table style="width: auto;">
             <thead class="list-header">
 
@@ -196,10 +202,11 @@
                         <!-- 20240221 S_Add -->
                         <!-- 20240229 S_Update -->
                         <!-- <div *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap"> -->
-                        <div *ngIf="!revM.invisibleByRenContractMap">
-                        <!-- 20240229 E_Update -->
+                        <!-- 20250402 S_Delete -->
+                        <!-- <div *ngIf="!revM.invisibleByRenContractMap">
                             <input type="text" [(ngModel)]="revM.receivePriceMap" style="margin-left: -17px;" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(revM.receivePriceMap)">&nbsp;円
-                        </div>
+                        </div> -->
+                        <!-- 20250402 E_Delete -->
                         <!-- 20240221 E_Add -->
                         <!-- 20231027 S_Update -->
                         <!-- <div *ngIf="revM.isExistRenContractMap" class="picker-div"> -->
@@ -210,19 +217,22 @@
                         <!-- 20231027 E_Update -->
                             <!-- 20240229 S_Update -->
                             <!-- <input type="text" [matDatepicker]="receiveDay" [disabled]="revM.isDisableByRenContractMap" [(ngModel)]="revM.receiveDayMap" class="width100"> -->
-                            <input type="text" [matDatepicker]="receiveDay" [(ngModel)]="revM.receiveDayMap" class="width100">
+                            <!-- 20250402 S_Update -->
+                            <!-- <input type="text" [matDatepicker]="receiveDay" [(ngModel)]="revM.receiveDayMap" class="width100"> -->
+                            <input type="text" [matDatepicker]="receiveDay" [(ngModel)]="revM.receiveDayMap" class="width100" style="margin-left: -29px;">
+                            <!-- 20250402 E_Update -->
                             <!-- 20240229 E_Update -->
                             <mat-datepicker-toggle matSuffix [for]="receiveDay" class="picker-icon"></mat-datepicker-toggle>
                             <mat-datepicker #receiveDay></mat-datepicker>
                         </div>
-                        &nbsp;
-                        <!-- 20231027 S_Update -->
-                        <!-- <mat-checkbox *ngIf="revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox> -->
-                        <!-- 20240229 S_Update -->
-                        <!-- <mat-checkbox *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" [disabled]="revM.isDisableByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox> -->
-                        <mat-checkbox *ngIf="!revM.invisibleByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
-                        <!-- 20240229 E_Update -->
-                        <!-- 20231027 E_Update -->
+                        <!-- 20250402 S_Update -->
+                        <!-- &nbsp;
+                        <mat-checkbox *ngIf="!revM.invisibleByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox> -->
+                        <div *ngIf="!revM.invisibleByRenContractMap">
+                            <input type="text" [(ngModel)]="revM.receivePriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(revM.receivePriceMap)">&nbsp;円
+                            &nbsp;<mat-checkbox *ngIf="!revM.invisibleByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
+                        </div>
+                        <!-- 20250402 E_Update -->
                     </td>
                     <!-- 20231010 E_Update -->
                 </tr>

@@ -145,6 +145,7 @@ export class PayContractDetailComponent extends BaseComponent {
 
       //入力の際に表示される物件名称を取得するための処理
       this.bukkens = this.lands
+      this.bukkens = this.bukkens.filter(land => land.contractBukkenNo != '');// 20250402 Add
 
       // データが存在する場合
       if (values.length > 6) {
@@ -408,7 +409,10 @@ export class PayContractDetailComponent extends BaseComponent {
     // 20250219 S_Update
     // this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}`.includes(this.bukkenName));
     // const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}` === this.bukkenName);
-    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}`.includes(this.bukkenName));
+    // 20250402 S_Update
+    // this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}`.includes(this.bukkenName));
+    this.bukkens = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}`.includes(this.bukkenName) && land.contractBukkenNo != '');
+    // 20250402 E_Update
     const lst = this.lands.filter(land => `${land.bukkenNo}:${land.bukkenName}:${land.contractBukkenNo}` === this.bukkenName);
     // 20250219 E_Update
     if (lst.length === 1) {
