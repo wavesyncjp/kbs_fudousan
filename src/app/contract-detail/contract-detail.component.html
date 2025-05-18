@@ -728,7 +728,11 @@
             <tbody class="list-body">
                 <tr *ngFor="let item of evictions; index as pos">
                     <td class="text-left">{{item.apartmentName}}</td>
-                    <td class="text-left">{{item.roomNo}}</td>
+                    <!-- 20250418 S_Update -->
+                    <!-- <td class="text-left">{{item.roomNo}}</td> -->
+                    <td class="text-left" *ngIf="item.evictionInfoAttachCountMap != '' && item.evictionInfoAttachCountMap > 0"><a href="javascript:void()" (click)="openAttachFileDialog(item.pid, 4, '0')">{{item.roomNo}}</a></td>
+                    <td class="text-left" *ngIf="item.evictionInfoAttachCountMap == '' || item.evictionInfoAttachCountMap == null || item.rentalContractAttachCountMap == 0">{{item.roomNo}}</td>
+                    <!-- 20250418 E_Update -->
                     <td class="text-left">{{item.borrowerName}}</td>
                     <td>{{formatDay(item.surrenderDate, 'yyyy/MM/dd')}}</td>
                     <td>{{formatDay(item.surrenderScheduledDate, 'yyyy/MM/dd')}}</td>

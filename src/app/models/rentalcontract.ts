@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Converter } from '../utils/converter';
+import { RentalContractAttach } from './rentalcontractattach';// 20250418 Add
 
 export class RentalContract {
     pid: number;
@@ -129,6 +130,10 @@ export class RentalContract {
     // 20240123 S_Add
     securityDepositSumMap: number;// 20240327 Add
 
+    // 20250418 S_Add
+    rentalContractFilesMap: RentalContractAttach[];
+    rentalContractAttachCountMap: number;
+    // 20250418 E_Add
 
     // 開発用の例↑
     public constructor(init?: Partial<RentalContract>) {

@@ -166,6 +166,9 @@
                     <input type="text" [matDatepicker]="depositPayedDate" [(ngModel)]="deposit.depositPayedDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="depositPayedDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #depositPayedDate></mat-datepicker>
+                    <!-- 20250418 S_Add -->
+                    <mat-checkbox [checked]="deposit.depositPayedFlg === '1'" (change)="changeDepositPayedFlg($event, pos)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;済</span>
+                    <!-- 20250418 E_Add -->
                 </div>
             </td>
             </ng-container>
@@ -199,6 +202,9 @@
                     <input type="text" [matDatepicker]="depositPayedDate" [(ngModel)]="deposit.depositPayedDateMap" class="width100">
                     <mat-datepicker-toggle matSuffix [for]="depositPayedDate" class="picker-icon"></mat-datepicker-toggle>
                     <mat-datepicker #depositPayedDate></mat-datepicker>
+                    <!-- 20250418 S_Add -->
+                    <mat-checkbox [checked]="deposit.depositPayedFlg === '1'" (change)="changeDepositPayedFlg($event, pos + 4)"></mat-checkbox><span style="font-size: 0.8em;">&nbsp;&nbsp;済</span>
+                    <!-- 20250418 E_Add -->
                 </div>
             </td>
             </ng-container>

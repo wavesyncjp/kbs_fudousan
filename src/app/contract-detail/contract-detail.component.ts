@@ -41,6 +41,7 @@ import { MatDatepickerInput } from '@angular/material/datepicker';
 import { MultiSelectComponent } from 'ng-multiselect-dropdown';
 import { RentalSelectComponent } from '../rental-select/rental-select.component';
 // 20240131 E_Add
+import { AttachFileDialogComponent } from '../dialog/attachFile-dialog/attachFile-dialog.component';// 20250418 Add
 
 @Component({
   selector: 'app-contract-detail',
@@ -943,6 +944,7 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
         else {
           // const temp = new Locationinfo(result.data);
           // this.data.locations[pos].attachFiles = temp.attachFiles;
+          this.evictions[pos].evictionInfoAttachCountMap = result.data.evictionInfoAttachCountMap;// 20250418 Add
         }
       }
     });
@@ -1124,8 +1126,34 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
         //   this.service.writeToFile(data, result['fileName']);
         //   this.spinner.hide();
         // });
+
+        // 20250418 S_Add
+        const dlg = new Dialog({ title: '確認', message: '預り金一覧を出力します。よろしいですか？' });
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+        dialogRef.afterClosed().subscribe(resultSub => {
+          if (dlg.choose) {
+            this.spinner.show();
+            this.service.exportDeposit(result["selectedRentalPid"]).then(data => {
+              this.service.writeToFile(data, "預り金一覧");
+              this.spinner.hide();
+            });
+          }
+        });
+        // 20250418 E_Add
       }
     });
   }
   // 20240402 E_Add  
+
+
+  // 20250418 S_Add
+  openAttachFileDialog(parentPid: number,fileType: number, attachFileType: string) {
+      const dialogRef = this.dialog.open(AttachFileDialogComponent, {
+      width: '60%',
+      height: '400px',
+      data: {parentPid, fileType, attachFileType}
+      });
+    }
+  // 20250418 E_Add
 }

@@ -16,12 +16,15 @@ export class EvictionInfo {
     depositType1: string;
     deposit1: number;
     depositPayedDate1: string;
+    deposit1PayedFlg: string;// 20250418 Add
     depositType2: string;
     deposit2: number;
     depositPayedDate2: string;
+    deposit2PayedFlg: string;// 20250418 Add
     remainingType: string;
     remainingFee: number;
     remainingPayedDate: string;
+    remainingPayedFlg: string;// 20250418 Add
     getAgreementDate: string;
     attachmentAgreementDate: string;
     acquiredAgreementFlg: string;
@@ -47,15 +50,19 @@ export class EvictionInfo {
     depositType4: string;
     deposit4: number;
     depositPayedDate4: string;
+    deposit4PayedFlg: string;// 20250418 Add
     depositType5: string;
     deposit5: number;
     depositPayedDate5: string;
+    deposit5PayedFlg: string;// 20250418 Add
     depositType6: string;
     deposit6: number;
     depositPayedDate6: string;
+    deposit6PayedFlg: string;// 20250418 Add
     depositType7: string;
     deposit7: number;
     depositPayedDate7: string;
+    deposit7PayedFlg: string;// 20250418 Add
     // 20240402 E_Add
     createUserId: number;
     updateUserId: number;
@@ -89,6 +96,7 @@ export class EvictionInfo {
     // 20231027 E_Add
 
     evictionFiles: EvictionInfoAttach[];
+    evictionInfoAttachCountMap: number;// 20250418 Add
     depositsMap: EvictionDepositInfo[] = [];// 20240402
     // 開発用の例↑
     public constructor(init?: Partial<EvictionInfo>) {
@@ -184,42 +192,49 @@ export class EvictionInfo {
                     this.depositType1 = dep.depositType;
                     this.deposit1 = dep.deposit;
                     this.depositPayedDate1 = dep.depositPayedDate;
+                    this.deposit1PayedFlg = dep.depositPayedFlg;// 20250418 Add
                     break;
                 case 2:
                     this.evictionDepositType2 = dep.evictionDepositType;
                     this.depositType2 = dep.depositType;
                     this.deposit2 = dep.deposit;
                     this.depositPayedDate2 = dep.depositPayedDate;
+                    this.deposit2PayedFlg = dep.depositPayedFlg;// 20250418 Add
                     break;
                 case 3:
                     this.evictionDepositType3 = dep.evictionDepositType;
                     this.remainingType = dep.depositType;
                     this.remainingFee = dep.deposit;
                     this.remainingPayedDate = dep.depositPayedDate;
+                    this.remainingPayedFlg = dep.depositPayedFlg;// 20250418 Add
                     break;
                 case 4:
                     this.evictionDepositType4 = dep.evictionDepositType;
                     this.depositType4 = dep.depositType;
                     this.deposit4 = dep.deposit;
                     this.depositPayedDate4 = dep.depositPayedDate;
+                    this.deposit4PayedFlg = dep.depositPayedFlg;// 20250418 Add
                     break;
                 case 5:
                     this.evictionDepositType5 = dep.evictionDepositType;
                     this.depositType5 = dep.depositType;
                     this.deposit5 = dep.deposit;
                     this.depositPayedDate5 = dep.depositPayedDate;
+                    this.deposit5PayedFlg = dep.depositPayedFlg;// 20250418 Add
                     break;
                 case 6:
                     this.evictionDepositType6 = dep.evictionDepositType;
                     this.depositType6 = dep.depositType;
                     this.deposit6 = dep.deposit;
                     this.depositPayedDate6 = dep.depositPayedDate;
+                    this.deposit6PayedFlg = dep.depositPayedFlg;// 20250418 Add
                     break;
                 case 7:
                     this.evictionDepositType7 = dep.evictionDepositType;
                     this.depositType7 = dep.depositType;
                     this.deposit7 = dep.deposit;
                     this.depositPayedDate7 = dep.depositPayedDate;
+                    this.deposit7PayedFlg = dep.depositPayedFlg;// 20250418 Add
                     break;
             }
         }
@@ -239,42 +254,49 @@ export class EvictionInfo {
                     dep.depositType = this.depositType1;
                     dep.deposit = this.deposit1;
                     dep.depositPayedDate = this.depositPayedDate1;
+                    dep.depositPayedFlg = this.deposit1PayedFlg;// 20250418 Add
                     break;
                 case 2:
                     dep.evictionDepositType = this.evictionDepositType2;
                     dep.depositType = this.depositType2;
                     dep.deposit = this.deposit2;
                     dep.depositPayedDate = this.depositPayedDate2;
+                    dep.depositPayedFlg = this.deposit2PayedFlg;// 20250418 Add
                     break;
                 case 3:
                     dep.evictionDepositType = this.evictionDepositType3;
                     dep.depositType = this.remainingType;
                     dep.deposit = this.remainingFee;
                     dep.depositPayedDate = this.remainingPayedDate;
+                    dep.depositPayedFlg = this.remainingPayedFlg;// 20250418 Add
                     break;
                 case 4:
                     dep.evictionDepositType = this.evictionDepositType4;
                     dep.depositType = this.depositType4;
                     dep.deposit = this.deposit4;
                     dep.depositPayedDate = this.depositPayedDate4;
+                    dep.depositPayedFlg = this.deposit4PayedFlg;// 20250418 Add
                     break;
                 case 5:
                     dep.evictionDepositType = this.evictionDepositType5;
                     dep.depositType = this.depositType5;
                     dep.deposit = this.deposit5;
                     dep.depositPayedDate = this.depositPayedDate5;
+                    dep.depositPayedFlg = this.deposit5PayedFlg;// 20250418 Add
                     break;
                 case 6:
                     dep.evictionDepositType = this.evictionDepositType6;
                     dep.depositType = this.depositType6;
                     dep.deposit = this.deposit6;
                     dep.depositPayedDate = this.depositPayedDate6;
+                    dep.depositPayedFlg = this.deposit6PayedFlg;// 20250418 Add
                     break;
                 case 7:
                     dep.evictionDepositType = this.evictionDepositType7;
                     dep.depositType = this.depositType7;
                     dep.deposit = this.deposit7;
                     dep.depositPayedDate = this.depositPayedDate7;
+                    dep.depositPayedFlg = this.deposit7PayedFlg;// 20250418 Add
                     break;
             }
             this.depositsMap.push(dep);
@@ -286,6 +308,7 @@ export class EvictionInfo {
                 && (dep.depositType == null || dep.depositType == "" || dep.depositType == "0")
                 && (dep.deposit == null || dep.deposit == 0)
                 && (dep.depositPayedDate == null || dep.depositPayedDate == "")
+                && (dep.depositPayedFlg == null || dep.depositPayedFlg == "")// 20250418 Add
             ) {
                 this.depositsMap.splice(i, 1);
             }

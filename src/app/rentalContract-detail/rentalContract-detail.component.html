@@ -361,6 +361,22 @@
                 <input type="text" [(ngModel)]="data.rentalContractNotes" class="width85Per" maxlength="1024">
             </td>
         </tr>
+        <!-- 20250418 S_Add -->
+        <tr>
+            <th>ファイル添付</th>
+            <td colspan="5">
+                <span *ngIf="!(data.pid > 0)" style="color:red">※賃貸契約登録後に登録可能となります。</span>
+                <app-file rentalContractPid="{{data.pid}}" *ngIf="data.pid > 0" (uploaded)="rentalContractUploaded($event)" [immediately]="true"></app-file>
+                <table style="margin-left: 5px;">
+                    <tr *ngFor="let f of data.rentalContractFilesMap">
+                        <td><a [attr.href]="f.rentalContractFilePath + f.rentalContractFileName" target="_blank">{{f.rentalContractFileName}}</a></td>
+                        <td><button mat-flat-button class="delete-btn" (click)="deleteRentalContractAttach(f)">削除</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- 20250418 E_Add -->
+        
         <!-- 20231027 S_Add -->
         <tr>
             <!-- 20231027 S_Update -->

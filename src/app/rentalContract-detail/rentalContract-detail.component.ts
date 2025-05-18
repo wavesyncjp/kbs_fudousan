@@ -15,6 +15,7 @@ import { RentalContract } from '../models/rentalcontract';
 // 20231027 S_Add
 import { EvictionInfo } from '../models/evictioninfo';
 import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.component';
+import { RentalContractAttach } from '../models/rentalcontractattach';
 // 20231027 E_Add
 
 declare var $: any;// 20231010 Add
@@ -95,6 +96,12 @@ export class RentalContractDetailComponent extends BaseComponent {
 
     funcs.push(this.service.searchReceiveType(null));
 
+    // 20250418 S_Add
+    if (this.data.pid > 0) {
+      funcs.push(this.service.rentalContractAttachSearch(this.data.pid));
+    }
+    // 20250418 E_Add
+
     Promise.all(funcs).then(values => {
       // コード
       this.processCodes(values[0] as Code[]);
@@ -112,6 +119,12 @@ export class RentalContractDetailComponent extends BaseComponent {
 
       this.recTypes = values[5];
       this.receiveTypes = this.getReceiveTypes();
+
+      // 20250418 S_Add
+      if (this.data.pid > 0) {
+        this.data.rentalContractFilesMap = values[6];
+      }
+      // 20250418 E_Add
 
       this.data.convert();
 
@@ -319,6 +332,11 @@ export class RentalContractDetailComponent extends BaseComponent {
    */
   cancel() {
     this.spinner.hide();
+    // 20250418 S_Add
+    if(this.data != null && this.data.rentalContractFilesMap != null){
+      this.data.rentalContractAttachCountMap = this.data.rentalContractFilesMap.length;
+    }
+    // 20250418 E_Add
     // 20240229 S_Update
     // this.dialogRef.close({ data: this.data });
     this.dialogRef.close({ data: this.data, isAddedEviction: this.isAddedEviction });
@@ -435,4 +453,35 @@ export class RentalContractDetailComponent extends BaseComponent {
     this.data.paymentDayMap = flg.paymentLastDaysFlg == 1 ? '末' : '';
   }  
   // 20241028 E_Add
+
+  // 20250418 S_Add
+  /**
+   * ファイルアップロード
+   * @param event 
+   */
+  rentalContractUploaded(event) {
+    if (this.data.rentalContractFilesMap === null || !this.data.rentalContractFilesMap) {
+      this.data.rentalContractFilesMap = [];
+    }
+    const mapFile: RentalContractAttach = JSON.parse(JSON.stringify(event));
+    this.data.rentalContractFilesMap.push(mapFile);
+  }
+
+  /**
+   * ファイル削除
+   * @param map : 削除したいファイル
+   */
+  deleteRentalContractAttach(f: RentalContractAttach) {
+    const dlg = new Dialog({ title: '確認', message: 'ファイルを削除します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.service.deleteRentalContractAttach(f.pid).then(res => {
+          this.data.rentalContractFilesMap.splice(this.data.rentalContractFilesMap.indexOf(f), 1);
+        });
+      }
+    });
+  }
+  // 20250418 E_Add
 }

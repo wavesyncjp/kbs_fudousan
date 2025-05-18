@@ -63,6 +63,11 @@ export class FileComponentComponent implements OnInit {
   evictionInfoPid: number;
   // 20230917 E_Add
 
+  // 20250418 S_Add
+  @Input()
+  rentalContractPid: number;
+  // 20250418 E_Add
+
   @Input()
   comment = '';
 
@@ -254,6 +259,19 @@ export class FileComponentComponent implements OnInit {
       });
     }
     // 20230917 E_Add
+    
+    // 20250418 S_Add
+    // 賃貸契約添付ファイルアップロード
+    else if (this.rentalContractPid !== undefined && this.rentalContractPid > 0) {
+      this.service.rentalContractAttachUpload(this.rentalContractPid, this.file).then(res => {
+        this.snackBar.open('ファイルアップロード完了', null, {
+          duration: 1000,
+        });
+        this.file = null;
+        this.uploaded.emit(res);
+      });
+    }
+    // 20250418 E_Add
   }
 
   // 20221116 S_Add

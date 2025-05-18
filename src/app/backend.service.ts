@@ -24,6 +24,7 @@ import { RentalInfo } from './models/rentalinfo';
 import { RentalContract } from './models/rentalcontract';
 import { EvictionInfo } from './models/evictioninfo';
 import { EvictionInfoAttach } from './models/evictioninfoattach';
+import { RentalContractAttach } from './models/rentalcontractattach';
 // 20230917 E_Add
 
 @Directive()
@@ -122,11 +123,12 @@ export class BackendService {
    * 土地情報検索
    */
   searchLand(body: any): Promise<Templandinfo[]> {
+    this.setUserForFilter(body);// 20250502 Add
     const searchLandApi = 'landsearch.php';
     const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${searchLandApi}`, body);
     return req.toPromise();
   }
-
+  
   /**
    * 土地情報取得
    * @param id 土地Id
@@ -147,6 +149,7 @@ export class BackendService {
   getLands(name: string): Promise<Templandinfo[]> {
     const getLandApi = 'getland.php';
     const body = { bukkenName: name };
+    this.setUserForFilter(body);// 20250502 Add
     const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${getLandApi}`, body);
     return req.toPromise();
   }
@@ -155,6 +158,7 @@ export class BackendService {
    * 契約情報検索
    */
   searchContract(body: any): Promise<Templandinfo[]> {
+    this.setUserForFilter(body);// 20250502 Add
     const api = 'landcontactsearch.php';
     const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${api}`, body);
     return req.toPromise();
@@ -635,6 +639,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    *  インフォメーション情報検索
    */
   searchInfo(cond: any): Promise<Information[]> {
+    this.setUserForFilter(cond);// 20250502 Add
     const searchApi = 'infosearch.php';
     const req = this.http.post<Information[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -856,6 +861,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    * 事業収支一覧取得
    */
   searchPlan(cond: any): Promise<Planinfo[]> {
+    this.setUserForFilter(cond);// 20250502 Add
     const searchApi = 'plansearch.php';
     const req = this.http.post<Planinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -955,6 +961,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    * 支払管理一覧取得
    */
   searchPayContract(cond: any): Promise<Paycontractinfo[]> {
+    this.setUserForFilter(cond);// 20250502 Add
     const searchApi = 'paycontractsearch.php';
     const req = this.http.post<Paycontractinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -997,6 +1004,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    * 入金管理一覧取得
    */
   searchReceiveContract(cond: any): Promise<Receivecontractinfo[]> {
+    this.setUserForFilter(cond);// 20250502 Add
     const searchApi = 'receivecontractsearch.php';
     const req = this.http.post<Receivecontractinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -1198,6 +1206,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    * FB連携CSV発行データ取得
    */
   searchFb(cond: any): Promise<Paycontractdetailinfo[]> {
+    this.setUserForFilter(cond);// 20250502 Add
     const searchApi = 'fbsearch.php';
     const req = this.http.post<Paycontractdetailinfo[]>(`${this.BaseUrl}/${searchApi}`, cond);
     return req.toPromise();
@@ -1355,6 +1364,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    * 賃貸情報検索
    */
   searchRental(body: any): Promise<RentalInfo[]> {
+    this.setUserForFilter(body);// 20250502 Add
     const api = 'rentalsearch.php';
     const req = this.http.post<RentalInfo[]>(`${this.BaseUrl}/${api}`, body);
     return req.toPromise();
@@ -1534,4 +1544,60 @@ getCodeNames(codes: string[]): Promise<Code[]> {
   }
   // 20231115 E_Add
 
+  // 20250418 S_Add
+
+  /**
+   * 賃貸契約添付ファイル取得
+   * @param rentalContractPid 賃貸契約PID
+   * @returns 
+   */
+  rentalContractAttachSearch(rentalContractPid: number): Promise<RentalContractAttach> {
+    const getApi = 'rentalcontractattachsearch.php';
+    const body = {
+      rentalContractPid: rentalContractPid
+    };
+    const req = this.http.post<RentalContractAttach>(`${this.BaseUrl}/${getApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 賃貸契約添付ファイルアップロード
+   * @param rentalContractPid ：賃貸契約PID
+   * @param file ；ファイル
+   */
+  rentalContractAttachUpload(rentalContractPid: number, file: File): Promise<object> {
+    const uploadApi = 'rentalcontractattachupload.php';
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('rentalContractPid', rentalContractPid.toString());
+    formData.append('createUserId', String(this.loginUser.userId));
+    return this.http.post(`${this.BaseUrl}/${uploadApi}`, formData).toPromise();
+  }
+
+  /**
+   * 賃貸契約添付ファイル削除
+   */
+  deleteRentalContractAttach(id: number): Promise<object> {
+    const deleteFileApi = 'rentalcontractattachdelete.php';
+    const body = { pid: id, deleteUserId: this.loginUser.userId };
+    const req = this.http.post<Code[]>(`${this.BaseUrl}/${deleteFileApi}`, body);
+    return req.toPromise();
+  }
+
+  /**
+   * 預り金一覧作成　出力
+   * @param pid 賃貸情報Pid
+   */
+  exportDeposit(rentalInfoPid: number): Promise<Blob> {
+    const downloadUrl = 'depositexport.php';
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: rentalInfoPid }, { responseType: 'blob' as 'blob' });
+    return res.toPromise();
+  }
+  // 20250418 E_Add
+
+  // 20250502 S_Add
+  setUserForFilter(body: any){
+    body.userPidFilterMap = this.loginUser.userId;
+  }
+  // 20250502 E_Add
 }

@@ -154,7 +154,6 @@ export class EvictionInfoDetailComponent extends BaseComponent {
           this.data.tempLandInfoPid = this.tempLandInfoPid;
         }
         this.data.convertForSave(this.service.loginUser.userId, this.datepipe, true);
-
         this.service.evictionSave(this.data).then(values => {
           // 20231027 S_Add
           if (values.statusMap === 'NG') {
@@ -246,6 +245,11 @@ export class EvictionInfoDetailComponent extends BaseComponent {
    * キャンセル
    */
   cancel() {
+    // 20250418 S_Add
+    if(this.data != null && this.data.evictionFiles != null){
+      this.data.evictionInfoAttachCountMap = this.data.evictionFiles.length;
+    }
+    // 20250418 E_Add
     this.spinner.hide();
     this.dialogRef.close({ data: this.data });
   }
@@ -452,4 +456,16 @@ export class EvictionInfoDetailComponent extends BaseComponent {
     this.data.depositsMap.splice(pos, 1);
   }
   // 20240402 E_Add
+
+  // 20250418 S_Add
+  /**
+   * チェックボックス変更
+   * @param event ：イベント
+   * @param flg ：フラグ
+   * @param index ：インデックスデータ
+   内金支払日済フラグ*/
+   changeDepositPayedFlg(event, index) {
+    this.data.depositsMap[index].depositPayedFlg = (event.checked ? 1 : 0).toString();
+  }
+  // 20250418 E_Add
 }

@@ -21,6 +21,7 @@ import { EvictionInfoDetailComponent } from '../eviction-detail/eviction-detail.
 import { Converter } from '../utils/converter';
 import { parseJSON } from 'date-fns';
 // 20231010 E_Add
+import { AttachFileDialogComponent } from '../dialog/attachFile-dialog/attachFile-dialog.component';// 20250418 Add
 
 declare var $: any;// 20231010 Add
 @Component({
@@ -171,7 +172,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
         let lst: Code[] = [];
         contractsTemp.forEach(item => {
-          lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+          // 20250418 S_Update
+          // lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+          lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber, nameHeader : item.decisionDay + '-' + item.successionDeposit + '-' + item.successionSecurityDeposit }))
+          // 20250418 E_Update
         });
         this.contracts = lst;
         // 20231027 E_Add
@@ -194,7 +198,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
           let lst: Code[] = [];
           contractsTemp.forEach(item => {
-            lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+            // 20250418 S_Update
+            // lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+            lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber, nameHeader : item.decisionDay + '-' + item.successionDeposit + '-' + item.successionSecurityDeposit }))
+            // 20250418 E_Update
           });
           this.contracts = lst;
         }
@@ -450,6 +457,11 @@ export class RentalInfoDetailComponent extends BaseComponent {
         else if (result.isAddedEviction) {
           this.searchRentalContract_Receive(true);
         }
+        // 20250418 S_Add
+        else{
+          this.rentalContracts[pos].rentalContractAttachCountMap = result.data.rentalContractAttachCountMap;
+        }
+        // 20250418 E_Add
         // 20240229 E_Add
         // 20231106 S_Update
         // this.searchRentalReceive();
@@ -823,7 +835,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
         let revByMonth = this.getRentalReceive(rev.details, con.pid);
         if (revByMonth == null) {
           revByMonth = new RentalReceive();
-          revByMonth.invisibleByRenContractMap = true;// 20240404 Add
+          // 20250509 S_Update
+          // revByMonth.invisibleByRenContractMap = true;// 20240404 Add
+          revByMonth.invisibleByRenContractMap = false;
+          // 20250509 E_Update
         }
         else {
           revByMonth.isExistRenContractMap = this.isExistRenContract(rev.details, con.pid);
@@ -866,6 +881,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
         if (result.isSave || result.isDelete) {
           if (result.isSave) {
             this.evictions[pos] = new EvictionInfo(result.data);
+            this.evictions[pos].evictionInfoAttachCountMap = result.data.evictionInfoAttachCountMap;// 20250418 Add
           } else if (result.isDelete) {
             this.evictions.splice(pos, 1);
           }
@@ -876,6 +892,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
         }
         // キャンセルで戻っても謄本添付ファイルは最新を設定
         else {
+          this.evictions[pos].evictionInfoAttachCountMap = result.data.evictionInfoAttachCountMap;// 20250418 Add
         }
       }
     });
@@ -910,7 +927,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
       let lst: Code[] = [];
       ret.forEach(item => {
-        lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+        // 20250418 S_Update
+        // lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
+        lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber, nameHeader : item.decisionDay + '-' + item.successionDeposit + '-' + item.successionSecurityDeposit }))
+        // 20250418 E_Update
       });
 
       this.contracts = lst;
@@ -920,6 +940,29 @@ export class RentalInfoDetailComponent extends BaseComponent {
   }
   searchByContract() {
     this.contractInfoPid = this.rental.contractInfoPid;
+    // 20250418 S_Add
+    const contractsFilter = this.contracts.filter(c => c.codeDetail === this.contractInfoPid.toString());
+    if (contractsFilter.length === 1) {
+      var datas = contractsFilter[0].nameHeader.split('-');
+      if(datas[0] != null && datas[0] != '' && datas[0] != 'null'){
+        this.rental.ownershipRelocationDateMap = Converter.stringToDate(datas[0], 'yyyyMMdd');
+      }
+      else{
+        this.rental.ownershipRelocationDateMap = null;
+      }
+      const temp1 = Converter.stringToNumber(datas[1]);
+      const temp2 = Converter.stringToNumber(datas[2]);
+
+      const validNumbers = [temp1, temp2].filter(v => typeof v === 'number' && !isNaN(v));
+
+      if (validNumbers.length > 0) {
+        const sum = validNumbers.reduce((a, b) => a + b, 0);
+        this.rental.successionSecurityDepositMap = Converter.numberToString(sum);
+      } else {
+        this.rental.successionSecurityDepositMap = null;
+      }
+    }
+    // 20250418 E_Add
 
     const funcs = [];
     //地番　家屋番号を取得
@@ -1125,14 +1168,17 @@ export class RentalInfoDetailComponent extends BaseComponent {
     return minDate;
   }
   filterRentalReceives() {
-    if (this.rentalReceives.length > 0) {
+    // 20250509 S_Update
+    // if (this.rentalReceives.length > 0) {
+    if (this.rentalContracts.length > 0) {
+    // 20250509 E_Update
       const convert = new Converter();
       let currentYYMM = convert.formatDay(new Date(), 'yyyyMM');
 
       for (let i = 1; i <= 12; i++) {
         let receiveMonth = this.rental.yearReceiveMap + (i < 10 ? '0' : '') + i.toString();
 
-        if (receiveMonth >= currentYYMM && receiveMonth >= this.minReceiveMonth) {
+        // if (receiveMonth >= currentYYMM && receiveMonth >= this.minReceiveMonth) { // 20250509 Delete
           let filtered = this.rentalReceives.filter(r => r.receiveMonth == receiveMonth);
 
           if (filtered.length == 0) {
@@ -1160,68 +1206,77 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
             this.rentalReceives.push({ receiveMonth: receiveMonth, receiveFlgGroup: '0', renByMonths: renByMonths, details: renByMonths });
           }
-        }
+        // } // 20250509 Delete
       }
     }
     return this.rentalReceives.filter(r => r.receiveMonth != null && r.receiveMonth.length > 5 && r.receiveMonth.substring(0, 4) == this.rental.yearReceiveMap).sort((a, b) => a.receiveMonth.localeCompare(b.receiveMonth));
   }
   invisibleByRenContract(isExistRenContractMap, receiveMonth, con) {
-    // 賃貸入金と賃貸契約が紐づた場合
-    if (isExistRenContractMap) {
-      // 20240426 S_Update
-      // // 「賃貸免除開始日」の入力があればそれ以降は非表示にする
-      // if (con.roomRentExemptionStartDateEvicMap != null && con.roomRentExemptionStartDateEvicMap != '') {
-      //   return receiveMonth >= con.roomRentExemptionStartDateEvicMap.substring(0, 6);
-      // }
-      // // 「明渡日」の入力があればそれ以降非表示にする
-      // else if (con.surrenderDateEvicMap != null && con.surrenderDateEvicMap != '') {
-      //   return receiveMonth >= con.surrenderDateEvicMap.substring(0, 6);
-      // }
-      let dateTemp = '';
-      // 「賃貸免除開始日」の入力があればそれ以降は非表示にする
-      if (con.roomRentExemptionStartDateEvicMap != null && con.roomRentExemptionStartDateEvicMap != '') {
-        dateTemp = con.roomRentExemptionStartDateEvicMap;
-      }
-      // 「合意解除日」の入力があればそれ以降は非表示にする
-      else if (con.agreementCancellationDateEvicMap != null && con.agreementCancellationDateEvicMap != '') {
-        dateTemp = con.agreementCancellationDateEvicMap;
-      }
-      // 「明渡日」の入力があればそれ以降非表示にする
-      else if (con.surrenderDateEvicMap != null && con.surrenderDateEvicMap != '') {
-        dateTemp = con.surrenderDateEvicMap;
-      }
-      if(dateTemp != ''){
-        // 各日付が「X月1日」の場合はその所属する月以降非表示
-        if(this.isBeginDayInMonth(dateTemp)){
-          return receiveMonth >= dateTemp.substring(0, 6);
-        }
-        //各日付が「X月2日～末日」だった場合、翌月から非表示とする
-        else{
-          return receiveMonth > dateTemp.substring(0, 6);
-        }
-      }
-      // 20240426 E_Update
-      // 無限表示する
-      return false;
-    }
-    return true;
+    // 20250509 S_Update
+    // // 賃貸入金と賃貸契約が紐づた場合
+    // if (isExistRenContractMap) {
+    //   // 20240426 S_Update
+    //   // // 「賃貸免除開始日」の入力があればそれ以降は非表示にする
+    //   // if (con.roomRentExemptionStartDateEvicMap != null && con.roomRentExemptionStartDateEvicMap != '') {
+    //   //   return receiveMonth >= con.roomRentExemptionStartDateEvicMap.substring(0, 6);
+    //   // }
+    //   // // 「明渡日」の入力があればそれ以降非表示にする
+    //   // else if (con.surrenderDateEvicMap != null && con.surrenderDateEvicMap != '') {
+    //   //   return receiveMonth >= con.surrenderDateEvicMap.substring(0, 6);
+    //   // }
+    //   let dateTemp = '';
+    //   // 「賃貸免除開始日」の入力があればそれ以降は非表示にする
+    //   if (con.roomRentExemptionStartDateEvicMap != null && con.roomRentExemptionStartDateEvicMap != '') {
+    //     dateTemp = con.roomRentExemptionStartDateEvicMap;
+    //   }
+    //   // 「合意解除日」の入力があればそれ以降は非表示にする
+    //   else if (con.agreementCancellationDateEvicMap != null && con.agreementCancellationDateEvicMap != '') {
+    //     dateTemp = con.agreementCancellationDateEvicMap;
+    //   }
+    //   // 「明渡日」の入力があればそれ以降非表示にする
+    //   else if (con.surrenderDateEvicMap != null && con.surrenderDateEvicMap != '') {
+    //     dateTemp = con.surrenderDateEvicMap;
+    //   }
+    //   if(dateTemp != ''){
+    //     // 各日付が「X月1日」の場合はその所属する月以降非表示
+    //     if(this.isBeginDayInMonth(dateTemp)){
+    //       return receiveMonth >= dateTemp.substring(0, 6);
+    //     }
+    //     //各日付が「X月2日～末日」だった場合、翌月から非表示とする
+    //     else{
+    //       return receiveMonth > dateTemp.substring(0, 6);
+    //     }
+    //   }
+    //   // 20240426 E_Update
+    //   // 無限表示する
+    //   return false;
+    // }
+    // return true;
+    return false;
+    // 20250509 E_Update
   }
 
   setYearReceive() {
-    if (this.rentalReceives.length > 0) {
+    // 20250509 S_Update
+    // if (this.rentalReceives.length > 0) {
+    if (this.rentalContracts.length > 0) {
+    // 20250509 E_Update
 
       let yearReceiveMap = this.rental.yearReceiveMap;
       let isExistsYear = false;
 
       //入金日
-      this.minReceiveMonth = this.getMinReceiveMonth();
-      // 20240405 S_Update
-      // // 賃貸免除開始日
-      // let maxRoomRentDate = this.getMaxRoomRentExemptionStartDateEvicMap();
-      // // 明渡日
-      // let maxSurrenderDate = this.getMaxSurrenderDateEvicMap();
-      let maxDateEvic = this.getMaxDatDateEvic();
-      // 20240405 E_Update
+      // 20250509 S_Update
+      // this.minReceiveMonth = this.getMinReceiveMonth();
+      if(this.rental.ownershipRelocationDate != null && this.rental.ownershipRelocationDate.length > 6)
+      {
+        this.minReceiveMonth = this.rental.ownershipRelocationDate.substring(0,6);
+      }
+      else{
+        this.minReceiveMonth = this.rental.createDate.substring(0,6);
+      }
+      // 20250509 E_Update
+      // let maxDateEvic = this.getMaxDatDateEvic();// 20250509 Delete
 
       let yearReceivesTemp: Code[] = [];
 
@@ -1235,20 +1290,19 @@ export class RentalInfoDetailComponent extends BaseComponent {
         year = minYear;
       }
 
-      let maxYear = year + 5;
-      // 20240405 S_Update
-      // // 賃貸免除開始日設定される場合、
-      // if (maxRoomRentDate != null && maxRoomRentDate != '') {
-      //   maxYear = parseInt(maxRoomRentDate.substring(0, 4));
-      // }
-      // // 明渡日設定される場合、
-      // else if (maxSurrenderDate != null && maxSurrenderDate != '') {
-      //   maxYear = parseInt(maxSurrenderDate.substring(0, 4));
-      // }
-      if (maxDateEvic != null && maxDateEvic != '') {
-        maxYear = parseInt(maxDateEvic.substring(0, 4));
+      // 20250509 S_Update
+      // let maxYear = year + 5;
+      let maxYear = minYear + 4;
+      if(this.rental.maxReceiveYear > maxYear){
+        maxYear = this.rental.maxReceiveYear;
       }
-      // 20240405 E_Update
+      // 20250509 E_Update
+      
+      // 20250509 S_Delete
+      // if (maxDateEvic != null && maxDateEvic != '') {
+      //   maxYear = parseInt(maxDateEvic.substring(0, 4));
+      // }
+      // 20250509 E_Delete
 
       if (maxYear < year) {
         year = maxYear;
@@ -1322,4 +1376,46 @@ export class RentalInfoDetailComponent extends BaseComponent {
     });
   }
   // exportRental E_Add
+
+  // 20250418 S_Add
+  openAttachFileDialog(parentPid: number,fileType: number, attachFileType: string) {
+      const dialogRef = this.dialog.open(AttachFileDialogComponent, {
+      width: '60%',
+      height: '400px',
+      data: {parentPid, fileType, attachFileType}
+      });
+    }
+
+    
+  /**
+   * 預り金一覧作成
+   */
+  exportDeposit() {
+    const dlg = new Dialog({ title: '確認', message: '預り金一覧を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportDeposit(this.rental.pid).then(data => {
+          this.service.writeToFile(data, "預り金一覧");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  // 20250418 E_Add
+
+  // 20250509 S_Add
+  addYear(){
+    var maxYear = Math.max(...this.yearReceives.map(item => parseInt(item.name, 10)));
+    this.rental.maxReceiveYear = maxYear + 1;
+    
+    var maxYearPlus = this.rental.maxReceiveYear.toString();
+    var newYear = new Code({ codeDetail: maxYearPlus, name: maxYearPlus });
+
+    this.yearReceives.push(newYear);
+    this.rental.yearReceiveMap = maxYearPlus;
+  }
+  // 20250509 E_Add
 }

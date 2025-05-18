@@ -6,4 +6,5 @@ export class EvictionDepositInfo {
     depositPayedDate: string = null;
     depositMap: string = "";
     depositPayedDateMap: Date = null;
+    depositPayedFlg: string = null;// 20250418 Add
 }

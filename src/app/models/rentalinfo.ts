@@ -25,6 +25,13 @@ export class RentalInfo {
     msgMap: string;// NGのメッセージ
     // 20231010 E_Add
 
+    // 20250418 S_Add
+    successionSecurityDeposit: number;
+    successionSecurityDepositMap: string;
+    // 20250418 E_Add
+
+    maxReceiveYear: number; // 20250509 Add
+
     createUserId: number;
     updateUserId: number;
 
@@ -35,6 +42,7 @@ export class RentalInfo {
     rentalReceives: RentalReceive[];
     rentalReceivesChanged: RentalReceive[];
     yearReceiveMap: string;// 20240228 Add
+    createDate: string;// 20250509 Add
 
     public constructor(init?: Partial<RentalInfo>) {
         if (init) {
@@ -48,6 +56,7 @@ export class RentalInfo {
 
         // 数字
         this.totalUnitsMap = Converter.numberToString(this.totalUnits);
+        this.successionSecurityDepositMap = Converter.numberToString(this.successionSecurityDeposit);// 20250418 Add
     }
 
     public convertForSave(userId: number, datePipe: DatePipe) {
@@ -61,5 +70,6 @@ export class RentalInfo {
 
         // 数字
         this.totalUnits = Converter.stringToNumber(this.totalUnitsMap);
+        this.successionSecurityDeposit = Converter.stringToNumber(this.successionSecurityDepositMap);// 20250418 Add
     }
 }
