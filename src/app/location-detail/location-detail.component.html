@@ -29,7 +29,9 @@
                 <mat-checkbox [checked]="data.inheritanceNotyet === '1'"  (change)="notChange($event, data)" ></mat-checkbox>&nbsp;相続未登記あり&nbsp;
                 <mat-checkbox [checked]="data.buildingNotyet === '1'"  (change)="yetChange($event, data)" ></mat-checkbox>&nbsp;建物未登記あり
                 -->
-                <mat-checkbox #inheritanceNotyet (change)="notChange($event, data)" ></mat-checkbox>&nbsp;相続未登記あり&nbsp;
+                <!-- 20250616 S_Delete -->
+                <!-- <mat-checkbox #inheritanceNotyet (change)="notChange($event, data)" ></mat-checkbox>&nbsp;相続未登記あり&nbsp; -->
+                <!-- 20250616 E_Delete -->
                 <mat-checkbox #buildingNotyet (change)="yetChange($event, data)" ></mat-checkbox>&nbsp;建物未登記あり
                 <!-- 20201021 E_Update -->
             </td>
@@ -222,7 +224,10 @@
             <!-- 20240123 S_Add -->
             <th>建物名</th>
             <td>
-                <input type="text" [(ngModel)]="data.apartmentName" class="width120" [ngClass]="{'error': errors['apartmentName']}" [disabled]="data.locationType != '02'" maxlength="128">
+                <!-- 20250616 S_Update -->
+                <!-- <input type="text" [(ngModel)]="data.apartmentName" class="width120" [ngClass]="{'error': errors['apartmentName']}" [disabled]="data.locationType != '02'" maxlength="128"> -->
+                <input type="text" [(ngModel)]="data.apartmentName" class="width120" [ngClass]="{'error': errors['apartmentName']}" [disabled]="data.locationType != '01' && data.locationType != '02'" maxlength="128">
+                <!-- 20250616 E_Update -->
             </td>
             <!-- 20240123 E_Add -->
         </tr>
@@ -234,7 +239,10 @@
         </tr>
         <!-- 20220614 S_Add -->
         <tr>
-            <th class="sharer">部屋番号
+            <!-- 20250616 S_Update -->
+            <!-- <th class="sharer">部屋番号 -->
+            <th class="sharer">{{ data.locationType === '01' ? '名称' : '部屋番号' }}
+            <!-- 20250616 E_Update -->
                 <!-- 20230914 S_Update -->
                 <!-- <button mat-raised-button class="addSharer" (click)="addResident()" [disabled]="data.locationType !== '02' && data.locationType !== '04'">追加</button> -->
                 <button mat-raised-button class="addSharer" (click)="addResident()" [disabled]="isDisableResident(data)">追加</button>
@@ -281,7 +289,10 @@
         </tr>
         <!--入居者情報-->
         <tr *ngFor="let resident of data.residents | slice:1; index as residentPos">
-            <th class="sharer">部屋番号
+            <!-- 20250616 S_Update -->
+            <!-- <th class="sharer">部屋番号 -->
+            <th class="sharer">{{ data.locationType === '01' ? '名称' : '部屋番号' }}
+            <!-- 20250616 E_Update -->
                 <!-- 20230914 S_Update -->
                 <!-- <button mat-raised-button class="deleteSharer" (click)="deleteResident(residentPos + 1)" [disabled]="data.locationType !== '02' && data.locationType !== '04'">削除</button> -->
                 <button mat-raised-button class="deleteSharer" (click)="deleteResident(residentPos + 1)" [disabled]="isDisableResident(data)">削除</button>

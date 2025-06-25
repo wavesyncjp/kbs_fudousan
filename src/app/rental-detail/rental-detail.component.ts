@@ -237,6 +237,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
         this.backupRentalReceive();
 
         this.rental.convert();
+        this.setDefaultByContract();// 20250616 Add
       } else {
         this.rental = new RentalInfo();
         // 20231027 S_Add
@@ -839,6 +840,19 @@ export class RentalInfoDetailComponent extends BaseComponent {
           // revByMonth.invisibleByRenContractMap = true;// 20240404 Add
           revByMonth.invisibleByRenContractMap = false;
           // 20250509 E_Update
+          // 20250620 S_Add
+          revByMonth.pid = 0;
+          revByMonth.rentalInfoPid = this.rental.pid;
+          revByMonth.rentalContractPid = con.pid;
+          revByMonth.contractInfoPid = this.rental.contractInfoPid;
+          revByMonth.locationInfoPid = this.rental.locationInfoPid;
+          revByMonth.tempLandInfoPid = this.rental.tempLandInfoPid;
+          revByMonth.receiveCode = con.receiveCode;
+          revByMonth.receiveMonth = rev.receiveMonth;
+          revByMonth.receiveFlg = '0';
+          revByMonth.isExistRenContractMap = true;
+          this.rentalReceives[i].details.push(revByMonth);
+          // 20250620 E_Add
         }
         else {
           revByMonth.isExistRenContractMap = this.isExistRenContract(rev.details, con.pid);
@@ -944,23 +958,27 @@ export class RentalInfoDetailComponent extends BaseComponent {
     const contractsFilter = this.contracts.filter(c => c.codeDetail === this.contractInfoPid.toString());
     if (contractsFilter.length === 1) {
       var datas = contractsFilter[0].nameHeader.split('-');
-      if(datas[0] != null && datas[0] != '' && datas[0] != 'null'){
-        this.rental.ownershipRelocationDateMap = Converter.stringToDate(datas[0], 'yyyyMMdd');
-      }
-      else{
-        this.rental.ownershipRelocationDateMap = null;
-      }
-      const temp1 = Converter.stringToNumber(datas[1]);
-      const temp2 = Converter.stringToNumber(datas[2]);
+      // 20250616 S_Update
+      // if(datas[0] != null && datas[0] != '' && datas[0] != 'null'){
+      //   this.rental.ownershipRelocationDateMap = Converter.stringToDate(datas[0], 'yyyyMMdd');
+      // }
+      // else{
+      //   this.rental.ownershipRelocationDateMap = null;
+      // }
+      // const temp1 = Converter.stringToNumber(datas[1]);
+      // const temp2 = Converter.stringToNumber(datas[2]);
 
-      const validNumbers = [temp1, temp2].filter(v => typeof v === 'number' && !isNaN(v));
+      // const validNumbers = [temp1, temp2].filter(v => typeof v === 'number' && !isNaN(v));
 
-      if (validNumbers.length > 0) {
-        const sum = validNumbers.reduce((a, b) => a + b, 0);
-        this.rental.successionSecurityDepositMap = Converter.numberToString(sum);
-      } else {
-        this.rental.successionSecurityDepositMap = null;
-      }
+      // if (validNumbers.length > 0) {
+      //   const sum = validNumbers.reduce((a, b) => a + b, 0);
+      //   this.rental.successionSecurityDepositMap = Converter.numberToString(sum);
+      // } else {
+      //   this.rental.successionSecurityDepositMap = null;
+      // }
+      this.setOwnershipRelocationDateSub(datas);
+      this.setSuccessionSecurityDepositSub(datas);
+      // 20250616 E_Update
     }
     // 20250418 E_Add
 
@@ -1418,4 +1436,45 @@ export class RentalInfoDetailComponent extends BaseComponent {
     this.rental.yearReceiveMap = maxYearPlus;
   }
   // 20250509 E_Add
+
+  // 20250616 S_Add
+  setDefaultByContract() {
+    if(this.pid > 0){
+      const contractsFilter = this.contracts.filter(c => c.codeDetail === this.rental.contractInfoPid.toString());
+      if (contractsFilter.length === 1) {
+        var datas = contractsFilter[0].nameHeader.split('-');
+
+        if(this.rental.ownershipRelocationDateMap == null){
+          this.setOwnershipRelocationDateSub(datas);
+        }
+
+        if(this.rental.successionSecurityDepositMap == null || this.rental.successionSecurityDepositMap == ''){
+          this.setSuccessionSecurityDepositSub(datas);
+        }
+      }
+    }
+  }
+
+  setSuccessionSecurityDepositSub(datas) {
+    const temp1 = Converter.stringToNumber(datas[1]);
+    const temp2 = Converter.stringToNumber(datas[2]);
+
+    const validNumbers = [temp1, temp2].filter(v => typeof v === 'number' && !isNaN(v));
+
+    if (validNumbers.length > 0) {
+      const sum = validNumbers.reduce((a, b) => a + b, 0);
+      this.rental.successionSecurityDepositMap = Converter.numberToString(sum);
+    } else {
+      this.rental.successionSecurityDepositMap = null;
+    }
+  }
+  setOwnershipRelocationDateSub(datas){
+     if(datas[0] != null && datas[0] != '' && datas[0] != 'null'){
+        this.rental.ownershipRelocationDateMap = Converter.stringToDate(datas[0], 'yyyyMMdd');
+      }
+      else{
+        this.rental.ownershipRelocationDateMap = null;
+      }
+  }
+  // 20250616 E_Add
 }

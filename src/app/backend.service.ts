@@ -385,9 +385,15 @@ getCodeNames(codes: string[]): Promise<Code[]> {
    * 取引成立台帳　出力
    * @param pid 物件
    */
-  exportTransaction(pid: number): Promise<Blob> {
+  // 20250616 S_Update
+  // exportTransaction(pid: number): Promise<Blob> {
+  exportTransaction(pid: number, contractinfoPid : number = null): Promise<Blob> {
+  // 20250616 E_Update
     const downloadUrl = 'transactionexport.php';
-    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: pid }, { responseType: 'blob' as 'blob' });
+    // 20250616 S_Update
+    // const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: pid }, { responseType: 'blob' as 'blob' });
+    const res = this.http.post(`${this.BaseUrl}/${downloadUrl}`, { pid: pid, contractinfoPid: contractinfoPid }, { responseType: 'blob' as 'blob' });
+    // 20250616 S_Update
     return res.toPromise();
   }
   // 20210524 E_Add

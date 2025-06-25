@@ -200,6 +200,7 @@ export class Contractinfo {
     contractAttaches: ContractAttach[];// 20230227 Add
     sellers: ContractSellerInfo[];
     locations = []; // 所有地（保存しない）
+    locationsChangedMap = []; // 20250616 Add 所有地 相続未登記保存のため
     contractStaffMap = [];//20200828 Add
     csvSelected: boolean; //20211107 Add
 

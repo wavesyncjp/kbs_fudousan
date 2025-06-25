@@ -78,7 +78,10 @@
         </tr>
         <!-- 20231010 E_Add -->
         <tr>
-            <th>部屋番号</th>
+            <!-- 20250616 S_Update -->
+            <!-- <th>部屋番号</th> -->
+            <th>{{ data.roomType === '01' ? '名称' : '部屋番号' }}</th>
+            <!-- 20250616 E_Update -->
             <td>
                 <app-select-component [codes]="residentInfoPids" [(ngModel)]="data.residentInfoPid" (changed)="changeRoomNo($event)" [ngClass]="{'error-select': errors['residentInfoPid']}"></app-select-component>
             </td>

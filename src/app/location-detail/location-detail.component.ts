@@ -658,8 +658,11 @@ export class LocationDetailComponent extends BaseComponent {
       this.checkBlank(this.data.bottomLandPid, `bottomLandPid`, '底地は必須です。');
     }
     // 20240123 S_Add
-    // 建物
-    if (this.data.locationType === '02' && (this.data.apartmentName == null || this.data.apartmentName == '')) {
+    // 20250616 S_Update
+    //// 建物
+    // if (this.data.locationType === '02' && (this.data.apartmentName == null || this.data.apartmentName == '')) {
+    if ((this.data.locationType === '01' || this.data.locationType === '02') && (this.data.apartmentName == null || this.data.apartmentName == '')) {
+    // 20250616 E_Update
       this.convertResident();
       let residentsCheck = this.data.residents.filter(a => (a.roomNo != null && a.roomNo != '') || (a.rentPriceMap != null && a.rentPriceMap != '' && a.rentPriceMap != '0') || (a.borrowerName != null && a.borrowerName != ''));
 

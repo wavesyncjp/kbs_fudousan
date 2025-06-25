@@ -2,6 +2,7 @@
 <div  class="detail-div">
     <div class="register-div">
         <button mat-raised-button class="button" (click)="backToList()">一覧へ</button>
+        <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="output-btn2" style="width: auto !important;" (click)="exportTransaction()" [disabled]="disableUser">取引成立台帳出力</button><!-- 20250616 Add -->
         <!-- 20240131 S_Update -->
         <!-- <button mat-raised-button *ngIf="this.contract != null && this.contract.pid > 0" class="button contractCalculateExport-button" (click)="contractCalculateExport()">契約精算申請書作成</button>20230506 Add -->
         <!-- 20240216 S_Update -->
@@ -141,6 +142,7 @@
                             <th>家屋番号</th>
                             <th>所有者<br>（売主・登記名義人）</th>
                             <th>登記名義人</th>
+                            <th class="c_width40">相続<br>未登記あり</th><!-- 20250616 Add -->
                             <th style="display: block;border:none" class="width300">所有者住所<br>（売主住所）</th>
                             <!--<th>契約者名</th>-->
                             <th class="c_width80">地目</th>
@@ -175,6 +177,7 @@
                                     <button class="sharerBtn" *ngIf="item.sharers.length > 1" [disabled]="disableUser"  (click)="showSharer(item)" >表示</button> 
                                     <!-- 20240131 E_Update -->
                                 </td>
+                                <td><mat-checkbox color="primary" [ngModel]="item.inheritanceNotyet == 1" (change)="notChange($event, item)" [disabled]="disableUser"></mat-checkbox></td><!-- 20250616 Add -->
                                 <td class="width300 text-left">{{item.ownerAdress}}</td>
                                 <td>{{getCodeTitle('002', item.landCategory)}}</td>
                                 <td>{{item.area > 0 ? item.area + '&nbsp;㎡' : ''}}</td>

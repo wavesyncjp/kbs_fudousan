@@ -65,6 +65,8 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
 
   public contract: Contractinfo;
   public data: Templandinfo;
+  public locationsBk = [];// 20250616 Add
+
   // 20230917 S_Add
   public rentals: RentalInfo[];// 賃貸一覧
   public evictions: EvictionInfo[];// 立退き一覧
@@ -309,6 +311,7 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
       if (loc.locationType !== '03') locs.push(newLoc);
     });
     this.data.locations = locs;
+    this.backupLocations();// 20250616 Add
   }
 
   /**
@@ -551,6 +554,11 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
         this.contract.locations.push(val);
       }
     });
+
+    // 20250616 S_Add
+    var locationsChanged = this.getLocationsChanged();
+    this.contract.locationsChangedMap = locationsChanged;
+    // 20250616 E_Add
   }
 
   // 20230301 S_Add
@@ -1156,4 +1164,55 @@ export class ContractDetailComponent extends BaseComponent implements AfterViewI
       });
     }
   // 20250418 E_Add
+
+  // 20250616 S_Add
+  /**
+   * 取引成立台帳
+   */
+  exportTransaction() {
+    const dlg = new Dialog({ title: '確認', message: '取引成立台帳を出力します。よろしいですか？' });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '500px', height: '250px', data: dlg });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (dlg.choose) {
+        this.spinner.show();
+        this.service.exportTransaction(this.data.pid, this.contract.pid).then(data => {
+          this.service.writeToFile(data, "取引成立台帳");
+          this.spinner.hide();
+        });
+      }
+    });
+  }
+  /**
+   * 相続未登記ありチェックボックス変更
+   * @param event ：イベント
+   * @param data ：所有地
+  */
+  notChange(event, data: any) {
+    data.inheritanceNotyet = (event.checked ? 1 : 0);
+  }
+
+  backupLocations() {
+    this.locationsBk = [];
+    if(this.data != null && this.data.locations != null){
+      this.data.locations.forEach(r => {
+          this.locationsBk.push(<Locationinfo>Util.deepCopy(r, 'Locationinfo'));
+      });
+    }
+  }
+
+  getLocationsChanged() {
+    let listChangeds = [];
+    if(this.locationsBk.length > 0){
+      this.data.locations.forEach(l => {
+        let objBk = this.locationsBk.filter(b => b.pid == l.pid)[0];
+
+        if (objBk.inheritanceNotyet != l.inheritanceNotyet) {
+          listChangeds.push(l);
+        }
+      });
+    }
+    return listChangeds;
+  }
+  // 20250616 E_Add
 }
