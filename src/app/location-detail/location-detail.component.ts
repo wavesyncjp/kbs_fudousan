@@ -43,8 +43,10 @@ export class LocationDetailComponent extends BaseComponent {
 
   // 20201021 S_Add
   // 相続未登記あり
-  @ViewChild('inheritanceNotyet', { static: true })
-  inheritanceNotyet: MatCheckbox;
+  // 20250701 S_Delete
+  // @ViewChild('inheritanceNotyet', { static: true })
+  // inheritanceNotyet: MatCheckbox;
+  // 20250701 E_Delete
   // 建物未登記あり
   @ViewChild('buildingNotyet', { static: true })
   buildingNotyet: MatCheckbox;
@@ -141,7 +143,9 @@ export class LocationDetailComponent extends BaseComponent {
     }
     // 20201021 S_Add
     // チェックボックス初期化
-    this.inheritanceNotyet.checked = (this.data.inheritanceNotyet === '1');
+    // 20250701 S_Delete
+    // this.inheritanceNotyet.checked = (this.data.inheritanceNotyet === '1');
+    // 20250701 E_Delete
     this.buildingNotyet.checked = (this.data.buildingNotyet === '1');
     this.buysellFlg.checked = (this.data.buysellFlg === '1');
     // 20201021 E_Add
@@ -271,8 +275,10 @@ export class LocationDetailComponent extends BaseComponent {
         if (dlg.choose) {
           // 20201224 S_Add
           // 相続未登記あり
-          this.inheritanceNotyet.checked = false;
-          this.data.inheritanceNotyet = '0';
+          // 20250701 S_Delete
+          // this.inheritanceNotyet.checked = false;
+          // this.data.inheritanceNotyet = '0';
+          // 20250701 E_Delete
           // 建物未登記あり
           this.buildingNotyet.checked = false;
           this.data.buildingNotyet = '0';
@@ -539,9 +545,12 @@ export class LocationDetailComponent extends BaseComponent {
    * @param event ：イベント
    * @param data ：所有地
   */
-  notChange(event, data: any) {
-    data.inheritanceNotyet = (event.checked ? 1 : 0);
-  }
+  //  20250701 S_Delete
+  // notChange(event, data: any) {
+  //   data.inheritanceNotyet = (event.checked ? 1 : 0);
+  // }
+  //  20250701 E_Delete
+
   /**
    * 建物未登記ありチェックボックス変更
    * @param event ：イベント
