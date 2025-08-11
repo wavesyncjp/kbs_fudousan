@@ -1,7 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { MatDialog, MatTableDataSource, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+// 20250804 S_Update
+// import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+// 20250804 E_Update
 import { BaseComponent } from '../BaseComponent';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
@@ -51,6 +54,8 @@ export class ReceiveContractListComponent extends BaseComponent {
     , banktransferPid: ''// 入金口座
     , banktransferNameKana: ''// 入金名義（カタカナ）
     // 20230928 E_Add
+    , pageSize : 10// 20250804 Add
+    , pageIndex : 0// 20250804 Add
   };
   search = '0';
   searched = false;
@@ -144,6 +149,8 @@ export class ReceiveContractListComponent extends BaseComponent {
       , banktransferPid: ''// 入金口座
       , banktransferNameKana: ''// 入金名義（カタカナ）
       // 20230928 E_Add
+      , pageSize : 10// 20250804 Add
+      , pageIndex : 0// 20250804 Add
     };
   }
 
@@ -245,4 +252,20 @@ export class ReceiveContractListComponent extends BaseComponent {
     return null;
   }
   // 20230928 E_Add
+
+  // 20250804 S_Add
+  ngAfterViewInit() {
+    if (this.search === '1') {
+      setTimeout(() => {
+        this.paginator.pageIndex = this.cond.pageIndex;
+        this.paginator._changePageSize(this.cond.pageSize); 
+      });
+    }
+  }
+
+  onPageChange(event: PageEvent, cond: any) {
+    cond.pageSize = event.pageSize; 
+    cond.pageIndex = event.pageIndex;
+  }
+  // 20250804 E_Add  
 }

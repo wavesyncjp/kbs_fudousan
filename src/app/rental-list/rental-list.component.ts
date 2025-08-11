@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BackendService } from '../backend.service';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+  // 20250804 S_Update
+// import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator, PageEvent } from '@angular/material';
+// 20250804 E_Update
 import { NgxSpinnerService } from 'ngx-spinner';
 import { JPDateAdapter, MatPaginatorIntlJa } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,7 +24,10 @@ import { Code } from '../models/bukken';
 })
 export class RentalInfoListComponent extends BaseComponent {
 
-  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'apartmentName', 'ownershipRelocationDate', 'validType', 'bankPid', 'detail'];
+  // 20250804 S_Update
+  // displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'apartmentName', 'ownershipRelocationDate', 'validType', 'bankPid', 'detail'];
+  displayedColumns: string[] = ['bukkenNo', 'contractBukkenNo', 'apartmentName', 'banktransferNameKanaListMap', 'ownershipRelocationDate', 'validType', 'bankPid', 'detail'];
+  // 20250804 E_Update
   dataSource = new MatTableDataSource<RentalInfo>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -37,6 +43,10 @@ export class RentalInfoListComponent extends BaseComponent {
     , ownershipRelocationDate_To: ''// 所有権移転日 To
     , validType: ''// 有効区分
     , bankPid: ''// 入金口座
+    , apartmentName_Like: ''// 建物名 // 20250804 Add
+    , banktransferNameKana_Like: ''// 振込名義人カナ // 20250804 Add
+    , pageSize : 10// 20250804 Add
+    , pageIndex : 0// 20250804 Add
   };
   search = '0';
   searched = false;
@@ -92,6 +102,10 @@ export class RentalInfoListComponent extends BaseComponent {
       , ownershipRelocationDate_To: ''
       , validType: ''
       , bankPid: ''
+      , apartmentName_Like: ''// 建物名 // 20250804 Add
+      , banktransferNameKana_Like: ''// 振込名義人カナ // 20250804 Add
+      , pageSize : 10// 20250804 Add
+      , pageIndex : 0// 20250804 Add
     };
   }
 
@@ -145,4 +159,20 @@ export class RentalInfoListComponent extends BaseComponent {
     this.router.navigate(['/rendetail']);
   }
   // 20231027 E_Add
+
+  // 20250804 S_Add
+  ngAfterViewInit() {
+    if (this.search === '1') {
+      setTimeout(() => {
+        this.paginator.pageIndex = this.cond.pageIndex;
+        this.paginator._changePageSize(this.cond.pageSize); 
+      });
+    }
+  }
+
+  onPageChange(event: PageEvent, cond: any) {
+    cond.pageSize = event.pageSize; 
+    cond.pageIndex = event.pageIndex;
+  }
+  // 20250804 E_Add  
 }

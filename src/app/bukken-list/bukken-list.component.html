@@ -349,7 +349,10 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlighted': selectedRowIndex == row.pid, 'grayrow': row.result === '断念' || row.result === '没' || row.result === '一斉断念'}" (mouseover)="highlight(row)"></tr>
         <!-- 20221017 E_Update -->
       </table>
-      <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+      <!-- 20250804 S_Update -->
+      <!-- <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator> -->
+      <mat-paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="cond.pageSize" [pageIndex]="cond.pageIndex" (page)="onPageChange($event, cond)" showFirstLastButtons></mat-paginator>
+      <!-- 20250804 E_Update -->
     </div>
   </mat-tab>
 

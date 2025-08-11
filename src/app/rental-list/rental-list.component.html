@@ -30,6 +30,18 @@
                         </div>
                     </td>
                 </tr>
+                <!-- 20250804 S_Add -->
+                <tr>
+                    <th>建物名</th>
+                    <td>
+                       <input type="text" [(ngModel)]="cond.apartmentName_Like" class="fuzzy width300" maxlength="128">
+                    </td>
+                    <th>振込名義人カナ</th>
+                    <td colspan="3">
+                        <input type="text" [(ngModel)]="cond.banktransferNameKana_Like" class="fuzzy width300" maxlength="128">
+                    </td>
+                </tr>
+                <!-- 20250804 E_Add -->
                 <tr>
                     <th>有効区分</th>
                     <td>
@@ -75,6 +87,14 @@
                 <td mat-cell *matCellDef="let element" > {{element.apartmentName}} </td>
             </ng-container>
 
+            <!-- 20250804 S_Add -->
+            <!--振込名義人カナ-->
+            <ng-container matColumnDef="banktransferNameKanaListMap">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 振込名義人カナ </th>
+                <td mat-cell *matCellDef="let element" > {{element.banktransferNameKanaListMap}} </td>
+            </ng-container>
+            <!-- 20250804 E_Add -->
+
             <!--所有権移転日-->
             <ng-container matColumnDef="ownershipRelocationDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> 所有権移転日 </th>
@@ -104,6 +124,9 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+        <!-- 20250804 S_Update -->
+        <!-- <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator> -->
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="cond.pageSize" [pageIndex]="cond.pageIndex" (page)="onPageChange($event, cond)" showFirstLastButtons></mat-paginator>
+        <!-- 20250804 E_Update -->
     </div>
 </div>

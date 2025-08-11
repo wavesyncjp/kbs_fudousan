@@ -287,6 +287,9 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+        <!-- 20250804 S_Update -->
+        <!-- <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator> -->
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="cond.pageSize" [pageIndex]="cond.pageIndex" (page)="onPageChange($event, cond)" showFirstLastButtons></mat-paginator>
+        <!-- 20250804 E_Update -->
     </div>
 </div>

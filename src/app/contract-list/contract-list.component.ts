@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BackendService } from '../backend.service';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+// 20250804 E_Update
+// import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator, PageEvent } from '@angular/material';
+// 20250804 E_Update
 import { NgxSpinnerService } from 'ngx-spinner';
 import { JPDateAdapter, MatPaginatorIntlJa } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -73,6 +76,8 @@ export class ContractListComponent  extends BaseComponent {
     , canncellDay_ToMap: null
     , canncellDay_To: ''
     // 20221122 E_Add
+    , pageSize : 10// 20250804 Add
+    , pageIndex : 0// 20250804 Add
   };
   search = '0';
   searched = false;// 20210103 Add
@@ -173,6 +178,8 @@ export class ContractListComponent  extends BaseComponent {
       , canncellDay_ToMap: null
       , canncellDay_To: ''
       // 20221122 E_Add
+      , pageSize : 10// 20250804 Add
+      , pageIndex : 0// 20250804 Add
    };
   }
 
@@ -303,4 +310,21 @@ export class ContractListComponent  extends BaseComponent {
     });
   }
   // 20210314 E_Add
+
+
+  // 20250804 S_Add
+  ngAfterViewInit() {
+    if (this.search === '1') {
+      setTimeout(() => {
+        this.paginator.pageIndex = this.cond.pageIndex;
+        this.paginator._changePageSize(this.cond.pageSize); 
+      });
+    }
+  }
+
+  onPageChange(event: PageEvent, cond: any) {
+    cond.pageSize = event.pageSize; 
+    cond.pageIndex = event.pageIndex;
+  }
+  // 20250804 E_Add  
 }

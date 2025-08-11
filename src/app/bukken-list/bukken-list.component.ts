@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, NgZone, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BackendService } from '../backend.service';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+  // 20250804 S_Update
+// import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+  // 20250804 E_Update
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatTabGroup, MatRadioChange, MatCheckbox } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -82,6 +85,8 @@ export class BukkenListComponent extends BaseComponent {
     , surveyRequested: ''
     , surveyDeliveryDayChk: ''
     // 20240201 E_Add
+    , pageSize : 10// 20250804 Add
+    , pageIndex : 0// 20250804 Add
   };
   dropdownSettings = {};//20200828 Add
   search = '0';
@@ -270,6 +275,8 @@ export class BukkenListComponent extends BaseComponent {
       , surveyRequested: ''
       , surveyDeliveryDayChk: ''
       // 20240201 E_Add
+      , pageSize : 10// 20250804 Add
+      , pageIndex : 0// 20250804 Add
     };
   }
 
@@ -801,5 +808,21 @@ export class BukkenListComponent extends BaseComponent {
     this.router.navigate(['/bkdetail'], { queryParams: { pid: bk.pid } });
   }
   // 20230919 E_Add
+
+  // 20250804 S_Add
+  ngAfterViewInit() {
+    if (this.search === '1') {
+      setTimeout(() => {
+        this.paginator.pageIndex = this.cond.pageIndex;
+        this.paginator._changePageSize(this.cond.pageSize); 
+      });
+    }
+  }
+
+  onPageChange(event: PageEvent, cond: any) {
+    cond.pageSize = event.pageSize; 
+    cond.pageIndex = event.pageIndex;
+  }
+  // 20250804 E_Add
 }
 
