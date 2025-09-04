@@ -209,6 +209,49 @@
         </div>
         <div class="more" *ngIf="hasFukuoka"><a (click)="navigate2('notices','3')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
     </div>
+
+    <!-- 20250904 S_Add -->
+    <br>
+    <div class="bulletin-kyoto" *ngIf="enableUser">
+        <label>お知らせ（京都支店）</label>
+        <div class="mat-elevation-z8 main-data">
+            <table mat-table [dataSource]="dataSourceForKyoto">
+                <ng-container matColumnDef="infoDate">
+                    <td mat-cell *matCellDef="let element"> {{formatDay(element.infoDate, 'yyyy/MM/dd')}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="infoSubject">
+                    <td mat-cell *matCellDef="let element">
+                        <a class="action-link" (click)="showNoticeDetail(element)">{{element.infoSubject}}</a>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="confirmFlg">
+                    <td mat-cell *matCellDef="let element" [ngClass]="((element.confirmFlg == '0' && element.approvalFlg == '0') || element.confirmFlg == '3' || element.confirmFlg == '4' ? 'color-red' : '')">
+                        {{getCodeTitle('039',element.confirmFlg)}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="approvalFlg">
+                    <td mat-cell *matCellDef="let element" [ngClass]="(element.confirmFlg == '0' && element.approvalFlg == '0' ? 'color-red' : '')">
+                        {{getCodeTitle('038',element.approvalFlg)}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createUserId">
+                    <td mat-cell *matCellDef="let element">{{getUserName(element.createUserId)}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="answerTimeLimit">
+                    <td mat-cell *matCellDef="let element">{{element.answerTimeLimit}}</td>
+                </ng-container>
+
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsForKyoto;"></tr>
+            </table>
+        </div>
+        <div class="more" *ngIf="hasKyoto"><a (click)="navigate2('notices','4')">もっと見る</a><mat-icon>arrow_drop_down</mat-icon></div>
+    </div>
+    <!-- 20250904 R_Add -->
     <!-- 20231108 E_Add -->    
 
     <!--

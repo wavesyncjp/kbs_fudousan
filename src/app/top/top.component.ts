@@ -48,6 +48,12 @@ export class TopComponent extends BaseComponent {
   dataSourceForFukuoka = new MatTableDataSource<Information>();
   hasFukuoka = false;
   // 20231023 E_Add
+
+  // 20250904 S_Add
+  displayedColumnsForKyoto: string[] = ['infoDate', 'infoSubject', 'confirmFlg', 'approvalFlg', 'createUserId', 'answerTimeLimit'];
+  dataSourceForKyoto = new MatTableDataSource<Information>();
+  hasKyoto = false;
+  // 20250904 E_Add
   // view: any[] = ['50%', '100%'];
 
   // options for the chart
@@ -194,6 +200,21 @@ export class TopComponent extends BaseComponent {
       }, 500);
     });
     // 20231023 S_Add
+
+    // 20250904 S_Add
+    // お知らせ（京都支店）
+    this.service.searchInfo({ count: 0, finishFlg: ['0'], infoType: 4, sortType: '1' }).then(res => {
+      this.dataSourceForKyoto.data = res;
+
+      if (res !== undefined && res.length > 0) {
+        this.hasKyoto = true;
+      }
+
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500);
+    });
+    // 20250904 S_Add
   }
 
   buildDepChart() {
