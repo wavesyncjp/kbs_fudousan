@@ -22,6 +22,10 @@
                     <option *ngFor="let land of bukkens">{{land.bukkenNo + ':' + land.bukkenName}}</option>
                 </datalist>
             </td>
+            <th>契約物件番号</th>
+            <td>
+                <input [disabled]="isDisableContract" [(ngModel)]="contractBukkenNo" style="width: 250px"/>
+            </td>
             <th>契約番号</th>
             <td>
                 <app-select-component [isDisabled]="isDisableContract || tempLandInfoPid == null || tempLandInfoPid < 1" [codes]="contracts" [(ngModel)]="rental.contractInfoPid" (changed)="searchByContract()" [ngClass]="{'width250': true, 'error-select': errors['contractInfoPid']}"></app-select-component>
