@@ -130,7 +130,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
           searchFor: 'searchContractSimple'
           , tempLandInfoPid: this.tempLandInfoPid
         };
-        //物件名称 を取得
+        //物件名称・契約物件番号を取得
         funcs.push(this.service.commonSearch(cond));
       }
     }
@@ -168,9 +168,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
         // 20231027 S_Add
         let contractsTemp = values[4];
-        console.log(contractsTemp[0]);
         
-
         this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
         this.contractBukkenNo =  `${contractsTemp[0].contractBukkenNo}`;
 
