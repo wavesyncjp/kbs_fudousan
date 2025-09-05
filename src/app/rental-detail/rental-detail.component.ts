@@ -168,7 +168,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
         // 20231027 S_Add
         let contractsTemp = values[4];
-        
+
         this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
         this.contractBukkenNo =  `${contractsTemp[0].contractBukkenNo}`;
 
