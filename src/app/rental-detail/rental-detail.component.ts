@@ -172,7 +172,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
         
 
         this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
-        this.contractBukkenNo = '111';
+        this.contractBukkenNo =  `${contractsTemp[0].contractBukkenNo}`;
 
         let lst: Code[] = [];
         contractsTemp.forEach(item => {
