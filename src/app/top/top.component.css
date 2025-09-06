@@ -288,6 +288,63 @@
 }
 /* 20231108 E_Add */
 
+/* 20250902 S_Add */
+.bulletin-kyoto{
+    width:97%;
+    height:220px;
+    border: solid 1px black;
+    border-radius: 4px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 20px;
+    margin-top: 4px;
+    margin-bottom: 40px;
+    background-color: #EBFFED;
+    overflow-y: auto;
+}
+.bulletin-kyoto > label {
+    display: inline-block;
+    position: absolute;
+    top: 885px;
+    left: 40px;
+    background-color: #EBFFED;
+    font-weight: bold;
+}
+.bulletin-kyoto .more {
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    top: 1078px;
+    background-color: #EBFFED;
+    display: flex;
+    align-items: center;
+}
+.bulletin-kyoto .more > a {
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.bulletin-kyoto .main-data {
+    margin: 10px;
+    width:98%;
+    height:130px;
+    box-shadow: none;
+    background-color: #EBFFED;
+}
+.bulletin-kyoto .main-data .mat-table{
+    width:100%;
+    background-color: #EBFFED;
+}
+
+.bulletin-kyoto .main-data .mat-table .mat-column-infoDate{
+    width: 15%;
+}
+.bulletin-kyoto .main-data .mat-table .mat-column-infoSubject {
+    width: auto;
+}
+/* 20250902 E_Add */
+
 .chart-top {
     grid-column-start: 1;
     grid-column-end: 3;

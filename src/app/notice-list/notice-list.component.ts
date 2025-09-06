@@ -33,7 +33,10 @@ export class NoticeListComponent extends BaseComponent {
     // infoType: '1',
     // 20231023 S_Update
     // clctInfoType: ['1', '2'],
-    clctInfoType: ['1', '2', '3'],
+    // 20250902 S_Update
+    // clctInfoType: ['1', '2', '3'],
+    clctInfoType: ['1', '2', '3', '4'],
+    // 20250902 E_Update
     // 20231023 E_Update
     infoType: '',
     // 20230213 E_Update
