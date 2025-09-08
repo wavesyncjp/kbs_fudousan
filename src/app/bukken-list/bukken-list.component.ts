@@ -6,7 +6,7 @@ import { BackendService } from '../backend.service';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
   // 20250804 E_Update
 import { MatSort } from '@angular/material/sort';
-import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatTabGroup, MatRadioChange, MatCheckbox } from '@angular/material';
+import { MatDialog, MAT_DATE_LOCALE, DateAdapter, MatTabGroup, MatRadioChange, MatCheckbox, MatCheckboxChange } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { MatPaginatorIntlJa, JPDateAdapter } from '../adapters/adapters';
@@ -125,7 +125,8 @@ export class BukkenListComponent extends BaseComponent {
   //20200828 E_Add
   enableUser: boolean = false;// 20210425 Add
   hasSearchItem: boolean = false;// 20201011 Add
-
+  selectedDepartments: { [key: string]: boolean } = {};
+  isDepartmentSelected = false;
   constructor(private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
     public router: Router,
@@ -168,7 +169,7 @@ export class BukkenListComponent extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getCodes(['001', '028']));
     funcs.push(this.service.getDeps(null));
-    funcs.push(this.service.getEmps(null));//20200828 Add
+    //funcs.push(this.service.getEmps(null));//20200828 Add
 
     Promise.all(funcs).then(values => {
 
@@ -185,7 +186,7 @@ export class BukkenListComponent extends BaseComponent {
       this.deps = values[1];
       //20200828 S_Add
       // 社員
-      this.emps = values[2];
+      //this.emps = values[2];
       //20200828 E_Add
 
       //      this.cond.pickDateMap = null;
@@ -256,7 +257,7 @@ export class BukkenListComponent extends BaseComponent {
       //20210112 E_Add
       //      pickDateMap: new Date(),
       //      pickDate: '',
-      department: [],
+      department: [], //選択された部署リスト
       // 20201011 S_Update
       //      result: ['01'],
       result: [],
@@ -278,6 +279,34 @@ export class BukkenListComponent extends BaseComponent {
       , pageSize : 10// 20250804 Add
       , pageIndex : 0// 20250804 Add
     };
+  }
+
+  /**
+   * 担当部署変更時、担当部署に紐づく担当者を取得
+   */
+  onChangeDepartment(depCode: string, e: MatCheckboxChange) {
+    this.changeCheck(this.cond.department, depCode ,e);
+    if (this.cond.department.length === 0) {
+      this.isDepartmentSelected = false;
+      this.emps = [];
+      return;
+    }
+    
+    this.service.getEmps(null, this.cond.department).then((res) => {
+      this.isDepartmentSelected = true;
+      this.emps = res;
+
+      // 既に選択されているユーザーの部署のチェックが外れたら、そのユーザーのチェックを除外する
+      if (!e.checked) {
+        console.log(this.emps);
+        
+        // console.log(this.cond.clctInfoStaffMap);
+        // this.cond.clctInfoStaffMap = this.cond.clctInfoStaffMap.filter((selectedStaff) => {
+        //   this.emps.some(emp => );
+        // });
+        // console.log(this.cond.clctInfoStaffMap);
+      }
+    });
   }
 
   /**

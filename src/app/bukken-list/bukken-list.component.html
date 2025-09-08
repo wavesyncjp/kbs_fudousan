@@ -50,7 +50,7 @@
         <tr>
           <th>担当部署</th>
           <td colspan="5">
-            <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="changeCheck(cond.department, dep.depCode ,$event)">{{dep.depName}}&nbsp;</mat-checkbox>
+            <mat-checkbox *ngFor="let dep of deps" [checked]="inList(cond.department, dep.depCode)" (change)="onChangeDepartment(dep.depCode, $event)">{{dep.depName}}&nbsp;</mat-checkbox>
           </td>
 
           <th>物件担当者</th>
@@ -58,6 +58,7 @@
             <ng-multiselect-dropdown class="width300"
                 [placeholder]="'選択'"
                 [data]="emps"
+                [disabled]="!isDepartmentSelected"
                 [(ngModel)]="cond.clctInfoStaffMap"
                 [settings]="dropdownSettings"
                 >
