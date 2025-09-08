@@ -56,6 +56,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
   bukkens = [];
   bukkenMap: { [key: string]: number; } = {};
   public bukkenName: string;
+  contractBukkenNo: string;// 20250909 Add
   contracts: Code[];
   isDisableContract = false;
   // 20231027 E_Add
@@ -129,7 +130,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
           searchFor: 'searchContractSimple'
           , tempLandInfoPid: this.tempLandInfoPid
         };
-        //物件名称を取得
+        //物件名称・契約物件番号を取得
         funcs.push(this.service.commonSearch(cond));
       }
     }
@@ -169,6 +170,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
         let contractsTemp = values[4];
 
         this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
+        this.contractBukkenNo = `${contractsTemp[0].contractBukkenNo}`;// 20250909 Add
 
         let lst: Code[] = [];
         contractsTemp.forEach(item => {
@@ -1439,7 +1441,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
   // 20250616 S_Add
   setDefaultByContract() {
-    if(this.pid > 0){
+    // 20250908 S_Update
+    // if(this.pid > 0){
+    if(this.pid > 0 && this.rental.contractInfoPid != null){
+    // 20250908 E_Update
       const contractsFilter = this.contracts.filter(c => c.codeDetail === this.rental.contractInfoPid.toString());
       if (contractsFilter.length === 1) {
         var datas = contractsFilter[0].nameHeader.split('-');
