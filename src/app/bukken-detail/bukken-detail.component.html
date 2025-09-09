@@ -83,7 +83,7 @@
                 <td style="width: 220px;">
                     <!-- 20210211 S_Update -->
                     <!--<app-select-component [codes]="getDeps()" [(ngModel)]="data.department"></app-select-component>-->
-                    <app-select-component [codes]="depCodes" [(ngModel)]="data.department" [isDisabled]="disableUser"></app-select-component>
+                    <app-select-component [codes]="depCodes" [(ngModel)]="data.department" [isDisabled]="disableUser" (change)="onChangeDepartment(data.department, $event)"></app-select-component>
                     <!-- 20210211 E_Update -->
                 </td>
                 <th>物件担当者</th>
@@ -98,8 +98,8 @@
                     <!-- 20200731 S_Add -->
                     <ng-multiselect-dropdown class="width300"
                         [placeholder]="'選択'"
-                        [data]="emps"
-                        [disabled]="disableUser"
+                        [data]="oneDepartmentStaffs"
+                        [disabled]="disableUser || !isDepartmentSelected"
                         [(ngModel)]="data.infoStaffMap"
                         [settings]="dropdownSettings"
                         >

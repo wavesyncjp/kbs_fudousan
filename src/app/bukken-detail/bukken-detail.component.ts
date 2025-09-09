@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MatCheckbox, MatTabGroup, MatRadioChange } from '@angular/material';
+import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MatCheckbox, MatTabGroup, MatRadioChange, MatSelectChange } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -57,6 +57,8 @@ export class BukkenDetailComponent extends BaseComponent {
   enableAttachUser: boolean = false;// 20230313 Add
   public sumArea: number = 0;// 20230301 Add
   public sumAreaContract: number = 0;// 20230309 Add
+  isDepartmentSelected = false;
+  oneDepartmentStaffs = [];
 
   constructor(public router: Router,
     private route: ActivatedRoute,
@@ -160,6 +162,30 @@ export class BukkenDetailComponent extends BaseComponent {
     };
     //20200731 E_Add
   }
+
+  /**
+   * 担当部署変更時、担当部署に紐づく担当者を取得
+   */
+  onChangeDepartment(depCode: string, e: MatSelectChange) {
+    this.oneDepartmentStaffs = [];
+
+    if (depCode === '') {
+      this.data.infoStaffMap = [];
+      this.isDepartmentSelected = false;
+      return;
+    }
+    
+    this.service.getEmps(null, [this.data.department]).then((res) => {
+      this.isDepartmentSelected = true;
+      this.oneDepartmentStaffs = res;
+      this.data.infoStaffMap = this.data.infoStaffMap.filter((selectedStaff) => {
+        return this.oneDepartmentStaffs.some((departmentStaff) => {
+          return selectedStaff.userId === departmentStaff.userId;
+        });
+      });
+    })
+  }
+
   convertForDisplay() {
     //20200731 S_Update
     /*
