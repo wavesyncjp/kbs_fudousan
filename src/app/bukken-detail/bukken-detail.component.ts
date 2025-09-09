@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MatCheckbox, MatTabGroup, MatRadioChange, MatSelectChange } from '@angular/material';
+import { DateAdapter, MAT_DATE_LOCALE, MatDialog, MatCheckbox, MatTabGroup, MatRadioChange } from '@angular/material';
 import { BackendService } from '../backend.service';
 import { JPDateAdapter } from '../adapters/adapters';
 import { Router, ActivatedRoute } from '@angular/router';
