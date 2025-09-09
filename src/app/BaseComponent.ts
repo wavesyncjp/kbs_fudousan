@@ -322,8 +322,6 @@ export class BaseComponent implements OnInit {
                 list.splice(list.indexOf(val), 1);
             }
         }
-        console.log(list);
-        
     }
 
     formatDay(val: string, format: string) {
