@@ -1,39 +1,45 @@
 .chart-content{
     width:100%;
-    height: 100%;
+    height: auto;
     display: grid;
     align-items:center;
-    /* 20230213 S_Update */
-    /*grid-template-rows: 150px 60px auto;*/
-    /*grid-template-rows: 150px 20px 150px 60px auto;*/
-    /* 20231108 S_Update */
-    /* grid-template-rows:150px 50px 260px 50px 260px auto; */
-    grid-template-rows:150px 50px 190px 50px 190px 50px 190px auto;
-    /* 20231108 E_Update */
-    /* 20230213 E_Update */
-    grid-template-columns: 50% 50%;
+    grid-template-rows: 150px repeat(4, 220px);
+    gap: 20px;
+    padding: 20px;
 }
 
-.bulletin-board{
+.bulletin-board {
     width:97%;
     height:97%;
     border: solid 1px black;
     border-radius: 4px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin: 20px;
-    margin-top:50px;
-    margin-bottom: 40px;
     background-color: #FAFAFA;
-    overflow-y: auto;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
 .bulletin-board > label {
     display: inline-block;
     position: absolute;
-    top: -2px;
-    left: 40px;
+    top: -10px;
+    left: 20px;
     background-color: #FAFAFA;
     font-weight: bold;
+}
+
+.bulletin-board .main-data {
+    margin: 10px;
+    width:98%;
+    height:130px;
+    box-shadow: none;
+    background-color:#FAFAFA;
+    overflow-y: auto;
+}
+
+.bulletin-board .main-data .mat-table{
+    width:100%;
+    background-color: #FAFAFA;
 }
 .bulletin-board .more {
     display: inline-block;
@@ -44,22 +50,92 @@
     display: flex;
     align-items: center;
 }
+.bulletin-board .mat-column-infoDate{
+    width: 15%;
+}
+.bulletin-board .mat-column-infoSubject{
+    width: 40%;
+}
+.bulletin-board .mat-column-attachFileName{
+    width: auto;
+}
 .bulletin-board .more > a {
     text-decoration: none;
     font-size: 0.8em;
     font-weight: bold;
     cursor: pointer;
 }
-.bulletin-board .main-data {
+
+.bulletin-notice {
+    width:97%;
+    height:220px;
+    border: solid 1px black;
+    border-radius: 4px;
+    position: relative;
+    background-color: #EBFFED;
+}
+
+.bulletin-nagoya { grid-row: 2; }
+.bulletin-osaka { grid-row: 3; }
+.bulletin-fukuoka { grid-row: 4; }
+.bulletin-kyoto { grid-row: 5; }
+
+.bulletin-notice > label {
+    display: inline-block;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #EBFFED;
+    font-weight: bold;
+}
+
+.bulletin-notice .main-data {
     margin: 10px;
     width:98%;
-    height:130px;
+    height:200px;
     box-shadow: none;
-    background-color:#FAFAFA;
+    background-color: #EBFFED;
+    overflow-y: auto;
 }
-.bulletin-board .main-data .mat-table{
+.bulletin-notice .main-data .mat-table{
     width:100%;
-    background-color: #FAFAFA;
+    background-color: #EBFFED;
+}
+
+.bulletin-notice .more {
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    top: 180px;
+    background-color: #EBFFED;
+    display: flex;
+    align-items: center;
+}
+
+.bulletin-notice .more > a {
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bulletin-notice .mat-table .mat-column-infoDate {
+    width: 15%;
+}
+.bulletin-notice .main-data .mat-table .mat-column-infoSubject {
+    width: 40%;
+}
+.bulletin-notice .mat-column-confirmFlg {
+    width: 7%;
+}
+.bulletin-notice .mat-column-approvalFlg {
+    width: 7%;
+}
+.bulletin-notice .mat-column-createUserId {
+    width: 13%;
+}
+.bulletin-notice .mat-column-answerTimeLimit {
+    width: 17%;
 }
 
 .mat-row{
@@ -67,308 +143,5 @@
 }
 .mat-cell{
     border:none;
-}
-.mat-column-infoDate{
-    width: 15%;
-}
-.mat-column-infoSubject{
-    width: 35%;
-}
-.mat-column-attachFileName{
-    width: 50%;
-}
-.action-link{
-    color:cornflowerblue;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-/* 20211227 S_Add */
-.bulletin-notice{
-    width:97%;
-    /* 20230213 S_Update */
-    /* height:97%; */
-    /* height:190%; */
-    /* 20231108 S_Update */
-    /* height:290px; */
-    height:220px;
-    /* 20231108 E_Update */
-    /* 20230213 E_Update */
-    border: solid 1px black;
-    border-radius: 4px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin: 20px;
-    /* 20230213 S_Delete */
-    /* margin-top:50px; */
-    /* margin-top:190px; */
-    /* 20230213 E_Update */
-    margin-bottom: 40px;
-    background-color: #EBFFED;
-    overflow-y: auto;
-}
-.bulletin-notice > label {
-    display: inline-block;
-    position: absolute;
-    top: 168px;
-    left: 40px;
-    background-color: #EBFFED;
-    font-weight: bold;
-}
-.bulletin-notice .more {
-    display: inline-block;
-    position: absolute;
-    right: 40px;
-    /* 20220520 S_Update */
-    /* top: 290px; */
-    /* 20231108 S_Update */
-    /* top: 430px; */
-    top: 360px;
-    /* 20231108 E_Update */
-    /* 20220520 E_Update */
-    background-color: #EBFFED;
-    display: flex;
-    align-items: center;
-}
-.bulletin-notice .more > a {
-    text-decoration: none;
-    font-size: 0.8em;
-    font-weight: bold;
-    cursor: pointer;
-}
-.bulletin-notice .main-data {
-    margin: 10px;
-    width:98%;
-    height:130px;
-    box-shadow: none;
-    background-color: #EBFFED;
-}
-.bulletin-notice .main-data .mat-table{
-    width:100%;
-    background-color: #EBFFED;
-}
-
-.bulletin-notice .main-data .mat-table .mat-column-infoDate{
-    /* 20220511 S_Update */
-    /*width: 10%;*/
-    width: 15%;
-    /* 20220511 E_Update */
-}
-/* 20211227 E_Add */
-/* 20220517 S_Add */
-.bulletin-notice .main-data .mat-table .mat-column-infoSubject {
-    width: auto;
-}
-/* 20220517 E_Add */
-/* 20230213 S_Add */
-.bulletin-osaka{
-    width:97%;
-    /* height:97%; */
-    /* height:190%; */
-    /* height:290px; */
-    height:220px;
-    /* 20231108 E_Update */
-    border: solid 1px black;
-    border-radius: 4px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin: 20px;
-    /* margin-top:50px; */
-    /* margin-top:190px; */
-    margin-bottom: 40px;
-    background-color: #EBFFED;
-    overflow-y: auto;
-}
-.bulletin-osaka > label {
-    display: inline-block;
-    position: absolute;
-    /* top: 168px; */
-    /* 20231108 S_Update */
-    /* top: 477px; */
-    top: 407px;
-    /* 20231108 E_Update */
-    left: 40px;
-    background-color: #EBFFED;
-    font-weight: bold;
-}
-.bulletin-osaka .more {
-    display: inline-block;
-    position: absolute;
-    right: 40px;
-    /* top: 290px; */
-    /* top: 430px; */
-    /* 20231108 S_Update */
-    /* top: 740px; */
-    top: 600px;
-    /* 20231108 E_Update */
-    background-color: #EBFFED;
-    display: flex;
-    align-items: center;
-}
-.bulletin-osaka .more > a {
-    text-decoration: none;
-    font-size: 0.8em;
-    font-weight: bold;
-    cursor: pointer;
-}
-.bulletin-osaka .main-data {
-    margin: 10px;
-    width:98%;
-    height:130px;
-    box-shadow: none;
-    background-color: #EBFFED;
-}
-.bulletin-osaka .main-data .mat-table{
-    width:100%;
-    background-color: #EBFFED;
-}
-
-.bulletin-osaka .main-data .mat-table .mat-column-infoDate{
-    /*width: 10%;*/
-    width: 15%;
-}
-.bulletin-osaka .main-data .mat-table .mat-column-infoSubject {
-    width: auto;
-}
-/* 20230213 E_Add */
-
-/* 20231108 S_Add */
-.bulletin-fukuoka{
-    width:97%;
-    height:220px;
-    border: solid 1px black;
-    border-radius: 4px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin: 20px;
-    margin-bottom: 40px;
-    background-color: #EBFFED;
-    overflow-y: auto;
-}
-.bulletin-fukuoka > label {
-    display: inline-block;
-    position: absolute;
-    top: 646px;
-    left: 40px;
-    background-color: #EBFFED;
-    font-weight: bold;
-}
-.bulletin-fukuoka .more {
-    display: inline-block;
-    position: absolute;
-    right: 40px;
-    top: 839px;
-    background-color: #EBFFED;
-    display: flex;
-    align-items: center;
-}
-.bulletin-fukuoka .more > a {
-    text-decoration: none;
-    font-size: 0.8em;
-    font-weight: bold;
-    cursor: pointer;
-}
-.bulletin-fukuoka .main-data {
-    margin: 10px;
-    width:98%;
-    height:130px;
-    box-shadow: none;
-    background-color: #EBFFED;
-}
-.bulletin-fukuoka .main-data .mat-table{
-    width:100%;
-    background-color: #EBFFED;
-}
-
-.bulletin-fukuoka .main-data .mat-table .mat-column-infoDate{
-    width: 15%;
-}
-.bulletin-fukuoka .main-data .mat-table .mat-column-infoSubject {
-    width: auto;
-}
-/* 20231108 E_Add */
-
-/* 20250902 S_Add */
-.bulletin-kyoto{
-    width:97%;
-    height:220px;
-    border: solid 1px black;
-    border-radius: 4px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin: 20px;
-    margin-top: 4px;
-    margin-bottom: 40px;
-    background-color: #EBFFED;
-    overflow-y: auto;
-}
-.bulletin-kyoto > label {
-    display: inline-block;
-    position: absolute;
-    top: 885px;
-    left: 40px;
-    background-color: #EBFFED;
-    font-weight: bold;
-}
-.bulletin-kyoto .more {
-    display: inline-block;
-    position: absolute;
-    right: 40px;
-    top: 1078px;
-    background-color: #EBFFED;
-    display: flex;
-    align-items: center;
-}
-.bulletin-kyoto .more > a {
-    text-decoration: none;
-    font-size: 0.8em;
-    font-weight: bold;
-    cursor: pointer;
-}
-.bulletin-kyoto .main-data {
-    margin: 10px;
-    width:98%;
-    height:130px;
-    box-shadow: none;
-    background-color: #EBFFED;
-}
-.bulletin-kyoto .main-data .mat-table{
-    width:100%;
-    background-color: #EBFFED;
-}
-
-.bulletin-kyoto .main-data .mat-table .mat-column-infoDate{
-    width: 15%;
-}
-.bulletin-kyoto .main-data .mat-table .mat-column-infoSubject {
-    width: auto;
-}
-/* 20250902 E_Add */
-
-.chart-top {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin:20px;
-}
-.chart-top > label{
-    display: inline-block;
-    width: 70px;
-    background-color: cornflowerblue;
-    text-align: center;
-    color: bisque;
-    font-size: 0.9em;
-    padding: 2px;
-}
-.chart {
-    width: 80%;
-    height: 80%;
-    margin:10px;
-    align-content: center;
-}
-input[type="text"]{
-    min-width: 100px;
-    height: 21px;
-    border: solid 1px cornflowerblue;
-    border-radius: 2px;
-    margin-left: 3px;
+    height:35px;
 }
