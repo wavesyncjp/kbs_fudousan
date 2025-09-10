@@ -4,12 +4,14 @@
     display: grid;
     align-items:center;
     grid-template-rows: 150px repeat(4, 220px);
-    gap: 20px;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .bulletin-board {
-    width:97%;
+    width:100%;
     height:97%;
     border: solid 1px black;
     border-radius: 4px;
@@ -36,6 +38,11 @@
     background-color:#FAFAFA;
     overflow-y: auto;
 }
+.action-link{
+    color:cornflowerblue;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 .bulletin-board .main-data .mat-table{
     width:100%;
@@ -57,7 +64,7 @@
     width: 40%;
 }
 .bulletin-board .mat-column-attachFileName{
-    width: auto;
+    width: 45%;
 }
 .bulletin-board .more > a {
     text-decoration: none;
@@ -67,7 +74,7 @@
 }
 
 .bulletin-notice {
-    width:97%;
+    width:100%;
     height:220px;
     border: solid 1px black;
     border-radius: 4px;
@@ -132,7 +139,7 @@
     width: 7%;
 }
 .bulletin-notice .mat-column-createUserId {
-    width: 13%;
+    width: 14%;
 }
 .bulletin-notice .mat-column-answerTimeLimit {
     width: 17%;
