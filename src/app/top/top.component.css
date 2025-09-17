@@ -6,7 +6,7 @@
     grid-template-rows: 150px repeat(4, 220px);
     grid-template-columns: 1fr;
     row-gap: 20px;
-    padding: 20px;
+    padding: 5px 20px;
     box-sizing: border-box;
 }
 
