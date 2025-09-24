@@ -10,6 +10,10 @@
             <td><input type="text" [(ngModel)]="data.userName" [ngClass]="{'width300': true, 'error': errors['userName']}" maxlength="100"></td>
         </tr>
         <tr>
+            <th>ユーザー名（フリガナ）</th>
+            <td><input type="text" class="width200" [(ngModel)]="data.userNameKana" maxlength="20" [ngClass]="{'error': errors['userNameKana']}"></td>
+        </tr>
+        <tr>
             <th>社員コード</th>
             <td><input type="text" [(ngModel)]="data.employeeCode" maxlength="20"></td>
             <th>部署名</th>
