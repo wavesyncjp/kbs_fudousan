@@ -4,8 +4,7 @@ export class User {
     loginId: string = "";
     password: string;
     userName: string;
-    userSeiKana: string;
-    userMeiKana: string;
+    userNameKana: string;
     employeeCode: string;
     depCode: string;
     authority: string;
