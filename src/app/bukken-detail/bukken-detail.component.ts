@@ -9,7 +9,7 @@ import { Templandinfo } from '../models/templandinfo';
 import { Locationinfo } from '../models/locationinfo';
 import { Dialog } from '../models/dialog';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { Code } from '../models/bukken';
+import { Code, User } from '../models/bukken';
 import { MapAttach, AttachFile, BukkenPhotoAttach } from '../models/mapattach';
 import { FinishDialogComponent } from '../dialog/finish-dialog/finish-dialog.component';
 import { Contractinfo } from '../models/contractinfo';
@@ -57,6 +57,8 @@ export class BukkenDetailComponent extends BaseComponent {
   enableAttachUser: boolean = false;// 20230313 Add
   public sumArea: number = 0;// 20230301 Add
   public sumAreaContract: number = 0;// 20230309 Add
+  isDepartmentSelected = false;// 20250909 Add
+  oneDepartmentStaffs: User[] | [] = [];// 担当者セレクトボックス用 20250909 Add
 
   constructor(public router: Router,
     private route: ActivatedRoute,
@@ -124,6 +126,14 @@ export class BukkenDetailComponent extends BaseComponent {
       // 物件あり場合
       if (values.length > 3) {
         this.data = new Templandinfo(values[3] as Templandinfo);
+        // 20250909 S_Add
+        if (this.data.department) {
+          this.isDepartmentSelected = true;
+          this.service.getEmps('1', [this.data.department])
+          .then((res) => this.oneDepartmentStaffs = res);
+        }
+        // 20250909 E_Add
+
         // 20210426 S_Add
         // コピーの場合
         if (this.copyFlg) {
@@ -160,6 +170,32 @@ export class BukkenDetailComponent extends BaseComponent {
     };
     //20200731 E_Add
   }
+
+  //20250909 S_Add
+  /**
+   * 担当部署変更時、担当部署に紐づく担当者を取得
+   */
+  onChangeDepartment(depCode: string) {
+    this.oneDepartmentStaffs = [];
+
+    if (depCode === '') {
+      this.data.infoStaffMap = [];
+      this.isDepartmentSelected = false;
+      return;
+    }
+    
+    this.service.getEmps('1', [this.data.department]).then((res) => {
+      this.isDepartmentSelected = true;
+      this.oneDepartmentStaffs = res;
+      this.data.infoStaffMap = this.data.infoStaffMap.filter((selectedStaff) => {
+        return this.oneDepartmentStaffs.some((departmentStaff: User) => {
+          return selectedStaff.userId === departmentStaff.userId;
+        });
+      });
+    })
+  }
+  //20250909 E_Add
+
   convertForDisplay() {
     //20200731 S_Update
     /*

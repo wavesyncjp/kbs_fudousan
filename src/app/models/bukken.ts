@@ -4,6 +4,7 @@ export class User {
     loginId: string = "";
     password: string;
     userName: string;
+    userNameKana: string;
     employeeCode: string;
     depCode: string;
     authority: string;
