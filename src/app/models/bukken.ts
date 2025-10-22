@@ -7,6 +7,7 @@ export class User {
     userNameKana: string;
     employeeCode: string;
     depCode: string;
+    departments: [] = [];
     authority: string;
     mailAddress: string;// 20220213 Add
     token: string;
