@@ -101,7 +101,6 @@ export class UserDetailComponent extends BaseComponent {
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
         this.data.convertForSave(this.service.loginUser.userId);
-        console.log(this.depCodes);
         this.removeMissingDepartmentCodes();
         this.service.saveUser(this.data);
         this.dialogRef.close(true);

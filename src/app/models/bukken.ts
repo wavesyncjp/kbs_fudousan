@@ -6,7 +6,6 @@ export class User {
     userName: string;
     userNameKana: string;
     employeeCode: string;
-    depCode: string;
     departments: { depCode: string; depName?: string; }[] = [];
     authority: string;
     mailAddress: string;// 20220213 Add
