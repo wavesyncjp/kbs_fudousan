@@ -6,7 +6,7 @@ export class User {
     userName: string;
     userNameKana: string;
     employeeCode: string;
-    depCode: string;
+    departments: { depCode: string; depName?: string; }[] = [];
     authority: string;
     mailAddress: string;// 20220213 Add
     token: string;
@@ -16,7 +16,7 @@ export class User {
     updateUserId: number;
     createDate: Date;
     updateDate: Date;
- 
+
     public constructor(init?: Partial<Department>) {
         Object.assign(this, init);
     }
