@@ -16,11 +16,12 @@
         <tr>
             <th>社員コード</th>
             <td><input type="text" [(ngModel)]="data.employeeCode" maxlength="20"></td>
-            <th>部署名</th>
-            <!-- 20210211 S_Update -->
-            <!--<td><app-select-component [codes]="getDeps()" [(ngModel)]="data.depCode"></app-select-component></td>-->
-            <td><app-select-component [codes]="depCodes" [(ngModel)]="data.depCode"></app-select-component></td>
-            <!-- 20210211 E_Update -->
+        </tr>
+        <tr *ngFor="let dep of data.departments; let i = index">
+            <th  style="white-space: nowrap;">部署名</th>
+            <td><app-select-component [codes]="depCodes" [(ngModel)]="dep.depCode"></app-select-component></td>
+            <td *ngIf="i === 0"><button mat-raised-button *ngIf="i === 0" (click)="addDepCodeInput()">追加</button></td>
+            <td *ngIf="i !== 0"><button mat-raised-button *ngIf="i !== 0" (click)="deleteDepCodeInput(i)">削除</button></td>
         </tr>
         <tr>
             <th>ログインID</th>

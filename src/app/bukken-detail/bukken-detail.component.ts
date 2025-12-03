@@ -59,6 +59,7 @@ export class BukkenDetailComponent extends BaseComponent {
   public sumAreaContract: number = 0;// 20230309 Add
   isDepartmentSelected = false;// 20250909 Add
   oneDepartmentStaffs: User[] | [] = [];// 担当者セレクトボックス用 20250909 Add
+  private selectableAuthorities = ['03', '06']; //物件担当者と情報提供者の権限
 
   constructor(public router: Router,
     private route: ActivatedRoute,
@@ -98,7 +99,7 @@ export class BukkenDetailComponent extends BaseComponent {
     const funcs = [];
     funcs.push(this.service.getCodes(null));
     funcs.push(this.service.getDeps(null));
-    funcs.push(this.service.getEmps('1'));
+    funcs.push(this.service.getEmps('1', null, this.selectableAuthorities));
     if (this.pid > 0) {
       funcs.push(this.service.getLand(this.pid));
       funcs.push(this.service.getLandContract(this.pid));
@@ -129,7 +130,7 @@ export class BukkenDetailComponent extends BaseComponent {
         // 20250909 S_Add
         if (this.data.department) {
           this.isDepartmentSelected = true;
-          this.service.getEmps('1', [this.data.department])
+          this.service.getEmps('1', [this.data.department], this.selectableAuthorities)
           .then((res) => this.oneDepartmentStaffs = res);
         }
         // 20250909 E_Add
@@ -184,7 +185,7 @@ export class BukkenDetailComponent extends BaseComponent {
       return;
     }
     
-    this.service.getEmps('1', [this.data.department]).then((res) => {
+    this.service.getEmps('1', [this.data.department], this.selectableAuthorities).then((res) => {
       this.isDepartmentSelected = true;
       this.oneDepartmentStaffs = res;
       this.data.infoStaffMap = this.data.infoStaffMap.filter((selectedStaff) => {

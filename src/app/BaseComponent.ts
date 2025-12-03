@@ -308,6 +308,25 @@ export class BaseComponent implements OnInit {
     }
     // 20220213 E_Add
 
+    /**
+     * 所属部署チェック
+     * 
+     * @param deppartments 部署の配列 
+     * @param propName 項目名
+     * @param msg エラーメッセージ
+     */
+    checkDepCodes(departments, propName, msg) {
+        const seen = new Set();
+        for (let i = 0; i < departments.length; i++) {
+            if (seen.has(departments[i].depCode)) {
+                this.errorMsgs.push(msg);
+                this.errors[propName] = true;
+                return;
+            }
+            seen.add(departments[i].depCode);
+        }
+    }
+
     inList(list: string[], val = '') {
         return list != null && list.includes(val);
     }
