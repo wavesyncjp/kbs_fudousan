@@ -77,8 +77,11 @@ export class NoticeDetailComponent extends BaseComponent {
     this.authority = this.service.loginUser.authority;
     // 20220118 S_Update
     // this.enableUser = this.authority === '01';
-    this.enableUser = (this.authority === '01' || this.authority === '02');
+    // 20251215 S_Update
+    //this.enableUser = (this.authority === '01' || this.authority === '02');
+    this.enableUser = (this.authority === '01' || this.authority === '02' || this.authority === '06'); //営業（管理） 20251215Add
     // 20220118 E_Update
+    // 20251215_E_Update
     this.disableUser = (this.authority === '03');//20230317 Add
 
     const funcs = [];

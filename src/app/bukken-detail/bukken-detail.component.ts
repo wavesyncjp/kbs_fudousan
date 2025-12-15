@@ -54,7 +54,9 @@ export class BukkenDetailComponent extends BaseComponent {
   enableUser: boolean = false;
   normalUser: boolean = false;
   //20210317 E_Add
-  enableAttachUser: boolean = false;// 20230313 Add
+  // 20251215 S_Delete
+  //enableAttachUser: boolean = false;// 20230313 Add
+  // 20251215 E_Delete
   public sumArea: number = 0;// 20230301 Add
   public sumAreaContract: number = 0;// 20230309 Add
   isDepartmentSelected = false;// 20250909 Add
@@ -90,9 +92,11 @@ export class BukkenDetailComponent extends BaseComponent {
     this.enableUser = (this.authority === '01');
     this.normalUser = (this.authority === '04');
     //20210317 E_Add
+    // 20251215 S_Delete
     // 20230313 S_Add
-    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
     // 20230313 E_Add
+    // 20251215 E_Delete
     this.service.changeTitle('物件情報詳細');
     this.spinner.show();
 
