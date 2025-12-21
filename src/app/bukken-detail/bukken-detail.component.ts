@@ -175,7 +175,10 @@ export class BukkenDetailComponent extends BaseComponent {
       idField: 'userId',
       textField: 'userName',
       searchPlaceholderText: '検索',
-      itemsShowLimit: 3,
+      // 20251222 S_Update
+      // itemsShowLimit: 3,
+      itemsShowLimit: 4,
+      // 20251222 E_Update
       allowSearchFilter: true,
       enableCheckAll: false
     };
