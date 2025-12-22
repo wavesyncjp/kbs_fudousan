@@ -46,6 +46,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
   public contractInfoPid: number;// 仕入契約情報PID
   public tempLandInfoPid: number;// 土地情報PID
   public receiveAllFlg: string;
+  public locationInfoPid: number;
 
   public rentalContracts = [];//賃貸契約
   public rentalContractsBk = [];//賃貸契約（変更前）20231027 Add
@@ -84,6 +85,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
       this.contractInfoPid = params.contractInfoPid;
       this.tempLandInfoPid = params.tempLandInfoPid;
       this.isDisableContract = this.contractInfoPid > 0;// 20231027 Add
+      this.locationInfoPid = params.locationInfoPid;
     });
 
     this.rental = new RentalInfo();
@@ -120,7 +122,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
 
       //物件名称を取得
       cond.searchFor = 'searchContractSimple';
-      funcs.push(this.service.commonSearch(cond));
+      funcs.push(this.service.commonSearch({...cond, locationInfoPid: this.locationInfoPid}));
       // 20231027 S_Add  
     }
     else {
@@ -131,7 +133,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
           , tempLandInfoPid: this.tempLandInfoPid
         };
         //物件名称・契約物件番号を取得
-        funcs.push(this.service.commonSearch(cond));
+        funcs.push(this.service.commonSearch({...cond, locationInfoPid: this.locationInfoPid}));
       }
     }
     // 20231027 E_Add
@@ -173,7 +175,7 @@ export class RentalInfoDetailComponent extends BaseComponent {
         this.contractBukkenNo = `${contractsTemp[0].contractBukkenNo}`;// 20250909 Add
 
         let lst: Code[] = [];
-        contractsTemp.forEach(item => {
+          contractsTemp.forEach(item => {
           // 20250418 S_Update
           // lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber }))
           lst.push(new Code({ codeDetail: item.pid, name: item.bukkenNo + '-' + item.contractNumber, nameHeader : item.decisionDay + '-' + item.successionDeposit + '-' + item.successionSecurityDeposit }))
@@ -185,6 +187,8 @@ export class RentalInfoDetailComponent extends BaseComponent {
       // 20231027 S_Add
       else {
         this.lands = values[2];
+        console.log(this.lands);
+        
         //入力の際に表示される物件名称を取得するための処理
         this.bukkens = this.lands
         //物件名称をキーにpidをmapに保持していく
@@ -195,8 +199,10 @@ export class RentalInfoDetailComponent extends BaseComponent {
         // 20240201 S_Add
         if (this.pid > 0) {
           let contractsTemp = values[3];
+          console.log(contractsTemp);
+          
 
-          this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
+          //this.bukkenName = `${contractsTemp[0].bukkenNo}:${contractsTemp[0].bukkenName}`;
 
           let lst: Code[] = [];
           contractsTemp.forEach(item => {

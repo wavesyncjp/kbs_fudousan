@@ -136,7 +136,7 @@ export class RentalInfoListComponent extends BaseComponent {
   showRental(obj: RentalInfo) {
     // 20240201 S_Update
     // this.router.navigate(['/rendetail'], { queryParams: { pid: obj.pid, contractInfoPid: obj.contractInfoPid } });
-    this.router.navigate(['/rendetail'], { queryParams: { pid: obj.pid, contractInfoPid: obj.contractInfoPid, tempLandInfoPid: obj.tempLandInfoPid } });
+    this.router.navigate(['/rendetail'], { queryParams: { pid: obj.pid, contractInfoPid: obj.contractInfoPid, tempLandInfoPid: obj.tempLandInfoPid, locationInfoPid: obj.locationInfoPid } });
     // 20240201 E_Update
   }
 
