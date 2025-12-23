@@ -174,30 +174,28 @@
           <th class="header2 col-borrower sticky-col-2 sticky-top-0 sticky-header" rowspan="2">賃借人名</th>
 
           <th class="header2 sticky-top-0 sticky-header" [attr.colspan]="receives.length || 1">
-            一括<br />
             <mat-checkbox
               [checked]="receiveAllFlg === '1'"
               (change)="changeReceiveAllFlg($event)"
             ></mat-checkbox>
-            <br />
-            (その月の全員分<br />にチェック)
+            一括(その月の全員分にチェック)
           </th>
         </tr>
 
         <tr>
           <th class="header2 width160 sticky-top-40 sticky-header" *ngFor="let rev of receives; index as monthPos">
-            {{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}<br />
             <mat-checkbox
               [checked]="rev.receiveFlgGroup === '1'"
               (change)="changeReceiveFlgGroup($event,rev)"
             ></mat-checkbox>
+            {{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}
           </th>
         </tr>
       </thead>
 
       <tbody class="list-body">
         <tr *ngFor="let rcon of rentalContracts; index as conPos">
-          <td class="text-left col-room sticky-col-1">{{rcon.roomNo}}</td>
+          <td class="col-room sticky-col-1">{{rcon.roomNo}}</td>
           <td class="text-left col-borrower sticky-col-2">{{rcon.borrowerName}}</td>
 
           <td *ngFor="let rev of receives; index as monthPos">
