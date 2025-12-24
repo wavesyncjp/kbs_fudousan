@@ -206,74 +206,78 @@ span.now {
 /* 20250402 E_Add */
 /* ===== Sticky scroll (部屋番号・賃借人名 固定 + 横スクロール) ===== */
 .rent-table-wrap {
-  position: relative;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: clip; /* 縦バーを出さない */
+    position: relative;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: clip; /* 縦バーを出さない */
 }
 
 /* sticky が効きやすい設定 */
 .rent-sticky-table {
-  border-collapse: separate;
-  border-spacing: 0;
+    border-collapse: separate;
+    border-spacing: 0;
 
   /* 左固定列の幅（必要なら調整） */
-  --col-room: 160px;
-  --col-borrower: 200px;
+    --col-room: 160px;
+    --col-borrower: 200px;
 }
 
 /* 左固定列の幅を固定してズレを防ぐ */
 .rent-sticky-table .col-room {
-  min-width: var(--col-room);
-  width: var(--col-room);
+    min-width: var(--col-room);
+    width: var(--col-room);
 }
 .rent-sticky-table .col-borrower {
-  min-width: var(--col-borrower);
-  width: var(--col-borrower);
+    min-width: var(--col-borrower);
+    width: var(--col-borrower);
 }
 
 /* 左2列を固定（tbody含む共通クラスとして運用） */
 .rent-sticky-table .sticky-col-1,
 .rent-sticky-table .sticky-col-2 {
-  position: sticky;
-  background: #fff;
-  background-clip: padding-box;
+    position: sticky;
+    background: #fff;
+    background-clip: padding-box;
 }
 .rent-sticky-table .sticky-col-1 {
-  left: 0;
-  z-index: 3;
+    left: 0;
+    z-index: 3;
 }
 .rent-sticky-table .sticky-col-2 {
-  left: var(--col-room);
-  z-index: 2;
-  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.08);
+    left: var(--col-room);
+    z-index: 2;
+    box-shadow: 2px 0 0 rgba(0, 0, 0, 0.08);
 }
 
 /* ヘッダ固定（不要なら .sticky-top-* をHTMLから外すだけでOK） */
 .rent-sticky-table .sticky-top-0 {
-  position: sticky;
-  top: 0;
+    position: sticky;
+    top: 0;
 }
 .rent-sticky-table .sticky-top-40 {
-  position: sticky;
-  top: 40px; /* ヘッダ1段目の高さが 40px 前提 */
+    position: sticky;
+    top: 40px; /* ヘッダ1段目の高さが 40px 前提 */
 }
 
 /* ヘッダの背景と重なり順 */
 .rent-sticky-table thead th {
-  background-color: cadetblue;
+    background-color: cadetblue;
 }
 .rent-sticky-table thead th.sticky-header {
-  z-index: 10;
+    z-index: 10;
 }
 .rent-sticky-table thead th.sticky-col-1,
 .rent-sticky-table thead th.sticky-col-2 {
-  z-index: 12;
+    z-index: 12;
 }
 
 /* tbody の固定列はヘッダより前に出ないように */
 .rent-sticky-table tbody td.sticky-col-1,
 .rent-sticky-table tbody td.sticky-col-2 {
-  z-index: 2;
+    z-index: 2;
+}
+
+.label-for-checkbox {
+    margin-left: 0.75em;
 }
 

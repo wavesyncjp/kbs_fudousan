@@ -178,7 +178,7 @@
               [checked]="receiveAllFlg === '1'"
               (change)="changeReceiveAllFlg($event)"
             ></mat-checkbox>
-            一括(その月の全員分にチェック)
+            <span class="label-for-checkbox">一括(その月の全員分にチェック)</span>
           </th>
         </tr>
 
@@ -188,7 +188,7 @@
               [checked]="rev.receiveFlgGroup === '1'"
               (change)="changeReceiveFlgGroup($event,rev)"
             ></mat-checkbox>
-            {{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}
+            <span class="label-for-checkbox">{{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}</span>
           </th>
         </tr>
       </thead>
