@@ -227,6 +227,99 @@
       </tbody>
     </table>
   </ng-container>
+    <!-- 20251225 Delete_S -->
+        <!-- <table style="width: auto;">
+            <thead class="list-header">
+                </thead>
+            <tbody class="list-body">
+                <tr> -->
+                    <!-- 20240221 S_Update -->
+                    <!-- <th rowspan="3" class="header2 width100">一括 -->
+                    <!-- <th rowspan="2" class="header2 width100">一括 -->
+                    <!-- 20240221 E_Update -->
+                        <!-- <br />
+                        <mat-checkbox [checked]="receiveAllFlg === '1'" (change)="changeReceiveAllFlg($event)"></mat-checkbox>
+                        <br />
+                        (その月の全員分<br />にチェック)
+                    </th>
+                    <th class="header2 width120">部屋番号</th> -->
+                    <!-- 20231010 S_Update -->
+                    <!-- <th class="header2 width120" *ngFor="let rcon of rentalContracts; index as pos"> -->
+                    <!-- <th class="header2 width160" *ngFor="let rcon of rentalContracts; index as pos"> -->
+                    <!-- 20231010 E_Update -->
+                    <!-- {{rcon.roomNo}}
+                    </th>
+                </tr>
+                <tr>
+                    <td class="header2">貸借人名</td>
+                    <td *ngFor="let rcon of rentalContracts; index as pos">
+                        {{rcon.borrowerName}}
+                    </td>
+                </tr> -->
+                <!-- 20240221 S_Delete -->
+                <!-- <tr>
+                    <td class="header2">入金額</td>
+                    <td *ngFor="let rcon of rentalContracts; index as pos">
+                        <input type="text" [(ngModel)]="rcon.rentPriceRefMapMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(rcon.rentPriceRefMapMap)">&nbsp;円
+                    </td>
+                </tr> -->
+                <!-- 20240221 E_Delete -->
+                <!-- 20240228 S_Update -->
+                <!-- <tr *ngFor="let rev of rentalReceives; index as pos"> -->
+                <!-- <tr *ngFor="let rev of filterRentalReceives(); index as pos"> -->
+                <!-- 20240228 S_Update -->
+                <!-- <td class="text-center"><mat-checkbox [checked]="rev.receiveFlgGroup === '1'" (change)="changeReceiveFlgGroup($event,rev)"></mat-checkbox></td>
+                    <td>{{formatDay(rev.receiveMonth + '01','yyyy年MM月分')}}</td> -->
+                    <!-- 20231010 S_Update -->
+                    <!-- <td *ngFor="let con of rentalContracts; index as posSub" [ngClass]="{'row-disabled':isExistRenContract(rev.details,con.pid) && isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)}">
+                        <span *ngIf="isExistRenContract(rev.details,con.pid)">{{formatDay(getReceiveDay(rev.details,con.pid),'MM/dd')}}</span>
+                        &nbsp;
+                        <mat-checkbox *ngIf="isExistRenContract(rev.details,con.pid)" [disabled]="isDisableByRenContract(rev.receiveMonth,con.roomRentExemptionStartDate)" [checked]="getReceiveFlg(rev.details,con.pid) === '1'" (change)="changeReceiveFlg($event,rev.details,con.pid)"></mat-checkbox>
+                    </td> -->
+                    <!-- 20240229 S_Update -->
+                    <!-- <td *ngFor="let revM of rev.renByMonths; index as posSub" [ngClass]="{'row-disabled':revM.isExistRenContractMap && revM.isDisableByRenContractMap}"> -->
+                    <!-- <td *ngFor="let revM of rev.renByMonths; index as posSub"> -->
+                    <!-- 20240229 E_Update -->
+                        <!-- 20240221 S_Add -->
+                        <!-- 20240229 S_Update -->
+                        <!-- <div *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap"> -->
+                        <!-- 20250402 S_Delete -->
+                        <!-- <div *ngIf="!revM.invisibleByRenContractMap">
+                            <input type="text" [(ngModel)]="revM.receivePriceMap" style="margin-left: -17px;" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(revM.receivePriceMap)">&nbsp;円
+                        </div> -->
+                        <!-- 20250402 E_Delete -->
+                        <!-- 20240221 E_Add -->
+                        <!-- 20231027 S_Update -->
+                        <!-- <div *ngIf="revM.isExistRenContractMap" class="picker-div"> -->
+                        <!-- 20240229 S_Update -->
+                        <!-- <div *ngIf="revM.receiveFlg != '2' && revM.isExistRenContractMap" class="picker-div"> -->
+                        <!-- <div *ngIf="!revM.invisibleByRenContractMap" class="picker-div"> -->
+                        <!-- 20240229 E_Update -->
+                        <!-- 20231027 E_Update -->
+                            <!-- 20240229 S_Update -->
+                            <!-- <input type="text" [matDatepicker]="receiveDay" [disabled]="revM.isDisableByRenContractMap" [(ngModel)]="revM.receiveDayMap" class="width100"> -->
+                            <!-- 20250402 S_Update -->
+                            <!-- <input type="text" [matDatepicker]="receiveDay" [(ngModel)]="revM.receiveDayMap" class="width100"> -->
+                            <!-- <input type="text" [matDatepicker]="receiveDay" [(ngModel)]="revM.receiveDayMap" class="width100" style="margin-left: -29px;"> -->
+                            <!-- 20250402 E_Update -->
+                            <!-- 20240229 E_Update -->
+                            <!-- <mat-datepicker-toggle matSuffix [for]="receiveDay" class="picker-icon"></mat-datepicker-toggle>
+                            <mat-datepicker #receiveDay></mat-datepicker>
+                        </div> -->
+                        <!-- 20250402 S_Update -->
+                        <!-- &nbsp;
+                        <mat-checkbox *ngIf="!revM.invisibleByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox> -->
+                        <!-- <div *ngIf="!revM.invisibleByRenContractMap">
+                            <input type="text" [(ngModel)]="revM.receivePriceMap" class="width100 number" (keypress)="numericOnly($event)" maxlength="15" [value]="changeValue(revM.receivePriceMap)">&nbsp;円
+                            &nbsp;<mat-checkbox *ngIf="!revM.invisibleByRenContractMap" [checked]="revM.receiveFlg === '1'" (change)="changeReceiveFlg($event,revM)"></mat-checkbox>
+                        </div> -->
+                        <!-- 20250402 E_Update -->
+                    <!-- </td> -->
+                    <!-- 20231010 E_Update -->
+                <!-- </tr>
+            </tbody>
+        </table> -->
+    <!-- 20251225 Delete_E -->
 </div>
     </div>
     <!--/賃貸入金一覧-->

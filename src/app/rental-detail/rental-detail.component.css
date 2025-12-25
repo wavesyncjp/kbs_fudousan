@@ -10,8 +10,12 @@
     margin-left: 10px;
     width: 97vw;
     overflow-x: auto;
-    height: auto !important; 
+    /* 20251225 S_Update */
+    /* height: 100%; */
+    /* overflow-y: hidden; */
+    height: auto !important;
     overflow-y: clip;  
+    /* 20251225 E_Update */
 }
 
 .contact-div > table {
@@ -204,6 +208,8 @@ span.now {
     color: white;
 }
 /* 20250402 E_Add */
+
+/* 20251225 S_Add */
 /* ===== Sticky scroll (部屋番号・賃借人名 固定 + 横スクロール) ===== */
 .rent-table-wrap {
     position: relative;
@@ -216,20 +222,14 @@ span.now {
 .rent-sticky-table {
     border-collapse: separate;
     border-spacing: 0;
-
-  /* 左固定列の幅（必要なら調整） */
-    --col-room: 160px;
-    --col-borrower: 200px;
 }
 
 /* 左固定列の幅を固定してズレを防ぐ */
 .rent-sticky-table .col-room {
-    min-width: var(--col-room);
-    width: var(--col-room);
+    min-width: 120px;
 }
 .rent-sticky-table .col-borrower {
-    min-width: var(--col-borrower);
-    width: var(--col-borrower);
+    min-width: 120px;
 }
 
 /* 左2列を固定（tbody含む共通クラスとして運用） */
@@ -244,7 +244,7 @@ span.now {
     z-index: 3;
 }
 .rent-sticky-table .sticky-col-2 {
-    left: var(--col-room);
+    left: 120px;
     z-index: 2;
     box-shadow: 2px 0 0 rgba(0, 0, 0, 0.08);
 }
@@ -280,4 +280,6 @@ span.now {
 .label-for-checkbox {
     margin-left: 0.75em;
 }
+
+/* 20251225 E_Add */
 
