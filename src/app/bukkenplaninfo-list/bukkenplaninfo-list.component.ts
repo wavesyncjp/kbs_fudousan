@@ -29,7 +29,9 @@ import { AttachFileDialogComponent } from '../dialog/attachFile-dialog/attachFil
 
 export class BukkenplaninfoListComponent extends BaseComponent {
   authority = '';
-  enableAttachUser: boolean = false;// 20230313 Add
+  // 20251215 S_Delete
+  //enableAttachUser: boolean = false;// 20230313 Add
+  // 20251215 E_Delete
   public pid: number;
   public data: LandPlanInfo;
 
@@ -53,9 +55,11 @@ export class BukkenplaninfoListComponent extends BaseComponent {
     super.ngOnInit();
     this.service.changeTitle('物件情報詳細');
     this.authority = this.service.loginUser.authority;
+    // 20251215 Delete_Add
     // 20230313 S_Add
-    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    //this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
     // 20230313 E_Add
+    // 20251215 E_Delete
     this.spinner.show();
 
     const funcs = [];

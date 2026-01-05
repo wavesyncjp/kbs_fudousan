@@ -308,10 +308,11 @@ export class BaseComponent implements OnInit {
     }
     // 20220213 E_Add
 
+    // 20251214 S_Add
     /**
      * 所属部署チェック
-     * 
-     * @param deppartments 部署の配列 
+     *
+     * @param deppartments 部署の配列
      * @param propName 項目名
      * @param msg エラーメッセージ
      */
@@ -326,6 +327,7 @@ export class BaseComponent implements OnInit {
             seen.add(departments[i].depCode);
         }
     }
+    // 20251214 E_Add
 
     inList(list: string[], val = '') {
         return list != null && list.includes(val);
@@ -417,7 +419,7 @@ export class BaseComponent implements OnInit {
     // 20230917 S_Add
     /**
      * コード
-     * @param codes 
+     * @param codes
      */
     processCodes(codes: Code[]) {
         // コード
@@ -453,26 +455,26 @@ export class BaseComponent implements OnInit {
             const inputDate = $(this).val();
             let currentDate = $(this).datepicker('getDate');
             let formattedDate = $.datepicker.formatDate('yy/m/d', currentDate);
-    
+
             if (inputDate !== formattedDate) {
                 const parseDate = (dateString, pattern) => {
                     const year = parseInt(dateString.substr(0, 4));
                     let month = parseInt(dateString.substr(4, pattern === 'yyyymmdd' ? 2 : 1));
                     let day = parseInt(dateString.substr(4 + (pattern === 'yyyymmdd' ? 2 : 1), pattern === 'yyyymmdd' ? 2 : 1));
-                    
+
                     if (pattern === 'yyyymdd' || pattern === 'yyyymd') {
                         if (pattern === 'yyyymdd' && parseInt(dateString.substr(5, 2)) <= 12) {
                             month = parseInt(dateString.substr(4, 1));
                             day = parseInt(dateString.substr(5, 2));
                         }
                     }
-    
+
                     if (month <= 12 && day <= new Date(year, month, 0).getDate()) {
                         return new Date(year, month - 1, day);
                     }
                     return null;
                 };
-    
+
                 let isValidDate = !isNaN(currentDate.getTime());
                 if (isValidDate) {
                     if (/^\d{8}$/.test(inputDate)) {
@@ -482,7 +484,7 @@ export class BaseComponent implements OnInit {
                     } else if (/^\d{7}$/.test(inputDate)) {
                         currentDate = parseDate(inputDate, 'yyyymdd') || parseDate(inputDate, 'yyyymd');
                     }
-    
+
                     if (currentDate) {
                         formattedDate = $.datepicker.formatDate('yy/m/d', currentDate);
                         $(this).datepicker('setDate', formattedDate);

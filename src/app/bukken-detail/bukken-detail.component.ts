@@ -54,12 +54,14 @@ export class BukkenDetailComponent extends BaseComponent {
   enableUser: boolean = false;
   normalUser: boolean = false;
   //20210317 E_Add
-  enableAttachUser: boolean = false;// 20230313 Add
+  // 20251215 S_Delete
+  //enableAttachUser: boolean = false;// 20230313 Add
+  // 20251215 E_Delete
   public sumArea: number = 0;// 20230301 Add
   public sumAreaContract: number = 0;// 20230309 Add
   isDepartmentSelected = false;// 20250909 Add
   oneDepartmentStaffs: User[] | [] = [];// 担当者セレクトボックス用 20250909 Add
-  private selectableAuthorities = ['03', '06']; //物件担当者と情報提供者の権限
+  private selectableAuthorities = ['03', '06']; // 物件担当者と情報提供者の権限 20251214 Add
 
   constructor(public router: Router,
     private route: ActivatedRoute,
@@ -90,16 +92,21 @@ export class BukkenDetailComponent extends BaseComponent {
     this.enableUser = (this.authority === '01');
     this.normalUser = (this.authority === '04');
     //20210317 E_Add
+    // 20251215 S_Delete
     // 20230313 S_Add
-    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
     // 20230313 E_Add
+    // 20251215 E_Delete
     this.service.changeTitle('物件情報詳細');
     this.spinner.show();
 
     const funcs = [];
     funcs.push(this.service.getCodes(null));
     funcs.push(this.service.getDeps(null));
+    // 20251214 S_Update
+    // funcs.push(this.service.getEmps('1'));
     funcs.push(this.service.getEmps('1', null, this.selectableAuthorities));
+    // 20251214 E_Update
     if (this.pid > 0) {
       funcs.push(this.service.getLand(this.pid));
       funcs.push(this.service.getLandContract(this.pid));
@@ -130,7 +137,10 @@ export class BukkenDetailComponent extends BaseComponent {
         // 20250909 S_Add
         if (this.data.department) {
           this.isDepartmentSelected = true;
+          // 20251214 S_Update
+          // this.service.getEmps('1', [this.data.department])
           this.service.getEmps('1', [this.data.department], this.selectableAuthorities)
+          // 20251214 E_Update
           .then((res) => this.oneDepartmentStaffs = res);
         }
         // 20250909 E_Add
@@ -165,7 +175,10 @@ export class BukkenDetailComponent extends BaseComponent {
       idField: 'userId',
       textField: 'userName',
       searchPlaceholderText: '検索',
-      itemsShowLimit: 3,
+      // 20251222 S_Update
+      // itemsShowLimit: 3,
+      itemsShowLimit: 4,
+      // 20251222 E_Update
       allowSearchFilter: true,
       enableCheckAll: false
     };
@@ -184,8 +197,11 @@ export class BukkenDetailComponent extends BaseComponent {
       this.isDepartmentSelected = false;
       return;
     }
-    
+
+    // 20251214 S_Update
+    // this.service.getEmps('1', [this.data.department]).then((res) => {
     this.service.getEmps('1', [this.data.department], this.selectableAuthorities).then((res) => {
+    // 20251214 E_Update
       this.isDepartmentSelected = true;
       this.oneDepartmentStaffs = res;
       this.data.infoStaffMap = this.data.infoStaffMap.filter((selectedStaff) => {

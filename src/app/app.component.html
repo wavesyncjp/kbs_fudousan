@@ -12,7 +12,7 @@
         <ul>
             <li><a (click)="navigate('top')">&nbsp;ダッシュボード&nbsp;</a></li>
             <li><a (click)="navigate('bukkens')">&nbsp;物件情報&nbsp;</a></li>
-            
+
             <li><a (click)="navigate('contracts')">&nbsp;仕入契約&nbsp;</a></li>
             <!-- 20230917 S_Add -->
             <li *ngIf="authority !== '03' && authority !== '04'"><a (click)="navigate('rentals')">&nbsp;賃貸情報&nbsp;</a></li>
@@ -37,7 +37,10 @@
                 <div style="z-index: 999;">
                     <ul>
                         <li><a (click)="navigate('infos')">インフォメーション</a></li>
-                        <li *ngIf="authority === '01' || authority === '02'"><a (click)="navigate('notices')">お知らせ</a></li>
+                        <!-- 20251215 S_Update -->
+                        <!-- <li *ngIf="authority === '01' || authority === '02'"><a (click)="navigate('notices')">お知らせ</a></li> -->
+                        <li *ngIf="authority === '01' || authority === '02' || authority === '06'"><a (click)="navigate('notices')">お知らせ</a></li>
+                        <!-- 20251215 E_Update -->
                     </ul>
                 </div>
             </li>
@@ -46,7 +49,10 @@
             <!--
             <li *ngIf="authority !== '02' && authority !== '03'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>
             -->
-            <li *ngIf="authority !== '02' && authority !== '03' && authority !== '05'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>
+            <!-- 20251215 S_Update -->
+            <!-- <li *ngIf="authority !== '02' && authority !== '03' && authority !== '05'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a> -->
+            <li *ngIf="authority !== '02' && authority !== '03' && authority !== '05' && authority !== '06'"><a>&nbsp;マスタ管理&nbsp;<span class="caret"></span></a>
+            <!-- 20251215 E_Update -->
             <!-- 20210905 E_Update -->
                 <div style="z-index: 999;">
                     <ul>
@@ -69,7 +75,7 @@
             <li class = "logout"><a (click)="logout()" *ngIf="!isLogin">&nbsp;ログアウト&nbsp;</a></li>
         </ul>
     </div>
-    <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">        
+    <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <!--
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                         [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">

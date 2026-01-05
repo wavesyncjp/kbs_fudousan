@@ -52,8 +52,10 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
   // 20201225 E_Add
   // 20230227 S_Add
   authority = '';
-  enableAttachUser: boolean = false;
+  // 20251215 S_Delete
+  //enableAttachUser: boolean = false;
   // 20230227 E_Add
+  // 20251215 E_Delete
   disableUser: boolean = false;// 20230317 Add
 
   constructor(public router: Router,
@@ -71,7 +73,9 @@ export class BukkenplaninfoDetailComponent extends BaseComponent {
     this.service.changeTitle('物件情報詳細');
     // 20230227 S_Add
     this.authority = this.service.loginUser.authority;
-    this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // 20251215 S_Delete
+    //this.enableAttachUser = (this.authority === '01' || this.authority === '02' || this.authority === '05');// 01:管理者,02:営業事務,05:経理
+    // 20251215 EDelete
     // 20230227 E_Add
     this.disableUser = (this.authority === '03');//20230317 Add
     this.data = new Bukkensalesinfo(this.data);

@@ -128,7 +128,7 @@ export class BackendService {
     const req = this.http.post<Templandinfo[]>(`${this.BaseUrl}/${searchLandApi}`, body);
     return req.toPromise();
   }
-  
+
   /**
    * 土地情報取得
    * @param id 土地Id
@@ -257,9 +257,15 @@ export class BackendService {
   /**
    * 社員取得
    */
+  // 20251214 S_Update
+  // getEmps(activeUser: string, depCode: string[] = null): Promise<User[]> {
+  // 20251214 E_Update
   getEmps(activeUser: string, depCode: string[] = null, authority: string[] = null): Promise<User[]> {
     const getDepApi = 'getemployee.php';
+    // 20251214 S_Update
+    // const body = { activeUser: activeUser, depCode: depCode };
     const body = { activeUser: activeUser, depCode: depCode, authority: authority };
+    // 20251214 E_Update
     const req = this.http.post<User[]>(`${this.BaseUrl}/${getDepApi}`, body);
     return req.toPromise();
   }
@@ -1443,7 +1449,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
   /**
    * 立退き情報削除
    * @param data 立退き情報
-   * @returns 
+   * @returns
    */
   deleteEviction(data: EvictionInfo) {
     const api = 'evictiondelete.php';
@@ -1478,7 +1484,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
   /**
    * 立ち退きのファイル取得
    * @param evictionInfoPid 立ち退きPID
-   * @returns 
+   * @returns
    */
   evictionAttachSearch(evictionInfoPid: number): Promise<EvictionInfoAttach> {
     const getApi = 'evictionattachsearch.php';
@@ -1555,7 +1561,7 @@ getCodeNames(codes: string[]): Promise<Code[]> {
   /**
    * 賃貸契約添付ファイル取得
    * @param rentalContractPid 賃貸契約PID
-   * @returns 
+   * @returns
    */
   rentalContractAttachSearch(rentalContractPid: number): Promise<RentalContractAttach> {
     const getApi = 'rentalcontractattachsearch.php';

@@ -64,10 +64,12 @@ export class UserDetailComponent extends BaseComponent {
         this.data = new User(this.data);
       }
 
+      // 20251214 S_Add
       // 部署入力欄を最低1つは保証する
       if (this.data.departments.length === 0) {
         this.data.departments.push({ depCode: '' });
       }
+      // 20251214 E_Add
       this.depCodes = this.getDeps();// 20210211 Add
     });
   }
@@ -81,7 +83,7 @@ export class UserDetailComponent extends BaseComponent {
 
     this.checkBlank(this.data.userName, 'userName', 'ユーザー名は必須です。');
     this.checkMailAddress(this.data.mailAddress, 'mailAddress', 'メールアドレスが不正です。');// 20220213 Add
-    this.checkDepCodes(this.data.departments, 'depCode', '同じ部署を2つ以上登録できません。');
+    this.checkDepCodes(this.data.departments, 'depCode', '同じ部署を2つ以上登録できません。');// 20251214 Add
 
     if (this.errorMsgs.length > 0) {
       return false;
@@ -101,7 +103,7 @@ export class UserDetailComponent extends BaseComponent {
     dlg.afterClosed().subscribe(result => {
       if (dlgObj.choose) {
         this.data.convertForSave(this.service.loginUser.userId);
-        this.removeMissingDepartmentCodes();
+        this.removeMissingDepartmentCodes();// 20251214 Add
         this.service.saveUser(this.data);
         this.dialogRef.close(true);
       }
@@ -112,6 +114,7 @@ export class UserDetailComponent extends BaseComponent {
     this.dialogRef.close();
   }
 
+  // 20251214 S_Add
   /**
    * 部署欄追加
    * ※一旦入力欄を5つまでに制限
@@ -139,4 +142,5 @@ export class UserDetailComponent extends BaseComponent {
       return this.depCodes.some(existDep => existDep.codeDetail === $inputDep.depCode);
     });
   }
+  // 20251214 E_Add
 }
