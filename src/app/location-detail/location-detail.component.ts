@@ -663,7 +663,7 @@ export class LocationDetailComponent extends BaseComponent {
       this.checkBlank(this.data.address, `address`, '所在地は必須です。');
     }
     if (this.data.locationType !== '01'
-      && (this.data.rightsForm === '01' || this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
+      && (this.data.rightsForm === '02' || this.data.rightsForm === '03')) {
       this.checkBlank(this.data.bottomLandPid, `bottomLandPid`, '底地は必須です。');
     }
     // 20240123 S_Add
